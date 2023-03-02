@@ -1,0 +1,20 @@
+GUARDAR
+git status
+git add .
+git commit -m "Cambio TOTAL"
+git push origin main
+
+OBTENER
+git pull
+
+EJECUTAR API
+uvicorn app:app --reload
+
+GREAR ANGULAR
+ng g s services/Nombre
+ng g c components/Nombre
+
+
+
+bootstrap
+npm i bootstrap

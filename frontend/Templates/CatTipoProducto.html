@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+
+
+{% block title %} Home {% endblock %}
+
+
+
+{% block body %}
+
+<div class="container">
+   <div class="row">
+      <div class="col md-12">
+
+         <div class="jumbotron p-3">
+
+            <h2>Tipo Producto <b> </b>
+
+
+               <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#mymodal">
+                  Agregar
+               </button>
+
+            </h2>
+
+
+            {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+            {% for message in messages %}
+
+            <div class="alert alert-success alert-dismissable" role="alert">
+
+               <button type="button" class="close" data-dismiss="alert" aria-label="close">
+
+                  <span aria-hidden="true">x</span>
+
+               </button>
+
+
+               {{message}}
+
+
+            </div>
+
+
+            {% endfor %}
+
+            {% endif %}
+            {% endwith %}
+
+
+            <table class="table table-hover">
+               <thead class="thead-dark">
+               <tr>
+
+                  <th>ID</th>
+                  <th>Producto</th>
+                  <th>Usuario</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+
+               </tr>
+
+            </thead>
+               {% for row in employees %}
+               <tr>
+                  <td>{{row[0]}}</td>
+                  <td>{{row[1]}}</td>
+                  <td>{{row[2]}}</td>
+                  <td>{{row[3]}}</td>
+
+                  <td>
+                     <a href="TipoProducto/update/{{row[0]}}" class="btn btn-warning btn-xs" data-toggle="modal"
+                        data-target="#modaledit{{row[0]}}">Editar</a>
+                     <a href="/TipoProducto/delete/{{row[0]}}" class="btn btn-danger btn-xs"
+                        onclick="return confirm('Are You Sure To Delete ?')">Borrar</a>
+
+
+                  </td>
+
+               </tr>
+
+
+               <!-- Modal Edit Employee-->
+               <div id="modaledit{{row[0]}}" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+
+                     <div class="modal-content">
+
+
+                        <div class="modal-header">
+
+
+                           <h4 class="modal-title">Actuaizar Producto</h4>
+
+
+                        </div>
+
+
+                        <div class="modal-body">
+
+
+                           <form action="{{url_for('update')}}" method="POST">
+
+
+                              <div class="form-group">
+
+
+                                 <label>Name:</label>
+                                 <input type="hidden" name="ProductoId" value="{{row[0]}}">
+
+                                 <input type="text" class="form-control text-uppercase" name="Nombre" value="{{row[1]}}">
+
+
+                              </div>
+
+
+
+                              <div class="form-group">
+
+
+                                 <label>Usurio:</label>
+
+                                 <input type="text" class="form-control text-uppercase" name="Usuario" value="{{row[2]}}">
+
+
+                              </div>
+
+
+                              <div class="form-group">
+
+
+                                 <label>Phone:</label>
+
+                                 <input type="text" class="form-control" name="Estado" value="{{row[3]}}">
+
+
+                              </div>
+
+
+                              <div class="form-group">
+
+
+                                 <button class="btn btn-primary" type="submit">Update</button>
+
+
+                              </div>
+
+
+                           </form>
+
+
+                        </div>
+
+
+                        <div class="modal-footer">
+
+
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                        </div>
+
+
+                     </div>
+
+
+                  </div>
+
+               </div>
+
+
+               {% endfor %}
+
+
+            </table>
+
+
+         </div>
+
+
+
+         <!-- Modal Add Employee-->
+
+
+         <div id="mymodal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                 
+                  <div class="modal-header">
+
+                     <h4 class="modal-title">Agregar Producto</h4>
+                  </div>
+                
+
+                  <div class="modal-body">
+
+                     <form action="{{url_for('insertTipoProducto')}}" method="POST">
+
+
+                        <div class="form-group">
+
+                           <label>Name</label>
+                           <input type="text" class="form-control text-uppercase" name="Nombre" required="1">
+
+
+                        </div>
+
+
+                        <div class="form-group">
+
+
+                           <label>Usuario</label>
+                           <input type="text" class="form-control text-uppercase" name="Usuario" required="1" >
+
+
+                        </div>
+
+
+                        <div class="form-check">
+
+                           <input type="checkbox" name="Estado"   class="form-check-input"  >
+                           <label class="form-check-label" >Estado</label>
+
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="form-group">
+
+
+                           <button class="btn btn-primary" type="submit">Guardar</button>
+
+
+                        </div>
+
+                        <div class="modal-footer">
+
+
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      
+      
+                        </div>
+
+                     </form>
+
+
+                  </div>
+
+
+                
+
+               </div>
+
+
+            </div>
+
+
+         </div>
+
+
+
+
+
+      </div>
+
+   </div>
+
+
+</div>
+
+
+{% endblock %}
