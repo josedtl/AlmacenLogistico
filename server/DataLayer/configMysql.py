@@ -4,10 +4,10 @@ import pymysql
 
 def get_connection():
     return pymysql.connect(
-        host="190.187.52.107",
-        database="ad_controlacceso",
-        user="user",
-        password="abcde1F",
+        host="localHost",
+        database="almacenlogistico",
+        user="root",
+        password="abcde1F@",
     )
 
 

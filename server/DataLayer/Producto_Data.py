@@ -1,9 +1,8 @@
 from .configMysql import get_connection
-from EntityLayer.PersonaNatural.PersonaNaturalEntity import *
+from EntityLayer.Catalogo.ProductoEntity import *
 import pymysql
-from EntityLayer.PersonaNatural.PersonaNaturalModel import *
 
-class PersonaNatural_Data:
+class Producto_Data:
     def Get_PersonaNaturalItems():
         try:
             conn = get_connection()

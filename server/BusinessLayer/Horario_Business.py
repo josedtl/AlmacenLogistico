@@ -1,10 +1,10 @@
-from DataLayer.Horario_Data import *
-from EntityLayer.Horario.HorarioSaveModel import *
+from DataLayer.Producto_Data import *
+from EntityLayer.Catalogo.ProductoEntity import *
 
-class Horario_Business:
-    def SaveHorario(Ent: HorarioSaveModel):
+class Producto_Business:
+    def SaveHorario(Ent: ProductoEntity):
         try:
-            data = Horario_Data.SaveHorario(Ent)
+            data = Producto_Data.SaveHorario(Ent)
             return data
         except Exception as e:
             print(e)
