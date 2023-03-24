@@ -1,103 +1,56 @@
 from .configMysql import get_connection
 from EntityLayer.Catalogo.ProductoEntity import *
+from EntityLayer.Catalogo.ProductoSaveEntity import *
 import pymysql
 
 class Producto_Data:
-    def Get_PersonaNaturalItems():
+    def Get_ProductoItems():
         try:
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor.callproc("sp_PersonaNaturalSelectAll")
+                cursor.callproc("sp_ProductosAll")
                 resulset = cursor.fetchall()
             conn.close()
            
             list = []
 
             for row in resulset:
-                Data_ent = PersonaNaturalEntity.CargarSoloNombre(row)
+                Data_ent = ProductoEntity.Cargar(row)
                 list.append(Data_ent)
             return list
         except Exception as e:
             print(e)
 
 
-    def Post_PersonaNatural_Insert(Ent: PersonaNaturalSave):
-        try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Ent.TipoDocumentoIdentidadId,
-                    Ent.NumDocumento,
-                    Ent.Nombres,
-                    Ent.ApellidoPaterno,
-                    Ent.ApellidoMaterno,
-                    Ent.FechaNacimiento,
-                    Ent.FechaVencimiento,
-                    Ent.TipoSexoId,
-                    Ent.EstadoCivilId,
-                    Ent.Direccion,
-                    Ent.DireccionReferencia,
-                    Ent.UbigeoId,
-                    Ent.FechaRegistro,
-                    Ent.UsuarioRegistro,
-                    Ent.EstadoRegistro) 
+    # def SaveHorario(Ent: ProductoSaveEntity):
+    #     try:
+    #         conn = get_connection()
+    #         with conn.cursor() as cursor:
+    #             cursor = conn.cursor(pymysql.cursors.DictCursor)
+    #             args = (
+    #                 Ent.ProductoId,
+    #                 Ent.TipoProductoId,
+    #                 Ent.MarcaId,
+    #                 Ent.ModeloId,
+    #                 Ent.NombreProducto,
+    #                 Ent.UnidadMedidaId,
+    #                 Ent.PrecioVenta,
+    #                 Ent.PrecioCompra,
+    #                 Ent.FechaRegistro,
+    #                 Ent.CodUsuario,
+    #                 Ent.Estado,
+    #             )
 
-                result_args = cursor.callproc("sp_PersonaNaturalInsert", args)
+    #             result_args = cursor.callproc("sp_HorariolInsert", args)
+    #             for result in cursor.fetchall():
+    #                 Ent.ProductoId = result["v_ProductoId"]
 
-            conn.commit()
-            print(result_args[0])
-            return True
-        except Exception as e:
-            print(e)
-        finally:
-            cursor.close()
-            conn.close()
-
-    def Post_PersonaNatural_Delete(Id: int):
-        try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Id,) 
-                result_args = cursor.callproc("sp_PersonaNaturalDelete", args)
-                conn.commit()
-            return True
-        except Exception as e:
-            print(e)
-        finally:
-            cursor.close()
-            conn.close()
-
-    def Update_PersonaNatural_Insert(Ent: PersonaNaturalSave):
-        try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Ent.TipoDocumentoIdentidadId,
-                Ent.NumDocumento,
-                Ent.Nombres,
-                Ent.ApellidoPaterno,
-                Ent.ApellidoMaterno,
-                Ent.FechaNacimiento,
-                Ent.FechaVencimiento,
-                Ent.TipoSexoId,
-                Ent.EstadoCivilId,
-                Ent.Direccion,
-                Ent.DireccionReferencia,
-                Ent.UbigeoId,
-                Ent.FechaRegistro,
-                Ent.UsuarioRegistro,
-                Ent.EstadoRegistro) 
-
-            result_args = cursor.callproc("sp_PersonaNaturalUpdate", args)
-
-            conn.commit()
-            # print(result_args[0])
-            return True
-        except Exception as e:
-            print(e)
-        finally:
-            cursor.close()
-            conn.close()
+    #         conn.commit()
+    #         print(result_args[0])
+    #         return Ent.ProductoId
+    #     except Exception as e:
+    #         print(e)
+    #     finally:
+    #         cursor.close()
+    #         conn.close()

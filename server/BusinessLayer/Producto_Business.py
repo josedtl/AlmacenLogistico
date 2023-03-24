@@ -1,10 +1,11 @@
 from DataLayer.Producto_Data import *
 from EntityLayer.Catalogo.ProductoEntity import *
+import json
 
 class Producto_Business:
-    def Get_PersonaNaturalItems():
+    def Get_ProductoItems():
         try:
-            data = Producto_Data.Get_PersonaNaturalItems()
+            data = Producto_Data.Get_ProductoItems()
             print(data)
             jsonData = []
 
