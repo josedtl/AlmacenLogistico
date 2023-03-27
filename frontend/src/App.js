@@ -4,8 +4,8 @@ import './App.css';
 import { About } from './components/About';
 import { User } from './components/User';
 import { Navbar } from './components/Navbar';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootswatch/dist/lux/bootstrap.min.css';
 function App() {
   return (
     <BrowserRouter>
