@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from routes.General_Api import General
 
-app = FastAPI( title="Adcode",   description='Sistema de asistencia  ',)
+app = FastAPI( title="Adcode",   description='Sistema logistico  ',)
 
 # app.include_router(PersonaNatural)
 # app.include_router(Usuario)

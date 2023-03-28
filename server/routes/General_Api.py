@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from BusinessLayer.Producto_Business import *
+from BusinessLayer.Marca_Business import *
 
 General = APIRouter()
 
@@ -12,3 +13,11 @@ def Get_ProductoItems():
     except:
         print("An exception occurred")
 
+
+# @General.get("/api/General/Get_MarcaItems/", tags=["General"])
+# def Get_MarcaItems():
+#     try:
+#         jsonData = Marca_Business.Get_MarcaItems()
+#         return jsonData
+#     except:
+#         print("An exception occurred")
