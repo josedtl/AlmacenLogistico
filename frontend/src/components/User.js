@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+const API = process.env.REACT_APP_API;
 
 export const User = () => {
 
@@ -6,11 +8,29 @@ export const User = () => {
     const [getEmail, setEmail] = useState('')
     const [getPassword, setPassword] = useState('')
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
-     e.preventDefault();
-     console.log("Enviando");
+        e.preventDefault();
+
+        //     console.log(API+'/api/General/Get_MarcaItems'); 
+        // console.log('API/api/General/Get_MarcaItems/');
     }
+
+    const getMarcas = async () => {
+        try {
+            const res = await fetch(API + '/api/General/Get_MarcaItems/', { mode: 'cors' });
+
+            const data = await res.json();
+            console.log(data);
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        getMarcas();
+    }, [])
 
     return (
         <div className="row">
@@ -29,7 +49,7 @@ export const User = () => {
                             />
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Email</label>
                         <div className="col-sm-12 ">
@@ -44,7 +64,7 @@ export const User = () => {
                             />
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <div className="form-group">
                         <label className="col-sm-12 control-label">Password</label>
                         <div className="col-sm-12 ">
@@ -58,7 +78,7 @@ export const User = () => {
                             />
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <button className="btn btn-primary btn-block">
                         Create
                     </button>

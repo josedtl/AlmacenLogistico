@@ -1,5 +1,4 @@
-import datetime 
-
+from datetime import datetime
 class ProductoEntity:
     ProductoId: int
     TipoProductoId: int

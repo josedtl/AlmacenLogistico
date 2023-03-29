@@ -14,10 +14,10 @@ def Get_ProductoItems():
         print("An exception occurred")
 
 
-# @General.get("/api/General/Get_MarcaItems/", tags=["General"])
-# def Get_MarcaItems():
-#     try:
-#         jsonData = Marca_Business.Get_MarcaItems()
-#         return jsonData
-#     except:
-#         print("An exception occurred")
+@General.get("/api/General/Get_MarcaItems/", tags=["General"])
+def Get_MarcaItems():
+    try:
+        jsonData = Marca_Business.Get_MarcaItems()
+        return jsonData
+    except:
+        print("An exception occurred")

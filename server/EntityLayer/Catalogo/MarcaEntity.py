@@ -1,4 +1,4 @@
-import datetime 
+from datetime import datetime
 
 class MarcaEntity:
     MarcaId: int
@@ -12,9 +12,9 @@ class MarcaEntity:
         c = MarcaEntity()
         c.MarcaId = _DB['MarcaId']
         c.Nombre = _DB['Nombre']
-        c.FechaRegistro = _DB['FechaRegistro']
-        c.CodUsuario = _DB['CodUsuario']
-        c.Estado = bool(_DB['Estado'])
+        # c.FechaRegistro = _DB['FechaRegistro']
+        # c.CodUsuario = _DB['CodUsuario']
+        # c.Estado = bool(_DB['Estado'])
         return c
 
  
