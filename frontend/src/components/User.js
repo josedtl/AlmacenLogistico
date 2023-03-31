@@ -8,6 +8,8 @@ export const User = () => {
     const [getEmail, setEmail] = useState('')
     const [getPassword, setPassword] = useState('')
 
+    const [variablegetMarcas, variablesetMarcas] = useState([])
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
@@ -18,10 +20,11 @@ export const User = () => {
 
     const getMarcas = async () => {
         try {
-            const res = await fetch(API + '/api/General/Get_MarcaItems/', { mode: 'cors' });
+            const res = await fetch(`${API}/api/General/Get_MarcaItems/`);
 
             const data = await res.json();
-            console.log(data);
+            variablesetMarcas(data)
+      
         }
         catch (e) {
             console.log(e)
@@ -85,7 +88,25 @@ export const User = () => {
                 </form>
             </div>
             <div className="col-md-8">
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
+                        {variablegetMarcas.map(e => (
+                            <tr key={e.MarcaId}>
+                                <td>${e.MarcaId}</td>
+                                <td>${e.Nombre}</td>
+                            </tr>
+
+                        ))}
+
+                    </tbody>
+                </table>
             </div>
 
 
