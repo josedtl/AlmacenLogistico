@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from BusinessLayer.Producto_Business import *
 from BusinessLayer.Marca_Business import *
+from EntityLayer.Catalogo.MarcaSaveEntity import *
 
 General = APIRouter()
 
@@ -21,3 +22,23 @@ def Get_MarcaItems():
         return jsonData
     except:
         print("An exception occurred")
+
+
+
+@General.post("/api/General/Marca_Insert", tags=["General"])
+def Horario_Insert(Ent: MarcaSaveEntity):
+    try:
+        Ent.FechaRegistro = datetime.now()
+        Ent.Estado = True
+        jsonData = Marca_Business.SaveMarca(Ent)
+        return jsonData
+    except Exception as e:
+        print(e)
+
+@General.get("/api/General/Marca_Delete/<id>", tags=["General"])
+def Marca_Delete(id):
+    try:
+        jsonData = Marca_Business.DeleteMarca(id)
+        return True
+    except Exception as e:
+        print(e)

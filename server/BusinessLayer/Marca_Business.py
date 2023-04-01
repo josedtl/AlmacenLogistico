@@ -18,3 +18,18 @@ class Marca_Business:
             return jsonData
         except Exception as e:
             print(e)
+
+
+    def SaveMarca(Ent: MarcaSaveEntity):
+        try:
+            data = Marca_Data.SaveMarca(Ent)
+            return data
+        except Exception as e:
+            print(e)
+
+    def DeleteMarca(Id: int):
+        try:
+            data = Marca_Data.DeleteMarca(Id)
+            return data
+        except Exception as e:
+            print(e)

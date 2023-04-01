@@ -1,5 +1,7 @@
 from .configMysql import get_connection
 from EntityLayer.Catalogo.MarcaEntity import *
+from EntityLayer.Catalogo.MarcaSaveEntity import *
+
 import pymysql
 
 class Marca_Data:
@@ -22,34 +24,52 @@ class Marca_Data:
             print(e)
 
 
-    # def SaveHorario(Ent: ProductoSaveEntity):
-    #     try:
-    #         conn = get_connection()
-    #         with conn.cursor() as cursor:
-    #             cursor = conn.cursor(pymysql.cursors.DictCursor)
-    #             args = (
-    #                 Ent.ProductoId,
-    #                 Ent.TipoProductoId,
-    #                 Ent.MarcaId,
-    #                 Ent.ModeloId,
-    #                 Ent.NombreProducto,
-    #                 Ent.UnidadMedidaId,
-    #                 Ent.PrecioVenta,
-    #                 Ent.PrecioCompra,
-    #                 Ent.FechaRegistro,
-    #                 Ent.CodUsuario,
-    #                 Ent.Estado,
-    #             )
+    def SaveMarca(Ent: MarcaSaveEntity):    
 
-    #             result_args = cursor.callproc("sp_HorariolInsert", args)
-    #             for result in cursor.fetchall():
-    #                 Ent.ProductoId = result["v_ProductoId"]
 
-    #         conn.commit()
-    #         print(result_args[0])
-    #         return Ent.ProductoId
-    #     except Exception as e:
-    #         print(e)
-    #     finally:
-    #         cursor.close()
-    #         conn.close()
+        try:
+            Store :str
+            if(Ent.Action==1):
+                Store ="sp_MarcaInsert"
+            else:
+                Store = "sp_MarcaUpdate"
+
+
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                args = (
+                    Ent.MarcaId,
+                    Ent.Nombre,
+                    Ent.FechaRegistro,
+                    Ent.CodUsuario,
+                    Ent.Estado,
+                )
+
+                result_args = cursor.callproc(Store, args)
+                for result in cursor.fetchall():
+                    Ent.MarcaId = result["v_MarcaId"]
+
+            conn.commit()
+            print(result_args[0])
+            return Ent.MarcaId
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
+
+    def DeleteMarca(Id: int):
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                args = (Id,) 
+                result_args = cursor.callproc("sp_MarcaDelete", args)
+                conn.commit()
+            return True
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
