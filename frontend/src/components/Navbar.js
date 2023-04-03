@@ -9,6 +9,11 @@ export const Navbar= ()=>(
     </button>
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav">
+        <Link className="nav-item nav-link" to="/ejemplo">Ejemplo</Link>
+      </div>
+    </div>
+    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div className="navbar-nav">
         <Link className="nav-item nav-link" to="/about">About</Link>
       </div>
     </div>

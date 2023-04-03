@@ -30,12 +30,12 @@ def Horario_Insert(Ent: MarcaSaveEntity):
     try:
         Ent.FechaRegistro = datetime.now()
         Ent.Estado = True
-        jsonData = Marca_Business.SaveMarca(Ent)
-        return jsonData
+        Ent.MarcaId = Marca_Business.SaveMarca(Ent)
+        return Ent
     except Exception as e:
         print(e)
 
-@General.get("/api/General/Marca_Delete/<id>", tags=["General"])
+@General.delete("/api/General/Marca_Delete/{id}", tags=["General"])
 def Marca_Delete(id):
     try:
         jsonData = Marca_Business.DeleteMarca(id)

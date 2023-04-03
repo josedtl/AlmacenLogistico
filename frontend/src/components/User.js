@@ -5,14 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 const API = process.env.REACT_APP_API;
 
 
-const deleteMarca = async (id) => {
-    const res = await fetch(`${API}/api/General/Marca_Delete/${id}`,
-        { method: 'GET' });
 
-    // await getMarcas();
-
-
-}
 
 
 export const User = () => {
@@ -21,10 +14,17 @@ export const User = () => {
 
     const [variablegetMarcas, variablesetMarcas] = useState([])
 
+    const [getNameAlter, setNameAlter] = useState('')
+    const [showAlter, setShowAlter] = useState(false);
+
+    const handleCloseAlter = () => setShowAlter(false);
+    const handleShowAlter = () => setShowAlter(true);
+
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
-
+console.log('s')
         //     console.log(API+'/api/General/Get_MarcaItems'); 
         // console.log('API/api/General/Get_MarcaItems/');
     }
@@ -57,23 +57,28 @@ export const User = () => {
                 .then(res => res.json())
                 .then(data => console.log(data))
                 .catch(err => console.log(err))
+   
             setShow(false)
-            await getMarcas()
+
         }
         const Get = async () => {
             await getMarcas()
         }
 
-        console.log(getNamev)
+
         return (
 
 
 
             <>
-                <Button variant="primary" className="btn btn-primary btn-block" onClick={handleShow}>
+                <Button variant="primary" className="btn btn-primary btn-block" 
+                onClick={handleShow }>
                     Agregar
                 </Button>
-                <Modal show={show} onHide={handleClose}>
+                <Modal show={show} onHide={e => {
+                            // handleClose();
+                            Get();
+                        }}>
                     <Modal.Header closeButton>
                         <Modal.Title>Agregar Marca</Modal.Title>
                     </Modal.Header>
@@ -99,7 +104,6 @@ export const User = () => {
 
                         <Button variant="primary" onClick={e => {
                             Save();
-                            Get();
                         }}>
                             Aceptar
                         </Button>
@@ -136,7 +140,9 @@ export const User = () => {
                 .catch(err => console.log(err))
             setShow(false)
             await getMarcas()
+            await getMarcas()
         }
+
         // setNameupdate('')
         return (
             <>
@@ -177,7 +183,21 @@ export const User = () => {
         );
     }
 
-  
+    const deleteMarca = async (id) => {
+        try {
+            const res = await fetch(`${API}/api/General/Marca_Delete/${id}`, {
+                method: 'DELETE',
+            })
+                .then(rest => rest.text()) // or res.json()
+                .then(rest => console.log(rest))
+
+            await getMarcas();
+        }
+        catch (e) {
+            console.log(e)
+        }
+
+    }
     const getMarcas = async () => {
         try {
             const res = await fetch(`${API}/api/General/Get_MarcaItems/`);
@@ -191,6 +211,28 @@ export const User = () => {
         }
     }
 
+    const SaveAlter = async () => {
+        fetch(`${API}/api/General/Marca_Insert/`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                MarcaId: 0,
+                Nombre: getNameAlter,
+                CodUsuario: "Adm",
+                FechaRegistro: new Date(),
+                Estado: true,
+                Action: 1
+            })
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
+        await getMarcas()
+        setShowAlter(false)
+    }
     useEffect(() => {
         getMarcas();
     }, [])
@@ -217,9 +259,44 @@ export const User = () => {
 
 
                     <SaveMarca />
-                    {/* <button className="btn btn-primary btn-block">
-                        Create
-                    </button> */}
+
+                    <Button variant="primary" className="btn btn-primary btn-block" onClick={handleShowAlter}>
+                        Agregar
+                    </Button>
+                    <Modal show={showAlter} onHide={handleCloseAlter}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Agregar Marca</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form>
+                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                    <Form.Label>Nombre</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        defaultValue={getNameAlter}
+                                        onChange={e => { setNameAlter(e.target.value) }}
+                                        className="form-control"
+                                        placeholder="name@example.com"
+                                        autoFocus
+                                    />
+
+
+                                </Form.Group>
+
+                            </Form>
+                        </Modal.Body>
+                        <Modal.Footer>
+
+                            <Button variant="primary" onClick={(e) => {
+                                SaveAlter()
+                                setShowAlter(false)
+                            }}>
+                                Aceptar
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+
+
                 </form>
             </div>
             <div className="col-md-8">

@@ -21,3 +21,6 @@ npm i bootstrap
 
 
 npm remove eslint-config-react-app
+
+npm i react-csv
+npm i reactstrap
