@@ -24,3 +24,10 @@ npm remove eslint-config-react-app
 
 npm i react-csv
 npm i reactstrap
+
+  npm install
+  npm run dev
+
+  react-router-dom 
+  bootswatch
+   react-bootstrap

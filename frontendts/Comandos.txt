@@ -1,0 +1,9 @@
+  npm install
+
+
+  #Para Ejecutar
+  npm run dev
+
+
+#Intalar Bootstrap
+  npm i react-bootstrap
