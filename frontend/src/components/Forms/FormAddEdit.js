@@ -164,7 +164,7 @@ function AddEditForm(props) {
           value={form.hobby}
         /> */}
       </FormGroup>
-      <Button className="btn btn-dark btn-sm btn-block">Submit</Button>
+      <Button className="btn btn-dark btn-sm btn-block" >Aceptar</Button>
     </Form>
   );
 }

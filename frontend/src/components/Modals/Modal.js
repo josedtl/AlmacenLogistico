@@ -30,7 +30,7 @@ function ModalForm(props) {
         {label}
       </Button>
     );
-    title = "Edit Item";
+    title = "Editar Marca";
   } else {
     button = (
       <Button
@@ -42,7 +42,7 @@ function ModalForm(props) {
         {label}
       </Button>
     );
-    title = "Add New Item";
+    title = "Agregar Marca";
   }
 
   return (
