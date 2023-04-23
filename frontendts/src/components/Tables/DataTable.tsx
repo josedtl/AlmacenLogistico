@@ -1,10 +1,10 @@
 import React from "react";
-import { Table, Button, Card, CardHeader, CardBody  } from "reactstrap";
+import { Table, Button, Card, CardHeader, CardBody } from "reactstrap";
 import ModalForm from "../Modals/Modal";
 import { IMarca } from '../IMarca'
 const API = import.meta.env.VITE_REACT_API_URL
 import './DataTable.css'
-
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 function DataTable(props: { DataList: IMarca[], updateState: any, deleteItemFromState: any }): JSX.Element {
   const deleteItem = (MarcaId?: number) => {
@@ -27,17 +27,21 @@ function DataTable(props: { DataList: IMarca[], updateState: any, deleteItemFrom
     }
   };
 
+  let Contador: number = 0
   const items = props.DataList.map((item) => {
+
+    Contador += 1
+    item.Cont = Contador
     return (
       <tr key={item.MarcaId}>
-        <th scope="row">{item.MarcaId}</th>
-        <td>{item.Nombre}</td>
+        <td  width={40} scope="row">{item.Cont}</td>
+        <td width="1*">{item.Nombre}</td>
         {/* <td>{item.last}</td>
         <td>{item.email}</td>
         <td>{item.phone}</td>
         <td>{item.location}</td>
         <td>{item.hobby}</td> */}
-        <td>
+        <td width={100}>
           <ModalForm
             buttonLabel="Edit"
             item={item}
@@ -48,7 +52,7 @@ function DataTable(props: { DataList: IMarca[], updateState: any, deleteItemFrom
             color="danger"
             onClick={() => deleteItem(item.MarcaId)}
           >
-            Del
+            <RiDeleteBin6Line/>
           </Button>
         </td>
       </tr>
@@ -93,30 +97,30 @@ function DataTable(props: { DataList: IMarca[], updateState: any, deleteItemFrom
     // </div>
     // <div>
     <div>
-        <Card>
-          <CardHeader>Marca</CardHeader>
-          <CardBody>
-            <div 
-              style={{
-                maxHeight: '400px',
-                overflowY: 'auto',
-              }}
-            >
-              <Table className="table table-bordered table-striped mb-0" 
-              bordered height="200" Style={style.table}>
-                <thead>
-                  <tr>
-                    <th style={style.th}>#</th>
-                    <th style={style.th}>First Name</th>
-                    <th style={style.th}>Last Name</th>
-                  </tr>
-                </thead>
-                <tbody >{items}</tbody>
-              </Table>
-            </div>
-          </CardBody>
-        </Card>
-      </div>
+      <Card>
+       
+        <CardBody>
+          <div
+            style={{
+              maxHeight: '700px',
+              overflowY: 'auto',
+            }}
+          >
+            <Table className="table table-bordered table-striped mb-0"
+              bordered height="700px" Style={style.table}>
+              <thead>
+                <tr>
+                  <th style={style.th}>Nº</th>
+                  <th style={style.th}>Nombre</th>
+                  <th style={style.th}></th>
+                </tr>
+              </thead>
+              <tbody >{items}</tbody>
+            </Table>
+          </div>
+        </CardBody>
+      </Card>
+    </div>
 
 
 

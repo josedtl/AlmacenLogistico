@@ -1,4 +1,5 @@
 export interface IMarca {
-    MarcaId?: number;
-    Nombre?: string
+    Cont: number,
+    MarcaId: number;
+    Nombre: string
 }

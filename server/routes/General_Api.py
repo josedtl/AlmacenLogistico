@@ -31,7 +31,7 @@ def Horario_Insert(Ent: MarcaSaveEntity):
         Ent.FechaRegistro = datetime.now()
         Ent.Estado = True
         Ent.MarcaId = Marca_Business.SaveMarca(Ent)
-        return 
+        return Ent
     
     except Exception as e:
         print(e)

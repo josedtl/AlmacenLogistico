@@ -26,39 +26,42 @@ function AddEditForm(props: { item?: IMarca, addItemToState?: any, toggle?: any,
   const submitFormAdd = (e: any) => {
     console.log(props.item);
     e.preventDefault();
+    let errores: string[] = []
+    if (form.Nombre === '') errores.push('El nombre no puede ser un número')
 
+    if (errores.length === 0) {
 
-
-    fetch(`${API}/api/General/Marca_Insert/`, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        MarcaId: 0,
-        Nombre: form.Nombre,
-        CodUsuario: "Adm",
-        FechaRegistro: new Date(),
-        Estado: true,
-        Action: 1
+      fetch(`${API}/api/General/Marca_Insert/`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          MarcaId: 0,
+          Nombre: form.Nombre,
+          CodUsuario: "Adm",
+          FechaRegistro: new Date(),
+          Estado: true,
+          Action: 1
+        })
       })
-    })
-      .then(response => response.json())
-      .then((item: IMarca) => {
-        if (item.MarcaId > 0) {
-          props.addItemToState(item)
-          props.toggle()
-        } else {
-          return
-        }
+        .then(response => response.json())
+        .then((item: IMarca) => {
+          if (item.MarcaId > 0) {
+            props.addItemToState(item)
+            props.toggle()
+          } else {
+            return
+          }
 
-      })
-      .catch(err => console.log(err))
-
+        })
+        .catch(err => console.log(err))
 
 
-    // props.addItemToState(form);
-    props.toggle();
+
+      // props.addItemToState(form);
+      props.toggle();
+    }
   };
 
   const submitFormEdit = (e: any) => {
@@ -78,7 +81,7 @@ function AddEditForm(props: { item?: IMarca, addItemToState?: any, toggle?: any,
       })
     })
       .then((response) => response.json())
-      .then((item:IMarca) => {
+      .then((item: IMarca) => {
         if (item.MarcaId > 0) {
           props.updateState(item);
           props.toggle();

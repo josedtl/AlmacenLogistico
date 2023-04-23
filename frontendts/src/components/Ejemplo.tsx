@@ -5,7 +5,7 @@ import DataTable from "./Tables/DataTable";
 import { IMarca } from '../components/IMarca'
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-
+import { RiEdit2Fill } from 'react-icons/ri';
 // import { CSVLink } from "react-csv";
 function Ejemplo(props: IMarca) {
   const [items, setItems] = useState<IMarca[]>([]);
@@ -66,13 +66,21 @@ function Ejemplo(props: IMarca) {
     <Container className="App">
 
       <Row>
-        <Col>
-          <h1 style={{ margin: "20px 0" }}>Marca</h1>
+        <Col >
+          <h1 style={{ margin: "15px 0" }}>Marca </h1>
         </Col>
-        <Col>
-          <ModalForm buttonLabel="Add Item" addItemToState={addItemToState} />
+     
+      </Row>
+
+      <Row>
+         <Col >
+       
+        </Col>
+        <Col  xs="1">
+          <ModalForm buttonLabel=""    addItemToState={addItemToState} />
         </Col>
       </Row>
+
       <Row>
         <Col>
           <DataTable
@@ -85,7 +93,7 @@ function Ejemplo(props: IMarca) {
       <Row>
         <div>
         <Button variant="primary" onClick={handleShow} className="me-2">
-   
+   ds
       </Button>
       <Offcanvas show={show} onHide={handleClose} {...props}>
         <Offcanvas.Header closeButton>
