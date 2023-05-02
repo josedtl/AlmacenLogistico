@@ -30,6 +30,7 @@ import { Menulateral } from './components/Menulateral';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootswatch/dist/sandstone/bootstrap.min.css';
 import Ejemplo from './components/Ejemplo';
+import FormMarca from './components/Catalogo/Marca/FormMarca';  
 function App() {
   return (
     <BrowserRouter>
@@ -53,7 +54,8 @@ function App() {
           
               <Routes>
                 <Route path="/" element={<User />} />
-                <Route path="/ejemplo" element={<Ejemplo />} />
+                <Route path="/ejemplo" element={<Ejemplo />} /> 
+                <Route path="/Catalogo/Marca/FormMarca" element={<FormMarca />} />
                 <Route path="/about" element={<About />} />
               </Routes>
           
