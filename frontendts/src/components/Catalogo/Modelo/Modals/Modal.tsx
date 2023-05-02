@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import AddEditForm from "../Forms/FormAddEdit";
-import { IMarca } from '../IMarca'
+import { IModelo } from '../IModelo'
 import { RiEdit2Fill, RiAddBoxLine } from 'react-icons/ri';
 import { BsFillPencilFill, BsPlusSquareFill } from "react-icons/bs";
 
-function ModalForm(props: { buttonLabel?: string, item?: IMarca, updateState?: any, addItemToState?: any, className?: any }) {
+function ModalForm(props: { buttonLabel?: string, item?: IModelo, updateState?: any, addItemToState?: any, className?: any }) {
   const [modal, setModal] = useState(false);
 
   const toggle = () => {
@@ -33,7 +33,7 @@ function ModalForm(props: { buttonLabel?: string, item?: IMarca, updateState?: a
         <BsFillPencilFill />
       </Button>
     );
-    title = "Editar Marca";
+    title = "Editar Modelo";
   } else {
     button = (
       // <Button color="success"
@@ -50,7 +50,7 @@ function ModalForm(props: { buttonLabel?: string, item?: IMarca, updateState?: a
 onClick={toggle}    style={{ float: "right", width: "120px"}}
 className="btn btn-success" data-toggle="modal"><i > <BsPlusSquareFill /></i> <span>Agregar</span></a>
     );
-    title = "Agregar Marca";
+    title = "Agregar Modelo";
   }
 
   return (

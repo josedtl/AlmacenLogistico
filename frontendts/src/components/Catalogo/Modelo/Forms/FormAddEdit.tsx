@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 const API = import.meta.env.VITE_REACT_API_URL
-import { IMarca } from '../IMarca'
+import { IModelo } from '../IModelo'
 
-function AddEditForm(props: { item?: IMarca, addItemToState?: any, toggle?: any, updateState?: any }) {
+function AddEditForm(props: { item?: IModelo, addItemToState?: any, toggle?: any, updateState?: any }) {
 
-  const [getMarcaId, setMarcaId] = useState(0)
+  const [getModeloId, setModeloId] = useState(0)
 
   const [form, setValues] = useState({
-    MarcaId: getMarcaId,
+    ModeloId: getModeloId,
     Nombre: '',
     CodUsuario: "Adm",
     FechaRegistro: new Date(),
@@ -31,13 +31,13 @@ function AddEditForm(props: { item?: IMarca, addItemToState?: any, toggle?: any,
 
     if (errores.length === 0) {
 
-      fetch(`${API}/api/General/Marca_Insert/`, {
+      fetch(`${API}/api/General/Modelo_Insert/`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          MarcaId: 0,
+          ModeloId: 0,
           Nombre: form.Nombre,
           CodUsuario: "Adm",
           FechaRegistro: new Date(),
@@ -46,8 +46,8 @@ function AddEditForm(props: { item?: IMarca, addItemToState?: any, toggle?: any,
         })
       })
         .then(response => response.json())
-        .then((item: IMarca) => {
-          if (item.MarcaId > 0) {
+        .then((item: IModelo) => {
+          if (item.ModeloId > 0) {
             props.addItemToState(item)
             props.toggle()
           } else {
@@ -66,13 +66,13 @@ function AddEditForm(props: { item?: IMarca, addItemToState?: any, toggle?: any,
 
   const submitFormEdit = (e: any) => {
     e.preventDefault();
-    fetch(`${API}/api/General/Marca_Insert/`, {
+    fetch(`${API}/api/General/Modelo_Insert/`, {
       method: "post",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        MarcaId: form.MarcaId,
+        ModeloId: form.ModeloId,
         Nombre: form.Nombre,
         CodUsuario: "Adm",
         FechaRegistro: new Date(),
@@ -81,8 +81,8 @@ function AddEditForm(props: { item?: IMarca, addItemToState?: any, toggle?: any,
       })
     })
       .then((response) => response.json())
-      .then((item: IMarca) => {
-        if (item.MarcaId > 0) {
+      .then((item: IModelo) => {
+        if (item.ModeloId > 0) {
           props.updateState(item);
           props.toggle();
         } else {
@@ -96,12 +96,12 @@ function AddEditForm(props: { item?: IMarca, addItemToState?: any, toggle?: any,
 
   useEffect(() => {
     if (props.item) {
-      const { MarcaId, Nombre } = props.item;
-      // setValues({ MarcaId, Nombre });
+      const { ModeloId, Nombre } = props.item;
+      // setValues({ ModeloId, Nombre });
 
       setValues({
         ...form,
-        MarcaId, Nombre
+        ModeloId, Nombre
       });
     }
   }, [props.item]);

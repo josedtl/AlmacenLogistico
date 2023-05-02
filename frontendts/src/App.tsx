@@ -1,26 +1,4 @@
-// import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import MainLayout from "./components/layout/MainLayout";
-// import { routes } from "./routes";
 
-// function App() {
-//   return (
-//     <BrowserRouter>
-//       <Routes>
-//         <Route path="/" element={<MainLayout />}>
-//           {routes}
-//         </Route>
-//       </Routes>
-//     </BrowserRouter>
-//   );
-// }
-
-// export default App;
-
-
-
-
-// import MainLayout from "./components/layout/MainLayout";
-// import { routes } from "./routes";
 import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { About } from './components/About';
@@ -29,8 +7,8 @@ import { Navbar } from './components/Navbar';
 import { Menulateral } from './components/Menulateral';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootswatch/dist/sandstone/bootstrap.min.css';
-import Ejemplo from './components/Ejemplo';
 import FormMarca from './components/Catalogo/Marca/FormMarca';  
+import FormModelo from './components/Catalogo/Modelo/FormModelo';  
 function App() {
   return (
     <BrowserRouter>
@@ -54,8 +32,8 @@ function App() {
           
               <Routes>
                 <Route path="/" element={<User />} />
-                <Route path="/ejemplo" element={<Ejemplo />} /> 
                 <Route path="/Catalogo/Marca/FormMarca" element={<FormMarca />} />
+                <Route path="/Catalogo/Modelo/FormModelo" element={<FormModelo />} />
                 <Route path="/about" element={<About />} />
               </Routes>
           

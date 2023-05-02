@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
 import ModalForm from "./Modals/Modal";
 import DataTable from "./Tables/DataTable";
-import { IMarca } from '../components/IMarca'
+import { IModelo } from './IModelo'
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { RiEdit2Fill } from 'react-icons/ri';
-import './Ejemplo.css'
+import './Modelo.css'
 // import { CSVLink } from "react-csv";
-function Ejemplo(props: IMarca) {
-  const [items, setItems] = useState<IMarca[]>([]);
+function FormModelo(props: IModelo) {
+  const [items, setItems] = useState<IModelo[]>([]);
 
-  const [variablegetMarcas, variablesetMarcas] = useState<IMarca[]>([])
+  const [variablegetModelos, variablesetModelos] = useState<IModelo[]>([])
 
 
   const [show, setShow] = useState(false);
@@ -30,7 +30,7 @@ function Ejemplo(props: IMarca) {
   const getItems = () => {
     try {
 
-      fetch(`${API}/api/General/Get_MarcaItems/`)
+      fetch(`${API}/api/General/Get_ModeloItems/`)
         .then((response) => response.json())
         .then((items) => setItems(items))
         .catch((err) => console.log(err));
@@ -40,12 +40,12 @@ function Ejemplo(props: IMarca) {
     }
   };
 
-  const addItemToState = (item: IMarca) => {
+  const addItemToState = (item: IModelo) => {
     setItems([...items, item]);
   };
 
-  const updateState = (item: IMarca) => {
-    const itemIndex = items.findIndex((data) => data.MarcaId === item.MarcaId);
+  const updateState = (item: IModelo) => {
+    const itemIndex = items.findIndex((data) => data.ModeloId === item.ModeloId);
     const newArray = [
       ...items.slice(0, itemIndex),
       item,
@@ -55,7 +55,7 @@ function Ejemplo(props: IMarca) {
   };
 
   const deleteItemFromState = (id: number) => {
-    const updatedItems = items.filter((item) => item.MarcaId !== id);
+    const updatedItems = items.filter((item) => item.ModeloId !== id);
     setItems(updatedItems);
   };
 
@@ -68,14 +68,14 @@ function Ejemplo(props: IMarca) {
 
       {/* <Row>
         <Col >
-          <h1 style={{ margin: "15px 0" }}>Marca </h1>
+          <h1 style={{ margin: "15px 0" }}>Modelo </h1>
         </Col>
      
       </Row> */}
 
       {/* <Row>
         <Col >
-          <h2>Catalogo <b>Marca</b></h2>
+          <h2>Catalogo <b>Modelo</b></h2>
         </Col>
         <Col xs="1">
           <ModalForm buttonLabel=""
@@ -87,7 +87,7 @@ function Ejemplo(props: IMarca) {
         <div className="table-title">
           <div className="row">
             <div className="col-sm-6">
-              <h2>* <b>Marca</b></h2>
+              <h2>* <b>Modelo</b></h2>
             </div>
             <div className="col-sm-6">
               {/* <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
@@ -114,4 +114,4 @@ function Ejemplo(props: IMarca) {
   );
 }
 
-export default Ejemplo;
+export default FormModelo;
