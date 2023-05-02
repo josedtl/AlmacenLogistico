@@ -6,6 +6,7 @@ import { IMarca } from '../components/IMarca'
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { RiEdit2Fill } from 'react-icons/ri';
+import './Ejemplo.css'
 // import { CSVLink } from "react-csv";
 function Ejemplo(props: IMarca) {
   const [items, setItems] = useState<IMarca[]>([]);
@@ -65,22 +66,40 @@ function Ejemplo(props: IMarca) {
   return (
     <Container className="App">
 
-      <Row>
+      {/* <Row>
         <Col >
           <h1 style={{ margin: "15px 0" }}>Marca </h1>
         </Col>
      
-      </Row>
+      </Row> */}
+
+      {/* <Row>
+        <Col >
+          <h2>Catalogo <b>Marca</b></h2>
+        </Col>
+        <Col xs="1">
+          <ModalForm buttonLabel=""
+            addItemToState={addItemToState} />
+        </Col>
+      </Row> */}
 
       <Row>
-         <Col >
-       
-        </Col>
-        <Col  xs="1">
-          <ModalForm buttonLabel=""    addItemToState={addItemToState} />
-        </Col>
-      </Row>
+        <div className="table-title">
+          <div className="row">
+            <div className="col-sm-6">
+              <h2>* <b>Marca</b></h2>
+            </div>
+            <div className="col-sm-6">
+              {/* <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+              <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>Delete</span></a>
+            */}
+              <ModalForm buttonLabel=""
+            addItemToState={addItemToState} />
+            </div>
 
+          </div>
+        </div>
+      </Row>
       <Row>
         <Col>
           <DataTable
@@ -90,22 +109,7 @@ function Ejemplo(props: IMarca) {
           />
         </Col>
       </Row>
-      <Row>
-        <div>
-        <Button variant="primary" onClick={handleShow} className="me-2">
-   ds
-      </Button>
-      <Offcanvas show={show} onHide={handleClose} {...props}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          Some text as placeholder. In real life you can have the elements you
-          have chosen. Like, text, images, lists, etc.
-        </Offcanvas.Body>
-      </Offcanvas>
-        </div>
-      </Row>
+      
     </Container>
   );
 }

@@ -107,9 +107,9 @@ function DataTable(props: { DataList: IMarca[], updateState: any, deleteItemFrom
               overflowY: 'auto',
             }}
           >
-            <Table className="table table-bordered table-striped mb-0"
+            <Table className="table table-responsive "
                Style={style.table}>
-              <thead>
+              <thead className="thead-dark">
                 <tr>
                   <th style={style.th}>Nº</th>
                   <th style={style.th}>Nombre</th>

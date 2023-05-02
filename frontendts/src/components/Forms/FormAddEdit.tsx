@@ -19,7 +19,7 @@ function AddEditForm(props: { item?: IMarca, addItemToState?: any, toggle?: any,
   const onChange = (e: any) => {
     setValues({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value.toUpperCase()
     });
   };
 
@@ -117,6 +117,7 @@ function AddEditForm(props: { item?: IMarca, addItemToState?: any, toggle?: any,
           id="Nombre"
           onChange={onChange}
           value={form.Nombre === null ? "" : form.Nombre}
+          
         />
         {/* </FormGroup>
       <FormGroup>
