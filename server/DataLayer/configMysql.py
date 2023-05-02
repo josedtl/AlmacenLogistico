@@ -7,7 +7,7 @@ def get_connection():
         host="localhost",
         database="almacenlogistico",
         user="root",
-        password="abcde1F@",
+        password="123456",
     )
 
 

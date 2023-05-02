@@ -33,7 +33,7 @@ function DataTable(props: { DataList: IMarca[], updateState: any, deleteItemFrom
     Contador += 1
     item.Cont = Contador
     return (
-      <tr key={item.MarcaId}>
+      <tr key={item.MarcaId} >
         <td  width={40} scope="row">{item.Cont}</td>
         <td width="1*">{item.Nombre}</td>
         {/* <td>{item.last}</td>
@@ -102,12 +102,13 @@ function DataTable(props: { DataList: IMarca[], updateState: any, deleteItemFrom
         <CardBody>
           <div
             style={{
-              maxHeight: '700px',
+              // height:'20%',
+              maxHeight: '400px',
               overflowY: 'auto',
             }}
           >
             <Table className="table table-bordered table-striped mb-0"
-              bordered height="700px" Style={style.table}>
+               Style={style.table}>
               <thead>
                 <tr>
                   <th style={style.th}>Nº</th>
