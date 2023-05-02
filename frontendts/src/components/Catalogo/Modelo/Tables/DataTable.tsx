@@ -1,27 +1,27 @@
 import React from "react";
 import { Table, Button, Card, CardHeader, CardBody } from "reactstrap";
 import ModalForm from "../Modals/Modal";
-import { IMarca } from '../IMarca'
+import { IModelo } from '../IModelo'
 const API = import.meta.env.VITE_REACT_API_URL
 import './DataTable.css'
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
-function DataTable(props: { DataList: IMarca[], updateState: any, deleteItemFromState: any }): JSX.Element {
-  const deleteItem = (MarcaId?: number) => {
+function DataTable(props: { DataList: IModelo[], updateState: any, deleteItemFromState: any }): JSX.Element {
+  const deleteItem = (ModeloId?: number) => {
     let confirmDelete = window.confirm("Delete item forever?");
     if (confirmDelete) {
-      fetch(`${API}/api/General/Marca_Delete/${MarcaId}`, {
+      fetch(`${API}/api/General/Modelo_Delete/${ModeloId}`, {
         method: "delete",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          MarcaId,
+          ModeloId,
         }),
       })
         .then((response) => response.json())
         .then((item) => {
-          props.deleteItemFromState(MarcaId);
+          props.deleteItemFromState(ModeloId);
         })
         .catch((err) => console.log(err));
     }
@@ -33,7 +33,7 @@ function DataTable(props: { DataList: IMarca[], updateState: any, deleteItemFrom
     Contador += 1
     item.Cont = Contador
     return (
-      <tr key={item.MarcaId} >
+      <tr key={item.ModeloId} >
         <td  width={40} scope="row">{item.Cont}</td>
         <td width="1*">{item.Nombre}</td>
         {/* <td>{item.last}</td>
@@ -50,7 +50,7 @@ function DataTable(props: { DataList: IMarca[], updateState: any, deleteItemFrom
           <Button
             className="btn btn-danger btn-sm btn-block"
             color="danger"
-            onClick={() => deleteItem(item.MarcaId)}
+            onClick={() => deleteItem(item.ModeloId)}
           >
             <RiDeleteBin6Line/>
           </Button>
