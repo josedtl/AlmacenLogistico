@@ -4,6 +4,8 @@ from BusinessLayer.Marca_Business import *
 from EntityLayer.Catalogo.MarcaSaveEntity import *
 from BusinessLayer.Modelo_Business import *
 from EntityLayer.Catalogo.ModeloSaveEntity import *
+from BusinessLayer.TipoProducto_Business import *
+from EntityLayer.Catalogo.TipoProductoSaveEntity import *
 
 General = APIRouter()
 
@@ -78,3 +80,36 @@ def Modelo_Delete(id):
         return True
     except Exception as e:
         print(e)
+
+
+
+
+@General.get("/api/General/Get_TipoProductoItems/", tags=["General"])
+def Get_TipoProductoItems():
+    try:
+        jsonData = TipoProducto_Business.Get_TipoProductoItems()
+        return jsonData
+    except:
+        print("An exception occurred")
+
+
+
+@General.post("/api/General/TipoProducto_Insert", tags=["General"])
+def Horario_Insert(Ent: TipoProductoSaveEntity):
+    try:
+        Ent.FechaRegistro = datetime.now()
+        Ent.Estado = True
+        Ent.TipoProductoId = TipoProducto_Business.SaveTipoProducto(Ent)
+        return Ent
+    
+    except Exception as e:
+        print(e)
+
+@General.delete("/api/General/TipoProducto_Delete/{id}", tags=["General"])
+def TipoProducto_Delete(id):
+    try:
+        jsonData = TipoProducto_Business.DeleteTipoProducto(id)
+        return True
+    except Exception as e:
+        print(e)
+

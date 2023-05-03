@@ -8,7 +8,7 @@ export const Menulateral = () => (
       <span className="fs-5 d-none d-sm-inline">Menu</span>
     </a>
     <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-
+    <Link className="nav-item nav-link" to="/Catalogo/TipoProducto/FormTipoProducto">Tipo Producto</Link>
       <Link className="nav-item nav-link" to="/Catalogo/Marca/FormMarca">Marca</Link>
       <Link className="nav-item nav-link" to="/Catalogo/Modelo/FormModelo">Modelo</Link>
       <Link className="nav-item nav-link" to="/about">About</Link>
