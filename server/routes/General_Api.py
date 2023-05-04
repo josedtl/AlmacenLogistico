@@ -28,7 +28,6 @@ def Get_MarcaItems():
         print("An exception occurred")
 
 
-
 @General.post("/api/General/Marca_Insert", tags=["General"])
 def Horario_Insert(Ent: MarcaSaveEntity):
     try:
@@ -36,9 +35,10 @@ def Horario_Insert(Ent: MarcaSaveEntity):
         Ent.Estado = True
         Ent.MarcaId = Marca_Business.SaveMarca(Ent)
         return Ent
-    
+
     except Exception as e:
         print(e)
+
 
 @General.delete("/api/General/Marca_Delete/{id}", tags=["General"])
 def Marca_Delete(id):
@@ -47,9 +47,6 @@ def Marca_Delete(id):
         return True
     except Exception as e:
         print(e)
-
-
-
 
 
 @General.get("/api/General/Get_ModeloItems/", tags=["General"])
@@ -61,7 +58,6 @@ def Get_ModeloItems():
         print("An exception occurred")
 
 
-
 @General.post("/api/General/Modelo_Insert", tags=["General"])
 def Horario_Insert(Ent: ModeloSaveEntity):
     try:
@@ -69,9 +65,10 @@ def Horario_Insert(Ent: ModeloSaveEntity):
         Ent.Estado = True
         Ent.ModeloId = Modelo_Business.SaveModelo(Ent)
         return Ent
-    
+
     except Exception as e:
         print(e)
+
 
 @General.delete("/api/General/Modelo_Delete/{id}", tags=["General"])
 def Modelo_Delete(id):
@@ -80,8 +77,6 @@ def Modelo_Delete(id):
         return True
     except Exception as e:
         print(e)
-
-
 
 
 @General.get("/api/General/Get_TipoProductoItems/", tags=["General"])
@@ -93,6 +88,14 @@ def Get_TipoProductoItems():
         print("An exception occurred")
 
 
+@General.get("/api/General/Get_TipoProductoItemsLike/{v_Nombre}", tags=["General"])
+def Get_TipoProductoItemsLike(v_Nombre: str):
+    try:
+        jsonData = TipoProducto_Business.Get_TipoProductoItemsLike(v_Nombre)
+        return jsonData
+    except:
+        print("An exception occurred")
+
 
 @General.post("/api/General/TipoProducto_Insert", tags=["General"])
 def Horario_Insert(Ent: TipoProductoSaveEntity):
@@ -101,9 +104,10 @@ def Horario_Insert(Ent: TipoProductoSaveEntity):
         Ent.Estado = True
         Ent.TipoProductoId = TipoProducto_Business.SaveTipoProducto(Ent)
         return Ent
-    
+
     except Exception as e:
         print(e)
+
 
 @General.delete("/api/General/TipoProducto_Delete/{id}", tags=["General"])
 def TipoProducto_Delete(id):
@@ -113,3 +117,18 @@ def TipoProducto_Delete(id):
     except Exception as e:
         print(e)
 
+@General.get("/api/General/Get_MarcaItemsLike/{v_Nombre}", tags=["General"])
+def Get_MarcaItemsLike(v_Nombre: str):
+    try:
+        jsonData = Marca_Business.Get_MarcaItemsLike(v_Nombre)
+        return jsonData
+    except:
+        print("An exception occurred")
+
+@General.get("/api/General/Get_ModeloItemsLike/{v_Nombre}", tags=["General"])
+def Get_ModeloItemsLike(v_Nombre: str):
+    try:
+        jsonData = Modelo_Business.Get_ModeloItemsLike(v_Nombre)
+        return jsonData
+    except:
+        print("An exception occurred")

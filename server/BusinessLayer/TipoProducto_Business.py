@@ -20,6 +20,22 @@ class TipoProducto_Business:
             print(e)
 
 
+    def Get_TipoProductoItemsLike( v_Nombre:str):
+        try:
+            data = TipoProducto_Data.Get_TipoProductoItemsLike(v_Nombre)
+            print(data)
+            jsonData = []
+
+            for row in data:
+                jsonStr = json.dumps(row.__dict__)
+                jsonStr = json.loads(jsonStr)
+                
+                jsonData.append(jsonStr)
+
+            return jsonData
+        except Exception as e:
+            print(e)
+
     def SaveTipoProducto(Ent: TipoProductoSaveEntity):
         try:
             data = TipoProducto_Data.SaveTipoProducto(Ent)

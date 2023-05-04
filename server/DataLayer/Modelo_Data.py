@@ -73,3 +73,23 @@ class Modelo_Data:
         finally:
             cursor.close()
             conn.close()
+
+
+    def Get_ModeloItemsLike( v_Nombre:str):
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                args = (  v_Nombre,)
+                cursor.callproc("sp_ModeloItemsLike",args)
+                resulset = cursor.fetchall()
+            conn.close()
+           
+            list = []
+
+            for row in resulset:
+                Data_ent = ModeloEntity.Cargar(row)
+                list.append(Data_ent)
+            return list
+        except Exception as e:
+            print(e)

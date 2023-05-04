@@ -7,9 +7,10 @@ import { Navbar } from './components/Navbar';
 import { Menulateral } from './components/Menulateral';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootswatch/dist/sandstone/bootstrap.min.css';
-import FormMarca from './components/Catalogo/Marca/FormMarca';  
-import FormModelo from './components/Catalogo/Modelo/FormModelo';  
-import FormTipoProducto from './components/Catalogo/TipoProducto/FormTipoProducto';  
+import FormMarca from './components/Marca/FormMarca';  
+import FormModelo from './components/Modelo/FormModelo';  
+import FormTipoProducto from './components/TipoProducto/FormTipoProducto';  
+import FormProducto from './components/Producto/FormProducto';  
 function App() {
   return (
     <BrowserRouter>
@@ -33,9 +34,10 @@ function App() {
           
               <Routes>
                 <Route path="/" element={<User />} />
-                <Route path="/Catalogo/TipoProducto/FormTipoProducto" element={<FormTipoProducto />} />
-                <Route path="/Catalogo/Marca/FormMarca" element={<FormMarca />} />
-                <Route path="/Catalogo/Modelo/FormModelo" element={<FormModelo />} />
+                <Route path="/TipoProducto/FormTipoProducto" element={<FormTipoProducto />} />
+                <Route path="/Marca/FormMarca" element={<FormMarca />} />
+                <Route path="/Modelo/FormModelo" element={<FormModelo />} />
+                <Route path="/Producto/FormProducto" element={<FormProducto />} />
                 <Route path="/about" element={<About />} />
               </Routes>
           

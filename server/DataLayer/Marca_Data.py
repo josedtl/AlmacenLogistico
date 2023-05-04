@@ -23,7 +23,6 @@ class Marca_Data:
         except Exception as e:
             print(e)
 
-
     def SaveMarca(Ent: MarcaSaveEntity):    
 
 
@@ -73,3 +72,22 @@ class Marca_Data:
         finally:
             cursor.close()
             conn.close()
+
+    def Get_MarcaItemsLike( v_Nombre:str):
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                args = (  v_Nombre,)
+                cursor.callproc("sp_MarcaItemsLike",args)
+                resulset = cursor.fetchall()
+            conn.close()
+           
+            list = []
+
+            for row in resulset:
+                Data_ent = MarcaEntity.Cargar(row)
+                list.append(Data_ent)
+            return list
+        except Exception as e:
+            print(e)

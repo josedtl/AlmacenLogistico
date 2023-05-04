@@ -19,6 +19,21 @@ class Modelo_Business:
         except Exception as e:
             print(e)
 
+    def Get_ModeloItemsLike( v_Nombre:str):
+        try:
+            data = Modelo_Data.Get_ModeloItemsLike(v_Nombre)
+            print(data)
+            jsonData = []
+
+            for row in data:
+                jsonStr = json.dumps(row.__dict__)
+                jsonStr = json.loads(jsonStr)
+                
+                jsonData.append(jsonStr)
+
+            return jsonData
+        except Exception as e:
+            print(e)
 
     def SaveModelo(Ent: ModeloSaveEntity):
         try:

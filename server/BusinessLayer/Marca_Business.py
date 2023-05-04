@@ -19,7 +19,22 @@ class Marca_Business:
         except Exception as e:
             print(e)
 
+    def Get_MarcaItemsLike( v_Nombre:str):
+        try:
+            data = Marca_Data.Get_MarcaItemsLike(v_Nombre)
+            print(data)
+            jsonData = []
 
+            for row in data:
+                jsonStr = json.dumps(row.__dict__)
+                jsonStr = json.loads(jsonStr)
+                
+                jsonData.append(jsonStr)
+
+            return jsonData
+        except Exception as e:
+            print(e)
+            
     def SaveMarca(Ent: MarcaSaveEntity):
         try:
             data = Marca_Data.SaveMarca(Ent)

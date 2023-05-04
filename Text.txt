@@ -31,3 +31,6 @@ npm i reactstrap
   react-router-dom 
   bootswatch
    react-bootstrap
+
+
+npm i react-autosuggestions

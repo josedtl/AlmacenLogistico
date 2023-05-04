@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 const API = import.meta.env.VITE_REACT_API_URL
 import { IMarca } from '../IMarca'
-
 function AddEditForm(props: { item?: IMarca, addItemToState?: any, toggle?: any, updateState?: any }) {
 
   const [getMarcaId, setMarcaId] = useState(0)
