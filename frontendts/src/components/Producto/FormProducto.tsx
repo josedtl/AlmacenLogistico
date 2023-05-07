@@ -5,6 +5,7 @@ import { IMarca } from './IMarca'
 import { IModelo } from './IModelo'
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { ListTipoProducto } from '../../Service/General';
+import { BsFillPencilFill, BsPlusSquareFill } from "react-icons/bs";
 
 function FormProducto() {
 
@@ -133,9 +134,9 @@ function FormProducto() {
                             <h2>* <b>Producto</b></h2>
                         </div>
                         <div className="col-sm-6">
-                            {/* <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
-              <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>Delete</span></a>
-            */}
+                            <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Guardar</span></a>
+              <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>Borar</span></a>
+           
 
                         </div>
 

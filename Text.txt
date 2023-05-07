@@ -34,3 +34,6 @@ npm i reactstrap
 
 
 npm i react-autosuggestions
+
+
+git reset --hard
