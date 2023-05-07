@@ -18,3 +18,11 @@ class Producto_Business:
             return jsonData
         except Exception as e:
             print(e)
+
+
+    def SaveProducto(Ent: ProductoSaveEntity):
+        try:
+            data = Producto_Data.SaveProducto(Ent)
+            return data
+        except Exception as e:
+            print(e)

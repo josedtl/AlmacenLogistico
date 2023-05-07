@@ -5,8 +5,8 @@ import { IMarca } from './IMarca'
 import { IModelo } from './IModelo'
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { ListTipoProducto } from '../../Service/General';
-import { BsFillPencilFill, BsPlusSquareFill } from "react-icons/bs";
-
+import { IoIosSave } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
 function FormProducto() {
 
     const API = import.meta.env.VITE_REACT_API_URL
@@ -24,12 +24,6 @@ function FormProducto() {
 
 
         if (Cont > 2) {
-
-            // fetch(`${API}/api/General/Get_TipoProductoItemsLike/` + event.target.value)
-            //     .then((response) => response.json())
-            //     .then((items) => setdataTipoProducto(items))
-            //     .catch((err) => console.log(err));
-
 
             fetch(`${API}/api/General/Post_TipoProductoItemsLikePost/`, {
                 method: 'post',
@@ -59,10 +53,6 @@ function FormProducto() {
 
         if (Cont > 2) {
 
-            // fetch(`${API}/api/General/Get_TipoProductoItemsLike/` + event.target.value)
-            //     .then((response) => response.json())
-            //     .then((items) => setdataTipoProducto(items))
-            //     .catch((err) => console.log(err));
 
 
             fetch(`${API}/api/General/Get_MarcaItemsLike/`, {
@@ -134,9 +124,9 @@ function FormProducto() {
                             <h2>* <b>Producto</b></h2>
                         </div>
                         <div className="col-sm-6">
-                            <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Guardar</span></a>
-              <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>Borar</span></a>
-           
+                            <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons"><IoIosSave/></i> <span>Guardar</span></a>
+                            <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons"><MdDelete/></i> <span>Borrar</span></a>
+
 
                         </div>
 
@@ -197,7 +187,7 @@ function FormProducto() {
                             <div className="col">
                                 <Label for="validationCustom01" className="form-label">Valor Compra</Label>
                                 <input type="number" className="form-control"
-                                    id="validationCustom01"  required />
+                                    id="validationCustom01" required />
                                 <div className="valid-feedback">
                                     Looks good!
                                 </div>
@@ -205,7 +195,7 @@ function FormProducto() {
 
                             <div className="col">
                                 <Label for="validationCustom02" className="form-label">Valor Venta</Label>
-                                <input type="number" className="form-control" id="validationCustom02"required />
+                                <input type="number" className="form-control" id="validationCustom02" required />
                                 <div className="valid-feedback">
                                     Looks good!
                                 </div>

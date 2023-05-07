@@ -1,4 +1,6 @@
 from datetime import datetime
+from pydantic import BaseModel
+
 class ProductoEntity:
     ProductoId: int
     TipoProductoId: int
@@ -28,4 +30,15 @@ class ProductoEntity:
         c.Estado = bool(_DB['Estado'])
         return c
 
- 
+class ProductoSaveEntity(BaseModel):
+    ProductoId: int
+    TipoProductoId : int
+    MarcaId :int
+    ModeloId : int
+    NombreProducto :str
+    UnidadMedidaId : int
+    PrecioVenta : float
+    PrecioCompra : float
+    FechaRegistro:  datetime
+    CodUsuario : str
+    Estado: bool
