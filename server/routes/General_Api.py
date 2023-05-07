@@ -6,6 +6,7 @@ from BusinessLayer.Modelo_Business import *
 from EntityLayer.Catalogo.ModeloSaveEntity import *
 from BusinessLayer.TipoProducto_Business import *
 from EntityLayer.Catalogo.TipoProductoSaveEntity import *
+from EntityLayer.Catalogo.ParametrolikeModel import *
 
 General = APIRouter()
 
@@ -97,6 +98,7 @@ def Get_TipoProductoItemsLike(v_Nombre: str):
         print("An exception occurred")
 
 
+
 @General.post("/api/General/TipoProducto_Insert", tags=["General"])
 def Horario_Insert(Ent: TipoProductoSaveEntity):
     try:
@@ -117,18 +119,26 @@ def TipoProducto_Delete(id):
     except Exception as e:
         print(e)
 
-@General.get("/api/General/Get_MarcaItemsLike/{v_Nombre}", tags=["General"])
-def Get_MarcaItemsLike(v_Nombre: str):
+@General.post("/api/General/Get_MarcaItemsLike", tags=["General"])
+def Get_MarcaItemsLike(Ent: ParametrolikeModel):
     try:
-        jsonData = Marca_Business.Get_MarcaItemsLike(v_Nombre)
+        jsonData = Marca_Business.Get_MarcaItemsLike(Ent.Nombre)
         return jsonData
     except:
         print("An exception occurred")
 
-@General.get("/api/General/Get_ModeloItemsLike/{v_Nombre}", tags=["General"])
-def Get_ModeloItemsLike(v_Nombre: str):
+@General.post("/api/General/Get_ModeloItemsLike", tags=["General"])
+def Get_ModeloItemsLike(Ent: ParametrolikeModel):
     try:
-        jsonData = Modelo_Business.Get_ModeloItemsLike(v_Nombre)
+        jsonData = Modelo_Business.Get_ModeloItemsLike(Ent.Nombre)
+        return jsonData
+    except:
+        print("An exception occurred")
+
+@General.post("/api/General/Post_TipoProductoItemsLikePost", tags=["General"])
+def Post_TipoProductoItemsLikePost(Ent: ParametrolikeModel):
+    try:
+        jsonData = TipoProducto_Business.Get_TipoProductoItemsLike(Ent.Nombre)
         return jsonData
     except:
         print("An exception occurred")

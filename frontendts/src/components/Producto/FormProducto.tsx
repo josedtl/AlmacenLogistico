@@ -4,7 +4,6 @@ import { ITipoProducto } from './ITipoProducto'
 import { IMarca } from './IMarca'
 import { IModelo } from './IModelo'
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import './ProductoForm.css'
 import { ListTipoProducto } from '../../Service/General';
 
 function FormProducto() {
@@ -15,19 +14,36 @@ function FormProducto() {
     const [dataModelo, setdataModelo] = useState<IModelo[]>([]);
 
     const [text, setText] = React.useState('');
+    const [textMarca, setTextMarca] = React.useState('');
+    const [textModelo, setTextModelo] = React.useState('');
 
     const onChangeTipoProducto = (event: any) => {
+        event.preventDefault();
         var Cont: number = event.target.value.length;
-        var Lista: ITipoProducto[] = ListTipoProducto('a')
 
-        console.log(Lista)
 
         if (Cont > 2) {
 
-            fetch(`${API}/api/General/Get_TipoProductoItemsLike/` + event.target.value)
-                .then((response) => response.json())
+            // fetch(`${API}/api/General/Get_TipoProductoItemsLike/` + event.target.value)
+            //     .then((response) => response.json())
+            //     .then((items) => setdataTipoProducto(items))
+            //     .catch((err) => console.log(err));
+
+
+            fetch(`${API}/api/General/Post_TipoProductoItemsLikePost/`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Nombre: event.target.value
+                })
+            }).then((response) => response.json())
                 .then((items) => setdataTipoProducto(items))
                 .catch((err) => console.log(err));
+
+
+
         } else {
             setdataTipoProducto([])
         }
@@ -35,9 +51,73 @@ function FormProducto() {
         setText(event.target.value);
     }
 
-    const disabled = React.useMemo(() => {
-        return !dataTipoProducto.some(d => d.Nombre === text);
-    }, [text]);
+    const onChangeMarca = (event: any) => {
+        event.preventDefault();
+        var Cont: number = event.target.value.length;
+
+
+        if (Cont > 2) {
+
+            // fetch(`${API}/api/General/Get_TipoProductoItemsLike/` + event.target.value)
+            //     .then((response) => response.json())
+            //     .then((items) => setdataTipoProducto(items))
+            //     .catch((err) => console.log(err));
+
+
+            fetch(`${API}/api/General/Get_MarcaItemsLike/`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Nombre: event.target.value
+                })
+            }).then((response) => response.json())
+                .then((items) => setdataMarca(items))
+                .catch((err) => console.log(err));
+
+
+
+        } else {
+            setdataMarca([])
+        }
+
+        setTextMarca(event.target.value);
+    }
+
+
+    const onChangeModelo = (event: any) => {
+        event.preventDefault();
+        var Cont: number = event.target.value.length;
+
+
+        if (Cont > 2) {
+
+
+            fetch(`${API}/api/General/Get_ModeloItemsLike/`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Nombre: event.target.value
+                })
+            }).then((response) => response.json())
+                .then((items) => setdataModelo(items))
+                .catch((err) => console.log(err));
+
+
+
+        } else {
+            setdataModelo([])
+        }
+
+        setTextModelo(event.target.value);
+    }
+
+
+
+
 
     // useEffect(() => {
     //     getItems();
@@ -46,10 +126,26 @@ function FormProducto() {
     return (
         <div className="container">
 
+            <div className="col-sm-12">
+                <div className="table-title">
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <h2>* <b>Producto</b></h2>
+                        </div>
+                        <div className="col-sm-6">
+                            {/* <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+              <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>Delete</span></a>
+            */}
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
             <div className="col-sm-4">
                 <div className="card">
                     <div className="card-body">
-                        <div >
+                        <div className="mb-3">
                             <Label for="exampleFormControlInput1" class="form-label">Tipo</Label>
                             <Input
                                 className="form-control"
@@ -63,35 +159,62 @@ function FormProducto() {
                                 {dataTipoProducto.map(d => <option key={d.TipoProductoId} value={d.Nombre} />)}
                             </datalist>
                         </div>
-                        {/* <div >
+                        <div className="mb-3">
                             <Label for="exampleFormControlInput1" class="form-label">Marca</Label>
                             <Input
                                 className="form-control"
                                 type="search"
-                                list="list"
+                                list="listMarca"
                                 autoComplete="on"
-                                value={text}
+                                value={textMarca}
                                 placeholder="Ingrese Marca"
-                                onChange={onChange} />
-                            <datalist id="list" style={{ display: "none", textAlign: "left" }} >
-                                {data.map(d => <option key={d.TipoProductoId} value={d.Nombre} />)}
+                                onChange={onChangeMarca} />
+                            <datalist id="listMarca" style={{ display: "none", textAlign: "left" }} >
+                                {dataMarca.map(d => <option key={d.MarcaId} value={d.Nombre} />)}
                             </datalist>
                         </div>
 
-                        <div >
+                        <div className="mb-3">
                             <Label for="exampleFormControlInput1" class="form-label">Modelo</Label>
                             <Input
                                 className="form-control"
                                 type="search"
-                                list="list"
+                                list="listModelo"
                                 autoComplete="on"
-                                value={text}
+                                value={textModelo}
                                 placeholder="Ingrese Modelo"
-                                onChange={onChange} />
-                            <datalist id="list" style={{ display: "none", textAlign: "left" }} >
-                                {data.map(d => <option key={d.TipoProductoId} value={d.Nombre} />)}
+                                onChange={onChangeModelo} />
+                            <datalist id="listModelo" style={{ display: "none", textAlign: "left" }} >
+                                {dataModelo.map(d => <option key={d.ModeloId} value={d.Nombre} />)}
                             </datalist>
-                        </div> */}
+                        </div>
+
+
+
+
+                        <div className="row">
+                            <div className="col">
+                                <Label for="validationCustom01" className="form-label">Valor Compra</Label>
+                                <input type="number" className="form-control"
+                                    id="validationCustom01"  required />
+                                <div className="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+
+                            <div className="col">
+                                <Label for="validationCustom02" className="form-label">Valor Venta</Label>
+                                <input type="number" className="form-control" id="validationCustom02"required />
+                                <div className="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
                     </div>
                 </div>
 
