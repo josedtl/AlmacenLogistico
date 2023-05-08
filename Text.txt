@@ -37,3 +37,5 @@ npm i react-autosuggestions
 
 
 git reset --hard
+
+npm i styled-components
