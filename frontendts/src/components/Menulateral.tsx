@@ -12,6 +12,7 @@ export const Menulateral = () => (
       <Link className="nav-item nav-link" to="/TipoProducto/FormTipoProducto">Tipo Producto</Link>
       <Link className="nav-item nav-link" to="/Marca/FormMarca">Marca</Link>
       <Link className="nav-item nav-link" to="/Modelo/FormModelo">Modelo</Link>
+      <Link className="nav-item nav-link" to="/AutoComplete/CargarCombo">combo</Link>
       <Link className="nav-item nav-link" to="/about">About</Link>
 
       {/* <li>

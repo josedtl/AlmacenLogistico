@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { ITipoProducto } from './ITipoProducto'
 import { IMarca } from './IMarca'
 import { IModelo } from './IModelo'
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input  } from "reactstrap";
 import { ListTipoProducto } from '../../Service/General';
 import { IoIosSave } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
@@ -18,12 +18,17 @@ function FormProducto() {
     const [textMarca, setTextMarca] = React.useState('');
     const [textModelo, setTextModelo] = React.useState('');
 
+
+    
     const onChangeTipoProducto = (event: any) => {
         event.preventDefault();
+        const select = document.getElementById("list")
+
+       console.log(event.target.key);
         var Cont: number = event.target.value.length;
 
 
-        if (Cont > 2) {
+        if (Cont > 0    ) {
 
             fetch(`${API}/api/General/Post_TipoProductoItemsLikePost/`, {
                 method: 'post',
@@ -106,14 +111,11 @@ function FormProducto() {
         setTextModelo(event.target.value);
     }
 
-
-
-
-
-    // useEffect(() => {
-    //     getItems();
-    //   }, []);
-
+    const onChangeHandler = (event: any) =>  {
+    
+        console.log("david");
+    }
+  
     return (
         <div className="container">
 
@@ -124,8 +126,8 @@ function FormProducto() {
                             <h2>* <b>Producto</b></h2>
                         </div>
                         <div className="col-sm-6">
-                            <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons"><IoIosSave/></i> <span>Guardar</span></a>
-                            <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons"><MdDelete/></i> <span>Borrar</span></a>
+                            <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons"><IoIosSave /></i> <span>Guardar</span></a>
+                            <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons"><MdDelete /></i> <span>Borrar</span></a>
 
 
                         </div>
@@ -138,16 +140,23 @@ function FormProducto() {
                     <div className="card-body">
                         <div className="mb-3">
                             <Label for="exampleFormControlInput1" class="form-label">Tipo</Label>
-                            <Input
+                            <input
                                 className="form-control"
                                 type="search"
                                 list="list"
                                 autoComplete="on"
                                 value={text}
                                 placeholder="Ingrese Tipo de Producto"
-                                onChange={onChangeTipoProducto} />
-                            <datalist id="list" style={{ display: "none", textAlign: "left" }} >
-                                {dataTipoProducto.map(d => <option key={d.TipoProductoId} value={d.Nombre} />)}
+                                onChange={onChangeTipoProducto}
+                                 />
+                            <datalist   
+                            id="list" style={{ display: "none", textAlign: "left" }} >
+                                {dataTipoProducto.map(d => <option  
+                                 onSelect={onChangeHandler}
+                                key={d.TipoProductoId}
+                                 value={d.Nombre}
+                                 data-foo={d.TipoProductoId}
+                                 />)}
                             </datalist>
                         </div>
                         <div className="mb-3">
@@ -212,8 +221,7 @@ function FormProducto() {
 
             </div>
 
-
-
+          
         </div>
     )
 }
