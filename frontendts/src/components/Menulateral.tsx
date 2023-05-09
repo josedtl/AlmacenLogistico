@@ -13,7 +13,7 @@ export const Menulateral = () => (
       <Link className="nav-item nav-link" to="/Marca/FormMarca">Marca</Link>
       <Link className="nav-item nav-link" to="/Modelo/FormModelo">Modelo</Link>
       <Link className="nav-item nav-link" to="/AutoComplete/CargarCombo">combo</Link>
-      <Link className="nav-item nav-link" to="/about">About</Link>
+      <Link className="nav-item nav-link" to="/About">About</Link>
 
       {/* <li>
         <a href="#submenu1" data-bs-toggle="collapse" className="nav-link px-0 align-middle">

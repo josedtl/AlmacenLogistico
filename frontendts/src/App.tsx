@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { About } from './components/About';
+import  About  from './components/About';
 import { User } from './components/User';
 import { Navbar } from './components/Navbar';
 import { Menulateral } from './components/Menulateral';
@@ -40,7 +40,7 @@ function App() {
               <Route path="/Modelo/FormModelo" element={<FormModelo />} />
               <Route path="/Producto/FormProducto" element={<FormProducto />} />
               <Route path="/AutoComplete/CargarCombo" element={<CargarCombo />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/About" element={<About />} />
             </Routes>
 
           </div>
