@@ -3,119 +3,111 @@ import React, { useState, useEffect } from "react";
 import { ITipoProducto } from './ITipoProducto'
 import { IMarca } from './IMarca'
 import { IModelo } from './IModelo'
-import { Button, Form, FormGroup, Label, Input  } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Alert } from "reactstrap";
 import { ListTipoProducto } from '../../Service/General';
 import { IoIosSave } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
+import { AutoCompleteTipoProducto } from '../AutoComplete/AutoCompleteTipoProducto'
+import { AutoCompleteMarca } from "../AutoComplete/AutoCompleteMarca";
+import { AutoCompleteModelo } from "../AutoComplete/AutoCompleteModelo";
+import { IUnidadMedida } from '../../Models/General/IUnidadMedida'
+import { IProducto } from "../../Models/Producto/IProducto";
 function FormProducto() {
 
     const API = import.meta.env.VITE_REACT_API_URL
-    const [dataTipoProducto, setdataTipoProducto] = useState<ITipoProducto[]>([]);
-    const [dataMarca, setdataMarca] = useState<IMarca[]>([]);
-    const [dataModelo, setdataModelo] = useState<IModelo[]>([]);
-
-    const [text, setText] = React.useState('');
-    const [textMarca, setTextMarca] = React.useState('');
-    const [textModelo, setTextModelo] = React.useState('');
 
 
-    
-    const onChangeTipoProducto = (event: any) => {
-        event.preventDefault();
-        const select = document.getElementById("list")
+    const [visible, setVisible] = useState(false);
 
-       console.log(event.target.key);
-        var Cont: number = event.target.value.length;
+    const onDismiss = () => setVisible(false);
 
+    const [GetNomTipoProducto, setNomTipoProducto] = React.useState<string>('');
+    const [GetTipoProductoId, setTipoProductoId] = React.useState<number>(0);
+    const [GetModeloId, setModeloId] = React.useState<number>(0);
+    const [GetMarcaId, setMarcaId] = React.useState<number>(0);
+    const [selectedOption, setSelectedOption] = useState<String>();
+    const [DataUnidadedida, setDataUnidadedida] = useState<IUnidadMedida[]>([]);
 
-        if (Cont > 0    ) {
+    useEffect(() => {
+        (async () => {
+            try {
+                getItems();
+            } catch (e) {
+                // Some fetch error
+            }
+        })();
+    }, []);
 
-            fetch(`${API}/api/General/Post_TipoProductoItemsLikePost/`, {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    Nombre: event.target.value
-                })
-            }).then((response) => response.json())
-                .then((items) => setdataTipoProducto(items))
+ 
+    const Onclick_Guardar = () => {
+
+        fetch(`${API}/api/Producto/Producto_Insert/`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ProductoId: 0,
+                TipoProductoId: GetTipoProductoId,
+                MarcaId: GetMarcaId,
+                ModeloId: GetModeloId,
+                NombreProducto: '',
+                UnidadMedidaId: selectedOption,
+                PrecioVenta: 0,
+                PrecioCompra: 0,
+                FechaRegistro: new Date(),
+                CodUsuario: 'dtimo',
+                Estado: true
+            })
+        })
+            .then(response => response.json())
+            .then((item: IProducto) => {
+                if (item.MarcaId > 0) {
+                    setVisible(true);
+                } else {
+                    console.log(item);
+                    return
+                }
+
+            })
+            .catch(err => console.log(err))
+
+    };
+    const getItems = async () => {
+        try {
+
+            fetch(`${API}/api/General/Get_UnidadMedidaItems/`)
+                .then((response) => response.json())
+                .then((items) => setDataUnidadedida(items))
                 .catch((err) => console.log(err));
-
-
-
-        } else {
-            setdataTipoProducto([])
+            console.log(DataUnidadedida);
         }
-
-        setText(event.target.value);
-    }
-
-    const onChangeMarca = (event: any) => {
-        event.preventDefault();
-        var Cont: number = event.target.value.length;
-
-
-        if (Cont > 2) {
-
-
-
-            fetch(`${API}/api/General/Get_MarcaItemsLike/`, {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    Nombre: event.target.value
-                })
-            }).then((response) => response.json())
-                .then((items) => setdataMarca(items))
-                .catch((err) => console.log(err));
-
-
-
-        } else {
-            setdataMarca([])
+        catch (e) {
+            console.log(e)
         }
-
-        setTextMarca(event.target.value);
-    }
-
-
-    const onChangeModelo = (event: any) => {
-        event.preventDefault();
-        var Cont: number = event.target.value.length;
+    };
+    const items = DataUnidadedida.map((item) => {
+        return (
+            <option value={item.UnidadMedidaId}>{item.Nombre}</option>
+        );
+    });
 
 
-        if (Cont > 2) {
+    const onChangeHandler = (event: any) => {
 
-
-            fetch(`${API}/api/General/Get_ModeloItemsLike/`, {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    Nombre: event.target.value
-                })
-            }).then((response) => response.json())
-                .then((items) => setdataModelo(items))
-                .catch((err) => console.log(err));
-
-
-
-        } else {
-            setdataModelo([])
-        }
-
-        setTextModelo(event.target.value);
-    }
-
-    const onChangeHandler = (event: any) =>  {
-    
         console.log("david");
     }
-  
+    const SeleccionPrueba = (event: any) => {
+
+        console.log(event.target.key);
+    }
+
+    const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        setSelectedOption(value);
+        console.log(event.target.value);
+    };
+
     return (
         <div className="container">
 
@@ -126,7 +118,12 @@ function FormProducto() {
                             <h2>* <b>Producto</b></h2>
                         </div>
                         <div className="col-sm-6">
-                            <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons"><IoIosSave /></i> <span>Guardar</span></a>
+                            <a className="btn btn-success"
+                                onClick={Onclick_Guardar}
+                            >
+                                <i className="material-icons">
+                                    <IoIosSave /></i>
+                                <span>Guardar</span></a>
                             <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons"><MdDelete /></i> <span>Borrar</span></a>
 
 
@@ -134,64 +131,64 @@ function FormProducto() {
 
                     </div>
                 </div>
-            </div>
+            </div>   <Alert  isOpen={visible} toggle={onDismiss}>
+                            Se grabo la informacion correctamente
+                        </Alert>
             <div className="col-sm-4">
                 <div className="card">
                     <div className="card-body">
-                        <div className="mb-3">
-                            <Label for="exampleFormControlInput1" class="form-label">Tipo</Label>
-                            <input
-                                className="form-control"
-                                type="search"
-                                list="list"
-                                autoComplete="on"
-                                value={text}
-                                placeholder="Ingrese Tipo de Producto"
-                                onChange={onChangeTipoProducto}
-                                 />
-                            <datalist   
-                            id="list" style={{ display: "none", textAlign: "left" }} >
-                                {dataTipoProducto.map(d => <option  
-                                 onSelect={onChangeHandler}
-                                key={d.TipoProductoId}
-                                 value={d.Nombre}
-                                 data-foo={d.TipoProductoId}
-                                 />)}
-                            </datalist>
-                        </div>
-                        <div className="mb-3">
-                            <Label for="exampleFormControlInput1" class="form-label">Marca</Label>
-                            <Input
-                                className="form-control"
-                                type="search"
-                                list="listMarca"
-                                autoComplete="on"
-                                value={textMarca}
-                                placeholder="Ingrese Marca"
-                                onChange={onChangeMarca} />
-                            <datalist id="listMarca" style={{ display: "none", textAlign: "left" }} >
-                                {dataMarca.map(d => <option key={d.MarcaId} value={d.Nombre} />)}
-                            </datalist>
-                        </div>
+                     
 
                         <div className="mb-3">
-                            <Label for="exampleFormControlInput1" class="form-label">Modelo</Label>
-                            <Input
-                                className="form-control"
-                                type="search"
-                                list="listModelo"
-                                autoComplete="on"
-                                value={textModelo}
-                                placeholder="Ingrese Modelo"
-                                onChange={onChangeModelo} />
-                            <datalist id="listModelo" style={{ display: "none", textAlign: "left" }} >
-                                {dataModelo.map(d => <option key={d.ModeloId} value={d.Nombre} />)}
-                            </datalist>
+                            <AutoCompleteTipoProducto
+                                inputStyle={{ backgroundColor: "while" }}
+                                optionsStyle={{ backgroundColor: "while" }}
+                                iconColor="Turquoise"
+                                Id={setTipoProductoId}
+                                placeholder={"Ingrese Producto"}
+                                headerItem={"Tipo"}
+                            />
                         </div>
 
 
 
+                        <div className="mb-3">
+                            <AutoCompleteMarca
+                                inputStyle={{ backgroundColor: "while" }}
+                                optionsStyle={{ backgroundColor: "while" }}
+                                iconColor="Turquoise"
+                                placeholder={"Ingrese Marca"}
+                                headerItem={"Marca"}
+                                Id={setMarcaId}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <AutoCompleteModelo
+                                inputStyle={{ backgroundColor: "while" }}
+                                optionsStyle={{ backgroundColor: "while" }}
+                                iconColor="Turquoise"
+                                Id={setModeloId}
+                                placeholder={"Ingrese Modelo"}
+                                headerItem={"Modelo"}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <Label
+                                className="font-weight-light"
+                                for="exampleSelect">
+                                Unidad de Medida
+                            </Label>
+                            <select className="form-control"
 
+                                onChange={selectChange} >
+                                <option selected disabled>
+                                    Seleccionar unidad de Medida
+                                </option>
+                                {items}
+
+
+                            </select>
+                        </div>
                         <div className="row">
                             <div className="col">
                                 <Label for="validationCustom01" className="form-label">Valor Compra</Label>
@@ -211,18 +208,10 @@ function FormProducto() {
                             </div>
                         </div>
 
-
-
-
-
                     </div>
                 </div>
-
-
             </div>
-
-          
-        </div>
+        </div >
     )
 }
 

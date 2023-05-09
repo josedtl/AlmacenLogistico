@@ -24,7 +24,6 @@ function CargarCombo() {
     <AutoComplete
       inputStyle={{ backgroundColor: "while" }}
       optionsStyle={{ backgroundColor: "while" }}
-      data={data}
       iconColor="Turquoise"
       IdItemFromState={IdItemFromState}
     />

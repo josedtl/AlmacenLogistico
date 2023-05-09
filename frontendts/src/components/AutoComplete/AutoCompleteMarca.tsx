@@ -1,6 +1,7 @@
 import react, { ChangeEvent, FC, useState } from "react";
 import styled from "styled-components";
-import { ITipoProducto } from '../../Models/General/ITipoProducto'
+import { IMarca } from '../../Models/General/IMarca'
+import { Label } from "reactstrap";
 // import { FaArrowDown } from "@react-icons/all-files/fa/FaArrowDown";
 
 import {
@@ -16,68 +17,67 @@ const Root = styled.div`
 
 
 interface autoCompleteProps {
-  iconColor?: string;
-  inputStyle?: react.CSSProperties;
-  optionsStyle?: react.CSSProperties;
-  IdItemFromState: any,
-  placeholder ?: string;
+  iconColor?: string,
+  inputStyle?: react.CSSProperties,
+  optionsStyle?: react.CSSProperties,
+  placeholder?: string,
+  headerItem?: string,
+  Id?: any
 }
-export const AutoComplete: FC<autoCompleteProps> = ({
+export const AutoCompleteMarca: FC<autoCompleteProps> = ({
   iconColor,
   inputStyle,
   optionsStyle,
-  IdItemFromState,
-  placeholder
+  placeholder,
+  headerItem,
+  Id
 }) => {
   const [search, setSearch] = useState({
-    text: "",
-    suggestions: []
+    suggestions: [],
+    text: ""
   });
   const API = import.meta.env.VITE_REACT_API_URL
   const [isComponentVisible, setIsComponentVisible] = useState(true);
-  const [dataTipoProducto, setdataTipoProducto] = useState<ITipoProducto[]>([]);
+  const [dataItems, setdataItems] = useState<IMarca[]>([]);
 
-  
+
   const onTextChanged = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     var Cont: number = e.target.value.length;
     const value = e.target.value;
 
-    if (Cont > 0    ) {
+    if (Cont > 0) {
 
-      fetch(`${API}/api/General/Post_TipoProductoItemsLikePost/`, {
-          method: 'post',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-              Nombre: e.target.value
-          })
+      fetch(`${API}/api/General/Get_MarcaItemsLike/`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          Nombre: e.target.value
+        })
       }).then((response) => response.json())
-          .then((items) => setdataTipoProducto(items))
-          .catch((err) => console.log(err));
+        .then((items) => setdataItems(items))
+        .catch((err) => console.log(err));
 
 
 
-  } else {
-      setdataTipoProducto([])
-  }
+    } else {
+      setdataItems([])
+    }
 
 
     let suggestions = [];
-    // if (value.length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   suggestions = dataTipoProducto.sort().filter((v: ITipoProducto) => regex.test(v.name));
-    // }
-    suggestions=dataTipoProducto;
+
+    suggestions = dataItems;;
     setIsComponentVisible(true);
     setSearch({ suggestions, text: value });
   };
 
-  const suggestionSelected = (value: ITipoProducto) => {
+  const suggestionSelected = (value: IMarca) => {
     setIsComponentVisible(false);
     // console.log(value.code);
-    IdItemFromState(value.TipoProductoId);
+    Id(value.MarcaId);
     setSearch({
       text: value.Nombre,
       suggestions: []
@@ -102,13 +102,15 @@ export const AutoComplete: FC<autoCompleteProps> = ({
         }}
       />
       <div>
-        <input  className="form-control"
+
+        <Label for="exampleFormControlInput1" className="form-label">{headerItem}</Label>
+
+        <input className="form-control"
           id="input"
           autoComplete="off"
           value={search.text}
           onChange={onTextChanged}
           type={"text"}
-          style={inputStyle}
           placeholder={placeholder}
         />
         <AutoCompleteIcon color={iconColor} isOpen={isComponentVisible}>
@@ -117,10 +119,10 @@ export const AutoComplete: FC<autoCompleteProps> = ({
       </div>
       {suggestions.length > 0 && isComponentVisible && (
         <AutoCompleteContainer style={optionsStyle}>
-          {suggestions.map((item: ITipoProducto) => (
-            <AutoCompleteItem key={item.TipoProductoId}>
+          {suggestions.map((item: IMarca) => (
+            <AutoCompleteItem key={item.MarcaId}>
               <AutoCompleteItemButton
-                key={item.TipoProductoId}
+                key={item.MarcaId}
                 onClick={() => suggestionSelected(item)}
               >
                 {item.Nombre}

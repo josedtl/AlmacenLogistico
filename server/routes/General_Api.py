@@ -7,6 +7,8 @@ from EntityLayer.Catalogo.ModeloSaveEntity import *
 from BusinessLayer.TipoProducto_Business import *
 from EntityLayer.Catalogo.TipoProductoSaveEntity import *
 from EntityLayer.Catalogo.ParametrolikeModel import *
+from BusinessLayer.UnidadMedida_Business import *
+
 
 General = APIRouter()
 
@@ -139,6 +141,14 @@ def Get_ModeloItemsLike(Ent: ParametrolikeModel):
 def Post_TipoProductoItemsLikePost(Ent: ParametrolikeModel):
     try:
         jsonData = TipoProducto_Business.Get_TipoProductoItemsLike(Ent.Nombre)
+        return jsonData
+    except:
+        print("An exception occurred")
+
+@General.get("/api/General/Get_UnidadMedidaItems", tags=["General"])
+def Get_UnidadMedidaItemsLike():
+    try:
+        jsonData = UnidadMedida_Business.Get_UnidadMedidaItems()
         return jsonData
     except:
         print("An exception occurred")

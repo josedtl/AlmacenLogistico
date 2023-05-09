@@ -11,7 +11,7 @@ def Producto_Insert(Ent: ProductoSaveEntity):
     try:
         Ent.FechaRegistro = datetime.now()
         Ent.Estado = True
-        Ent.ModeloId = Producto_Business.SaveProducto(Ent)
+        Ent.ProductoId = Producto_Business.SaveProducto(Ent)
         return Ent
 
     except Exception as e:
