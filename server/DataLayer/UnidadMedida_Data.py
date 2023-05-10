@@ -1,6 +1,6 @@
 from .configMysql import get_connection
 from EntityLayer.Catalogo.UnidadMedidaEntity import *
-
+from EntityLayer.Catalogo.SelectAtributosModel import *
 import pymysql
 
 class UnidadMedida_Data:
@@ -16,7 +16,7 @@ class UnidadMedida_Data:
             list = []
 
             for row in resulset:
-                Data_ent = UnidadMedidaEntity.Cargar(row)
+                Data_ent = SelectAtributosModel.CargarUnidadMedida(row)
                 list.append(Data_ent)
             return list
         except Exception as e:

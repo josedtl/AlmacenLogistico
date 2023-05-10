@@ -1,7 +1,7 @@
 
 import React, {  useState, useEffect } from "react";
 import { Fragment } from "react";
-import { AutoCompleteTipoProductoAlter } from "./AutoComplete/AutoCompleteTipoProductoAlter";
+import { AutoCompleteTipoProducto } from "./AutoComplete/AutoCompleteTipoProducto";
 
 function About() {
 
@@ -16,7 +16,7 @@ function About() {
 
     return (<Fragment>
 
-        <AutoCompleteTipoProductoAlter
+        <AutoCompleteTipoProducto
             Id={setTipoProductoId}
             placeholder={"Ingrese Producto"}
             headerItem={"Tipo"}

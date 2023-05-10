@@ -29,13 +29,16 @@ class Producto_Data:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = (
                     Ent.ProductoId,
+                    Ent.Codigo,
+                    Ent.CodigoInterno,
                     Ent.TipoProductoId,
                     Ent.MarcaId,
                     Ent.ModeloId,
-                    Ent.NombreProducto,
+                    Ent.Descripcion,
                     Ent.UnidadMedidaId,
                     Ent.PrecioVenta,
                     Ent.PrecioCompra,
+                    Ent.MonedaId,
                     Ent.FechaRegistro,
                     Ent.CodUsuario,
                     Ent.Estado,

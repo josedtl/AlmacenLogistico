@@ -2,12 +2,9 @@ import react, { ChangeEvent, FC, useState } from "react";
 import styled from "styled-components";
 import { ITipoProducto } from '../../Models/General/ITipoProducto'
 import { Label } from "reactstrap";
-// import { FaArrowDown } from "@react-icons/all-files/fa/FaArrowDown";
 
 import {
   AutoCompleteContainer,
-  AutoCompleteIcon,
-  Input,
   AutoCompleteItem,
   AutoCompleteItemButton
 } from "./styles";
@@ -17,92 +14,62 @@ const Root = styled.div`
 
 
 interface autoCompleteProps {
-  iconColor?: string,
-  inputStyle?: react.CSSProperties,
-  optionsStyle?: react.CSSProperties,
   placeholder?: string,
   headerItem?: string,
-  Id?: any
+  Id?: any,
+  GetText: string,
+  SetTextNom :any
 }
 export const AutoCompleteTipoProducto: FC<autoCompleteProps> = ({
-  iconColor,
-  inputStyle,
-  optionsStyle,
   placeholder,
   headerItem,
-  Id
+  Id,
+  GetText,
+  SetTextNom
 }) => {
-  const [search, setSearch] = useState({
-    suggestions: [],
-    text: ""
-  });
+
+
+  const [dataItems, setdataItems] = useState<ITipoProducto[]>([]);
   const API = import.meta.env.VITE_REACT_API_URL
   const [isComponentVisible, setIsComponentVisible] = useState(true);
-  const [dataItems, setdataItems] = useState<ITipoProducto[]>([]);
 
 
   const onTextChanged = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    SetTextNom(e.target.value);
     var Cont: number = e.target.value.length;
-    const value = e.target.value;
-
     if (Cont > 0) {
 
-      fetch(`${API}/api/General/Post_TipoProductoItemsLikePost/`, {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          Nombre: e.target.value
-        })
-      }).then((response) => response.json())
-        .then((items) => setdataItems(items))
-        .catch((err) => console.log(err));
+        fetch(`${API}/api/General/Post_TipoProductoItemsLikePost/`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Nombre: e.target.value
+            })
+        }).then((response) => response.json())
+            .then((items) => setdataItems(items))
+            .catch((err) => console.log(err));
 
 
 
     } else {
-      setdataItems([])
+        setdataItems([])
     }
-
-
-    let suggestions: ITipoProducto[] = [];
-    // if (value.length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   suggestions = dataTipoProducto.sort().filter((v: ITipoProducto) => regex.test(v.name));
-    // }
-    suggestions = dataItems;
     setIsComponentVisible(true);
-    setSearch({ suggestions, text: value });
-  };
-
+};
   const suggestionSelected = (value: ITipoProducto) => {
     setIsComponentVisible(false);
     Id(value.TipoProductoId);
-    setSearch({
-      text: value.Nombre,
-      suggestions: []
-    });
+    SetTextNom(value.Nombre);
+   
   };
 
-  const { suggestions } = search;
 
   return (
     <Root>
-      <div
-        onClick={() => setIsComponentVisible(false)}
-        style={{
-          display: isComponentVisible ? "block" : "none",
-          width: "200vw",
-          height: "200vh",
-          backgroundColor: "transparent",
-          position: "fixed",
-          zIndex: 0,
-          top: 0,
-          left: 0
-        }}
-      />
+   
       <div>
 
         <Label for="exampleFormControlInput1" className="form-label">{headerItem}</Label>
@@ -110,18 +77,16 @@ export const AutoCompleteTipoProducto: FC<autoCompleteProps> = ({
         <input className="form-control"
           id="input"
           autoComplete="off"
-          value={search.text}
+          value={GetText}
           onChange={onTextChanged}
           type={"text"}
           placeholder={placeholder}
         />
-        <AutoCompleteIcon color={iconColor} isOpen={isComponentVisible}>
-          {/* <FaArrowDown /> */}
-        </AutoCompleteIcon>
+   
       </div>
-      {suggestions.length > 0 && isComponentVisible && (
-        <AutoCompleteContainer style={optionsStyle}>
-          {suggestions.map((item: ITipoProducto) => (
+      {dataItems.length > 0 && isComponentVisible && (
+        <AutoCompleteContainer >
+          {dataItems.map((item: ITipoProducto) => (
             <AutoCompleteItem key={item.TipoProductoId}>
               <AutoCompleteItemButton
                 key={item.TipoProductoId}
