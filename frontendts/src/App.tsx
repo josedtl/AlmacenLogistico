@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import  About  from './components/About';
+import About from './components/About';
 import { User } from './components/User';
 import { Navbar } from './components/Navbar';
 import { Menulateral } from './components/Menulateral';
@@ -12,6 +12,10 @@ import FormModelo from './components/Modelo/FormModelo';
 import FormTipoProducto from './components/TipoProducto/FormTipoProducto';
 import FormProducto from './components/Producto/FormProducto';
 import CargarCombo from './components/AutoComplete/CargarCombo';
+import Asignar from './components/EjemploPArametros/Asignar';
+import Mostrar from './components/EjemploPArametros/Mostrar';
+import FormProductoMain from './components/Producto/FormProductoMain';
+
 function App() {
   return (
     <BrowserRouter>
@@ -36,11 +40,15 @@ function App() {
             <Routes>
               <Route path="/" element={<User />} />
               <Route path="/TipoProducto/FormTipoProducto" element={<FormTipoProducto />} />
-              <Route path="/Marca/FormMarca" element={<FormMarca />} />
+              <Route path="/Marca/FormMarca" element={<FormMarca/>} />
               <Route path="/Modelo/FormModelo" element={<FormModelo />} />
               <Route path="/Producto/FormProducto" element={<FormProducto />} />
+              <Route path="/Producto/FormProducto/:Id" element={<FormProducto />} />
               <Route path="/AutoComplete/CargarCombo" element={<CargarCombo />} />
               <Route path="/About" element={<About />} />
+              <Route path="/Asignar" element={<Asignar/>} />
+              <Route path="/Mostrar/:user" element={<Mostrar/>} />
+              <Route path="/Producto/FormProductoMain" element={<FormProductoMain/>} />
             </Routes>
 
           </div>

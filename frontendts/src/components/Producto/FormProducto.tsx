@@ -12,6 +12,8 @@ import { AutoCompleteMarca } from "../AutoComplete/AutoCompleteMarca";
 import { AutoCompleteModelo } from "../AutoComplete/AutoCompleteModelo";
 import { IUnidadMedida } from '../../Models/General/IUnidadMedida'
 import { IProducto } from "../../Models/Producto/IProducto";
+import { IProductoMainItem } from "../../Models/Producto/IProductoMainItem";
+import { useParams } from "react-router-dom"
 
 function FormProducto() {
 
@@ -36,6 +38,11 @@ function FormProducto() {
     const [GetCodigo, SetCodigo] = useState<string>('');
     const [GetCodigoInterno, SetCodigoInterno] = useState<string>('');
     const [GetDescripcion, SetDescripcion] = useState<string>('');
+
+
+    let parames = useParams();
+
+
     interface IOpcionUnidadMedida {
         value: number,
         label: string;
@@ -47,13 +54,53 @@ function FormProducto() {
                 getItems();
 
                 SetValueUM('0')
+
+                getItemCabecera();
             } catch (e) {
                 // Some fetch error
             }
         })();
     }, []);
 
+    const getItemCabecera = async () => {
+        try {
 
+            fetch(`${API}/api/Producto/Get_ProductoMainItem/${parames.Id}`)
+                .then((response) => response.json())
+                .then((items) => {
+
+
+                    SetCodigo(items[0].Codigo);
+                    SetCodigoInterno(items[0].CodigoInterno);
+                    setTipoProductoId(items[0].TipoProductoId);
+                    SetTextNomTipoProducto(items[0].NomTipoProducto);
+                    setMarcaId(items[0].MarcaId);
+                    SetTextNomMarca(items[0].NomMarca);
+                    setModeloId(items[0].ModeloId);
+                    SetTextNomModelo(items[0].NomModelo);
+                    SetValueUM(items[0].UnidadMedidaId)
+                    SetDescripcion(items[0].Descripcion);
+                }
+                )
+                .catch((err) => console.log(err));
+
+        }
+        catch (e) {
+            console.log(e)
+        }
+
+        // DataUnidadedida.map((d) => {
+
+        //     var test: IOpcionUnidadMedida = {
+        //         value: d.UnidadMedidaId,
+        //         label: d.Nombre
+        //     };
+        //     GetDatosUnidad.push(test);
+        // })
+
+
+        // console.log(GetDatosUnidad)
+    };
     const Onclick_Guardar = () => {
 
         fetch(`${API}/api/Producto/Producto_Insert/`, {

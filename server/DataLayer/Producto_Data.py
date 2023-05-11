@@ -1,3 +1,5 @@
+from EntityLayer.Producto.ProductoMainModel import *
+from EntityLayer.Producto.ProductoItemMainEntity import *
 from .configMysql import get_connection
 from EntityLayer.Catalogo.ProductoEntity import *
 import pymysql
@@ -56,3 +58,42 @@ class Producto_Data:
         finally:
             cursor.close()
             conn.close()
+
+    def Get_ProductoMainItems():
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+                cursor.callproc("sp_ProductosMainAll")
+                resulset = cursor.fetchall()
+            conn.close()
+
+            list = []
+
+            for row in resulset:
+                Data_ent = ProductoMainModel.Cargar(row)
+                list.append(Data_ent)
+            return list
+        except Exception as e:
+            print(e)
+
+    def Get_ProductoMainItem(ProductoId: int):
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                args = (
+                    ProductoId,
+                )
+                cursor.callproc("sp_ProductosItemMain", args)
+                resulset = cursor.fetchall()
+            conn.close()
+
+            list = []
+            for row in resulset:
+                Data_ent = ProductoItemMainEntity.Cargar(row)
+                list.append(Data_ent)
+            return list
+        except Exception as e:
+            print(e)
