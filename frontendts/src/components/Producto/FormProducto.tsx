@@ -18,7 +18,7 @@ import { useParams } from "react-router-dom"
 function FormProducto() {
 
     const API = import.meta.env.VITE_REACT_API_URL
-
+    const [GetId, SetId] = useState<number>(0);
     const [GetTipoProductoId, setTipoProductoId] = useState<number>(0);
     const [GetTextNomTipoProducto, SetTextNomTipoProducto] = useState<string>('');
 
@@ -34,7 +34,7 @@ function FormProducto() {
 
     const [selectedOption, setSelectedOption] = useState<String>();
     const [DataUnidadedida, setDataUnidadedida] = useState<IOpcionUnidadMedida[]>([]);
-    const [GetValueUM, SetValueUM] = useState<string>('');
+    const [GetValueUM, SetValueUM] = useState<number>(0);
     const [GetCodigo, SetCodigo] = useState<string>('');
     const [GetCodigoInterno, SetCodigoInterno] = useState<string>('');
     const [GetDescripcion, SetDescripcion] = useState<string>('');
@@ -53,7 +53,7 @@ function FormProducto() {
             try {
                 getItems();
 
-                SetValueUM('0')
+                SetValueUM(0)
 
                 getItemCabecera();
             } catch (e) {
@@ -64,25 +64,27 @@ function FormProducto() {
 
     const getItemCabecera = async () => {
         try {
+            if (Number(parames.Id) > 0) {
 
-            fetch(`${API}/api/Producto/Get_ProductoMainItem/${parames.Id}`)
-                .then((response) => response.json())
-                .then((items) => {
+                fetch(`${API}/api/Producto/Get_ProductoMainItem/${parames.Id}`)
+                    .then((response) => response.json())
+                    .then((items) => {
 
-
-                    SetCodigo(items[0].Codigo);
-                    SetCodigoInterno(items[0].CodigoInterno);
-                    setTipoProductoId(items[0].TipoProductoId);
-                    SetTextNomTipoProducto(items[0].NomTipoProducto);
-                    setMarcaId(items[0].MarcaId);
-                    SetTextNomMarca(items[0].NomMarca);
-                    setModeloId(items[0].ModeloId);
-                    SetTextNomModelo(items[0].NomModelo);
-                    SetValueUM(items[0].UnidadMedidaId)
-                    SetDescripcion(items[0].Descripcion);
-                }
-                )
-                .catch((err) => console.log(err));
+                        SetId(items[0].ProductoId);
+                        SetCodigo(items[0].Codigo);
+                        SetCodigoInterno(items[0].CodigoInterno);
+                        setTipoProductoId(items[0].TipoProductoId);
+                        SetTextNomTipoProducto(items[0].NomTipoProducto);
+                        setMarcaId(items[0].MarcaId);
+                        SetTextNomMarca(items[0].NomMarca);
+                        setModeloId(items[0].ModeloId);
+                        SetTextNomModelo(items[0].NomModelo);
+                        SetValueUM(items[0].UnidadMedidaId)
+                        SetDescripcion(items[0].Descripcion);
+                    }
+                    )
+                    .catch((err) => console.log(err));
+            }
 
         }
         catch (e) {
@@ -109,32 +111,35 @@ function FormProducto() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                ProductoId: 0,
+                ProductoId: GetId,
                 Codigo: GetCodigo,
                 CodigoInterno: GetCodigoInterno,
                 TipoProductoId: GetTipoProductoId,
                 MarcaId: GetMarcaId,
                 ModeloId: GetModeloId,
                 Descripcion: GetDescripcion,
-                UnidadMedidaId: selectedOption,
+                UnidadMedidaId: GetValueUM,
                 PrecioVenta: 0,
                 PrecioCompra: 0,
                 MonedaId: 0,
                 FechaRegistro: new Date(),
                 CodUsuario: 'dtimo',
-                Estado: true
+                Estado: true,
+                Action: GetId > 0 ? 3 : 1
             })
         })
             .then(response => response.json())
             .then((item: IProducto) => {
-                if (item.MarcaId > 0) {
+                if (item.ProductoId > 0) {
+                    SetCodigo('');
+                    SetCodigoInterno('');
                     SetTextNomTipoProducto('');
                     SetTextNomMarca('');
                     SetTextNomModelo('');
-                    SetValueUM('0')
+                    SetValueUM(0)
                     setVisible(true);
                 } else {
-                    console.log(item);
+                    console.log(GetId);
                     return
                 }
 
@@ -194,7 +199,7 @@ function FormProducto() {
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         setSelectedOption(value);
-        SetValueUM(value)
+        SetValueUM(Number(value))
         console.log(event.target.value);
     };
 
@@ -229,7 +234,7 @@ function FormProducto() {
                     <div className="card-body">
                         <div className="row mb-3">
                             <div className="col">
-                                <Label for="validationCustom01" className="form-label">Codigo</Label>
+                                <Label for="validationCustom01" className="form-label font-weight-bold">Codigo</Label>
                                 <input
                                     type="text"
                                     className="form-control"

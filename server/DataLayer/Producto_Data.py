@@ -27,6 +27,12 @@ class Producto_Data:
     def SaveProducto(Ent: ProductoSaveEntity):
         try:
             conn = get_connection()
+            Store: str
+            if (Ent.Action == 1):
+                Store = "sp_ProductoInsert"
+            else:
+                Store = "sp_ProductoUpdate"
+
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = (
@@ -46,10 +52,11 @@ class Producto_Data:
                     Ent.Estado,
                 )
 
-                result_args = cursor.callproc("sp_ProductoInsert", args)
+                result_args = cursor.callproc(Store, args)
+                print(result_args[0])
                 for result in cursor.fetchall():
                     Ent.ProductoId = result["v_ProductoId"]
-
+            print(Ent.ProductoId)
             conn.commit()
             print(result_args[0])
             return Ent.ProductoId

@@ -1,9 +1,8 @@
 from fastapi import APIRouter
-from EntityLayer.Catalogo.ProductoEntity  import *
+from EntityLayer.Catalogo.ProductoEntity import *
 from BusinessLayer.Producto_Business import *
 
 Producto = APIRouter()
-
 
 
 @Producto.post("/api/Producto/Producto_Insert", tags=["Producto"])
@@ -17,6 +16,7 @@ def Producto_Insert(Ent: ProductoSaveEntity):
     except Exception as e:
         print(e)
 
+
 @Producto.get("/api/Producto/Get_ProductoMainItems/", tags=["Producto"])
 def Get_ProductoItems():
     try:
@@ -25,10 +25,11 @@ def Get_ProductoItems():
     except:
         print("An exception occurred")
 
+
 @Producto.get("/api/Producto/Get_ProductoMainItem/{ProductoId}", tags=["Producto"])
-def Get_ProductoMainItem(ProductoId : int):
+def Get_ProductoMainItem(ProductoId: int):
     try:
         jsonData = Producto_Business.Get_ProductoMainItem(ProductoId)
         return jsonData
     except:
-        print("An exception occurred")  
+        print("An exception occurred")

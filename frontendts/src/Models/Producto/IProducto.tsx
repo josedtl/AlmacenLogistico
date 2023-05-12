@@ -13,5 +13,6 @@ export interface IProducto {
     FechaRegistro: string;
     CodUsuario: string;
     Estado: boolean;
+    Action : number;
 
 }

@@ -49,3 +49,5 @@ class ProductoSaveEntity(BaseModel):
     FechaRegistro:  datetime
     CodUsuario: str
     Estado: bool
+    Action :int
+    
