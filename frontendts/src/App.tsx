@@ -15,6 +15,8 @@ import CargarCombo from './components/AutoComplete/CargarCombo';
 import Asignar from './components/EjemploPArametros/Asignar';
 import Mostrar from './components/EjemploPArametros/Mostrar';
 import FormProductoMain from './components/Producto/FormProductoMain';
+import OrdenPedidoMain from './components/OrdenPedido/OrdenPedidoMain';
+import OrdenPedidoSave from './components/OrdenPedido/OrdenPedidoSave';
 
 function App() {
   return (
@@ -49,6 +51,8 @@ function App() {
               <Route path="/Asignar" element={<Asignar/>} />
               <Route path="/Mostrar/:user" element={<Mostrar/>} />
               <Route path="/Producto/FormProductoMain" element={<FormProductoMain/>} />
+              <Route path="/OrdenPedido/OrdenPedidoMain" element={<OrdenPedidoMain/>} />
+              <Route path="/OrdenPedido/OrdenPedidoSave" element={<OrdenPedidoSave/>} />
             </Routes>
 
           </div>
