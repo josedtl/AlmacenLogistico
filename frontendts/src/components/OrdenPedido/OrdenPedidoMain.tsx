@@ -40,10 +40,10 @@ function OrdenPedidoMain() {
                 <div className="table-title">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h2>* <b>Producto</b></h2>
+                            <h2>* <b>Orden de Pedido</b></h2>
                         </div>
                         <div className="col-sm-6">
-                            <Link className="nav-item nav-link" to="/Producto/FormProducto/0">
+                            <Link className="nav-item nav-link" to="/OrdenPedido/OrdenPedidoSave">
                                 <Button
                                     className="btn btn-success"
                                     color="warning"

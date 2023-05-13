@@ -22,7 +22,7 @@ function DataTable(props: { DataList: IProductoMain[] }): JSX.Element {
     Contador += 1
     item.Cont = Contador
 
-    item.Url = `/Producto/FormProducto/${item.ProductoId}`;
+    item.Url = `/OrdenPedido/OrdenPedidoSave`;
 
     return (
       <tr key={item.ProductoId} >
