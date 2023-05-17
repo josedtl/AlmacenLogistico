@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from 'react-router-dom'
 import { Table, Button, Card, CardHeader, CardBody } from "reactstrap";
-import { IProductoMain } from '../../../Models/Producto/IProductoMain'
+import { IOrdenPedidoDetalle } from '../../../Models/OrdenPedido/IOrdenPedidoDetalle'
 const API = import.meta.env.VITE_REACT_API_URL
 import './DataTable.css'
 import { BsPencil } from 'react-icons/bs';
 
-function DataTable(props: { DataList: IProductoMain[] }): JSX.Element {
+function DataTable(props: { DataList: IOrdenPedidoDetalle[], updateState: any, deleteItemFromState: any }): JSX.Element {
 
 
   let m_Datos = "DAVID VARIABLE";
@@ -19,45 +19,22 @@ function DataTable(props: { DataList: IProductoMain[] }): JSX.Element {
   let Contador: number = 0
   const items = props.DataList.map((item) => {
 
-    Contador += 1
-    item.Cont = Contador
-
-    item.Url = `/OrdenPedido/OrdenPedidoSave`;
 
     return (
       <tr key={item.ProductoId} >
         <td width={40} scope="row">{item.Cont}</td>
-        <td width="150">{item.Codigo}</td>
-        <td width="150">{item.CodigoInterno}</td>
+        <td width="150">{item.Nombre}</td>
+        {/* <td width="150">{item.CodigoInterno}</td>
         <td width="1*">{item.NomTipoProducto}</td>
         <td width="1*">{item.NomMarca}</td>
         <td width="1*">{item.NomModelo}</td>
-        <td width="50*">{item.CodigoComercial}</td>
+        <td width="50*">{item.CodigoComercial}</td> */}
         {/* <td>{item.last}</td>
         <td>{item.email}</td>
         <td>{item.phone}</td>
         <td>{item.location}</td>
         <td>{item.hobby}</td> */}
-        <td width={100}>
-
-          <Link className="nav-item nav-link" to={item.Url}>
-
-            <Button
-              className="btn btn-secondary btn-sm btn-block"
-              color="warning"
-
-            >       <BsPencil /></Button>
-
-
-
-
-          </Link>
-
-
-
-
-
-        </td>
+      
       </tr>
     );
   });
