@@ -3,7 +3,7 @@ import { ITipoProducto } from '../Models/General/ITipoProducto'
 
 const API = import.meta.env.VITE_REACT_API_URL
 
-export function  ListTipoProducto (Nombre: string):ITipoProducto[]{
+export function  Lista_ (Nombre: string):ITipoProducto[]{
     const [dataTipoProducto, setdataTipoProducto] = useState<ITipoProducto[]>([]);
     fetch(`${API}/api/General/Get_TipoProductoItemsLike/` + Nombre)
         .then((response) => response.json())

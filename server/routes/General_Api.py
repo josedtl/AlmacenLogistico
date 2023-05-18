@@ -8,7 +8,7 @@ from BusinessLayer.TipoProducto_Business import *
 from EntityLayer.Catalogo.TipoProductoSaveEntity import *
 from EntityLayer.Catalogo.ParametrolikeModel import *
 from BusinessLayer.UnidadMedida_Business import *
-
+from BusinessLayer.TipoRequerimiento_Business import *
 
 General = APIRouter()
 
@@ -149,6 +149,23 @@ def Post_TipoProductoItemsLikePost(Ent: ParametrolikeModel):
 def Get_UnidadMedidaItemsLike():
     try:
         jsonData = UnidadMedida_Business.Get_UnidadMedidaItems()
+        return jsonData
+    except:
+        print("An exception occurred")
+
+
+@General.post("/api/General/Get_ProductoConcatenadolikeItem", tags=["General"])
+def Get_ProductoConcatenadolikeItem(Ent: ParametrolikeModel):
+    try:
+        jsonData = Producto_Business.Get_ProductoConcatenadolikeItem(Ent.Nombre)
+        return jsonData
+    except:
+        print("An exception occurred")
+
+@General.get("/api/General/Get_TipoRequerimientoItems", tags=["General"])
+def Get_TipoRequerimientoItems():
+    try:
+        jsonData = TipoRequerimiento_Business.Get_TipoRequerimientoItems()
         return jsonData
     except:
         print("An exception occurred")

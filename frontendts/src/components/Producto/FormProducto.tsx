@@ -162,17 +162,6 @@ function FormProducto() {
             console.log(e)
         }
 
-        // DataUnidadedida.map((d) => {
-
-        //     var test: IOpcionUnidadMedida = {
-        //         value: d.UnidadMedidaId,
-        //         label: d.Nombre
-        //     };
-        //     GetDatosUnidad.push(test);
-        // })
-
-
-        // console.log(GetDatosUnidad)
     };
     const items = DataUnidadedida.map((item) => {
         return (

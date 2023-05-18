@@ -50,7 +50,7 @@ function ModalForm(props: { buttonLabel?: string, item?: IOrdenPedidoDetalle, up
 onClick={toggle}    style={{ float: "right", width: "120px"}}
 className="btn btn-success" data-toggle="modal"><i > <BsPlusSquareFill /></i> <span>Agregar</span></a>
     );
-    title = "Agregar Modelo";
+    title = "Agregar Producto";
   }
 
   return (

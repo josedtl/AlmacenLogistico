@@ -2,6 +2,7 @@ from EntityLayer.Producto.ProductoMainModel import *
 from EntityLayer.Producto.ProductoItemMainEntity import *
 from .configMysql import get_connection
 from EntityLayer.Catalogo.ProductoEntity import *
+from EntityLayer.Producto.ProductoEntity import *
 import pymysql
 
 
@@ -28,7 +29,7 @@ class Producto_Data:
         try:
             conn = get_connection()
             Store: str
-            if (Ent.Action == 1):
+            if Ent.Action == 1:
                 Store = "sp_ProductoInsert"
             else:
                 Store = "sp_ProductoUpdate"
@@ -90,9 +91,7 @@ class Producto_Data:
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (
-                    ProductoId,
-                )
+                args = (ProductoId,)
                 cursor.callproc("sp_ProductosItemMain", args)
                 resulset = cursor.fetchall()
             conn.close()
@@ -100,6 +99,25 @@ class Producto_Data:
             list = []
             for row in resulset:
                 Data_ent = ProductoItemMainEntity.Cargar(row)
+                list.append(Data_ent)
+            return list
+        except Exception as e:
+            print(e)
+    
+    def Get_ProductoConcatenadoItemsLike( v_Nombre:str):
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                args = (  v_Nombre,)
+                cursor.callproc("sp_ProductoConcatenadoItemsLike",args)
+                resulset = cursor.fetchall()
+            conn.close()
+           
+            list = []
+
+            for row in resulset:
+                Data_ent = ProductoLikeModel.CargarLike(row)
                 list.append(Data_ent)
             return list
         except Exception as e:

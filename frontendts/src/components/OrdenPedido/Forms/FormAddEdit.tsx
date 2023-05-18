@@ -2,10 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 const API = import.meta.env.VITE_REACT_API_URL
 import { IOrdenPedidoDetalle } from '../../../Models/OrdenPedido/IOrdenPedidoDetalle'
+import { AutoCompleteProductoCont } from "../../AutoComplete/AutoCompleteProductoCont";
+import { ITipoRequerimiento } from '../../../Models/General/ITipoRequerimiento'
 
 function AddEditForm(props: { item?: IOrdenPedidoDetalle, addItemToState?: any, toggle?: any, updateState?: any }) {
 
   const [getModeloId, setModeloId] = useState(0)
+  const [GetProductoId, setProductoId] = useState<number>(0);
+  const [GetTextNomProducto, SetTextNomProducto] = useState<string>('');
+  const [getDataTipoRequerimento, setDataTipoRequerimento] = useState<ITipoRequerimiento[]>([]);
+  const [GetValueTipoRequerimientoId, SetValueTipoRequerimientoId] = useState<number>(0);
+  const [GetCantidadRequerida, SetCantidadRequerida] = useState<number>(0);
 
   const [form, setValues] = useState<IOrdenPedidoDetalle>({
     OrdenPedidoDetalleId: 0,
@@ -16,59 +23,90 @@ function AddEditForm(props: { item?: IOrdenPedidoDetalle, addItemToState?: any, 
     CantidadFaltante: 0,
     CantidadAtentida: 0,
     FlaAtendido: false,
-    Nombre: ''
+    Nombre: '',
+    Cont: 0
 
   });
 
   const onChange = (e: any) => {
     setValues({
       ...form,
-      [e.target.name]: e.target.value.toUpperCase()
+      [e.target.name]: e.target.value
     });
   };
+  const items = getDataTipoRequerimento.map((item) => {
+    return (
+      <option value={item.TipoRequerimientoId}>{item.Nombre}</option>
+    );
 
+  });
+
+  const getItemTipoRequerimiento = async () => {
+    try {
+
+      fetch(`${API}/api/General/Get_TipoRequerimientoItems/`)
+        .then((response) => response.json())
+        .then((items) => setDataTipoRequerimento(items))
+        .catch((err) => console.log(err));
+    }
+    catch (e) {
+      console.log(e)
+    }
+
+  };
+
+  const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    // setSelectedOption(value);
+    SetValueTipoRequerimientoId(Number(value))
+    console.log(event.target.textContent);
+  };
   const submitFormAdd = (e: any) => {
     console.log(props.item);
     e.preventDefault();
     let errores: string[] = []
     if (form.Nombre === '') errores.push('El nombre no puede ser un número')
 
-    if (errores.length === 0) {
+    // if (errores.length === 0) {
 
-      fetch(`${API}/api/General/Modelo_Insert/`, {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+    //   fetch(`${API}/api/General/Modelo_Insert/`, {
+    //     method: 'post',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
 
-          OrdenPedidoDetalleId: 0,
-          OrdenPedidoId: 0,
-          ProductoId: 0,
-          TipoRequerimientoId: 0,
-          CantidadRequerida: 0,
-          CantidadFaltante: 0,
-          CantidadAtentida: 0,
-          FlaAtendido: false
-        })
-      })
-        .then(response => response.json())
-        .then((item: IOrdenPedidoDetalle) => {
-          if (item.OrdenPedidoDetalleId > 0) {
-            props.addItemToState(item)
-            props.toggle()
-          } else {
-            return
-          }
+    //       OrdenPedidoDetalleId: 0,
+    //       OrdenPedidoId: 0,
+    //       ProductoId: 0,
+    //       TipoRequerimientoId: 0,
+    //       CantidadRequerida: 0,
+    //       CantidadFaltante: 0,
+    //       CantidadAtentida: 0,
+    //       FlaAtendido: false
+    //     })
+    //   })
+    //     .then(response => response.json())
+    //     .then((item: IOrdenPedidoDetalle) => {
+    //       if (item.OrdenPedidoDetalleId > 0) {
+    //         props.addItemToState(item)
+    //         props.toggle()
+    //       } else {
+    //         return
+    //       }
 
-        })
-        .catch(err => console.log(err))
+    //     })
+    //     .catch(err => console.log(err))
 
-
-
-      // props.addItemToState(form);
-      props.toggle();
-    }
+    //   }
+    setValues({
+      ...form,
+      OrdenPedidoDetalleId: 0, Nombre: '15'
+    });
+    form.Nombre = GetTextNomProducto;
+    // form.CantidadRequerida = GetTextNomProducto;
+    props.addItemToState(form);
+    props.toggle();
   };
 
   const submitFormEdit = (e: any) => {
@@ -110,43 +148,57 @@ function AddEditForm(props: { item?: IOrdenPedidoDetalle, addItemToState?: any, 
         ...form,
         OrdenPedidoDetalleId, Nombre
       });
+
+
     }
+
+    getItemTipoRequerimiento();
   }, [props.item]);
 
   return (
     <Form onSubmit={props.item ? submitFormEdit : submitFormAdd}>
       <FormGroup>
-        <Label for="Nombre">Nombre</Label>
-        <Input
-          type="text"
-          name="Nombre"
-          id="Nombre"
-          onChange={onChange}
-          value={form.Nombre === null ? "" : form.Nombre}
+
+
+        <AutoCompleteProductoCont
+          Id={setProductoId}
+          placeholder={"Ingrese Producto"}
+          headerItem={"Nombre"}
+          GetText={GetTextNomProducto}
+          SetTextNom={SetTextNomProducto}
         />
+
       </FormGroup>
       <div className="row">
         <div className="col">
           <FormGroup>
-            <Label for="Nombre">Tipo de Requerimiento</Label>
-            <Input
-              type="text"
-              name="Nombre"
-              id="Nombre"
-              onChange={onChange}
-              value={form.TipoRequerimientoId === null ? "" : form.TipoRequerimientoId}
-            />
+            <Label
+              className="font-weight-bold"
+              for="exampleSelect">
+              Unidad de Medida
+            </Label>
+            <select className="form-control"
+              value={GetValueTipoRequerimientoId}
+              onChange={selectChange} >
+              <option value={0} selected disabled >
+                Seleccionar ---------------------------------------------------------------
+              </option>
+              {items}
+
+
+
+            </select>
           </FormGroup>
         </div>
         <div className="col">
           <FormGroup>
             <Label for="Nombre">Cantidad</Label>
             <Input
-              type="text"
-              name="Nombre"
-              id="Nombre"
+              type="number"
+              name="CantidadRequerida"
+              id="CantidadRequerida"
               onChange={onChange}
-              value={form.Nombre === null ? "" : form.Nombre}
+              value={form.CantidadRequerida === null ? "" : form.CantidadRequerida}
             />
           </FormGroup>
         </div>

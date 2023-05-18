@@ -20,4 +20,9 @@ class ProductoMainModel:
         c.Descripcion = _DB['Descripcion']
         return c
 
+    def CargarLike(_DB: any):
+        c = ProductoMainModel()
+        c.ProductoId = _DB['ProductoId']
+        c.NomTipoProducto = _DB['NomTipoProducto']
+        return c
 

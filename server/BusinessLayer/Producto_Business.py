@@ -58,3 +58,19 @@ class Producto_Business:
             return jsonData
         except Exception as e:
             print(e)
+
+    def Get_ProductoConcatenadolikeItem( v_Nombre:str):
+        try:
+            data = Producto_Data.Get_ProductoConcatenadoItemsLike(v_Nombre)
+            print(data)
+            jsonData = []
+
+            for row in data:
+                jsonStr = json.dumps(row.__dict__)
+                jsonStr = json.loads(jsonStr)
+                
+                jsonData.append(jsonStr)
+
+            return jsonData
+        except Exception as e:
+            print(e)
