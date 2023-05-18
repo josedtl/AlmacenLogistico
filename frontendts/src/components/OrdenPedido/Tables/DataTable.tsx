@@ -24,7 +24,10 @@ function DataTable(props: { DataList: IOrdenPedidoDetalle[], updateState: any, d
       <tr key={item.ProductoId} >
         <td width={40} scope="row">{item.Cont}</td>
         <td width="150">{item.Nombre}</td>
+        <td width="150">{item.NomRequerimiento}</td>
+        <td width="150">U</td>
         <td width="150">{item.CantidadRequerida}</td>
+        <td width="150"></td>
         {/* <td width="150">{item.CodigoInterno}</td>
         <td width="1*">{item.NomTipoProducto}</td>
         <td width="1*">{item.NomMarca}</td>
@@ -74,8 +77,6 @@ function DataTable(props: { DataList: IOrdenPedidoDetalle[], updateState: any, d
               <thead className="thead-dark">
                 <tr>
                   <th style={style.th}>Nº</th>
-                  <th style={style.th}>Codigo</th>
-                  <th style={style.th}>Codigo Interno</th>
                   <th style={style.th}>Nombre</th>
                   <th style={style.th}>Requerimiento</th>
                   <th style={style.th}>Unidad M.</th>

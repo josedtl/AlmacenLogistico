@@ -12,6 +12,7 @@ function AddEditForm(props: { item?: IOrdenPedidoDetalle, addItemToState?: any, 
   const [GetTextNomProducto, SetTextNomProducto] = useState<string>('');
   const [getDataTipoRequerimento, setDataTipoRequerimento] = useState<ITipoRequerimiento[]>([]);
   const [GetValueTipoRequerimientoId, SetValueTipoRequerimientoId] = useState<number>(0);
+  const [GetNomTipoRequerimiento, SetNomTipoRequerimiento] = useState<string>('');
   const [GetCantidadRequerida, SetCantidadRequerida] = useState<number>(0);
 
   const [form, setValues] = useState<IOrdenPedidoDetalle>({
@@ -24,7 +25,8 @@ function AddEditForm(props: { item?: IOrdenPedidoDetalle, addItemToState?: any, 
     CantidadAtentida: 0,
     FlaAtendido: false,
     Nombre: '',
-    Cont: 0
+    Cont: 0,
+    
 
   });
 
@@ -34,9 +36,9 @@ function AddEditForm(props: { item?: IOrdenPedidoDetalle, addItemToState?: any, 
       [e.target.name]: e.target.value
     });
   };
-  const items = getDataTipoRequerimento.map((item) => {
+  const itemsTipoRequerimiento = getDataTipoRequerimento.map((item) => {
     return (
-      <option value={item.TipoRequerimientoId}>{item.Nombre}</option>
+      <option value={item.TipoRequerimientoId} >{item.Nombre}</option>
     );
 
   });
@@ -58,8 +60,11 @@ function AddEditForm(props: { item?: IOrdenPedidoDetalle, addItemToState?: any, 
   const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     // setSelectedOption(value);
+    
     SetValueTipoRequerimientoId(Number(value))
-    console.log(event.target.textContent);
+    SetNomTipoRequerimiento(event.target.selectedOptions[0].text);
+    // console.log(event.target.value);
+    // console.log(event.target.selectedOptions[0].text);
   };
   const submitFormAdd = (e: any) => {
     console.log(props.item);
@@ -67,43 +72,9 @@ function AddEditForm(props: { item?: IOrdenPedidoDetalle, addItemToState?: any, 
     let errores: string[] = []
     if (form.Nombre === '') errores.push('El nombre no puede ser un número')
 
-    // if (errores.length === 0) {
-
-    //   fetch(`${API}/api/General/Modelo_Insert/`, {
-    //     method: 'post',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-
-    //       OrdenPedidoDetalleId: 0,
-    //       OrdenPedidoId: 0,
-    //       ProductoId: 0,
-    //       TipoRequerimientoId: 0,
-    //       CantidadRequerida: 0,
-    //       CantidadFaltante: 0,
-    //       CantidadAtentida: 0,
-    //       FlaAtendido: false
-    //     })
-    //   })
-    //     .then(response => response.json())
-    //     .then((item: IOrdenPedidoDetalle) => {
-    //       if (item.OrdenPedidoDetalleId > 0) {
-    //         props.addItemToState(item)
-    //         props.toggle()
-    //       } else {
-    //         return
-    //       }
-
-    //     })
-    //     .catch(err => console.log(err))
-
-    //   }
-    setValues({
-      ...form,
-      OrdenPedidoDetalleId: 0, Nombre: '15'
-    });
+  
     form.Nombre = GetTextNomProducto;
+    form.NomRequerimiento = GetNomTipoRequerimiento
     // form.CantidadRequerida = GetTextNomProducto;
     props.addItemToState(form);
     props.toggle();
@@ -140,6 +111,8 @@ function AddEditForm(props: { item?: IOrdenPedidoDetalle, addItemToState?: any, 
   };
 
   useEffect(() => {
+
+    getItemTipoRequerimiento();
     if (props.item) {
       const { OrdenPedidoDetalleId, Nombre } = props.item;
       // setValues({ ModeloId, Nombre });
@@ -149,10 +122,10 @@ function AddEditForm(props: { item?: IOrdenPedidoDetalle, addItemToState?: any, 
         OrdenPedidoDetalleId, Nombre
       });
 
-
     }
+    
+  
 
-    getItemTipoRequerimiento();
   }, [props.item]);
 
   return (
@@ -175,15 +148,15 @@ function AddEditForm(props: { item?: IOrdenPedidoDetalle, addItemToState?: any, 
             <Label
               className="font-weight-bold"
               for="exampleSelect">
-              Unidad de Medida
+                Requerimiento
             </Label>
             <select className="form-control"
               value={GetValueTipoRequerimientoId}
               onChange={selectChange} >
-              <option value={0} selected disabled >
+              <option value={0} selected disabled  >
                 Seleccionar ---------------------------------------------------------------
               </option>
-              {items}
+              {itemsTipoRequerimiento}
 
 
 

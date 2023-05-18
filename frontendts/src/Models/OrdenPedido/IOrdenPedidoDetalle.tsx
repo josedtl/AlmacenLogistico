@@ -9,7 +9,8 @@ export interface IOrdenPedidoDetalle {
     FlaAtendido: boolean;
     Nombre : string;
     Cont:number
-    Codigo? :string
+    Codigo? :string,
+    NomRequerimiento? :string
 
   
 
