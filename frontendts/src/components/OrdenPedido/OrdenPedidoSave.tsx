@@ -27,18 +27,18 @@ function OrdenPedidoSave(props: IOrdenPedidoDetalle) {
 
   const API = import.meta.env.VITE_REACT_API_URL
 
-  const getItems = () => {
-    try {
+  // const getItems = () => {
+  //   try {
 
-      fetch(`${API}/api/General/Get_ModeloItems/`)
-        .then((response) => response.json())
-        .then((items) => setItems(items))
-        .catch((err) => console.log(err));
-    }
-    catch (e) {
-      console.log(e)
-    }
-  };
+  //     fetch(`${API}/api/General/Get_ModeloItems/`)
+  //       .then((response) => response.json())
+  //       .then((items) => setItems(items))
+  //       .catch((err) => console.log(err));
+  //   }
+  //   catch (e) {
+  //     console.log(e)
+  //   }
+  // };
 
   const addItemToState = (item: IOrdenPedidoDetalle) => {
     setItems([...items, item]);
@@ -59,8 +59,13 @@ function OrdenPedidoSave(props: IOrdenPedidoDetalle) {
     setItems(updatedItems);
   };
 
+  const Onclick_Guardar = () => {
+    console.log(items);
+
+  }
+
   useEffect(() => {
-    getItems();
+    // getItems();
   }, []);
 
   return (
@@ -90,11 +95,20 @@ function OrdenPedidoSave(props: IOrdenPedidoDetalle) {
               <h2>* <b>Orden de Pedido</b></h2>
             </div>
             <div className="col-sm-6">
-              {/* <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
-              <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>Delete</span></a>
-            */}
+
+              <a href="#addEmployeeModal"
+                className="btn btn-success"
+                onClick={Onclick_Guardar}
+                data-toggle="modal">
+                <i className="material-icons">&#xE147;</i>
+                <span>Guardar</span></a>
+
+              {/* <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>Delete</span></a> */}
+
+
+
               <ModalForm buttonLabel=""
-            addItemToState={addItemToState} />
+                addItemToState={addItemToState} />
             </div>
 
           </div>
@@ -109,7 +123,7 @@ function OrdenPedidoSave(props: IOrdenPedidoDetalle) {
           />
         </Col>
       </Row>
-      
+
     </Container>
   );
 }

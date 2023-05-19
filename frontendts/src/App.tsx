@@ -6,7 +6,7 @@ import { User } from './components/User';
 import { Navbar } from './components/Navbar';
 import { Menulateral } from './components/Menulateral';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootswatch/dist/sandstone/bootstrap.min.css';
+import 'bootswatch/dist/Lumen/bootstrap.min.css';
 import FormMarca from './components/Marca/FormMarca';
 import FormModelo from './components/Modelo/FormModelo';
 import FormTipoProducto from './components/TipoProducto/FormTipoProducto';
