@@ -1,14 +1,18 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 from routes.General_Api import General
 from routes.Producto_Api import Producto
 
-app = FastAPI( title="Adcode",   description='Sistema logistico  ',)
+app = FastAPI(title="Adcode",   description='Sistema logistico  ',)
 
 origins = [
+    "http://192.168.18.12:3000",
     "http://localhost:3000",
-    "http://localhost:5173"
+    "http://localhost:5173",
+
 ]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -47,63 +51,3 @@ tags_metadata = [
     #     },
     # },
 ]
-
-
-# from fastapi import FastAPI
-# from datetime import datetime
-# from uuid import uuid4 as uuid
-# from BusinessLayer.PersonaNatural_Business import *
-# from EntityLayer.PersonaNatural.PersonaNaturalModel import *
-
-# app = FastAPI()
-
-# @app.get('/Get_PersonaNaturalItems')
-# def Get_PersonaNaturalItems():
-#     try:
-#         jsonData = PersonaNatural_Business.Get_PersonaNaturalItems()
-#         return jsonData
-#     except:
-#         print("An exception occurred")
-
-# @app.post('/Post_PersonaNatural_Insert')
-# def Post_PersonaNatural_Insertaa(Ent : PersonaNaturalSave):
-#     try:
-
-#         Ent.PERID = 0
-#         Ent.TIP_DOCID = 1
-#         Ent.FEC_NAC = datetime.now
-#         Ent.FEC_VEC = datetime.now
-#         Ent.TIP_SEXID = 1
-#         Ent.TIP_CIVID = 1
-#         Ent.DIR = 'FG'
-#         Ent.DIR_REF = 'DRE'
-#         Ent.UBIID = 0
-#         Ent.FEC_REG = datetime.now
-#         Ent.USU_REG = 'adm'
-#         Ent.EST_REG = True
-#         jsonData = PersonaNatural_Business.Post_PersonaNatural_Insert(Ent)
-
-  
-#         return True
-#     except:
-#         print("An exception occurred")
-
-
-
-# @app.delete('/PersonaNatural_Delete/<Id>')
-# def Post_PersonaNatural_Deletee(Id):
-#     try:
-#         jsonData = PersonaNatural_Business.Post_PersonaNatural_Delete(
-#             Id)
-#         return True
-#     except:
-#         print("An exception occurred")
-
-
-# @app.post('/update_PersonaNatural_Insert')
-# def Update_PersonaNatural_Insert(Ent : PersonaNaturalSave):
-#     try:
-#         jsonData = PersonaNatural_Business.Update_PersonaNatural_Insert(Ent)
-#         return jsonData
-#     except:
-#         print("An exception occurred")
