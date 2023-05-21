@@ -19,11 +19,12 @@ function DataTable(props: { DataList: IOrdenPedidoDetalle[], updateState: any, d
   let Contador: number = 0
   const items = props.DataList.map((item) => {
 
-
+    Contador++;
+    item.Cont=Contador;
     return (
       <tr key={item.ProductoId} >
         <td width={40} scope="row">{item.Cont}</td>
-        <td width="150">{item.Nombre}</td>
+        <td width="1*">{item.Nombre}</td>
         <td width="150">{item.NomRequerimiento}</td>
         <td width="150">U</td>
         <td width="150">{item.CantidadRequerida}</td>
