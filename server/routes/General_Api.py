@@ -9,6 +9,7 @@ from EntityLayer.Catalogo.TipoProductoSaveEntity import *
 from EntityLayer.Catalogo.ParametrolikeModel import *
 from BusinessLayer.UnidadMedida_Business import *
 from BusinessLayer.TipoRequerimiento_Business import *
+from routes.ResponseAPI import *
 
 General = APIRouter()
 
@@ -100,7 +101,6 @@ def Get_TipoProductoItemsLike(v_Nombre: str):
         print("An exception occurred")
 
 
-
 @General.post("/api/General/TipoProducto_Insert", tags=["General"])
 def Horario_Insert(Ent: TipoProductoSaveEntity):
     try:
@@ -121,6 +121,7 @@ def TipoProducto_Delete(id):
     except Exception as e:
         print(e)
 
+
 @General.post("/api/General/Get_MarcaItemsLike", tags=["General"])
 def Get_MarcaItemsLike(Ent: ParametrolikeModel):
     try:
@@ -128,6 +129,7 @@ def Get_MarcaItemsLike(Ent: ParametrolikeModel):
         return jsonData
     except:
         print("An exception occurred")
+
 
 @General.post("/api/General/Get_ModeloItemsLike", tags=["General"])
 def Get_ModeloItemsLike(Ent: ParametrolikeModel):
@@ -137,6 +139,7 @@ def Get_ModeloItemsLike(Ent: ParametrolikeModel):
     except:
         print("An exception occurred")
 
+
 @General.post("/api/General/Post_TipoProductoItemsLikePost", tags=["General"])
 def Post_TipoProductoItemsLikePost(Ent: ParametrolikeModel):
     try:
@@ -144,6 +147,7 @@ def Post_TipoProductoItemsLikePost(Ent: ParametrolikeModel):
         return jsonData
     except:
         print("An exception occurred")
+
 
 @General.get("/api/General/Get_UnidadMedidaItems", tags=["General"])
 def Get_UnidadMedidaItemsLike():
@@ -157,10 +161,12 @@ def Get_UnidadMedidaItemsLike():
 @General.post("/api/General/Get_ProductoConcatenadolikeItem", tags=["General"])
 def Get_ProductoConcatenadolikeItem(Ent: ParametrolikeModel):
     try:
-        jsonData = Producto_Business.Get_ProductoConcatenadolikeItem(Ent.Nombre)
+        jsonData = Producto_Business.Get_ProductoConcatenadolikeItem(
+            Ent.Nombre)
         return jsonData
     except:
         print("An exception occurred")
+
 
 @General.get("/api/General/Get_TipoRequerimientoItems", tags=["General"])
 def Get_TipoRequerimientoItems():
@@ -169,3 +175,17 @@ def Get_TipoRequerimientoItems():
         return jsonData
     except:
         print("An exception occurred")
+
+
+# @General.get("/api/General/Get_MarcaItemsAlter/", tags=["General"])
+# def Get_MarcaItemsAlter():
+#     try:
+#         dato = ResponseAPI
+#         jsonData = Marca_Business.Get_MarcaItems()
+
+#         dato.EsCorrecto = True
+#         dato.Valor = jsonData
+#         dato.Mensaje = 'Correcto'
+#         return json.dumps(dato)
+#     except:
+#         print("An exception occurred")
