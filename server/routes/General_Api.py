@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Response
 from BusinessLayer.Producto_Business import *
 from BusinessLayer.Marca_Business import *
 from EntityLayer.Catalogo.MarcaSaveEntity import *
@@ -10,7 +10,7 @@ from EntityLayer.Catalogo.ParametrolikeModel import *
 from BusinessLayer.UnidadMedida_Business import *
 from BusinessLayer.TipoRequerimiento_Business import *
 from routes.ResponseAPI import *
-
+from fastapi.encoders import jsonable_encoder
 General = APIRouter()
 
 
@@ -177,15 +177,14 @@ def Get_TipoRequerimientoItems():
         print("An exception occurred")
 
 
-# @General.get("/api/General/Get_MarcaItemsAlter/", tags=["General"])
-# def Get_MarcaItemsAlter():
-#     try:
-#         dato = ResponseAPI
-#         jsonData = Marca_Business.Get_MarcaItems()
+dato = ResponseAPI()
 
-#         dato.EsCorrecto = True
-#         dato.Valor = jsonData
-#         dato.Mensaje = 'Correcto'
-#         return json.dumps(dato)
-#     except:
-#         print("An exception occurred")
+
+@General.get("/api/General/Get_MarcaItemsAlter/", tags=["General"])
+def Get_MarcaItemsAlter():
+    try:
+        jsonData = Marca_Business.Get_MarcaItemsAlter()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())

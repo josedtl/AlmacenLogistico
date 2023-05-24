@@ -48,3 +48,10 @@ class Marca_Business:
             return data
         except Exception as e:
             print(e)
+
+    def Get_MarcaItemsAlter():
+        try:
+            data = Marca_Data.Get_MarcaItemsAlter()
+            return data
+        except Exception as e:
+            print(e)

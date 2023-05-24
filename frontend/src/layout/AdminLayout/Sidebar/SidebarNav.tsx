@@ -151,7 +151,7 @@ export default function SidebarNav() {
         <SidebarNavItem href="#">Producto</SidebarNavItem>
         <SidebarNavItem href="#">Tipo Producto</SidebarNavItem>
         <SidebarNavItem href="/Marca/FormMarca">Marca</SidebarNavItem>
-        <SidebarNavItem href="#">Modelo</SidebarNavItem>
+        <SidebarNavItem href="/Modelo/FormModelo">Modelo</SidebarNavItem>
       </SidebarNavGroup>
       <SidebarNavTitle>Extras</SidebarNavTitle>
 
