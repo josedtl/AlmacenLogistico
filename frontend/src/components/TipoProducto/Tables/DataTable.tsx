@@ -2,15 +2,17 @@ import React from "react";
 import { Table, Button, Card, CardHeader, CardBody } from "reactstrap";
 import ModalForm from "../Modals/Modal";
 import { ITipoProducto } from '../ITipoProducto'
-const API = import.meta.env.VITE_REACT_API_URL
-import './DataTable.css'
+// import './DataTable.css'
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
 function DataTable(props: { DataList: ITipoProducto[], updateState: any, deleteItemFromState: any }): JSX.Element {
+
+  const URL = process.env.NEXT_PUBLIC_SERVER_API_BASE_URL;
+
   const deleteItem = (TipoProductoId?: number) => {
     let confirmDelete = window.confirm("Delete item forever?");
     if (confirmDelete) {
-      fetch(`${API}/api/General/TipoProducto_Delete/${TipoProductoId}`, {
+      fetch(`${URL}/api/General/TipoProducto_Delete/${TipoProductoId}`, {
         method: "delete",
         headers: {
           "Content-Type": "application/json",

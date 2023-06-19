@@ -1,14 +1,14 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { Card } from 'react-bootstrap'
-import { AdminLayout } from '@/layout'
-import React from 'react'
-import { newResource, Resource } from '@/models/resource'
-import DataTable from "@/components/Marca/Tables/DataTable";
-import { IMarca } from '@/models/IMarca'
-import ModalForm from '@/components/Marca/Modals/Modal'
+import { AdminLayout } from '@layout'
+import React, { useEffect, useState } from 'react'
+import { newResource, Resource } from '@models/resource'
+import DataTable from "@components/TipoProducto/Tables/DataTable";
+import { ITipoProducto } from '@models/ITipoProducto'
+import ModalForm from '@components/TipoProducto/Modals/Modal'
 
 type Props = {
-  pokemonResource: Resource<IMarca>;
+  pokemonResource: Resource<ITipoProducto>;
   page: number;
   perPage: number;
   sort: string;
@@ -16,25 +16,24 @@ type Props = {
 }
 
 
-const page: NextPage<Props> = (props) => {
+const FormTipoProducto: NextPage<Props> = (props) => {
   const {
     pokemonResource, page, perPage, sort, order,
   } = props
   const URL = process.env.NEXT_PUBLIC_SERVER_API_BASE_URL;
-  const [items, setItems] = React.useState<IMarca[]>([]);
+  const [items, setItems] = useState<ITipoProducto[]>([]);
 
-  const addItemToState = (item: IMarca) => {
+  const addItemToState = (item: ITipoProducto) => {
     setItems([...items, item]);
   };
 
   const getItems = () => {
     try {
 
-      fetch(`${URL}/api/General/Get_MarcaItemsAlter/`)
+      fetch(`${URL}/api/General/Get_TipoProductoItems/`)
         .then((response) => response.json())
         .then((ResponseData) => {
-          if (ResponseData.State) setItems(ResponseData.Value)
-          else console.log(ResponseData)
+          setItems(ResponseData)
         }
         )
         .catch((err) => console.log(err));
@@ -44,8 +43,8 @@ const page: NextPage<Props> = (props) => {
     }
   };
 
-  const updateState = (item: IMarca) => {
-    const itemIndex = items.findIndex((data) => data.MarcaId === item.MarcaId);
+  const updateState = (item: ITipoProducto) => {
+    const itemIndex = items.findIndex((data) => data.TipoProductoId === item.TipoProductoId);
     const newArray = [
       ...items.slice(0, itemIndex),
       item,
@@ -55,11 +54,11 @@ const page: NextPage<Props> = (props) => {
   };
 
   const deleteItemFromState = (id: number) => {
-    const updatedItems = items.filter((item) => item.MarcaId !== id);
+    const updatedItems = items.filter((item) => item.TipoProductoId !== id);
     setItems(updatedItems);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     getItems();
     console.log(items);
   }, []);
@@ -67,7 +66,7 @@ const page: NextPage<Props> = (props) => {
   return (
     <AdminLayout>
       <Card>
-        <Card.Header>Marca</Card.Header>
+        <Card.Header>Modelo</Card.Header>
         <Card.Footer>  <ModalForm buttonLabel=""
           addItemToState={addItemToState} /></Card.Footer>
         <Card.Body>
@@ -84,4 +83,4 @@ const page: NextPage<Props> = (props) => {
 
 
 
-export default page;
+export default FormTipoProducto;

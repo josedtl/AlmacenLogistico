@@ -149,7 +149,7 @@ export default function SidebarNav() {
 
       <SidebarNavGroup toggleIcon={faPuzzlePiece} toggleText="Catalogo">
         <SidebarNavItem href="#">Producto</SidebarNavItem>
-        <SidebarNavItem href="#">Tipo Producto</SidebarNavItem>
+        <SidebarNavItem href="/TipoProducto/FormTipoProducto">Tipo Producto</SidebarNavItem>
         <SidebarNavItem href="/Marca/FormMarca">Marca</SidebarNavItem>
         <SidebarNavItem href="/Modelo/FormModelo">Modelo</SidebarNavItem>
       </SidebarNavGroup>

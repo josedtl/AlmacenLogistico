@@ -65,7 +65,7 @@ function AddEditForm(props: { item?: IModelo, addItemToState?: any, toggle?: any
 
   const submitFormEdit = (e: any) => {
     e.preventDefault();
-    fetch(`${API}/api/General/Modelo_Insert/`, {
+    fetch(`${URL}/api/General/Modelo_Insert/`, {
       method: "post",
       headers: {
         "Content-Type": "application/json"

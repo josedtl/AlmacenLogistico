@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-const API = import.meta.env.VITE_REACT_API_URL
 import { ITipoProducto } from '../ITipoProducto'
 
 function AddEditForm(props: { item?: ITipoProducto, addItemToState?: any, toggle?: any, updateState?: any }) {
-
+  const URL = process.env.NEXT_PUBLIC_SERVER_API_BASE_URL;
   const [getTipoProductoId, setTipoProductoId] = useState(0)
 
   const [form, setValues] = useState({
@@ -31,7 +30,7 @@ function AddEditForm(props: { item?: ITipoProducto, addItemToState?: any, toggle
 
     if (errores.length === 0) {
 
-      fetch(`${API}/api/General/TipoProducto_Insert/`, {
+      fetch(`${URL}/api/General/TipoProducto_Insert/`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -66,7 +65,7 @@ function AddEditForm(props: { item?: ITipoProducto, addItemToState?: any, toggle
 
   const submitFormEdit = (e: any) => {
     e.preventDefault();
-    fetch(`${API}/api/General/TipoProducto_Insert/`, {
+    fetch(`${URL}/api/General/TipoProducto_Insert/`, {
       method: "post",
       headers: {
         "Content-Type": "application/json"
