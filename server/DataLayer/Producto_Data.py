@@ -14,16 +14,14 @@ class Producto_Data:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 cursor.callproc("sp_ProductosAll")
                 resulset = cursor.fetchall()
-            conn.close()
-
-            list = []
-
-            for row in resulset:
-                Data_ent = ProductoEntity.Cargar(row)
-                list.append(Data_ent)
+            # conn.close()
+            list = [ProductoEntity.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
+        finally:
+            cursor.close()
+            conn.close()
 
     def SaveProducto(Ent: ProductoSaveEntity):
         try:
@@ -103,17 +101,17 @@ class Producto_Data:
             return list
         except Exception as e:
             print(e)
-    
-    def Get_ProductoConcatenadoItemsLike( v_Nombre:str):
+
+    def Get_ProductoConcatenadoItemsLike(v_Nombre: str):
         try:
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (  v_Nombre,)
-                cursor.callproc("sp_ProductoConcatenadoItemsLike",args)
+                args = (v_Nombre,)
+                cursor.callproc("sp_ProductoConcatenadoItemsLike", args)
                 resulset = cursor.fetchall()
             conn.close()
-           
+
             list = []
 
             for row in resulset:

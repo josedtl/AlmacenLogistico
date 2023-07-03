@@ -1,5 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel
+from EntityLayer.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 
 class ProductoEntity:
@@ -17,6 +18,7 @@ class ProductoEntity:
     FechaRegistro:  datetime
     CodUsuario: str
     Estado: bool
+    ProcessAction :ProcessActionEnum
 
     def Cargar(_DB: any):
         c = ProductoEntity()
@@ -31,6 +33,7 @@ class ProductoEntity:
         c.FechaRegistro = _DB['FechaRegistro']
         c.CodUsuario = _DB['CodUsuario']
         c.Estado = bool(_DB['Estado'])
+        c.ProcessAction = ProcessActionEnum.Add
         return c
 
 
@@ -50,4 +53,5 @@ class ProductoSaveEntity(BaseModel):
     CodUsuario: str
     Estado: bool
     Action :int
+
     

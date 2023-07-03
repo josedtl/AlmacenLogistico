@@ -7,16 +7,7 @@ class Producto_Business:
     def Get_ProductoItems():
         try:
             data = Producto_Data.Get_ProductoItems()
-            print(data)
-            jsonData = []
-
-            for row in data:
-                jsonStr = json.dumps(row.__dict__)
-                jsonStr = json.loads(jsonStr)
-
-                jsonData.append(jsonStr)
-
-            return jsonData
+            return data
         except Exception as e:
             print(e)
 

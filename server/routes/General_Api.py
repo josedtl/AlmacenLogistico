@@ -11,6 +11,7 @@ from BusinessLayer.UnidadMedida_Business import *
 from BusinessLayer.TipoRequerimiento_Business import *
 from routes.ResponseAPI import *
 from fastapi.encoders import jsonable_encoder
+
 General = APIRouter()
 
 
@@ -18,7 +19,7 @@ General = APIRouter()
 def Get_ProductoItems():
     try:
         jsonData = Producto_Business.Get_ProductoItems()
-        return jsonData
+        return jsonable_encoder(jsonData)
     except:
         print("An exception occurred")
 
