@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import AddEditForm from "../Forms/FormAddEdit";
 import { IMarca } from '../IMarca'
-import { RiEdit2Fill, RiAddBoxLine } from 'react-icons/ri';
 import { BsFillPencilFill, BsPlusSquareFill } from "react-icons/bs";
 
 function ModalForm(props: { buttonLabel?: string, item?: IMarca, updateState?: any, addItemToState?: any, className?: any }) {
@@ -36,15 +35,7 @@ function ModalForm(props: { buttonLabel?: string, item?: IMarca, updateState?: a
     title = "Editar Marca";
   } else {
     button = (
-      // <Button color="success"
 
-      //   onClick={toggle}
-      //   style={{ float: "left", marginRight: "10px", width: "150px", height:"40px" }}
-      // >
-      //   {label}       <BsPlusSquareFill 
-      //    style={{ margin:"5" }}
-      //   size={20} />{'Agregar'}
-      // </Button>
 
 <a href="#addEmployeeModal"
 onClick={toggle}    style={{ float: "right", width: "120px"}}

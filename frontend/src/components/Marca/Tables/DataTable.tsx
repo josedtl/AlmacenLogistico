@@ -103,7 +103,7 @@ const DataTable: NextPage<Props> = (props) => {
                 <tr>
 
                   <th  >Nº</th>
-                  <th  style={style.th} >Nombre</th>
+                  <th   >Nombre</th>
                   <th aria-label="Action"  ></th>
                 </tr>
               </thead>
