@@ -50,12 +50,12 @@ export default function HeaderProfileNav() {
       <Dropdown as={NavItem}>
         <Dropdown.Toggle variant="link" bsPrefix="hide-caret" className="py-0 px-2 rounded-0" id="dropdown-profile">
           <div className="avatar position-relative">
-            <Image
+            {/* <Image
               fill
               className="rounded-circle"
               src="/assets/img/avatars/8.jpg"
               alt="user@email.com"
-            />
+            /> */}
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className="pt-0">
