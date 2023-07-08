@@ -53,6 +53,7 @@ class Marca_Data:
             return Ent.MarcaId
         except Exception as e:
             print(e)
+            conn.rollback()
         finally:
             cursor.close()
             conn.close()

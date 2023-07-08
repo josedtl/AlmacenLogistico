@@ -1,21 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faAddressCard,
-  faBell,
-  faFileLines,
   faStar,
   IconDefinition,
 } from '@fortawesome/free-regular-svg-icons'
 import {
   faBug,
-  faCalculator,
-  faChartPie,
-  faChevronUp, faCode,
-  faDroplet,
+  faChevronUp, 
   faGauge,
-  faLayerGroup,
-  faLocationArrow,
-  faPencil,
   faPuzzlePiece,
   faRightToBracket,
 } from '@fortawesome/free-solid-svg-icons'
@@ -130,10 +122,10 @@ export default function SidebarNav() {
   return (
     <div className="list-unstyled" style={{ scrollbarWidth: "thin" }}>
       <SidebarNavItem icon={faGauge} href="/">
-        Dashboard
+        Inicio
         <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
       </SidebarNavItem>
-      <SidebarNavItem icon={faCode} href="/pokemons">
+      {/* <SidebarNavItem icon={faCode} href="/pokemons">
         Sample (SSR)
         <small className="ms-auto"><Badge bg="danger" className="ms-auto">DEMO</Badge></small>
       </SidebarNavItem>
@@ -141,9 +133,9 @@ export default function SidebarNav() {
         Sample (CSR)
         <small className="ms-auto"><Badge bg="danger" className="ms-auto">DEMO</Badge></small>
       </SidebarNavItem>
-      {/* <SidebarNavTitle>Theme</SidebarNavTitle>
-      <SidebarNavItem icon={faDroplet} href="#">Colors</SidebarNavItem>
-      <SidebarNavItem icon={faPencil} href="#">Typography</SidebarNavItem> */}
+   */}
+
+
       <SidebarNavTitle>Components</SidebarNavTitle>
 
 
