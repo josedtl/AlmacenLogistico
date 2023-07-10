@@ -11,7 +11,7 @@ class MarcaEntity(BaseModel):
     EstadoRegistro: bool
     Action: ProcessActionEnum
 
-class MarcaEntityEntity(BaseModel):
+class MarcaItemEntity():
     MarcaId: int
     Nombre: str
     FechaRegistro: datetime
@@ -19,7 +19,7 @@ class MarcaEntityEntity(BaseModel):
     EstadoRegistro: bool
 
     def CargarMain( _DB):
-        c = MarcaEntityEntity()
+        c = MarcaItemEntity()
         c.MarcaId = _DB['MarcaId']
         c.Nombre = _DB['Nombre']
         c.FechaRegistro = _DB['FechaRegistro']

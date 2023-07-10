@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from routes.CategoriaRoute import CategoriaRouter
 from routes.TipoProductoRoute import TipoProductoRouter
+from routes.ModeloRoute import ModeloRouter
+from routes.MarcaRoute import MarcaRouter
 app = FastAPI(title="Adcode",   description='Sistema logistico  ',)
 
 origins = [
@@ -35,6 +37,9 @@ app.add_middleware(
 # app.include_router(Turno)
 app.include_router(CategoriaRouter)
 app.include_router(TipoProductoRouter)
+app.include_router(ModeloRouter)
+app.include_router(MarcaRouter)
+
 tags_metadata = [
     {
         "name": "PersonaNatural",
