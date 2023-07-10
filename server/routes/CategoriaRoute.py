@@ -4,10 +4,10 @@ from routes.ResponseAPI import *
 from fastapi.encoders import jsonable_encoder
 
 CategoriaRouter = APIRouter()
+ApiName = "Categoria"
 
-
-@CategoriaRouter.post("/api/Categoria/Save", tags=["Categoria"])
-def Categoria_Save(Ent: CategoriaEntity):
+@CategoriaRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
+def Save(Ent: CategoriaEntity):
     try:
         Ent.FechaRegistro = datetime.now()
         Ent.CategoriaId = Categoria.Save(Ent)
@@ -17,7 +17,7 @@ def Categoria_Save(Ent: CategoriaEntity):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@CategoriaRouter.get("/api/Categoria/GetMainItems/", tags=["Categoria"])
+@CategoriaRouter.get(f"/api/{ApiName}/GetMainItems/", tags=[ApiName])
 def GetMainItems():
     try:
         jsonData = Categoria.GetMainItems()
@@ -29,11 +29,11 @@ def GetMainItems():
 
 
 
-@CategoriaRouter.delete("/api/Categoria/Delete/{id}", tags=["Categoria"])
-def MarcaDelete(Id):
+@CategoriaRouter.delete(f"/api/{ApiName}/Delete/{{id}}", tags=[ApiName])
+def Delete(Id):
     try:
-        jsonData = Categoria.Delete(Id)
-        return jsonable_encoder(ResponseAPI.Response(True))
+        jsonData=Categoria.Delete(Id)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
