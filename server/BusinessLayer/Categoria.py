@@ -1,67 +1,23 @@
-from DataLayer.Producto_Data import *
-from EntityLayer.Catalogo.ProductoEntity import *
+from DataLayer.CategoriaDB import *
+from EntityLayer.CategoriaEntity import *
 import json
 
 
-class Producto_Business:
-    def Get_ProductoItems():
+class Categoria:
+    def Save(Ent: CategoriaEntity):
         try:
-            data = Producto_Data.Get_ProductoItems()
-            return data
+            return CategoriaDB.Save(Ent)
         except Exception as e:
             print(e)
 
-    def SaveProducto(Ent: ProductoSaveEntity):
+    def GetMainItems():
         try:
-            data = Producto_Data.SaveProducto(Ent)
-            return data
+            return CategoriaDB.GetMainItems()
         except Exception as e:
             print(e)
 
-    def Get_ProductoMainItems():
+    def Delete(Id: int):
         try:
-            data = Producto_Data.Get_ProductoMainItems()
-            print(data)
-            jsonData = []
-
-            for row in data:
-                jsonStr = json.dumps(row.__dict__)
-                jsonStr = json.loads(jsonStr)
-
-                jsonData.append(jsonStr)
-
-            return jsonData
-        except Exception as e:
-            print(e)
-
-    def Get_ProductoMainItem(ProductoId: int):
-        try:
-            data=Producto_Data.Get_ProductoMainItem(ProductoId)
-            print(data)
-            jsonData=[]
-
-            for row in data:
-                jsonStr=json.dumps(row.__dict__)
-                jsonStr=json.loads(jsonStr)
-
-                jsonData.append(jsonStr)
-
-            return jsonData
-        except Exception as e:
-            print(e)
-
-    def Get_ProductoConcatenadolikeItem( v_Nombre:str):
-        try:
-            data = Producto_Data.Get_ProductoConcatenadoItemsLike(v_Nombre)
-            print(data)
-            jsonData = []
-
-            for row in data:
-                jsonStr = json.dumps(row.__dict__)
-                jsonStr = json.loads(jsonStr)
-                
-                jsonData.append(jsonStr)
-
-            return jsonData
+            return CategoriaDB.Delete(Id)
         except Exception as e:
             print(e)

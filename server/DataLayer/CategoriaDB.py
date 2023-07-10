@@ -1,56 +1,33 @@
 from .configMysql import get_connection
-from EntityLayer.Catalogo.MarcaEntity import *
-from EntityLayer.Catalogo.MarcaSaveEntity import *
+from EntityLayer.CategoriaEntity import *
 
 import pymysql
 
 
-class Marca_Data:
-    def Get_MarcaItems():
-        try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor.callproc("sp_MarcaItems")
-                resulset = cursor.fetchall()
-            conn.close()
+class CategoriaDB:
 
-            list = []
-
-            for row in resulset:
-                Data_ent = MarcaEntity.Cargar(row)
-                list.append(Data_ent)
-            return list
-        except Exception as e:
-            print(e)
-
-    def SaveMarca(Ent: MarcaSaveEntity):
+    def Save(Ent: CategoriaEntity):
 
         try:
             Store: str
-            if (Ent.Action == 1):
-                Store = "sp_MarcaInsert"
-            else:
-                Store = "sp_MarcaUpdate"
-
+            Store = "sp_Categoria_Insert"
+            if (Ent.Action == ProcessActionEnum.Update):Store = "sp_Categoria_Update"
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (
-                    Ent.MarcaId,
-                    Ent.Nombre,
-                    Ent.FechaRegistro,
-                    Ent.CodUsuario,
-                    Ent.Estado,
-                )
 
-                result_args = cursor.callproc(Store, args)
-                for result in cursor.fetchall():
-                    Ent.MarcaId = result["v_MarcaId"]
+                args=[]
+                args.append(Ent.CategoriaId)
+                args.append(Ent.Nombre)
+                args.append(Ent.FechaRegistro)
+                args.append(Ent.CodUsuario)
+                args.append(Ent.EstadoRegistro)
+
+                cursor.callproc(Store, args)
+                Ent.CategoriaId =int(cursor.fetchone()['v_CategoriaId'])
 
             conn.commit()
-            print(result_args[0])
-            return Ent.MarcaId
+            return Ent.CategoriaId
         except Exception as e:
             print(e)
             conn.rollback()
@@ -58,13 +35,31 @@ class Marca_Data:
             cursor.close()
             conn.close()
 
-    def DeleteMarca(Id: int):
+    def GetMainItems():
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                cursor.callproc("sp_Categoria_Main")
+                resulset = cursor.fetchall()
+            conn.close()
+
+            list = []
+
+            for row in resulset:
+                Data_ent = CategoriaItemEntity.CargarMain(row)
+                list.append(Data_ent)
+            return list
+        except Exception as e:
+            print(e)
+
+    def Delete(Id: int):
         try:
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = (Id,)
-                result_args = cursor.callproc("sp_MarcaDelete", args)
+                cursor.callproc("sp_Categoria_Delete", args)
                 conn.commit()
             return True
         except Exception as e:
@@ -72,40 +67,3 @@ class Marca_Data:
         finally:
             cursor.close()
             conn.close()
-
-    def Get_MarcaItemsLike(v_Nombre: str):
-        try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (v_Nombre,)
-                cursor.callproc("sp_MarcaItemsLike", args)
-                resulset = cursor.fetchall()
-            conn.close()
-
-            list = []
-
-            for row in resulset:
-                Data_ent = MarcaEntity.Cargar(row)
-                list.append(Data_ent)
-            return list
-        except Exception as e:
-            print(e)
-
-    def Get_MarcaItemsAlter():
-        try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor.callproc("sp_MarcaItems")
-                resulset = cursor.fetchall()
-            conn.close()
-
-            list = []
-
-            for row in resulset:
-                Data_ent = MarcaEntity.Cargar(row)
-                list.append(Data_ent)
-            return list
-        except Exception as e:
-            print(e)
