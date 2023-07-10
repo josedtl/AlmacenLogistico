@@ -5,6 +5,7 @@ from routes.CategoriaRoute import CategoriaRouter
 from routes.TipoProductoRoute import TipoProductoRouter
 from routes.ModeloRoute import ModeloRouter
 from routes.MarcaRoute import MarcaRouter
+from routes.ProductoRoute import ProductoRouter
 app = FastAPI(title="Adcode",   description='Sistema logistico  ',)
 
 origins = [
@@ -39,6 +40,7 @@ app.include_router(CategoriaRouter)
 app.include_router(TipoProductoRouter)
 app.include_router(ModeloRouter)
 app.include_router(MarcaRouter)
+app.include_router(ProductoRouter)
 
 tags_metadata = [
     {
