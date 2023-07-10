@@ -1,8 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from routes.General_Api import General
-from routes.Producto_Api import Producto
 from routes.CategoriaRoute import CategoriaRouter
 
 app = FastAPI(title="Adcode",   description='Sistema logistico  ',)
@@ -35,8 +33,6 @@ app.add_middleware(
 # app.include_router(Usuario)
 # app.include_router(Horario)
 # app.include_router(Turno)
-app.include_router(General)
-app.include_router(Producto)
 app.include_router(CategoriaRouter)
 tags_metadata = [
     {

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from BusinessLayer.Categoria import *
-from routes.ResponseAPI import *
 from fastapi.encoders import jsonable_encoder
+from Utilidades.Entidades.ResponseAPI import ResponseAPI , ResponseAPIError
 
 CategoriaRouter = APIRouter()
 ApiName = "Categoria"
