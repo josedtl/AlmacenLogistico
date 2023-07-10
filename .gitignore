@@ -1,1 +1,7 @@
 server/venv/
+server/__pycache__/
+server/BusinessLayer/__pycache__/
+server/DataLayer/__pycache__/
+server/EntityLayer/__pycache__/
+server/routes/__pycache__/
+server/BusinessLayer/__pycache__/
