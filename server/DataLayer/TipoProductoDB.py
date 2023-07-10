@@ -1,30 +1,30 @@
 from .configMysql import get_connection
-from EntityLayer.CategoriaEntity import *
+from EntityLayer.TipoProductoEntity import *
 
 import pymysql
 
 
-class CategoriaDB:
+class TipoProductoDB:
 
-    def Save(Ent: CategoriaEntity):
+    def Save(Ent: TipoProductoEntity):
 
         try:
             Store: str
-            Store = "sp_Categoria_Insert"
-            if (Ent.Action == ProcessActionEnum.Update):Store = "sp_Categoria_Update"
+            Store = "sp_TipoProducto_Insert"
+            if (Ent.Action == ProcessActionEnum.Update):Store = "sp_TipoProducto_Update"
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
 
                 args=[]
-                args.append(Ent.CategoriaId)
+                args.append(Ent.TipoProductoId)
                 args.append(Ent.Nombre)
                 args.append(Ent.FechaRegistro)
                 args.append(Ent.CodUsuario)
                 args.append(Ent.EstadoRegistro)
 
                 cursor.callproc(Store, args)
-                Ent.CategoriaId =int(cursor.fetchone()['v_CategoriaId'])
+                Ent.TipoProductoId =int(cursor.fetchone()['v_TipoProductoId'])
 
             conn.commit()
             return Ent
@@ -40,14 +40,14 @@ class CategoriaDB:
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor.callproc("sp_Categoria_Main")
+                cursor.callproc("sp_TipoProducto_Main")
                 resulset = cursor.fetchall()
             conn.close()
 
             list = []
 
             for row in resulset:
-                Data_ent = CategoriaItemEntity.CargarMain(row)
+                Data_ent = TipoProductoItemEntity.CargarMain(row)
                 list.append(Data_ent)
             return list
         except Exception as e:
@@ -59,7 +59,7 @@ class CategoriaDB:
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = (Id,)
-                cursor.callproc("sp_Categoria_Delete", args)
+                cursor.callproc("sp_TipoProducto_Delete", args)
                 conn.commit()
             return True
         except Exception as e:

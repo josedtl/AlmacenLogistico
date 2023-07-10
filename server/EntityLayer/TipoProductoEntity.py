@@ -1,10 +1,10 @@
 from datetime import datetime
-from pydantic import BaseModel, constr
+from pydantic import BaseModel
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 
-class CategoriaEntity(BaseModel):
-    CategoriaId: int
+class TipoProductoEntity(BaseModel):
+    TipoProductoId: int
     Nombre: str
     FechaRegistro: datetime
     CodUsuario: str
@@ -12,18 +12,18 @@ class CategoriaEntity(BaseModel):
     Action: ProcessActionEnum
 
 
-class CategoriaItemEntity:
-    CategoriaId: int
+class TipoProductoItemEntity():
+    TipoProductoId: int
     Nombre: str
     FechaRegistro: datetime
     CodUsuario: str
     EstadoRegistro: bool
 
-    def CargarMain(_DB):
-        c = CategoriaItemEntity()
-        c.CategoriaId = _DB["CategoriaId"]
-        c.Nombre = _DB["Nombre"]
-        c.FechaRegistro = _DB["FechaRegistro"]
-        c.CodUsuario = _DB["CodUsuario"]
+    def CargarMain( _DB):
+        c = TipoProductoItemEntity()
+        c.TipoProductoId = _DB['TipoProductoId']
+        c.Nombre = _DB['Nombre']
+        c.FechaRegistro = _DB['FechaRegistro']
+        c.CodUsuario = _DB['CodUsuario']
         c.EstadoRegistro = bool(ord(_DB['EstadoRegistro']))
         return c
