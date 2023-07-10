@@ -2,7 +2,6 @@ import { GetServerSideProps, NextPage } from 'next'
 import { Card } from 'react-bootstrap'
 import { AdminLayout } from '@layout'
 import React, { useEffect, useState } from 'react'
-import { Pokemon } from '@models/pokemon'
 import { newResource, Resource } from '@models/resource'
 import DataTable from "@components/Marca/Tables/DataTable";
 import { IMarca } from '@models/IMarca'

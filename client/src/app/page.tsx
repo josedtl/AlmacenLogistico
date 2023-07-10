@@ -1,18 +1,14 @@
-"use client"
-import React, { useState } from 'react';
-import Sidebar from '@/Silder/Sidebar';
+import React from 'react';
+import Layout from '@/Silder/Layout';
 
-const SumaComponent = () => {
- 
+const page: React.FC = () => {
   return (
-    <div className="container">
-    <Sidebar />
-    <div className="content">
-      <h1>Contenido principal</h1>
+    <Layout>
+      <h1>Home Page</h1>
       {/* Resto del contenido de la página */}
-    </div>
-  </div>
+    </Layout>
   );
 };
 
-export default SumaComponent;
+
+export default page;

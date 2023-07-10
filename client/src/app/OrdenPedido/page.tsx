@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import Sidebar from '@/Silder/Sidebar';
+import Sidebar from '@/Silder/Layout';
 
 const OrdenPedido = () => {
  
