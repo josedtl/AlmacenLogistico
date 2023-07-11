@@ -29,12 +29,11 @@ def GetMainItems():
 
 
 
-@TipoProductoRouter.delete(f"/api/{ApiName}/Delete/{{id}}", tags=[ApiName])
+@TipoProductoRouter.delete(f"/api/{ApiName}/Delete/{{Id}}", tags=[ApiName])
 def Delete(Id):
     try:
         jsonData=TipoProducto.Delete(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
+        return jsonable_encoder(jsonData)
     except Exception as e:
         print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
     

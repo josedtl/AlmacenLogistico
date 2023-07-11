@@ -19,3 +19,8 @@ class ResponseAPIError():
         Item.State = False
         Item.Message = "hubo un error en el servidor"
         return Item
+    def ErrorMensaje(Mensaje):
+        Item = ResponseAPIError()
+        Item.State = False
+        Item.Message = Mensaje
+        return Item

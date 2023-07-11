@@ -1,10 +1,11 @@
 from fastapi import APIRouter
 from BusinessLayer.Categoria import *
 from fastapi.encoders import jsonable_encoder
-from Utilidades.Entidades.ResponseAPI import ResponseAPI , ResponseAPIError
+from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
 
 CategoriaRouter = APIRouter()
 ApiName = "Categoria"
+
 
 @CategoriaRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
 def Save(Ent: CategoriaEntity):
@@ -27,14 +28,10 @@ def GetMainItems():
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-
-
-@CategoriaRouter.delete(f"/api/{ApiName}/Delete/{{id}}", tags=[ApiName])
+@CategoriaRouter.delete(f"/api/{ApiName}/Delete/{{Id}}", tags=[ApiName])
 def Delete(Id):
     try:
-        jsonData=Categoria.Delete(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
+        jsonData = Categoria.Delete(Id)
+        return jsonable_encoder(jsonData)
     except Exception as e:
         print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-    

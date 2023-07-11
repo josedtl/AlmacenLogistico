@@ -29,12 +29,11 @@ def GetMainItems():
 
 
 
-@MarcaRouter.delete(f"/api/{ApiName}/Delete/{{id}}", tags=[ApiName])
+@MarcaRouter.delete(f"/api/{ApiName}/Delete/{{Id}}", tags=[ApiName])
 def Delete(Id):
     try:
         jsonData=Marca.Delete(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
+        return jsonable_encoder(jsonData)
     except Exception as e:
         print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
     
