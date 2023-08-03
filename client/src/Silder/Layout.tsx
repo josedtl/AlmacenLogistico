@@ -1,10 +1,10 @@
 'use client'
 import React, { ReactNode } from 'react';
-import Link from 'next/link';
-import { Navbar, Nav } from 'react-bootstrap';
-import Sidebar from "@/Components/Sidebar";
 import InboxMenu from "@mui/icons-material/Menu";
-
+import SidebarAlter from "@/Components/SidebarAlter";
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import { Grid } from '@mui/material';
 type LayoutProps = {
   children: ReactNode;
 };
@@ -17,32 +17,55 @@ const VerticalMenu = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const ItemLeft = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#000000' : '#000000',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'left',
+    color: theme.palette.text.secondary,
+  }));
+  const ItemRight = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#000000' : '#000000',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'right',
+    color: theme.palette.text.secondary,
+  }));
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#000000' : '#000000',
+        margin:theme.spacing(-1),
+    ...theme.typography.body2,
+    position:'relative',
+  }));
+
 
   return (
-    <div>
+    <Item>
 
-      <button onClick={handleSidebarToggle}><InboxMenu /></button>
-      <Sidebar open={sidebarOpen} onClose={handleSidebarToggle} />
-    </div>
-    // <Navbar bg="dark" variant="dark" expand="md" className="flex-md-column">
-    //   <Navbar.Toggle aria-controls="vertical-menu" />
-    //   <Navbar.Collapse id="vertical-menu">
-    //     <Nav className="flex-md-column">
-    //       <Nav.Item>
-    //         <Link href="/" passHref>Home
-    //         </Link>
-    //       </Nav.Item>
-    //       <Nav.Item>
-    //         <Link href="/about" passHref>About
-    //         </Link>
-    //       </Nav.Item>
-    //       <Nav.Item>
-    //         <Link href="/contact" passHref>Contact
-    //         </Link>
-    //       </Nav.Item>
-    //     </Nav>
-    //   </Navbar.Collapse>
-    // </Navbar>
+      <Grid container >
+
+        <Grid item xs={6}>
+
+          <ItemLeft>
+            <button onClick={handleSidebarToggle}><InboxMenu /></button>
+            <SidebarAlter open={sidebarOpen} onClose={handleSidebarToggle} />
+          </ItemLeft>
+
+        </Grid>
+        <Grid item xs={6}>
+          <ItemRight>
+         
+          </ItemRight>
+        </Grid>
+
+      </Grid>
+    </Item>
+    // <div style="background-color: black; color: white;" >
+
+
+    // </div>
+
+
   );
 };
 
