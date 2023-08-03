@@ -10,7 +10,7 @@ app = FastAPI(title="Adcode",   description='Sistema logistico  ',)
 
 origins = [
     "http://localhost:5042",
-
+"http://localhost:3000",
 ]
 
 app.add_middleware(

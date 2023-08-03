@@ -35,3 +35,13 @@ def Delete(Id):
         return jsonable_encoder(jsonData)
     except Exception as e:
         print(e)
+
+
+@CategoriaRouter.get(f"/api/{ApiName}/GetCategoriaLikeItems/{{Nombre}}", tags=[ApiName])
+def GetCategoriaLikeItems(Nombre :str):
+    try:
+        jsonData = Categoria.GetCategoriaLikeItems(Nombre)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())

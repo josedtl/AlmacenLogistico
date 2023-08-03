@@ -27,3 +27,9 @@ class CategoriaItemEntity:
         c.CodUsuario = _DB["CodUsuario"]
         c.EstadoRegistro = bool(ord(_DB['EstadoRegistro']))
         return c
+
+    def CargarLike(_DB):
+        c = CategoriaItemEntity()
+        c.CategoriaId = _DB["CategoriaId"]
+        c.Nombre = _DB["Nombre"]
+        return c

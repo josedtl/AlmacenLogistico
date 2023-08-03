@@ -6,7 +6,7 @@ const OrdenPedido = () => {
  
   return (
     <div className="container">
-    <Sidebar />
+
     <div className="content">
       <h1>OrdenPedido</h1>
       {/* Resto del contenido de la página */}

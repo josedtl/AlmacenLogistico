@@ -21,3 +21,9 @@ class Categoria:
             return CategoriaDB.Delete(Id)
         except Exception as e:
             print(e)
+
+    def GetCategoriaLikeItems(Nombre :str):
+        try:
+            return CategoriaDB.GetCategoriaLikeItems(Nombre)
+        except Exception as e:
+            print(e)

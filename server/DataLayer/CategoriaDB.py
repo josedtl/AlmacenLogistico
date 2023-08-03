@@ -78,3 +78,22 @@ class CategoriaDB:
         finally:
             cursor.close()
             conn.close()
+
+    def GetCategoriaLikeItems(Nombre :str):
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                args = (Nombre,)
+                cursor.callproc("sp_CategoriaLikeItems", args)
+                resulset = cursor.fetchall()
+            conn.close()
+
+            list = []
+
+            for row in resulset:
+                Data_ent = CategoriaItemEntity.CargarLike(row)
+                list.append(Data_ent)
+            return list
+        except Exception as e:
+            print(e)
