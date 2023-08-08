@@ -135,6 +135,13 @@ const page: React.FC = () => {
               margin="normal"
               label="Outlined"
               variant="outlined" />
+         <TextField
+              size="small"
+              id="outlined-basic"
+
+              margin="normal"
+              label="Outlined"
+              variant="outlined" />
 
           </Grid>
           <Grid xs={12} md={9}>

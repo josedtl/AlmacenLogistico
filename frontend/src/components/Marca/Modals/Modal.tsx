@@ -4,6 +4,8 @@ import AddEditForm from "../Forms/FormAddEdit";
 import { IMarca } from '../IMarca'
 import { BsFillPencilFill, BsPlusSquareFill } from "react-icons/bs";
 
+
+
 function ModalForm(props: { buttonLabel?: string, item?: IMarca, updateState?: any, addItemToState?: any, className?: any }) {
   const [modal, setModal] = useState(false);
 

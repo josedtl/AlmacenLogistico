@@ -5,6 +5,7 @@ import SidebarAlter from "@/Components/SidebarAlter";
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { Grid } from '@mui/material';
+import Button from '@mui/material/Button';
 type LayoutProps = {
   children: ReactNode;
 };
@@ -47,7 +48,7 @@ const VerticalMenu = () => {
         <Grid item xs={6}>
 
           <ItemLeft>
-            <button onClick={handleSidebarToggle}><InboxMenu /></button>
+            <Button onClick={handleSidebarToggle}><InboxMenu /></Button>
             <SidebarAlter open={sidebarOpen} onClose={handleSidebarToggle} />
           </ItemLeft>
 

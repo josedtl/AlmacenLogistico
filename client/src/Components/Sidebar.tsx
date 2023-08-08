@@ -12,7 +12,8 @@ import MailIcon from "@mui/icons-material/Mail";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Link from "next/link"; // Importar el componente Link de Next.js
-
+import InboxMenu from "@mui/icons-material/Menu";
+import Button from '@mui/material/Button';
 interface SidebarProps {
   open: boolean;
   onClose: () => void;
@@ -26,6 +27,11 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
+  {
+    label: "Inbox",
+    icon: <InboxIcon />,
+    path: "/Contacto", // Ruta de la página inbox.tsx
+  },
   {
     label: "Inbox",
     icon: <InboxIcon />,
@@ -64,6 +70,8 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   };
 
   return (
+
+
     <Drawer
       anchor="left"
       open={open}
@@ -72,6 +80,8 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
         width: 300, // Establecer el ancho deseado aquí (300 píxeles en este caso)
       }}
     >
+
+      <Button ><InboxMenu /></Button>
       <List>
         {menuItems.map((item, index) => (
           <React.Fragment key={index}>
@@ -93,7 +103,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
               <Collapse in={openSubItems.includes(index)} timeout="auto" unmountOnExit>
                 <List disablePadding>
                   {item.subItems.map((subItem, subIndex) => (
-                    <Link key={subIndex}  href={`${item.path}`} passHref> {/* Utilizar el componente Link para los subelementos */}
+                    <Link key={subIndex} href={`${item.path}`} passHref> {/* Utilizar el componente Link para los subelementos */}
                       <ListItem >
                         <ListItemIcon>{subItem.icon}</ListItemIcon>
                         <ListItemText primary={subItem.label} />

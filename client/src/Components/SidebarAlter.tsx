@@ -9,7 +9,9 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-
+import InboxMenu from "@mui/icons-material/Menu";
+import Button from '@mui/material/Button';
+import { Grid } from '@mui/material';
 interface SidebarProps {
   open: boolean;
   onClose: () => void;
@@ -24,24 +26,47 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   {
-    label: "Inbox",
-    icon: <InboxIcon />,
-    path: "/Contacto",
-  },
-  {
-    label: "Mail",
+    label: "Logistica",
     icon: <MailIcon />,
     path: "/Contacto",
     subItems: [
       {
-        label: "Subitem 1",
-        icon: <InboxIcon />,
+        label: "Orden de Pedido",
+        icon: <></>,
+        path: "/Contacto",
+      }
+    ],
+  },
+  {
+    label: "Almacen",
+    icon: <MailIcon />,
+    path: "/Contacto",
+    subItems: [
+      {
+        label: "Recepción",
+        icon: <></>,
         path: "/Contacto",
       },
       {
-        label: "Subitem 2",
-        icon: <MailIcon />,
+        label: "Despacho",
+        icon: <></>,
         path: "/Contacto",
+      },
+    ],
+  }, {
+    label: "Catalogo",
+    icon: <MailIcon />,
+    path: "/",
+    subItems: [
+      {
+        label: "Marca",
+        icon: <></>,
+        path: "/Marca",
+      },
+      {
+        label: "Modelo",
+        icon: <></>,
+        path: "/Modelo",
       },
     ],
   },
@@ -60,16 +85,32 @@ const SidebarAlter: React.FC<SidebarProps> = ({ open, onClose }) => {
     }
   };
 
+
+
+  const handleSidebarToggle = () => {
+    open = false;
+    onClose();
+  };
+
   return (
     <Drawer
       anchor="left"
       open={open}
       onClose={onClose}
       sx={{
-        width: 300,
+        width: 400,
       }}
     >
-      <List>
+
+        <Grid  >
+
+          <Button onClick={handleSidebarToggle}
+
+          ><InboxMenu /></Button >Sistema Logistico   
+
+        </Grid>
+      <List
+      >
         {menuItems.map((item, index) => (
           <React.Fragment key={index}>
             {item.subItems ? (
