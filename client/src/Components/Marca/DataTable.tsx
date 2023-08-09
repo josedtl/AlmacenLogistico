@@ -1,61 +1,113 @@
-
 "use client"
 import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { IMarca } from '@/Models/IMarca'
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
-import { format } from 'date-fns';
-import  ModalItem from '@/Components/Marca/ModalItem'
-
+import ModalItem from '@/Components/Marca/ModalItem'
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import MarcaService from '@/Service/MarcaService';
+import { styled } from '@mui/material/styles';
+import { MarcaEntity } from '@/Models/IMarca';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 type Props = {
-    DataList: IMarca[];
+    DataList: MarcaEntity[];
     updateState: any;
     deleteItemFromState: any;
 }
-// interface RowData {
-//     CategoriaId: number;
-//     Nombre: string;
-//     FechaRegistro: number;
-//     CodUsuario: string;
-// }
+
 const DataTable: React.FC<Props> = (props) => {
-    const [data, setData] = React.useState<IMarca[]>([]);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const marcaService = new MarcaService();
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
+
+
+    
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+    }));
+
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        '&:last-child td, &:last-child th': {
+            border: 0,
+        },
+    }));
+
+
+    let Contador: number = 0;
+    const items = props.DataList.map((row) => {
+
+        Contador += 1
+        row.Cont = Contador
+        return (
+            <TableRow key={row.MarcaId} >
+                <TableCell width={80}>{row.Cont}</TableCell>
+                <TableCell>{row.Nombre}</TableCell>
+                <TableCell width={200}>{row.FechaRegistro.toString()}</TableCell>
+                <TableCell width={150}>{row.CodUsuario}</TableCell>
+                <TableCell width={150} >
+                    <ModalItem
+                        buttonLabel="Edit"
+                        item={row}
+                        updateState={props.updateState}
+                    />
+                    <Button
+                        color="warning"
+                        className="btn btn-secondary btn-sm btn-block"
+                        onClick={() => deleteItem(row.MarcaId)}
+                        style={{ float: "left", marginRight: "10px" }}
+                    >
+                        <DeleteIcon />
+                    </Button>
+                </TableCell>
+
+            </TableRow>
+        );
+    });
+
+
+    const deleteItem = async (MarcaId: number) => {
+        const confirmDelete = window.confirm("Delete item forever?");
+        if (confirmDelete) {
+            const deleted = await marcaService.deleteItem(MarcaId);
+            if (deleted) {
+                props.deleteItemFromState(MarcaId);
+            } else {
+                console.log("Delete operation failed");
+            }
+        }
     };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
-
 
     return (
 
         <div>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="Data table">
+            <TableContainer sx={{ maxHeight: 500 }}>
+                <Table stickyHeader aria-label="customized table" size="small" >
                     <TableHead>
                         <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell>ID</TableCell>
-                            <TableCell>Nombre</TableCell>
-                            <TableCell>Fecha Registro</TableCell>
-                            <TableCell>Usuario</TableCell>
+                            <StyledTableCell>Nº</StyledTableCell>
+                            <StyledTableCell>Nombre</StyledTableCell>
+                            <StyledTableCell>Fecha Registro</StyledTableCell>
+                            <StyledTableCell>Usuario</StyledTableCell>
+                            <StyledTableCell></StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.DataList.map((row) => (
+                        {items}
+                        {/* {props.DataList.map((row) => (
                             <TableRow key={row.MarcaId}>
-                                <TableCell>{row.EstadoRegistro}</TableCell>
                                 <TableCell>{row.Cont}</TableCell>
                                 <TableCell>{row.Nombre}</TableCell>
                                 <TableCell>{row.FechaRegistro.toString()}</TableCell>
@@ -66,17 +118,25 @@ const DataTable: React.FC<Props> = (props) => {
                                         item={row}
                                         updateState={props.updateState}
                                     />
+                                    <Button
+                                        color="warning"
+                                        className="btn btn-secondary btn-sm btn-block"
+                                        onClick={() => deleteItem(row.MarcaId)}
+                                        style={{ float: "left", marginRight: "10px" }}
+                                    >
+                                        <DeleteIcon />
+                                    </Button>
                                 </TableCell>
+
                             </TableRow>
-                        ))}
+                        ))} */}
                     </TableBody>
                 </Table>
             </TableContainer>
         </div>
 
-
-
     );
 }
 
 export default DataTable;
+

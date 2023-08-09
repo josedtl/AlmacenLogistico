@@ -1,124 +1,56 @@
 import React, { useState, useEffect } from "react";
-import { IMarca } from '@/Models/IMarca'
+import { MarcaEntity } from '@/Models/IMarca'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-
+import MarcaService from '@/Service/MarcaService'; 
 
 type Props = {
-    item?: IMarca;
+    item: MarcaEntity;
     addItemToState?: any;
     toggle?: any;
     updateState?: any;
 }
 
 const AddEditForm: React.FC<Props> = (props) => {
-    // const URL = process.env.VITE_REACT_API_URL;
-    const [getMarcaId, setMarcaId] = useState(0)
+    const marcaService = new MarcaService();
 
-    const URL = "http://127.0.0.1:8000";
-    const [form, setValues] = useState({
-        MarcaId: getMarcaId,
-        Nombre: '',
-        CodUsuario: "Adm",
-        FechaRegistro: new Date(),
-        Estado: true,
-        Action: 1
-    });
+    const initialMarca = new MarcaEntity();
+    const [form, setValues] = useState<MarcaEntity>(initialMarca);
+    const [FlaState, setFlaState] = useState<Boolean>(false);
 
-    const onChange = (e: any) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValues({
             ...form,
             [e.target.name]: e.target.value.toUpperCase()
         });
     };
 
-    const submitFormAdd = (e: any) => {
-        console.log(props.item);
+    const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        let errores: string[] = []
-        if (form.Nombre === '') errores.push('El nombre no puede ser un número')
 
-        if (errores.length === 0) {
+        if (form.Nombre === '') {
+            console.log('El nombre no puede ser un número');
+            return;
+        }
 
-            fetch(`${URL}/api/Marca/Save/`, {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    MarcaId: 0,
-                    Nombre: form.Nombre,
-                    CodUsuario: "Adm",
-                    FechaRegistro: new Date(),
-                    EstadoRegistro: true,
-                    Action: 1
-                })
-            })
-                .then(response => response.json())
-                .then((item: any) => {
-                    if (item.State ) {
-                        props.addItemToState(item.Value)
-                        props.toggle()
-                    } else {
-                        return
-                    }
+        const savedItem = await marcaService.saveItem(form);
+        if (savedItem) {
+            if (FlaState) props.updateState(savedItem);
+            else props.addItemToState(savedItem);
 
-                })
-                .catch(err => console.log(err))
-
-
-                console.log("add");
-            // props.addItemToState(form);
             props.toggle();
         }
     };
 
-    const submitFormEdit = (e: any) => {
-        e.preventDefault();
-        fetch(`${URL}/api/Marca/Save/`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                MarcaId: form.MarcaId,
-                Nombre: form.Nombre,
-                CodUsuario: "Adm",
-                FechaRegistro: new Date(),
-                Estado: true,
-                Action: 2
-            })
-        })
-            .then((response) => response.json())
-            .then((item: IMarca) => {
-                if (item.MarcaId > 0) {
-                    props.updateState(item);
-                    props.toggle();
-                } else {
-                    return
-                }
-            })
-            .catch((err) => console.log(err));
-        // props.updateState(form);
-        props.toggle();
-        console.log("Edit");
-    };
-
     useEffect(() => {
-        if (props.item) {
-            const { MarcaId, Nombre } = props.item;
-            // setValues({ MarcaId, Nombre });
-
-            setValues({
-                ...form,
-                MarcaId, Nombre
-            });
-        }
-    }, [props.item]);
+        const updatedPerson = props.item;
+        updatedPerson.Action = updatedPerson.MarcaId > 0 ? 3 : 1;
+        setFlaState(updatedPerson.MarcaId > 0);
+        setValues(updatedPerson);
+    }, []);
 
     return (
-        <form >
-
+        <form>
             <TextField
                 type="text"
                 size="small"
@@ -129,12 +61,105 @@ const AddEditForm: React.FC<Props> = (props) => {
                 value={form.Nombre === null ? "" : form.Nombre}
                 margin="normal"
                 label="Nombre"
-                variant="outlined" />
+                variant="outlined"
+            />
 
-            <Button variant="contained" onClick={submitFormAdd}>Agregar Item</Button>
-
+            <Button variant="contained" onClick={submitFormAdd}>
+                Aceptar
+            </Button>
         </form>
     );
 }
 
 export default AddEditForm;
+
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import { MarcaEntity } from '@/Models/IMarca'
+// import Button from '@mui/material/Button';
+// import TextField from '@mui/material/TextField';
+// import axios from 'axios';
+
+// type Props = {
+//     item: MarcaEntity;
+//     addItemToState?: any;
+//     toggle?: any;
+//     updateState?: any;
+// }
+
+// const AddEditForm: React.FC<Props> = (props) => {
+//     const URL = process.env.NEXT_PUBLIC_SERVER_API_BASE_URL
+//     const initialMarca = new MarcaEntity();
+//     const [form, setValues] = React.useState<MarcaEntity>(initialMarca);
+//     const [FlaState, setFlaState] = React.useState<Boolean>(false);
+
+//     const onChange = (e: any) => {
+//         setValues({
+//             ...form,
+//             [e.target.name]: e.target.value.toUpperCase()
+//         });
+//     };
+
+//     const submitFormAdd = async (e: any) => {
+//         e.preventDefault();
+
+//         if (form.Nombre === '') {
+//             console.log('El nombre no puede ser un número');
+//             return;
+//         }
+
+//         try {
+//             const response = await axios.post(`${URL}/api/Marca/Save/`, form, {
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//             });
+
+//             if (response.status == 200) {
+
+//                 if (FlaState) props.updateState(response.data.Value)
+//                 else props.addItemToState(response.data.Value);
+
+//                 props.toggle();
+//             } else {
+//                 console.log('La operación de guardado falló');
+//             }
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     };
+
+//     useEffect(() => {
+//         const updatedPerson = props.item;
+//         updatedPerson.Action = updatedPerson.MarcaId > 0 ? 3 : 1;
+//         setFlaState(updatedPerson.MarcaId > 0)
+//         setValues(updatedPerson);
+//         console.log(form)
+//     }, []);
+
+//     return (
+//         <form >
+
+//             <TextField
+//                 type="text"
+//                 size="small"
+//                 id="outlined-basic"
+//                 sx={{ width: 320 }}
+//                 name="Nombre"
+//                 onChange={onChange}
+//                 value={form.Nombre === null ? "" : form.Nombre}
+//                 margin="normal"
+//                 label="Nombre"
+//                 variant="outlined" />
+
+//             <Button variant="contained" onClick={submitFormAdd}>Aceptar</Button>
+
+//         </form>
+//     );
+// }
+
+// export default AddEditForm;

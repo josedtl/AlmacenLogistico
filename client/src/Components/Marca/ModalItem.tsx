@@ -3,10 +3,11 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
-import AddIcon from '@mui/icons-material/Add';
-import { IMarca } from '@/Models/IMarca'
-import TextField from '@mui/material/TextField';
+import { MarcaEntity } from '@/Models/IMarca'
 import AddEditForm from "@/Components/Marca/FormAddEdit";
+import AddIcon from '@mui/icons-material/Add';
+import Fab from '@mui/material/Fab';
+
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -23,10 +24,9 @@ const style = {
 
 type Props = {
   buttonLabel?: string;
-  item?: IMarca;
+  item: MarcaEntity;
   updateState?: any;
-  addItemToState?: any;
-  className?: any;
+  addItemToState?: any
 }
 const ModalItem: React.FC<Props> = (props) => {
   const [modal, setModal] = React.useState(false);
@@ -53,12 +53,17 @@ const ModalItem: React.FC<Props> = (props) => {
     title = "Editar Marca";
   } else {
     button = (
-      <Button onClick={toggle} 
-      style={{ float: "right", width: "120px" }}
-      variant="contained"
-     data-toggle="modal">Agregar
+      //   <Button onClick={toggle} 
+      //   style={{ float: "right", width: "120px" }}
+      //   variant="contained"
+      //   startIcon={<AddIcon />}
+      //  data-toggle="modal">Agregar
 
-        </Button>
+      //     </Button>
+
+      <Fab color="primary" size="small" onClick={toggle} aria-label="add">
+        <AddIcon />
+      </Fab>
     );
     title = "Agregar Marca";
   }
@@ -67,11 +72,10 @@ const ModalItem: React.FC<Props> = (props) => {
 
     <React.Fragment>
       {button}
-      {/* <Button onClick={handleOpen}>Open Child Modal</Button> */}
       <Modal
         open={modal}
         onClose={toggle}
-        
+
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
@@ -83,7 +87,7 @@ const ModalItem: React.FC<Props> = (props) => {
             updateState={props.updateState}
             toggle={toggle}
           />
-    
+
         </Box>
       </Modal>
     </React.Fragment>
