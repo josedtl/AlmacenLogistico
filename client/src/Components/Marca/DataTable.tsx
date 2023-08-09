@@ -64,10 +64,9 @@ const DataTable: React.FC<Props> = (props) => {
                         updateState={props.updateState}
                     />
                     <Button
-                        color="warning"
                         className="btn btn-secondary btn-sm btn-block"
                         onClick={() => deleteItem(row.MarcaId)}
-                        style={{ float: "left", marginRight: "10px" }}
+                        style={{ float: "left", marginRight: "10px", color: "#C0C0C0" }}
                     >
                         <DeleteIcon />
                     </Button>

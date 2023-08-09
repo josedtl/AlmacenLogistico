@@ -70,9 +70,11 @@ function Page() {
               <div style={{ flex: 1, textAlign: 'right' }}>
 
                 <Fab
+
                   color="primary"
                   size="small"
                   onClick={getItems}
+                  style={{ margin: '0px 10px 0px 0px' }}
                   aria-label="add">
                   <RefreshIcon />
                 </Fab>

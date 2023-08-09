@@ -7,6 +7,7 @@ import { MarcaEntity } from '@/Models/IMarca'
 import AddEditForm from "@/Components/Marca/FormAddEdit";
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
+import { DialogTitle, IconButton ,Typography} from '@mui/material';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -75,12 +76,12 @@ const ModalItem: React.FC<Props> = (props) => {
       <Modal
         open={modal}
         onClose={toggle}
-
         aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style, width: 320 }}>
-          <h2 >  {title}</h2>
+          <Typography variant="h6" component="h6">
+          {title}
+          </Typography>
           <AddEditForm
             item={props.item}
             addItemToState={props.addItemToState}

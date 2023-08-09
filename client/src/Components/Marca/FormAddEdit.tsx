@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { MarcaEntity } from '@/Models/IMarca'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import MarcaService from '@/Service/MarcaService'; 
+import MarcaService from '@/Service/MarcaService';
+import Grid from '@mui/material/Unstable_Grid2';
 
 type Props = {
     item: MarcaEntity;
@@ -17,12 +18,15 @@ const AddEditForm: React.FC<Props> = (props) => {
     const initialMarca = new MarcaEntity();
     const [form, setValues] = useState<MarcaEntity>(initialMarca);
     const [FlaState, setFlaState] = useState<Boolean>(false);
+    const [error, setError] = useState(false);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValues({
             ...form,
             [e.target.name]: e.target.value.toUpperCase()
         });
+
+        setError(form.Nombre.length < 3);
     };
 
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -30,6 +34,7 @@ const AddEditForm: React.FC<Props> = (props) => {
 
         if (form.Nombre === '') {
             console.log('El nombre no puede ser un número');
+            setError(form.Nombre.length < 3);
             return;
         }
 
@@ -40,6 +45,12 @@ const AddEditForm: React.FC<Props> = (props) => {
 
             props.toggle();
         }
+    };
+
+
+
+    const CancelarModel = () => {
+        props.toggle();
     };
 
     useEffect(() => {
@@ -62,11 +73,28 @@ const AddEditForm: React.FC<Props> = (props) => {
                 margin="normal"
                 label="Nombre"
                 variant="outlined"
+                error={error}
+                helperText={error ? 'El valor debe tener al menos 3 caracteres' : ''}
             />
+            <Grid container spacing={1}>
 
-            <Button variant="contained" onClick={submitFormAdd}>
-                Aceptar
-            </Button>
+                <Grid xs={6} >
+                    <div style={{ flex: 1, textAlign: 'center' }}>
+
+                        <Button variant="contained" onClick={CancelarModel}>
+                            cancelar
+                        </Button>
+                    </div>
+                </Grid>
+                <Grid xs={6} >
+                    <div style={{ flex: 1, textAlign: 'center' }}>
+
+                        <Button variant="contained" onClick={submitFormAdd}>
+                            Aceptar
+                        </Button>
+                    </div>
+                </Grid>
+            </Grid>
         </form>
     );
 }
