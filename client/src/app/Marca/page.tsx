@@ -14,13 +14,18 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import Fab from '@mui/material/Fab';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
+import AddIcon from '@mui/icons-material/Add';
+import { AppBar, Toolbar, IconButton } from '@mui/material';
 
 const Container = styled('div')({
   display: 'flex',
   justifyContent: 'flex-end',
   padding: '16px', // Adjust padding as needed
 });
-
+interface TitleWithButtonsProps {
+  title: string;
+  buttons: React.ReactNode;
+}
 
 function Page() {
   const marcaService = new MarcaService();
@@ -56,21 +61,25 @@ function Page() {
       <Card>
         <CardContent>
           <Grid container spacing={2}>
-            <Grid xs={8} >
-              <Typography gutterBottom variant="h4" component="div">
+            <Grid xs={6} >
+              <Typography gutterBottom variant="h4" component="div" style={{ flex: 1, textAlign: 'left' }}>
                 Marca
               </Typography>
             </Grid>
-            <Grid xs={4}>
-              <Fab
-                color="primary"
-                size="small"
-                onClick={getItems}
-                aria-label="add">
-                <RefreshIcon />
-              </Fab>
+            <Grid xs={6}>
+              <div style={{ flex: 1, textAlign: 'right' }}>
 
-              <ModalItem buttonLabel="" addItemToState={addItemToState} item={new MarcaEntity()} />
+                <Fab
+                  color="primary"
+                  size="small"
+                  onClick={getItems}
+                  aria-label="add">
+                  <RefreshIcon />
+                </Fab>
+
+                <ModalItem buttonLabel="" addItemToState={addItemToState} item={new MarcaEntity()} />
+              </div>
+
             </Grid>
 
           </Grid>
