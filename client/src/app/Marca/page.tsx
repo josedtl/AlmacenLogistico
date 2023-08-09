@@ -4,8 +4,6 @@ import Layout from '@/Silder/Layout';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import DataTable from '@/Components/Marca/DataTable';
 import { MarcaEntity } from '@/Models/IMarca';
 import ModalItem from '@/Components/Marca/ModalItem';
@@ -14,8 +12,8 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import Fab from '@mui/material/Fab';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
-import AddIcon from '@mui/icons-material/Add';
-import { AppBar, Toolbar, IconButton } from '@mui/material';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Container = styled('div')({
   display: 'flex',
@@ -31,6 +29,14 @@ function Page() {
   const marcaService = new MarcaService();
 
   const [items, setItems] = useState<MarcaEntity[]>([]);
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
 
   const addItemToState = (item: MarcaEntity) => {
     setItems([...items, item]);
@@ -48,8 +54,10 @@ function Page() {
   };
 
   const getItems = async () => {
+    setOpen(true);
     const items = await marcaService.getItems();
     setItems(items);
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -75,7 +83,9 @@ function Page() {
                   size="small"
                   onClick={getItems}
                   style={{ margin: '0px 10px 0px 0px' }}
-                  aria-label="add">
+                  aria-label="add"
+                  sx={{ background: '#15616d' }}
+                >
                   <RefreshIcon />
                 </Fab>
 
@@ -91,6 +101,14 @@ function Page() {
         </CardContent>
         <DataTable DataList={items} updateState={updateState} deleteItemFromState={deleteItemFromState} />
       </Card>
+
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Layout >
   );
 }

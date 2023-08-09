@@ -7,8 +7,8 @@ import { MarcaEntity } from '@/Models/IMarca'
 import AddEditForm from "@/Components/Marca/FormAddEdit";
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
-import { DialogTitle, IconButton ,Typography} from '@mui/material';
-
+import { DialogTitle, IconButton, Typography, Dialog, DialogContent, DialogContentText } from '@mui/material';
+import Close from '@mui/icons-material/Close';
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -46,7 +46,7 @@ const ModalItem: React.FC<Props> = (props) => {
         color="warning"
         className="btn btn-secondary btn-sm btn-block"
         onClick={toggle}
-        style={{ float: "left", marginRight: "10px" }}
+        style={{ float: "left", color: '#000000' }}
       >
         <ModeEditOutlineIcon />
       </Button>
@@ -62,7 +62,13 @@ const ModalItem: React.FC<Props> = (props) => {
 
       //     </Button>
 
-      <Fab color="primary" size="small" onClick={toggle} aria-label="add">
+      <Fab
+        color="primary"
+        size="small"
+        onClick={toggle}
+        aria-label="add"
+        sx={{ background: '#15616d' }}
+      >
         <AddIcon />
       </Fab>
     );
@@ -73,10 +79,12 @@ const ModalItem: React.FC<Props> = (props) => {
 
     <React.Fragment>
       {button}
-      <Modal
+      {/* <Modal
         open={modal}
         onClose={toggle}
         aria-labelledby="child-modal-title"
+        
+        
       >
         <Box sx={{ ...style, width: 320 }}>
           <Typography variant="h6" component="h6">
@@ -90,7 +98,51 @@ const ModalItem: React.FC<Props> = (props) => {
           />
 
         </Box>
-      </Modal>
+      </Modal> */}
+
+      <Dialog
+        // onClose={handleClose} // the line to be removed
+        open={modal}
+        fullWidth
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '80vh',
+        }}
+      >
+        <DialogTitle
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            background: '#d8dbe2',
+            color: '#373f51',
+            height: 20
+          }}
+        >
+      
+            {title}
+
+          
+
+          <IconButton sx={{ ml: 'auto', color: '#373f51' }} onClick={toggle}>
+            <Close />
+          </IconButton>
+        </DialogTitle>
+
+        <DialogContent>
+
+          <AddEditForm
+            item={props.item}
+            addItemToState={props.addItemToState}
+            updateState={props.updateState}
+            toggle={toggle}
+          />
+        </DialogContent>
+
+
+      </Dialog>
     </React.Fragment>
 
   );

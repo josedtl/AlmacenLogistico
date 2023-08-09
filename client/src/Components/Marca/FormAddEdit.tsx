@@ -78,22 +78,14 @@ const AddEditForm: React.FC<Props> = (props) => {
             />
             <Grid container spacing={1}>
 
-                <Grid xs={6} >
-                    <div style={{ flex: 1, textAlign: 'center' }}>
+              
+                    <div style={{ flex: 1, textAlign: 'center', margin: "12px 0px 0px 0px" }}>
 
-                        <Button variant="contained" onClick={CancelarModel}>
-                            cancelar
-                        </Button>
-                    </div>
-                </Grid>
-                <Grid xs={6} >
-                    <div style={{ flex: 1, textAlign: 'center' }}>
-
-                        <Button variant="contained" onClick={submitFormAdd}>
+                        <Button variant="contained" onClick={submitFormAdd} sx={{background:'#034078'}}>
                             Aceptar
                         </Button>
                     </div>
-                </Grid>
+                
             </Grid>
         </form>
     );

@@ -5,7 +5,6 @@ import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
 import ModalItem from '@/Components/Marca/ModalItem'
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -27,8 +26,8 @@ const DataTable: React.FC<Props> = (props) => {
     
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
-            backgroundColor: theme.palette.common.black,
-            color: theme.palette.common.white,
+            backgroundColor: '#001f54',
+            color: '#FFFFFF',
         },
         [`&.${tableCellClasses.body}`]: {
             fontSize: 14,
@@ -66,7 +65,7 @@ const DataTable: React.FC<Props> = (props) => {
                     <Button
                         className="btn btn-secondary btn-sm btn-block"
                         onClick={() => deleteItem(row.MarcaId)}
-                        style={{ float: "left", marginRight: "10px", color: "#C0C0C0" }}
+                        style={{ float: "left", marginRight: "10px", color: "#000000" }}
                     >
                         <DeleteIcon />
                     </Button>
