@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { MarcaEntity } from '@/Models/MarcaEntity';
+import { CategoriaEntity } from '@/Models/CategoriaEntity';
 
 const URL = process.env.NEXT_PUBLIC_SERVER_API_BASE_URL;
-class MarcaService {
+class CategoriaService {
 
 
 
-  async getItems(): Promise<MarcaEntity[]> {
+  async getItems(): Promise<CategoriaEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/Marca/GetMainItems/`);
+      const response = await axios.get(`${URL}/api/Categoria/GetMainItems/`);
       console.log(response.status);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
@@ -21,9 +21,9 @@ class MarcaService {
   }
 
 
-  async deleteItem(MarcaId: number): Promise<boolean> {
+  async deleteItem(CategoriaId: number): Promise<boolean> {
     try {
-      const response = await axios.delete(`${URL}/api/Marca/Delete/${MarcaId}`);
+      const response = await axios.delete(`${URL}/api/Categoria/Delete/${CategoriaId}`);
       return response.status === 200;
     } catch (error) {
       console.log(error);
@@ -32,9 +32,9 @@ class MarcaService {
   }
 
 
-  async saveItem(item: MarcaEntity): Promise<MarcaEntity | null> {
+  async saveItem(item: CategoriaEntity): Promise<CategoriaEntity | null> {
     try {
-      const response = await axios.post(`${URL}/api/Marca/Save/`, item, {
+      const response = await axios.post(`${URL}/api/Categoria/Save/`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -54,4 +54,4 @@ class MarcaService {
 
 }
 
-export default MarcaService;
+export default CategoriaService;

@@ -59,6 +59,11 @@ const menuItems: MenuItem[] = [
     path: "/",
     subItems: [
       {
+        label: "Categoria",
+        icon: <></>,
+        path: "/Categoria",
+      },
+      {
         label: "Marca",
         icon: <></>,
         path: "/Marca",

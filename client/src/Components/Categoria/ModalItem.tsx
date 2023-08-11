@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
-import { MarcaEntity } from '@/Models/MarcaEntity'
-import AddEditForm from "@/Components/Marca/FormAddEdit";
+import { CategoriaEntity } from '@/Models/CategoriaEntity'
+import AddEditForm from "@/Components/Categoria/FormAddEdit";
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import { DialogTitle, IconButton, Dialog, DialogContent } from '@mui/material';
@@ -10,7 +10,7 @@ import Close from '@mui/icons-material/Close';
 
 type Props = {
   buttonLabel?: string;
-  item: MarcaEntity;
+  item: CategoriaEntity;
   updateState?: any;
   addItemToState?: any
 }
@@ -36,7 +36,7 @@ const ModalItem: React.FC<Props> = (props) => {
         <ModeEditOutlineIcon />
       </Button>
     );
-    title = "Editar Marca";
+    title = "Editar Categoria";
   } else {
     button = (
       <Fab
@@ -49,7 +49,7 @@ const ModalItem: React.FC<Props> = (props) => {
         <AddIcon />
       </Fab>
     );
-    title = "Agregar Marca";
+    title = "Agregar Categoria";
   }
 
   return (

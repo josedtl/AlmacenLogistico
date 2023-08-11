@@ -1,16 +1,29 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
-import { MarcaEntity } from '@/Models/MarcaEntity'
-import AddEditForm from "@/Components/Marca/FormAddEdit";
+import { ModeloEntity } from '@/Models/ModeloEntity'
+import AddEditForm from "@/Components/Modelo/FormAddEdit";
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import { DialogTitle, IconButton, Dialog, DialogContent } from '@mui/material';
 import Close from '@mui/icons-material/Close';
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 350,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
 
 type Props = {
   buttonLabel?: string;
-  item: MarcaEntity;
+  item: ModeloEntity;
   updateState?: any;
   addItemToState?: any
 }
@@ -36,9 +49,11 @@ const ModalItem: React.FC<Props> = (props) => {
         <ModeEditOutlineIcon />
       </Button>
     );
-    title = "Editar Marca";
+    title = "Editar Modelo";
   } else {
     button = (
+    
+
       <Fab
         color="primary"
         size="small"
@@ -49,7 +64,7 @@ const ModalItem: React.FC<Props> = (props) => {
         <AddIcon />
       </Fab>
     );
-    title = "Agregar Marca";
+    title = "Agregar Modelo";
   }
 
   return (
@@ -76,7 +91,11 @@ const ModalItem: React.FC<Props> = (props) => {
             height: 20
           }}
         >
+      
             {title}
+
+          
+
           <IconButton sx={{ ml: 'auto', color: '#FFFFFF' }} onClick={toggle}>
             <Close />
           </IconButton>

@@ -5,21 +5,21 @@ import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableContainer from "@mui/material/TableContainer";
-import ModalItem from '@/Components/Marca/ModalItem'
+import ModalItem from '@/Components/Categoria/ModalItem'
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
-import MarcaService from '@/Service/MarcaService';
+import CategoriaService from '@/Service/CategoriaService';
 import { styled } from '@mui/material/styles';
-import { MarcaEntity } from '@/Models/MarcaEntity';
+import { CategoriaEntity } from '@/Models/CategoriaEntity';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 type Props = {
-    DataList: MarcaEntity[];
+    DataList: CategoriaEntity[];
     updateState: any;
     deleteItemFromState: any;
 }
 
 const DataTable: React.FC<Props> = (props) => {
-    const sMarca = new MarcaService();
+    const sCategoria = new CategoriaService();
 
 
 
@@ -42,7 +42,7 @@ const DataTable: React.FC<Props> = (props) => {
         Contador += 1
         row.Cont = Contador
         return (
-            <TableRow key={row.MarcaId} >
+            <TableRow key={row.CategoriaId} >
                 <TableCell width={80}>{row.Cont}</TableCell>
                 <TableCell>{row.Nombre}</TableCell>
                 <TableCell width={200}>{row.FechaRegistro.toString()}</TableCell>
@@ -55,7 +55,7 @@ const DataTable: React.FC<Props> = (props) => {
                     />
                     <Button
                         className="btn btn-secondary btn-sm btn-block"
-                        onClick={() => deleteItem(row.MarcaId)}
+                        onClick={() => deleteItem(row.CategoriaId)}
                         style={{ float: "left", marginRight: "10px", color: "#000000" }}
                     >
                         <DeleteIcon />
@@ -67,12 +67,12 @@ const DataTable: React.FC<Props> = (props) => {
     });
 
 
-    const deleteItem = async (MarcaId: number) => {
+    const deleteItem = async (CategoriaId: number) => {
         const confirmDelete = window.confirm("Delete item forever?");
         if (confirmDelete) {
-            const deleted = await sMarca.deleteItem(MarcaId);
+            const deleted = await sCategoria.deleteItem(CategoriaId);
             if (deleted) {
-                props.deleteItemFromState(MarcaId);
+                props.deleteItemFromState(CategoriaId);
             } else {
                 console.log("Delete operation failed");
             }

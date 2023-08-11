@@ -4,43 +4,44 @@ import Layout from '@/Silder/Layout';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import DataTable from '@/Components/Marca/DataTable';
-import { MarcaEntity } from '@/Models/MarcaEntity';
-import ModalItem from '@/Components/Marca/ModalItem';
-import MarcaService from '@/Service/MarcaService';
+import DataTable from '@/Components/Modelo/DataTable';
+import { ModeloEntity } from '@/Models/ModeloEntity';
+import ModalItem from '@/Components/Modelo/ModalItem';
+import ModeloService from '@/Service/ModeloService';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Fab from '@mui/material/Fab';
+import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function Page() {
-  const sMarca = new MarcaService();
+  const sModelo = new ModeloService();
 
-  const [items, setItems] = useState<MarcaEntity[]>([]);
+  const [items, setItems] = useState<ModeloEntity[]>([]);
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
 
-  const addItemToState = (item: MarcaEntity) => {
+  const addItemToState = (item: ModeloEntity) => {
     setItems([...items, item]);
   };
 
-  const updateState = (item: MarcaEntity) => {
-    const itemIndex = items.findIndex((data) => data.MarcaId === item.MarcaId);
+  const updateState = (item: ModeloEntity) => {
+    const itemIndex = items.findIndex((data) => data.ModeloId === item.ModeloId);
     const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
     setItems(newArray);
   };
 
   const deleteItemFromState = (id: number) => {
-    const updatedItems = items.filter((item) => item.MarcaId !== id);
+    const updatedItems = items.filter((item) => item.ModeloId !== id);
     setItems(updatedItems);
   };
 
   const getItems = async () => {
     setOpen(true);
-    const items = await sMarca.getItems();
+    const items = await sModelo.getItems();
     setItems(items);
     setOpen(false);
   };
@@ -56,7 +57,7 @@ function Page() {
           <Grid container spacing={2}>
             <Grid xs={6} >
               <Typography gutterBottom variant="h4" component="div" style={{ flex: 1, textAlign: 'left' }}>
-                Marca
+                Modelo
               </Typography>
             </Grid>
             <Grid xs={6}>
@@ -74,7 +75,7 @@ function Page() {
                   <RefreshIcon />
                 </Fab>
 
-                <ModalItem buttonLabel="" addItemToState={addItemToState} item={new MarcaEntity()} />
+                <ModalItem buttonLabel="" addItemToState={addItemToState} item={new ModeloEntity()} />
               </div>
 
             </Grid>
@@ -99,8 +100,6 @@ function Page() {
 }
 
 export default Page;
-
-
 
 
 

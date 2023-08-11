@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { MarcaEntity } from '@/Models/MarcaEntity'
+import { ModeloEntity } from '@/Models/ModeloEntity'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import MarcaService from '@/Service/MarcaService';
+import ModeloService from '@/Service/ModeloService';
 import Grid from '@mui/material/Unstable_Grid2';
 
 type Props = {
-    item: MarcaEntity;
+    item: ModeloEntity;
     addItemToState?: any;
     toggle?: any;
     updateState?: any;
 }
 
 const AddEditForm: React.FC<Props> = (props) => {
-    const sMarca = new MarcaService();
+    const sModelo = new ModeloService();
 
-    const initialMarca = new MarcaEntity();
-    const [form, setValues] = useState<MarcaEntity>(initialMarca);
+    const initialModelo = new ModeloEntity();
+    const [form, setValues] = useState<ModeloEntity>(initialModelo);
     const [FlaState, setFlaState] = useState<Boolean>(false);
     const [error, setError] = useState(false);
 
@@ -38,7 +38,7 @@ const AddEditForm: React.FC<Props> = (props) => {
             return;
         }
 
-        const savedItem = await sMarca.saveItem(form);
+        const savedItem = await sModelo.saveItem(form);
         if (savedItem) {
             if (FlaState) props.updateState(savedItem);
             else props.addItemToState(savedItem);
@@ -48,10 +48,11 @@ const AddEditForm: React.FC<Props> = (props) => {
     };
 
 
+
     useEffect(() => {
         const updatedPerson = props.item;
-        updatedPerson.Action = updatedPerson.MarcaId > 0 ? 3 : 1;
-        setFlaState(updatedPerson.MarcaId > 0);
+        updatedPerson.Action = updatedPerson.ModeloId > 0 ? 3 : 1;
+        setFlaState(updatedPerson.ModeloId > 0);
         setValues(updatedPerson);
     }, []);
 
@@ -87,7 +88,5 @@ const AddEditForm: React.FC<Props> = (props) => {
 }
 
 export default AddEditForm;
-
-
 
 

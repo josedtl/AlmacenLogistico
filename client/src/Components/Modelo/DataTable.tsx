@@ -5,21 +5,21 @@ import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableContainer from "@mui/material/TableContainer";
-import ModalItem from '@/Components/Marca/ModalItem'
+import ModalItem from '@/Components/Modelo/ModalItem'
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
-import MarcaService from '@/Service/MarcaService';
+import ModeloService from '@/Service/ModeloService';
 import { styled } from '@mui/material/styles';
-import { MarcaEntity } from '@/Models/MarcaEntity';
+import { ModeloEntity } from '@/Models/ModeloEntity';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 type Props = {
-    DataList: MarcaEntity[];
+    DataList: ModeloEntity[];
     updateState: any;
     deleteItemFromState: any;
 }
 
 const DataTable: React.FC<Props> = (props) => {
-    const sMarca = new MarcaService();
+    const sModelo = new ModeloService();
 
 
 
@@ -34,6 +34,15 @@ const DataTable: React.FC<Props> = (props) => {
         },
     }));
 
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        '&:last-child td, &:last-child th': {
+            border: 0,
+        },
+    }));
 
 
     let Contador: number = 0;
@@ -42,7 +51,7 @@ const DataTable: React.FC<Props> = (props) => {
         Contador += 1
         row.Cont = Contador
         return (
-            <TableRow key={row.MarcaId} >
+            <TableRow key={row.ModeloId} >
                 <TableCell width={80}>{row.Cont}</TableCell>
                 <TableCell>{row.Nombre}</TableCell>
                 <TableCell width={200}>{row.FechaRegistro.toString()}</TableCell>
@@ -55,7 +64,7 @@ const DataTable: React.FC<Props> = (props) => {
                     />
                     <Button
                         className="btn btn-secondary btn-sm btn-block"
-                        onClick={() => deleteItem(row.MarcaId)}
+                        onClick={() => deleteItem(row.ModeloId)}
                         style={{ float: "left", marginRight: "10px", color: "#000000" }}
                     >
                         <DeleteIcon />
@@ -67,12 +76,12 @@ const DataTable: React.FC<Props> = (props) => {
     });
 
 
-    const deleteItem = async (MarcaId: number) => {
+    const deleteItem = async (ModeloId: number) => {
         const confirmDelete = window.confirm("Delete item forever?");
         if (confirmDelete) {
-            const deleted = await sMarca.deleteItem(MarcaId);
+            const deleted = await sModelo.deleteItem(ModeloId);
             if (deleted) {
-                props.deleteItemFromState(MarcaId);
+                props.deleteItemFromState(ModeloId);
             } else {
                 console.log("Delete operation failed");
             }
@@ -95,6 +104,7 @@ const DataTable: React.FC<Props> = (props) => {
                     </TableHead>
                     <TableBody>
                         {items}
+      
                     </TableBody>
                 </Table>
             </TableContainer>
