@@ -12,6 +12,8 @@ import MarcaService from '@/Service/MarcaService';
 import { styled } from '@mui/material/styles';
 import { MarcaEntity } from '@/Models/MarcaEntity';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { format } from 'date-fns';
+import dayjs from "dayjs";
 type Props = {
     DataList: MarcaEntity[];
     updateState: any;
@@ -23,7 +25,7 @@ const DataTable: React.FC<Props> = (props) => {
 
 
 
-    
+
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: '#001f54',
@@ -41,11 +43,13 @@ const DataTable: React.FC<Props> = (props) => {
 
         Contador += 1
         row.Cont = Contador
+
+        // console.log(format(row.FechaRegistro, 'dd/MM/yyyy'))
         return (
             <TableRow key={row.MarcaId} >
                 <TableCell width={80}>{row.Cont}</TableCell>
                 <TableCell>{row.Nombre}</TableCell>
-                <TableCell width={200}>{row.FechaRegistro.toString()}</TableCell>
+                <TableCell width={200}>{dayjs( row.FechaRegistro.toString()).format("DD-MM-YYYY hh:mm")}</TableCell>
                 <TableCell width={150}>{row.CodUsuario}</TableCell>
                 <TableCell width={150} >
                     <ModalItem
