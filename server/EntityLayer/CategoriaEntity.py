@@ -1,7 +1,7 @@
 from datetime import datetime
 from pydantic import BaseModel, constr
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
-
+from  EntityLayer.MyCode.CategoriaOtherEntity import CategoriaOtherEntity
 
 class CategoriaEntity(BaseModel):
     CategoriaId: int
@@ -12,7 +12,7 @@ class CategoriaEntity(BaseModel):
     Action: ProcessActionEnum
 
 
-class CategoriaItemEntity:
+class CategoriaItemEntity(CategoriaOtherEntity):
     CategoriaId: int
     Nombre: str
     FechaRegistro: datetime
