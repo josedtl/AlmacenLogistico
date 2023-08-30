@@ -2,17 +2,17 @@
 import React, { useState } from 'react';
 import Sidebar from '@/Silder/Layout';
 
-const OrdenPedido = () => {
+const page = () => {
  
   return (
     <div className="container">
 
     <div className="content">
-      <h1>OrdenPedido</h1>
+      <h1>Lista</h1>
       {/* Resto del contenido de la página */}
     </div>
   </div>
   );
 };
 
-export default OrdenPedido;
+export default page;
