@@ -33,7 +33,7 @@ const menuItems: MenuItem[] = [
       {
         label: "Orden de Pedido",
         icon: <></>,
-        path: "/Contacto",
+        path: "/OrdenPedido/Generar",
       }
     ],
   },
