@@ -19,6 +19,11 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -102,18 +107,20 @@ const rows = [
 ];
 
 const page = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState('1');
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
-  const [selectedDate, setSelectedDate] = useState(null);
+
+  const [selectedDate, setSelectedDate] = React.useState(null);
 
 
 
   return (
-  
+
 
 
 
@@ -122,95 +129,115 @@ const page = () => {
       <Card>
 
 
-      <Grid container spacing={5}>
-        <Grid item xs={6} md={3}>
-          <Typography variant="h4" component="div">
-            Orden de Pedido
-          </Typography>
-        </Grid>
-        <Grid item xs={6} md={9}>
-          <Button variant="outlined" startIcon={<SaveOutlinedIcon />}>
-            Guardar
-          </Button>
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextField
-            type="text"
-            size="small"
-            id="outlined-basic"
-            sx={{ width: '100%' }}
-            name="Nombre"
-            margin="normal"
-            label="Código"
-            variant="outlined"
-          />
+        <Grid container spacing={5}>
+          <Grid item xs={6} md={3}>
+            <Typography variant="h4" component="div">
+              Orden de Pedido
+            </Typography>
+          </Grid>
+          <Grid item xs={6} md={9}>
+            <Button variant="outlined" startIcon={<SaveOutlinedIcon />}>
+              Guardar
+            </Button>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <TextField
+              type="text"
+              size="small"
+              id="outlined-basic"
+              sx={{ width: '100%' }}
+              name="Nombre"
+              margin="normal"
+              label="Código"
+              variant="outlined"
+            />
 
-          <TextField
-            type="text"
-            size="small"
-            id="outlined-basic"
-            sx={{ width: '100%' }}
-            name="Nombre"
-            margin="normal"
-            label="Responsable"
-            variant="outlined"
-          />
+            <TextField
+              type="text"
+              size="small"
+              id="outlined-basic"
+              sx={{ width: '100%' }}
+              name="Nombre"
+              margin="normal"
+              label="Responsable"
+              variant="outlined"
+            />
 
-          <TextField
-            type="text"
-            size="small"
-            id="outlined-basic"
-            sx={{ width: '100%' }}
-            name="Nombre"
-            margin="normal"
-            label="Nombre"
-            variant="outlined"
-          />
-        </Grid>
+            <TextField
+              type="text"
+              size="small"
+              id="outlined-basic"
+              sx={{ width: '100%' }}
+              name="Nombre"
+              margin="normal"
+              label="Nombre"
+              variant="outlined"
+            />
+          </Grid>
 
-        <Grid item xs={6} md={9}>
-          <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                <Tab label="Detalle - Producto" {...a11yProps(0)} />
-              </Tabs>
+          <Grid item xs={6} md={9}>
+            <Box sx={{ width: '100%' }}>
+              <TabContext value={value}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                  <TabList onChange={handleChange} aria-label="lab API tabs example">
+                    <Tab label="Item One" value="1" />
+                    <Tab label="Item Two" value="2" />
+                    <Tab label="Item Three" value="3" />
+                  </TabList>
+                </Box>
+                <TabPanel value="1">
+
+                  <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 500 }} aria-label="customized table">
+                      <TableHead>
+                        <TableRow>
+                          <StyledTableCell align="center" sx={{ with: 10 }}>Nº</StyledTableCell>
+                          <StyledTableCell>Prodcuto</StyledTableCell>
+                          <StyledTableCell align="center">Cantidad Solicitado</StyledTableCell>
+                          <StyledTableCell align="center">Cantidad Faltante</StyledTableCell>
+                          <StyledTableCell align="center">Cantidad Reservada</StyledTableCell>
+                          <StyledTableCell align="center">Cantidad Atendido</StyledTableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {rows.map((row) => (
+                          <StyledTableRow key={row.name}>
+                            <StyledTableCell sx={{ with: 20 }} align="center">0</StyledTableCell>
+                            <StyledTableCell component="th" scope="row">
+                              {row.name}
+                            </StyledTableCell>
+                            <StyledTableCell align="center">{row.calories}</StyledTableCell>
+                            <StyledTableCell align="center">{row.fat}</StyledTableCell>
+                            <StyledTableCell align="center">{row.carbs}</StyledTableCell>
+                            <StyledTableCell align="center">{row.protein}</StyledTableCell>
+                          </StyledTableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+
+                  </TableContainer>
+
+
+                </TabPanel>
+                <TabPanel value="2">Item Two</TabPanel>
+                <TabPanel value="3">Item Three</TabPanel>
+              </TabContext>
+              {/* <TabPanel value="1">Item One</TabPanel> */}
+
+
+
+
+
+
+
+
             </Box>
-            <CustomTabPanel value={value} index={0}>
-              {/* <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 500 }} aria-label="customized table">
-                  <TableHead>
-                    <TableRow>
-                      <StyledTableCell align="center" sx={{ with: 10 }}>Nº</StyledTableCell>
-                      <StyledTableCell>Prodcuto</StyledTableCell>
-                      <StyledTableCell align="center">Cantidad Solicitado</StyledTableCell>
-                      <StyledTableCell align="center">Cantidad Faltante</StyledTableCell>
-                      <StyledTableCell align="center">Cantidad Reservada</StyledTableCell>
-                      <StyledTableCell align="center">Cantidad Atendido</StyledTableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => (
-                      <StyledTableRow key={row.name}>
-                        <StyledTableCell sx={{ with: 20 }} align="center">0</StyledTableCell>
-                        <StyledTableCell component="th" scope="row">
-                          {row.name}
-                        </StyledTableCell>
-                        <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                        <StyledTableCell align="center">{row.fat}</StyledTableCell>
-                        <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                        <StyledTableCell align="center">{row.protein}</StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer> */}
-            </CustomTabPanel>
+          </Grid>
 
-          </Box>
-        </Grid>
-
-      </Grid >
+        </Grid >
       </Card>
+
+
     </Layout>
   );
 };
