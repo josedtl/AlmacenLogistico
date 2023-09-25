@@ -20,10 +20,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -117,10 +113,15 @@ const page = () => {
 
 
   return (
+  
+
+
+
+
     <Layout>
       <Card>
 
-     
+
       <Grid container spacing={5}>
         <Grid item xs={6} md={3}>
           <Typography variant="h4" component="div">
@@ -166,7 +167,7 @@ const page = () => {
             variant="outlined"
           />
         </Grid>
-        
+
         <Grid item xs={6} md={9}>
           <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -175,7 +176,7 @@ const page = () => {
               </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-              <TableContainer component={Paper}>
+              {/* <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 500 }} aria-label="customized table">
                   <TableHead>
                     <TableRow>
@@ -202,7 +203,7 @@ const page = () => {
                     ))}
                   </TableBody>
                 </Table>
-              </TableContainer>
+              </TableContainer> */}
             </CustomTabPanel>
 
           </Box>
