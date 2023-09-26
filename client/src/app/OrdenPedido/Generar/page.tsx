@@ -136,9 +136,14 @@ const page = () => {
             </Typography>
           </Grid>
           <Grid item xs={6} md={9}>
-            <Button variant="outlined" startIcon={<SaveOutlinedIcon />}>
-              Guardar
-            </Button>
+
+
+            <div style={{ textAlign: 'right' }}>
+              <Button variant="outlined" startIcon={<SaveOutlinedIcon />}>
+                Guardar
+              </Button>
+            </div>
+
           </Grid>
           <Grid item xs={6} md={3}>
             <TextField
