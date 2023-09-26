@@ -6,12 +6,35 @@ from routes.TipoProductoRoute import TipoProductoRouter
 from routes.ModeloRoute import ModeloRouter
 from routes.MarcaRoute import MarcaRouter
 from routes.ProductoRoute import ProductoRouter
-app = FastAPI(title="Adcode",   description='Sistema logistico  ',)
+from ariadne import QueryType, make_executable_schema, load_schema_from_path, gql
+from ariadne.asgi import GraphQL
+from GraphqlServer import schema
+app = FastAPI(
+    title="Adcode",
+    description="Sistema logistico  ",
+)
+# type_defs = load_schema_from_path("types.graphql")
+
+# query = QueryType()
+# personas = [
+#     {"PersonaId": 1, "Nombre": "John", "Apellido": "Doe"},
+#     {"PersonaId": 2, "Nombre": "Jane", "Apellido": "Smith"},
+#     {"PersonaId": 2, "Nombre": "Jane", "Apellido": "Smith"},
+# ]
+
+
+# @query.field("personas")
+# def resolve_personas(_, info):
+#     return personas
+
+
+# schema = make_executable_schema(type_defs, query)
 
 origins = [
     "http://localhost:5042",
-"http://localhost:3000",
+    "http://localhost:3000",
 ]
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,6 +57,7 @@ app.add_middleware(
 # app.include_router(Usuario)
 # app.include_router(Horario)
 # app.include_router(Turno)
+app.add_route("/graphql", GraphQL(schema))
 app.include_router(CategoriaRouter)
 app.include_router(TipoProductoRouter)
 app.include_router(ModeloRouter)

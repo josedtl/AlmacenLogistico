@@ -1,0 +1,21 @@
+type Persona {
+    PersonaId: Int
+    Nombre: String
+    Apellido: String
+}
+
+
+type Categoria {
+    CategoriaId: Int
+    Nombre: String
+    FechaRegistro :String
+    CodUsuario:String
+    EstadoRegistro:Boolean
+}
+
+
+type Query {
+    personas: [Persona]
+    categorias: [Categoria]
+    personaPorId(PersonaId: Int!): Persona
+}
