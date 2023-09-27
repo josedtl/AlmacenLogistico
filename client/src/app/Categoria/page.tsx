@@ -40,9 +40,12 @@ function Page() {
 
   const getItems = async () => {
     setOpen(true);
-    const items = await sCategoria.getItems();
-    setItems(items);
+    // const items = await sCategoria.getItems();
+    const itemsg = await sCategoria.GetItemsGra();
+    setItems(itemsg);
     setOpen(false);
+
+    // console.log(itemsg);
   };
 
   useEffect(() => {

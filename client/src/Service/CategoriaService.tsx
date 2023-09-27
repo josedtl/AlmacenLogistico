@@ -19,8 +19,27 @@ class CategoriaService {
       return [];
     }
   }
+  async GetItemsGra(): Promise<CategoriaEntity[]> {
+    const GET_TODOS = `
+     {
+      categorias
+      {
+      CategoriaId
+        Nombre
+        FechaRegistro
+        CodUsuario
+        EstadoRegistro
+      }
+    }
+  `;
+    const response = await axios.post('http://127.0.0.1:8000/graphql', {
+      query: GET_TODOS,
+    });
 
 
+    return await response.data.data.categorias
+
+  }
   async deleteItem(CategoriaId: number): Promise<boolean> {
     try {
       const response = await axios.delete(`${URL}/api/Categoria/Delete/${CategoriaId}`);
