@@ -22,8 +22,9 @@ import TableRow from '@mui/material/TableRow';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-
-
+import CardContent from '@mui/material/CardContent';
+import Fab from '@mui/material/Fab';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -117,6 +118,9 @@ const page = () => {
 
   const [selectedDate, setSelectedDate] = React.useState(null);
 
+  const inputStyles = {
+    borderColor: 'green', // Cambia esto al color que desees
+  };
 
 
   return (
@@ -127,24 +131,39 @@ const page = () => {
 
     <Layout>
       <Card>
+        <CardContent>
+          <Grid container spacing={0}>
+            <Grid xs={6} >
+              <Typography gutterBottom variant="h4" component="div" style={{ flex: 1, textAlign: 'left' }}>
+                Orden de Pedido
+              </Typography>
+            </Grid>
+            <Grid xs={6}>
+              <div style={{ flex: 1, textAlign: 'right' }}>
+
+                <Fab
+
+                  color="primary"
+                  size="small"
+
+                  style={{ margin: '0px 10px 0px 0px' }}
+                  aria-label="add"
+                  sx={{ background: '#15616d' }}
+                >
+                  <RefreshIcon />
+                </Fab>
+
+              </div>
+
+            </Grid>
+
+          </Grid>
 
 
+
+        </CardContent>
         <Grid container spacing={5}>
-          <Grid item xs={6} md={3}>
-            <Typography variant="h4" component="div">
-              Orden de Pedido
-            </Typography>
-          </Grid>
-          <Grid item xs={6} md={9}>
 
-
-            <div style={{ textAlign: 'right' }}>
-              <Button variant="outlined" startIcon={<SaveOutlinedIcon />}>
-                Guardar
-              </Button>
-            </div>
-
-          </Grid>
           <Grid item xs={6} md={3}>
             <TextField
               type="text"
@@ -152,7 +171,7 @@ const page = () => {
               id="outlined-basic"
               sx={{ width: '100%' }}
               name="Nombre"
-              margin="normal"
+              margin="dense"
               label="Código"
               variant="outlined"
             />
@@ -163,7 +182,7 @@ const page = () => {
               id="outlined-basic"
               sx={{ width: '100%' }}
               name="Nombre"
-              margin="normal"
+              margin="dense"
               label="Responsable"
               variant="outlined"
             />
@@ -174,7 +193,7 @@ const page = () => {
               id="outlined-basic"
               sx={{ width: '100%' }}
               name="Nombre"
-              margin="normal"
+              margin="dense"
               label="Nombre"
               variant="outlined"
             />
@@ -185,9 +204,9 @@ const page = () => {
               <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                   <TabList onChange={handleChange} aria-label="lab API tabs example">
-                    <Tab label="Item One" value="1" />
-                    <Tab label="Item Two" value="2" />
-                    <Tab label="Item Three" value="3" />
+                    <Tab label="Detalle - Producto" value="1" />
+                    {/* <Tab label="Item Two" value="2" /> */}
+                    {/* <Tab label="Item Three" value="3" /> */}
                   </TabList>
                 </Box>
                 <TabPanel value="1">
@@ -224,8 +243,8 @@ const page = () => {
 
 
                 </TabPanel>
-                <TabPanel value="2">Item Two</TabPanel>
-                <TabPanel value="3">Item Three</TabPanel>
+                {/* <TabPanel value="2">Item Two</TabPanel> */}
+                {/* <TabPanel value="3">Item Three</TabPanel> */}
               </TabContext>
               {/* <TabPanel value="1">Item One</TabPanel> */}
 
