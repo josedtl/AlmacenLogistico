@@ -25,7 +25,8 @@ import TabPanel from '@mui/lab/TabPanel';
 import CardContent from '@mui/material/CardContent';
 import Fab from '@mui/material/Fab';
 import RefreshIcon from '@mui/icons-material/Refresh';
-
+import ModalItem from '@/Components/OrdenPedido/ModalItem';
+import { CategoriaEntity } from '@/Models/CategoriaEntity';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -109,7 +110,11 @@ const rows = [
 
 const page = () => {
   const [value, setValue] = React.useState('1');
-
+  const [items, setItems] = useState<CategoriaEntity[]>([]);
+  
+  const addItemToState = (item: CategoriaEntity) => {
+    setItems([...items, item]);
+  };
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -133,12 +138,12 @@ const page = () => {
       <Card>
         <CardContent>
           <Grid container spacing={0}>
-            <Grid xs={6} >
+            <Grid item xs={6} >
               <Typography gutterBottom variant="h4" component="div" style={{ flex: 1, textAlign: 'left' }}>
                 Orden de Pedido
               </Typography>
             </Grid>
-            <Grid xs={6}>
+            <Grid item xs={6}>
               <div style={{ flex: 1, textAlign: 'right' }}>
 
                 <Fab
@@ -210,6 +215,18 @@ const page = () => {
                   </TabList>
                 </Box>
                 <TabPanel value="1">
+                  <Grid container  marginBottom={1}>
+
+                    <Grid item xs={6}>
+                      <Button variant="contained">Eliminar</Button>
+                    </Grid>
+                    <Grid item xs={6} justifyContent={'center'}  >
+                    <div style={{ flex: 1, textAlign: 'right' }}>
+                    <ModalItem buttonLabel="" addItemToState={addItemToState} item={new CategoriaEntity()} />
+                      <Button variant="contained">Agregar</Button>
+                    </div>
+                    </Grid>
+                  </Grid>
 
                   <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 500 }} aria-label="customized table">
