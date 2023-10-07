@@ -38,7 +38,7 @@ def Delete(Id):
 
 
 @CategoriaRouter.get(f"/api/{ApiName}/GetCategoriaLikeItems/{{Nombre}}", tags=[ApiName])
-def GetCategoriaLikeItems(Nombre :str):
+def GetCategoriaLikeItems(Nombre: str):
     try:
         jsonData = Categoria.GetCategoriaLikeItems(Nombre)
         return jsonable_encoder(ResponseAPI.Response(jsonData))

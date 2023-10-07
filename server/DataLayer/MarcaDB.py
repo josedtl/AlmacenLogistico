@@ -3,23 +3,20 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
 from .configMysql import get_connection
 from EntityLayer.MarcaEntity import *
-
 import pymysql
 
-
 class MarcaDB:
-
     def Save(Ent: MarcaEntity):
-
         try:
             Store: str
             Store = "sp_Marca_Insert"
-            if (Ent.Action == ProcessActionEnum.Update):Store = "sp_Marca_Update"
+            if Ent.Action == ProcessActionEnum.Update:
+                Store = "sp_Marca_Update"
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-                args=[]
+                args = []
                 args.append(Ent.MarcaId)
                 args.append(Ent.Nombre)
                 args.append(Ent.FechaRegistro)
@@ -27,7 +24,7 @@ class MarcaDB:
                 args.append(Ent.EstadoRegistro)
 
                 cursor.callproc(Store, args)
-                Ent.MarcaId =int(cursor.fetchone()['v_MarcaId'])
+                Ent.MarcaId = int(cursor.fetchone()["v_MarcaId"])
 
             conn.commit()
             return Ent
@@ -67,15 +64,18 @@ class MarcaDB:
             return ResponseAPI.Response(True)
         except Exception as e:
             error_code = e.args[0]
-            error_entity = next((entity for entity in error_entities if entity['code'] == error_code), None)
+            error_entity = next(
+                (entity for entity in error_entities if entity["code"] == error_code),
+                None,
+            )
 
             if error_entity:
-                print(error_entity['message'])
-                return ResponseAPIError.ErrorMensaje(error_entity['messageuser']) 
+                print(error_entity["message"])
+                return ResponseAPIError.ErrorMensaje(error_entity["messageuser"])
             else:
                 error_message = "Ocurrió un error al eliminar el Registro"
                 print(e)
-                return ResponseAPIError.ErrorMensaje(error_message) 
+                return ResponseAPIError.ErrorMensaje(error_message)
 
         finally:
             cursor.close()

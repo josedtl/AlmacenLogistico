@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, constr
+from pydantic import BaseModel
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 from  EntityLayer.MyCode.CategoriaOtherEntity import CategoriaOtherEntity
 

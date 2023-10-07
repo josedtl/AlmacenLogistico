@@ -6,6 +6,7 @@ from routes.TipoProductoRoute import TipoProductoRouter
 from routes.ModeloRoute import ModeloRouter
 from routes.MarcaRoute import MarcaRouter
 from routes.ProductoRoute import ProductoRouter
+from routes.AreaRoute import AreaRouter
 from ariadne import QueryType, make_executable_schema, load_schema_from_path, gql
 from ariadne.asgi import GraphQL
 from GraphqlServer import schema
@@ -63,6 +64,7 @@ app.include_router(TipoProductoRouter)
 app.include_router(ModeloRouter)
 app.include_router(MarcaRouter)
 app.include_router(ProductoRouter)
+app.include_router(AreaRouter)
 
 tags_metadata = [
     {

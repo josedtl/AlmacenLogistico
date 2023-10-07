@@ -1,6 +1,5 @@
 from DataLayer.CategoriaDB import *
 from EntityLayer.CategoriaEntity import *
-import json
 
 
 class Categoria:
@@ -22,7 +21,7 @@ class Categoria:
         except Exception as e:
             print(e)
 
-    def GetCategoriaLikeItems(Nombre :str):
+    def GetCategoriaLikeItems(Nombre: int):
         try:
             return CategoriaDB.GetCategoriaLikeItems(Nombre)
         except Exception as e:
