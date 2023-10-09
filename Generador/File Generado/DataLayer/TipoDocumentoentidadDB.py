@@ -2,23 +2,23 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
 from .configMysql import get_connection
-from EntityLayer.CategoriaEntity import *
+from EntityLayer.TipoDocumentoentidadEntity import *
 import pymysql
 
 
-class CategoriaDB:
+class TipoDocumentoentidadDB:
     def GetItems():
         try:
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor.callproc("sp_CategoriaAllItems")
+                cursor.callproc("sp_TipoDocumentoentidadAllItems")
                 resulset = cursor.fetchall()
             conn.close()
             list = []
 
             for row in resulset:
-                Data_ent = CategoriaItemModel.Cargar(row)
+                Data_ent = TipoDocumentoentidadItemModel.Cargar(row)
                 list.append(Data_ent)
             return list
         except Exception as e:
@@ -30,35 +30,35 @@ class CategoriaDB:
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = (Id,)
-                cursor.callproc("sp_CategoriaAllItem", args)
+                cursor.callproc("sp_TipoDocumentoentidadAllItem", args)
                 resulset = cursor.fetchall()
             conn.close()
             list = []
 
             for row in resulset:
-                Data_ent = CategoriaItemModel.Cargar(row)
+                Data_ent = TipoDocumentoentidadItemModel.Cargar(row)
                 list.append(Data_ent)
             return list
         except Exception as e:
             print(e)
 
-    def Save(Ent: CategoriaSaveModel):
+    def Save(Ent: TipoDocumentoentidadSaveModel):
         try:
             Store: str
-            Store = "sp_Categoria_Save"
+            Store = "sp_TipoDocumentoentidad_Save"
             if Ent.Action == ProcessActionEnum.Update:
-                Store = "sp_Categoria_Save"
+                Store = "sp_TipoDocumentoentidad_Update"
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = []
-                args.append(Ent.CategoriaId)
-                args.append(Ent.Nombre)
-                args.append(Ent.FechaRegistro)
-                args.append(Ent.CodUsuario)
-                args.append(Ent.EstadoRegistro)
+                args.append(Ent.TipoDocumentoIdentidadId)
+                args.append(Ent.Codigo)
+                args.append(Ent.Alias)
+                args.append(Ent.Descripcion)
+                args.append(Ent.EsEmpresa)
                 cursor.callproc(Store, args)
-                Ent.CategoriaId = int(cursor.fetchone()["v_CategoriaId"])
+                Ent.TipoDocumentoIdentidadId = int(cursor.fetchone()["v_TipoDocumentoIdentidadId"])
 
             conn.commit()
             return Ent
@@ -75,7 +75,7 @@ class CategoriaDB:
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = (Id,)
-                cursor.callproc("sp_Categoria_Delete", args)
+                cursor.callproc("sp_TipoDocumentoentidad_Delete", args)
                 conn.commit()
             return ResponseAPI.Response(True)
         except Exception as e:

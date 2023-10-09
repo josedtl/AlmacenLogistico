@@ -1,29 +1,29 @@
-from DataLayer.CategoriaDB import *
-from EntityLayer.CategoriaEntity import *
+from DataLayer.TipoSexoDB import *
+from EntityLayer.TipoSexoEntity import *
 
 
-class Categoria:
-    def Save(Ent: CategoriaSaveModel):
+class TipoSexo:
+    def Save(Ent: TipoSexoSaveModel):
         try:
-            return CategoriaDB.Save(Ent)
+            return TipoSexoDB.Save(Ent)
         except Exception as e:
             print(e)
     
     def GetItems():
         try:
-            return CategoriaDB.GetItems()
+            return TipoSexoDB.GetItems()
         except Exception as e:
             print(e)
     
     def GetItem(Id: int):
         try:
-            return CategoriaDB.GetItem(Id)
+            return TipoSexoDB.GetItem(Id)
         except Exception as e:
             print(e)
     
     def Delete(Id: int):
         try:
-            return CategoriaDB.Delete(Id)
+            return TipoSexoDB.Delete(Id)
         except Exception as e:
             print(e)
     

@@ -1,29 +1,29 @@
-from DataLayer.AreaDB import *
-from EntityLayer.AreaEntity import *
+from DataLayer.EstadoCivilDB import *
+from EntityLayer.EstadoCivilEntity import *
 
 
-class Area:
-    def Save(Ent: AreaSaveModel):
+class EstadoCivil:
+    def Save(Ent: EstadoCivilSaveModel):
         try:
-            return AreaDB.Save(Ent)
+            return EstadoCivilDB.Save(Ent)
         except Exception as e:
             print(e)
     
     def GetItems():
         try:
-            return AreaDB.GetItems()
+            return EstadoCivilDB.GetItems()
         except Exception as e:
             print(e)
     
     def GetItem(Id: int):
         try:
-            return AreaDB.GetItem(Id)
+            return EstadoCivilDB.GetItem(Id)
         except Exception as e:
             print(e)
     
     def Delete(Id: int):
         try:
-            return AreaDB.Delete(Id)
+            return EstadoCivilDB.Delete(Id)
         except Exception as e:
             print(e)
     

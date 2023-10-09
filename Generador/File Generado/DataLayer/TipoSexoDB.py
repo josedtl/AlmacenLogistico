@@ -2,23 +2,23 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
 from .configMysql import get_connection
-from EntityLayer.AreaEntity import *
+from EntityLayer.TipoSexoEntity import *
 import pymysql
 
 
-class AreaDB:
+class TipoSexoDB:
     def GetItems():
         try:
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor.callproc("sp_AreaAllItems")
+                cursor.callproc("sp_TipoSexoAllItems")
                 resulset = cursor.fetchall()
             conn.close()
             list = []
 
             for row in resulset:
-                Data_ent = AreaItemModel.Cargar(row)
+                Data_ent = TipoSexoItemModel.Cargar(row)
                 list.append(Data_ent)
             return list
         except Exception as e:
@@ -30,35 +30,32 @@ class AreaDB:
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = (Id,)
-                cursor.callproc("sp_AreaAllItem", args)
+                cursor.callproc("sp_TipoSexoAllItem", args)
                 resulset = cursor.fetchall()
             conn.close()
             list = []
 
             for row in resulset:
-                Data_ent = AreaItemModel.Cargar(row)
+                Data_ent = TipoSexoItemModel.Cargar(row)
                 list.append(Data_ent)
             return list
         except Exception as e:
             print(e)
 
-    def Save(Ent: AreaSaveModel):
+    def Save(Ent: TipoSexoSaveModel):
         try:
             Store: str
-            Store = "sp_Area_Save"
+            Store = "sp_TipoSexo_Save"
             if Ent.Action == ProcessActionEnum.Update:
-                Store = "sp_Area_Update"
+                Store = "sp_TipoSexo_Update"
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = []
-                args.append(Ent.AreaId)
+                args.append(Ent.TipoSexoId)
                 args.append(Ent.Nombre)
-                args.append(Ent.FechaRegistro)
-                args.append(Ent.CodUsuario)
-                args.append(Ent.Estado)
                 cursor.callproc(Store, args)
-                Ent.AreaId = int(cursor.fetchone()["v_AreaId"])
+                Ent.TipoSexoId = int(cursor.fetchone()["v_TipoSexoId"])
 
             conn.commit()
             return Ent
@@ -75,7 +72,7 @@ class AreaDB:
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = (Id,)
-                cursor.callproc("sp_Area_Delete", args)
+                cursor.callproc("sp_TipoSexo_Delete", args)
                 conn.commit()
             return ResponseAPI.Response(True)
         except Exception as e:
