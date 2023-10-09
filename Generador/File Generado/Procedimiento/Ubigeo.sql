@@ -13,7 +13,7 @@ BEGIN
     DepartamentoId,
     ProvinciaId,
     DistritoId
-  FROM sistema_ubigeo;
+  FROM catalogo_ubigeo;
 END;
 
 CREATE PROCEDURE sp_UbigeoAllItem(IN v_UbigeoId INT)
@@ -25,7 +25,7 @@ BEGIN
     DepartamentoId,
     ProvinciaId,
     DistritoId
-  FROM sistema_ubigeo WHERE  UbigeoId = v_UbigeoId;
+  FROM catalogo_ubigeo WHERE  UbigeoId = v_UbigeoId;
 END;
 
 CREATE PROCEDURE sp_Ubigeo_Save(
@@ -37,7 +37,7 @@ CREATE PROCEDURE sp_Ubigeo_Save(
     IN v_DistritoId int
 )
 BEGIN
-    INSERT INTO sistema_ubigeo (
+    INSERT INTO catalogo_ubigeo (
         UbigeoId,
         CodUbigeo,
         DesUbigeo,
@@ -66,7 +66,7 @@ CREATE PROCEDURE sp_Ubigeo_Update(
     IN v_DistritoId int
 )
 BEGIN
-    UPDATE sistema_ubigeo
+    UPDATE catalogo_ubigeo
     SET
         UbigeoId = v_UbigeoId,
         CodUbigeo = v_CodUbigeo,
@@ -84,6 +84,6 @@ END;
 CREATE  PROCEDURE `sp_Ubigeo_Delete`(IN v_UbigeoId int)
 BEGIN
   DELETE
-    FROM sistema_ubigeo
+    FROM catalogo_ubigeo
   WHERE UbigeoId = v_UbigeoId;
   END;

@@ -123,11 +123,15 @@ class DatabaseApp:
             output_folderStore = "File Generado\Procedimiento"
             if not os.path.exists(output_folderStore):
                 os.makedirs(output_folderStore)
+
+
             generate_class_from_sqlEntidad(self.attributes, output_folderEntityLayer)
             generate_class_from_sqlDatos(self.attributes, output_folderDataLayer)
             generate_class_from_sqlNegocio(self.attributes, output_folderBusiness)
             generate_class_from_sqlControlador(self.attributes, output_folderControllers)
             generate_class_from_sqlStore(self.attributesExtendido,self.tables_combobox.get(), output_folderStore)
+
+            
             self.Mensaje += "Archivos Generados\n"
             self.update_text_area()
         except pymysql.Error as e:

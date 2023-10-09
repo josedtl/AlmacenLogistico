@@ -10,7 +10,7 @@ BEGIN
     DepartamentoId,
     CodDepartamento,
     NomDepartamento
-  FROM sistema_departamento;
+  FROM catalogo_departamento;
 END;
 
 CREATE PROCEDURE sp_DepartamentoAllItem(IN v_DepartamentoId INT)
@@ -19,7 +19,7 @@ BEGIN
     DepartamentoId,
     CodDepartamento,
     NomDepartamento
-  FROM sistema_departamento WHERE  DepartamentoId = v_DepartamentoId;
+  FROM catalogo_departamento WHERE  DepartamentoId = v_DepartamentoId;
 END;
 
 CREATE PROCEDURE sp_Departamento_Save(
@@ -28,7 +28,7 @@ CREATE PROCEDURE sp_Departamento_Save(
     IN v_NomDepartamento varchar(50)
 )
 BEGIN
-    INSERT INTO sistema_departamento (
+    INSERT INTO catalogo_departamento (
         DepartamentoId,
         CodDepartamento,
         NomDepartamento
@@ -48,7 +48,7 @@ CREATE PROCEDURE sp_Departamento_Update(
     IN v_NomDepartamento varchar(50)
 )
 BEGIN
-    UPDATE sistema_departamento
+    UPDATE catalogo_departamento
     SET
         DepartamentoId = v_DepartamentoId,
         CodDepartamento = v_CodDepartamento,
@@ -63,6 +63,6 @@ END;
 CREATE  PROCEDURE `sp_Departamento_Delete`(IN v_DepartamentoId int)
 BEGIN
   DELETE
-    FROM sistema_departamento
+    FROM catalogo_departamento
   WHERE DepartamentoId = v_DepartamentoId;
   END;
