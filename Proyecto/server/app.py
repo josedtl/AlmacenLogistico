@@ -22,7 +22,6 @@ from routes.OrdenCompraDetalleRoute import OrdenCompraDetalleRouter
 from routes.OrdenCompraRoute import OrdenCompraRouter
 from routes.OrdenCompraPedidoEnlaceRoute import OrdenCompraPedidoEnlaceRouter
 from routes.OrdenPedidoControlProcesoRoute import OrdenPedidoControlProcesoRouter
-from routes.OrdenPedidoDetalleRoute import OrdenCompraDetalleRouter
 from routes.OrdenPedidoRoute import OrdenPedidoRouter
 from routes.PersonaNaturalRoute import PersonaNaturalRouter
 from routes.ProcesoRoute import ProcesoRouter
@@ -119,7 +118,6 @@ app.include_router(ModeloRouter)
 app.include_router(ModuloSistemaRouter)
 app.include_router(MonedaRouter)
 app.include_router(OrdenCompraControlProcesoRouter)
-app.include_router(OrdenCompraDetalleRouter)
 app.include_router(OrdenCompraRouter)
 app.include_router(OrdenCompraPedidoEnlaceRouter)
 app.include_router(OrdenPedidoControlProcesoRouter)

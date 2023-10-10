@@ -20,7 +20,7 @@ def resolve_personas(_, info):
 
 @query.field("categorias")
 def resolve_categorias(_, info):
-    list = Categoria.GetMainItems()
+    list = Categoria.GetItems()
     return list
 
 
