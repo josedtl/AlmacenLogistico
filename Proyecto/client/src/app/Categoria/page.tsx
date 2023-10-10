@@ -13,7 +13,8 @@ import Fab from '@mui/material/Fab';
 import Grid from '@mui/material/Unstable_Grid2';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
 function Page() {
   const sCategoria = new CategoriaService();
 
@@ -65,6 +66,15 @@ function Page() {
             <Grid xs={6}>
               <div style={{ flex: 1, textAlign: 'right' }}>
 
+{/* 
+                <Button
+                  variant="contained"
+                  style={{ margin: '0px 10px 0px 0px' }}
+                  size="medium"
+                  sx={{ background: '#15616d' }}
+                >
+                  <AddIcon />
+                </Button>
                 <Fab
 
                   color="primary"
@@ -72,10 +82,26 @@ function Page() {
                   onClick={getItems}
                   style={{ margin: '0px 10px 0px 0px' }}
                   aria-label="add"
-                  sx={{ background: '#15616d' }}
+                  sx={{ background: '#FCFCFC', borderColor: '#15616d' }}
                 >
-                  <RefreshIcon />
-                </Fab>
+                  <RefreshIcon sx={{ color: '#15616d' }} />
+                </Fab> */}
+
+                <Button
+                  variant="outlined"
+                  onClick={getItems}
+                  aria-label="add"
+                  style={{ 
+                    margin: '0px 10px 0px 0px', 
+                    borderColor: '#15616d' }}
+                  size="medium"
+                // sx={{ borderColor: '#15616d' }}
+                >
+                  <RefreshIcon sx={{ color: '#15616d' }} />
+                </Button>
+
+
+
 
                 <ModalItem buttonLabel="" addItemToState={addItemToState} item={new CategoriaEntity()} />
               </div>

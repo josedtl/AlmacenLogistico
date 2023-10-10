@@ -12,6 +12,8 @@ import CategoriaService from '@/Service/CategoriaService';
 import { styled } from '@mui/material/styles';
 import { CategoriaEntity } from '@/Models/CategoriaEntity';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+
+import ButtonGroup from '@mui/material/ButtonGroup';
 type Props = {
     DataList: CategoriaEntity[];
     updateState: any;
@@ -23,7 +25,7 @@ const DataTable: React.FC<Props> = (props) => {
 
 
 
-    
+
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: '#001f54',
@@ -43,23 +45,26 @@ const DataTable: React.FC<Props> = (props) => {
         row.Cont = Contador
         return (
             <TableRow key={row.CategoriaId} >
-                <TableCell width={80}>{row.Cont}</TableCell>
+                <TableCell width={80} >{row.Cont}</TableCell>
                 <TableCell>{row.Nombre}</TableCell>
                 <TableCell width={200}>{row.FechaRegistro.toString()}</TableCell>
                 <TableCell width={150}>{row.CodUsuario}</TableCell>
                 <TableCell width={150} >
-                    <ModalItem
-                        buttonLabel="Edit"
-                        item={row}
-                        updateState={props.updateState}
-                    />
-                    <Button
-                        className="btn btn-secondary btn-sm btn-block"
-                        onClick={() => deleteItem(row.CategoriaId)}
-                        style={{ float: "left", marginRight: "10px", color: "#000000" }}
-                    >
-                        <DeleteIcon />
-                    </Button>
+
+                    <ButtonGroup variant="text" aria-label="text button group">
+                        <ModalItem
+                            buttonLabel="Edit"
+                            item={row}
+                            updateState={props.updateState}
+                        />
+                        <Button
+                            className="btn btn-secondary btn-sm btn-block"
+                            onClick={() => deleteItem(row.CategoriaId)}
+                            style={{ float: "left", marginRight: "10px", color: "#B22727" }}
+                        >
+                            <DeleteIcon />
+                        </Button>
+                    </ButtonGroup>
                 </TableCell>
 
             </TableRow>
@@ -84,9 +89,9 @@ const DataTable: React.FC<Props> = (props) => {
         <div>
             <TableContainer sx={{ maxHeight: 500 }}>
                 <Table stickyHeader aria-label="customized table" size="small" >
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell>Nº</StyledTableCell>
+                    <TableHead >
+                        <TableRow >
+                            <StyledTableCell height={50}>Nº</StyledTableCell>
                             <StyledTableCell>Nombre</StyledTableCell>
                             <StyledTableCell>Fecha Registro</StyledTableCell>
                             <StyledTableCell>Usuario</StyledTableCell>

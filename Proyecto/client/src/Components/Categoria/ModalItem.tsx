@@ -7,7 +7,6 @@ import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import { DialogTitle, IconButton, Dialog, DialogContent } from '@mui/material';
 import Close from '@mui/icons-material/Close';
-
 type Props = {
   buttonLabel?: string;
   item: CategoriaEntity;
@@ -31,7 +30,7 @@ const ModalItem: React.FC<Props> = (props) => {
         color="warning"
         className="btn btn-secondary btn-sm btn-block"
         onClick={toggle}
-        style={{ float: "left", color: '#000000' }}
+        style={{ float: "left", color: '#D68019' }}
       >
         <ModeEditOutlineIcon />
       </Button>
@@ -39,15 +38,26 @@ const ModalItem: React.FC<Props> = (props) => {
     title = "Editar Categoria";
   } else {
     button = (
-      <Fab
-        color="primary"
-        size="small"
+
+      <Button
         onClick={toggle}
-        aria-label="add"
-        sx={{ background: '#15616d' }}
+        variant="contained"
+        style={{background: '#15616d' }}
+        size="medium"
+        // sx={{ background: '#15616d' }}
       >
         <AddIcon />
-      </Fab>
+      </Button>
+
+      // <Fab
+      //   color="primary"
+      //   size="small"
+      //   onClick={toggle}
+      //   aria-label="add"
+      //   sx={{ background: '#15616d' }}
+      // >
+      //   <AddIcon />
+      // </Fab>
     );
     title = "Agregar Categoria";
   }
@@ -76,7 +86,7 @@ const ModalItem: React.FC<Props> = (props) => {
             height: 20
           }}
         >
-            {title}
+          {title}
           <IconButton sx={{ ml: 'auto', color: '#FFFFFF' }} onClick={toggle}>
             <Close />
           </IconButton>

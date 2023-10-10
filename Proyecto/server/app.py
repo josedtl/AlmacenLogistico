@@ -44,7 +44,7 @@ from ariadne import QueryType, make_executable_schema, load_schema_from_path, gq
 from ariadne.asgi import GraphQL
 from GraphqlServer import schema
 app = FastAPI(
-    title="Adcode",
+    title="SL",
     description="Sistema logistico  ",
 )
 # type_defs = load_schema_from_path("types.graphql")
