@@ -13,16 +13,71 @@ import Fab from '@mui/material/Fab';
 import Grid from '@mui/material/Unstable_Grid2';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
+import { DatePicker } from 'antd';
+
+import { Space, Switch, Table } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+import type { TableRowSelection } from 'antd/es/table/interface';
+import { Button, Popconfirm, message, Modal, Form, Input } from 'antd';
+import { text } from 'stream/consumers';
+
+interface DataType {
+  key: React.ReactNode;
+  name: string;
+  age: number;
+  address: string;
+  children?: DataType[];
+}
 function Page() {
   const sCategoria = new CategoriaService();
+
+
+  const columns = [
+    {
+      title: 'Nº',
+      dataIndex: 'Cont',
+      key: 'Cont',
+    },
+    {
+      title: 'Nombre',
+      dataIndex: 'Nombre',
+      key: 'Nombre',
+    },
+    {
+      title: 'Fecha de registro',
+      dataIndex: 'FechaRegistro',
+      key: 'FechaRegistro',
+    },
+    {
+      title: 'Usuario',
+      dataIndex: 'CodUsuario',
+      key: 'CodUsuario',
+    }, {
+      title: 'Action',
+      key: 'action',
+      render: (text: any, record: CategoriaEntity) => (
+        <span>
+          <Button type="primary" onClick={() => showModal(record)}>
+            Editar
+          </Button>
+         
+        </span>
+      ),
+    },
+   
+  ];
 
   const [items, setItems] = useState<CategoriaEntity[]>([]);
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
+  const showModal = (item: CategoriaEntity) => {
+    console.log(item);
+  };
+
 
   const addItemToState = (item: CategoriaEntity) => {
     setItems([...items, item]);
@@ -66,7 +121,7 @@ function Page() {
             <Grid xs={6}>
               <div style={{ flex: 1, textAlign: 'right' }}>
 
-{/* 
+                {/* 
                 <Button
                   variant="contained"
                   style={{ margin: '0px 10px 0px 0px' }}
@@ -87,18 +142,18 @@ function Page() {
                   <RefreshIcon sx={{ color: '#15616d' }} />
                 </Fab> */}
 
-                <Button
+                {/* <Button
                   variant="outlined"
                   onClick={getItems}
                   aria-label="add"
-                  style={{ 
-                    margin: '0px 10px 0px 0px', 
-                    borderColor: '#15616d' }}
+                  style={{
+                    margin: '0px 10px 0px 0px',
+                    borderColor: '#15616d'
+                  }}
                   size="medium"
-                // sx={{ borderColor: '#15616d' }}
                 >
                   <RefreshIcon sx={{ color: '#15616d' }} />
-                </Button>
+                </Button> */}
 
 
 
@@ -114,6 +169,10 @@ function Page() {
 
         </CardContent>
         <DataTable DataList={items} updateState={updateState} deleteItemFromState={deleteItemFromState} />
+        <Table
+          columns={columns}
+          dataSource={items}
+        />
       </Card>
 
       <Backdrop
