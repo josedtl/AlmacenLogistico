@@ -22,7 +22,8 @@ import type { ColumnsType } from 'antd/es/table';
 import type { TableRowSelection } from 'antd/es/table/interface';
 import { Button, Popconfirm, message, Modal, Form, Input } from 'antd';
 import { text } from 'stream/consumers';
-
+import { DownloadOutlined } from '@ant-design/icons';
+import type { SizeType } from 'antd/es/config-provider/SizeContext';
 interface DataType {
   key: React.ReactNode;
   name: string;
@@ -34,41 +35,7 @@ function Page() {
   const sCategoria = new CategoriaService();
 
 
-  const columns = [
-    {
-      title: 'Nº',
-      dataIndex: 'Cont',
-      key: 'Cont',
-    },
-    {
-      title: 'Nombre',
-      dataIndex: 'Nombre',
-      key: 'Nombre',
-    },
-    {
-      title: 'Fecha de registro',
-      dataIndex: 'FechaRegistro',
-      key: 'FechaRegistro',
-    },
-    {
-      title: 'Usuario',
-      dataIndex: 'CodUsuario',
-      key: 'CodUsuario',
-    }, {
-      title: 'Action',
-      key: 'action',
-      render: (text: any, record: CategoriaEntity) => (
-        <span>
-          <Button type="primary" onClick={() => showModal(record)}>
-            Editar
-          </Button>
-         
-        </span>
-      ),
-    },
-   
-  ];
-
+  const [size, setSize] = useState<SizeType>('middle');
   const [items, setItems] = useState<CategoriaEntity[]>([]);
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
@@ -169,10 +136,8 @@ function Page() {
 
         </CardContent>
         <DataTable DataList={items} updateState={updateState} deleteItemFromState={deleteItemFromState} />
-        <Table
-          columns={columns}
-          dataSource={items}
-        />
+
+    
       </Card>
 
       <Backdrop

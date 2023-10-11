@@ -1,19 +1,20 @@
 "use client"
 import React from 'react';
-import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableContainer from "@mui/material/TableContainer";
 import ModalItem from '@/Components/Categoria/ModalItem'
-import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CategoriaService from '@/Service/CategoriaService';
 import { styled } from '@mui/material/styles';
 import { CategoriaEntity } from '@/Models/CategoriaEntity';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { Space, Switch, Table } from 'antd';
+import { Button, Popconfirm, message, Modal, Form, Input } from 'antd';
+import { DownloadOutlined, DeleteFilled } from '@ant-design/icons';
+import type { SizeType } from 'antd/es/config-provider/SizeContext';
 
-import ButtonGroup from '@mui/material/ButtonGroup';
 type Props = {
     DataList: CategoriaEntity[];
     updateState: any;
@@ -22,9 +23,59 @@ type Props = {
 
 const DataTable: React.FC<Props> = (props) => {
     const sCategoria = new CategoriaService();
+    const [size, setSize] = React.useState<SizeType>('middle');
 
 
 
+    const columns = [
+        {
+            title: 'Nº',
+            dataIndex: 'Cont',
+            key: 'Cont',
+        },
+        {
+            title: 'Nombre',
+            dataIndex: 'Nombre',
+            key: 'Nombre',
+        },
+        {
+            title: 'Fecha de registro',
+            dataIndex: 'FechaRegistro',
+            key: 'FechaRegistro',
+        },
+        {
+            title: 'Usuario',
+            dataIndex: 'CodUsuario',
+            key: 'CodUsuario',
+        }, {
+            title: 'Action',
+            key: 'action',
+            render: (text: any, record: CategoriaEntity) => (
+                <span>
+
+
+                    {/* <Button type="primary" icon={<DownloadOutlined />} size={size} />
+              <Button type="primary" shape="circle" icon={<DownloadOutlined />} size={size} /> */}
+                    <Button
+                        type='dashed'
+                        onClick={() => deleteItem(record.CategoriaId)}
+                        style={{ float: "right", marginRight: "10px", color: "red", backgroundColor: "white", borderColor: "red" }}
+                        size={size}
+                        icon={<DeleteFilled />}
+                    />
+                    <ModalItem
+                        buttonLabel="Edit"
+                        item={record}
+                        updateState={props.updateState}
+                    />
+
+
+
+                </span>
+            ),
+        },
+
+    ];
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -43,32 +94,7 @@ const DataTable: React.FC<Props> = (props) => {
 
         Contador += 1
         row.Cont = Contador
-        return (
-            <TableRow key={row.CategoriaId} >
-                <TableCell width={80} >{row.Cont}</TableCell>
-                <TableCell>{row.Nombre}</TableCell>
-                <TableCell width={200}>{row.FechaRegistro.toString()}</TableCell>
-                <TableCell width={150}>{row.CodUsuario}</TableCell>
-                <TableCell width={150} >
 
-                    <ButtonGroup variant="text" aria-label="text button group">
-                        <ModalItem
-                            buttonLabel="Edit"
-                            item={row}
-                            updateState={props.updateState}
-                        />
-                        <Button
-                            className="btn btn-secondary btn-sm btn-block"
-                            onClick={() => deleteItem(row.CategoriaId)}
-                            style={{ float: "left", marginRight: "10px", color: "#B22727" }}
-                        >
-                            <DeleteIcon />
-                        </Button>
-                    </ButtonGroup>
-                </TableCell>
-
-            </TableRow>
-        );
     });
 
 
@@ -87,7 +113,7 @@ const DataTable: React.FC<Props> = (props) => {
     return (
 
         <div>
-            <TableContainer sx={{ maxHeight: 500 }}>
+            {/* <TableContainer sx={{ maxHeight: 500 }}>
                 <Table stickyHeader aria-label="customized table" size="small" >
                     <TableHead >
                         <TableRow >
@@ -102,7 +128,13 @@ const DataTable: React.FC<Props> = (props) => {
                         {items}
                     </TableBody>
                 </Table>
-            </TableContainer>
+            </TableContainer> */}
+
+
+            <Table
+                columns={columns}
+                dataSource={props.DataList}
+            />
         </div>
 
     );
