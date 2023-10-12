@@ -1,284 +1,227 @@
 "use client"
 import React, { useState } from 'react';
 import Layout from '@/Silder/Layout';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import Card from '@mui/material/Card';
-
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import CardContent from '@mui/material/CardContent';
-import Fab from '@mui/material/Fab';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import ModalItem from '@/Components/OrdenPedido/ModalItem';
-import { CategoriaEntity } from '@/Models/CategoriaEntity';
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
-
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
+import { Button, Col, Row, Space, Typography } from 'antd';
+import { SaveFilled, DeleteOutlined, FileAddOutlined } from '@ant-design/icons';
+import { Form, Input } from 'antd';
+import { Tabs, Table, DatePicker } from 'antd';
+import { Label } from 'reactstrap';
 const page = () => {
-  const [value, setValue] = React.useState('1');
-  const [items, setItems] = useState<CategoriaEntity[]>([]);
-  
-  const addItemToState = (item: CategoriaEntity) => {
-    setItems([...items, item]);
+
+
+
+
+  const { TabPane } = Tabs;
+  const { Title } = Typography;
+  const [form] = Form.useForm();
+  const [activeTab, setActiveTab] = useState('1');
+
+
+
+  const columns = [
+    {
+      title: 'Nº',
+      dataIndex: 'Cont',
+      key: 'Cont',
+      width: '50px',
+    },
+    {
+      title: 'Producto',
+      dataIndex: 'Nombre',
+      key: 'Nombre',
+
+    },
+    {
+      title: 'UM',
+      dataIndex: 'FechaRegistro',
+      key: 'FechaRegistro',
+      width: '80px',
+    },
+    {
+      title: 'Solicitado',
+      dataIndex: 'CodUsuario',
+      key: 'CodUsuario',
+      width: '100px',
+    }, {
+      title: 'Reservado',
+      dataIndex: 'CodUsuario',
+      key: 'CodUsuario',
+      width: '100px',
+    }, {
+      title: 'Faltante',
+      dataIndex: 'CodUsuario',
+      key: 'CodUsuario',
+      width: '100px',
+    }, {
+      title: 'Atendido',
+      dataIndex: 'CodUsuario',
+      key: 'CodUsuario',
+      width: '100px',
+    }, {
+      title: 'Action',
+      key: 'action',
+      width: '100px',
+      render: (text: any, record: any) => (
+        <span>
+
+          {/* <Button
+                    type='dashed'
+                    onClick={() => deleteItem(record.CategoriaId)}
+                    style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
+                    size={size}
+                    icon={<DeleteFilled />}
+                />
+                <ModalItem
+                    buttonLabel="Edit"
+                    item={record}
+                    updateState={props.updateState}
+                /> */}
+
+
+
+        </span>
+      ),
+    },
+
+  ];
+
+  const [TabsItems, setTabsItems] = useState<any>([
+    {
+      label: `Detalle`,
+      key: 1,
+      children:
+        <span>
+
+
+          <Row>
+            <Col xs={24}>
+
+              <Button
+                style={{
+                  float: "left",
+                  color: "#15616d",
+                  backgroundColor: "#E5F8FA",
+                  borderColor: "#15616d",
+                  marginTop: "0px",
+                  marginRight: "10px",
+                  marginBottom: '5px'
+                }}
+                size={"middle"}
+                icon={<DeleteOutlined />}
+              />
+
+              <Button
+                style={{
+                  float: "right",
+                  color: "#15616d",
+                  backgroundColor: "#E5F8FA",
+                  borderColor: "#15616d",
+                  marginTop: "0px",
+                  marginRight: "10px",
+                  marginBottom: '5px'
+                }}
+                size={"middle"}
+                icon={<FileAddOutlined />}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={24}>
+              <Table
+                columns={columns}
+                size="small"
+                scroll={{ y: '100%' }}
+              />
+            </Col>
+          </Row >
+        </span>
+    },
+    {
+      label: `Historial`,
+      key: 2,
+      children:
+        <h1>
+          Content of card tab  2
+        </h1>
+    },
+  ]);
+
+  const handleTabChange = (key: any) => {
+    setActiveTab(key);
+
+
+
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+  const DTInput = (props: any) => {
+    const { Header, inputName } = props; // Destructuring de las props
+
+    return (
+      <Row>
+        <Col span={24}>
+          <label>{Header}</label>
+        </Col>
+        <Col span={24}>
+          <Input
+            type="text"
+            name={inputName}
+            style={{ marginTop: '5px', marginBottom: '10px' }}
+          />
+        </Col>
+      </Row>
+    );
   };
 
 
-  const [selectedDate, setSelectedDate] = React.useState(null);
+  const DTDatePicker = (props: any) => {
+    const { Header, inputName } = props; // Destructuring de las props
 
-  const inputStyles = {
-    borderColor: 'green', // Cambia esto al color que desees
+    return (
+      <Row>
+        <Col span={24}>
+          <label>{Header}</label>
+        </Col>
+        <Col span={24}>
+          <DatePicker name={inputName} style={{ width: '100%',marginTop: '5px', marginBottom: '10px' }} />
+        </Col>
+      </Row>
+    );
   };
-
 
   return (
-
-
-
-
-
     <Layout>
-      <Card>
-        <CardContent>
-          <Grid container spacing={0}>
-            <Grid item xs={6} >
-              <Typography gutterBottom variant="h4" component="div" style={{ flex: 1, textAlign: 'left' }}>
-                Orden de Pedido
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <div style={{ flex: 1, textAlign: 'right' }}>
+      <Row>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          <Title level={3}> Orden Pedido</Title>
+        </Col>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          <Button
+            style={{
+              float: "right",
+              color: "white",
+              backgroundColor: "#15616d",
+              borderColor: "#15616d",
+              marginTop: "25px",
+              marginRight: "10px"
+            }}
+            size={"large"}
+            icon={<SaveFilled />}
+          />
 
-                <Fab
-
-                  color="primary"
-                  size="small"
-
-                  style={{ margin: '0px 10px 0px 0px' }}
-                  aria-label="add"
-                  sx={{ background: '#15616d' }}
-                >
-                  <RefreshIcon />
-                </Fab>
-
-              </div>
-
-            </Grid>
-
-          </Grid>
-
-
-
-        </CardContent>
-        <Grid container spacing={5}>
-
-          <Grid item xs={6} md={3}>
-            <TextField
-              type="text"
-              size="small"
-              id="outlined-basic"
-              sx={{ width: '100%' }}
-              name="Nombre"
-              margin="dense"
-              label="Código"
-              variant="outlined"
-            />
-
-            <TextField
-              type="text"
-              size="small"
-              id="outlined-basic"
-              sx={{ width: '100%' }}
-              name="Nombre"
-              margin="dense"
-              label="Responsable"
-              variant="outlined"
-            />
-
-            <TextField
-              type="text"
-              size="small"
-              id="outlined-basic"
-              sx={{ width: '100%' }}
-              name="Nombre"
-              margin="dense"
-              label="Nombre"
-              variant="outlined"
-            />
-          </Grid>
-
-          <Grid item xs={6} md={9}>
-            <Box sx={{ width: '100%' }}>
-              <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                  <TabList onChange={handleChange} aria-label="lab API tabs example">
-                    <Tab label="Detalle - Producto" value="1" />
-                    {/* <Tab label="Item Two" value="2" /> */}
-                    {/* <Tab label="Item Three" value="3" /> */}
-                  </TabList>
-                </Box>
-                <TabPanel value="1">
-                  <Grid container  marginBottom={1}>
-
-                    <Grid item xs={6}>
-                      <Button variant="contained">Eliminar</Button>
-                    </Grid>
-                    <Grid item xs={6} justifyContent={'center'}  >
-                    <div style={{ flex: 1, textAlign: 'right' }}>
-                    <ModalItem buttonLabel="" addItemToState={addItemToState} item={new CategoriaEntity()} />
-                      <Button variant="contained">Agregar</Button>
-                    </div>
-                    </Grid>
-                  </Grid>
-
-                  <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 500 }} aria-label="customized table">
-                      <TableHead>
-                        <TableRow>
-                          <StyledTableCell align="center" sx={{ with: 10 }}>Nº</StyledTableCell>
-                          <StyledTableCell>Prodcuto</StyledTableCell>
-                          <StyledTableCell align="center">Cantidad Solicitado</StyledTableCell>
-                          <StyledTableCell align="center">Cantidad Faltante</StyledTableCell>
-                          <StyledTableCell align="center">Cantidad Reservada</StyledTableCell>
-                          <StyledTableCell align="center">Cantidad Atendido</StyledTableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {rows.map((row) => (
-                          <StyledTableRow key={row.name}>
-                            <StyledTableCell sx={{ with: 20 }} align="center">0</StyledTableCell>
-                            <StyledTableCell component="th" scope="row">
-                              {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                            <StyledTableCell align="center">{row.fat}</StyledTableCell>
-                            <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                            <StyledTableCell align="center">{row.protein}</StyledTableCell>
-                          </StyledTableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-
-                  </TableContainer>
-
-
-                </TabPanel>
-                {/* <TabPanel value="2">Item Two</TabPanel> */}
-                {/* <TabPanel value="3">Item Three</TabPanel> */}
-              </TabContext>
-              {/* <TabPanel value="1">Item One</TabPanel> */}
-
-
-
-
-
-
-
-
-            </Box>
-          </Grid>
-
-        </Grid >
-      </Card>
-
-
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={24} sm={10} md={8} lg={7} xl={6}>
+          <DTInput inputName="Codigo" Header="Codigo" />
+          <DTInput inputName="Documento" Header="Documento" />
+          <DTInput inputName="Solicitado" Header="Solicitado" />
+          <DTDatePicker Header="Fecha de Emision" />
+        </Col>
+        <Col xs={24} sm={14} md={16} lg={17} xl={18}>
+          <Tabs style={{ marginLeft: '20px' }}
+            type="card" items={TabsItems} />
+        </Col>
+      </Row>
     </Layout>
   );
 };
