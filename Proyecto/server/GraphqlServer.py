@@ -1,6 +1,7 @@
 from ariadne import QueryType, make_executable_schema, load_schema_from_path, gql
 from ariadne.asgi import GraphQL
 from BusinessLayer.Categoria import Categoria
+from BusinessLayer.UnidadMedida import UnidadMedida
 
 
 
@@ -21,6 +22,11 @@ def resolve_personas(_, info):
 @query.field("categorias")
 def resolve_categorias(_, info):
     list = Categoria.GetItems()
+    return list
+
+@query.field("GQL_UnidadMedida")
+def resolve_GQL_UnidadMedida(_, info):
+    list = UnidadMedida.GetItems()
     return list
 
 

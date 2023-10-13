@@ -14,8 +14,15 @@ type Categoria {
 }
 
 
+type UnidadMedidaGQL {
+    UnidadMedidaId: Int
+    Nombre: String
+}
+
+
 type Query {
     personas: [Persona]
     categorias: [Categoria]
+    GQL_UnidadMedida: [UnidadMedidaGQL]
     personaPorId(PersonaId: Int!): Persona
 }

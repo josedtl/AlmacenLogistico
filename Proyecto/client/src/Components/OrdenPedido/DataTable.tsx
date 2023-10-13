@@ -1,19 +1,20 @@
 "use client"
 import React from 'react';
-import ProductoService from '@/Service/ProductoService';
-import { ProductoEntity } from '@/Models/Producto/ProductoEntity';
-import { Button, Table } from 'antd';
-import { DeleteFilled ,EditFilled} from '@ant-design/icons';
+import ModalItem from '@/Components/OrdenPedido/ModalItem'
+import ModeloService from '@/Service/ModeloService';
+import { ProductoDetalleModel } from '@/Models/OrdenPedido/ProductoDetalleModel';
+import { Button,Table} from 'antd';
+import {  DeleteFilled } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 
 type Props = {
-    DataList: ProductoEntity[];
+    DataList: ProductoDetalleModel[];
     updateState: any;
     deleteItemFromState: any;
 }
 
 const DataTable: React.FC<Props> = (props) => {
-    const sProducto = new ProductoService();
+    const sModelo = new ModeloService();
     const [size, setSize] = React.useState<SizeType>('middle');
 
     const columns = [
@@ -43,24 +44,22 @@ const DataTable: React.FC<Props> = (props) => {
             title: 'Action',
             width: '100px',
             key: 'action',
-            render: (text: any, record: ProductoEntity) => (
+            render: (text: any, record: ProductoDetalleModel) => (
                 <span>
 
                     <Button
                         type='dashed'
-                        onClick={() => deleteItem(record.ProductoId)}
+                        onClick={() => deleteItem(record.OrdenPedidoDetalleId)}
                         style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
                         size={size}
                         icon={<DeleteFilled />}
                     />
-                   
-                    <Button
-                        type='dashed'
-                        href={`/Producto/${record.ProductoId}`}
-                        style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
-                        size={size}
-                        icon={<EditFilled />}
+                    <ModalItem
+                        buttonLabel="Edit"
+                        item={record}
+                        updateState={props.updateState}
                     />
+
 
 
                 </span>
@@ -72,18 +71,18 @@ const DataTable: React.FC<Props> = (props) => {
     const dataWithKeys = props.DataList.map((item, zIndex) => {
         return {
             ...item,
-            key: item.ProductoId,
+            key: item.OrdenPedidoDetalleId,
             Cont: (zIndex + 1)
         };
     });
 
 
-    const deleteItem = async (ProductoId: number) => {
+    const deleteItem = async (ModeloId: number) => {
         const confirmDelete = window.confirm("Delete item forever?");
         if (confirmDelete) {
-            const deleted = await sProducto.deleteItem(ProductoId);
+            const deleted = await sModelo.deleteItem(ModeloId);
             if (deleted) {
-                props.deleteItemFromState(ProductoId);
+                props.deleteItemFromState(ModeloId);
             } else {
                 console.log("Delete operation failed");
             }

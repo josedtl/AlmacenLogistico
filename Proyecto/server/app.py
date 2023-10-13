@@ -40,30 +40,12 @@ from routes.UbigeoRoute import UbigeoRouter
 from routes.UnidadMedidaRoute import UnidadMedidaRouter
 from routes.UsuarioRoute import UsuarioRouter
 from routes.GeneralRoute import GeneralRouter
-
-from ariadne import QueryType, make_executable_schema, load_schema_from_path, gql
 from ariadne.asgi import GraphQL
 from GraphqlServer import schema
 app = FastAPI(
     title="SL",
     description="Sistema logistico  ",
 )
-# type_defs = load_schema_from_path("types.graphql")
-
-# query = QueryType()
-# personas = [
-#     {"PersonaId": 1, "Nombre": "John", "Apellido": "Doe"},
-#     {"PersonaId": 2, "Nombre": "Jane", "Apellido": "Smith"},
-#     {"PersonaId": 2, "Nombre": "Jane", "Apellido": "Smith"},
-# ]
-
-
-# @query.field("personas")
-# def resolve_personas(_, info):
-#     return personas
-
-
-# schema = make_executable_schema(type_defs, query)
 
 origins = [
     "http://localhost:5042",
@@ -88,11 +70,7 @@ app.add_middleware(
 )
 
 
-# app.include_router(PersonaNatural)
-# app.include_router(Usuario)
-# app.include_router(Horario)
-# app.include_router(Turno)
-app.add_route("/graphql", GraphQL(schema))
+app.add_route("/gql", GraphQL(schema))
 app.include_router(CategoriaRouter)
 app.include_router(TipoProductoRouter)
 app.include_router(ModeloRouter)

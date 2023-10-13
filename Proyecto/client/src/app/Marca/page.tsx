@@ -5,8 +5,8 @@ import DataTable from '@/Components/Marca/DataTable';
 import { MarcaEntity } from '@/Models/MarcaEntity';
 import ModalItem from '@/Components/Marca/ModalItem';
 import MarcaService from '@/Service/MarcaService';
-import { Col, Row ,Typography,Card,Button} from 'antd';
-import { RedoOutlined,DownloadOutlined } from '@ant-design/icons';
+import { Col, Row, Typography, Card, Button } from 'antd';
+import { RedoOutlined, DownloadOutlined } from '@ant-design/icons';
 
 function Page() {
   const sMarca = new MarcaService();
@@ -70,7 +70,7 @@ function Page() {
 
 
           />
-               <Button
+          <Button
             style={{
               float: "right",
               color: "#15616d",
@@ -84,7 +84,7 @@ function Page() {
 
 
           />
- 
+
 
         </Col>
       </Row>

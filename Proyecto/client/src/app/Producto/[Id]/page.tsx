@@ -12,21 +12,24 @@ import { ModeloEntity } from '@/Models/ModeloEntity';
 
 import { ProductoEntity } from '@/Models/Producto/ProductoEntity';
 import GeneralService from '@/Service/GeneralService';
-
-
-
+import GeneralGQLService from '@/Service/GeneralGQLService';
+import { UnidadMedidaEntity } from '@/Models/UnidadMedidaEntity';
+import ProductoService from '@/Service/ProductoService';
+import { Console } from 'console';
+import { AndroidOutlined, AppleOutlined } from '@ant-design/icons';
 const page = ({ params }: any) => {
 
   const sGeneral = new GeneralService();
-
-
+  const sGeneralGQL = new GeneralGQLService();
+  const sProducto = new ProductoService();
   const initialProducto = new ProductoEntity();
   const [Ent, setEnt] = useState<ProductoEntity>(initialProducto);
-
+  const { TextArea } = Input;
   const { TabPane } = Tabs;
   const { Title } = Typography;
   const [form] = Form.useForm();
   const [activeTab, setActiveTab] = useState('1');
+
 
 
 
@@ -38,36 +41,36 @@ const page = ({ params }: any) => {
       width: '50px',
     },
     {
-      title: 'Producto',
-      dataIndex: 'Nombre',
-      key: 'Nombre',
+      title: 'UnidadMeida',
+      dataIndex: 'UnidadMeida',
+      key: 'UnidadMeida',
 
     },
     {
-      title: 'UM',
-      dataIndex: 'FechaRegistro',
-      key: 'FechaRegistro',
+      title: 'Cantidad ',
+      dataIndex: 'Cantidad',
+      key: 'Cantidad',
       width: '80px',
     },
     {
-      title: 'Solicitado',
-      dataIndex: 'CodUsuario',
-      key: 'CodUsuario',
+      title: 'Moneda',
+      dataIndex: 'Moneda',
+      key: 'Moneda',
       width: '100px',
     }, {
-      title: 'Reservado',
-      dataIndex: 'CodUsuario',
-      key: 'CodUsuario',
+      title: 'ValorVenta',
+      dataIndex: 'ValorVenta',
+      key: 'ValorVenta',
       width: '100px',
     }, {
-      title: 'Faltante',
-      dataIndex: 'CodUsuario',
-      key: 'CodUsuario',
+      title: 'ValorCompra',
+      dataIndex: 'ValorCompra',
+      key: 'ValorCompra',
       width: '100px',
     }, {
-      title: 'Atendido',
-      dataIndex: 'CodUsuario',
-      key: 'CodUsuario',
+      title: 'Fecha Vigencia',
+      dataIndex: 'FechaVigencia',
+      key: 'FechaVigencia',
       width: '100px',
     }, {
       title: 'Action',
@@ -99,44 +102,16 @@ const page = ({ params }: any) => {
 
   const [TabsItems, setTabsItems] = useState<any>([
     {
-      label: `Detalle`,
+      label: (
+        <span>
+          <AndroidOutlined />
+          Tarifa
+        </span>
+      ),
       key: 1,
       children:
         <span>
 
-
-          <Row>
-            <Col xs={24}>
-
-              <Button
-                style={{
-                  float: "left",
-                  color: "#15616d",
-                  backgroundColor: "#E5F8FA",
-                  borderColor: "#15616d",
-                  marginTop: "0px",
-                  marginRight: "10px",
-                  marginBottom: '5px'
-                }}
-                size={"middle"}
-                icon={<DeleteOutlined />}
-              />
-
-              <Button
-                style={{
-                  float: "right",
-                  color: "#15616d",
-                  backgroundColor: "#E5F8FA",
-                  borderColor: "#15616d",
-                  marginTop: "0px",
-                  marginRight: "10px",
-                  marginBottom: '5px'
-                }}
-                size={"middle"}
-                icon={<FileAddOutlined />}
-              />
-            </Col>
-          </Row>
           <Row>
             <Col xs={24}>
               <Table
@@ -148,14 +123,7 @@ const page = ({ params }: any) => {
           </Row >
         </span>
     },
-    {
-      label: `Historial`,
-      key: 2,
-      children:
-        <h1>
-          Content of card tab  2
-        </h1>
-    },
+
   ]);
 
   const handleTabChange = (key: any) => {
@@ -166,7 +134,7 @@ const page = ({ params }: any) => {
   };
 
   const DTInput = (props: any) => {
-    const { Header, inputName } = props; // Destructuring de las props
+    const { Header, inputName, onChange, value } = props; // Destructuring de las props
 
     return (
       <Row>
@@ -178,12 +146,35 @@ const page = ({ params }: any) => {
             type="text"
             name={inputName}
             style={{ marginTop: '5px', marginBottom: '10px' }}
+            onChange={onChange}
+            value={value === null ? "" : value}
           />
         </Col>
       </Row>
     );
   };
 
+  const DTTextArea = (props: any) => {
+    const { Header, inputName } = props; // Destructuring de las props
+
+    return (
+      <Row>
+        <Col span={24}>
+          <label>{Header}</label>
+        </Col>
+        <Col span={24}>
+          <TextArea rows={4}
+            style={{ marginTop: '5px', marginBottom: '10px' }}
+            name={inputName} />
+          {/* <Input
+            type="text"
+            name={inputName}
+            style={{ marginTop: '5px', marginBottom: '10px' }}
+          /> */}
+        </Col>
+      </Row>
+    );
+  };
 
   const DTDatePicker = (props: any) => {
     const { Header, inputName } = props; // Destructuring de las props
@@ -204,6 +195,7 @@ const page = ({ params }: any) => {
   const [optionsTipoProducto, setOptionsTipoProducto] = useState<TipoProductoEntity[]>([]);
   const [optionsMarca, setOptionsMarca] = useState<MarcaEntity[]>([]);
   const [optionsModelo, setOptionsModelo] = useState<ModeloEntity[]>([]);
+  const [optionsUM, setOptionsUM] = useState<UnidadMedidaEntity[]>([]);
 
   const handleSearchCategoria = async (value: string) => {
     try {
@@ -247,27 +239,46 @@ const page = ({ params }: any) => {
   };
 
 
-  const getItems = async () => {
-    const Resp_Categoria = await sGeneral.GetCategoriaItem(52);
-    setOptionsCategoria(Resp_Categoria);
-    Ent.CategoriaId = 52;
+  const getCargarDatos = async () => {
 
-    const Resp_TipoProducto = await sGeneral.GetTipoProductoItem(52);
-    setOptionsTipoProducto(Resp_TipoProducto);
-    Ent.CategoriaId = 52;
+    const Resp_UM = await sGeneralGQL.GetUnidadMedidaItems();
+    setOptionsUM(Resp_UM);
 
-    const Resp_Marca = await sGeneral.GetMarcaItem(52);
-    setOptionsMarca(Resp_Marca);
-    Ent.CategoriaId = 52;
+    if (params.Id > 0) {
 
-    const Resp_Modelo = await sGeneral.GetModeloItem(52);
-    setOptionsModelo(Resp_Modelo);
-    Ent.CategoriaId = 52;
+      const Resp_Producto = await sProducto.getItem(params.Id);
+
+      const Resp_Categoria = await sGeneral.GetCategoriaItem(Resp_Producto[0].CategoriaId);
+      setOptionsCategoria(Resp_Categoria);
+
+      const Resp_TipoProducto = await sGeneral.GetTipoProductoItem(Resp_Producto[0].TipoProductoId);
+      setOptionsTipoProducto(Resp_TipoProducto);
+
+      const Resp_Marca = await sGeneral.GetMarcaItem(Resp_Producto[0].MarcaId);
+      setOptionsMarca(Resp_Marca);
+
+      const Resp_Modelo = await sGeneral.GetModeloItem(Resp_Producto[0].ModeloId);
+      setOptionsModelo(Resp_Modelo);
+
+
+      setEnt(Resp_Producto[0]);
+    }
+  };
+  const [error, setError] = useState(false);
+  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Ejecutado")
+    setEnt({
+      ...Ent,
+      [e.target.name]: e.target.value.toUpperCase()
+    });
+
+    setError(Ent.Nombre.length < 3);
   };
   const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
   const [selectedTipoProducto, setSelectedTipoProducto] = useState<number | undefined>(undefined);
   const [selectedMarca, setSelectedMarca] = useState<number | undefined>(undefined);
   const [selectedModelo, setSelectedModelo] = useState<number | undefined>(undefined);
+  const [selectedUM, setSelectedUM] = useState<number | undefined>(undefined);
 
   const onChangeCategoria = async (value: number) => {
     Ent.CategoriaId = value;
@@ -276,19 +287,24 @@ const page = ({ params }: any) => {
 
   const onChangeTipoProducto = async (value: number) => {
     Ent.TipoProductoId = value;
-    setSelectedCategoria(value)
+    setSelectedTipoProducto(value)
   };
 
 
   const onChangeMarca = async (value: number) => {
     Ent.MarcaId = value;
-    setSelectedCategoria(value)
+    setSelectedMarca(value)
   };
 
 
   const onChangeModelo = async (value: number) => {
     Ent.ModeloId = value;
-    setSelectedCategoria(value)
+    setSelectedModelo(value)
+  };
+
+  const onChangeUM = async (value: number) => {
+    Ent.UnidadMedidaId = value;
+    setSelectedUM(value)
   };
 
   const CategoriaSelectLIst = () => {
@@ -301,10 +317,6 @@ const page = ({ params }: any) => {
       ))
     )
   }
-
-  useEffect(() => {
-    getItems();
-  }, []);
 
 
 
@@ -350,12 +362,51 @@ const page = ({ params }: any) => {
 
     );
   };
+  // const Guardar_Total = async () => {
+  //   console.log(Ent);
+
+  // };
+
+
+  const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    // console.log(Ent.Nombre);
+
+    // if (Ent.Nombre === '') {
+    //     console.log('El nombre no puede ser un número');
+    //     setError(Ent.Nombre.length < 3);
+    //     return;
+    // }
+    Ent.CodUsuario = "adm";
+    Ent.Action = 1;
+    Ent.FechaRegistro = new Date();
+    Ent.EstadoRegistro = true
+
+    Ent.Action = Ent.ProductoId == 0 ? 1 : 3;
+
+    const savedItem = await sProducto.saveItem(Ent);
+    console.log(savedItem);
+    // if (savedItem) {
+    //     if (FlaState) props.updateState(savedItem);
+    //     else props.addItemToState(savedItem);
+
+    //     props.toggle();
+    // }
+
+
+  };
+
+
+  useEffect(() => {
+    getCargarDatos();
+  }, []);
 
   return (
     <Layout>
       <Row>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <Title level={3}> Producto  {params.Id}</Title>
+          {/* <Title level={3}> Producto  {params.Id}</Title> */}
+          <Title level={3}> Producto</Title>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Button
@@ -367,6 +418,7 @@ const page = ({ params }: any) => {
               marginTop: "25px",
               marginRight: "10px"
             }}
+            onClick={Guardar_Total}
             size={"large"}
             icon={<SaveFilled />}
           />
@@ -375,16 +427,22 @@ const page = ({ params }: any) => {
       </Row>
       <Row>
         <Col xs={24} sm={10} md={8} lg={7} xl={6}>
-          <DTInput inputName="Codigo" Header="Codigo" />
-          {/* <DTSelect
-            Header={"Categoria Prueba"}
-            onSearch={handleSearchCategoria}
-            value={Ent.CategoriaId}
-            key={Ent.CategoriaId}
-            onChange={onChangeCategoria}
-            Lista={CategoriaSelectLIst()}
-          /> */}
 
+
+          <Row>
+            <Col span={24}>
+              <label>Codigo</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                type="text"
+                name="Codigo"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                onChange={onChangeText}
+                value={Ent.Codigo === null ? "" : Ent.Codigo}
+              />
+            </Col>
+          </Row>
 
           <Row>
             <Col span={24}>
@@ -401,7 +459,11 @@ const page = ({ params }: any) => {
                 key={Ent.CategoriaId}
                 onChange={onChangeCategoria}
               >
-                {CategoriaSelectLIst()}
+                {optionsCategoria.map((categoria) => (
+                  <Select.Option key={categoria.CategoriaId} value={categoria.CategoriaId}>
+                    {categoria.Nombre}
+                  </Select.Option>
+                ))}
               </Select>
               <Button
                 style={{
@@ -538,27 +600,135 @@ const page = ({ params }: any) => {
 
             </Col>
           </Row>
+          <Row>
+            <Col span={24}>
+              <label>Nombre</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                type="text"
+                name="Nombre"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                onChange={onChangeText}
+                value={Ent.Nombre === null ? "" : Ent.Nombre}
+              />
+            </Col>
+          </Row>
+
+          <Row>
+            <Col span={24}>
+              <label>Descripcion</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                type="TextArea"
+                
+                name="Descripcion"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                onChange={onChangeText}
+                value={Ent.Descripcion === null ? "" : Ent.Descripcion}
+              />
+        
+            </Col>
+          </Row>
+
+          <Row>
+            <Col span={24}>
+              <label>Unidad de Medida</label>
+            </Col>
+            <Col span={24}>
+              <Select
+                showSearch
+                style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+                value={Ent.UnidadMedidaId === 0 ? null : Ent.UnidadMedidaId}
+                key={Ent.UnidadMedidaId}
+                onChange={onChangeUM}
+              >
+                {optionsUM.map((UM) => (
+                  <Select.Option key={UM.UnidadMedidaId} value={UM.UnidadMedidaId}>
+                    {UM.Nombre}
+                  </Select.Option>
+                ))}
+              </Select>
+              <Button
+                style={{
+                  width: '14%',
+                  float: "right",
+                  color: "#15616d",
+                  backgroundColor: "#E5F8FA",
+                  borderColor: "#15616d",
+                  marginTop: '5px', marginBottom: '10px'
+                }}
+                icon={<SearchOutlined />}
+              />
 
 
-          <DTInput inputName="TipoProducto" Header="TipoProducto" />
-          <DTInput inputName="Marca" Header="Marca" />
-          <DTInput inputName="Modelo" Header="Modelo" />
-          <DTInput inputName="Nombre" Header="Nombre" />
-          <DTInput inputName="Descripcion" Header="Descripcion" />
-          <DTInput inputName="UnidadMedida" Header="UnidadMedida" />
-          <DTInput inputName="Stock" Header="Stock" />
-          <DTInput inputName="Reserva" Header="Reserva" />
 
-          <DTDatePicker Header="Fecha de Emision" />
+            </Col>
+          </Row>
+
+
+
+
+
+
+          <Row>
+            <Col span={12}>
+
+              <Row>
+                <Col span={24}>
+                  <label>Reserva</label>
+                </Col>
+                <Col span={24}>
+                  <Input
+                    type="number"
+                    name="Reserva"
+                    style={{ marginTop: '5px', marginBottom: '10px' }}
+                    onChange={onChangeText}
+                    value={Ent.Reserva === null ? "" : Ent.Reserva}
+                  />
+                </Col>
+              </Row>
+
+
+            </Col>
+            <Col span={12}>
+
+
+              <Row>
+                <Col span={24}>
+                  <label>Stock</label>
+                </Col>
+                <Col span={24}>
+                  <Input
+                    type="number"
+                    name="Stock"
+                    style={{ marginTop: '5px', marginBottom: '10px' }}
+                    onChange={onChangeText}
+                    value={Ent.Stock === null ? "" : Ent.Stock}
+                  />
+                </Col>
+              </Row>
+
+
+            </Col>
+          </Row>
+
         </Col>
 
         <Col xs={24} sm={14} md={16} lg={17} xl={18}>
-          <Tabs style={{ marginLeft: '20px' }}
-            type="card" items={TabsItems} />
+          <Tabs
+            style={{ marginLeft: '20px' }}
+            type="line" items={TabsItems} />
         </Col>
       </Row>
     </Layout>
   );
 };
+
+
+
 
 export default page;

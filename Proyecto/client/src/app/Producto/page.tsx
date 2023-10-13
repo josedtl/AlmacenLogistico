@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import Layout from '@/Silder/Layout';
 import DataTable from '@/Components/Producto/DataTable';
 import { ProductoEntity } from '@/Models/Producto/ProductoEntity';
-import ModalItem from '@/Components/Producto/ModalItem';
 import ProductoService from '@/Service/ProductoService';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Col, Row } from 'antd';
 import { Typography } from 'antd';
 import { Card, Space, Button } from 'antd';
-import { RedoOutlined, DownloadOutlined } from '@ant-design/icons';
+import { RedoOutlined, DownloadOutlined, FileAddFilled } from '@ant-design/icons';
+
 function Page() {
   const sProducto = new ProductoService();
 
@@ -56,8 +56,19 @@ function Page() {
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
 
-          <ModalItem buttonLabel="" addItemToState={addItemToState} item={new ProductoEntity()} />
-
+          <Button
+            style={{
+              float: "right",
+              color: "white",
+              backgroundColor: "#15616d",
+              borderColor: "#15616d",
+              marginTop: "25px",
+              marginRight: "10px"
+            }}
+            href={`/Producto/${0}`}
+            size={"large"}
+            icon={<FileAddFilled />}
+          />
 
           <Button
             onClick={getItems}
@@ -89,20 +100,8 @@ function Page() {
 
 
           />
-          <Button
-            style={{
-              float: "right",
-              color: "#15616d",
-              backgroundColor: "#E5F8FA",
-              borderColor: "#15616d",
-              marginTop: "25px",
-              marginRight: "10px"
-            }}
-            href={`/Producto/${2}`}
-            size={"large"}
-            icon={<DownloadOutlined />}
-          />
 
+   
         </Col>
       </Row>
       <Card>
@@ -119,6 +118,34 @@ function Page() {
   );
 }
 
+// import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
+// import Document, { Head, Html, Main, NextScript } from 'next/document';
+// import type { DocumentContext } from 'next/document';
+
+// Page.getInitialProps = async (ctx: DocumentContext) => {
+//   const cache = createCache();
+//   const originalRenderPage = ctx.renderPage;
+//   ctx.renderPage = () =>
+//     originalRenderPage({
+//       enhanceApp: (App) => (props) => (
+//         <StyleProvider cache={cache}>
+//           <App {...props} />
+//         </StyleProvider>
+//       ),
+//     });
+
+//   const initialProps = await Document.getInitialProps(ctx);
+//   const style = extractStyle(cache, true);
+//   return {
+//     ...initialProps,
+//     styles: (
+//       <>
+//         {initialProps.styles}
+//         <style dangerouslySetInnerHTML={{ __html: style }} />
+//       </>
+//     ),
+//   };
+// };
 export default Page;
 
 

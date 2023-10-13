@@ -5,7 +5,9 @@ import { Button, Col, Row, Space, Typography } from 'antd';
 import { SaveFilled, DeleteOutlined, FileAddOutlined } from '@ant-design/icons';
 import { Form, Input } from 'antd';
 import { Tabs, Table, DatePicker } from 'antd';
-import { Label } from 'reactstrap';
+import DataTable from '@/Components/OrdenPedido/DataTable';
+import { ProductoDetalleModel } from '@/Models/OrdenPedido/ProductoDetalleModel';
+import ModalItem from '@/Components/OrdenPedido/ModalItem';
 const page = () => {
 
 
@@ -15,7 +17,23 @@ const page = () => {
   const { Title } = Typography;
   const [form] = Form.useForm();
   const [activeTab, setActiveTab] = useState('1');
+  const [items, setItems] = useState<ProductoDetalleModel[]>([]);
 
+
+  const updateState = (item: ProductoDetalleModel) => {
+    const itemIndex = items.findIndex((data) => data.OrdenPedidoDetalleId === item.OrdenPedidoDetalleId);
+    const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+    setItems(newArray);
+  };
+
+  const deleteItemFromState = (id: number) => {
+    const updatedItems = items.filter((item) => item.OrdenPedidoDetalleId !== id);
+    setItems(updatedItems);
+  };
+  const addItemToState = (item: ProductoDetalleModel) => {
+    console.log(item);
+    setItems([...items, item]);
+  };
 
 
   const columns = [
@@ -53,7 +71,7 @@ const page = () => {
       key: 'CodUsuario',
       width: '100px',
     }, {
-      title: 'Atendido',
+      title: 'CodUsuario',
       dataIndex: 'CodUsuario',
       key: 'CodUsuario',
       width: '100px',
@@ -123,15 +141,23 @@ const page = () => {
                 size={"middle"}
                 icon={<FileAddOutlined />}
               />
+
+              <ModalItem buttonLabel="" addItemToState={addItemToState} item={new ProductoDetalleModel()} />
+
+
             </Col>
           </Row>
           <Row>
             <Col xs={24}>
+              {/* 
+
               <Table
                 columns={columns}
                 size="small"
                 scroll={{ y: '100%' }}
-              />
+              /> */}
+              <DataTable DataList={items} updateState={updateState} deleteItemFromState={deleteItemFromState} />
+
             </Col>
           </Row >
         </span>
@@ -182,7 +208,7 @@ const page = () => {
           <label>{Header}</label>
         </Col>
         <Col span={24}>
-          <DatePicker name={inputName} style={{ width: '100%',marginTop: '5px', marginBottom: '10px' }} />
+          <DatePicker name={inputName} style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }} />
         </Col>
       </Row>
     );

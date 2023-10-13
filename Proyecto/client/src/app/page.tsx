@@ -1,6 +1,9 @@
 "use client"
 import React from 'react';
 import Layout from '@/Silder/Layout';
+import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import type { DocumentContext } from 'next/document';
 
 const page: React.FC = () => {
 

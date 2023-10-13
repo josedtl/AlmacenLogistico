@@ -71,6 +71,20 @@ class ProductoService {
     }
   }
 
+  async getItem(Id :number): Promise<ProductoEntity[]> {
+    try {
+      const response = await axios.get(`${URL}/api/Producto/GetItem/${Id}`);
+      console.log(response.status);
+      if (response.status === 200 && response.data.Value != null) {
+        return response.data.Value;
+      }
+      return [];
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  }
+
 }
 
 export default ProductoService;
