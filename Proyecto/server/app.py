@@ -39,6 +39,7 @@ from routes.TipoProductoRoute import TipoProductoRouter
 from routes.UbigeoRoute import UbigeoRouter
 from routes.UnidadMedidaRoute import UnidadMedidaRouter
 from routes.UsuarioRoute import UsuarioRouter
+from routes.GeneralRoute import GeneralRouter
 
 from ariadne import QueryType, make_executable_schema, load_schema_from_path, gql
 from ariadne.asgi import GraphQL
@@ -139,7 +140,7 @@ app.include_router(TipoProductoRouter)
 app.include_router(UbigeoRouter)
 app.include_router( UnidadMedidaRouter)
 app.include_router(UsuarioRouter)
-
+app.include_router(GeneralRouter)
 
 tags_metadata = [
     {

@@ -102,3 +102,20 @@ class ProductoDB:
             cursor.close()
             conn.close()
 
+    def GetItemLike(Nombre: str):
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                args = (Nombre,)
+                cursor.callproc("sp_Producto_SelectLike", args)
+                resulset = cursor.fetchall()
+            conn.close()
+            list = []
+
+            for row in resulset:
+                Data_ent = ProductoItemModel.CargarLiker(row)
+                list.append(Data_ent)
+            return list
+        except Exception as e:
+            print(e)

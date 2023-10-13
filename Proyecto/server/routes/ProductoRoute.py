@@ -48,3 +48,11 @@ def Delete(Id: int):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
+@ProductoRouter.get(f"/api/{ApiName}/GetItemLike/{{Nombre}}/", tags=[ApiName])
+def GetItemLike(Nombre: str):
+    try:
+        jsonData = Producto.GetItemLike(Nombre)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())

@@ -1,18 +1,12 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Layout from '@/Silder/Layout';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import DataTable from '@/Components/Marca/DataTable';
 import { MarcaEntity } from '@/Models/MarcaEntity';
 import ModalItem from '@/Components/Marca/ModalItem';
 import MarcaService from '@/Service/MarcaService';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import Fab from '@mui/material/Fab';
-import Grid from '@mui/material/Unstable_Grid2';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Col, Row ,Typography,Card,Button} from 'antd';
+import { RedoOutlined,DownloadOutlined } from '@ant-design/icons';
 
 function Page() {
   const sMarca = new MarcaService();
@@ -40,76 +34,68 @@ function Page() {
 
   const getItems = async () => {
     setOpen(true);
-    const items = await sMarca.getItems();
-    setItems(items);
+    const itemsg = await sMarca.getItems();
+    setItems(itemsg);
     setOpen(false);
+
   };
 
   useEffect(() => {
     getItems();
   }, []);
-
+  const { Title } = Typography;
   return (
     <Layout>
+      <Row>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          <Title level={2}> Marca</Title>
+        </Col>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+
+          <ModalItem buttonLabel="" addItemToState={addItemToState} item={new MarcaEntity()} />
+
+
+          <Button
+            onClick={getItems}
+            style={{
+              float: "right",
+              color: "#15616d",
+              backgroundColor: "#E5F8FA",
+              borderColor: "#15616d",
+              marginTop: "25px",
+              marginRight: "10px"
+            }}
+            size={"large"}
+            icon={<RedoOutlined />}
+
+
+          />
+               <Button
+            style={{
+              float: "right",
+              color: "#15616d",
+              backgroundColor: "#E5F8FA",
+              borderColor: "#15616d",
+              marginTop: "25px",
+              marginRight: "10px"
+            }}
+            size={"large"}
+            icon={<DownloadOutlined />}
+
+
+          />
+ 
+
+        </Col>
+      </Row>
       <Card>
-        <CardContent>
-          <Grid container spacing={2}>
-            <Grid xs={6} >
-              <Typography gutterBottom variant="h4" component="div" style={{ flex: 1, textAlign: 'left' }}>
-                Marca
-              </Typography>
-            </Grid>
-            <Grid xs={6}>
-              <div style={{ flex: 1, textAlign: 'right' }}>
-
-                <Fab
-
-                  color="primary"
-                  size="small"
-                  onClick={getItems}
-                  style={{ margin: '0px 10px 0px 0px' }}
-                  aria-label="add"
-                  sx={{ background: '#15616d' }}
-                >
-                  <RefreshIcon />
-                </Fab>
-
-                <ModalItem buttonLabel="" addItemToState={addItemToState} item={new MarcaEntity()} />
-              </div>
-
-            </Grid>
-
-          </Grid>
-
-
-
-        </CardContent>
         <DataTable DataList={items} updateState={updateState} deleteItemFromState={deleteItemFromState} />
       </Card>
-
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-        onClick={handleClose}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
     </Layout >
   );
 }
 
 export default Page;
-
-
-
-
-
-
-
-
-
-
-
 
 
 

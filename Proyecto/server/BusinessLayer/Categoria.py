@@ -27,3 +27,9 @@ class Categoria:
         except Exception as e:
             print(e)
     
+    def GetItemLike(Nombre: str):
+        try:
+            return CategoriaDB.GetItemLike(Nombre)
+        except Exception as e:
+            print(e)
+    

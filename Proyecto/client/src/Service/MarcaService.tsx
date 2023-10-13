@@ -8,7 +8,7 @@ class MarcaService {
 
   async getItems(): Promise<MarcaEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/Marca/GetMainItems/`);
+      const response = await axios.get(`${URL}/api/Marca/GetItems/`);
       console.log(response.status);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;

@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { MarcaEntity } from '@/Models/MarcaEntity'
-import MarcaService from '@/Service/MarcaService';
+import { TipoProductoEntity } from '@/Models/TipoProductoEntity'
+import TipoProductoService from '@/Service/TipoProductoService';
 import { Button, Form, Input} from 'antd';
 
 type Props = {
-    item: MarcaEntity;
+    item: TipoProductoEntity;
     addItemToState?: any;
     toggle?: any;
     updateState?: any;
 }
 
 const AddEditForm: React.FC<Props> = (props) => {
-    const sMarca = new MarcaService();
+    const sTipoProducto = new TipoProductoService();
 
-    const initialMarca = new MarcaEntity();
-    const [Ent, setEnt] = useState<MarcaEntity>(initialMarca);
+    const initialTipoProducto = new TipoProductoEntity();
+    const [Ent, setEnt] = useState<TipoProductoEntity>(initialTipoProducto);
     const [FlaState, setFlaState] = useState<Boolean>(false);
     const [error, setError] = useState(false);
     const [form] = Form.useForm();
@@ -38,7 +38,7 @@ const AddEditForm: React.FC<Props> = (props) => {
             return;
         }
 
-        const savedItem = await sMarca.saveItem(Ent);
+        const savedItem = await sTipoProducto.saveItem(Ent);
         if (savedItem) {
             if (FlaState) props.updateState(savedItem);
             else props.addItemToState(savedItem);
@@ -52,8 +52,8 @@ const AddEditForm: React.FC<Props> = (props) => {
 
     useEffect(() => {
         const updatedPerson = props.item;
-        updatedPerson.Action = updatedPerson.MarcaId > 0 ? 3 : 1;
-        setFlaState(updatedPerson.MarcaId > 0);
+        updatedPerson.Action = updatedPerson.TipoProductoId > 0 ? 3 : 1;
+        setFlaState(updatedPerson.TipoProductoId > 0);
         setEnt(updatedPerson);
     }, []);
 

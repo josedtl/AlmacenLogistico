@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { MarcaEntity } from '@/Models/MarcaEntity'
-import AddEditForm from "@/Components/Marca/FormAddEdit";
+import { TipoProductoEntity } from '@/Models/TipoProductoEntity'
+import AddEditForm from "@/Components/TipoProducto/FormAddEdit";
 import { Button, Modal } from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { EditFilled, FileAddFilled } from '@ant-design/icons';
 
 type Props = {
   buttonLabel?: string;
-  item: MarcaEntity;
+  item: TipoProductoEntity;
   updateState?: any;
   addItemToState?: any
 }
@@ -33,7 +33,7 @@ const ModalItem: React.FC<Props> = (props) => {
         icon={<EditFilled />}
       />
     );
-    title = "Editar Marca";
+    title = "Editar TipoProducto";
   } else {
     button = (
 
@@ -51,7 +51,7 @@ const ModalItem: React.FC<Props> = (props) => {
         icon={<FileAddFilled />}
       />
     );
-    title = "Agregar Marca";
+    title = "Agregar TipoProducto";
   }
   return (
     <React.Fragment>

@@ -8,7 +8,7 @@ class CategoriaService {
 
   async getItems(): Promise<CategoriaEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/Categoria/GetMainItems/`);
+      const response = await axios.get(`${URL}/api/Categoria/GetItems/`);
       console.log(response.status);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
@@ -68,6 +68,35 @@ class CategoriaService {
     } catch (error) {
       console.log(error);
       return null;
+    }
+  }
+
+  async getItemLike(Nombre: string): Promise<CategoriaEntity[]> {
+    try {
+      const response = await axios.get(`${URL}/api/Categoria/GetItemLike/${Nombre}`);
+      console.log(response.status);
+      if (response.status === 200 && response.data.Value != null) {
+        return response.data.Value;
+      }
+      return [];
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  }
+
+
+  async getItem(Id: number): Promise<CategoriaEntity[]> {
+    try {
+      const response = await axios.get(`${URL}/api/Categoria/GetItem/${Id}`);
+      console.log(response.status);
+      if (response.status === 200 && response.data.Value != null) {
+        return response.data.Value;
+      }
+      return [];
+    } catch (err) {
+      console.log(err);
+      return [];
     }
   }
 

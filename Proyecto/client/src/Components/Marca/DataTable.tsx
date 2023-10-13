@@ -1,19 +1,12 @@
 "use client"
 import React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableContainer from "@mui/material/TableContainer";
 import ModalItem from '@/Components/Marca/ModalItem'
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
 import MarcaService from '@/Service/MarcaService';
-import { styled } from '@mui/material/styles';
 import { MarcaEntity } from '@/Models/MarcaEntity';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { format } from 'date-fns';
-import dayjs from "dayjs";
+import { Button,Table} from 'antd';
+import {  DeleteFilled } from '@ant-design/icons';
+import type { SizeType } from 'antd/es/config-provider/SizeContext';
+
 type Props = {
     DataList: MarcaEntity[];
     updateState: any;
@@ -22,52 +15,65 @@ type Props = {
 
 const DataTable: React.FC<Props> = (props) => {
     const sMarca = new MarcaService();
+    const [size, setSize] = React.useState<SizeType>('middle');
 
-
-
-
-    const StyledTableCell = styled(TableCell)(({ theme }) => ({
-        [`&.${tableCellClasses.head}`]: {
-            backgroundColor: '#001f54',
-            color: '#FFFFFF',
+    const columns = [
+        {
+            title: 'Nº',
+            dataIndex: 'Cont',
+            width: '50px',
+            key: 'Cont',
         },
-        [`&.${tableCellClasses.body}`]: {
-            fontSize: 14,
+        {
+            title: 'Nombre',
+            dataIndex: 'Nombre',
+            key: 'Nombre',
         },
-    }));
+        {
+            title: 'Fecha de registro',
+            dataIndex: 'FechaRegistro',
+            width: '150px',
+            key: 'FechaRegistro',
+        },
+        {
+            title: 'Usuario',
+            dataIndex: 'CodUsuario',
+            width: '100px',
+            key: 'CodUsuario',
+        }, {
+            title: 'Action',
+            width: '100px',
+            key: 'action',
+            render: (text: any, record: MarcaEntity) => (
+                <span>
 
-
-
-    let Contador: number = 0;
-    const items = props.DataList.map((row) => {
-
-        Contador += 1
-        row.Cont = Contador
-
-        // console.log(format(row.FechaRegistro, 'dd/MM/yyyy'))
-        return (
-            <TableRow key={row.MarcaId} >
-                <TableCell width={80}>{row.Cont}</TableCell>
-                <TableCell>{row.Nombre}</TableCell>
-                <TableCell width={200}>{dayjs( row.FechaRegistro.toString()).format("DD-MM-YYYY hh:mm")}</TableCell>
-                <TableCell width={150}>{row.CodUsuario}</TableCell>
-                <TableCell width={150} >
+                    <Button
+                        type='dashed'
+                        onClick={() => deleteItem(record.MarcaId)}
+                        style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
+                        size={size}
+                        icon={<DeleteFilled />}
+                    />
                     <ModalItem
                         buttonLabel="Edit"
-                        item={row}
+                        item={record}
                         updateState={props.updateState}
                     />
-                    <Button
-                        className="btn btn-secondary btn-sm btn-block"
-                        onClick={() => deleteItem(row.MarcaId)}
-                        style={{ float: "left", marginRight: "10px", color: "#000000" }}
-                    >
-                        <DeleteIcon />
-                    </Button>
-                </TableCell>
 
-            </TableRow>
-        );
+
+
+                </span>
+            ),
+        },
+
+    ];
+
+    const dataWithKeys = props.DataList.map((item, zIndex) => {
+        return {
+            ...item,
+            key: item.MarcaId,
+            Cont: (zIndex + 1)
+        };
     });
 
 
@@ -86,22 +92,13 @@ const DataTable: React.FC<Props> = (props) => {
     return (
 
         <div>
-            <TableContainer sx={{ maxHeight: 500 }}>
-                <Table stickyHeader aria-label="customized table" size="small" >
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell>Nº</StyledTableCell>
-                            <StyledTableCell>Nombre</StyledTableCell>
-                            <StyledTableCell>Fecha Registro</StyledTableCell>
-                            <StyledTableCell>Usuario</StyledTableCell>
-                            <StyledTableCell></StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {items}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+
+            <Table
+                columns={columns}
+                dataSource={dataWithKeys}
+                size="small"
+                scroll={{ x: 'calc(700px + 50%)', y: '100%' }}
+            />
         </div>
 
     );

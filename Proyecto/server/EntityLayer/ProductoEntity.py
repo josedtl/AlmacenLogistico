@@ -52,3 +52,12 @@ class ProductoItemModel:
         c.CodUsuario = _DB["CodUsuario"] 
         c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 
         return c
+
+    def CargarLike(_DB):
+        c =  ProductoItemModel()
+        c.ProductoId = _DB["ProductoId"] 
+        c.Codigo = _DB["Codigo"] 
+        c.Nombre = _DB["Nombre"] 
+        c.UnidadMedidaId = _DB["UnidadMedidaId"] 
+        c.Stock = _DB["Stock"] 
+        return c

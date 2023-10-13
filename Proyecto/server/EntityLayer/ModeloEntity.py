@@ -25,3 +25,9 @@ class ModeloItemModel:
         c.CodUsuario = _DB["CodUsuario"] 
         c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 
         return c
+
+    def CargarItem(_DB):
+        c =  ModeloItemModel()
+        c.ModeloId = _DB["ModeloId"] 
+        c.Nombre = _DB["Nombre"] 
+        return c

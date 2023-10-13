@@ -73,6 +73,16 @@ const menuItems: MenuItem[] = [
         icon: <></>,
         path: "/Modelo",
       },
+      {
+        label: "TipoProducto",
+        icon: <></>,
+        path: "/TipoProducto",
+      },
+       {
+        label: "Producto",
+        icon: <></>,
+        path: "/Producto",
+      },
     ],
   },
   // Agrega más elementos y subelementos del menú aquí
@@ -107,13 +117,13 @@ const SidebarAlter: React.FC<SidebarProps> = ({ open, onClose }) => {
       }}
     >
 
-        <Grid  >
+      <Grid  >
 
-          <Button onClick={handleSidebarToggle}
+        <Button onClick={handleSidebarToggle}
 
-          ><InboxMenu /></Button >Sistema Logistico   
+        ><InboxMenu /></Button >Sistema Logistico
 
-        </Grid>
+      </Grid>
       <List
       >
         {menuItems.map((item, index) => (
