@@ -6,7 +6,7 @@ import { CategoriaEntity } from '@/Models/CategoriaEntity';
 import { Button, Table, Modal, Space } from 'antd';
 import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
-import { format } from 'date-fns';
+
 type Props = {
     DataList: CategoriaEntity[];
     updateState: any;
@@ -67,15 +67,12 @@ const DataTable: React.FC<Props> = (props) => {
         },
 
     ];
-
+  
     const dataWithKeys = props.DataList.map((item, zIndex) => {
-        const formato = 'dd/MM/yyyy HH:mm:ss'; // Puedes personalizar el formato según tus necesidades
-
         return {
             ...item,
             key: item.CategoriaId,
             Cont: (zIndex + 1),
-            FechaRegistroString: format(item.FechaRegistro, formato),
         };
     });
 
