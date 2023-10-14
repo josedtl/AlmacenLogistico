@@ -16,6 +16,10 @@ import GeneralGQLService from '@/Service/GeneralGQLService';
 import { UnidadMedidaEntity } from '@/Models/UnidadMedidaEntity';
 import ProductoService from '@/Service/ProductoService';
 import CategoriaService from '@/Service/CategoriaService';
+import MDCategoria from '@/Components/Categoria/ModalItem';
+import MDTipoProducto from '@/Components/TipoProducto//ModalItem';
+import MDCMarca from '@/Components/Marca/ModalItem';
+import MDCModelo from '@/Components/Modelo/ModalItem';
 const page = ({ params }: any) => {
 
   const sGeneral = new GeneralService();
@@ -33,54 +37,32 @@ const page = ({ params }: any) => {
   const initialCategoria = new CategoriaEntity();
   const [EntCategoria, setEntCategoria] = useState<CategoriaEntity>(initialCategoria);
 
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Ejecutado")
-    setEntCategoria({
-      ...EntCategoria,
-      [e.target.name]: e.target.value.toUpperCase()
-    });
+  const addItemToStateCategoria = async (item: CategoriaEntity) => {
+    const Resp_Categoria = await sGeneral.GetCategoriaItem(item.CategoriaId);
+    setOptionsCategoria(Resp_Categoria);
+    Ent.CategoriaId = Resp_Categoria[0].CategoriaId;
 
   };
 
-  const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log(Ent.Nombre);
-
-    const savedItem = await sCategoria.saveItem(EntCategoria);
-    if (savedItem) {
-      const Resp_Categoria = await sGeneral.GetCategoriaItem(savedItem.CategoriaId);
-      setOptionsCategoria(Resp_Categoria);
-      Ent.CategoriaId = Resp_Categoria[0].CategoriaId;
-      setIsModalOpen(false);
-    }
-
+  const addItemToStateMarca = async (item: MarcaEntity) => {
+    const Resp_Marca = await sGeneral.GetMarcaItem(item.MarcaId);
+    setOptionsMarca(Resp_Marca);
+    Ent.MarcaId = Resp_Marca[0].MarcaId;
 
   };
-  const ModelCategoriaSave = () => {
+  const addItemToStateModelo = async (item: ModeloEntity) => {
+    const Resp_Modelo = await sGeneral.GetModeloItem(item.ModeloId);
+    setOptionsModelo(Resp_Modelo);
+    Ent.ModeloId = Resp_Modelo[0].ModeloId;
 
+  };
+  const addItemToStateTipoProducto = async (item: TipoProductoEntity) => {
+    const Resp_TipoProducto = await sGeneral.GetTipoProductoItem(item.TipoProductoId);
+    setOptionsTipoProducto(Resp_TipoProducto);
+    Ent.TipoProductoId = Resp_TipoProducto[0].TipoProductoId;
 
+  };
 
-
-
-    return (
-      <>
-
-
-      </>
-    );
-  }
 
   const columns = [
     {
@@ -420,40 +402,9 @@ const page = ({ params }: any) => {
                   </Select.Option>
                 ))}
               </Select>
-              <Button
-                onClick={showModal}
-                style={{
-                  width: '14%',
-                  float: "right",
-                  color: "#15616d",
-                  backgroundColor: "#E5F8FA",
-                  borderColor: "#15616d",
-                  marginTop: '5px', marginBottom: '10px'
-                }}
-                icon={<SearchOutlined />}
-              />
-
-              <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
-                  <Form.Item label="Nombre" rules={[{ required: false }]}>
-                    <Input
-                      type="text"
-                      name="Nombre"
-                      onChange={onChange}
-                      value={EntCategoria.Nombre === null ? "" : EntCategoria.Nombre}
-                    />
-                  </Form.Item>
-
-                  <Form.Item>
-                    <Button
-                      onClick={submitFormAdd}
-                      style={{ float: "right", background: '#034078', color: "white", }}>
-                      Aceptar
-                    </Button>
-                  </Form.Item>
-                </Form>
-              </Modal>
-
+              <MDCategoria buttonLabel="Enlace" 
+              addItemToState={addItemToStateCategoria} 
+              item={new CategoriaEntity()} />
             </Col>
           </Row>
 
@@ -481,17 +432,10 @@ const page = ({ params }: any) => {
                   </Select.Option>
                 ))}
               </Select>
-              <Button
-                style={{
-                  width: '14%',
-                  float: "right",
-                  color: "#15616d",
-                  backgroundColor: "#E5F8FA",
-                  borderColor: "#15616d",
-                  marginTop: '5px', marginBottom: '10px'
-                }}
-                icon={<SearchOutlined />}
-              />
+              <MDTipoProducto buttonLabel="Enlace"
+               addItemToState={addItemToStateTipoProducto} 
+               item={new TipoProductoEntity()} />
+         
 
 
 
@@ -521,17 +465,10 @@ const page = ({ params }: any) => {
                   </Select.Option>
                 ))}
               </Select>
-              <Button
-                style={{
-                  width: '14%',
-                  float: "right",
-                  color: "#15616d",
-                  backgroundColor: "#E5F8FA",
-                  borderColor: "#15616d",
-                  marginTop: '5px', marginBottom: '10px'
-                }}
-                icon={<SearchOutlined />}
-              />
+       
+              <MDCMarca buttonLabel="Enlace" 
+              addItemToState={addItemToStateMarca}
+              item={new MarcaEntity()} />
 
 
 
@@ -559,18 +496,10 @@ const page = ({ params }: any) => {
                   </Select.Option>
                 ))}
               </Select>
-              <Button
-                style={{
-                  width: '14%',
-                  float: "right",
-                  color: "#15616d",
-                  backgroundColor: "#E5F8FA",
-                  borderColor: "#15616d",
-                  marginTop: '5px', marginBottom: '10px'
-                }}
-                icon={<SearchOutlined />}
-              />
-
+              <MDCModelo buttonLabel="Enlace"
+               addItemToState={addItemToStateModelo} 
+               item={new ModeloEntity()} />
+          
 
 
             </Col>

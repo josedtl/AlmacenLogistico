@@ -3,7 +3,7 @@ import { MarcaEntity } from '@/Models/MarcaEntity'
 import AddEditForm from "@/Components/Marca/FormAddEdit";
 import { Button, Modal } from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
-import { EditFilled, FileAddFilled } from '@ant-design/icons';
+import { EditFilled, FileAddFilled ,SearchOutlined} from '@ant-design/icons';
 
 type Props = {
   buttonLabel?: string;
@@ -34,7 +34,27 @@ const ModalItem: React.FC<Props> = (props) => {
       />
     );
     title = "Editar Marca";
-  } else {
+  } else if (label === "Enlace") {
+
+    button = (
+      <Button
+        onClick={toggle}
+        style={{
+          width: '14%',
+          float: "right",
+          color: "#15616d",
+          backgroundColor: "#E5F8FA",
+          borderColor: "#15616d",
+          marginTop: '5px', marginBottom: '10px'
+        }}
+        icon={<SearchOutlined />}
+      />
+    );
+
+    title = "Agregar Marca";
+
+
+  }  else {
     button = (
 
       <Button
