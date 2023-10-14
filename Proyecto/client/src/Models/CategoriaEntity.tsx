@@ -8,7 +8,7 @@ export class CategoriaEntity {
     CodUsuario: string;;
     EstadoRegistro: boolean;
     Action: number;
-
+    FechaRegistroString: string;
     constructor() {
         this.Cont=0;
         this.CategoriaId = 0;
@@ -17,5 +17,6 @@ export class CategoriaEntity {
         this.CodUsuario = '';
         this.EstadoRegistro = false;
         this.Action = 0;
+        this.FechaRegistroString ='';
     }
 }

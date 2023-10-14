@@ -3,10 +3,10 @@ import React from 'react';
 import ModalItem from '@/Components/Categoria/ModalItem'
 import CategoriaService from '@/Service/CategoriaService';
 import { CategoriaEntity } from '@/Models/CategoriaEntity';
-import { Button,Table} from 'antd';
-import {  DeleteFilled } from '@ant-design/icons';
+import { Button, Table, Modal, Space } from 'antd';
+import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
-
+import { format } from 'date-fns';
 type Props = {
     DataList: CategoriaEntity[];
     updateState: any;
@@ -16,7 +16,7 @@ type Props = {
 const DataTable: React.FC<Props> = (props) => {
     const sCategoria = new CategoriaService();
     const [size, setSize] = React.useState<SizeType>('middle');
-
+    const [modal, contextHolder] = Modal.useModal();
     const columns = [
         {
             title: 'Nº',
@@ -69,30 +69,49 @@ const DataTable: React.FC<Props> = (props) => {
     ];
 
     const dataWithKeys = props.DataList.map((item, zIndex) => {
+        const formato = 'dd/MM/yyyy HH:mm:ss'; // Puedes personalizar el formato según tus necesidades
+
         return {
             ...item,
             key: item.CategoriaId,
-            Cont: (zIndex + 1)
+            Cont: (zIndex + 1),
+            FechaRegistroString: format(item.FechaRegistro, formato),
         };
     });
 
+    const DeleteItemAll = async (CategoriaId: number) => {
+        const deleted = await sCategoria.deleteItem(CategoriaId);
+        if (deleted) {
+            props.deleteItemFromState(CategoriaId);
+        } else {
+            console.log("Delete operation failed");
+        }
+    }
 
     const deleteItem = async (CategoriaId: number) => {
-        const confirmDelete = window.confirm("Delete item forever?");
-        if (confirmDelete) {
-            const deleted = await sCategoria.deleteItem(CategoriaId);
-            if (deleted) {
-                props.deleteItemFromState(CategoriaId);
-            } else {
-                console.log("Delete operation failed");
-            }
-        }
+
+        modal.confirm({
+            title: 'Mensaje del Sistema',
+            icon: <ExclamationCircleOutlined />,
+            content: '¿Desea eliminar el registro?',
+            okText: 'Si',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk() {
+                DeleteItemAll(CategoriaId);
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+
+
     };
 
     return (
 
         <div>
-
+            {contextHolder}
             <Table
                 columns={columns}
                 dataSource={dataWithKeys}

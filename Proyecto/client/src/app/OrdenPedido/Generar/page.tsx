@@ -31,8 +31,8 @@ const page = () => {
     setItems(updatedItems);
   };
   const addItemToState = (item: ProductoDetalleModel) => {
-    console.log(item);
     setItems([...items, item]);
+    console.log(items);
   };
 
 
