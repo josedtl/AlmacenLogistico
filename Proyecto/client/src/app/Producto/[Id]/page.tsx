@@ -1,10 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Layout from '@/Silder/Layout';
-import { Button, Col, Row, Space, Typography } from 'antd';
-import { SaveFilled, DeleteOutlined, FileAddOutlined, SearchOutlined } from '@ant-design/icons';
+import { Button, Col, Row, Typography, Modal } from 'antd';
+import { SaveFilled, SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Form, Input } from 'antd';
-import { Tabs, Table, DatePicker, AutoComplete, Select } from 'antd';
+import { Tabs, Table, message, Select } from 'antd';
 import { CategoriaEntity } from '@/Models/CategoriaEntity';
 import { TipoProductoEntity } from '@/Models/TipoProductoEntity';
 import { MarcaEntity } from '@/Models/MarcaEntity';
@@ -15,8 +15,7 @@ import GeneralService from '@/Service/GeneralService';
 import GeneralGQLService from '@/Service/GeneralGQLService';
 import { UnidadMedidaEntity } from '@/Models/UnidadMedidaEntity';
 import ProductoService from '@/Service/ProductoService';
-import { Console } from 'console';
-import { AndroidOutlined, AppleOutlined } from '@ant-design/icons';
+import CategoriaService from '@/Service/CategoriaService';
 const page = ({ params }: any) => {
 
   const sGeneral = new GeneralService();
@@ -29,9 +28,59 @@ const page = ({ params }: any) => {
   const { Title } = Typography;
   const [form] = Form.useForm();
   const [activeTab, setActiveTab] = useState('1');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const sCategoria = new CategoriaService();
+  const initialCategoria = new CategoriaEntity();
+  const [EntCategoria, setEntCategoria] = useState<CategoriaEntity>(initialCategoria);
+
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Ejecutado")
+    setEntCategoria({
+      ...EntCategoria,
+      [e.target.name]: e.target.value.toUpperCase()
+    });
+
+  };
+
+  const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log(Ent.Nombre);
+
+    const savedItem = await sCategoria.saveItem(EntCategoria);
+    if (savedItem) {
+      const Resp_Categoria = await sGeneral.GetCategoriaItem(savedItem.CategoriaId);
+      setOptionsCategoria(Resp_Categoria);
+      Ent.CategoriaId = Resp_Categoria[0].CategoriaId;
+      setIsModalOpen(false);
+    }
+
+
+  };
+  const ModelCategoriaSave = () => {
 
 
 
+
+
+    return (
+      <>
+
+
+      </>
+    );
+  }
 
   const columns = [
     {
@@ -103,10 +152,12 @@ const page = ({ params }: any) => {
   const [TabsItems, setTabsItems] = useState<any>([
     {
       label: (
-        <span>
-          <AndroidOutlined />
-          Tarifa
-        </span>
+        < >
+          {/* <AndroidOutlined /> */}
+          <Title style={{ fontSize: '18px' }}>
+            Tarifa
+          </Title>
+        </>
       ),
       key: 1,
       children:
@@ -126,70 +177,6 @@ const page = ({ params }: any) => {
 
   ]);
 
-  const handleTabChange = (key: any) => {
-    setActiveTab(key);
-
-
-
-  };
-
-  const DTInput = (props: any) => {
-    const { Header, inputName, onChange, value } = props; // Destructuring de las props
-
-    return (
-      <Row>
-        <Col span={24}>
-          <label>{Header}</label>
-        </Col>
-        <Col span={24}>
-          <Input
-            type="text"
-            name={inputName}
-            style={{ marginTop: '5px', marginBottom: '10px' }}
-            onChange={onChange}
-            value={value === null ? "" : value}
-          />
-        </Col>
-      </Row>
-    );
-  };
-
-  const DTTextArea = (props: any) => {
-    const { Header, inputName } = props; // Destructuring de las props
-
-    return (
-      <Row>
-        <Col span={24}>
-          <label>{Header}</label>
-        </Col>
-        <Col span={24}>
-          <TextArea rows={4}
-            style={{ marginTop: '5px', marginBottom: '10px' }}
-            name={inputName} />
-          {/* <Input
-            type="text"
-            name={inputName}
-            style={{ marginTop: '5px', marginBottom: '10px' }}
-          /> */}
-        </Col>
-      </Row>
-    );
-  };
-
-  const DTDatePicker = (props: any) => {
-    const { Header, inputName } = props; // Destructuring de las props
-
-    return (
-      <Row>
-        <Col span={24}>
-          <label>{Header}</label>
-        </Col>
-        <Col span={24}>
-          <DatePicker name={inputName} style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }} />
-        </Col>
-      </Row>
-    );
-  };
 
   const [optionsCategoria, setOptionsCategoria] = useState<CategoriaEntity[]>([]);
   const [optionsTipoProducto, setOptionsTipoProducto] = useState<TipoProductoEntity[]>([]);
@@ -321,78 +308,44 @@ const page = ({ params }: any) => {
 
 
 
-  const DTSelect = (props: any) => {
-    const { Header, onSearch, value, key, onChange, Lista } = props; // Destructuring de las props
+  const [modal, contextHolder] = Modal.useModal();
+  const [messageAdd, contextHolderAdd] = message.useMessage();
+  const AddProducto = async () => {
+    const savedItem = await sProducto.saveItem(Ent);
+    if (savedItem) {
 
-    return (
-      <Row>
-        <Col span={24}>
-          <label>{Header}</label>
-        </Col>
-        <Col span={24}>
-          <Select
-            showSearch
-            style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
-            defaultActiveFirstOption={false}
-            filterOption={false}
-            onSearch={onSearch}
-            value={value === 0 ? null : value}
-            key={key}
-            onChange={onChange}
-          >
-            {Lista}
-          </Select>
-          <Button
-            style={{
-              width: '14%',
-              float: "right",
-              color: "#15616d",
-              backgroundColor: "#E5F8FA",
-              borderColor: "#15616d",
-              marginTop: '5px', marginBottom: '10px'
-            }}
-            icon={<SearchOutlined />}
-          />
-
-
-
-        </Col>
-      </Row>
-
-
-    );
-  };
-  // const Guardar_Total = async () => {
-  //   console.log(Ent);
-
-  // };
+      messageAdd.open({
+        type: 'success',
+        content: 'Se guardó correctamente.',
+      });
+    } else {
+    }
+  }
 
 
   const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // console.log(Ent.Nombre);
 
-    // if (Ent.Nombre === '') {
-    //     console.log('El nombre no puede ser un número');
-    //     setError(Ent.Nombre.length < 3);
-    //     return;
-    // }
-    Ent.CodUsuario = "adm";
-    Ent.Action = 1;
-    Ent.FechaRegistro = new Date();
-    Ent.EstadoRegistro = true
 
-    Ent.Action = Ent.ProductoId == 0 ? 1 : 3;
-
-    const savedItem = await sProducto.saveItem(Ent);
-    console.log(savedItem);
-    // if (savedItem) {
-    //     if (FlaState) props.updateState(savedItem);
-    //     else props.addItemToState(savedItem);
-
-    //     props.toggle();
-    // }
-
+    modal.confirm({
+      title: 'Mensaje del Sistema',
+      icon: <ExclamationCircleOutlined />,
+      content: '¿Desea guardar el registro?',
+      okText: 'Si',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        Ent.CodUsuario = "adm";
+        Ent.Action = 1;
+        Ent.FechaRegistro = new Date();
+        Ent.EstadoRegistro = true
+        Ent.Action = Ent.ProductoId == 0 ? 1 : 3;
+        AddProducto();
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
 
   };
 
@@ -403,6 +356,8 @@ const page = ({ params }: any) => {
 
   return (
     <Layout>
+      {contextHolder}
+      {contextHolderAdd}
       <Row>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           {/* <Title level={3}> Producto  {params.Id}</Title> */}
@@ -466,6 +421,7 @@ const page = ({ params }: any) => {
                 ))}
               </Select>
               <Button
+                onClick={showModal}
                 style={{
                   width: '14%',
                   float: "right",
@@ -477,7 +433,26 @@ const page = ({ params }: any) => {
                 icon={<SearchOutlined />}
               />
 
+              <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
+                  <Form.Item label="Nombre" rules={[{ required: false }]}>
+                    <Input
+                      type="text"
+                      name="Nombre"
+                      onChange={onChange}
+                      value={EntCategoria.Nombre === null ? "" : EntCategoria.Nombre}
+                    />
+                  </Form.Item>
 
+                  <Form.Item>
+                    <Button
+                      onClick={submitFormAdd}
+                      style={{ float: "right", background: '#034078', color: "white", }}>
+                      Aceptar
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Modal>
 
             </Col>
           </Row>
@@ -622,13 +597,13 @@ const page = ({ params }: any) => {
             <Col span={24}>
               <Input
                 type="TextArea"
-                
+
                 name="Descripcion"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChangeText}
                 value={Ent.Descripcion === null ? "" : Ent.Descripcion}
               />
-        
+
             </Col>
           </Row>
 
