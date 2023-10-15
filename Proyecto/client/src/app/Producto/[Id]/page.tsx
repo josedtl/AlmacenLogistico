@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Layout from '@/Silder/Layout';
-import { Button, Col, Row, Typography, Modal } from 'antd';
+import { Button, Col, Row, Typography, Modal, Spin } from 'antd';
 import { SaveFilled, SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Form, Input } from 'antd';
 import { Tabs, Table, message, Select } from 'antd';
@@ -20,6 +20,10 @@ import MDCategoria from '@/Components/Categoria/ModalItem';
 import MDTipoProducto from '@/Components/TipoProducto//ModalItem';
 import MDCMarca from '@/Components/Marca/ModalItem';
 import MDCModelo from '@/Components/Modelo/ModalItem';
+import type { InputStatus } from 'antd/lib/_util/statusUtils'
+
+
+
 const page = ({ params }: any) => {
 
   const sGeneral = new GeneralService();
@@ -36,6 +40,10 @@ const page = ({ params }: any) => {
   const sCategoria = new CategoriaService();
   const initialCategoria = new CategoriaEntity();
   const [EntCategoria, setEntCategoria] = useState<CategoriaEntity>(initialCategoria);
+  const [CargarPage, setCargarPage] = React.useState(false);
+
+
+
 
   const addItemToStateCategoria = async (item: CategoriaEntity) => {
     const Resp_Categoria = await sGeneral.GetCategoriaItem(item.CategoriaId);
@@ -209,7 +217,7 @@ const page = ({ params }: any) => {
 
 
   const getCargarDatos = async () => {
-
+    setCargarPage(true);
     const Resp_UM = await sGeneralGQL.GetUnidadMedidaItems();
     setOptionsUM(Resp_UM);
 
@@ -232,10 +240,15 @@ const page = ({ params }: any) => {
 
       setEnt(Resp_Producto[0]);
     }
+
+    setCargarPage(false);
   };
   const [error, setError] = useState(false);
   const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Ejecutado")
+
+    setValCodigo('');
+    setValNombre('');
+    setValDescripcion('');
     setEnt({
       ...Ent,
       [e.target.name]: e.target.value.toUpperCase()
@@ -249,29 +262,45 @@ const page = ({ params }: any) => {
   const [selectedModelo, setSelectedModelo] = useState<number | undefined>(undefined);
   const [selectedUM, setSelectedUM] = useState<number | undefined>(undefined);
 
+  const [ValCodigo, setValCodigo] = useState<InputStatus>('');
+  const [ValCategoria, setValCategoria] = useState<InputStatus>('');
+  const [ValTipoProducto, setValTipoProducto] = useState<InputStatus>('');
+  const [ValMarca, setValMarca] = useState<InputStatus>('');
+  const [ValModelo, setValModelo] = useState<InputStatus>('');
+  const [ValNombre, setValNombre] = useState<InputStatus>('');
+  const [ValDescripcion, setValDescripcion] = useState<InputStatus>('');
+  const [ValUnidadMedida, setValUnidadMedida] = useState<InputStatus>('');
+
+
+
   const onChangeCategoria = async (value: number) => {
+    setValCategoria('');
     Ent.CategoriaId = value;
     setSelectedCategoria(value)
   };
 
   const onChangeTipoProducto = async (value: number) => {
+    setValTipoProducto('');
     Ent.TipoProductoId = value;
     setSelectedTipoProducto(value)
   };
 
 
   const onChangeMarca = async (value: number) => {
+    setValMarca('');
     Ent.MarcaId = value;
     setSelectedMarca(value)
   };
 
 
   const onChangeModelo = async (value: number) => {
+    setValModelo('');
     Ent.ModeloId = value;
     setSelectedModelo(value)
   };
 
   const onChangeUM = async (value: number) => {
+    setValUnidadMedida('');
     Ent.UnidadMedidaId = value;
     setSelectedUM(value)
   };
@@ -308,6 +337,53 @@ const page = ({ params }: any) => {
   const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    if (Ent.Codigo === '') {
+      setValCodigo('error');
+      messageAdd.open({ type: 'error', content: 'Ingrese Codigo.', });
+      return;
+    }
+    if (Ent.CategoriaId === 0) {
+      setValCategoria('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione una categoria.', });
+      return;
+    }
+    if (Ent.TipoProductoId === 0) {
+      setValTipoProducto('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione una tipo de producto.', });
+      return;
+    }
+
+    if (Ent.MarcaId === 0) {
+      setValMarca('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione una marca.', });
+      return;
+    }
+
+
+    if (Ent.ModeloId === 0) {
+      setValModelo('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione un Modelo.', });
+      return;
+    }
+
+    if (Ent.Nombre === '') {
+      setValNombre('error');
+      messageAdd.open({ type: 'error', content: 'Ingrese un Nombre.', });
+      return;
+    }
+
+    if (Ent.Descripcion === '') {
+      setValDescripcion('error');
+      messageAdd.open({ type: 'error', content: 'Ingrese un Nombre.', });
+      return;
+    }
+
+    if (Ent.UnidadMedidaId === 0) {
+      setValUnidadMedida('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione una unidad de medida.', });
+      return;
+    }
+
 
     modal.confirm({
       title: 'Mensaje del Sistema',
@@ -338,296 +414,308 @@ const page = ({ params }: any) => {
 
   return (
     <Layout>
-      {contextHolder}
-      {contextHolderAdd}
-      <Row>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          {/* <Title level={3}> Producto  {params.Id}</Title> */}
-          <Title level={3}> Producto</Title>
-        </Col>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <Button
-            style={{
-              float: "right",
-              color: "white",
-              backgroundColor: "#15616d",
-              borderColor: "#15616d",
-              marginTop: "25px",
-              marginRight: "10px"
-            }}
-            onClick={Guardar_Total}
-            size={"large"}
-            icon={<SaveFilled />}
-          />
-
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={24} sm={10} md={8} lg={7} xl={6}>
+      <Spin spinning={CargarPage} tip="Cargando" size="large">
 
 
-          <Row>
-            <Col span={24}>
-              <label>Codigo</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                type="text"
-                name="Codigo"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                onChange={onChangeText}
-                value={Ent.Codigo === null ? "" : Ent.Codigo}
-              />
-            </Col>
-          </Row>
+        {contextHolder}
+        {contextHolderAdd}
+        <Row>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+            {/* <Title level={3}> Producto  {params.Id}</Title> */}
+            <Title level={3}> {Ent.ProductoId > 0 ? 'Producto' : 'Agregar Producto'}</Title>
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+            <Button
+              style={{
+                float: "right",
+                color: "white",
+                backgroundColor: "#15616d",
+                borderColor: "#15616d",
+                marginTop: "25px",
+                marginRight: "10px"
+              }}
+              onClick={Guardar_Total}
+              size={"large"}
+              icon={<SaveFilled />}
+            />
 
-          <Row>
-            <Col span={24}>
-              <label>Categoria</label>
-            </Col>
-            <Col span={24}>
-              <Select
-                showSearch
-                style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
-                defaultActiveFirstOption={false}
-                filterOption={false}
-                onSearch={handleSearchCategoria}
-                value={Ent.CategoriaId === 0 ? null : Ent.CategoriaId}
-                key={Ent.CategoriaId}
-                onChange={onChangeCategoria}
-              >
-                {optionsCategoria.map((categoria) => (
-                  <Select.Option key={categoria.CategoriaId} value={categoria.CategoriaId}>
-                    {categoria.Nombre}
-                  </Select.Option>
-                ))}
-              </Select>
-              <MDCategoria buttonLabel="Enlace" 
-              addItemToState={addItemToStateCategoria} 
-              item={new CategoriaEntity()} />
-            </Col>
-          </Row>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={24} sm={10} md={8} lg={7} xl={6}>
 
 
+            <Row>
+              <Col span={24}>
+                <label>Codigo</label>
+              </Col>
+              <Col span={24}>
+                <Input
+                  status={ValCodigo}
+                  type="text"
+                  name="Codigo"
+                  style={{ marginTop: '5px', marginBottom: '10px' }}
+                  onChange={onChangeText}
+                  value={Ent.Codigo === null ? "" : Ent.Codigo}
+                />
+              </Col>
+            </Row>
 
-
-          <Row>
-            <Col span={24}>
-              <label>Tipo Producto</label>
-            </Col>
-            <Col span={24}>
-              <Select
-                showSearch
-                style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
-                defaultActiveFirstOption={false}
-                filterOption={false}
-                onSearch={handleSearchTipoProducto}
-                value={Ent.TipoProductoId === 0 ? null : Ent.TipoProductoId}
-                key={Ent.TipoProductoId}
-                onChange={onChangeTipoProducto}
-              >
-                {optionsTipoProducto.map((TipoProducto) => (
-                  <Select.Option key={TipoProducto.TipoProductoId} value={TipoProducto.TipoProductoId}>
-                    {TipoProducto.Nombre}
-                  </Select.Option>
-                ))}
-              </Select>
-              <MDTipoProducto buttonLabel="Enlace"
-               addItemToState={addItemToStateTipoProducto} 
-               item={new TipoProductoEntity()} />
-         
-
-
-
-            </Col>
-          </Row>
-
-
-
-          <Row>
-            <Col span={24}>
-              <label>Marca</label>
-            </Col>
-            <Col span={24}>
-              <Select
-                showSearch
-                style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
-                defaultActiveFirstOption={false}
-                filterOption={false}
-                onSearch={handleSearchMarca}
-                value={Ent.MarcaId === 0 ? null : Ent.MarcaId}
-                key={Ent.MarcaId}
-                onChange={onChangeMarca}
-              >
-                {optionsMarca.map((Marca) => (
-                  <Select.Option key={Marca.MarcaId} value={Marca.MarcaId}>
-                    {Marca.Nombre}
-                  </Select.Option>
-                ))}
-              </Select>
-       
-              <MDCMarca buttonLabel="Enlace" 
-              addItemToState={addItemToStateMarca}
-              item={new MarcaEntity()} />
-
-
-
-            </Col>
-          </Row>
-
-          <Row>
-            <Col span={24}>
-              <label>Modelo</label>
-            </Col>
-            <Col span={24}>
-              <Select
-                showSearch
-                style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
-                defaultActiveFirstOption={false}
-                filterOption={false}
-                onSearch={handleSearchModelo}
-                value={Ent.ModeloId === 0 ? null : Ent.ModeloId}
-                key={Ent.ModeloId}
-                onChange={onChangeModelo}
-              >
-                {optionsModelo.map((Modelo) => (
-                  <Select.Option key={Modelo.ModeloId} value={Modelo.ModeloId}>
-                    {Modelo.Nombre}
-                  </Select.Option>
-                ))}
-              </Select>
-              <MDCModelo buttonLabel="Enlace"
-               addItemToState={addItemToStateModelo} 
-               item={new ModeloEntity()} />
-          
-
-
-            </Col>
-          </Row>
-          <Row>
-            <Col span={24}>
-              <label>Nombre</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                type="text"
-                name="Nombre"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                onChange={onChangeText}
-                value={Ent.Nombre === null ? "" : Ent.Nombre}
-              />
-            </Col>
-          </Row>
-
-          <Row>
-            <Col span={24}>
-              <label>Descripcion</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                type="TextArea"
-
-                name="Descripcion"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                onChange={onChangeText}
-                value={Ent.Descripcion === null ? "" : Ent.Descripcion}
-              />
-
-            </Col>
-          </Row>
-
-          <Row>
-            <Col span={24}>
-              <label>Unidad de Medida</label>
-            </Col>
-            <Col span={24}>
-              <Select
-                showSearch
-                style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
-                defaultActiveFirstOption={false}
-                filterOption={false}
-                value={Ent.UnidadMedidaId === 0 ? null : Ent.UnidadMedidaId}
-                key={Ent.UnidadMedidaId}
-                onChange={onChangeUM}
-              >
-                {optionsUM.map((UM) => (
-                  <Select.Option key={UM.UnidadMedidaId} value={UM.UnidadMedidaId}>
-                    {UM.Nombre}
-                  </Select.Option>
-                ))}
-              </Select>
-              <Button
-                style={{
-                  width: '14%',
-                  float: "right",
-                  color: "#15616d",
-                  backgroundColor: "#E5F8FA",
-                  borderColor: "#15616d",
-                  marginTop: '5px', marginBottom: '10px'
-                }}
-                icon={<SearchOutlined />}
-              />
-
-
-
-            </Col>
-          </Row>
+            <Row>
+              <Col span={24}>
+                <label>Categoria</label>
+              </Col>
+              <Col span={24}>
+                <Select
+                  status={ValCategoria}
+                  showSearch
+                  style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
+                  defaultActiveFirstOption={false}
+                  filterOption={false}
+                  onSearch={handleSearchCategoria}
+                  value={Ent.CategoriaId === 0 ? null : Ent.CategoriaId}
+                  key={Ent.CategoriaId}
+                  onChange={onChangeCategoria}
+                >
+                  {optionsCategoria.map((categoria) => (
+                    <Select.Option key={categoria.CategoriaId} value={categoria.CategoriaId}>
+                      {categoria.Nombre}
+                    </Select.Option>
+                  ))}
+                </Select>
+                <MDCategoria buttonLabel="Enlace"
+                  addItemToState={addItemToStateCategoria}
+                  item={new CategoriaEntity()} />
+              </Col>
+            </Row>
 
 
 
 
+            <Row>
+              <Col span={24}>
+                <label>Tipo Producto</label>
+              </Col>
+              <Col span={24}>
+                <Select
+                  status={ValTipoProducto}
+                  showSearch
+                  style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
+                  defaultActiveFirstOption={false}
+                  filterOption={false}
+                  onSearch={handleSearchTipoProducto}
+                  value={Ent.TipoProductoId === 0 ? null : Ent.TipoProductoId}
+                  key={Ent.TipoProductoId}
+                  onChange={onChangeTipoProducto}
+                >
+                  {optionsTipoProducto.map((TipoProducto) => (
+                    <Select.Option key={TipoProducto.TipoProductoId} value={TipoProducto.TipoProductoId}>
+                      {TipoProducto.Nombre}
+                    </Select.Option>
+                  ))}
+                </Select>
+                <MDTipoProducto buttonLabel="Enlace"
+                  addItemToState={addItemToStateTipoProducto}
+                  item={new TipoProductoEntity()} />
 
 
-          <Row>
-            <Col span={12}>
-
-              <Row>
-                <Col span={24}>
-                  <label>Reserva</label>
-                </Col>
-                <Col span={24}>
-                  <Input
-                    type="number"
-                    name="Reserva"
-                    style={{ marginTop: '5px', marginBottom: '10px' }}
-                    onChange={onChangeText}
-                    value={Ent.Reserva === null ? "" : Ent.Reserva}
-                  />
-                </Col>
-              </Row>
 
 
-            </Col>
-            <Col span={12}>
+              </Col>
+            </Row>
 
 
-              <Row>
-                <Col span={24}>
-                  <label>Stock</label>
-                </Col>
-                <Col span={24}>
-                  <Input
-                    type="number"
-                    name="Stock"
-                    style={{ marginTop: '5px', marginBottom: '10px' }}
-                    onChange={onChangeText}
-                    value={Ent.Stock === null ? "" : Ent.Stock}
-                  />
-                </Col>
-              </Row>
+
+            <Row>
+              <Col span={24}>
+                <label>Marca</label>
+              </Col>
+              <Col span={24}>
+                <Select
+                  showSearch
+                  status={ValMarca}
+                  style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
+                  defaultActiveFirstOption={false}
+                  filterOption={false}
+                  onSearch={handleSearchMarca}
+                  value={Ent.MarcaId === 0 ? null : Ent.MarcaId}
+                  key={Ent.MarcaId}
+                  onChange={onChangeMarca}
+                >
+                  {optionsMarca.map((Marca) => (
+                    <Select.Option key={Marca.MarcaId} value={Marca.MarcaId}>
+                      {Marca.Nombre}
+                    </Select.Option>
+                  ))}
+                </Select>
+
+                <MDCMarca buttonLabel="Enlace"
+                  addItemToState={addItemToStateMarca}
+                  item={new MarcaEntity()} />
 
 
-            </Col>
-          </Row>
 
-        </Col>
+              </Col>
+            </Row>
 
-        <Col xs={24} sm={14} md={16} lg={17} xl={18}>
-          <Tabs
-            style={{ marginLeft: '20px' }}
-            type="line" items={TabsItems} />
-        </Col>
-      </Row>
+            <Row>
+              <Col span={24}>
+                <label>Modelo</label>
+              </Col>
+              <Col span={24}>
+                <Select
+                  showSearch
+                  status={ValModelo}
+                  style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
+                  defaultActiveFirstOption={false}
+                  filterOption={false}
+                  onSearch={handleSearchModelo}
+                  value={Ent.ModeloId === 0 ? null : Ent.ModeloId}
+                  key={Ent.ModeloId}
+                  onChange={onChangeModelo}
+                >
+                  {optionsModelo.map((Modelo) => (
+                    <Select.Option key={Modelo.ModeloId} value={Modelo.ModeloId}>
+                      {Modelo.Nombre}
+                    </Select.Option>
+                  ))}
+                </Select>
+                <MDCModelo buttonLabel="Enlace"
+                  addItemToState={addItemToStateModelo}
+                  item={new ModeloEntity()} />
+
+
+
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                <label>Nombre</label>
+              </Col>
+              <Col span={24}>
+                <Input
+                  type="text"
+                  name="Nombre"
+                  status={ValNombre}
+                  style={{ marginTop: '5px', marginBottom: '10px' }}
+                  onChange={onChangeText}
+                  value={Ent.Nombre === null ? "" : Ent.Nombre}
+                />
+              </Col>
+            </Row>
+
+            <Row>
+              <Col span={24}>
+                <label>Descripcion</label>
+              </Col>
+              <Col span={24}>
+                <Input
+                  type="TextArea"
+
+                  name="Descripcion"
+                  status={ValDescripcion}
+                  style={{ marginTop: '5px', marginBottom: '10px' }}
+                  onChange={onChangeText}
+                  value={Ent.Descripcion === null ? "" : Ent.Descripcion}
+                />
+
+              </Col>
+            </Row>
+
+            <Row>
+              <Col span={24}>
+                <label>Unidad de Medida</label>
+              </Col>
+              <Col span={24}>
+                <Select
+                  showSearch
+                  status={ValUnidadMedida}
+                  style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
+                  defaultActiveFirstOption={false}
+                  filterOption={false}
+                  value={Ent.UnidadMedidaId === 0 ? null : Ent.UnidadMedidaId}
+                  key={Ent.UnidadMedidaId}
+                  onChange={onChangeUM}
+                >
+                  {optionsUM.map((UM) => (
+                    <Select.Option key={UM.UnidadMedidaId} value={UM.UnidadMedidaId}>
+                      {UM.Nombre}
+                    </Select.Option>
+                  ))}
+                </Select>
+                <Button
+                  style={{
+                    width: '14%',
+                    float: "right",
+                    color: "#15616d",
+                    backgroundColor: "#E5F8FA",
+                    borderColor: "#15616d",
+                    marginTop: '5px', marginBottom: '10px'
+                  }}
+                  icon={<SearchOutlined />}
+                />
+
+
+
+              </Col>
+            </Row>
+
+
+
+
+
+
+            <Row>
+              <Col span={12}>
+
+                <Row>
+                  <Col span={24}>
+                    <label>Reserva</label>
+                  </Col>
+                  <Col span={24}>
+                    <Input
+                      type="number"
+                      name="Reserva"
+                      style={{ marginTop: '5px', marginBottom: '10px' }}
+                      onChange={onChangeText}
+                      value={Ent.Reserva === null ? "" : Ent.Reserva}
+                    />
+                  </Col>
+                </Row>
+
+
+              </Col>
+              <Col span={12}>
+
+
+                <Row>
+                  <Col span={24}>
+                    <label>Stock</label>
+                  </Col>
+                  <Col span={24}>
+                    <Input
+                      type="number"
+                      name="Stock"
+                      style={{ marginTop: '5px', marginBottom: '10px' }}
+                      onChange={onChangeText}
+                      value={Ent.Stock === null ? "" : Ent.Stock}
+                    />
+                  </Col>
+                </Row>
+
+
+              </Col>
+            </Row>
+
+          </Col>
+
+          <Col xs={24} sm={14} md={16} lg={17} xl={18}>
+            <Tabs
+              style={{ marginLeft: '20px' }}
+              type="line" items={TabsItems} />
+          </Col>
+        </Row>
+      </Spin>
     </Layout>
   );
 };

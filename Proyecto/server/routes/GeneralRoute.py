@@ -11,15 +11,26 @@ from EntityLayer.ModeloEntity import *
 
 from fastapi.encoders import jsonable_encoder
 from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
+from Utilidades.Entidades.EntidadLikeModel import EntidadLikeModel
 
 GeneralRouter = APIRouter()
 ApiName = "General"
 
 
-@GeneralRouter.get(f"/api/{ApiName}/GetCategoriaItemLike/{{Nombre}}/", tags=[ApiName])
-def GetCategoriaItemLike(Nombre: str):
+# @AreaRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
+# def Save(Ent: AreaSaveModel):
+#     try:
+#         Ent = Area.Save(Ent)
+#         return jsonable_encoder(ResponseAPI.Response(Ent))
+#     except Exception as e:
+#         print(e)
+#         return jsonable_encoder(ResponseAPIError.Error())
+
+
+@GeneralRouter.post(f"/api/{ApiName}/GetCategoriaItemLike", tags=[ApiName])
+def GetCategoriaItemLike(DataLike: EntidadLikeModel):
     try:
-        jsonData = Categoria.GetItemLike(Nombre)
+        jsonData = Categoria.GetItemLike(DataLike.Nombre)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
@@ -36,12 +47,10 @@ def GetCategoriaItem(Id: int):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@GeneralRouter.get(
-    f"/api/{ApiName}/GetTipoProductoItemLike/{{Nombre}}/", tags=[ApiName]
-)
-def GetTipoProductoItemLike(Nombre: str):
+@GeneralRouter.post(f"/api/{ApiName}/GetTipoProductoItemLike", tags=[ApiName])
+def GetTipoProductoItemLike(DataLike: EntidadLikeModel):
     try:
-        jsonData = TipoProducto.GetItemLike(Nombre)
+        jsonData = TipoProducto.GetItemLike(DataLike.Nombre)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
@@ -58,15 +67,14 @@ def GetTipoProductoItem(Id: int):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@GeneralRouter.get(f"/api/{ApiName}/GetMarcaItemLike/{{Nombre}}/", tags=[ApiName])
-def GetMarcaItemLike(Nombre: str):
+@GeneralRouter.post(f"/api/{ApiName}/GetMarcaItemLike", tags=[ApiName])
+def GetMarcaItemLike(DataLike: EntidadLikeModel):
     try:
-        jsonData = Marca.GetItemLike(Nombre)
+        jsonData = Marca.GetItemLike(DataLike.Nombre)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
-
 
 
 @GeneralRouter.get(f"/api/{ApiName}/GetMarcaItem/{{Id}}/", tags=[ApiName])
@@ -79,11 +87,10 @@ def GetMarcaItem(Id: int):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-
-@GeneralRouter.get(f"/api/{ApiName}/GetModeloItemLike/{{Nombre}}/", tags=[ApiName])
-def GetModeloItemLike(Nombre: str):
+@GeneralRouter.post(f"/api/{ApiName}/GetModeloItemLike", tags=[ApiName])
+def GetModeloItemLike(NDataLike: EntidadLikeModel):
     try:
-        jsonData = Modelo.GetItemLike(Nombre)
+        jsonData = Modelo.GetItemLike(NDataLike.Nombre)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)

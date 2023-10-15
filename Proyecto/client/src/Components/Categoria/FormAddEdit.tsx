@@ -37,11 +37,19 @@ const AddEditForm: React.FC<Props> = (props) => {
             setError(Ent.Nombre.length < 3);
             return;
         }
-
+        Ent.CodUsuario='adm';
         const savedItem = await sCategoria.saveItem(Ent);
         if (savedItem) {
-            if (FlaState) props.updateState(savedItem);
-            else props.addItemToState(savedItem);
+            if (FlaState)
+            {
+                props.updateState(savedItem);
+                setEnt(new CategoriaEntity());
+            }
+            else 
+            {
+                props.addItemToState(savedItem);
+                setEnt(new CategoriaEntity());
+            }
 
             props.toggle();
         }

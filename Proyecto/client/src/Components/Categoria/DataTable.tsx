@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 import React from 'react';
 import ModalItem from '@/Components/Categoria/ModalItem'
 import CategoriaService from '@/Service/CategoriaService';
@@ -6,11 +6,15 @@ import { CategoriaEntity } from '@/Models/CategoriaEntity';
 import { Button, Table, Modal, Space } from 'antd';
 import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
-
+import { Card, Col, Row } from 'antd';
+import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { Avatar } from 'antd';
+import { el, ro } from 'date-fns/locale';
 type Props = {
     DataList: CategoriaEntity[];
     updateState: any;
     deleteItemFromState: any;
+    EsTabla: boolean
 }
 
 const DataTable: React.FC<Props> = (props) => {
@@ -32,13 +36,12 @@ const DataTable: React.FC<Props> = (props) => {
         {
             title: 'Fecha de registro',
             dataIndex: 'FechaRegistro',
-            width: '150px',
             key: 'FechaRegistro',
         },
         {
             title: 'Usuario',
             dataIndex: 'CodUsuario',
-            width: '100px',
+            width: 'Auto',
             key: 'CodUsuario',
         }, {
             title: 'Action',
@@ -67,8 +70,8 @@ const DataTable: React.FC<Props> = (props) => {
         },
 
     ];
-  
-    const dataWithKeys = props.DataList.map((item, zIndex) => {
+
+    const dataWithKeys = props.DataList.sort((a, b) => b.CategoriaId - a.CategoriaId).map((item, zIndex) => {
         return {
             ...item,
             key: item.CategoriaId,
@@ -104,17 +107,67 @@ const DataTable: React.FC<Props> = (props) => {
 
 
     };
+    const { Meta } = Card;
+
+    const ListaCard = () => {
+        if (props.EsTabla) {
+
+
+            return (
+                <>
+                    <Row gutter={16} style={{ backgroundColor: '#FAFAFA' }} >
+                        {dataWithKeys.map(row => (
+
+                            <Col   key={row.Cont}  xs={24} md={12} lg={8} xl={6} xxl={4}>
+                                <Card hoverable={true}
+                               
+                                    style={{ marginTop: '10Px', }}
+                                    actions={[
+                                        <DeleteFilled
+                                            style={{ color: "#C64541" }}
+                                            onClick={() => deleteItem(row.CategoriaId)}
+                                            key="setting" />,
+                                        <ModalItem
+                                            buttonLabel="EnlaceCard"
+                                            item={row}
+                                            updateState={props.updateState}
+                                        />
+                                    ]}
+                                    bordered={false}>
+                                    {row.Cont + ".  "}   {row.Nombre}
+                                </Card>
+
+                            </Col>
+
+
+                        ))}
+                    </Row>
+
+                </>
+            )
+        } else {
+            return (
+                <Table
+                    columns={columns}
+                    dataSource={dataWithKeys}
+                    size="small"
+                    scroll={{ x: 'calc(700px + 50%)', y: '100%' }}
+                />
+
+            )
+        }
+
+    }
+
+
+
 
     return (
 
         <div>
             {contextHolder}
-            <Table
-                columns={columns}
-                dataSource={dataWithKeys}
-                size="small"
-                scroll={{ x: 'calc(700px + 50%)', y: '100%' }}
-            />
+
+            {ListaCard()}
         </div>
 
     );

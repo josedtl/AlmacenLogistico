@@ -3,7 +3,7 @@ import React from 'react';
 import ProductoService from '@/Service/ProductoService';
 import { ProductoEntity } from '@/Models/Producto/ProductoEntity';
 import { Button, Table } from 'antd';
-import { DeleteFilled ,EditFilled} from '@ant-design/icons';
+import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 
 type Props = {
@@ -53,11 +53,11 @@ const DataTable: React.FC<Props> = (props) => {
                         size={size}
                         icon={<DeleteFilled />}
                     />
-                   
+
                     <Button
                         type='dashed'
                         href={`/Producto/${record.ProductoId}`}
-                        style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
+                        style={{ float: "right", marginRight: "10px", color: "#BB9B32", backgroundColor: "white", borderColor: "#BB9B32"  }}
                         size={size}
                         icon={<EditFilled />}
                     />
@@ -69,7 +69,7 @@ const DataTable: React.FC<Props> = (props) => {
 
     ];
 
-    const dataWithKeys = props.DataList.map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.CategoriaId - a.CategoriaId).map((item, zIndex) => {
         return {
             ...item,
             key: item.ProductoId,

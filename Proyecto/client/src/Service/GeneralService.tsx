@@ -3,14 +3,21 @@ import { CategoriaEntity } from '@/Models/CategoriaEntity';
 import { TipoProductoEntity } from '@/Models/TipoProductoEntity';
 import { MarcaEntity } from '@/Models/MarcaEntity';
 import { ModeloEntity } from '@/Models/ModeloEntity';
+import { EntidadLikeModel } from '@/Models/EntidadLikeModel';
 const URL = process.env.NEXT_PUBLIC_SERVER_API_BASE_URL;
 class GeneralService {
 
-
   async getCategoriaItemLike(Nombre: string): Promise<CategoriaEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/General/GetCategoriaItemLike/${Nombre}`);
-      console.log(response.status);
+
+      const LikeData = new EntidadLikeModel();
+      LikeData.Nombre = Nombre;
+      const response = await axios.post(`${URL}/api/General/GetCategoriaItemLike/`, LikeData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }
@@ -41,8 +48,13 @@ class GeneralService {
 
   async getTipoProductoItemLike(Nombre: string): Promise<TipoProductoEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/General/GetTipoProductoItemLike/${Nombre}`);
-      console.log(response.status);
+      const LikeData = new EntidadLikeModel();
+      LikeData.Nombre = Nombre;
+      const response = await axios.post(`${URL}/api/General/GetTipoProductoItemLike/`, LikeData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }
@@ -54,7 +66,7 @@ class GeneralService {
   }
 
 
-  
+
 
   async GetTipoProductoItem(Id: number): Promise<TipoProductoEntity[]> {
     try {
@@ -71,8 +83,13 @@ class GeneralService {
   }
   async getMarcaItemLike(Nombre: string): Promise<MarcaEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/General/GetMarcaItemLike/${Nombre}`);
-      console.log(response.status);
+      const LikeData = new EntidadLikeModel();
+      LikeData.Nombre = Nombre;
+      const response = await axios.post(`${URL}/api/General/GetMarcaItemLike/`, LikeData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }
@@ -83,7 +100,7 @@ class GeneralService {
     }
   }
 
-  
+
 
   async GetMarcaItem(Id: number): Promise<MarcaEntity[]> {
     try {
@@ -102,8 +119,13 @@ class GeneralService {
 
   async getModeloItemLike(Nombre: string): Promise<ModeloEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/General/GetModeloItemLike/${Nombre}`);
-      console.log(response.status);
+      const LikeData = new EntidadLikeModel();
+      LikeData.Nombre = Nombre;
+      const response = await axios.post(`${URL}/api/General/GetModeloItemLike/`, LikeData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }
@@ -114,7 +136,7 @@ class GeneralService {
     }
   }
 
-  
+
 
   async GetModeloItem(Id: number): Promise<ModeloEntity[]> {
     try {
