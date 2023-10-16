@@ -5,7 +5,7 @@ import DataTable from '@/Components/Categoria/DataTable';
 import { CategoriaEntity } from '@/Models/CategoriaEntity';
 import ModalItem from '@/Components/Categoria/ModalItem';
 import CategoriaService from '@/Service/CategoriaService';
-import { Col, Row, Typography, Card, Button, Modal, Input } from 'antd';
+import { Col, Row, Typography, Card, Button, Modal, Input ,Spin} from 'antd';
 import { RedoOutlined, TableOutlined, DatabaseOutlined ,FileTextOutlined} from '@ant-design/icons';
 
 import { message } from 'antd';
@@ -15,6 +15,7 @@ function Page() {
 
   const [items, setItems] = useState<CategoriaEntity[]>([]);
   const [messageAdd, contextHolderAdd] = message.useMessage();
+  const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled, setDisabled] = useState(false);
   const addItemToState = (item: CategoriaEntity) => {
     setItems([...items, item]);
@@ -50,11 +51,12 @@ function Page() {
   const getItems = async () => {
     const itemsg = await sCategoria.getItems();
     setItems(itemsg);
-
+    setCargarPage(false);
   };
 
   useEffect(() => {
     getItems();
+
   }, []);
   const { Title } = Typography;
 
@@ -72,6 +74,7 @@ function Page() {
 
   return (
     <Layout>
+            <Spin spinning={CargarPage} tip="Cargando" size="large">
       {contextHolderAdd}
       <Row >
         <Col xs={18} sm={18} md={12} lg={12} xl={12}>
@@ -144,6 +147,7 @@ function Page() {
       <Card>
         <DataTable DataList={filteredUsuarios} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
       </Card>
+      </Spin>
     </Layout >
   );
 }
