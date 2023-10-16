@@ -10,16 +10,21 @@ import { Col, Row } from 'antd';
 import { Typography } from 'antd';
 import { Card, Space, Button, Spin } from 'antd';
 import { RedoOutlined, DownloadOutlined, FileAddFilled } from '@ant-design/icons';
+import { Skeleton } from 'antd';
 
 function Page() {
+  useEffect(() => {
+    getItems();
+  }, []);
   const sProducto = new ProductoService();
 
   const [items, setItems] = useState<ProductoEntity[]>([]);
-  const [CargarPage, setCargarPage] = React.useState(false);
+  const [CargarPage, setCargarPage] = React.useState(true);
 
 
 
   const updateState = (item: ProductoEntity) => {
+    console.log("d");
     const itemIndex = items.findIndex((data) => data.ProductoId === item.ProductoId);
     const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
     setItems(newArray);
@@ -31,16 +36,13 @@ function Page() {
   };
 
   const getItems = async () => {
-    setCargarPage(true);
     const itemsg = await sProducto.getItems();
     setItems(itemsg);
     setCargarPage(false);
 
   };
 
-  useEffect(() => {
-    getItems();
-  }, []);
+
   const { Title } = Typography;
   return (
     <Layout>

@@ -23,24 +23,17 @@ import MDCModelo from '@/Components/Modelo/ModalItem';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 
 
-
-const page = ({ params }: any) => {
-
+ const page = ({ params }: any) => {
   const sGeneral = new GeneralService();
   const sGeneralGQL = new GeneralGQLService();
   const sProducto = new ProductoService();
   const initialProducto = new ProductoEntity();
   const [Ent, setEnt] = useState<ProductoEntity>(initialProducto);
-  const { TextArea } = Input;
-  const { TabPane } = Tabs;
   const { Title } = Typography;
-  const [form] = Form.useForm();
-  const [activeTab, setActiveTab] = useState('1');
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const sCategoria = new CategoriaService();
   const initialCategoria = new CategoriaEntity();
   const [EntCategoria, setEntCategoria] = useState<CategoriaEntity>(initialCategoria);
-  const [CargarPage, setCargarPage] = React.useState(false);
+  const [CargarPage, setCargarPage] = React.useState(true);
 
 
 
@@ -217,9 +210,9 @@ const page = ({ params }: any) => {
 
 
   const getCargarDatos = async () => {
-    setCargarPage(true);
-    const Resp_UM = await sGeneralGQL.GetUnidadMedidaItems();
-    setOptionsUM(Resp_UM);
+    // setCargarPage(true);
+    // const Resp_UM = await sGeneralGQL.GetUnidadMedidaItems();
+    // setOptionsUM(Resp_UM);
 
     if (params.Id > 0) {
 
@@ -409,7 +402,18 @@ const page = ({ params }: any) => {
 
 
   useEffect(() => {
-    getCargarDatos();
+    async function cargarItem() {
+
+      setCargarPage(true);
+      const Resp_UM = await sGeneralGQL.GetUnidadMedidaItems();
+      setOptionsUM(Resp_UM);
+      await getCargarDatos();
+    }
+
+
+    cargarItem();
+
+
   }, []);
 
   return (
@@ -720,7 +724,35 @@ const page = ({ params }: any) => {
   );
 };
 
+import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import type { DocumentContext } from 'next/document';
 
+page.getInitialProps = async (ctx: DocumentContext) => {
 
+  console.log("data");
+  const cache = createCache();
+  const originalRenderPage = ctx.renderPage;
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: (App) => (props) => (
+        <StyleProvider cache={cache}>
+          <App {...props} />
+        </StyleProvider>
+      ),
+    });
+
+  const initialProps = await Document.getInitialProps(ctx);
+  const style = extractStyle(cache, true);
+  return {
+    ...initialProps,
+    styles: (
+      <>
+        {initialProps.styles}
+        <style dangerouslySetInnerHTML={{ __html: style }} />
+      </>
+    ),
+  };
+};
 
 export default page;
