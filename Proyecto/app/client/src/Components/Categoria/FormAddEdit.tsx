@@ -72,7 +72,7 @@ const AddEditForm: React.FC<Props> = (props) => {
             <Form.Item>
                 <Button
                     onClick={submitFormAdd}
-                    style={{ float: "right", background: '#034078', color: "white", }}>
+                    style={{ float: 'right', background: '#034078', color: "white", }}>
                     Aceptar
                 </Button>
             </Form.Item>

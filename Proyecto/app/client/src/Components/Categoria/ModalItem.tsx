@@ -1,20 +1,13 @@
 import * as React from 'react';
-import { CategoriaEntity } from '../../Models/CategoriaEntity'
 import AddEditForm from "../../Components/Categoria/FormAddEdit";
 import { Button, Modal } from 'antd';
-import type { SizeType } from 'antd/es/config-provider/SizeContext';
-import { EditFilled, SearchOutlined, EditOutlined ,PlusOutlined} from '@ant-design/icons';
+import { EditFilled, SearchOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { ButtonAddMain, ButtonDetalleEdit, ButtonEnlace, ButtonEnlaceCard } from '../../Styles/Button'
+import { SizeButtonPrimary, SizeButtonDetalle, SizeButtonEnlace } from '../../Styles/Type'
+import { PropsModel } from '../../Lib/PropsItem'
 
-type Props = {
-  buttonLabel?: string;
-  item: CategoriaEntity;
-  updateState?: any;
-  addItemToState?: any
-}
-
-const ModalItem: React.FC<Props> = (props) => {
+const ModalItem: React.FC<PropsModel> = (props) => {
   const [modal, setModal] = React.useState(false);
-  const [size, setSize] = React.useState<SizeType>('middle');
   const toggle = () => {
     setModal(!modal);
   };
@@ -28,14 +21,8 @@ const ModalItem: React.FC<Props> = (props) => {
       <Button
         onClick={toggle}
         type='dashed'
-        style={{
-          float: "right",
-          marginRight: "10px",
-          color: "#BB9B32",
-          backgroundColor: "white",
-          borderColor: "#BB9B32"
-        }}
-        size={size}
+        style={ButtonDetalleEdit}
+        size={SizeButtonDetalle}
         icon={<EditFilled />}
       />
     );
@@ -45,16 +32,9 @@ const ModalItem: React.FC<Props> = (props) => {
     button = (
       <Button
         onClick={toggle}
-        style={{
-          width: '14%',
-          float: "right",
-          color: "#15616d",
-          backgroundColor: "#E5F8FA",
-          borderColor: "#15616d",
-          marginTop: '5px',
-          marginBottom: '10px'
-        }}
+        style={ButtonEnlace}
         icon={<SearchOutlined />}
+        size={SizeButtonEnlace}
       />
     );
 
@@ -66,13 +46,7 @@ const ModalItem: React.FC<Props> = (props) => {
     button = (
       <EditOutlined
         onClick={toggle}
-        style={{
-          float: "right",
-          marginRight: "10px",
-          color: "#BB9B32",
-          backgroundColor: "white",
-          borderColor: "#BB9B32"
-        }}
+        style={ButtonEnlaceCard}
       />
     );
 
@@ -84,21 +58,14 @@ const ModalItem: React.FC<Props> = (props) => {
 
       <Button
         onClick={toggle}
-        style={{
-          float: "right",
-          color: "white",
-          backgroundColor: "#15616d",
-          borderColor: "#15616d",
-          marginTop: "25px",
-          marginRight: "0px"
-        }}
-        size={"large"}
+        style={ButtonAddMain}
+        size={SizeButtonPrimary}
         icon={<PlusOutlined />}
       />
     );
     title = "Agregar Categoria";
   }
-  
+
   return (
     <React.Fragment>
       {button}

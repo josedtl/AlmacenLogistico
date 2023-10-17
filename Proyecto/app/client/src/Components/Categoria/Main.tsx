@@ -3,14 +3,15 @@ import DataTable from './DataTable';
 import { CategoriaEntity } from '../../Models/CategoriaEntity';
 import ModalItem from './ModalItem';
 import CategoriaService from '../../Service/CategoriaService';
-import { Col, Row, Typography, Card, Button, Input, Spin } from 'antd';
-import { RedoOutlined, TableOutlined, DatabaseOutlined, FileTextOutlined ,FilterOutlined} from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { message } from 'antd';
+import { Col, Row, Typography, Card, Button, Input, Spin, message } from 'antd';
+import { RedoOutlined, TableOutlined, DatabaseOutlined, FileTextOutlined, FilterOutlined } from '@ant-design/icons';
+import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain } from '../../Styles/Button'
+import { SizeMainButtonSecondary } from '../../Styles/Type'
+import { IconRefrescar } from '../../Styles/Icons'
 
 function Page() {
-  const sCategoria = new CategoriaService();
 
+  const sCategoria = new CategoriaService();
   const [items, setItems] = useState<CategoriaEntity[]>([]);
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const [CargarPage, setCargarPage] = React.useState(true);
@@ -69,30 +70,6 @@ function Page() {
     fdata.Nombre.toLowerCase().includes(Busqueda.toLowerCase())
   );
 
-
-  const itemsData = [
-    {
-      key: '1',
-      label: '10 Registro',
-    },
-    {
-      key: '2',
-      label: '50 Registro',
-    },
-    {
-      key: '3',
-      label: '100 Registro',
-    },
-    {
-      key: '4',
-      label: 'Todos ',
-    },
-  ];
-
-  const onMenuClick: MenuProps['onClick'] = (e) => {
-    console.log('click', e);
-  };
-
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
       {contextHolderAdd}
@@ -109,49 +86,25 @@ function Page() {
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Button
             onClick={getItems}
-            style={{
-              float: "left",
-              color: "#15616d",
-              backgroundColor: "#E5F8FA",
-              borderColor: "#15616d",
-              marginRight: "10px"
-            }}
-            size={"large"}
-            icon={<RedoOutlined />}
+            style={ButtonMainSecondaryLeft}
+            size={SizeMainButtonSecondary}
+            icon={IconRefrescar}
           />
           <Button
             onClick={toggle}
-            style={{
-              float: "left",
-              color: "#15616d",
-              backgroundColor: "#E5F8FA",
-              borderColor: "#15616d",
-              marginRight: "10px"
-            }}
-            size={"large"}
+            style={ButtonMainSecondaryLeft}
+            size={SizeMainButtonSecondary}
             icon={disabled ? <TableOutlined /> : <DatabaseOutlined />}
           />
 
           <Button
-            style={{
-              float: "left",
-              color: "#15616d",
-              backgroundColor: "#E5F8FA",
-              borderColor: "#15616d",
-              marginBottom: "5px",
-            }}
-            size={"large"}
+            style={ButtonMainSecondaryLeft}
+            size={SizeMainButtonSecondary}
             icon={<FileTextOutlined />}
           />
           <Button
-            style={{
-              float: "right",
-              color: "#15616d",
-              backgroundColor: "#E5F8FA",
-              borderColor: "#15616d",
-              marginBottom: "5px",
-            }}
-            size={"large"}
+            style={ButtonMainSecondaryRight}
+            size={SizeMainButtonSecondary}
             icon={<FilterOutlined />}
           />
 
@@ -165,12 +118,8 @@ function Page() {
             name="Nombre"
             onChange={onChange}
             value={Busqueda === null ? "" : Busqueda}
-            style={{
-              color: "#15616d",
-              backgroundColor: "#E5F8FA",
-              borderColor: "#15616d",
-            }}
-            size={"large"}
+            style={InputSearchMain}
+            size={SizeMainButtonSecondary}
           />
         </Col>
 
