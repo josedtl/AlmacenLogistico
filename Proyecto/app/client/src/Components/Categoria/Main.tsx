@@ -9,7 +9,7 @@ import { RedoOutlined, TableOutlined, DatabaseOutlined ,FileTextOutlined} from '
 
 import { message } from 'antd';
 
-function Main() {
+function Page() {
   const sCategoria = new CategoriaService();
 
   const [items, setItems] = useState<CategoriaEntity[]>([]);
@@ -148,7 +148,7 @@ function Main() {
   );
 }
 
-export default Main;
+export default Page;
 
 
 

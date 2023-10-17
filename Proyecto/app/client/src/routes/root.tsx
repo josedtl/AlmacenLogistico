@@ -25,7 +25,16 @@ const Root: React.FC = () => {
 
 
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
+      >
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
@@ -35,17 +44,17 @@ const Root: React.FC = () => {
             {
               key: '/1',
               icon: <UserOutlined />,
-              label:   <Link to="/Producto">Producto</Link>,
+              label: <Link to="/Producto">Producto</Link>,
             },
             {
               key: '2',
               icon: <VideoCameraOutlined />,
-              label:   <Link to="/ProductoSave/1">Save</Link>,
+              label: <Link to="/ProductoSave/1">Save</Link>,
             },
             {
               key: '3',
               icon: <UploadOutlined />,
-              label:   <Link to="/Categoria">Categoria</Link>,
+              label: <Link to="/Categoria">Categoria</Link>,
             },
           ]}
         >
@@ -54,7 +63,7 @@ const Root: React.FC = () => {
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }}>
-          <Button
+          {/* <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
@@ -63,7 +72,7 @@ const Root: React.FC = () => {
               width: 64,
               height: 64,
             }}
-          />
+          /> */}
         </Header>
         <Content
           style={{
