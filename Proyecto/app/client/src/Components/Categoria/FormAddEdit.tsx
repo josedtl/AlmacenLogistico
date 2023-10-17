@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { CategoriaEntity } from '../../Models/CategoriaEntity'
 import CategoriaService from '../../Service/CategoriaService';
 import { Button, Form, Input} from 'antd';
-
+import type { InputStatus } from 'antd/lib/_util/statusUtils'
 type Props = {
     item: CategoriaEntity;
     addItemToState?: any;
@@ -16,28 +16,23 @@ const AddEditForm: React.FC<Props> = (props) => {
     const initialCategoria = new CategoriaEntity();
     const [Ent, setEnt] = useState<CategoriaEntity>(initialCategoria);
     const [FlaState, setFlaState] = useState<Boolean>(false);
-    const [error, setError] = useState(false);
     const [form] = Form.useForm();
+    const [ValDato, setValDato] = useState<InputStatus>('');
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("Ejecutado")
+        setValDato('');
         setEnt({
             ...Ent,
             [e.target.name]: e.target.value.toUpperCase()
         });
 
-        setError(Ent.Nombre.length < 3);
     };
 
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log(Ent.Nombre);
-
         if (Ent.Nombre === '') {
-            console.log('El nombre no puede ser un número');
-            setError(Ent.Nombre.length < 3);
+            setValDato('error');
             return;
         }
-        Ent.CodUsuario='adm';
         const savedItem = await sCategoria.saveItem(Ent);
         if (savedItem) {
             if (FlaState)
@@ -66,6 +61,7 @@ const AddEditForm: React.FC<Props> = (props) => {
         <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
             <Form.Item label="Nombre" rules={[{ required: false }]}>
                 <Input
+                status={ValDato}
                     type="text"
                     name="Nombre"
                     onChange={onChange}

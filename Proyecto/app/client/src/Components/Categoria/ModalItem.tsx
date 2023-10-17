@@ -90,7 +90,7 @@ const ModalItem: React.FC<Props> = (props) => {
           backgroundColor: "#15616d",
           borderColor: "#15616d",
           marginTop: "25px",
-          marginRight: "5px"
+          marginRight: "0px"
         }}
         size={"large"}
         icon={<PlusOutlined />}
@@ -98,6 +98,7 @@ const ModalItem: React.FC<Props> = (props) => {
     );
     title = "Agregar Categoria";
   }
+  
   return (
     <React.Fragment>
       {button}

@@ -1,12 +1,11 @@
-"use client"
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
 import { CategoriaEntity } from '../../Models/CategoriaEntity';
 import ModalItem from './ModalItem';
 import CategoriaService from '../../Service/CategoriaService';
-import { Col, Row, Typography, Card, Button, Input ,Spin} from 'antd';
-import { RedoOutlined, TableOutlined, DatabaseOutlined ,FileTextOutlined} from '@ant-design/icons';
-
+import { Col, Row, Typography, Card, Button, Input, Spin } from 'antd';
+import { RedoOutlined, TableOutlined, DatabaseOutlined, FileTextOutlined ,FilterOutlined} from '@ant-design/icons';
+import type { MenuProps } from 'antd';
 import { message } from 'antd';
 
 function Page() {
@@ -16,6 +15,10 @@ function Page() {
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled, setDisabled] = useState(false);
+  const { Title } = Typography;
+  const [Busqueda, setBusqueda] = useState<string>('');
+
+
   const addItemToState = (item: CategoriaEntity) => {
     setItems([...items, item]);
     messageAdd.open({
@@ -57,24 +60,44 @@ function Page() {
     getItems();
 
   }, []);
-  const { Title } = Typography;
 
-  const [Busqueda, setBusqueda] = useState<string>('');
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
     setBusqueda(e.target.value.toUpperCase());
-
   };
 
-  const filteredUsuarios = items.filter(fdata =>
+  const filterItems = items.filter(fdata =>
     fdata.Nombre.toLowerCase().includes(Busqueda.toLowerCase())
   );
 
 
+  const itemsData = [
+    {
+      key: '1',
+      label: '10 Registro',
+    },
+    {
+      key: '2',
+      label: '50 Registro',
+    },
+    {
+      key: '3',
+      label: '100 Registro',
+    },
+    {
+      key: '4',
+      label: 'Todos ',
+    },
+  ];
+
+  const onMenuClick: MenuProps['onClick'] = (e) => {
+    console.log('click', e);
+  };
+
   return (
-            <Spin spinning={CargarPage} tip="Cargando" size="large">
+    <Spin spinning={CargarPage} tip="Cargando" size="large">
       {contextHolderAdd}
       <Row >
+
         <Col xs={18} sm={18} md={12} lg={12} xl={12}>
           <Title level={2}> Categoria</Title>
         </Col>
@@ -93,7 +116,6 @@ function Page() {
               borderColor: "#15616d",
               marginRight: "10px"
             }}
-
             size={"large"}
             icon={<RedoOutlined />}
           />
@@ -112,19 +134,31 @@ function Page() {
 
           <Button
             style={{
-              float: "right",
+              float: "left",
               color: "#15616d",
               backgroundColor: "#E5F8FA",
               borderColor: "#15616d",
-              marginRight: "5px",
-              marginBottom:"5px",
+              marginBottom: "5px",
             }}
             size={"large"}
             icon={<FileTextOutlined />}
           />
+          <Button
+            style={{
+              float: "right",
+              color: "#15616d",
+              backgroundColor: "#E5F8FA",
+              borderColor: "#15616d",
+              marginBottom: "5px",
+            }}
+            size={"large"}
+            icon={<FilterOutlined />}
+          />
+
         </Col>
 
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+
           <Input
             placeholder='Buscar Categoria'
             type="text"
@@ -142,9 +176,9 @@ function Page() {
 
       </Row>
       <Card>
-        <DataTable DataList={filteredUsuarios} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
+        <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
       </Card>
-      </Spin>
+    </Spin>
   );
 }
 

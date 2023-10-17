@@ -238,7 +238,6 @@ const ProductoSave = () => {
 
     setCargarPage(false);
   };
-  const [error, setError] = useState(false);
   const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     setValCodigo('');
@@ -249,7 +248,6 @@ const ProductoSave = () => {
       [e.target.name]: e.target.value.toUpperCase()
     });
 
-    setError(Ent.Nombre.length < 3);
   };
   const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
   const [selectedTipoProducto, setSelectedTipoProducto] = useState<number | undefined>(undefined);
