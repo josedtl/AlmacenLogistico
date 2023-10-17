@@ -57,3 +57,9 @@ export const InputSearchMain: CSSProperties = {
     backgroundColor: "#E5F8FA",
     borderColor: "#15616d",
 };
+
+export const ButtonAcceptModel: CSSProperties = {
+    float: 'right',
+    background: '#034078',
+    color: "white",
+};

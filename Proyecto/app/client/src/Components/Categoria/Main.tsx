@@ -4,10 +4,9 @@ import { CategoriaEntity } from '../../Models/CategoriaEntity';
 import ModalItem from './ModalItem';
 import CategoriaService from '../../Service/CategoriaService';
 import { Col, Row, Typography, Card, Button, Input, Spin, message } from 'antd';
-import { RedoOutlined, TableOutlined, DatabaseOutlined, FileTextOutlined, FilterOutlined } from '@ant-design/icons';
 import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain } from '../../Styles/Button'
 import { SizeMainButtonSecondary } from '../../Styles/Type'
-import { IconRefrescar } from '../../Styles/Icons'
+import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro } from '../../Styles/Icons'
 
 function Page() {
 
@@ -88,24 +87,24 @@ function Page() {
             onClick={getItems}
             style={ButtonMainSecondaryLeft}
             size={SizeMainButtonSecondary}
-            icon={IconRefrescar}
+            icon={IconLoad}
           />
           <Button
             onClick={toggle}
             style={ButtonMainSecondaryLeft}
             size={SizeMainButtonSecondary}
-            icon={disabled ? <TableOutlined /> : <DatabaseOutlined />}
+            icon={disabled ? IconTabla : IconCard}
           />
 
           <Button
             style={ButtonMainSecondaryLeft}
             size={SizeMainButtonSecondary}
-            icon={<FileTextOutlined />}
+            icon={IconReport}
           />
           <Button
             style={ButtonMainSecondaryRight}
             size={SizeMainButtonSecondary}
-            icon={<FilterOutlined />}
+            icon={IconFiltro}
           />
 
         </Col>

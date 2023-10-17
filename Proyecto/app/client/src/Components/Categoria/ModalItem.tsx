@@ -1,10 +1,12 @@
 import * as React from 'react';
 import AddEditForm from "../../Components/Categoria/FormAddEdit";
 import { Button, Modal } from 'antd';
-import { EditFilled, SearchOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { ButtonAddMain, ButtonDetalleEdit, ButtonEnlace, ButtonEnlaceCard } from '../../Styles/Button'
 import { SizeButtonPrimary, SizeButtonDetalle, SizeButtonEnlace } from '../../Styles/Type'
 import { PropsModel } from '../../Lib/PropsItem'
+import { IconEditTable, IconEnlace } from '../../Styles/Icons'
+
 
 const ModalItem: React.FC<PropsModel> = (props) => {
   const [modal, setModal] = React.useState(false);
@@ -23,7 +25,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
         type='dashed'
         style={ButtonDetalleEdit}
         size={SizeButtonDetalle}
-        icon={<EditFilled />}
+        icon={IconEditTable}
       />
     );
     title = "Editar Categoria";
@@ -33,7 +35,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
       <Button
         onClick={toggle}
         style={ButtonEnlace}
-        icon={<SearchOutlined />}
+        icon={IconEnlace}
         size={SizeButtonEnlace}
       />
     );

@@ -5,15 +5,9 @@ import { CategoriaEntity } from '../../Models/CategoriaEntity';
 import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Card, Col, Row, Button, Table, Modal } from 'antd';
+import {PropsTable} from '../../Lib/PropsItem'
 
-type Props = {
-    DataList: CategoriaEntity[];
-    updateState: any;
-    deleteItemFromState: any;
-    EsTabla: boolean
-}
-
-const DataTable: React.FC<Props> = (props) => {
+const DataTable: React.FC<PropsTable> = (props) => {
     const sCategoria = new CategoriaService();
     const [size, setSize] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
@@ -96,9 +90,7 @@ const DataTable: React.FC<Props> = (props) => {
             onOk() {
                 DeleteItemAll(CategoriaId);
             },
-            onCancel() {
-                console.log('Cancel');
-            },
+            onCancel() { },
         });
 
 
@@ -106,7 +98,6 @@ const DataTable: React.FC<Props> = (props) => {
 
     const ListaCard = () => {
         if (props.EsTabla) {
-
 
             return (
                 <>

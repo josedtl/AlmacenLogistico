@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
 import { Outlet, Link } from "react-router-dom";
+import type { MenuProps } from 'antd';
+
+const { Header, Sider, Content, Footer } = Layout;
 
 
-const { Header, Sider, Content } = Layout;
 
 const Root: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -20,7 +20,45 @@ const Root: React.FC = () => {
 
 
 
+  type MenuItem = Required<MenuProps>['items'][number];
 
+  function getItem(
+    label: React.ReactNode,
+    key: React.Key,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+  ): MenuItem {
+    return {
+      key,
+      icon,
+      children,
+      label,
+    } as MenuItem;
+  }
+
+
+  // const items: MenuItem[] = [
+  //   getItem(<Link to="/Producto">Logistica</Link>, '1', <UserOutlined />,),
+  //   getItem('Option 2', '2', <UserOutlined />),
+  //   getItem(<Link to="/Producto">Catalogo</Link>, 'sub1', <UserOutlined />, [
+  //     getItem(<Link to="/Producto">Producto</Link>, '3'),
+  //     getItem(<Link to="/Categoria">Categoria</Link>, '4'),
+  //   ]),
+  // ];
+
+
+  const items: MenuItem[] = [
+    getItem('Logistica', 'L1', <UserOutlined />,
+      [getItem('Orden de Pedido', 'L1_1'),
+      getItem(<Link to="/">Orden de Compra</Link>, 'L1_2')]),
+    getItem('Almacen', 'A2', <UserOutlined />,
+      [getItem(<Link to="/">Recepcion</Link>, 'A2_1'),
+      getItem(<Link to="/">Despacho</Link>, 'A2_2')]),
+    getItem('Catalogo', 'C1', <UserOutlined />,
+      [getItem(<Link to="/Categoria">Categoria</Link>, 'C1_1'),
+      getItem(<Link to="/Producto">Producto</Link>, 'C1_2')]),
+    getItem('Administrador', 'C1_3', <UserOutlined />),
+  ];
   return (
 
 
@@ -34,51 +72,41 @@ const Root: React.FC = () => {
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
         }}
+        style={{ background: '#15616d', marginTop: '-14px' }}
       >
-        <div className="demo-logo-vertical" />
+        <div style={{ height: '60px', background: '#15616d' }} className="demo-logo-vertical" >
+
+        </div>
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
-          items={[
-            {
-              key: '/1',
-              icon: <UserOutlined />,
-              label: <Link to="/Producto">Producto</Link>,
-            },
-            {
-              key: '2',
-              icon: <VideoCameraOutlined />,
-              label: <Link to="/ProductoSave/1">Save</Link>,
-            },
-            {
-              key: '3',
-              icon: <UploadOutlined />,
-              label: <Link to="/Categoria">Categoria</Link>,
-            },
-          ]}
+          items={items}
         >
 
         </Menu>
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          {/* <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
-          /> */}
+        <Header style={{
+          padding: 0,
+          background: '#001529',
+          width: '100%',
+          height: '50px',
+          position: 'fixed',
+          top: '0',
+          left: '0',
+          zIndex: 1000,
+          paddingBottom: '10px'
+        }}>
+
+          
+          <h3 style={{ color: 'white', float: 'right', marginTop: '-2px', marginRight: '10px' }}>David Timo</h3>
         </Header>
         <Content
           style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
+            margin: '70px 16px',
+            padding: 0,
+            minHeight: 200,
             background: colorBgContainer,
           }}
         >

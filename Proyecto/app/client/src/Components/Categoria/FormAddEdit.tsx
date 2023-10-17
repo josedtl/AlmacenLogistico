@@ -3,14 +3,10 @@ import { CategoriaEntity } from '../../Models/CategoriaEntity'
 import CategoriaService from '../../Service/CategoriaService';
 import { Button, Form, Input} from 'antd';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
-type Props = {
-    item: CategoriaEntity;
-    addItemToState?: any;
-    toggle?: any;
-    updateState?: any;
-}
+import {PropsModel } from '../../Lib/PropsItem'
+import { ButtonAcceptModel} from '../../Styles/Button'
 
-const AddEditForm: React.FC<Props> = (props) => {
+const AddEditForm: React.FC<PropsModel> = (props) => {
     const sCategoria = new CategoriaService();
 
     const initialCategoria = new CategoriaEntity();
@@ -58,7 +54,7 @@ const AddEditForm: React.FC<Props> = (props) => {
 
     return (
 
-        <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
+        <Form form={form} name="formItem" layout="vertical" autoComplete="off">
             <Form.Item label="Nombre" rules={[{ required: false }]}>
                 <Input
                 status={ValDato}
@@ -72,7 +68,7 @@ const AddEditForm: React.FC<Props> = (props) => {
             <Form.Item>
                 <Button
                     onClick={submitFormAdd}
-                    style={{ float: 'right', background: '#034078', color: "white", }}>
+                    style={ButtonAcceptModel}>
                     Aceptar
                 </Button>
             </Form.Item>
