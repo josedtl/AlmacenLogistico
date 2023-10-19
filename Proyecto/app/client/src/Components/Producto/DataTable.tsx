@@ -2,21 +2,26 @@
 import React from 'react';
 import ProductoService from '../../Service/ProductoService';
 import { ProductoEntity } from '../..//Models/Producto/ProductoEntity';
-import { Button, Table } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Link } from 'react-router-dom';
-type Props = {
-    DataList: ProductoEntity[];
-    updateState: any;
-    deleteItemFromState: any;
-}
+import { PropsTable } from '../../Lib/PropsItem'
+import { Card, Col, Row, Button, Table, Modal } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+import moment from 'moment';
+import 'moment/locale/es';
 
-const DataTable: React.FC<Props> = (props) => {
+interface DataType {
+    key: React.Key;
+    name: string;
+    age: number;
+    address: string;
+}
+const DataTable: React.FC<PropsTable> = (props) => {
     const sProducto = new ProductoService();
     const [size, setSize] = React.useState<SizeType>('middle');
-
-    const columns = [
+    const [modal, contextHolder] = Modal.useModal();
+    const columns: ColumnsType<DataType> = [
         {
             title: 'Nº',
             dataIndex: 'Cont',
@@ -33,6 +38,7 @@ const DataTable: React.FC<Props> = (props) => {
             dataIndex: 'FechaRegistro',
             width: '150px',
             key: 'FechaRegistro',
+            render: (date: string) => moment(date).format('DD/MM/YYYY hh:mm'),
         },
         {
             title: 'Usuario',
@@ -41,23 +47,15 @@ const DataTable: React.FC<Props> = (props) => {
             key: 'CodUsuario',
         }, {
             title: 'Action',
-            width: '100px',
+            fixed: 'right',
+            width: 70,
             key: 'action',
-            render: (text: any, record: ProductoEntity) => (
+            render: (record: ProductoEntity) => (
                 <span>
 
-                    <Button
-                        type='dashed'
-                        onClick={() => deleteItem(record.ProductoId)}
-                        style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
-                        size={size}
-                        icon={<DeleteFilled />}
-                    />
-
-                    <Link to={`/ProductoSave/${record.ProductoId}`}>
+                    <Link to={`/Save/${record.ProductoId}`}>
                         <Button
                             type='dashed'
-                            // href={`/Producto/${record.ProductoId}`}
                             style={{ float: "right", marginRight: "10px", color: "#BB9B32", backgroundColor: "white", borderColor: "#BB9B32" }}
                             size={size}
                             icon={<EditFilled />}
@@ -74,7 +72,7 @@ const DataTable: React.FC<Props> = (props) => {
 
     ];
 
-    const dataWithKeys = props.DataList.sort((a, b) => b.CategoriaId - a.CategoriaId).map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.ProductoId - a.ProductoId).map((item, zIndex) => {
         return {
             ...item,
             key: item.ProductoId,
@@ -83,28 +81,56 @@ const DataTable: React.FC<Props> = (props) => {
     });
 
 
-    const deleteItem = async (ProductoId: number) => {
-        const confirmDelete = window.confirm("Delete item forever?");
-        if (confirmDelete) {
-            const deleted = await sProducto.deleteItem(ProductoId);
-            if (deleted) {
-                props.deleteItemFromState(ProductoId);
-            } else {
-                console.log("Delete operation failed");
-            }
-        }
-    };
 
+    const ListaCard = () => {
+        if (props.EsTabla) {
+
+            return (
+                <>
+                    <Row gutter={16} style={{ backgroundColor: '#FAFAFA' }} >
+                        {dataWithKeys.map(row => (
+
+                            <Col key={row.Cont} xs={24} md={12} lg={8} xl={6} xxl={4}>
+                                <Card hoverable={true}
+
+                                    style={{ marginTop: '10Px', }}
+                                    actions={[
+                                        <Link to={`/Save/${row.ProductoId}`}>
+                                            <EditFilled
+                                                style={{ color: "#BB9B32" }}
+                                            />
+                                        </Link>
+                                    ]}
+                                    bordered={false}>
+                                    {row.Cont + ".  "}   {row.Nombre}
+                                </Card>
+
+                            </Col>
+
+
+                        ))}
+                    </Row>
+
+                </>
+            )
+        } else {
+            return (
+                <Table
+                    columns={columns}
+                    dataSource={dataWithKeys}
+                    size="small"
+                    scroll={{ x: 'calc(700px + 50%)', y: '100%' }}
+                />
+            )
+        }
+
+    }
     return (
 
         <div>
+            {contextHolder}
 
-            <Table
-                columns={columns}
-                dataSource={dataWithKeys}
-                size="small"
-                scroll={{ x: 'calc(700px + 50%)', y: '100%' }}
-            />
+            {ListaCard()}
         </div>
 
     );

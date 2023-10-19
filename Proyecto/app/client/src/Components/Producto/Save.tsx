@@ -1,28 +1,24 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Row, Typography, Modal, Spin } from 'antd';
 import { SaveFilled, SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
-import { Tabs, Table, message, Select } from 'antd';
+import { Tabs, Table, message, Select,Button, Col, Row, Typography, Modal, Spin,Input } from 'antd';
 import { CategoriaEntity } from '../../Models/CategoriaEntity';
 import { TipoProductoEntity } from '../../Models/TipoProductoEntity';
 import { MarcaEntity } from '../../Models/MarcaEntity';
 import { ModeloEntity } from '../../Models/ModeloEntity';
-
 import { ProductoEntity } from '../../Models/Producto/ProductoEntity';
 import GeneralService from '../../Service/GeneralService';
 import GeneralGQLService from '../../Service/GeneralGQLService';
 import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
 import ProductoService from '../../Service/ProductoService';
-import CategoriaService from '../../Service/CategoriaService';
 import MDCategoria from '../Categoria/ModalItem';
-// import MDTipoProducto from '../../Components/TipoProducto//ModalItem';
-// import MDCMarca from '@/Components/Marca/ModalItem';
-// import MDCModelo from '@/Components/Modelo/ModalItem';
+import MDTipoProducto from '../TipoProducto/ModalItem';
+import MDMarca from '../Marca/ModalItem';
+import MDModelo from '../Modelo/ModalItem';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
 
-const ProductoSave = () => {
+const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
   const sGeneral = new GeneralService();
@@ -31,13 +27,7 @@ const ProductoSave = () => {
   const initialProducto = new ProductoEntity();
   const [Ent, setEnt] = useState<ProductoEntity>(initialProducto);
   const { Title } = Typography;
-  const sCategoria = new CategoriaService();
-  const initialCategoria = new CategoriaEntity();
-  const [EntCategoria, setEntCategoria] = useState<CategoriaEntity>(initialCategoria);
   const [CargarPage, setCargarPage] = React.useState(true);
-
-
-
 
   const addItemToStateCategoria = async (item: CategoriaEntity) => {
     const Resp_Categoria = await sGeneral.GetCategoriaItem(item.CategoriaId);
@@ -205,15 +195,10 @@ const ProductoSave = () => {
       console.error('Error al buscar categorías:', error);
     }
   };
-  const onSelect = (value: string) => {
-    console.log('Seleccionaste la categoría:', value);
-  };
+
 
 
   const getCargarDatos = async () => {
-    // setCargarPage(true);
-    // const Resp_UM = await sGeneralGQL.GetUnidadMedidaItems();
-    // setOptionsUM(Resp_UM);
 
     console.log(idNumero)
     if (idNumero > 0) {
@@ -517,9 +502,9 @@ const ProductoSave = () => {
                   </Select.Option>
                 ))}
               </Select>
-              {/* <MDTipoProducto buttonLabel="Enlace"
+              <MDTipoProducto buttonLabel="Enlace"
                   addItemToState={addItemToStateTipoProducto}
-                  item={new TipoProductoEntity()} /> */}
+                  item={new TipoProductoEntity()} />
 
 
 
@@ -552,9 +537,9 @@ const ProductoSave = () => {
                 ))}
               </Select>
 
-              {/* <MDCMarca buttonLabel="Enlace"
+              <MDMarca buttonLabel="Enlace"
                   addItemToState={addItemToStateMarca}
-                  item={new MarcaEntity()} /> */}
+                  item={new MarcaEntity()} />
 
 
 
@@ -583,9 +568,9 @@ const ProductoSave = () => {
                   </Select.Option>
                 ))}
               </Select>
-              {/* <MDCModelo buttonLabel="Enlace"
+              <MDModelo buttonLabel="Enlace"
                   addItemToState={addItemToStateModelo}
-                  item={new ModeloEntity()} /> */}
+                  item={new ModeloEntity()} />
 
 
 
@@ -633,7 +618,7 @@ const ProductoSave = () => {
               <Select
                 showSearch
                 status={ValUnidadMedida}
-                style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                 defaultActiveFirstOption={false}
                 filterOption={false}
                 value={Ent.UnidadMedidaId === 0 ? null : Ent.UnidadMedidaId}
@@ -646,18 +631,6 @@ const ProductoSave = () => {
                   </Select.Option>
                 ))}
               </Select>
-              <Button
-                style={{
-                  width: '14%',
-                  float: "right",
-                  color: "#15616d",
-                  backgroundColor: "#E5F8FA",
-                  borderColor: "#15616d",
-                  marginTop: '5px', marginBottom: '10px'
-                }}
-                icon={<SearchOutlined />}
-              />
-
 
 
             </Col>
@@ -723,4 +696,4 @@ const ProductoSave = () => {
 };
 
 
-export default ProductoSave;
+export default Save;
