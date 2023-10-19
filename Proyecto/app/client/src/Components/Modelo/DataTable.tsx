@@ -1,7 +1,7 @@
 import React from 'react';
-import ModalItem from '../Categoria/ModalItem'
-import CategoriaService from '../../Service/CategoriaService'
-import { CategoriaEntity } from '../../Models/CategoriaEntity';
+import ModalItem from '../Modelo/ModalItem'
+import ModeloService from '../../Service/ModeloService'
+import { ModeloEntity } from '../../Models/ModeloEntity';
 import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Card, Col, Row, Button, Table, Modal } from 'antd';
@@ -16,7 +16,7 @@ interface DataType {
     address: string;
 }
 const DataTable: React.FC<PropsTable> = (props) => {
-    const sCategoria = new CategoriaService();
+    const sModelo = new ModeloService();
     const [size, setSize] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
     const columns: ColumnsType<DataType> = [
@@ -49,12 +49,12 @@ const DataTable: React.FC<PropsTable> = (props) => {
             fixed: 'right',
             width: 100,
             key: 'action',
-            render: ( record: CategoriaEntity) => 
+            render: ( record: ModeloEntity) => 
                 <span>
 
                     <Button
                         type='dashed'
-                        onClick={() => deleteItem(record.CategoriaId)}
+                        onClick={() => deleteItem(record.ModeloId)}
                         style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
                         size={size}
                         icon={<DeleteFilled />}
@@ -73,24 +73,24 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
     ];
 
-    const dataWithKeys = props.DataList.sort((a, b) => b.CategoriaId - a.CategoriaId).map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.ModeloId - a.ModeloId).map((item, zIndex) => {
         return {
             ...item,
-            key: item.CategoriaId,
+            key: item.ModeloId,
             Cont: (zIndex + 1),
         };
     });
 
-    const DeleteItemAll = async (CategoriaId: number) => {
-        const deleted = await sCategoria.deleteItem(CategoriaId);
+    const DeleteItemAll = async (ModeloId: number) => {
+        const deleted = await sModelo.deleteItem(ModeloId);
         if (deleted) {
-            props.deleteItemFromState(CategoriaId);
+            props.deleteItemFromState(ModeloId);
         } else {
             console.log("Delete operation failed");
         }
     }
 
-    const deleteItem = async (CategoriaId: number) => {
+    const deleteItem = async (ModeloId: number) => {
 
         modal.confirm({
             title: 'Mensaje del Sistema',
@@ -100,7 +100,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             okType: 'danger',
             cancelText: 'No',
             onOk() {
-                DeleteItemAll(CategoriaId);
+                DeleteItemAll(ModeloId);
             },
             onCancel() { },
         });
@@ -123,7 +123,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
                                     actions={[
                                         <DeleteFilled
                                             style={{ color: "#C64541" }}
-                                            onClick={() => deleteItem(row.CategoriaId)}
+                                            onClick={() => deleteItem(row.ModeloId)}
                                             key="setting" />,
                                         <ModalItem
                                             buttonLabel="EnlaceCard"

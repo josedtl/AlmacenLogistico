@@ -23,6 +23,9 @@ import {
 } from "react-router-dom";
 
 import PageCategoria from "./Components/Categoria/Main";
+import PageTipoProducto from "./Components/TipoProducto/Main";
+import PageMarca from "./Components/Marca/Main";
+import PageModelo from "./Components/Modelo/Main";
 import PageProdcuto from "./Components/Producto/page";
 import PageProdcutoSave from "./Components/Producto/ProductoSave";
 const router = createBrowserRouter([
@@ -31,17 +34,12 @@ const router = createBrowserRouter([
     element: <Root />,
     // errorElement: <ErrorPage />,
     children: [
-      {
-        path: "Categoria",
-        element: <PageCategoria />,
-      }, 
-      {
-        path: "Producto",
-        element: <PageProdcuto />,
-      },  {
-        path: "ProductoSave/:Id",
-        element: <PageProdcutoSave />,
-      },
+      { path: "Categoria", element: <PageCategoria />, },
+      { path: "TipoProducto", element: <PageTipoProducto />, },
+      { path: "Marca", element: <PageMarca />, },
+      { path: "Modelo", element: <PageModelo />, },
+      { path: "Producto", element: <PageProdcuto />, },
+      { path: "ProductoSave/:Id", element: <PageProdcutoSave />, },
     ],
   },
 ]);

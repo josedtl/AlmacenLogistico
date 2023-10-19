@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { CategoriaEntity } from '../../Models/CategoriaEntity'
-import CategoriaService from '../../Service/CategoriaService';
+import { ModeloEntity } from '../../Models/ModeloEntity'
+import ModeloService from '../../Service/ModeloService';
 import { Button, Form, Input} from 'antd';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import {PropsModel } from '../../Lib/PropsItem'
@@ -8,10 +8,10 @@ import { ButtonAcceptModel} from '../../Styles/Button'
 import { now } from "moment";
 
 const AddEditForm: React.FC<PropsModel> = (props) => {
-    const sCategoria = new CategoriaService();
+    const sModelo = new ModeloService();
 
-    const initialCategoria = new CategoriaEntity();
-    const [Ent, setEnt] = useState<CategoriaEntity>(initialCategoria);
+    const initialModelo = new ModeloEntity();
+    const [Ent, setEnt] = useState<ModeloEntity>(initialModelo);
     const [FlaState, setFlaState] = useState<Boolean>(false);
     const [form] = Form.useForm();
     const [ValDato, setValDato] = useState<InputStatus>('');
@@ -31,7 +31,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             return;
         }
         Ent.FechaRegistro= new Date();
-        const savedItem = await sCategoria.saveItem(Ent);
+        const savedItem = await sModelo.saveItem(Ent);
         if (savedItem) {
             if (FlaState)
             {
@@ -47,8 +47,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     useEffect(() => {
         const updatedPerson = props.item;
-        updatedPerson.Action = updatedPerson.CategoriaId > 0 ? 3 : 1;
-        setFlaState(updatedPerson.CategoriaId > 0);
+        updatedPerson.Action = updatedPerson.ModeloId > 0 ? 3 : 1;
+        setFlaState(updatedPerson.ModeloId > 0);
         setEnt(updatedPerson);
     }, []);
 

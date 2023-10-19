@@ -1,54 +1,57 @@
-import axios from 'axios';
 import { ModeloEntity } from '../Models/ModeloEntity';
+import { apiLg } from './axios-config';
 
-const URL = import.meta.env.VITE_SOME_KEY;
 class ModeloService {
-
-
 
   async getItems(): Promise<ModeloEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/Modelo/GetMainItems/`);
-      console.log(response.status);
-      if (response.status === 200 && response.data.Value != null) {
-        return response.data.Value;
-      }
-      return [];
-    } catch (err) {
-      console.log(err);
-      return [];
+      const response = await apiLg.get(`api/Modelo/GetItems`);
+      return response.data.Value;
+
+    } catch (error) {
+      throw error;
     }
   }
 
-
   async deleteItem(ModeloId: number): Promise<boolean> {
     try {
-      const response = await axios.delete(`${URL}/api/Modelo/Delete/${ModeloId}`);
-      return response.status === 200;
+      const response = await apiLg.delete(`api/Modelo/Delete/${ModeloId}`);
+      return response.data.Value;
     } catch (error) {
-      console.log(error);
-      return false;
+      throw error;
     }
   }
 
 
   async saveItem(item: ModeloEntity): Promise<ModeloEntity | null> {
     try {
-      const response = await axios.post(`${URL}/api/Modelo/Save/`, item, {
+      const response = await apiLg.post(`api/Modelo/Save/`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
-      if (response.status === 200) {
-        return response.data.Value;
-      } else {
-        console.log('Save operation failed');
-        return null;
-      }
+      return response.data.Value;
     } catch (error) {
-      console.log(error);
-      return null;
+      throw error;
+    }
+  }
+
+  async getItemLike(Nombre: string): Promise<ModeloEntity[]> {
+    try {
+      const response = await apiLg.get(`api/Modelo/GetItemLike/${Nombre}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+  async getItem(Id: number): Promise<ModeloEntity[]> {
+    try {
+      const response = await apiLg.get(`api/Modelo/GetItem/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
     }
   }
 

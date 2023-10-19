@@ -1,7 +1,7 @@
 import React from 'react';
-import ModalItem from '../Categoria/ModalItem'
-import CategoriaService from '../../Service/CategoriaService'
-import { CategoriaEntity } from '../../Models/CategoriaEntity';
+import ModalItem from '../Marca/ModalItem'
+import MarcaService from '../../Service/MarcaService'
+import { MarcaEntity } from '../../Models/MarcaEntity';
 import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Card, Col, Row, Button, Table, Modal } from 'antd';
@@ -16,7 +16,7 @@ interface DataType {
     address: string;
 }
 const DataTable: React.FC<PropsTable> = (props) => {
-    const sCategoria = new CategoriaService();
+    const sMarca = new MarcaService();
     const [size, setSize] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
     const columns: ColumnsType<DataType> = [
@@ -49,12 +49,12 @@ const DataTable: React.FC<PropsTable> = (props) => {
             fixed: 'right',
             width: 100,
             key: 'action',
-            render: ( record: CategoriaEntity) => 
+            render: ( record: MarcaEntity) => 
                 <span>
 
                     <Button
                         type='dashed'
-                        onClick={() => deleteItem(record.CategoriaId)}
+                        onClick={() => deleteItem(record.MarcaId)}
                         style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
                         size={size}
                         icon={<DeleteFilled />}
@@ -73,24 +73,24 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
     ];
 
-    const dataWithKeys = props.DataList.sort((a, b) => b.CategoriaId - a.CategoriaId).map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.MarcaId - a.MarcaId).map((item, zIndex) => {
         return {
             ...item,
-            key: item.CategoriaId,
+            key: item.MarcaId,
             Cont: (zIndex + 1),
         };
     });
 
-    const DeleteItemAll = async (CategoriaId: number) => {
-        const deleted = await sCategoria.deleteItem(CategoriaId);
+    const DeleteItemAll = async (MarcaId: number) => {
+        const deleted = await sMarca.deleteItem(MarcaId);
         if (deleted) {
-            props.deleteItemFromState(CategoriaId);
+            props.deleteItemFromState(MarcaId);
         } else {
             console.log("Delete operation failed");
         }
     }
 
-    const deleteItem = async (CategoriaId: number) => {
+    const deleteItem = async (MarcaId: number) => {
 
         modal.confirm({
             title: 'Mensaje del Sistema',
@@ -100,7 +100,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             okType: 'danger',
             cancelText: 'No',
             onOk() {
-                DeleteItemAll(CategoriaId);
+                DeleteItemAll(MarcaId);
             },
             onCancel() { },
         });
@@ -123,7 +123,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
                                     actions={[
                                         <DeleteFilled
                                             style={{ color: "#C64541" }}
-                                            onClick={() => deleteItem(row.CategoriaId)}
+                                            onClick={() => deleteItem(row.MarcaId)}
                                             key="setting" />,
                                         <ModalItem
                                             buttonLabel="EnlaceCard"

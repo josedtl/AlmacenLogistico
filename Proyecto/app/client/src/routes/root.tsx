@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import {
-  UploadOutlined,
+  SolutionOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  ReconciliationOutlined,
+  BlockOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
 import { Outlet, Link } from "react-router-dom";
@@ -48,22 +49,32 @@ const Root: React.FC = () => {
 
 
   const items: MenuItem[] = [
-    getItem('Logistica', 'L1', <UserOutlined />,
-      [getItem('Orden de Pedido', 'L1_1'),
-      getItem(<Link to="/">Orden de Compra</Link>, 'L1_2')]),
-    getItem('Almacen', 'A2', <UserOutlined />,
-      [getItem(<Link to="/">Recepcion</Link>, 'A2_1'),
-      getItem(<Link to="/">Despacho</Link>, 'A2_2')]),
-    getItem('Catalogo', 'C1', <UserOutlined />,
-      [getItem(<Link to="/Categoria">Categoria</Link>, 'C1_1'),
-      getItem(<Link to="/Producto">Producto</Link>, 'C1_2')]),
-    getItem('Administrador', 'C1_3', <UserOutlined />),
+    getItem('Solicitar', 'L1', <SolutionOutlined />,
+      [
+        getItem('Orden de Pedido', 'L1_1'),
+        getItem(<Link to="/">Orden de Compra</Link>, 'L1_2')
+      ]),
+    getItem('Operación', 'A2', <ReconciliationOutlined />,
+      [
+        getItem(<Link to="/">Recepción</Link>, 'A2_1'),
+        getItem(<Link to="/">Despacho</Link>, 'A2_2')
+      ]),
+    getItem('Catalogo', 'C1', <BlockOutlined />,
+      [
+        getItem(<Link to="/Categoria">Categoria</Link>, 'C1_1'),
+        getItem(<Link to="/Marca">Marca</Link>, 'C1_2'),
+        getItem(<Link to="/Modelo">Modelo</Link>, 'C1_3'),
+        getItem(<Link to="/TipoProducto">Tipo de producto</Link>, 'C1_4'),
+        getItem(<Link to="/Producto">Producto</Link>, 'C1_5'),
+
+      ]),
   ];
   return (
 
 
     <Layout>
       <Sider
+
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
@@ -72,16 +83,21 @@ const Root: React.FC = () => {
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
         }}
-        style={{ background: '#15616d', marginTop: '-14px' }}
+        style={{
+          background: '#001529',
+          height:'calc(14px + 100vh)',
+          marginTop:'-14px',
+        }}
       >
-        <div style={{ height: '60px', background: '#15616d' }} className="demo-logo-vertical" >
-
+        <div style={{ height: '175px', width: '200px', background: '#B1B1B1' }} className="demo-logo-vertical" >
+          <svg version="1.1" style={{ marginTop: '70px', marginLeft: '45px', alignContent: 'center' }} width="100px" height="100px" viewBox="-0.5 -0.5 172 172" ><defs /><g><ellipse cx="85" cy="85" rx="85" ry="85" fill="#001529" stroke="rgb(0, 0, 0)" pointer-events="all" /><path d="M 50 91 L 130 91 L 130 70 L 150 100 L 130 130 L 130 109 L 50 109 Z" fill="#15616d" stroke="#15616d" stroke-miterlimit="10" pointer-events="all" /><path d="M 20 61 L 100 61 L 100 40 L 120 70 L 100 100 L 100 79 L 20 79 Z" fill="#15616d" stroke="#15616d" stroke-miterlimit="10" transform="rotate(180,70,70)" pointer-events="all" /></g></svg>
         </div>
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
           items={items}
+     
         >
 
         </Menu>
@@ -99,8 +115,10 @@ const Root: React.FC = () => {
           paddingBottom: '10px'
         }}>
 
-          
+
           <h3 style={{ color: 'white', float: 'right', marginTop: '-2px', marginRight: '10px' }}>David Timo</h3>
+    
+    
         </Header>
         <Content
           style={{
@@ -117,51 +135,3 @@ const Root: React.FC = () => {
   );
 };
 export default Root;
-
-
-// import { Outlet, Link } from "react-router-dom";
-// export default function Root() {
-//     return (
-//       <>
-//         <div id="sidebar">
-//           <h1>React Router Contacts</h1>
-//           <div>
-//             <form id="search-form" role="search">
-//               <input
-//                 id="q"
-//                 aria-label="Search contacts"
-//                 placeholder="Search"
-//                 type="search"
-//                 name="q"
-//               />
-//               <div
-//                 id="search-spinner"
-//                 aria-hidden
-//                 hidden={true}
-//               />
-//               <div
-//                 className="sr-only"
-//                 aria-live="polite"
-//               ></div>
-//             </form>
-//             <form method="post">
-//               <button type="submit">New</button>
-//             </form>
-//           </div>
-//           <nav>
-//           <ul>
-//             <li>
-//               <Link to={`Categoria`}>Categoria</Link>
-//             </li>
-//             <li>
-//               <Link to={`contacts/2`}>Your Friend</Link>
-//             </li>
-//           </ul>
-//         </nav>
-//         </div>
-//           <div id="detail">
-//         <Outlet />
-//       </div>
-//       </>
-//     );
-//   }

@@ -1,54 +1,57 @@
-import axios from 'axios';
 import { MarcaEntity } from '../Models/MarcaEntity';
+import { apiLg } from './axios-config';
 
-const URL = import.meta.env.VITE_SOME_KEY;
 class MarcaService {
-
-
 
   async getItems(): Promise<MarcaEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/Marca/GetItems/`);
-      console.log(response.status);
-      if (response.status === 200 && response.data.Value != null) {
-        return response.data.Value;
-      }
-      return [];
-    } catch (err) {
-      console.log(err);
-      return [];
+      const response = await apiLg.get(`api/Marca/GetItems`);
+      return response.data.Value;
+
+    } catch (error) {
+      throw error;
     }
   }
 
-
   async deleteItem(MarcaId: number): Promise<boolean> {
     try {
-      const response = await axios.delete(`${URL}/api/Marca/Delete/${MarcaId}`);
-      return response.status === 200;
+      const response = await apiLg.delete(`api/Marca/Delete/${MarcaId}`);
+      return response.data.Value;
     } catch (error) {
-      console.log(error);
-      return false;
+      throw error;
     }
   }
 
 
   async saveItem(item: MarcaEntity): Promise<MarcaEntity | null> {
     try {
-      const response = await axios.post(`${URL}/api/Marca/Save/`, item, {
+      const response = await apiLg.post(`api/Marca/Save/`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
-      if (response.status === 200) {
-        return response.data.Value;
-      } else {
-        console.log('Save operation failed');
-        return null;
-      }
+      return response.data.Value;
     } catch (error) {
-      console.log(error);
-      return null;
+      throw error;
+    }
+  }
+
+  async getItemLike(Nombre: string): Promise<MarcaEntity[]> {
+    try {
+      const response = await apiLg.get(`api/Marca/GetItemLike/${Nombre}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+  async getItem(Id: number): Promise<MarcaEntity[]> {
+    try {
+      const response = await apiLg.get(`api/Marca/GetItem/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
     }
   }
 
