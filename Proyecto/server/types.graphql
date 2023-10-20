@@ -1,28 +1,51 @@
-type Persona {
-    PersonaId: Int
+type Producto_GQL {
+    Producto: Int
     Nombre: String
-    Apellido: String
 }
 
-
-type Categoria {
+type Categoria_GQL {
     CategoriaId: Int
     Nombre: String
-    FechaRegistro :String
-    CodUsuario:String
-    EstadoRegistro:Boolean
 }
 
+type TipoProducto_GQL {
+    TipoProductoId: Int
+    Nombre: String
+}
 
-type UnidadMedidaGQL {
+type Marca_GQL {
+    MarcaId: Int
+    Nombre: String
+}
+
+type Modelo_GQL {
+    ModeloId: Int
+    Nombre: String
+}
+
+type UnidadMedida_GQL {
     UnidadMedidaId: Int
     Nombre: String
 }
 
 
 type Query {
-    personas: [Persona]
-    categorias: [Categoria]
-    GQL_UnidadMedida: [UnidadMedidaGQL]
-    personaPorId(PersonaId: Int!): Persona
+    GHCategoriaItems: [Categoria_GQL]
+    GHCategoriaItem(Id: Int) :[Categoria_GQL]
+    GHCategoriaItemLike(Nombre: String) :[Categoria_GQL]
+
+    GHTipoProductoItems: [TipoProducto_GQL]
+    GHTipoProductoItem(Id: Int) :[TipoProducto_GQL]
+    GHTipoProductoItemLike(Nombre: String) :[TipoProducto_GQL]
+
+    GHMarcaItems: [Marca_GQL]
+    GHMarcaItem(Id: Int) :[Marca_GQL]
+    GHMarcaItemLike(Nombre: String) :[Marca_GQL]
+
+    GHModeloItems: [Modelo_GQL]
+    GHModeloItem(Id: Int) :[Modelo_GQL]
+    GHModeloItemLike(Nombre: String) :[Modelo_GQL]
+
+    GHUnidadMedidaItems: [UnidadMedida_GQL]
+    GHUnidadMedidaItem(Id: Int) :[UnidadMedida_GQL]
 }

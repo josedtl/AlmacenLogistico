@@ -28,6 +28,9 @@ import PageMarca from "./Components/Marca/Main";
 import PageModelo from "./Components/Modelo/Main";
 import PageProdcuto from "./Components/Producto/Main";
 import PageProdcutoSave from "./Components/Producto/Save";
+import PageOrdenPedido from "./Components/OrdenPedido/Main";
+import PageOrdenPedidoSave from "./Components/OrdenPedido/Save";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,7 +42,9 @@ const router = createBrowserRouter([
       { path: "Marca", element: <PageMarca />, },
       { path: "Modelo", element: <PageModelo />, },
       { path: "Producto", element: <PageProdcuto />, },
-      { path: "Save/:Id", element: <PageProdcutoSave />, },
+      { path: "ProductoSave/:Id", element: <PageProdcutoSave />, },
+      { path: "OrdenPedido", element: <PageOrdenPedido />, },
+      { path: "OrdenPedidoSave/:Id", element: <PageOrdenPedidoSave />, },
     ],
   },
 ]);

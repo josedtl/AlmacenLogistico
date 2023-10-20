@@ -9,12 +9,8 @@ import type { ColumnsType } from 'antd/es/table';
 import { PropsTable } from '../../Lib/PropsItem'
 import moment from 'moment';
 import 'moment/locale/es';
-interface DataType {
-    key: React.Key;
-    name: string;
-    age: number;
-    address: string;
-}
+import { DataType } from '../../Lib/ResourceModel/DataTableType'
+
 const DataTable: React.FC<PropsTable> = (props) => {
     const sTipoProducto = new TipoProductoService();
     const [size, setSize] = React.useState<SizeType>('middle');

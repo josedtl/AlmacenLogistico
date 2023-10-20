@@ -38,20 +38,10 @@ const Root: React.FC = () => {
   }
 
 
-  // const items: MenuItem[] = [
-  //   getItem(<Link to="/Producto">Logistica</Link>, '1', <UserOutlined />,),
-  //   getItem('Option 2', '2', <UserOutlined />),
-  //   getItem(<Link to="/Producto">Catalogo</Link>, 'sub1', <UserOutlined />, [
-  //     getItem(<Link to="/Producto">Producto</Link>, '3'),
-  //     getItem(<Link to="/Categoria">Categoria</Link>, '4'),
-  //   ]),
-  // ];
-
-
   const items: MenuItem[] = [
     getItem('Solicitar', 'L1', <SolutionOutlined />,
       [
-        getItem('Orden de Pedido', 'L1_1'),
+        getItem(<Link to="/OrdenPedido">Orden de Pedido</Link>, 'L1_a'),
         getItem(<Link to="/">Orden de Compra</Link>, 'L1_2')
       ]),
     getItem('Operación', 'A2', <ReconciliationOutlined />,
@@ -90,7 +80,7 @@ const Root: React.FC = () => {
         }}
       >
         <div style={{ height: '175px', width: '200px', background: '#B1B1B1' }} className="demo-logo-vertical" >
-          <svg version="1.1" style={{ marginTop: '70px', marginLeft: '45px', alignContent: 'center' }} width="100px" height="100px" viewBox="-0.5 -0.5 172 172" ><defs /><g><ellipse cx="85" cy="85" rx="85" ry="85" fill="#001529" stroke="rgb(0, 0, 0)" pointer-events="all" /><path d="M 50 91 L 130 91 L 130 70 L 150 100 L 130 130 L 130 109 L 50 109 Z" fill="#15616d" stroke="#15616d" stroke-miterlimit="10" pointer-events="all" /><path d="M 20 61 L 100 61 L 100 40 L 120 70 L 100 100 L 100 79 L 20 79 Z" fill="#15616d" stroke="#15616d" stroke-miterlimit="10" transform="rotate(180,70,70)" pointer-events="all" /></g></svg>
+          {/* <svg version="1.1" style={{ marginTop: '70px', marginLeft: '45px', alignContent: 'center' }} width="100px" height="100px" viewBox="-0.5 -0.5 172 172" ><defs /><g><ellipse cx="85" cy="85" rx="85" ry="85" fill="#001529" stroke="rgb(0, 0, 0)" pointer-events="all" /><path d="M 50 91 L 130 91 L 130 70 L 150 100 L 130 130 L 130 109 L 50 109 Z" fill="#15616d" stroke="#15616d" stroke-miterlimit="10" pointer-events="all" /><path d="M 20 61 L 100 61 L 100 40 L 120 70 L 100 100 L 100 79 L 20 79 Z" fill="#15616d" stroke="#15616d" stroke-miterlimit="10" transform="rotate(180,70,70)" pointer-events="all" /></g></svg> */}
         </div>
         <Menu
           theme="dark"

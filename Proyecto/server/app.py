@@ -73,7 +73,7 @@ app.add_middleware(
 )
 
 
-app.add_route("/gql", GraphQL(schema))
+app.add_route("/gql/General", GraphQL(schema))
 app.include_router(CategoriaRouter)
 app.include_router(TipoProductoRouter)
 app.include_router(ModeloRouter)

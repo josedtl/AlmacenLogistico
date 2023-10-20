@@ -1,18 +1,19 @@
+"use client"
 import React from 'react';
-import ModalItem from '../Modelo/ModalItem'
-import ModeloService from '../../Service/ModeloService'
-import { ModeloEntity } from '../../Models/ModeloEntity';
-import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
+import OrdenPedidoService from '../../Service/OrdenPedidoService';
+import { OrdenPedidoEntity } from '../..//Models/OrdenPedidoEntity';
+import { EditFilled } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
+import { Link } from 'react-router-dom';
+import { PropsTable } from '../../Lib/PropsItem'
 import { Card, Col, Row, Button, Table, Modal } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { PropsTable } from '../../Lib/PropsItem'
 import moment from 'moment';
 import 'moment/locale/es';
 import { DataType } from '../../Lib/ResourceModel/DataTableType'
 
 const DataTable: React.FC<PropsTable> = (props) => {
-    const sModelo = new ModeloService();
+    const sOrdenPedido = new OrdenPedidoService();
     const [size, setSize] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
     const columns: ColumnsType<DataType> = [
@@ -25,84 +26,56 @@ const DataTable: React.FC<PropsTable> = (props) => {
         {
             title: 'Nombre',
             dataIndex: 'Nombre',
-            width: '50vh',
             key: 'Nombre',
         },
         {
             title: 'Fecha de registro',
             dataIndex: 'FechaRegistro',
-            width: '160px',
+            width: '150px',
             key: 'FechaRegistro',
             render: (date: string) => moment(date).format('DD/MM/YYYY hh:mm'),
         },
         {
             title: 'Usuario',
             dataIndex: 'CodUsuario',
-            width: '150px',
+            width: '100px',
             key: 'CodUsuario',
         }, {
             title: 'Action',
             fixed: 'right',
-            width: 100,
+            width: 70,
             key: 'action',
-            render: ( record: ModeloEntity) => 
+            render: (record: OrdenPedidoEntity) => (
                 <span>
 
-                    <Button
-                        type='dashed'
-                        onClick={() => deleteItem(record.ModeloId)}
-                        style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
-                        size={size}
-                        icon={<DeleteFilled />}
-                    />
-                    <ModalItem
-                        buttonLabel="Edit"
-                        item={record}
-                        updateState={props.updateState}
-                    />
+                    <Link to={`/OrdenPedidoSave/${record.OrdenPedidoId}`}>
+                        <Button
+                            type='dashed'
+                            style={{ float: "right", marginRight: "10px", color: "#BB9B32", backgroundColor: "white", borderColor: "#BB9B32" }}
+                            size={size}
+                            icon={<EditFilled />}
+                        >
 
+
+                        </Button>
+                    </Link>
 
 
                 </span>
-            ,
+            ),
         },
 
     ];
 
-    const dataWithKeys = props.DataList.sort((a, b) => b.ModeloId - a.ModeloId).map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.OrdenPedidoId - a.OrdenPedidoId).map((item, zIndex) => {
         return {
             ...item,
-            key: item.ModeloId,
-            Cont: (zIndex + 1),
+            key: item.OrdenPedidoId,
+            Cont: (zIndex + 1)
         };
     });
 
-    const DeleteItemAll = async (ModeloId: number) => {
-        const deleted = await sModelo.deleteItem(ModeloId);
-        if (deleted) {
-            props.deleteItemFromState(ModeloId);
-        } else {
-            console.log("Delete operation failed");
-        }
-    }
 
-    const deleteItem = async (ModeloId: number) => {
-
-        modal.confirm({
-            title: 'Mensaje del Sistema',
-            icon: <ExclamationCircleOutlined />,
-            content: '¿Desea eliminar el registro?',
-            okText: 'Si',
-            okType: 'danger',
-            cancelText: 'No',
-            onOk() {
-                DeleteItemAll(ModeloId);
-            },
-            onCancel() { },
-        });
-
-
-    };
 
     const ListaCard = () => {
         if (props.EsTabla) {
@@ -117,15 +90,11 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
                                     style={{ marginTop: '10Px', }}
                                     actions={[
-                                        <DeleteFilled
-                                            style={{ color: "#C64541" }}
-                                            onClick={() => deleteItem(row.ModeloId)}
-                                            key="setting" />,
-                                        <ModalItem
-                                            buttonLabel="EnlaceCard"
-                                            item={row}
-                                            updateState={props.updateState}
-                                        />
+                                        <Link to={`/OrdenPedidoSave/${row.OrdenPedidoId}`}>
+                                            <EditFilled
+                                                style={{ color: "#BB9B32" }}
+                                            />
+                                        </Link>
                                     ]}
                                     bordered={false}>
                                     {row.Cont + ".  "}   {row.Nombre}
@@ -147,18 +116,18 @@ const DataTable: React.FC<PropsTable> = (props) => {
                     size="small"
                     scroll={{ x: 'calc(700px + 50%)', y: '100%' }}
                 />
-
             )
         }
 
     }
-
     return (
+
         <div>
             {contextHolder}
 
             {ListaCard()}
         </div>
+
     );
 }
 

@@ -1,14 +1,13 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { SaveFilled, SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Tabs, Table, message, Select,Button, Col, Row, Typography, Modal, Spin,Input } from 'antd';
+import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
 import { CategoriaEntity } from '../../Models/CategoriaEntity';
 import { TipoProductoEntity } from '../../Models/TipoProductoEntity';
 import { MarcaEntity } from '../../Models/MarcaEntity';
 import { ModeloEntity } from '../../Models/ModeloEntity';
-import { ProductoEntity } from '../../Models/Producto/ProductoEntity';
+import { ProductoEntity } from '../../Models/ProductoEntity';
 import GeneralService from '../../Service/GeneralService';
-import GeneralGQLService from '../../Service/GeneralGQLService';
 import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
 import ProductoService from '../../Service/ProductoService';
 import MDCategoria from '../Categoria/ModalItem';
@@ -17,12 +16,12 @@ import MDMarca from '../Marca/ModalItem';
 import MDModelo from '../Modelo/ModalItem';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
+import { ButtonAddMain} from '../../Styles/Button'
 
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
   const sGeneral = new GeneralService();
-  const sGeneralGQL = new GeneralGQLService();
   const sProducto = new ProductoService();
   const initialProducto = new ProductoEntity();
   const [Ent, setEnt] = useState<ProductoEntity>(initialProducto);
@@ -160,7 +159,7 @@ const Save = () => {
 
   const handleSearchCategoria = async (value: string) => {
     try {
-      const responseCategoria = await sGeneral.getCategoriaItemLike(value);
+      const responseCategoria = await sGeneral.GetCategoriaItemLike(value);
       setOptionsCategoria(responseCategoria);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -169,7 +168,7 @@ const Save = () => {
 
   const handleSearchTipoProducto = async (value: string) => {
     try {
-      const responseTipoProducto = await sGeneral.getTipoProductoItemLike(value);
+      const responseTipoProducto = await sGeneral.GetTipoProductoItemLike(value);
       setOptionsTipoProducto(responseTipoProducto);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -180,7 +179,7 @@ const Save = () => {
 
   const handleSearchMarca = async (value: string) => {
     try {
-      const responseMarca = await sGeneral.getMarcaItemLike(value);
+      const responseMarca = await sGeneral.GetMarcaItemLike(value);
       setOptionsMarca(responseMarca);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -189,7 +188,7 @@ const Save = () => {
 
   const handleSearchModelo = async (value: string) => {
     try {
-      const responseModelo = await sGeneral.getModeloItemLike(value);
+      const responseModelo = await sGeneral.GetModeloItemLike(value);
       setOptionsModelo(responseModelo);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -390,7 +389,7 @@ const Save = () => {
     async function cargarItem() {
 
       setCargarPage(true);
-      const Resp_UM = await sGeneralGQL.GetUnidadMedidaItems();
+      const Resp_UM = await sGeneral.GetUnidadMedidaItems();
       setOptionsUM(Resp_UM);
       await getCargarDatos();
     }
@@ -414,14 +413,7 @@ const Save = () => {
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Button
-            style={{
-              float: "right",
-              color: "white",
-              backgroundColor: "#15616d",
-              borderColor: "#15616d",
-              marginTop: "25px",
-              marginRight: "10px"
-            }}
+             style={ButtonAddMain}
             onClick={Guardar_Total}
             size={"large"}
             icon={<SaveFilled />}
@@ -503,8 +495,8 @@ const Save = () => {
                 ))}
               </Select>
               <MDTipoProducto buttonLabel="Enlace"
-                  addItemToState={addItemToStateTipoProducto}
-                  item={new TipoProductoEntity()} />
+                addItemToState={addItemToStateTipoProducto}
+                item={new TipoProductoEntity()} />
 
 
 
@@ -538,8 +530,8 @@ const Save = () => {
               </Select>
 
               <MDMarca buttonLabel="Enlace"
-                  addItemToState={addItemToStateMarca}
-                  item={new MarcaEntity()} />
+                addItemToState={addItemToStateMarca}
+                item={new MarcaEntity()} />
 
 
 
@@ -569,8 +561,8 @@ const Save = () => {
                 ))}
               </Select>
               <MDModelo buttonLabel="Enlace"
-                  addItemToState={addItemToStateModelo}
-                  item={new ModeloEntity()} />
+                addItemToState={addItemToStateModelo}
+                item={new ModeloEntity()} />
 
 
 

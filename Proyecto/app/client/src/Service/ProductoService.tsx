@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ProductoEntity } from '../Models/Producto/ProductoEntity';
+import { ProductoEntity } from '../Models/ProductoEntity';
 
 const URL = import.meta.env.VITE_SOME_KEY;
 class ProductoService {
@@ -18,27 +18,6 @@ class ProductoService {
       console.log(err);
       return [];
     }
-  }
-  async GetItemsGra(): Promise<ProductoEntity[]> {
-    const GET_TODOS = `
-     {
-      Productos
-      {
-      ProductoId
-        Nombre
-        FechaRegistro
-        CodUsuario
-        EstadoRegistro
-      }
-    }
-  `;
-    const response = await axios.post('http://127.0.0.1:8000/graphql', {
-      query: GET_TODOS,
-    });
-
-
-    return await response.data.data.Productos
-
   }
   async deleteItem(ProductoId: number): Promise<boolean> {
     try {

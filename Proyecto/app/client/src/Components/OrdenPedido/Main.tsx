@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import { ProductoEntity } from '../../Models/ProductoEntity';
-import ProductoService from '../../Service/ProductoService';
+import { OrdenPedidoEntity } from '../../Models/OrdenPedidoEntity';
+import OrdenPedidoService from '../../Service/OrdenPedidoService';
 import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
 import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , ButtonAddMain} from '../../Styles/Button'
 import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../Styles/Type'
@@ -11,9 +11,9 @@ function Main() {
   useEffect(() => {
     getItems();
   }, []);
-  const sProducto = new ProductoService();
+  const sOrdenPedido = new OrdenPedidoService();
 
-  const [items, setItems] = useState<ProductoEntity[]>([]);
+  const [items, setItems] = useState<OrdenPedidoEntity[]>([]);
   const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled, setDisabled] = useState(false);
   const [Busqueda, setBusqueda] = useState<string>('');
@@ -21,19 +21,19 @@ function Main() {
     setDisabled(!disabled);
   };
 
-  const updateState = (item: ProductoEntity) => {
-    const itemIndex = items.findIndex((data) => data.ProductoId === item.ProductoId);
+  const updateState = (item: OrdenPedidoEntity) => {
+    const itemIndex = items.findIndex((data) => data.OrdenPedidoId === item.OrdenPedidoId);
     const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
     setItems(newArray);
   };
 
   const deleteItemFromState = (id: number) => {
-    const updatedItems = items.filter((item) => item.ProductoId !== id);
+    const updatedItems = items.filter((item) => item.OrdenPedidoId !== id);
     setItems(updatedItems);
   };
 
   const getItems = async () => {
-    const itemsg = await sProducto.getItems();
+    const itemsg = await sOrdenPedido.getItems();
     setItems(itemsg);
     setCargarPage(false);
 
@@ -42,7 +42,7 @@ function Main() {
     setBusqueda(e.target.value.toUpperCase());
   };
   const filterItems = items.filter(fdata =>
-    fdata.Nombre.toLowerCase().includes(Busqueda.toLowerCase())
+    fdata.Codigo.toLowerCase().includes(Busqueda.toLowerCase())
   );
 
   const { Title } = Typography;
@@ -51,11 +51,11 @@ function Main() {
       <Row>
 
       <Col xs={18} sm={18} md={12} lg={12} xl={12}>
-          <Title level={2}> Producto</Title>
+          <Title level={2}> OrdenPedido</Title>
         </Col>
 
         <Col xs={6} sm={6} md={12} lg={12} xl={12}>
-          <Link to={`/ProductoSave/0`}>
+          <Link to={`/OrdenPedidoSave/0`}>
             <Button
               style={ButtonAddMain}
               size={SizeButtonPrimary}
