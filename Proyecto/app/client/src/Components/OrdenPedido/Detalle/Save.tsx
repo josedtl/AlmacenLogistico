@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
-import { MarcaEntity } from '../../Models/MarcaEntity';
-import { ModeloEntity } from '../../Models/ModeloEntity';
-import { OrdenPedidoEntity } from '../../Models/OrdenPedidoEntity';
-import GeneralService from '../../Service/GeneralService';
-import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
-import OrdenPedidoService from '../../Service/OrdenPedidoService';
+import { MarcaEntity } from '../../../Models/MarcaEntity';
+import { ModeloEntity } from '../../../Models/ModeloEntity';
+import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity';
+import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity';
+import GeneralService from '../../../Service/GeneralService';
+import { UnidadMedidaEntity } from '../../../Models/UnidadMedidaEntity';
+import OrdenPedidoService from '../../../Service/OrdenPedidoService';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
-import { ButtonAddMain } from '../../Styles/Button'
-
-const Save = () => {
+import { ButtonAddMain } from '../../../Styles/Button'
+import ModalItem from './ModalItem';
+import DataTable from './DataTable';
+function Page  () {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
   const sGeneral = new GeneralService();
@@ -20,75 +22,33 @@ const Save = () => {
   const [Ent, setEnt] = useState<OrdenPedidoEntity>(initialOrdenPedido);
   const { Title } = Typography;
   const [CargarPage, setCargarPage] = React.useState(true);
-
-
-  const columns = [
-    {
-      title: 'Nº',
-      dataIndex: 'Cont',
-      key: 'Cont',
-      width: '50px',
-    },
-    {
-      title: 'UnidadMeida',
-      dataIndex: 'UnidadMeida',
-      key: 'UnidadMeida',
-
-    },
-    {
-      title: 'Cantidad ',
-      dataIndex: 'Cantidad',
-      key: 'Cantidad',
-      width: '80px',
-    },
-    {
-      title: 'Moneda',
-      dataIndex: 'Moneda',
-      key: 'Moneda',
-      width: '100px',
-    }, {
-      title: 'ValorVenta',
-      dataIndex: 'ValorVenta',
-      key: 'ValorVenta',
-      width: '100px',
-    }, {
-      title: 'ValorCompra',
-      dataIndex: 'ValorCompra',
-      key: 'ValorCompra',
-      width: '100px',
-    }, {
-      title: 'Fecha Vigencia',
-      dataIndex: 'FechaVigencia',
-      key: 'FechaVigencia',
-      width: '100px',
-    }, {
-      title: 'Action',
-      key: 'action',
-      width: '100px',
-      render: (text: any, record: any) => (
-        <span>
-
-          {/* <Button
-                    type='dashed'
-                    onClick={() => deleteItem(record.CategoriaId)}
-                    style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
-                    size={size}
-                    icon={<DeleteFilled />}
-                />
-                <ModalItem
-                    buttonLabel="Edit"
-                    item={record}
-                    updateState={props.updateState}
-                /> */}
+  const [items, setItems] = useState<OrdenPedidoEntity[]>([]);
+  const [detalleitems, setDetalleitems] = useState<Array<OrdenPedidoDetalleEntity>>([]);
 
 
 
-        </span>
-      ),
-    },
+  const addItemToState = (itemDetalleALTER: OrdenPedidoDetalleEntity) => {
+    // setDetalleitems([...detalleitems, itemDetalle]);
+    // console.log(detalleitems);
+    setDetalleitems(prevDetalleitems => [...prevDetalleitems, itemDetalleALTER]);
+    console.log(detalleitems);
+    messageAdd.open({
+      type: 'success',
+      content: 'Se guardó correctamente',
+    });
 
-  ];
+  };
+  const updateState = (item: OrdenPedidoDetalleEntity) => {
+    // const itemIndex = Detalleitems.findIndex((data) => data.OrdenPedidoDetalleId === item.OrdenPedidoDetalleId);
+    // const newArray = [...Detalleitems.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+    // setDetalleitems(newArray);
+  };
 
+  const deleteItemFromState = (id: number) => {
+    const updatedItems = items.filter((item) => item.OrdenPedidoId !== id);
+    setItems(updatedItems);
+  };
+  
   const [TabsItems, setTabsItems] = useState<any>([
     {
       label: (
@@ -105,11 +65,10 @@ const Save = () => {
 
           <Row>
             <Col xs={24}>
-              <Table
-                columns={columns}
-                size="small"
-                scroll={{ y: '100%' }}
-              />
+            <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
+     
+            <DataTable DataList={detalleitems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={false} />
+   
             </Col>
           </Row >
         </span>
@@ -263,7 +222,22 @@ const Save = () => {
 
           <Row>
             <Col span={24}>
-              <label>Documento Responsable</label>
+              <label>Tipo de requerimiento</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                status={ValCodigo}
+                type="text"
+                name="Codigo"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                onChange={onChangeText}
+                value={Ent.Codigo === null ? "" : Ent.Codigo}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <label>Nº Documento</label>
             </Col>
             <Col span={24}>
               <Input
@@ -326,6 +300,8 @@ const Save = () => {
         </Col>
 
         <Col xs={24} sm={14} md={16} lg={17} xl={18}>
+          
+          
           <Tabs
             style={{ marginLeft: '20px' }}
             type="line" items={TabsItems} />
@@ -336,4 +312,6 @@ const Save = () => {
 };
 
 
-export default Save;
+export default Page;
+
+

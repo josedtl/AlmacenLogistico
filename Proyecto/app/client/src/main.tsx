@@ -29,7 +29,7 @@ import PageModelo from "./Components/Modelo/Main";
 import PageProdcuto from "./Components/Producto/Main";
 import PageProdcutoSave from "./Components/Producto/Save";
 import PageOrdenPedido from "./Components/OrdenPedido/Main";
-import PageOrdenPedidoSave from "./Components/OrdenPedido/Save";
+import PageOrdenPedidoSave from "./Components/OrdenPedido/OrdenPedidoDetalle/Save";
 
 const router = createBrowserRouter([
   {

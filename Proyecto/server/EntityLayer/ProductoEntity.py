@@ -34,7 +34,8 @@ class ProductoItemModel:
     FechaRegistro: datetime 
     CodUsuario: str 
     EstadoRegistro: bool 
-
+    CodigoUM :str
+    NomProducto :str
     def Cargar(_DB):
         c =  ProductoItemModel()
         c.ProductoId = _DB["ProductoId"] 
@@ -61,3 +62,14 @@ class ProductoItemModel:
         c.UnidadMedidaId = _DB["UnidadMedidaId"] 
         c.Stock = _DB["Stock"] 
         return c
+    
+    def CargarOPLike(_DB):
+        c =  ProductoItemModel()
+        c.ProductoId = _DB["ProductoId"] 
+        c.Codigo = _DB["Codigo"] 
+        c.NomProducto = _DB["NomProducto"] 
+        c.Stock = _DB["Stock"] 
+        c.CodigoUM = _DB["CodigoUM"] 
+        return c
+    
+    

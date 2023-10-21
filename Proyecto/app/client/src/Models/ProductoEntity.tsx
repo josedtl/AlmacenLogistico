@@ -15,7 +15,8 @@ export class ProductoEntity {
     CodUsuario: string;
     EstadoRegistro: boolean;
     Action: number;
-
+    CodigoUM: string;
+    NomProducto: string;
     constructor() {
         this.Cont = 0;
         this.ProductoId = 0;
@@ -26,13 +27,15 @@ export class ProductoEntity {
         this.ModeloId = 0;
         this.Nombre = '';
         this.Descripcion = '';
-        this.UnidadMedidaId =0;
+        this.UnidadMedidaId = 0;
         this.Reserva = 0;
         this.Stock = 0;
-        this.FechaRegistro  = new Date();
+        this.FechaRegistro = new Date();
         this.CodUsuario = '';
         this.EstadoRegistro = false;
         this.Action = 0;
+        this.CodigoUM = ''; 
+        this.NomProducto = '';
     }
 }
 

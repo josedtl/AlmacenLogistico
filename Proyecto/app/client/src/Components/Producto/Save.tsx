@@ -16,7 +16,7 @@ import MDMarca from '../Marca/ModalItem';
 import MDModelo from '../Modelo/ModalItem';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
-import { ButtonAddMain} from '../../Styles/Button'
+import { ButtonAddMain } from '../../Styles/Button'
 
 const Save = () => {
   const { Id } = useParams();
@@ -413,7 +413,7 @@ const Save = () => {
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Button
-             style={ButtonAddMain}
+            style={ButtonAddMain}
             onClick={Guardar_Total}
             size={"large"}
             icon={<SaveFilled />}

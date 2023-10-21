@@ -1,6 +1,14 @@
 type Producto_GQL {
-    Producto: Int
-    Nombre: String
+    ProductoId: Int
+  Nombre: String
+}
+type ProductoOP_GQL {
+    ProductoId: Int
+    Codigo: String
+    NomProducto: String
+    Stock: Float
+    CodigoUM: String
+
 }
 
 type Categoria_GQL {
@@ -48,4 +56,10 @@ type Query {
 
     GHUnidadMedidaItems: [UnidadMedida_GQL]
     GHUnidadMedidaItem(Id: Int) :[UnidadMedida_GQL]
+
+    GHProductoItems: [Producto_GQL]
+    GHProductoItem(Id: Int) :[Producto_GQL]
+    GHProductoItemLike(Nombre: String) :[Producto_GQL]
+    GHProductoItemLikeOP(Nombre: String, CategoriaId: Int) :[ProductoOP_GQL]
+    GHProductoItemOP(Id: Int) :[ProductoOP_GQL]
 }

@@ -4,6 +4,7 @@ import { MarcaEntity } from '../Models/MarcaEntity';
 import { ModeloEntity } from '../Models/ModeloEntity';
 import { UnidadMedidaEntity } from '../Models/UnidadMedidaEntity';
 import { apiLg } from './axios-config';
+import { ProductoEntity } from '../Models/ProductoEntity';
 
 class GeneralService {
 
@@ -57,7 +58,7 @@ class GeneralService {
 
 
 
-  
+
   async GetMarcaItems(): Promise<MarcaEntity[]> {
     const response = await apiLg.post('gql/General', {
       query: `
@@ -83,7 +84,7 @@ class GeneralService {
 
 
 
-  
+
   async GetModeloItems(): Promise<ModeloEntity[]> {
     const response = await apiLg.post('gql/General', {
       query: `
@@ -109,7 +110,7 @@ class GeneralService {
 
 
 
-   
+
   async GetUnidadMedidaItems(): Promise<UnidadMedidaEntity[]> {
     const response = await apiLg.post('gql/General', {
       query: `
@@ -133,6 +134,35 @@ class GeneralService {
     return await response.data.data.GHUnidadMedidaItemLike;
   }
 
+
+  async GetProductoItemLikeOP(Nombre: string, CategoriaId: number): Promise<ProductoEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{GHProductoItemLikeOP(Nombre: "${Nombre}", CategoriaId: ${CategoriaId}) {
+        ProductoId
+        Codigo
+        NomProducto
+        Stock
+        CodigoUM
+      }
+    }`,
+    });
+    return await response.data.data.GHProductoItemLikeOP;
+  }
+
+
+  async GetProductoItemOP( Id: number): Promise<ProductoEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{GHProductoItemOP(Id: ${Id}) {
+        ProductoId
+        Codigo
+        NomProducto
+        Stock
+        CodigoUM
+      }
+    }`,
+    });
+    return await response.data.data.GHProductoItemOP;
+  }
 }
 
 export default GeneralService;

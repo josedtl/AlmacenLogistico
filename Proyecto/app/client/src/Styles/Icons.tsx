@@ -7,7 +7,8 @@ import {
     FileTextOutlined,
     FilterOutlined,
     SearchOutlined,
-    PlusOutlined
+    PlusOutlined,
+    SaveFilled
 }
     from '@ant-design/icons';
 
@@ -17,7 +18,7 @@ export const IconFiltro: ReactNode = <FilterOutlined />;
 export const IconTabla: ReactNode = < TableOutlined />;
 export const IconCard: ReactNode = < DatabaseOutlined />;
 export const IconReport: ReactNode = < FileTextOutlined />;
-export const IconSave: ReactNode = < RedoOutlined />;
+export const IconSave: ReactNode = < SaveFilled />;
 export const IconEditTable: ReactNode = < EditFilled />;
 export const IconEnlace: ReactNode = < SearchOutlined />;
 

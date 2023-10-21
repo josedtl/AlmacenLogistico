@@ -1,3 +1,4 @@
+import { OrdenPedidoDetalleEntity } from "../Models/OrdenPedidoDetalleEntity";
 
 
 
@@ -14,6 +15,20 @@ export type PropsModel = {
 
 export type PropsTable = {
     DataList: any[];
+    updateState: any;
+    deleteItemFromState: any;
+    EsTabla: boolean
+}
+
+export type PropsModelDetalle = {
+    buttonLabel?: string;
+    item: OrdenPedidoDetalleEntity;
+    updateState?: any;
+    addItemToState?: any;
+    toggle?: any
+}
+export type PropsTableDetalle = {
+    DataList: OrdenPedidoDetalleEntity[];
     updateState: any;
     deleteItemFromState: any;
     EsTabla: boolean

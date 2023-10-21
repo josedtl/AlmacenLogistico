@@ -3,6 +3,7 @@ from BusinessLayer.Categoria import *
 from BusinessLayer.TipoProducto import *
 from BusinessLayer.Marca import *
 from BusinessLayer.Modelo import *
+from BusinessLayer.Producto import *
 
 from EntityLayer.CategoriaEntity import *
 from EntityLayer.TipoProductoEntity import *
@@ -101,6 +102,17 @@ def GetModeloItemLike(NDataLike: EntidadLikeModel):
 def GetModeloItem(Id: int):
     try:
         jsonData = Modelo.GetItem(Id)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+
+
+@GeneralRouter.post(f"/api/{ApiName}/GetProductoItemLike", tags=[ApiName])
+def GetProductoItemLike(NDataLike: EntidadLikeModel):
+    try:
+        jsonData = Producto.GetItemLike(NDataLike.Nombre)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)

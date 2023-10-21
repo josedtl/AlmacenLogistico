@@ -1,4 +1,4 @@
-import { ProcessActionEnum } from '../Lib/ResourceModel/Enum'
+// import { ProcessActionEnum } from '../Lib/ResourceModel/Enum'
 
 export class OrdenPedidoEntity {
     OrdenPedidoId: number;
@@ -14,7 +14,7 @@ export class OrdenPedidoEntity {
     FechaRegistro: Date;
     CodUsuario: string;
     EstadoRegistro: boolean;
-    Action: ProcessActionEnum;
+    Action: number;
 
     constructor() {
         this.OrdenPedidoId = 0;
@@ -30,6 +30,6 @@ export class OrdenPedidoEntity {
         this.FechaRegistro = new Date();
         this.CodUsuario = '';
         this.EstadoRegistro = false;
-        this.Action = ProcessActionEnum.Add;
+        this.Action = 0;
     }
 }
