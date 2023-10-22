@@ -101,3 +101,20 @@ class OrdenPedidoDB:
             cursor.close()
             conn.close()
 
+    def GetItemCabecera(Id: int):
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                args = (Id,)
+                cursor.callproc("sp_OrdenPedidoCabeceraItem", args)
+                resulset = cursor.fetchall()
+            conn.close()
+            list = []
+
+            for row in resulset:
+                Data_ent = OrdenPedidoItemModel.CargarCabecera(row)
+                list.append(Data_ent)
+            return list
+        except Exception as e:
+            print(e)

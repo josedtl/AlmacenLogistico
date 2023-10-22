@@ -48,3 +48,11 @@ def Delete(Id: int):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
+@OrdenPedidoRouter.get(f"/api/{ApiName}/GetItemCabecera/{{Id}}/", tags=[ApiName])
+def GetItemCabecera(Id: int):
+    try:
+        jsonData = OrdenPedido.GetItemCabecera(Id)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())

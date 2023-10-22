@@ -5,7 +5,7 @@ import { ModeloEntity } from '../Models/ModeloEntity';
 import { UnidadMedidaEntity } from '../Models/UnidadMedidaEntity';
 import { apiLg } from './axios-config';
 import { ProductoEntity } from '../Models/ProductoEntity';
-import { TipoProcesoEntity } from '../Models/GeneralEntity';
+import { EstadoProcesoEntity, TipoProcesoEntity } from '../Models/GeneralEntity';
 
 class GeneralService {
 
@@ -183,6 +183,19 @@ class GeneralService {
       }`,
     });
     return await response.data.data.GHTipoProcesoItems
+  }
+
+
+  async GetEstadoProcesoItems(): Promise<EstadoProcesoEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{
+        GHEstadoProcesoItems {
+          EstadoProcesoId
+          Nombre
+        }
+      }`,
+    });
+    return await response.data.data.GHEstadoProcesoItems
   }
 }
 

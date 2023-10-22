@@ -55,6 +55,15 @@ class OrdenPedidoService {
     }
   }
 
+  async GetItemCabecera(Id: number): Promise<OrdenPedidoEntity[]> {
+    try {
+      const response = await apiLg.get(`api/OrdenPedido/GetItemCabecera/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export default OrdenPedidoService;

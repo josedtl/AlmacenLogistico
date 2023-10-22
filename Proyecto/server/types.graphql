@@ -42,6 +42,12 @@ type TipoProceso_GQL {
     Nombre: String
 }
 
+type EstadoProceso_GQL {
+    EstadoProcesoId: Int
+    Nombre: String
+}
+
+
 type Query {
     GHCategoriaItems: [Categoria_GQL]
     GHCategoriaItem(Id: Int) :[Categoria_GQL]
@@ -69,4 +75,5 @@ type Query {
     GHProductoItemOP(Id: Int) :[ProductoOP_GQL]
 
     GHTipoProcesoItems: [TipoProceso_GQL]
+    GHEstadoProcesoItems: [EstadoProceso_GQL]
 }

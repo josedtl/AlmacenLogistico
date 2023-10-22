@@ -104,12 +104,15 @@ function Page() {
 
   const getCargarDatos = async () => {
     setCargarPage(true);
+
     const Resp_TR = await sGeneral.GetTipoProcesoItems();
     setOptionsTipoProceso(Resp_TR);
     if (idNumero > 0) {
 
-      const Resp_Producto = await sOrdenPedido.getItem(idNumero);
+      const Resp_Producto = await sOrdenPedido.GetItemCabecera(idNumero);
+
       setEnt(Resp_Producto[0]);
+      console.log(Ent);
     }
 
     setCargarPage(false);
@@ -125,19 +128,19 @@ function Page() {
     right: <Button>Right Extra Action</Button>,
   };
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
-    const fecha: Date = new Date(dateString+"T00:00:00");
+    const fecha: Date = new Date(dateString + "T00:00:00");
     // 2023-10-22T04:18:43
     // Verifica si la conversión fue exitosa y si la fecha es válida
     if (!isNaN(fecha.getTime())) {
-        // Asigna la fecha convertida a la propiedad Ent.FechaEmision
-        Ent.FechaEmision = fecha;
-        console.log(Ent.FechaEmision);
-        console.log(Ent);
-        console.log(dateString);
-        console.log(date?.date);
+      // Asigna la fecha convertida a la propiedad Ent.FechaEmision
+      Ent.FechaEmision = fecha;
+      console.log(Ent.FechaEmision);
+      console.log(Ent);
+      console.log(dateString);
+      console.log(date?.date);
     } else {
-        // Maneja el caso en el que la cadena de fecha no es válida
-        console.error('Fecha no válida:', dateString);
+      // Maneja el caso en el que la cadena de fecha no es válida
+      console.error('Fecha no válida:', dateString);
     }
   };
   const [modal, contextHolder] = Modal.useModal();
@@ -175,10 +178,10 @@ function Page() {
               <Input
                 // status={ValCodigo}
                 type="text"
-                name="Codigo"
+                name="NomEstadoProceso"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChange}
-                value={Ent.Codigo === null ? "" : Ent.Codigo}
+                value={Ent.NomEstadoProceso === null ? "" : Ent.NomEstadoProceso}
               />
             </Col>
           </Row>

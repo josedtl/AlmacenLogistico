@@ -32,6 +32,7 @@ class OrdenPedidoItemModel:
     FechaRegistro: datetime 
     CodUsuario: str 
     EstadoRegistro: bool 
+    NomEstadoProceso : str
 
     def Cargar(_DB):
         c =  OrdenPedidoItemModel()
@@ -48,4 +49,22 @@ class OrdenPedidoItemModel:
         c.FechaRegistro = _DB["FechaRegistro"] 
         c.CodUsuario = _DB["CodUsuario"] 
         c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 
+        return c
+
+    def CargarCabecera(_DB):
+        c =  OrdenPedidoItemModel()
+        c.OrdenPedidoId = _DB["OrdenPedidoId"] 
+        c.ProcesoId = _DB["ProcesoId"] 
+        c.TipoProcesoId = _DB["TipoProcesoId"] 
+        c.EstadoProcesoId = _DB["EstadoProcesoId"] 
+        c.Codigo = _DB["Codigo"] 
+        c.ResponsableId = _DB["ResponsableId"] 
+        c.NumDocumentoResponsable = _DB["NumDocumentoResponsable"] 
+        c.NomResponsable = _DB["NomResponsable"] 
+        c.FechaEmision = _DB["FechaEmision"] 
+        c.BloqueoEdicionOtros = bool(ord(_DB["BloqueoEdicionOtros"])) 
+        c.FechaRegistro = _DB["FechaRegistro"] 
+        c.CodUsuario = _DB["CodUsuario"] 
+        c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 
+        c.NomEstadoProceso = _DB["NomEstadoProceso"] 
         return c

@@ -13,3 +13,14 @@ export class TipoProcesoEntity {
         this.EstadoRegistro = false;
     }
 }
+
+
+export class EstadoProcesoEntity {
+    EstadoProcesoId: number;
+    Nombre: string;;
+
+    constructor() {
+        this.EstadoProcesoId = 0;
+        this.Nombre = '';
+    }
+}

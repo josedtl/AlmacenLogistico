@@ -27,3 +27,8 @@ class OrdenPedido:
         except Exception as e:
             print(e)
     
+    def GetItemCabecera(Id: int):
+        try:
+            return OrdenPedidoDB.GetItemCabecera(Id)
+        except Exception as e:
+            print(e)

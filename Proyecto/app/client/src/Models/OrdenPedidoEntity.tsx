@@ -15,7 +15,7 @@ export class OrdenPedidoEntity {
     CodUsuario: string
     EstadoRegistro: boolean
     Action: number
-
+    NomEstadoProceso: string
     constructor() {
         this.OrdenPedidoId = 0;
         this.ProcesoId = 0;
@@ -31,5 +31,6 @@ export class OrdenPedidoEntity {
         this.CodUsuario = '';
         this.EstadoRegistro = false;
         this.Action = 0;
+        this.NomEstadoProceso='';
     }
 }
