@@ -3,13 +3,22 @@ import DataTable from './DataTable';
 import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity';
 import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity';
 import ModalItem from './ModalItem';
-import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
-import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain } from '../../../Styles/Button'
-import { SizeMainButtonSecondary } from '../../../Styles/Type'
-import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconSave } from '../../../Styles/Icons'
+import GeneralService from '../../../Service/GeneralService';
+import OrdenPedidoService from '../../../Service/OrdenPedidoService';
+import { Tabs, DatePicker, message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
+import type { DatePickerProps } from 'antd';
+import { IconSave } from '../../../Styles/Icons'
 import { ButtonAddMain } from '../../../Styles/Button'
+import { TipoProcesoEntity } from '../../../Models/GeneralEntity';
+import { useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
+
 function Page() {
 
+  const { Id } = useParams();
+  const idNumero = Number(Id?.toString());
+  const sGeneral = new GeneralService();
+  const sOrdenPedido = new OrdenPedidoService();
   const [items, setItems] = useState<OrdenPedidoDetalleEntity[]>([]);
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const [CargarPage, setCargarPage] = React.useState(true);
@@ -77,30 +86,62 @@ function Page() {
     },
 
   ]);
+  const [optionsTipoProceso, setOptionsTipoProceso] = useState<TipoProcesoEntity[]>([]);
+  const [selectedTipoRequerimeinto, setSelectedTipoRequerimeinto] = useState<number | undefined>(undefined);
 
 
-
-  const getItems = async () => {
-    setCargarPage(false);
+  const onChangeTipoProceso = async (value: number) => {
+    // setValUnidadMedida('');
+    Ent.TipoProcesoId = value;
+    setSelectedTipoRequerimeinto(value)
   };
 
-  useEffect(() => {
-    getItems();
 
+
+  useEffect(() => {
+    getCargarDatos();
   }, []);
 
+  const getCargarDatos = async () => {
+    setCargarPage(true);
+    const Resp_TR = await sGeneral.GetTipoProcesoItems();
+    setOptionsTipoProceso(Resp_TR);
+    if (idNumero > 0) {
+
+      const Resp_Producto = await sOrdenPedido.getItem(idNumero);
+      setEnt(Resp_Producto[0]);
+    }
+
+    setCargarPage(false);
+  };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBusqueda(e.target.value.toUpperCase());
   };
   type PositionType = 'left' | 'right';
-  const operations =   <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
-  ;
+  const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
+    ;
   const OperationsSlot: Record<PositionType, React.ReactNode> = {
     left: <Button className="tabs-extra-demo-button">Left Extra Action</Button>,
     right: <Button>Right Extra Action</Button>,
   };
-
+  const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
+    const fecha: Date = new Date(dateString+"T00:00:00");
+    // 2023-10-22T04:18:43
+    // Verifica si la conversión fue exitosa y si la fecha es válida
+    if (!isNaN(fecha.getTime())) {
+        // Asigna la fecha convertida a la propiedad Ent.FechaEmision
+        Ent.FechaEmision = fecha;
+        console.log(Ent.FechaEmision);
+        console.log(Ent);
+        console.log(dateString);
+        console.log(date?.date);
+    } else {
+        // Maneja el caso en el que la cadena de fecha no es válida
+        console.error('Fecha no válida:', dateString);
+    }
+  };
   const [modal, contextHolder] = Modal.useModal();
+  const dateFormat = 'YYYY/MM/DD';
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -114,11 +155,11 @@ function Page() {
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Button
-          style={ButtonAddMain}
-          // onClick={Guardar_Total}
-          size={"large"}
-          icon={IconSave}
-        />
+            style={ButtonAddMain}
+            // onClick={Guardar_Total}
+            size={"large"}
+            icon={IconSave}
+          />
 
         </Col>
       </Row>
@@ -136,8 +177,8 @@ function Page() {
                 type="text"
                 name="Codigo"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
-              // onChange={onChangeText}
-              // value={Ent.Codigo === null ? "" : Ent.Codigo}
+                onChange={onChange}
+                value={Ent.Codigo === null ? "" : Ent.Codigo}
               />
             </Col>
           </Row>
@@ -152,27 +193,37 @@ function Page() {
                 type="text"
                 name="Codigo"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
-              // onChange={onChangeText}
-              // value={Ent.Codigo === null ? "" : Ent.Codigo}
+                onChange={onChange}
+                value={Ent.Codigo === null ? "" : Ent.Codigo}
               />
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <label>Tipo Requerimiento</label>
+            </Col>
+            <Col span={24}>
+              <Select
+                showSearch
+                // status={ValUnidadMedida}
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+                value={Ent.TipoProcesoId === 0 ? null : Ent.TipoProcesoId}
+                key={Ent.TipoProcesoId}
+                onChange={onChangeTipoProceso}
+              >
+                {optionsTipoProceso.map((ItemOp) => (
+                  <Select.Option key={ItemOp.TipoProcesoId} value={ItemOp.TipoProcesoId}>
+                    {ItemOp.Nombre}
+                  </Select.Option>
+                ))}
+              </Select>
+
+
             </Col>
           </Row>
 
-          <Row>
-            <Col span={24}>
-              <label>Tipo de requerimiento</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                // status={ValCodigo}
-                type="text"
-                name="Codigo"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-              // onChange={onChangeText}
-              // value={Ent.Codigo === null ? "" : Ent.Codigo}
-              />
-            </Col>
-          </Row>
           <Row>
             <Col span={24}>
               <label>Nº Documento</label>
@@ -183,8 +234,8 @@ function Page() {
                 type="text"
                 name="Codigo"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
-              // onChange={onChangeText}
-              // value={Ent.Codigo === null ? "" : Ent.Codigo}
+                onChange={onChange}
+                value={Ent.NumDocumentoResponsable === null ? "" : Ent.NumDocumentoResponsable}
               />
             </Col>
           </Row>
@@ -198,8 +249,8 @@ function Page() {
                 type="text"
                 name="Codigo"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
-              // onChange={onChangeText}
-              // value={Ent.Codigo === null ? "" : Ent.Codigo}
+                onChange={onChange}
+                value={Ent.NomResponsable === null ? "" : Ent.NomResponsable}
               />
             </Col>
           </Row>
@@ -209,14 +260,13 @@ function Page() {
               <label>Fecha de Emision</label>
             </Col>
             <Col span={24}>
-              <Input
-                // status={ValCodigo}
-                type="text"
-                name="Codigo"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-              // onChange={onChangeText}
-              // value={Ent.Codigo === null ? "" : Ent.Codigo}
-              />
+              <DatePicker
+                onChange={onChangeDate}
+                // value={null}
+                value={dayjs(Ent.FechaEmision, dateFormat)}
+                style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
+                size='large' />
+
             </Col>
           </Row>
 

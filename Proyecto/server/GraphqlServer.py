@@ -6,7 +6,7 @@ from BusinessLayer.Marca import Marca
 from BusinessLayer.Modelo import Modelo
 from BusinessLayer.UnidadMedida import UnidadMedida
 from BusinessLayer.Producto import Producto
-
+from BusinessLayer.TipoProceso import TipoProceso
 type_defs = load_schema_from_path("types.graphql")
 
 query = QueryType()
@@ -122,6 +122,11 @@ def resolve_GHProductoItemLikeOP(_self, info, Nombre, CategoriaId):
 @query.field("GHProductoItemOP")
 def resolve_GHProductoItemOP(_self, info, Id):
     list = Producto.GetProductoItemOP(Id)
+    return list
+
+@query.field("GHTipoProcesoItems")
+def resolve_GHTipoProcesoItems(_self, info):
+    list = TipoProceso.GetItems()
     return list
 
 schema = make_executable_schema(type_defs, query)

@@ -4,15 +4,15 @@ from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 class OrdenPedidoSaveModel(BaseModel):
     OrdenPedidoId: int 
-    TipoProcesoId: int 
-    Codigo: str 
-    EsEmpresaCliente: bool 
-    ClienteId: int 
     ProcesoId: int 
+    TipoProcesoId: int 
     EstadoProcesoId: int 
+    Codigo: str 
+    ResponsableId: int 
+    NumDocumentoResponsable: str 
+    NomResponsable: str 
     FechaEmision: datetime 
-    CantidadTotal: float 
-    BloqueoEdicionOtros: str 
+    BloqueoEdicionOtros: bool 
     FechaRegistro: datetime 
     CodUsuario: str 
     EstadoRegistro: bool 
@@ -20,15 +20,15 @@ class OrdenPedidoSaveModel(BaseModel):
 
 class OrdenPedidoItemModel:
     OrdenPedidoId: int 
-    TipoProcesoId: int 
-    Codigo: str 
-    EsEmpresaCliente: bool 
-    ClienteId: int 
     ProcesoId: int 
+    TipoProcesoId: int 
     EstadoProcesoId: int 
+    Codigo: str 
+    ResponsableId: int 
+    NumDocumentoResponsable: str 
+    NomResponsable: str 
     FechaEmision: datetime 
-    CantidadTotal: float 
-    BloqueoEdicionOtros: str 
+    BloqueoEdicionOtros: bool 
     FechaRegistro: datetime 
     CodUsuario: str 
     EstadoRegistro: bool 
@@ -36,15 +36,15 @@ class OrdenPedidoItemModel:
     def Cargar(_DB):
         c =  OrdenPedidoItemModel()
         c.OrdenPedidoId = _DB["OrdenPedidoId"] 
-        c.TipoProcesoId = _DB["TipoProcesoId"] 
-        c.Codigo = _DB["Codigo"] 
-        c.EsEmpresaCliente = bool(ord(_DB["EsEmpresaCliente"])) 
-        c.ClienteId = _DB["ClienteId"] 
         c.ProcesoId = _DB["ProcesoId"] 
+        c.TipoProcesoId = _DB["TipoProcesoId"] 
         c.EstadoProcesoId = _DB["EstadoProcesoId"] 
+        c.Codigo = _DB["Codigo"] 
+        c.ResponsableId = _DB["ResponsableId"] 
+        c.NumDocumentoResponsable = _DB["NumDocumentoResponsable"] 
+        c.NomResponsable = _DB["NomResponsable"] 
         c.FechaEmision = _DB["FechaEmision"] 
-        c.CantidadTotal = _DB["CantidadTotal"] 
-        c.BloqueoEdicionOtros = _DB["BloqueoEdicionOtros"] 
+        c.BloqueoEdicionOtros = bool(ord(_DB["BloqueoEdicionOtros"])) 
         c.FechaRegistro = _DB["FechaRegistro"] 
         c.CodUsuario = _DB["CodUsuario"] 
         c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 

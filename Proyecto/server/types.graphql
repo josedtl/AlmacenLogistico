@@ -36,6 +36,11 @@ type UnidadMedida_GQL {
     Nombre: String
 }
 
+type TipoProceso_GQL {
+    TipoProcesoId: Int
+    Codigo: String
+    Nombre: String
+}
 
 type Query {
     GHCategoriaItems: [Categoria_GQL]
@@ -62,4 +67,6 @@ type Query {
     GHProductoItemLike(Nombre: String) :[Producto_GQL]
     GHProductoItemLikeOP(Nombre: String, CategoriaId: Int) :[ProductoOP_GQL]
     GHProductoItemOP(Id: Int) :[ProductoOP_GQL]
+
+    GHTipoProcesoItems: [TipoProceso_GQL]
 }

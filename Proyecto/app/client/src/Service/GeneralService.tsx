@@ -5,6 +5,7 @@ import { ModeloEntity } from '../Models/ModeloEntity';
 import { UnidadMedidaEntity } from '../Models/UnidadMedidaEntity';
 import { apiLg } from './axios-config';
 import { ProductoEntity } from '../Models/ProductoEntity';
+import { TipoProcesoEntity } from '../Models/GeneralEntity';
 
 class GeneralService {
 
@@ -136,8 +137,10 @@ class GeneralService {
 
 
   async GetProductoItemLikeOP(Nombre: string, CategoriaId: number): Promise<ProductoEntity[]> {
-    const response = await apiLg.post('gql/General', {
-      query: `{GHProductoItemLikeOP(Nombre: "${Nombre}", CategoriaId: ${CategoriaId}) {
+
+    try {
+      const response = await apiLg.post('gql/General', {
+        query: `{GHProductoItemLikeOP(Nombre: "${Nombre}", CategoriaId: ${CategoriaId}) {
         ProductoId
         Codigo
         NomProducto
@@ -145,12 +148,16 @@ class GeneralService {
         CodigoUM
       }
     }`,
-    });
-    return await response.data.data.GHProductoItemLikeOP;
+      });
+      return await response.data.data.GHProductoItemLikeOP;
+    } catch (error) {
+      throw error;
+    }
+
   }
 
 
-  async GetProductoItemOP( Id: number): Promise<ProductoEntity[]> {
+  async GetProductoItemOP(Id: number): Promise<ProductoEntity[]> {
     const response = await apiLg.post('gql/General', {
       query: `{GHProductoItemOP(Id: ${Id}) {
         ProductoId
@@ -162,6 +169,20 @@ class GeneralService {
     }`,
     });
     return await response.data.data.GHProductoItemOP;
+  }
+
+
+  async GetTipoProcesoItems(): Promise<TipoProcesoEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{
+        GHTipoProcesoItems {
+          TipoProcesoId
+          Codigo
+          Nombre
+        }
+      }`,
+    });
+    return await response.data.data.GHTipoProcesoItems
   }
 }
 

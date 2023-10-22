@@ -2,23 +2,23 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
 from .configMysql import get_connection
-from EntityLayer.OrdenPedidoEntity import *
+from EntityLayer.TipoRequerimientoEntity import *
 import pymysql
 
 
-class OrdenPedidoDB:
+class TipoRequerimientoDB:
     def GetItems():
         try:
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor.callproc("sp_OrdenPedidoAllItems")
+                cursor.callproc("sp_TipoRequerimientoAllItems")
                 resulset = cursor.fetchall()
             conn.close()
             list = []
 
             for row in resulset:
-                Data_ent = OrdenPedidoItemModel.Cargar(row)
+                Data_ent = TipoRequerimientoItemModel.Cargar(row)
                 list.append(Data_ent)
             return list
         except Exception as e:
@@ -30,43 +30,34 @@ class OrdenPedidoDB:
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = (Id,)
-                cursor.callproc("sp_OrdenPedidoAllItem", args)
+                cursor.callproc("sp_TipoRequerimientoAllItem", args)
                 resulset = cursor.fetchall()
             conn.close()
             list = []
 
             for row in resulset:
-                Data_ent = OrdenPedidoItemModel.Cargar(row)
+                Data_ent = TipoRequerimientoItemModel.Cargar(row)
                 list.append(Data_ent)
             return list
         except Exception as e:
             print(e)
 
-    def Save(Ent: OrdenPedidoSaveModel):
+    def Save(Ent: TipoRequerimientoSaveModel):
         try:
             Store: str
-            Store = "sp_OrdenPedido_Save"
+            Store = "sp_TipoRequerimiento_Save"
             if Ent.Action == ProcessActionEnum.Update:
-                Store = "sp_OrdenPedido_Update"
+                Store = "sp_TipoRequerimiento_Update"
             conn = get_connection()
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = []
-                args.append(Ent.OrdenPedidoId)
-                args.append(Ent.ProcesoId)
-                args.append(Ent.TipoProcesoId)
-                args.append(Ent.EstadoProcesoId)
+                args.append(Ent.TipoRequerimientoId)
                 args.append(Ent.Codigo)
-                args.append(Ent.ResponsableId)
-                args.append(Ent.NumDocumentoResponsable)
-                args.append(Ent.NomResponsable)
-                args.append(Ent.FechaEmision)
-                args.append(Ent.BloqueoEdicionOtros)
-                args.append(Ent.FechaRegistro)
-                args.append(Ent.CodUsuario)
+                args.append(Ent.Nombre)
                 args.append(Ent.EstadoRegistro)
                 cursor.callproc(Store, args)
-                Ent.OrdenPedidoId = int(cursor.fetchone()["v_OrdenPedidoId"])
+                Ent.TipoRequerimientoId = int(cursor.fetchone()["v_TipoRequerimientoId"])
 
             conn.commit()
             return Ent
@@ -83,7 +74,7 @@ class OrdenPedidoDB:
             with conn.cursor() as cursor:
                 cursor = conn.cursor(pymysql.cursors.DictCursor)
                 args = (Id,)
-                cursor.callproc("sp_OrdenPedido_Delete", args)
+                cursor.callproc("sp_TipoRequerimiento_Delete", args)
                 conn.commit()
             return ResponseAPI.Response(True)
         except Exception as e:
