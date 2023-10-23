@@ -29,16 +29,27 @@ const DataTable: React.FC<PropsTable> = (props) => {
         {
             title: 'Solicito',
             dataIndex: 'CantidadSolicitado',
-            width: '100px',
+            width: '80px',
             key: 'CantidadSolicitado',
         },
         {
             title: 'Faltante',
             dataIndex: 'CantidadFaltante',
-            width: '100px',
+            width: '80px',
+            key: 'CantidadFaltante',
+        }, {
+            title: 'Reservado',
+            dataIndex: 'CantidadReservado',
+            width: '80px',
+            key: 'CantidadReservado',
+        },
+        {
+            title: 'Atendido',
+            dataIndex: 'CantidadAtendido',
+            width: '80px',
             key: 'CantidadFaltante',
         },
-       {
+        {
             title: 'Action',
             fixed: 'right',
             width: 100,
@@ -70,7 +81,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
     const dataWithKeys = props.DataList.sort((a, b) => b.OrdenPedidoDetalleId - a.OrdenPedidoDetalleId).map((item, zIndex) => {
         return {
             ...item,
-            key: item.OrdenPedidoDetalleId,
+            key: item.Cont,
             Cont: (zIndex + 1),
         };
     });

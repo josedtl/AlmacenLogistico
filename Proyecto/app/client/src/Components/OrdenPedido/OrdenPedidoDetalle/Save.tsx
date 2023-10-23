@@ -11,6 +11,8 @@ import { IconSave } from '../../../Styles/Icons'
 import { ButtonAddMain } from '../../../Styles/Button'
 import { TipoProcesoEntity } from '../../../Models/GeneralEntity';
 import { useParams } from 'react-router-dom';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+
 import dayjs from 'dayjs';
 
 function Page() {
@@ -24,7 +26,6 @@ function Page() {
   const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled, setDisabled] = useState(false);
   const { Title } = Typography;
-  const [Busqueda, setBusqueda] = useState<string>('');
   const [Ent, setEnt] = useState<OrdenPedidoEntity>(new OrdenPedidoEntity());
 
   const addItemToState = (item: OrdenPedidoDetalleEntity) => {
@@ -57,9 +58,7 @@ function Page() {
     });
   };
 
-  const filterItems = items.filter(fdata =>
-    fdata.NomProducto.toLowerCase().includes(Busqueda.toLowerCase())
-  );
+  const filterItems = items;
 
   const [TabsItems, setTabsItems] = useState<any>([
     {
@@ -118,7 +117,12 @@ function Page() {
     setCargarPage(false);
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBusqueda(e.target.value.toUpperCase());
+    setEnt({
+      ...Ent,
+      [e.target.name]: e.target.value.toUpperCase()
+    });
+
+
   };
   type PositionType = 'left' | 'right';
   const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
@@ -145,6 +149,55 @@ function Page() {
   };
   const [modal, contextHolder] = Modal.useModal();
   const dateFormat = 'YYYY/MM/DD';
+
+
+  const AddProducto = async () => {
+
+    Ent.DetalleItems = items;
+    console.log(Ent);
+    const savedItem = await sOrdenPedido.saveItem(Ent);
+    if (savedItem) {
+
+      messageAdd.open({
+        type: 'success',
+        content: 'Se guardó correctamente.',
+      });
+    } else {
+    }
+  }
+
+
+  const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+
+    modal.confirm({
+      title: 'Mensaje del Sistema',
+      icon: <ExclamationCircleOutlined />,
+      content: '¿Desea guardar el registro?',
+      okText: 'Si',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        Ent.TipoProcesoId = 1;
+        Ent.ProcesoId = 1;
+        Ent.EstadoProcesoId = 1;
+        Ent.ResponsableId = 0;
+        Ent.FechaEmision = new Date();
+        Ent.CodUsuario = "adm";
+        Ent.Action = 1;
+        Ent.FechaRegistro = new Date();
+        Ent.EstadoRegistro = true
+        Ent.Action = Ent.OrdenPedidoId == 0 ? 1 : 3;
+        AddProducto();
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+
+  };
+
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -159,7 +212,7 @@ function Page() {
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Button
             style={ButtonAddMain}
-            // onClick={Guardar_Total}
+            onClick={Guardar_Total}
             size={"large"}
             icon={IconSave}
           />
@@ -235,7 +288,7 @@ function Page() {
               <Input
                 // status={ValCodigo}
                 type="text"
-                name="Codigo"
+                name="NumDocumentoResponsable"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChange}
                 value={Ent.NumDocumentoResponsable === null ? "" : Ent.NumDocumentoResponsable}
@@ -250,7 +303,7 @@ function Page() {
               <Input
                 // status={ValCodigo}
                 type="text"
-                name="Codigo"
+                name="NomResponsable"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChange}
                 value={Ent.NomResponsable === null ? "" : Ent.NomResponsable}

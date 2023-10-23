@@ -1,5 +1,5 @@
 // import { ProcessActionEnum } from '../Lib/ResourceModel/Enum'
-
+import { OrdenPedidoDetalleEntity } from './OrdenPedidoDetalleEntity'
 export class OrdenPedidoEntity {
     OrdenPedidoId: number
     ProcesoId: number
@@ -16,6 +16,8 @@ export class OrdenPedidoEntity {
     EstadoRegistro: boolean
     Action: number
     NomEstadoProceso: string
+    DetalleItems: OrdenPedidoDetalleEntity[]
+
     constructor() {
         this.OrdenPedidoId = 0;
         this.ProcesoId = 0;
@@ -31,6 +33,7 @@ export class OrdenPedidoEntity {
         this.CodUsuario = '';
         this.EstadoRegistro = false;
         this.Action = 0;
-        this.NomEstadoProceso='';
+        this.NomEstadoProceso = '';
+        this.DetalleItems = [];
     }
 }

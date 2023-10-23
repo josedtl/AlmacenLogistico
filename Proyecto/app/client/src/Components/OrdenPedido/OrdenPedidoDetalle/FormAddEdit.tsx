@@ -30,6 +30,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             setValDato('error');
             return;
         }
+        Ent.Action = 1;
+        Ent.UnidadMedidaId = 1;
         Ent.FechaRegistro = new Date();
         props.addItemToState(Ent);
         setEnt(new OrdenPedidoDetalleEntity());
@@ -212,7 +214,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                         onChange={onChange}
                                         value={Ent.CantidadSolicitado === null ? "" : Ent.CantidadSolicitado}
                                     />
-                                 
+
                                     <Input
                                         status={ValDato}
                                         type="text"

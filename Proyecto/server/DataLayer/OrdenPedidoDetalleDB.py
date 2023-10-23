@@ -1,7 +1,7 @@
 from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
-from .configMysql import get_connection
+from .configMysql import get_connection,DatabaseManager, Retornar
 from EntityLayer.OrdenPedidoDetalleEntity import *
 import pymysql
 
@@ -48,33 +48,26 @@ class OrdenPedidoDetalleDB:
             Store = "sp_OrdenPedidoDetalle_Save"
             if Ent.Action == ProcessActionEnum.Update:
                 Store = "sp_OrdenPedidoDetalle_Update"
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = []
-                args.append(Ent.OrdenPedidoDetalleId)
-                args.append(Ent.OrdenPedidoId)
-                args.append(Ent.ProductoId)
-                args.append(Ent.UnidadMedidaId)
-                args.append(Ent.CantidadSolicitado)
-                args.append(Ent.CantidadFaltante)
-                args.append(Ent.CantidadAtendido)
-                args.append(Ent.Enlazado)
-                args.append(Ent.EsAtendido)
-                args.append(Ent.FechaRegistro)
-                args.append(Ent.CodUsuario)
-                args.append(Ent.EstadoRegistro)
-                cursor.callproc(Store, args)
-                Ent.OrdenPedidoDetalleId = int(cursor.fetchone()["v_OrdenPedidoDetalleId"])
-
-            conn.commit()
+                # cursor = conn.cursor(pymysql.cursors.DictCursor)
+            args = []
+            args.append(Ent.OrdenPedidoDetalleId)
+            args.append(Ent.OrdenPedidoId)
+            args.append(Ent.ProductoId)
+            args.append(Ent.UnidadMedidaId)
+            args.append(Ent.CantidadSolicitado)
+            args.append(Ent.CantidadFaltante)
+            args.append(Ent.CantidadAtendido)
+            args.append(Ent.Enlazado)
+            args.append(Ent.EsAtendido)
+            args.append(Ent.FechaRegistro)
+            args.append(Ent.CodUsuario)
+            args.append(Ent.EstadoRegistro)
+            Ent.OrdenPedidoDetalleId =DatabaseManager().DBProcedure(Store, args,"v_OrdenPedidoDetalleId")
+            print(Ent.OrdenPedidoDetalleId)
             return Ent
         except Exception as e:
-            print(e)
-            conn.rollback()
-        finally:
-            cursor.close()
-            conn.close()
+            print("detalle")
+            Retornar()
 
     def Delete(Id: int):
         try:

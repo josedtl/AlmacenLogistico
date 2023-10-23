@@ -1,6 +1,7 @@
 from datetime import datetime
 from pydantic import BaseModel
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
+from EntityLayer.OrdenPedidoDetalleEntity import OrdenPedidoDetalleSaveModel
 
 class OrdenPedidoSaveModel(BaseModel):
     OrdenPedidoId: int 
@@ -17,6 +18,7 @@ class OrdenPedidoSaveModel(BaseModel):
     CodUsuario: str 
     EstadoRegistro: bool 
     Action: ProcessActionEnum
+    DetalleItems :list[OrdenPedidoDetalleSaveModel]
 
 class OrdenPedidoItemModel:
     OrdenPedidoId: int 
