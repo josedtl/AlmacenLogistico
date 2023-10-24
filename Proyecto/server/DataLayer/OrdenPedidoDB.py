@@ -1,10 +1,11 @@
 from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
-from .configMysql import get_connection,DatabaseManager,Init,Fin,Retornar
+from .configMysql import get_connection, DatabaseManager, Init, Fin, Retornar
 from EntityLayer.OrdenPedidoEntity import *
 import pymysql
 from DataLayer.OrdenPedidoDetalleDB import OrdenPedidoDetalleDB
+from DataLayer.CorrelativoDB import CorrelativoDB
 
 
 class OrdenPedidoDB:
@@ -42,7 +43,7 @@ class OrdenPedidoDB:
             return list
         except Exception as e:
             print(e)
-    
+
     # db_manager = DatabaseManager()
 
     def Save(Ent: OrdenPedidoSaveModel):
@@ -51,9 +52,8 @@ class OrdenPedidoDB:
             Store = "sp_OrdenPedido_Save"
             if Ent.Action == ProcessActionEnum.Update:
                 Store = "sp_OrdenPedido_Update"
-            # db_manager.conn.begin()
-            # conn.begin()
-                # cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            Ent.Codigo = datetime.now().strftime("%Y%m%d%H%M%S")
             args = []
             args.append(Ent.OrdenPedidoId)
             args.append(Ent.ProcesoId)
@@ -69,11 +69,19 @@ class OrdenPedidoDB:
             args.append(Ent.CodUsuario)
             args.append(Ent.EstadoRegistro)
             # Init()
-            Ent.OrdenPedidoId  =DatabaseManager().DBProcedure(Store, args,"v_OrdenPedidoId")
+            Ent.OrdenPedidoId = DatabaseManager().DBProcedure(
+                Store, args, "v_OrdenPedidoId"
+            )
             for detalle in Ent.DetalleItems:
                 detalle.OrdenPedidoId = Ent.OrdenPedidoId
-                OrdenPedidoDetalleDB.Save(detalle)
-            print(Ent.OrdenPedidoId )
+                if detalle.Action == ProcessActionEnum.Delete:
+                    OrdenPedidoDetalleDB.Delete(detalle.OrdenPedidoDetalleId)
+                if (
+                    detalle.Action == ProcessActionEnum.Add
+                    or detalle.Action == ProcessActionEnum.Update
+                ):
+                    OrdenPedidoDetalleDB.Save(detalle)
+            print(Ent.OrdenPedidoId)
             # db_manager.conn.commit()
 
             # Fin()
@@ -98,11 +106,13 @@ class OrdenPedidoDB:
         except Exception as e:
             error_code = e.args[0]
             error_entity = next(
-                (entity for entity in error_entities if entity['code'] == error_code), None)
+                (entity for entity in error_entities if entity["code"] == error_code),
+                None,
+            )
 
             if error_entity:
-                print(error_entity['message'])
-                return ResponseAPIError.ErrorMensaje(error_entity['messageuser'])
+                print(error_entity["message"])
+                return ResponseAPIError.ErrorMensaje(error_entity["messageuser"])
             else:
                 error_message = "Ocurrio un error al eliminar el Registro"
                 print(e)

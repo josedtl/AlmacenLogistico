@@ -1,3 +1,4 @@
+import { OrdenPedidoDetalleEntity } from '../Models/OrdenPedidoDetalleEntity';
 import { OrdenPedidoEntity } from '../Models/OrdenPedidoEntity';
 import { apiLg } from './axios-config';
 
@@ -64,6 +65,16 @@ class OrdenPedidoService {
     }
   }
 
+  
+  async GetItemCabeceraOP(Id: number): Promise<OrdenPedidoDetalleEntity[]> {
+    try {
+      const response = await apiLg.get(`api/OrdenPedido/GetItemCabeceraOP/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
+
 
 export default OrdenPedidoService;

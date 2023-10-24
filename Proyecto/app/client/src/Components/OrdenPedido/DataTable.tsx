@@ -24,15 +24,25 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'Cont',
         },
         {
-            title: 'Nombre',
-            dataIndex: 'Nombre',
-            key: 'Nombre',
+            title: 'Codigo',
+            dataIndex: 'Codigo',
+            key: 'Codigo',
+        },  
+        {
+            title: 'NumDocumentoResponsable',
+            dataIndex: 'NumDocumentoResponsable',
+            key: 'NumDocumentoResponsable',
         },
         {
-            title: 'Fecha de registro',
-            dataIndex: 'FechaRegistro',
+            title: 'NomResponsable',
+            dataIndex: 'NomResponsable',
+            key: 'NomResponsable',
+        },
+        {
+            title: 'Fecha de Emision',
+            dataIndex: 'FechaEmision',
             width: '150px',
-            key: 'FechaRegistro',
+            key: 'FechaEmision',
             render: (date: string) => moment(date).format('DD/MM/YYYY hh:mm'),
         },
         {

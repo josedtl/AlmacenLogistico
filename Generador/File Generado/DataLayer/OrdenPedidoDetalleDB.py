@@ -1,7 +1,7 @@
 from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
-from .configMysql import get_connection, DatabaseManager, Retornar
+from .configMysql import get_connection
 from EntityLayer.OrdenPedidoDetalleEntity import *
 import pymysql
 
@@ -48,29 +48,34 @@ class OrdenPedidoDetalleDB:
             Store = "sp_OrdenPedidoDetalle_Save"
             if Ent.Action == ProcessActionEnum.Update:
                 Store = "sp_OrdenPedidoDetalle_Update"
-                # cursor = conn.cursor(pymysql.cursors.DictCursor)
-            args = []
-            args.append(Ent.OrdenPedidoDetalleId)
-            args.append(Ent.OrdenPedidoId)
-            args.append(Ent.ProductoId)
-            args.append(Ent.UnidadMedidaId)
-            args.append(Ent.CantidadSolicitado)
-            args.append(Ent.CantidadReservado)
-            args.append(Ent.CantidadFaltante)
-            args.append(Ent.CantidadAtendido)
-            args.append(Ent.Enlazado)
-            args.append(Ent.EsAtendido)
-            args.append(Ent.FechaRegistro)
-            args.append(Ent.CodUsuario)
-            args.append(Ent.EstadoRegistro)
-            Ent.OrdenPedidoDetalleId = DatabaseManager().DBProcedure(
-                Store, args, "v_OrdenPedidoDetalleId"
-            )
-            print(Ent.OrdenPedidoDetalleId)
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                args = []
+                args.append(Ent.OrdenPedidoDetalleId)
+                args.append(Ent.OrdenPedidoId)
+                args.append(Ent.ProductoId)
+                args.append(Ent.UnidadMedidaId)
+                args.append(Ent.CantidadSolicitado)
+                args.append(Ent.CantidadReservado)
+                args.append(Ent.CantidadFaltante)
+                args.append(Ent.CantidadAtendido)
+                args.append(Ent.Enlazado)
+                args.append(Ent.EsAtendido)
+                args.append(Ent.FechaRegistro)
+                args.append(Ent.CodUsuario)
+                args.append(Ent.EstadoRegistro)
+                cursor.callproc(Store, args)
+                Ent.OrdenPedidoDetalleId = int(cursor.fetchone()["v_OrdenPedidoDetalleId"])
+
+            conn.commit()
             return Ent
         except Exception as e:
-            print("detalle")
-            Retornar()
+            print(e)
+            conn.rollback()
+        finally:
+            cursor.close()
+            conn.close()
 
     def Delete(Id: int):
         try:
@@ -83,36 +88,16 @@ class OrdenPedidoDetalleDB:
             return ResponseAPI.Response(True)
         except Exception as e:
             error_code = e.args[0]
-            error_entity = next(
-                (entity for entity in error_entities if entity["code"] == error_code),
-                None,
-            )
+            error_entity = next((entity for entity in error_entities if entity['code'] == error_code), None)
 
             if error_entity:
-                print(error_entity["message"])
-                return ResponseAPIError.ErrorMensaje(error_entity["messageuser"])
+                print(error_entity['message'])
+                return ResponseAPIError.ErrorMensaje(error_entity['messageuser']) 
             else:
                 error_message = "Ocurrio un error al eliminar el Registro"
                 print(e)
-                return ResponseAPIError.ErrorMensaje(error_message)
+                return ResponseAPIError.ErrorMensaje(error_message) 
         finally:
             cursor.close()
             conn.close()
 
-    def GetItemCabeceraOP(Id: int):
-        try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Id,)
-                cursor.callproc("sp_OrdenPedidoDetalleItemCabecera", args)
-                resulset = cursor.fetchall()
-            conn.close()
-            list = []
-
-            for row in resulset:
-                Data_ent = OrdenPedidoDetalleItemModel.CargarCabecera(row)
-                list.append(Data_ent)
-            return list
-        except Exception as e:
-            print(e)

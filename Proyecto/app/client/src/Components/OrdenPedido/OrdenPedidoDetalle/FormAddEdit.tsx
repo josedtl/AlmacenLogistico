@@ -8,6 +8,7 @@ import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spac
 import GeneralService from '../../../Service/GeneralService';
 import { CategoriaEntity } from '../../../Models/CategoriaEntity';
 import { ProductoEntity } from "../../../Models/ProductoEntity";
+import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const initialOrdenPedidoDetalle = new OrdenPedidoDetalleEntity();
@@ -26,41 +27,44 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (Ent.NomProducto === '') {
-            setValDato('error');
-            return;
+        try {
+
+            console.log("Ejecutando");
+            Ent.UnidadMedidaId = 1;
+            Ent.FechaRegistro = new Date();
+
+            if (Ent.key === '') {
+                Ent.key = generarGuid();
+                props.addItemToState(Ent);
+            }
+            else {
+                props.updateState(Ent);
+            }
+            // setEnt(new OrdenPedidoDetalleEntity());
+            props.toggle();
+        } catch (e) {
+            console.log(e);
         }
-        Ent.Action = 1;
-        Ent.UnidadMedidaId = 1;
-        Ent.FechaRegistro = new Date();
-        props.addItemToState(Ent);
-        setEnt(new OrdenPedidoDetalleEntity());
-        props.toggle();
-        // const savedItem = await sOrdenPedidoDetalle.saveItem(Ent);
-        // if (savedItem) {
-        //     if (FlaState)
-        //     {
-        //         props.updateState(savedItem);
-        //     }
-        //     else 
-        //     {
-        //         props.addItemToState(savedItem);
-        //     }
-        //     props.toggle();
-        // }
     };
+    function generarGuid(): string {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
     const [selectedPRoducto, setSelectedProducto] = useState<number | undefined>(undefined);
     const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
     const [ValCategoria, setValCategoria] = useState<InputStatus>('');
     const [ValCodigoUM, setValCodigoUM] = useState<string>('');
     const [ValStock, setValStock] = useState<number>(0);
     const sGeneral = new GeneralService();
-    useEffect(() => {
-        const updatedPerson = props.item;
-        updatedPerson.Action = updatedPerson.OrdenPedidoDetalleId > 0 ? 3 : 1;
-        setFlaState(updatedPerson.OrdenPedidoDetalleId > 0);
-        setEnt(updatedPerson);
-    }, []);
+    // useEffect(() => {
+    //     const updatedPerson = props.item;
+    //     updatedPerson.Action = updatedPerson.OrdenPedidoDetalleId > 0 ? 3 : 1;
+    //     setFlaState(updatedPerson.OrdenPedidoDetalleId > 0);
+    //     setEnt(updatedPerson);
+    // }, []);
     const [optionsCategoria, setOptionsCategoria] = useState<CategoriaEntity[]>([]);
     const [optionsProducto, setOptionsProducto] = useState<ProductoEntity[]>([]);
     const handleSearchCategoria = async (value: string) => {
@@ -110,12 +114,35 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     };
     useEffect(() => {
-        const updatedPerson = props.item;
-        updatedPerson.Action = updatedPerson.CategoriaId > 0 ? 3 : 1;
-        setFlaState(updatedPerson.CategoriaId > 0);
-        setEnt(updatedPerson);
-        setEnt(new OrdenPedidoDetalleEntity);
+
+        getItems();
     }, []);
+
+
+    const getItems = async () => {
+        const updatedItem = props.item;
+        console.log(updatedItem);
+
+        if (updatedItem.CategoriaId > 0) {
+            const responseCategoria = await sGeneral.GetCategoriaItem(updatedItem.CategoriaId);
+            setOptionsCategoria(responseCategoria);
+        }
+        if (updatedItem.ProductoId > 0) {
+
+            const responseProducto = await sGeneral.GetProductoItemOP(updatedItem.ProductoId);
+            setOptionsProducto(responseProducto);
+
+            setValCodigoUM(responseProducto[0].CodigoUM);
+        }
+
+        updatedItem.Action = updatedItem.OrdenPedidoDetalleId > 0 ? ProcessActionEnum.Update : ProcessActionEnum.Add;
+        console.log(updatedItem);
+        setFlaState(updatedItem.key === '');
+        setEnt(updatedItem);
+        console.log(FlaState);
+    }
+
+
 
     return (
 

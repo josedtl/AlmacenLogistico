@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from BusinessLayer.OrdenPedido import *
+from BusinessLayer.OrdenPedidoDetalle import *
 from EntityLayer.OrdenPedidoEntity import *
 from fastapi.encoders import jsonable_encoder
 from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
@@ -11,6 +12,8 @@ ApiName = "OrdenPedido"
 @OrdenPedidoRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
 def Save(Ent: OrdenPedidoSaveModel):
     try:
+        print(jsonable_encoder(Ent))
+        Ent.FechaRegistro = datetime.now()
         Ent = OrdenPedido.Save(Ent)
         return jsonable_encoder(ResponseAPI.Response(Ent))
     except Exception as e:
@@ -52,6 +55,16 @@ def Delete(Id: int):
 def GetItemCabecera(Id: int):
     try:
         jsonData = OrdenPedido.GetItemCabecera(Id)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+
+@OrdenPedidoRouter.get(f"/api/{ApiName}/GetItemCabeceraOP/{{Id}}/", tags=[ApiName])
+def GetItemCabeceraOP(Id: int):
+    try:
+        jsonData = OrdenPedidoDetalle.GetItemCabeceraOP(Id)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)

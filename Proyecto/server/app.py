@@ -78,7 +78,6 @@ app.include_router(CategoriaRouter)
 app.include_router(TipoProductoRouter)
 app.include_router(ModeloRouter)
 app.include_router(MarcaRouter)
-app.include_router(ProductoRouter)
 app.include_router(AreaRouter)
 
 

@@ -1,25 +1,26 @@
-// import { ProcessActionEnum } from '../Lib/ResourceModel/Enum'
+import { ProcessActionEnum } from '../Lib/ResourceModel/Enum'
 
 export class OrdenPedidoDetalleEntity {
-    Cont: number;
+    Cont: number = 0;
     OrdenPedidoDetalleId: number;
     OrdenPedidoId: number;
     ProductoId: number;
     UnidadMedidaId: number;
     CantidadSolicitado: number;
-    CantidadFaltante: number;
     CantidadReservado: number;
+    CantidadFaltante: number;
     CantidadAtendido: number;
     Enlazado: boolean;
     EsAtendido: boolean;
     FechaRegistro: Date;
     CodUsuario: string;
     EstadoRegistro: boolean;
-    Action: number;
+    Action: ProcessActionEnum;
     NomProducto: string;
     CategoriaId: number
     CodigoUM: string;
     Stock: number;
+    key: string;
     constructor() {
         this.Cont = 0;
         this.OrdenPedidoDetalleId = 0;
@@ -35,11 +36,14 @@ export class OrdenPedidoDetalleEntity {
         this.FechaRegistro = new Date();
         this.CodUsuario = '';
         this.EstadoRegistro = false;
-        this.Action = 0;
+        this.Action = ProcessActionEnum.Add;
         this.NomProducto = '';
         this.CategoriaId = 0;
         this.CodigoUM = '';
         this.Stock = 0;
+        this.key = '';
         // Asigna el valor predeterminado de ProcessActionEnum que desees
     }
 }
+
+

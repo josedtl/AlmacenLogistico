@@ -12,9 +12,10 @@ import { ButtonAddMain } from '../../../Styles/Button'
 import { TipoProcesoEntity } from '../../../Models/GeneralEntity';
 import { useParams } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-
+import moment from 'moment';
+import 'moment/locale/es';
 import dayjs from 'dayjs';
-
+import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 function Page() {
 
   const { Id } = useParams();
@@ -27,20 +28,45 @@ function Page() {
   const [disabled, setDisabled] = useState(false);
   const { Title } = Typography;
   const [Ent, setEnt] = useState<OrdenPedidoEntity>(new OrdenPedidoEntity());
-
+  const [FechaEmisionItem, setFechaEmisionItem] = useState<string>(moment(Ent.FechaEmision).format('DD/MM/YYYY hh:mm'));
   const addItemToState = (item: OrdenPedidoDetalleEntity) => {
-    setItems([...items, item]);
-    messageAdd.open({
-      type: 'success',
-      content: 'Se guardó correctamente.',
-    });
+
+    const itemIndex = items.findIndex((data) => data.key === item.key);
+
+    if (itemIndex == -1) {
+      console.log(item);
+      setItems([...items, item]);
+      messageAdd.open({
+        type: 'success',
+        content: 'Se guardó correctamente.',
+      });
+
+    }
+    else {
+      console.log(item);
+      setItems([...items, item]);
+      messageAdd.open({
+        type: 'success',
+        content: 'Se guardó correctamente.',
+      });
+
+      const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+      setItems(newArray);
+      messageAdd.open({
+        type: 'success',
+        content: 'Se actualizó correctamente.',
+      });
+    }
+
 
   };
   const toggle = () => {
     setDisabled(!disabled);
   };
   const updateState = (item: OrdenPedidoDetalleEntity) => {
-    const itemIndex = items.findIndex((data) => data.OrdenPedidoDetalleId === item.OrdenPedidoDetalleId);
+    console.log(item);
+    console.log(items);
+    const itemIndex = items.findIndex((data) => data.key === item.key);
     const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
     setItems(newArray);
     messageAdd.open({
@@ -49,16 +75,18 @@ function Page() {
     });
 
   };
-  const deleteItemFromState = (id: number) => {
-    const updatedItems = items.filter((item) => item.OrdenPedidoDetalleId !== id);
-    setItems(updatedItems);
+  const deleteItemFromState = (item: OrdenPedidoDetalleEntity) => {
+
+    const itemIndex = items.findIndex((data) => data.key === item.key);
+    const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+    setItems(newArray);
     messageAdd.open({
       type: 'error',
       content: 'Se eliminó correctamente.',
     });
   };
 
-  const filterItems = items;
+  const filterItems = items.filter(d => d.Action != ProcessActionEnum.Delete);
 
   const [TabsItems, setTabsItems] = useState<any>([
     {
@@ -97,25 +125,50 @@ function Page() {
 
 
 
+
   useEffect(() => {
-    getCargarDatos();
+    getCargarDatos(idNumero);
   }, []);
 
-  const getCargarDatos = async () => {
-    setCargarPage(true);
+  const getCargarDatos = async (Id: number) => {
+    try {
 
-    const Resp_TR = await sGeneral.GetTipoProcesoItems();
-    setOptionsTipoProceso(Resp_TR);
-    if (idNumero > 0) {
+      setCargarPage(true);
 
-      const Resp_Producto = await sOrdenPedido.GetItemCabecera(idNumero);
+      const Resp_TR = await sGeneral.GetTipoProcesoItems();
+      setOptionsTipoProceso(Resp_TR);
+      Ent.Action = ProcessActionEnum.Add
+      if (Id > 0) {
 
-      setEnt(Resp_Producto[0]);
-      console.log(Ent);
-    }
+        const Resp_Producto = await sOrdenPedido.GetItemCabecera(Id);
+        Resp_Producto[0].Action = ProcessActionEnum.Update
+        setEnt(Resp_Producto[0]);
 
-    setCargarPage(false);
+        const Resp_OPDetalle = await sOrdenPedido.GetItemCabeceraOP(Id);
+
+        Resp_OPDetalle.map((data) => {
+          data.key = generarGuid();
+          data.Action = ProcessActionEnum.Update;
+        })
+        setItems(Resp_OPDetalle)
+        Ent.DetalleItems = Resp_OPDetalle
+      }
+
+      setCargarPage(false);
+    } catch (e) { console.log(e); }
   };
+
+
+
+
+
+  function generarGuid(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0,
+        v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEnt({
       ...Ent,
@@ -132,38 +185,44 @@ function Page() {
     right: <Button>Right Extra Action</Button>,
   };
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
-    const fecha: Date = new Date(dateString + "T00:00:00");
-    // 2023-10-22T04:18:43
-    // Verifica si la conversión fue exitosa y si la fecha es válida
-    if (!isNaN(fecha.getTime())) {
-      // Asigna la fecha convertida a la propiedad Ent.FechaEmision
-      Ent.FechaEmision = fecha;
-      console.log(Ent.FechaEmision);
-      console.log(Ent);
-      console.log(dateString);
-      console.log(date?.date);
-    } else {
-      // Maneja el caso en el que la cadena de fecha no es válida
-      console.error('Fecha no válida:', dateString);
-    }
+    // const fecha: Date = new Date(dateString + "T00:00:00");
+
+    setFechaEmisionItem(dateString);
+    console.log(FechaEmisionItem);
+    // Ent.FechaEmision =dateString+"T17:00:07";
+    // console.log(Ent.FechaEmision);
+    // console.log(Ent);
+    // if (!isNaN(fecha.getTime())) {
+    //   console.log(dateString);
+    //   console.log(date?.date);
+    // } else {
+    // }
   };
   const [modal, contextHolder] = Modal.useModal();
   const dateFormat = 'YYYY/MM/DD';
 
 
   const AddProducto = async () => {
+    try {
 
-    Ent.DetalleItems = items;
-    console.log(Ent);
-    const savedItem = await sOrdenPedido.saveItem(Ent);
-    if (savedItem) {
-
-      messageAdd.open({
-        type: 'success',
-        content: 'Se guardó correctamente.',
-      });
-    } else {
+      Ent.DetalleItems = items;
+      console.log(Ent);
+      const savedItem = await sOrdenPedido.saveItem(Ent);
+      if (savedItem) {
+        setEnt(savedItem)
+        setItems(savedItem.DetalleItems)
+        getCargarDatos(savedItem.OrdenPedidoId);
+        messageAdd.open({
+          type: 'success',
+          content: 'Se guardó correctamente.',
+        });
+      } else {
+      }
     }
+    catch (e) {
+      console.log(e);
+    }
+
   }
 
 
@@ -190,6 +249,25 @@ function Page() {
         Ent.EstadoRegistro = true
         Ent.Action = Ent.OrdenPedidoId == 0 ? 1 : 3;
         AddProducto();
+
+        let secondsToGo = 3;
+
+        const instance = modal.success({
+          title: 'Mensaje de sistema',
+          content: `Se Registro correctamente`,
+        });
+
+        const timer = setInterval(() => {
+          secondsToGo -= 1;
+          instance.update({
+            content: `Se Registro correctamente, \nse cerraraen ${secondsToGo} Segundos.`,
+          });
+        }, 1000);
+
+        setTimeout(() => {
+          clearInterval(timer);
+          instance.destroy();
+        }, secondsToGo * 1000);
       },
       onCancel() {
         console.log('Cancel');
@@ -197,6 +275,14 @@ function Page() {
     });
 
   };
+
+
+
+
+
+
+
+
 
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
@@ -318,8 +404,8 @@ function Page() {
             <Col span={24}>
               <DatePicker
                 onChange={onChangeDate}
-                // value={null}
-                value={dayjs(Ent.FechaEmision, dateFormat)}
+                value={dayjs(FechaEmisionItem, dateFormat)}
+                // defaultValue={dayjs(FechaEmisionItem, dateFormat)}
                 style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
                 size='large' />
 
@@ -364,13 +450,12 @@ function Page() {
                     </Title>
                   </>
                 ),
-                key: id,
+                key: 'ddsdsd',
                 children:
                   <span>
 
                     <Row>
                       <Col xs={24}>
-                        {/* <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} /> */}
                         <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
 
                       </Col>

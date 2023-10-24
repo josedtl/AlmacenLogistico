@@ -9,6 +9,7 @@ import { PropsTable } from '../../../Lib/PropsItem'
 import moment from 'moment';
 import 'moment/locale/es';
 import { DataType } from '../../../Lib/ResourceModel/DataTableType'
+import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size, setSize] = React.useState<SizeType>('middle');
@@ -27,6 +28,12 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'NomProducto',
         },
         {
+            title: 'UM',
+            dataIndex: 'CodigoUM',
+            width: '40px',
+            key: 'CodigoUM',
+        },
+        {
             title: 'Solicito',
             dataIndex: 'CantidadSolicitado',
             width: '80px',
@@ -37,7 +44,8 @@ const DataTable: React.FC<PropsTable> = (props) => {
             dataIndex: 'CantidadFaltante',
             width: '80px',
             key: 'CantidadFaltante',
-        }, {
+        },
+        {
             title: 'Reservado',
             dataIndex: 'CantidadReservado',
             width: '80px',
@@ -47,7 +55,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             title: 'Atendido',
             dataIndex: 'CantidadAtendido',
             width: '80px',
-            key: 'CantidadFaltante',
+            key: 'CantidadAtendido',
         },
         {
             title: 'Action',
@@ -59,7 +67,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
                     <Button
                         type='dashed'
-                        onClick={() => deleteItem(record.OrdenPedidoDetalleId)}
+                        onClick={() => deleteItem(record)}
                         style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
                         size={size}
                         icon={<DeleteFilled />}
@@ -81,21 +89,19 @@ const DataTable: React.FC<PropsTable> = (props) => {
     const dataWithKeys = props.DataList.sort((a, b) => b.OrdenPedidoDetalleId - a.OrdenPedidoDetalleId).map((item, zIndex) => {
         return {
             ...item,
-            key: item.Cont,
+            // key: item.Cont,
             Cont: (zIndex + 1),
+            // Guid :generarGuid(),
         };
+
     });
 
-    const DeleteItemAll = async (OrdenPedidoDetalleId: number) => {
-        // const deleted = await sOrdenPedidoDetalle.deleteItem(OrdenPedidoDetalleId);
-        // if (deleted) {
-        //     props.deleteItemFromState(OrdenPedidoDetalleId);
-        // } else {
-        //     console.log("Delete operation failed");
-        // }
+    const DeleteItemAll = async (OrdenPedidoDetalleId: OrdenPedidoDetalleEntity) => {
+        OrdenPedidoDetalleId.Action = ProcessActionEnum.Delete;
+        props.deleteItemFromState(OrdenPedidoDetalleId);
     }
 
-    const deleteItem = async (OrdenPedidoDetalleId: number) => {
+    const deleteItem = async (OrdenPedidoDetalleId: OrdenPedidoDetalleEntity) => {
 
         modal.confirm({
             title: 'Mensaje del Sistema',
@@ -152,6 +158,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             return (
                 <Table
                     bordered
+                    key="KEY5"
                     columns={columns}
                     dataSource={dataWithKeys}
                     size="small"
