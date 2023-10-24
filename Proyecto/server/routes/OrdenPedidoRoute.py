@@ -69,3 +69,13 @@ def GetItemCabeceraOP(Id: int):
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
+
+@OrdenPedidoRouter.get(f"/api/{ApiName}/GetItemOPMain/", tags=[ApiName])
+def GetItemOPMain():
+    try:
+        jsonData = OrdenPedido.GetItemOPMain()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+

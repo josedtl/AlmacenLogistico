@@ -74,6 +74,16 @@ class OrdenPedidoService {
       throw error;
     }
   }
+
+  async GetItemOPMain(): Promise<OrdenPedidoEntity[]> {
+    try {
+      const response = await apiLg.get(`api/OrdenPedido/GetItemOPMain`);
+      return response.data.Value;
+
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 

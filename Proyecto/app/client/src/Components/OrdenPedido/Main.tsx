@@ -33,7 +33,7 @@ function Main() {
   };
 
   const getItems = async () => {
-    const itemsg = await sOrdenPedido.getItems();
+    const itemsg = await sOrdenPedido.GetItemOPMain();
     setItems(itemsg);
     setCargarPage(false);
 

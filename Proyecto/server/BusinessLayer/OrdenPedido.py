@@ -37,3 +37,9 @@ class OrdenPedido:
             return OrdenPedidoDB.GetItemCabecera(Id)
         except Exception as e:
             print(e)
+
+    def GetItemOPMain():
+        try:
+            return OrdenPedidoDB.GetItemOPMain()
+        except Exception as e:
+            print(e)

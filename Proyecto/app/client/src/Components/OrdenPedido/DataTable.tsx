@@ -2,7 +2,7 @@
 import React from 'react';
 import OrdenPedidoService from '../../Service/OrdenPedidoService';
 import { OrdenPedidoEntity } from '../..//Models/OrdenPedidoEntity';
-import { EditFilled } from '@ant-design/icons';
+import { EditFilled, CaretRightOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Link } from 'react-router-dom';
 import { PropsTable } from '../../Lib/PropsItem'
@@ -24,17 +24,43 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'Cont',
         },
         {
+            title: 'Estado',
+            width: 130,
+            key: 'Estado',
+            render: (record: OrdenPedidoEntity) => {
+
+                let color = "while";
+
+                if (record.ValorEstadoProceso === 1) {
+                    color = "green";
+                } else if (record.ValorEstadoProceso === 2) {
+                    color = "green";
+                } else if (record.ValorEstadoProceso === 3) {
+                    color = "blue";
+                }
+                return <span>
+                    <CaretRightOutlined
+                        style={{ color }} /> {record.NomEstadoProceso}
+
+
+
+                </span>
+            },
+        },
+        {
             title: 'Codigo',
             dataIndex: 'Codigo',
             key: 'Codigo',
-        },  
-        {
-            title: 'NumDocumentoResponsable',
-            dataIndex: 'NumDocumentoResponsable',
-            key: 'NumDocumentoResponsable',
+            width: 180
         },
         {
-            title: 'NomResponsable',
+            title: 'Documento',
+            dataIndex: 'NumDocumentoResponsable',
+            key: 'NumDocumentoResponsable',
+            width: 140
+        },
+        {
+            title: 'Responsable',
             dataIndex: 'NomResponsable',
             key: 'NomResponsable',
         },
