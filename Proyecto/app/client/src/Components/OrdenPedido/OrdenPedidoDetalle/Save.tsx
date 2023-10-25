@@ -152,6 +152,9 @@ function Page() {
         })
         setItems(Resp_OPDetalle)
         Ent.DetalleItems = Resp_OPDetalle
+
+        const dateEmison = moment(Resp_Producto[0].FechaEmision).format('YYYY-MM-DD')
+        setFechaEmisionItem(dateEmison);
       }
 
       setCargarPage(false);
@@ -186,7 +189,7 @@ function Page() {
   };
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
     // const fecha: Date = new Date(dateString + "T00:00:00");
-
+    const fecha: Date = new Date(FechaEmisionItem + "T00:00:00");
     setFechaEmisionItem(dateString);
     console.log(FechaEmisionItem);
     // Ent.FechaEmision =dateString+"T17:00:07";
@@ -238,11 +241,14 @@ function Page() {
       okType: 'danger',
       cancelText: 'No',
       onOk() {
+
+        const fecha: Date = new Date(FechaEmisionItem + "T00:00:00");
+
         Ent.TipoProcesoId = 1;
         Ent.ProcesoId = 1;
         Ent.EstadoProcesoId = 1;
         Ent.ResponsableId = 0;
-        Ent.FechaEmision = new Date();
+        Ent.FechaEmision = fecha;
         Ent.CodUsuario = "adm";
         Ent.Action = 1;
         Ent.FechaRegistro = new Date();

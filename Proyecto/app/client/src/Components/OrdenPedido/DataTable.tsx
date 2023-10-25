@@ -54,6 +54,13 @@ const DataTable: React.FC<PropsTable> = (props) => {
             width: 180
         },
         {
+            title: 'Tipo',
+            
+            dataIndex: 'NomTipoProceso',
+            key: 'NomTipoProceso',
+            width: 180
+        },
+        {
             title: 'Documento',
             dataIndex: 'NumDocumentoResponsable',
             key: 'NumDocumentoResponsable',
@@ -69,7 +76,14 @@ const DataTable: React.FC<PropsTable> = (props) => {
             dataIndex: 'FechaEmision',
             width: '150px',
             key: 'FechaEmision',
-            render: (date: string) => moment(date).format('DD/MM/YYYY hh:mm'),
+            render: (date: string) => moment(date).format('DD-MM-YYYY'),
+        },
+        {
+            title: 'Fecha de Emision',
+            dataIndex: 'FechaRegistro',
+            width: '150px',
+            key: 'FechaRegistro',
+            render: (date: string) => moment(date).format('DD-MM-YYYY HH:mm'),
         },
         {
             title: 'Usuario',

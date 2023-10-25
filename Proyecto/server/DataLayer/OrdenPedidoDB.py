@@ -66,10 +66,10 @@ class OrdenPedidoDB:
         try:
             store_mapping = {
                 ProcessActionEnum.Update: "sp_OrdenPedido_Update",
-                ProcessActionEnum.Add: "sp_OrdenPedido_Save",
+                ProcessActionEnum.Add: "sp_OrdenPedido_SaveOP",
             }
-            Store = store_mapping.get(Ent.Action, "sp_OrdenPedido_Save")
-            Ent.Codigo = datetime.now().strftime("%Y%m%d%H%M%S")
+            Store = store_mapping.get(Ent.Action, "sp_OrdenPedido_SaveOP")
+            # Ent.Codigo = datetime.now().strftime("%Y%m%d%H%M%S")
             args = []
             args.append(Ent.OrdenPedidoId)
             args.append(Ent.ProcesoId)
