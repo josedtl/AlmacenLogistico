@@ -1,18 +1,18 @@
 from DataLayer.OrdenPedidoDB import *
 from EntityLayer.OrdenPedidoEntity import *
-from DataLayer.configMysql import Init, Fin, Retornar
+from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Restore
 
 
 class OrdenPedido:
     def Save(Ent: OrdenPedidoSaveModel):
         try:
-            Init()
+            StartTransaction()
             data = OrdenPedidoDB.Save(Ent)
-            Fin()
+            EndTransaction()
             return data
         except Exception as e:
+            Restore()
             print(e)
-            Retornar()
 
     def GetItems():
         try:

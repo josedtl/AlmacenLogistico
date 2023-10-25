@@ -11,7 +11,7 @@ import { IconSave } from '../../../Styles/Icons'
 import { ButtonAddMain } from '../../../Styles/Button'
 import { TipoProcesoEntity } from '../../../Models/GeneralEntity';
 import { useParams } from 'react-router-dom';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, CaretRightOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
@@ -278,8 +278,15 @@ function Page() {
 
 
 
+  let color = "while";
 
-
+  if (Ent.ValorEstadoProceso === 0) {
+    color = "green";
+  } else if (Ent.ValorEstadoProceso === 2) {
+    color = "green";
+  } else if (Ent.ValorEstadoProceso === 3) {
+    color = "blue";
+  }
 
 
 
@@ -316,10 +323,14 @@ function Page() {
             <Col span={24}>
               <Input
                 // status={ValCodigo}
+                prefix={
+
+
+                  <CaretRightOutlined style={{ color, fontSize: '20px' }} />}
                 type="text"
                 name="NomEstadoProceso"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
-                onChange={onChange}
+                // onChange={onChange}
                 value={Ent.NomEstadoProceso === null ? "" : Ent.NomEstadoProceso}
               />
             </Col>

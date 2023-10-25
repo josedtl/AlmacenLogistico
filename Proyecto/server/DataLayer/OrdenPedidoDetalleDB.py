@@ -1,7 +1,7 @@
 from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
-from .configMysql import get_connection, DatabaseManager, Retornar
+from Utilidades.Conexion.configMysql import get_connection, DBProcedure,Restore
 from EntityLayer.OrdenPedidoDetalleEntity import *
 import pymysql
 
@@ -63,14 +63,14 @@ class OrdenPedidoDetalleDB:
             args.append(Ent.FechaRegistro)
             args.append(Ent.CodUsuario)
             args.append(Ent.EstadoRegistro)
-            Ent.OrdenPedidoDetalleId = DatabaseManager().DBProcedure(
+            Ent.OrdenPedidoDetalleId = DBProcedure().DBProcedureInsertUpdate(
                 Store, args, "v_OrdenPedidoDetalleId"
             )
             print(Ent.OrdenPedidoDetalleId)
             return Ent
         except Exception as e:
             print("detalle")
-            Retornar()
+            Restore()
 
     def Delete(Id: int):
         try:
