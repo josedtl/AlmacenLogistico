@@ -30,7 +30,8 @@ import PageProdcuto from "./Components/Producto/Main";
 import PageProdcutoSave from "./Components/Producto/Save";
 import PageOrdenPedido from "./Components/OrdenPedido/Main";
 import PageOrdenPedidoSave from "./Components/OrdenPedido/OrdenPedidoDetalle/Save";
-
+import PagePersonaNatural from "./Components/PersonaNatural/Main";
+import PagePersonaNaturalSave from "./Components/PersonaNatural/Save";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,6 +43,8 @@ const router = createBrowserRouter([
       { path: "Marca", element: <PageMarca />, },
       { path: "Modelo", element: <PageModelo />, },
       { path: "Producto", element: <PageProdcuto />, },
+      { path: "PersonaNatural", element: <PagePersonaNatural />, },
+      { path: "PersonaNaturalSave/:Id", element: <PagePersonaNaturalSave />, },
       { path: "ProductoSave/:Id", element: <PageProdcutoSave />, },
       { path: "OrdenPedido", element: <PageOrdenPedido />, },
       { path: "OrdenPedidoSave/:Id", element: <PageOrdenPedidoSave />, },

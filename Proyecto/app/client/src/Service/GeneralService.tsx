@@ -3,6 +3,11 @@ import { TipoProductoEntity } from '../Models/TipoProductoEntity';
 import { MarcaEntity } from '../Models/MarcaEntity';
 import { ModeloEntity } from '../Models/ModeloEntity';
 import { UnidadMedidaEntity } from '../Models/UnidadMedidaEntity';
+import { SexoEntity } from '../Models/SexoEntity';
+import { EstadoCivilEntity } from '../Models/EstadoCivilEntity';
+import { TipoDocumentoIdentidadEntity } from '../Models/TipoDocumentoIdentidadEntity';
+import { UbigeoEntity } from '../Models/UbigeoEntity';
+
 import { apiLg } from './axios-config';
 import { ProductoEntity } from '../Models/ProductoEntity';
 import { EstadoProcesoEntity, TipoProcesoEntity } from '../Models/GeneralEntity';
@@ -196,6 +201,101 @@ class GeneralService {
       }`,
     });
     return await response.data.data.GHEstadoProcesoItems
+  }
+
+
+  async GetSexoItems(): Promise<SexoEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `
+      {GHSexoItems {SexoId Nombre}}`,
+    });
+    return await response.data.data.GHSexoItems
+  }
+
+  async GetSexoItem(Id: number): Promise<SexoEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{ GHSexoItem(Id: ${Id}) {SexoId Nombre}}`,
+    });
+    return await response.data.data.GHSexoItem
+  }
+
+  async GetSexoItemLike(Nombre: string): Promise<SexoEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{
+        GHSexoItemLike(Nombre: "${Nombre}") {SexoId Nombre}}`,
+    });
+    return await response.data.data.GHSexoItemLike;
+  }
+
+  async GetEstadoCivilItems(): Promise<EstadoCivilEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `
+      {GHEstadoCivilItems {EstadoCivilId Nombre}}`,
+    });
+    return await response.data.data.GHEstadoCivilItems
+  }
+
+  async GetEstadoCivilItem(Id: number): Promise<EstadoCivilEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{ GHEstadoCivilItem(Id: ${Id}) {EstadoCivilId Nombre}}`,
+    });
+    return await response.data.data.GHEstadoCivilItem
+  }
+
+  async GetEstadoCivilItemLike(Nombre: string): Promise<EstadoCivilEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{
+        GHEstadoCivilItemLike(Nombre: "${Nombre}") {EstadoCivilId Nombre}}`,
+    });
+    return await response.data.data.GHEstadoCivilItemLike;
+  }
+
+
+  async GetTipoDocumentoIdentidadItems(): Promise<TipoDocumentoIdentidadEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `
+      {GHTipoDocumentoIdentidadItems {TipoDocumentoIdentidadId Nombre}}`,
+    });
+    return await response.data.data.GHTipoDocumentoIdentidadItems
+  }
+
+  async GetTipoDocumentoIdentidadItem(Id: number): Promise<TipoDocumentoIdentidadEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{ GHTipoDocumentoIdentidadItem(Id: ${Id}) {TipoDocumentoIdentidadId Nombre}}`,
+    });
+    return await response.data.data.GHTipoDocumentoIdentidadItem
+  }
+
+  async GetTipoDocumentoIdentidadItemLike(Nombre: string): Promise<TipoDocumentoIdentidadEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{
+        GHTipoDocumentoIdentidadItemLike(Nombre: "${Nombre}") {TipoDocumentoIdentidadId Nombre}}`,
+    });
+    return await response.data.data.GHTipoDocumentoIdentidadItemLike;
+  }
+
+
+  async GetUbigeoItems(): Promise<UbigeoEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `
+      {GHUbigeoItems {UbigeoId Nombre}}`,
+    });
+    return await response.data.data.GHUbigeoItems
+  }
+
+  async GetUbigeoItem(Id: number): Promise<UbigeoEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{ GHUbigeoItem(Id: ${Id}) {UbigeoId Nombre}}`,
+    });
+    return await response.data.data.GHUbigeoItem
+  }
+
+  async GetUbigeoItemLike(Nombre: string): Promise<UbigeoEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{
+        GHUbigeoItemLike(Nombre: "${Nombre}") {UbigeoId Nombre}}`,
+    });
+    return await response.data.data.GHUbigeoItemLike;
   }
 }
 

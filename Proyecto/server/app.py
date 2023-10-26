@@ -32,7 +32,7 @@ from routes.ProveedorRoute import ProveedorRouter
 from routes.ProveedorPersonaNaturalRoute import ProveedorPersonaNaturalRouter
 from routes.ProvinciaRoute import ProvinciaRouter
 from routes.TarifaProductoRoute import TarifaProductoRouter
-from routes.TipoDocumentoentidadRoute import TipoDocumentoentidadRouter
+from routes.TipoDocumentoIdentidadRoute import TipoDocumentoIdentidadRouter
 from routes.TipoDocumentoRoute import TipoDocumentoRouter
 from routes.TipoProcesoRoute import TipoProcesoRouter
 from routes.TipoProductoRoute import TipoProductoRouter
@@ -74,11 +74,7 @@ app.add_middleware(
 
 
 app.add_route("/gql/General", GraphQL(schema))
-app.include_router(CategoriaRouter)
 app.include_router(TipoProductoRouter)
-app.include_router(ModeloRouter)
-app.include_router(MarcaRouter)
-app.include_router(AreaRouter)
 
 
 
@@ -113,7 +109,7 @@ app.include_router(ProveedorRouter)
 app.include_router(ProveedorPersonaNaturalRouter)
 app.include_router(ProvinciaRouter)
 app.include_router(TarifaProductoRouter)
-app.include_router(TipoDocumentoentidadRouter)
+app.include_router(TipoDocumentoIdentidadRouter)
 app.include_router(TipoDocumentoRouter)
 app.include_router(TipoProcesoRouter)
 app.include_router(UbigeoRouter)

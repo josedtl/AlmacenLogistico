@@ -47,6 +47,25 @@ type EstadoProceso_GQL {
     Nombre: String
 }
 
+type Sexo_GQL {
+    SexoId: Int
+    Nombre: String
+}
+
+
+type EstadoCivil_GQL {
+    EstadoCivilId: Int
+    Nombre: String
+}
+
+
+type TipoDocumentoIdentidad_GQL {
+    TipoDocumentoIdentidadId: Int
+    Codigo:String
+    Alias: String
+    Descripcion: String
+    EsEmpresa: Boolean
+}
 
 type Query {
     GHCategoriaItems: [Categoria_GQL]
@@ -76,4 +95,11 @@ type Query {
 
     GHTipoProcesoItems: [TipoProceso_GQL]
     GHEstadoProcesoItems: [EstadoProceso_GQL]
+
+
+    GHSexoItems: [Sexo_GQL]
+    GHEstadoCivilItems: [EstadoCivil_GQL]
+    GHTipoDocumentoIdentidadPersonaItems: [TipoDocumentoIdentidad_GQL]
+    GHTipoDocumentoIdentidadEmpresaItems: [TipoDocumentoIdentidad_GQL]
 }
+

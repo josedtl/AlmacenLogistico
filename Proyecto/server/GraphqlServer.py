@@ -8,6 +8,10 @@ from BusinessLayer.UnidadMedida import UnidadMedida
 from BusinessLayer.Producto import Producto
 from BusinessLayer.TipoProceso import TipoProceso
 from BusinessLayer.EstadoProceso import EstadoProceso
+from BusinessLayer.Sexo import Sexo
+from BusinessLayer.EstadoCivil import EstadoCivil
+from BusinessLayer.TipoDocumentoIdentidad import TipoDocumentoIdentidad
+from BusinessLayer.Ubigeo import Ubigeo
 type_defs = load_schema_from_path("types.graphql")
 
 query = QueryType()
@@ -135,5 +139,28 @@ def resolve_GHEstadoProcesoItems(_self, info):
     list = EstadoProceso.GetItems()
     return list
 
+@query.field("GHSexoItems")
+def resolve_GHSexoItems(_self, info):
+    list = Sexo.GetItems()
+    return list
+
+@query.field("GHEstadoCivilItems")
+def resolve_GHEstadoCivilItems(_self, info):
+    list = EstadoCivil.GetItems()
+    return list
+
+@query.field("GHTipoDocumentoIdentidadPersonaItems")
+def resolve_GHTipoDocumentoIdentidadPersonaItems(_self, info):
+    Items = TipoDocumentoIdentidad.GetItems()
+    # FilterItems = [x for x in Items if x.EsEmpresa]
+    list = Items
+    return list
+
+@query.field("GHTipoDocumentoIdentidadEmpresaItems")
+def resolve_GHTipoDocumentoIdentidadEmpresaItems(_self, info):
+    Items = TipoDocumentoIdentidad.GetItems()
+    FilterItems = [x for x in Items if not x.EsEmpresa]
+    list = FilterItems
+    return list
 
 schema = make_executable_schema(type_defs, query)

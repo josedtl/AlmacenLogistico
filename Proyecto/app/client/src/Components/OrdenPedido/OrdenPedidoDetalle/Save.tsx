@@ -190,18 +190,7 @@ function Page() {
     right: <Button>Right Extra Action</Button>,
   };
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
-    // const fecha: Date = new Date(dateString + "T00:00:00");
-    const fecha: Date = new Date(FechaEmisionItem + "T00:00:00");
     setFechaEmisionItem(dateString);
-    console.log(FechaEmisionItem);
-    // Ent.FechaEmision =dateString+"T17:00:07";
-    // console.log(Ent.FechaEmision);
-    // console.log(Ent);
-    // if (!isNaN(fecha.getTime())) {
-    //   console.log(dateString);
-    //   console.log(date?.date);
-    // } else {
-    // }
   };
   const [modal, contextHolder] = Modal.useModal();
   const dateFormat = 'YYYY/MM/DD';
