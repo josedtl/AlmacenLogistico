@@ -1,47 +1,47 @@
 from fastapi import APIRouter
-from BusinessLayer.OrdenPedido import *
-from EntityLayer.OrdenPedidoEntity import *
+from BusinessLayer.EstadoCivil import *
+from EntityLayer.EstadoCivilEntity import *
 from fastapi.encoders import jsonable_encoder
 from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
 
-OrdenPedidoRouter = APIRouter()
-ApiName = "OrdenPedido"
+EstadoCivilRouter = APIRouter()
+ApiName = "EstadoCivil"
 
 
-@OrdenPedidoRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
-def Save(Ent: OrdenPedidoSaveModel):
+@EstadoCivilRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
+def Save(Ent: EstadoCivilSaveModel):
     try:
-        Ent = OrdenPedido.Save(Ent)
+        Ent = EstadoCivil.Save(Ent)
         return jsonable_encoder(ResponseAPI.Response(Ent))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@OrdenPedidoRouter.get(f"/api/{ApiName}/GetItems/", tags=[ApiName])
+@EstadoCivilRouter.get(f"/api/{ApiName}/GetItems/", tags=[ApiName])
 def GetItems():
     try:
-        jsonData = OrdenPedido.GetItems()
+        jsonData = EstadoCivil.GetItems()
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@OrdenPedidoRouter.get(f"/api/{ApiName}/GetItem/{{Id}}/", tags=[ApiName])
+@EstadoCivilRouter.get(f"/api/{ApiName}/GetItem/{{Id}}/", tags=[ApiName])
 def GetItem(Id: int):
     try:
-        jsonData = OrdenPedido.GetItem(Id)
+        jsonData = EstadoCivil.GetItem(Id)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@OrdenPedidoRouter.delete(f"/api/{ApiName}/Delete/{{Id}}", tags=[ApiName])
+@EstadoCivilRouter.delete(f"/api/{ApiName}/Delete/{{Id}}", tags=[ApiName])
 def Delete(Id: int):
     try:
-        jsonData = OrdenPedido.Delete(Id)
+        jsonData = EstadoCivil.Delete(Id)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)

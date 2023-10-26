@@ -35,9 +35,7 @@ class CategoriaDB:
             args.append(Ent.FechaRegistro)
             args.append(Ent.CodUsuario)
             args.append(Ent.EstadoRegistro)
-            Ent.CategoriaId = DBProcedure().DBProcedureInsertUpdate(
-                Store, args, "v_CategoriaId"
-            )
+            Ent.CategoriaId = DBProcedure().DBProcedureInsertUpdate(Store, args, "v_CategoriaId")
 
             return Ent
         except Exception as e:

@@ -1,13 +1,13 @@
-from DataLayer.PersonaNaturalDB import *
-from EntityLayer.PersonaNaturalEntity import *
+from DataLayer.SexoDB import *
+from EntityLayer.SexoEntity import *
 from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Restore
 
 
-class PersonaNatural:
-    def Save(Ent: PersonaNaturalSaveModel):
+class Sexo:
+    def Save(Ent: SexoSaveModel):
         try:
             StartTransaction()
-            data = PersonaNaturalDB.Save(Ent)
+            data = SexoDB.Save(Ent)
             EndTransaction()
             return data
         except Exception as e:
@@ -16,19 +16,19 @@ class PersonaNatural:
     
     def GetItems():
         try:
-            return PersonaNaturalDB.GetItems()
+            return SexoDB.GetItems()
         except Exception as e:
             print(e)
     
     def GetItem(Id: int):
         try:
-            return PersonaNaturalDB.GetItem(Id)
+            return SexoDB.GetItem(Id)
         except Exception as e:
             print(e)
     
     def Delete(Id: int):
         try:
-            return PersonaNaturalDB.Delete(Id)
+            return SexoDB.Delete(Id)
         except Exception as e:
             print(e)
     

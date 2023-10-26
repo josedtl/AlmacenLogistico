@@ -250,102 +250,65 @@ def generate_class_from_sqlDatos(attributesData: [], output_path):
     class_nameItemNodel = first_attribute_name.replace("Id", "") + "ItemModel"
 
     class_code = ""
-    class_code += "from Utilidades.Entidades.ResponseAPI import ResponseAPIError\n"
     class_code += "from Utilidades.Entidades.ResponseAPI import ResponseAPI\n"
-    class_code += "from Utilidades.Arreglos.ListError import error_entities\n"
-    class_code += "from .configMysql import get_connection\n"
-    class_code += f"from EntityLayer.{class_nameEntity} import *\n"
-    class_code += "import pymysql\n\n\n"
-    # class_code += f"import EntityLayer.{class_nameEntity};\n"
+    class_code += "from Utilidades.Conexion.ErrorData import ErrorData\n"
+    class_code += "from Utilidades.Conexion.configMysql import DBProcedure, Restore\n"
+    class_code += f"from EntityLayer.{class_nameEntity} import *\n\n\n"
 
     class_code += f"class {class_name}:\n"
 
     class_code += "    def GetItems():\n"
     class_code += "        try:\n"
-    class_code += "            conn = get_connection()\n"
-    class_code += "            with conn.cursor() as cursor:\n"
-    class_code += "                cursor = conn.cursor(pymysql.cursors.DictCursor)\n"
-    class_code += f'                cursor.callproc("sp_{class_nameSolo}AllItems")\n'
-    class_code += f"                resulset = cursor.fetchall()\n"
-    class_code += f"            conn.close()\n"
-    class_code += f"            list = []\n\n"
-    class_code += f"            for row in resulset:\n"
-    class_code += f"                Data_ent = {class_nameItemNodel}.Cargar(row)\n"
-    class_code += f"                list.append(Data_ent)\n"
-    class_code += f"            return list\n"
+    class_code += f'            resulset = DBProcedure().DBProcedureConsult("sp_{class_nameSolo}AllItems", [])\n'
+    class_code += f"            list = [{class_nameItemNodel}.Cargar(row) for row in resulset]\n"
+    class_code += "            return list\n"
     class_code += "        except Exception as e:\n"
     class_code += f"            print(e)\n\n"
 
     class_code += "    def GetItem(Id: int):\n"
     class_code += "        try:\n"
-    class_code += "            conn = get_connection()\n"
-    class_code += "            with conn.cursor() as cursor:\n"
-    class_code += "                cursor = conn.cursor(pymysql.cursors.DictCursor)\n"
-    class_code += "                args = (Id,)\n"  
-    class_code += f'                cursor.callproc("sp_{class_nameSolo}AllItem", args)\n'
-    class_code += f"                resulset = cursor.fetchall()\n"
-    class_code += f"            conn.close()\n"
-    class_code += f"            list = []\n\n"
-    class_code += f"            for row in resulset:\n"
-    class_code += f"                Data_ent = {class_nameItemNodel}.Cargar(row)\n"
-    class_code += f"                list.append(Data_ent)\n"
+    class_code += "            args = (Id,)\n"  
+    class_code += f'            resulset = DBProcedure().DBProcedureConsult("sp_{class_nameSolo}AllItem", args)\n'
+    class_code += f"            list = [{class_nameItemNodel}.Cargar(row) for row in resulset]\n"
     class_code += f"            return list\n"
     class_code += "        except Exception as e:\n"
     class_code += f"            print(e)\n\n"
 
-
-
-
-
     class_code += f"    def Save(Ent: {class_nameSaveModel}):\n"
     class_code += "        try:\n"
-    class_code += "            Store: str\n"
-    class_code += f'            Store = "sp_{class_nameSolo}_Save"\n'
-    class_code += "            if Ent.Action == ProcessActionEnum.Update:\n"
-    class_code += f'                Store = "sp_{class_nameSolo}_Update"\n'
-    class_code += "            conn = get_connection()\n"
-    class_code += "            with conn.cursor() as cursor:\n"
-    class_code += "                cursor = conn.cursor(pymysql.cursors.DictCursor)\n"
-    class_code += "                args = []\n"
-
+    class_code += "            store_mapping = {\n"
+    class_code += f'                ProcessActionEnum.Update: "sp_{class_nameSolo}_Update",\n'
+    class_code += f'                ProcessActionEnum.Add: "sp_{class_nameSolo}_Save",\n'   
+    class_code += "            }\n"
+    class_code += f'            Store = store_mapping.get(Ent.Action, "sp_{class_nameSolo}_Save")\n'
+    class_code += "            args = []\n"
     for attribute in attributes:
         attribute_name = attribute["name"]
-        class_code += f'                args.append(Ent.{attribute_name})\n'
-    class_code += "                cursor.callproc(Store, args)\n"
-    class_code += f"                Ent.{first_attribute_name} = int(cursor.fetchone()[\"v_{first_attribute_name}\"])\n\n"
-    class_code += "            conn.commit()\n"
+        class_code += f'            args.append(Ent.{attribute_name})\n'
+    class_code += f"            Ent.{first_attribute_name} = DBProcedure().DBProcedureInsertUpdate(Store, args, \"v_{first_attribute_name}\")\n\n"
     class_code += "            return Ent\n"
     class_code += "        except Exception as e:\n"
     class_code += "            print(e)\n"
-    class_code += "            conn.rollback()\n"
-    class_code += "        finally:\n"
-    class_code += "            cursor.close()\n"
-    class_code += "            conn.close()\n\n"
+    class_code += "            Restore()\n"
+
 
 
     class_code += f"    def Delete(Id: int):\n"
     class_code += "        try:\n"
-    class_code += "            conn = get_connection()\n"
-    class_code += "            with conn.cursor() as cursor:\n"
-    class_code += "                cursor = conn.cursor(pymysql.cursors.DictCursor)\n"
-    class_code += "                args = (Id,)\n"
-    class_code += f"                cursor.callproc(\"sp_{class_nameSolo}_Delete\", args)\n"
-    class_code += "                conn.commit()\n"   
-    class_code += "            return ResponseAPI.Response(True)\n"
+    class_code += "            args = (Id,)\n"
+    class_code += f"            Val = DBProcedure().DBProcedureDalete(\"sp_{class_nameSolo}_Delete\", args)\n"
+    class_code += "            return ResponseAPI.Response(Val)\n"
     class_code += "        except Exception as e:\n"
-    class_code += "            error_code = e.args[0]\n"
-    class_code += "            error_entity = next((entity for entity in error_entities if entity['code'] == error_code), None)\n\n"
-    class_code += "            if error_entity:\n"
-    class_code += "                print(error_entity['message'])\n"
-    class_code += "                return ResponseAPIError.ErrorMensaje(error_entity['messageuser']) \n"
-    class_code += "            else:\n"
-    class_code += "                error_message = \"Ocurrio un error al eliminar el Registro\"\n"
-    class_code += "                print(e)\n"
-    class_code += "                return ResponseAPIError.ErrorMensaje(error_message) \n"
-    class_code += "        finally:\n"
-    class_code += "            cursor.close()\n"
-    class_code += "            conn.close()\n\n"
+    class_code += "            ErrorData(e)\n\n"
 
+    class_code += "    def GetItemLike(Nombre: str):\n"
+    class_code += "        try:\n"
+    class_code += "            args = (Nombre,)\n"  
+    class_code += f'            resulset = DBProcedure().DBProcedureConsult("sp_{class_nameSolo}ItemLike", args)\n'
+    class_code += f"            list = [{class_nameItemNodel}.Cargar(row) for row in resulset]\n"
+    class_code += f"            return list\n"
+    class_code += "        except Exception as e:\n"
+    class_code += f"             print(e)\n\n"
 
     output_file = os.path.join(output_path, f"{class_name}.py")
     with open(output_file, "w") as java_file:

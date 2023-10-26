@@ -105,13 +105,18 @@ def generate_class_from_sqlNegocio(attributesData:[], output_path):
 
     class_code = ""
     class_code += f"from DataLayer.{class_name} import *\n"
-    class_code += f"from EntityLayer.{class_nameEntity} import *\n\n\n"
+    class_code += f"from EntityLayer.{class_nameEntity} import *\n"
+    class_code += f"from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Restore\n\n\n"
 
     class_code += f"class {class_nameSolo}:\n"
     class_code += f"    def Save(Ent: {class_nameSaveModel}):\n"
     class_code += f"        try:\n"
-    class_code += f"            return {class_name}.Save(Ent)\n"
+    class_code += f"            StartTransaction()\n"
+    class_code += f"            data = {class_name}.Save(Ent)\n"
+    class_code += f"            EndTransaction()\n"
+    class_code += f"            return data\n"
     class_code += f"        except Exception as e:\n"
+    class_code += "            Restore()\n"
     class_code += "            print(e)\n"
     class_code += "    \n"
 

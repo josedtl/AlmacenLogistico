@@ -127,6 +127,8 @@ function Page() {
 
 
   useEffect(() => {
+    const dateEmison = moment(new Date()).format('YYYY-MM-DD')
+    setFechaEmisionItem(dateEmison);
     getCargarDatos(idNumero);
   }, []);
 
@@ -243,12 +245,11 @@ function Page() {
       onOk() {
 
         const fecha: Date = new Date(FechaEmisionItem + "T00:00:00");
-
         Ent.TipoProcesoId = 1;
         Ent.ProcesoId = 1;
         Ent.EstadoProcesoId = 1;
         Ent.ResponsableId = 0;
-        Ent.FechaEmision = fecha;
+        Ent.FechaEmision = new Date(fecha);
         Ent.CodUsuario = "adm";
         Ent.Action = 1;
         Ent.FechaRegistro = new Date();

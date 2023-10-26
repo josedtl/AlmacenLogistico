@@ -210,13 +210,25 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                             <label>Stock</label>
                         </Col>
                         <Col span={24}>
-                            <Input
-                                type="number"
-                                name="Stock"
-                                style={{ marginTop: '5px', marginBottom: '10px' }}
-                                // onChange={onChangeText}
-                                value={Ent.Stock === null ? "" : Ent.Stock}
-                            />
+                            <Space direction="vertical" size="middle">
+
+                                <Space.Compact>
+                                    <Input
+                                        type="number"
+                                        name="Stock"
+                                        style={{ marginTop: '5px', marginBottom: '10px' }}
+                                        // onChange={onChangeText}
+                                        value={Ent.Stock === null ? "" : Ent.Stock}
+                                    />
+                                    <Input
+                                        status={ValDato}
+                                        type="text"
+                                        style={{ width: '30%', marginTop: '5px', marginBottom: '10px' }}
+                                        name="Nombre"
+                                        value={ValCodigoUM}
+                                    />
+                                </Space.Compact>
+                            </Space>
                         </Col>
                     </Row>
 
