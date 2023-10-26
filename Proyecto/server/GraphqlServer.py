@@ -152,9 +152,8 @@ def resolve_GHEstadoCivilItems(_self, info):
 @query.field("GHTipoDocumentoIdentidadPersonaItems")
 def resolve_GHTipoDocumentoIdentidadPersonaItems(_self, info):
     Items = TipoDocumentoIdentidad.GetItems()
-    # FilterItems = [x for x in Items if x.EsEmpresa]
-    list = Items
-    return list
+    FilterItems = [x for x in Items if x.EsEmpresa]
+    return FilterItems
 
 @query.field("GHTipoDocumentoIdentidadEmpresaItems")
 def resolve_GHTipoDocumentoIdentidadEmpresaItems(_self, info):

@@ -250,7 +250,29 @@ class GeneralService {
     return await response.data.data.GHEstadoCivilItemLike;
   }
 
+  async GetTipoDocumentoIdentidadPersonaItems(): Promise<TipoDocumentoIdentidadEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{
+        GHTipoDocumentoIdentidadPersonaItems {
+          TipoDocumentoIdentidadId
+          Alias
+        }
+      }`,
+    });
+    return await response.data.data.GHTipoDocumentoIdentidadPersonaItems
+  }
 
+  async GetTipoDocumentoIdentidadEmpresaItems(): Promise<TipoDocumentoIdentidadEntity[]> {
+    const response = await apiLg.post('gql/General', {
+      query: `{
+        GHTipoDocumentoIdentidadEmpresaItems {
+          TipoDocumentoIdentidadId
+          Alias
+        }
+      }`,
+    });
+    return await response.data.data.GHTipoDocumentoIdentidadEmpresaItems
+  }
   async GetTipoDocumentoIdentidadItems(): Promise<TipoDocumentoIdentidadEntity[]> {
     const response = await apiLg.post('gql/General', {
       query: `
