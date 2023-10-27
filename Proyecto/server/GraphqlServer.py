@@ -152,14 +152,21 @@ def resolve_GHEstadoCivilItems(_self, info):
 @query.field("GHTipoDocumentoIdentidadPersonaItems")
 def resolve_GHTipoDocumentoIdentidadPersonaItems(_self, info):
     Items = TipoDocumentoIdentidad.GetItems()
-    FilterItems = [x for x in Items if x.EsEmpresa]
+    FilterItems = [x for x in Items if not x.EsEmpresa]
     return FilterItems
 
 @query.field("GHTipoDocumentoIdentidadEmpresaItems")
 def resolve_GHTipoDocumentoIdentidadEmpresaItems(_self, info):
     Items = TipoDocumentoIdentidad.GetItems()
-    FilterItems = [x for x in Items if not x.EsEmpresa]
+    FilterItems = [x for x in Items if x.EsEmpresa]
     list = FilterItems
     return list
+
+@query.field("GHUbigeoItemLike")
+def resolve_GHUbigeoItemLike(_self, info, Nombre):
+    list = Ubigeo.GetItemLike(Nombre)
+    return list
+
+
 
 schema = make_executable_schema(type_defs, query)

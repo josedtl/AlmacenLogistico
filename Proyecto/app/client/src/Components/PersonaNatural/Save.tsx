@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input, DatePicker } from 'antd';
+import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input, DatePicker, Space } from 'antd';
 import { TipoDocumentoIdentidadEntity } from '../../Models/TipoDocumentoIdentidadEntity';
 import { SexoEntity } from '../../Models/SexoEntity';
 import { EstadoCivilEntity } from '../../Models/EstadoCivilEntity';
@@ -17,6 +17,7 @@ import type { DatePickerProps } from 'antd';
 import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
+import { red } from '@ant-design/colors';
 
 const Save = () => {
   const { Id } = useParams();
@@ -164,7 +165,7 @@ const Save = () => {
       const response = await sGeneral.GetUbigeoItemLike(value);
       setOptionsUbigeo(response);
     } catch (error) {
-      console.error('Error al buscar categorías:', error);
+      console.error('Error al buscar Ubigeo:', error);
     }
   };
 
@@ -232,6 +233,7 @@ const Save = () => {
     setValTipoDocuemntoIdentidad('');
     Ent.TipoDocumentoIdentidadId = value;
     setSelectedTipoDocuemntoIdentidad(value)
+    console.log(value)
   };
 
   const onChangeSexo = async (value: number) => {
@@ -263,6 +265,7 @@ const Save = () => {
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const AddPersonaNatural = async () => {
     const savedItem = await sPersonaNatural.saveItem(Ent);
+    console.log(savedItem);
     if (savedItem) {
 
       messageAdd.open({
@@ -347,30 +350,46 @@ const Save = () => {
 
   };
 
+  async function cargarItem() {
 
+    setCargarPage(true);
+    const Resp_UM = await sGeneral.GetTipoDocumentoIdentidadPersonaItems();
+    setOptionsTipoDocumentoIdentidad(Resp_UM);
+
+    const Resp_Sexo = await sGeneral.GetSexoItems();
+    setOptionsSexo(Resp_Sexo);
+
+    const Resp_EC = await sGeneral.GetEstadoCivilItems();
+    setOptionsEstadoCivil(Resp_EC);
+
+
+    await getCargarDatos();
+  }
   useEffect(() => {
-    // async function cargarItem() {
-
-    //   setCargarPage(true);
-    //   const Resp_UM = await sGeneral.GetTipoDocumentoIdentidadItems();
-    //   setOptionsTipoDocumentoIdentidad(Resp_UM);
-
-    //   const Resp_Sexo = await sGeneral.GetSexoItems();
-    //   setOptionsSexo(Resp_Sexo);
-
-    //   const Resp_EC = await sGeneral.GetEstadoCivilItems();
-    //   setOptionsEstadoCivil(Resp_EC);
 
 
-    //   await getCargarDatos();
-    // }
 
-
-    // cargarItem();
+    cargarItem();
 
     setCargarPage(false);
   }, []);
 
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
+  const onChangeA = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+  
+  const onSearchA = (value: string) => {
+    console.log('search:', value);
+  };
+  
+  // Filter `option.label` match the user type `input`
+  const filterOptionA = (input: string, option?: { label: string; value: string }) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+  
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -407,10 +426,11 @@ const Save = () => {
                 <Col span={24}>
                   <Select
                     status={ValTipoDocuemntoIdentidad}
-                    showSearch
+                    allowClear
                     style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                     defaultActiveFirstOption={false}
                     filterOption={false}
+                    optionFilterProp="children"
                     value={Ent.TipoDocumentoIdentidadId === 0 ? null : Ent.TipoDocumentoIdentidadId}
                     key={Ent.TipoDocumentoIdentidadId}
                     onChange={onChangeTipoDocuemntoIdentidad}
@@ -528,7 +548,7 @@ const Save = () => {
                     value={dayjs(FechaNacimientoItem, dateFormat)}
                     // defaultValue={dayjs(FechaEmisionItem, dateFormat)}
                     style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
-                     />
+                  />
 
                 </Col>
               </Row>
@@ -541,8 +561,8 @@ const Save = () => {
                 </Col>
                 <Col span={24}>
                   <Input
-                    type="TextArea"
-                    name="Descripcion"
+                    type="text"
+                    name="Telefono"
                     status={ValTelefono}
                     style={{ marginTop: '5px', marginBottom: '10px' }}
                     onChange={onChangeText}
@@ -564,8 +584,8 @@ const Save = () => {
             </Col>
             <Col span={24}>
               <Input
-                type="TextArea"
-                name="Descripcion"
+                type="text"
+                name="Correo"
                 status={ValCorreo}
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChangeText}
@@ -588,7 +608,7 @@ const Save = () => {
                 <Col span={24}>
                   <Select
                     status={ValSexo}
-                    showSearch
+                    allowClear
                     style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                     defaultActiveFirstOption={false}
                     filterOption={false}
@@ -614,13 +634,13 @@ const Save = () => {
                 <Col span={24}>
                   <Select
                     status={ValEstadoCivil}
-                    showSearch
+                    allowClear
                     style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                     defaultActiveFirstOption={false}
                     filterOption={false}
                     value={Ent.EstadoCivilId === 0 ? null : Ent.EstadoCivilId}
                     key={Ent.EstadoCivilId}
-                    onChange={onChangeTipoDocuemntoIdentidad}
+                    onChange={onChangeEstadoCivil}
                   >
                     {optionsEstadoCivil.map((row) => (
                       <Select.Option key={row.EstadoCivilId} value={row.EstadoCivilId}>
@@ -672,7 +692,7 @@ const Save = () => {
             <Col span={24}>
               <Input
                 type="text"
-                name="Nombre"
+                name="Direccion"
                 status={ValDireccion}
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChangeText}
@@ -688,9 +708,60 @@ const Save = () => {
         </Col>
 
         <Col xs={24} sm={14} md={16} lg={17} xl={18}>
-          {/* <Tabs
-            style={{ marginLeft: '20px' }}
-            type="line" items={TabsItems} /> */}
+          <Space wrap>
+            <Select
+              defaultValue="lucy"
+              style={{ width: 120 }}
+              onChange={handleChange}
+              options={[
+                { value: 'jack', label: 'Jack' },
+                { value: 'lucy', label: 'Lucy' },
+                { value: 'Yiminghe', label: 'yiminghe' },
+                { value: 'disabled', label: 'Disabled', disabled: true },
+              ]}
+            />
+            <Select
+              defaultValue="lucy"
+              style={{ width: 120 }}
+              disabled
+              options={[{ value: 'lucy', label: 'Lucy' }]}
+            />
+            <Select
+              defaultValue="lucy"
+              style={{ width: 120 }}
+              loading
+              options={[{ value: 'lucy', label: 'Lucy' }]}
+            />
+            <Select
+              defaultValue="lucy"
+              style={{ width: 120 }}
+              allowClear
+              options={[{ value: 'lucy', label: 'Lucy' }]}
+            />
+            <Select
+               style={{ border: 'red' }}
+              showSearch
+              placeholder="Select a person"
+              optionFilterProp="children"
+              onChange={onChangeA}
+              onSearch={onSearchA}
+              filterOption={filterOptionA}
+              options={[
+                {
+                  value: 'jack',
+                  label: 'Jack',
+                },
+                {
+                  value: 'lucy',
+                  label: 'Lucy',
+                },
+                {
+                  value: 'tom',
+                  label: 'Tom',
+                },
+              ]}
+            />
+          </Space>
         </Col>
       </Row>
     </Spin>

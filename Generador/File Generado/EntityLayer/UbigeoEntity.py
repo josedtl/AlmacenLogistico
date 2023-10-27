@@ -28,9 +28,3 @@ class UbigeoItemModel:
         c.ProvinciaId = _DB["ProvinciaId"] 
         c.DistritoId = _DB["DistritoId"] 
         return c
-
-    def CargarLike(_DB):
-        c =  UbigeoItemModel()
-        c.UbigeoId = _DB["UbigeoId"] 
-        c.DesUbigeo = _DB["DesUbigeo"] 
-        return c

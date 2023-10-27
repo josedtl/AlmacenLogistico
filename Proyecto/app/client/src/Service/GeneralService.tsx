@@ -315,7 +315,7 @@ class GeneralService {
   async GetUbigeoItemLike(Nombre: string): Promise<UbigeoEntity[]> {
     const response = await apiLg.post('gql/General', {
       query: `{
-        GHUbigeoItemLike(Nombre: "${Nombre}") {UbigeoId Nombre}}`,
+        GHUbigeoItemLike(Nombre: "${Nombre}") {UbigeoId DesUbigeo}}`,
     });
     return await response.data.data.GHUbigeoItemLike;
   }

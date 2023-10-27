@@ -67,6 +67,11 @@ type TipoDocumentoIdentidad_GQL {
     EsEmpresa: Boolean
 }
 
+type Ubigeo_GQL {
+    UbigeoId: Int
+    DesUbigeo: String
+}
+
 type Query {
     GHCategoriaItems: [Categoria_GQL]
     GHCategoriaItem(Id: Int) :[Categoria_GQL]
@@ -101,5 +106,7 @@ type Query {
     GHEstadoCivilItems: [EstadoCivil_GQL]
     GHTipoDocumentoIdentidadPersonaItems: [TipoDocumentoIdentidad_GQL]
     GHTipoDocumentoIdentidadEmpresaItems: [TipoDocumentoIdentidad_GQL]
+    GHUbigeoItemLike(Nombre: String) :[Ubigeo_GQL]  
+
 }
 

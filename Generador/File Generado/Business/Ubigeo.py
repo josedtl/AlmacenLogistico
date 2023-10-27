@@ -1,12 +1,17 @@
 from DataLayer.UbigeoDB import *
 from EntityLayer.UbigeoEntity import *
+from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Restore
 
 
 class Ubigeo:
     def Save(Ent: UbigeoSaveModel):
         try:
-            return UbigeoDB.Save(Ent)
+            StartTransaction()
+            data = UbigeoDB.Save(Ent)
+            EndTransaction()
+            return data
         except Exception as e:
+            Restore()
             print(e)
     
     def GetItems():
@@ -26,9 +31,4 @@ class Ubigeo:
             return UbigeoDB.Delete(Id)
         except Exception as e:
             print(e)
-
-    def GetItemLike(Nombre: str):
-        try:
-            return UbigeoDB.GetItemLike(Nombre)
-        except Exception as e:
-            print(e)
+    
