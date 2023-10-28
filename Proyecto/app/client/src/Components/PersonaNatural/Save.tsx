@@ -318,7 +318,7 @@ const Save = () => {
 
       const Resp_PersonaNatural = await sPersonaNatural.GetCabeceraItem(idNumero);
       setEnt(Resp_PersonaNatural[0]);
-      console.log(Ent);
+      console.log(Resp_PersonaNatural[0]);
       
       const Resp_Ubigeo = await sGeneral.GetUbigeoApiItem(Resp_PersonaNatural[0].UbigeoId);
       setOptionsUbigeo(Resp_Ubigeo);

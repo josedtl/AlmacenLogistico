@@ -47,7 +47,7 @@ class PersonaNaturalItemModel:
         c.Nombres = _DB["Nombres"] 
         c.ApellidoPaterno = _DB["ApellidoPaterno"] 
         c.ApellidoMaterno = _DB["ApellidoMaterno"] 
-        # c.FechaNacimiento = _DB["FechaNacimiento"] 
+        c.FechaNacimiento = _DB["FechaNacimiento"] 
         c.UbigeoId = _DB["UbigeoId"] 
         c.Direccion = _DB["Direccion"] 
         c.Telefono = _DB["Telefono"] 
