@@ -18,6 +18,7 @@ export class PersonaNaturalEntity {
     CodUsuario: string;
     EstadoRegistro: boolean;
     Action: ProcessActionEnum
+    NomDocumento: string;
     constructor() {
         this.PersonaNaturalId = 0;
         this.TipoDocumentoIdentidadId = 0;
@@ -36,5 +37,6 @@ export class PersonaNaturalEntity {
         this.CodUsuario = '';
         this.EstadoRegistro = false;
         this.Action = ProcessActionEnum.Add;
+        this.NomDocumento = '';
     }
 }

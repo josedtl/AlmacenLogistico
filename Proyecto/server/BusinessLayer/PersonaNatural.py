@@ -32,3 +32,13 @@ class PersonaNatural:
         except Exception as e:
             print(e)
     
+    def GetMainItems():
+        try:
+            return PersonaNaturalDB.GetMainItems()
+        except Exception as e:
+            print(e)    
+    def GetCabeceraItem(Id: int):
+        try:
+            return PersonaNaturalDB.GetCabeceraItem(Id)
+        except Exception as e:
+            print(e)

@@ -4,7 +4,7 @@ from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 class UbigeoSaveModel(BaseModel):
     UbigeoId: int 
-    CodUbigeo: int 
+    CodUbigeo: str 
     DesUbigeo: str 
     DepartamentoId: int 
     ProvinciaId: int 
@@ -13,7 +13,7 @@ class UbigeoSaveModel(BaseModel):
 
 class UbigeoItemModel:
     UbigeoId: int 
-    CodUbigeo: int 
+    CodUbigeo: str 
     DesUbigeo: str 
     DepartamentoId: int 
     ProvinciaId: int 

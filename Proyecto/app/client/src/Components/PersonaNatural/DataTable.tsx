@@ -24,10 +24,31 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'Cont',
         },
         {
-            title: 'Nombre',
-            dataIndex: 'Nombre',
-            key: 'Nombre',
+            title: 'Documento',
+            dataIndex: 'NomDocumento',
+            key: 'NomDocumento',
         },
+        {
+            title: 'Numero',
+            dataIndex: 'NumDocumento',
+            key: 'NumDocumento',
+        },
+        {
+            title: 'Nombres',
+            dataIndex: 'Nombres',
+            key: 'Nombres',
+        },
+        {
+            title: 'ApellidoPaterno',
+            dataIndex: 'ApellidoPaterno',
+            key: 'ApellidoPaterno',
+        },
+        {
+            title: 'ApellidoMaterno',
+            dataIndex: 'ApellidoMaterno',
+            key: 'ApellidoMaterno',
+        },
+
         {
             title: 'Fecha de registro',
             dataIndex: 'FechaRegistro',

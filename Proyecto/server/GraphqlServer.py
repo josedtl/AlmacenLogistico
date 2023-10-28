@@ -167,6 +167,9 @@ def resolve_GHUbigeoItemLike(_self, info, Nombre):
     list = Ubigeo.GetItemLike(Nombre)
     return list
 
-
+@query.field("GHUbigeoItem")
+def resolve_GHUbigeoItem(_self, info, Id):
+    list = Ubigeo.GetItem(Id)
+    return list
 
 schema = make_executable_schema(type_defs, query)

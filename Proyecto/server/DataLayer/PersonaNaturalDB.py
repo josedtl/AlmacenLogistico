@@ -69,3 +69,22 @@ class PersonaNaturalDB:
         except Exception as e:
              print(e)
 
+    def GetMainItems():
+        try:
+            resulset = DBProcedure().DBProcedureConsult("sp_PersonaNaturalMainItems", [])
+            print("Inicio")
+            print(resulset)
+            print("Fin")
+            list = [PersonaNaturalItemModel.CargarMain(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)
+
+    def GetCabeceraItem(Id: int):
+        try:
+            args = (Id,)
+            resulset = DBProcedure().DBProcedureConsult("sp_PersonaNaturalCabeceraItem", args)
+            list = [PersonaNaturalItemModel.Cargar(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)

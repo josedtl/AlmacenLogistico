@@ -185,10 +185,7 @@ function Page() {
   type PositionType = 'left' | 'right';
   const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
     ;
-  const OperationsSlot: Record<PositionType, React.ReactNode> = {
-    left: <Button className="tabs-extra-demo-button">Left Extra Action</Button>,
-    right: <Button>Right Extra Action</Button>,
-  };
+
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
     setFechaEmisionItem(dateString);
   };
@@ -437,21 +434,17 @@ function Page() {
         </Col>
 
         <Col xs={24} sm={14} md={16} lg={17} xl={18}>
-          {/* <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
-          <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
-           */}
+  
           <Tabs
             tabBarExtraContent={operations}
             style={{ marginLeft: '20px' }}
             type="line"
-            // items={TabsItems}
 
             items={new Array(1).fill(null).map((_, i) => {
               const id = String(i + 1);
               return {
                 label: (
                   < >
-                    {/* <AndroidOutlined /> */}
                     <Title style={{ fontSize: '18px' }}>
                       Producto- Detalle
                     </Title>
@@ -477,64 +470,6 @@ function Page() {
       </Row>
     </Spin>
 
-
-    // <Spin spinning={CargarPage} tip="Cargando" size="large">
-    //   {contextHolderAdd}
-    //   <Row >
-
-    //     <Col xs={18} sm={18} md={12} lg={12} xl={12}>
-    //       <Title level={2}> OrdenPedidoDetalle</Title>
-    //     </Col>
-
-    //     <Col xs={6} sm={6} md={12} lg={12} xl={12}>
-    //       <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
-    //     </Col>
-
-    //     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-    //       <Button
-    //         onClick={getItems}
-    //         style={ButtonMainSecondaryLeft}
-    //         size={SizeMainButtonSecondary}
-    //         icon={IconLoad}
-    //       />
-    //       <Button
-    //         onClick={toggle}
-    //         style={ButtonMainSecondaryLeft}
-    //         size={SizeMainButtonSecondary}
-    //         icon={disabled ? IconTabla : IconCard}
-    //       />
-
-    //       <Button
-    //         style={ButtonMainSecondaryLeft}
-    //         size={SizeMainButtonSecondary}
-    //         icon={IconReport}
-    //       />
-    //       <Button
-    //         style={ButtonMainSecondaryRight}
-    //         size={SizeMainButtonSecondary}
-    //         icon={IconFiltro}
-    //       />
-
-    //     </Col>
-
-    //     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-
-    //       <Input
-    //         placeholder='Buscar OrdenPedidoDetalle'
-    //         type="text"
-    //         name="Nombre"
-    //         onChange={onChange}
-    //         value={Busqueda === null ? "" : Busqueda}
-    //         style={InputSearchMain}
-    //         size={SizeMainButtonSecondary}
-    //       />
-    //     </Col>
-
-    //   </Row>
-    //   <Card>
-    //     <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
-    //   </Card>
-    // </Spin>
   );
 }
 

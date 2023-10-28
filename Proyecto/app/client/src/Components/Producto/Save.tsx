@@ -607,7 +607,7 @@ const Save = () => {
             </Col>
             <Col span={24}>
               <Select
-                showSearch
+                allowClear
                 status={ValUnidadMedida}
                 style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                 defaultActiveFirstOption={false}

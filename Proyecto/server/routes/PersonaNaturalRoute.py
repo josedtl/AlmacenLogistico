@@ -47,4 +47,20 @@ def Delete(Id: int):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
+@PersonaNaturalRouter.get(f"/api/{ApiName}/GetMainItems", tags=[ApiName])
+def GetMainItems():
+    try:
+        jsonData = PersonaNatural.GetMainItems()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
 
+@PersonaNaturalRouter.get(f"/api/{ApiName}/GetCabeceraItem/{{Id}}/", tags=[ApiName])
+def GetCabeceraItem(Id: int):
+    try:
+        jsonData = PersonaNatural.GetCabeceraItem(Id)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())

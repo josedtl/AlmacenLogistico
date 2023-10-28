@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { PersonaNaturalEntity } from '../Models/PersonaNaturalEntity';
+import { apiLg } from './axios-config';
 
 const URL = import.meta.env.VITE_SOME_KEY;
 class PersonaNaturalService {
@@ -61,6 +62,26 @@ class PersonaNaturalService {
     } catch (err) {
       console.log(err);
       return [];
+    }
+  }
+
+
+  async getMainItems(): Promise<PersonaNaturalEntity[]> {
+    try {
+      const response = await apiLg.get(`api/PersonaNatural/GetMainItems`);
+      return response.data.Value;
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async GetCabeceraItem(Id: number): Promise<PersonaNaturalEntity[]> {
+    try {
+      const response = await apiLg.get(`api/PersonaNatural/GetCabeceraItem/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
     }
   }
 

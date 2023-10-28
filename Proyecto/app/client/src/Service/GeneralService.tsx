@@ -307,10 +307,11 @@ class GeneralService {
 
   async GetUbigeoItem(Id: number): Promise<UbigeoEntity[]> {
     const response = await apiLg.post('gql/General', {
-      query: `{ GHUbigeoItem(Id: ${Id}) {UbigeoId Nombre}}`,
+      query: `{ GHUbigeoItem(Id: ${Id}) {UbigeoId DesUbigeo}}`,
     });
     return await response.data.data.GHUbigeoItem
   }
+
 
   async GetUbigeoItemLike(Nombre: string): Promise<UbigeoEntity[]> {
     const response = await apiLg.post('gql/General', {
@@ -318,6 +319,15 @@ class GeneralService {
         GHUbigeoItemLike(Nombre: "${Nombre}") {UbigeoId DesUbigeo}}`,
     });
     return await response.data.data.GHUbigeoItemLike;
+  }
+
+  async GetUbigeoApiItem(Id: number): Promise<UbigeoEntity[]> {
+    try {
+      const response = await apiLg.get(`api/Ubigeo/GetItem/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

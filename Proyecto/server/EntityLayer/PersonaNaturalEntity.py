@@ -47,7 +47,7 @@ class PersonaNaturalItemModel:
         c.Nombres = _DB["Nombres"] 
         c.ApellidoPaterno = _DB["ApellidoPaterno"] 
         c.ApellidoMaterno = _DB["ApellidoMaterno"] 
-        c.FechaNacimiento = _DB["FechaNacimiento"] 
+        # c.FechaNacimiento = _DB["FechaNacimiento"] 
         c.UbigeoId = _DB["UbigeoId"] 
         c.Direccion = _DB["Direccion"] 
         c.Telefono = _DB["Telefono"] 
@@ -57,4 +57,16 @@ class PersonaNaturalItemModel:
         c.FechaRegistro = _DB["FechaRegistro"] 
         c.CodUsuario = _DB["CodUsuario"] 
         c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 
+        return c
+
+    def CargarMain(_DB):
+        c =  PersonaNaturalItemModel()
+        c.PersonaNaturalId = _DB["PersonaNaturalId"] 
+        c.NumDocumento = _DB["NumDocumento"] 
+        c.Nombres = _DB["Nombres"] 
+        c.ApellidoPaterno = _DB["ApellidoPaterno"] 
+        c.ApellidoMaterno = _DB["ApellidoMaterno"] 
+        c.FechaRegistro = _DB["FechaRegistro"] 
+        c.CodUsuario = _DB["CodUsuario"] 
+        c.NomDocumento = _DB["NomDocumento"] 
         return c

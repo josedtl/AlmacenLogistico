@@ -33,7 +33,7 @@ function Main() {
   };
 
   const getItems = async () => {
-    const itemsg = await sPersonaNatural.getItems();
+    const itemsg = await sPersonaNatural.getMainItems();
     setItems(itemsg);
     setCargarPage(false);
 

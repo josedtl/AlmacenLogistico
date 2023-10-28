@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input, DatePicker, Space } from 'antd';
+import { Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input, DatePicker, Space } from 'antd';
 import { TipoDocumentoIdentidadEntity } from '../../Models/TipoDocumentoIdentidadEntity';
 import { SexoEntity } from '../../Models/SexoEntity';
 import { EstadoCivilEntity } from '../../Models/EstadoCivilEntity';
@@ -8,8 +8,6 @@ import { UbigeoEntity } from '../../Models/UbigeoEntity';
 import { PersonaNaturalEntity } from '../../Models/PersonaNaturalEntity';
 import GeneralService from '../../Service/GeneralService';
 import PersonaNaturalService from '../../Service/PersonaNaturalService';
-import MDMarca from '../Marca/ModalItem';
-import MDModelo from '../Modelo/ModalItem';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
 import { ButtonAddMain } from '../../Styles/Button'
@@ -17,8 +15,7 @@ import type { DatePickerProps } from 'antd';
 import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
-import { red } from '@ant-design/colors';
-
+import { ProcessActionEnum } from '../../Lib/ResourceModel/Enum'
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
@@ -30,33 +27,6 @@ const Save = () => {
   const [CargarPage, setCargarPage] = React.useState(true);
   const [FechaNacimientoItem, setFechaNacimientoItem] = useState<string>(moment(Ent.FechaNacimiento).format('DD/MM/YYYY hh:mm'));
   const dateFormat = 'YYYY/MM/DD';
-
-  // const addItemToStateCategoria = async (item: CategoriaEntity) => {
-  //   const Resp_Categoria = await sGeneral.GetCategoriaItem(item.CategoriaId);
-  //   setOptionsCategoria(Resp_Categoria);
-  //   Ent.CategoriaId = Resp_Categoria[0].CategoriaId;
-
-  // };
-
-  // const addItemToStateMarca = async (item: MarcaEntity) => {
-  //   const Resp_Marca = await sGeneral.GetMarcaItem(item.MarcaId);
-  //   setOptionsMarca(Resp_Marca);
-  //   Ent.MarcaId = Resp_Marca[0].MarcaId;
-
-  // };
-  // const addItemToStateModelo = async (item: ModeloEntity) => {
-  //   const Resp_Modelo = await sGeneral.GetModeloItem(item.ModeloId);
-  //   setOptionsModelo(Resp_Modelo);
-  //   Ent.ModeloId = Resp_Modelo[0].ModeloId;
-
-  // };
-  // const addItemToStateTipoPersonaNatural = async (item: TipoPersonaNaturalEntity) => {
-  //   const Resp_TipoPersonaNatural = await sGeneral.GetTipoPersonaNaturalItem(item.TipoPersonaNaturalId);
-  //   setOptionsTipoPersonaNatural(Resp_TipoPersonaNatural);
-  //   Ent.TipoPersonaNaturalId = Resp_TipoPersonaNatural[0].TipoPersonaNaturalId;
-
-  // };
-
 
   const columns = [
     {
@@ -171,31 +141,7 @@ const Save = () => {
 
 
 
-  const getCargarDatos = async () => {
 
-    console.log(idNumero)
-    if (idNumero > 0) {
-
-      const Resp_PersonaNatural = await sPersonaNatural.getItem(idNumero);
-
-      // const Resp_Categoria = await sGeneral.GetCategoriaItem(Resp_PersonaNatural[0].CategoriaId);
-      // setOptionsCategoria(Resp_Categoria);
-
-      // const Resp_TipoPersonaNatural = await sGeneral.GetTipoPersonaNaturalItem(Resp_PersonaNatural[0].TipoPersonaNaturalId);
-      // setOptionsTipoPersonaNatural(Resp_TipoPersonaNatural);
-
-      // const Resp_Marca = await sGeneral.GetMarcaItem(Resp_PersonaNatural[0].MarcaId);
-      // setOptionsMarca(Resp_Marca);
-
-      // const Resp_Modelo = await sGeneral.GetModeloItem(Resp_PersonaNatural[0].ModeloId);
-      // setOptionsModelo(Resp_Modelo);
-
-
-      setEnt(Resp_PersonaNatural[0]);
-    }
-
-    setCargarPage(false);
-  };
   const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     setValCodigo('');
@@ -264,8 +210,8 @@ const Save = () => {
   const [modal, contextHolder] = Modal.useModal();
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const AddPersonaNatural = async () => {
+    console.log(Ent);
     const savedItem = await sPersonaNatural.saveItem(Ent);
-    console.log(savedItem);
     if (savedItem) {
 
       messageAdd.open({
@@ -336,11 +282,13 @@ const Save = () => {
       okType: 'danger',
       cancelText: 'No',
       onOk() {
+
+        const fecha: Date = new Date(FechaNacimientoItem + "T00:00:00");
+        Ent.FechaNacimiento = new Date(fecha);
         Ent.CodUsuario = "adm";
-        Ent.Action = 1;
         Ent.FechaRegistro = new Date();
         Ent.EstadoRegistro = true
-        Ent.Action = Ent.PersonaNaturalId == 0 ? 1 : 3;
+        Ent.Action = Ent.PersonaNaturalId == 0 ? ProcessActionEnum.Add : ProcessActionEnum.Update;
         AddPersonaNatural();
       },
       onCancel() {
@@ -350,7 +298,9 @@ const Save = () => {
 
   };
 
-  async function cargarItem() {
+
+  async function getCargarDatos() {
+
 
     setCargarPage(true);
     const Resp_UM = await sGeneral.GetTipoDocumentoIdentidadPersonaItems();
@@ -362,34 +312,34 @@ const Save = () => {
     const Resp_EC = await sGeneral.GetEstadoCivilItems();
     setOptionsEstadoCivil(Resp_EC);
 
+    console.log(idNumero)
+    Ent.Action = ProcessActionEnum.Add
+    if (idNumero > 0) {
 
-    await getCargarDatos();
-  }
-  useEffect(() => {
+      const Resp_PersonaNatural = await sPersonaNatural.GetCabeceraItem(idNumero);
+      setEnt(Resp_PersonaNatural[0]);
+      console.log(Ent);
+      
+      const Resp_Ubigeo = await sGeneral.GetUbigeoApiItem(Resp_PersonaNatural[0].UbigeoId);
+      setOptionsUbigeo(Resp_Ubigeo);
+
+      const dateFNC = moment(Resp_PersonaNatural[0].FechaNacimiento).format('YYYY-MM-DD')
+      setFechaNacimientoItem(dateFNC);
 
 
 
-    cargarItem();
+
+    }
 
     setCargarPage(false);
+  };
+  useEffect(() => {
+
+    const dateFN = moment(new Date()).format('YYYY-MM-DD')
+    setFechaNacimientoItem(dateFN);
+    getCargarDatos();
   }, []);
 
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-
-  const onChangeA = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-  
-  const onSearchA = (value: string) => {
-    console.log('search:', value);
-  };
-  
-  // Filter `option.label` match the user type `input`
-  const filterOptionA = (input: string, option?: { label: string; value: string }) =>
-    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
-  
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -554,6 +504,9 @@ const Save = () => {
               </Row>
 
             </Col>
+
+
+
             <Col span={12}>
               <Row>
                 <Col span={24}>
@@ -708,60 +661,7 @@ const Save = () => {
         </Col>
 
         <Col xs={24} sm={14} md={16} lg={17} xl={18}>
-          <Space wrap>
-            <Select
-              defaultValue="lucy"
-              style={{ width: 120 }}
-              onChange={handleChange}
-              options={[
-                { value: 'jack', label: 'Jack' },
-                { value: 'lucy', label: 'Lucy' },
-                { value: 'Yiminghe', label: 'yiminghe' },
-                { value: 'disabled', label: 'Disabled', disabled: true },
-              ]}
-            />
-            <Select
-              defaultValue="lucy"
-              style={{ width: 120 }}
-              disabled
-              options={[{ value: 'lucy', label: 'Lucy' }]}
-            />
-            <Select
-              defaultValue="lucy"
-              style={{ width: 120 }}
-              loading
-              options={[{ value: 'lucy', label: 'Lucy' }]}
-            />
-            <Select
-              defaultValue="lucy"
-              style={{ width: 120 }}
-              allowClear
-              options={[{ value: 'lucy', label: 'Lucy' }]}
-            />
-            <Select
-               style={{ border: 'red' }}
-              showSearch
-              placeholder="Select a person"
-              optionFilterProp="children"
-              onChange={onChangeA}
-              onSearch={onSearchA}
-              filterOption={filterOptionA}
-              options={[
-                {
-                  value: 'jack',
-                  label: 'Jack',
-                },
-                {
-                  value: 'lucy',
-                  label: 'Lucy',
-                },
-                {
-                  value: 'tom',
-                  label: 'Tom',
-                },
-              ]}
-            />
-          </Space>
+
         </Col>
       </Row>
     </Spin>

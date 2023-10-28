@@ -57,9 +57,11 @@ class DBProcedure:
             with conexion.cursor() as cursor:
                 cursor.callproc(Store, Parametro)
                 resulset = cursor.fetchall()
-                cursor.close()
+            # print(resulset)
+            cursor.close()
             return resulset
         except Exception as e:
+            conexion.rollback()
             print(e)
 
     def DBProcedureDalete(self, Store, Parametro):
