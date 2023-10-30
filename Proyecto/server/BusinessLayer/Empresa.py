@@ -1,12 +1,17 @@
 from DataLayer.EmpresaDB import *
 from EntityLayer.EmpresaEntity import *
+from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Restore
 
 
 class Empresa:
     def Save(Ent: EmpresaSaveModel):
         try:
-            return EmpresaDB.Save(Ent)
+            StartTransaction()
+            data = EmpresaDB.Save(Ent)
+            EndTransaction()
+            return data
         except Exception as e:
+            Restore()
             print(e)
     
     def GetItems():
@@ -27,3 +32,8 @@ class Empresa:
         except Exception as e:
             print(e)
     
+    def GetMainItems():
+        try:
+            return EmpresaDB.GetMainItems()
+        except Exception as e:
+            print(e)

@@ -1,13 +1,13 @@
-from DataLayer.EstadoCivilDB import *
-from EntityLayer.EstadoCivilEntity import *
+from DataLayer.EmpresaDB import *
+from EntityLayer.EmpresaEntity import *
 from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Restore
 
 
-class EstadoCivil:
-    def Save(Ent: EstadoCivilSaveModel):
+class Empresa:
+    def Save(Ent: EmpresaSaveModel):
         try:
             StartTransaction()
-            data = EstadoCivilDB.Save(Ent)
+            data = EmpresaDB.Save(Ent)
             EndTransaction()
             return data
         except Exception as e:
@@ -16,19 +16,19 @@ class EstadoCivil:
     
     def GetItems():
         try:
-            return EstadoCivilDB.GetItems()
+            return EmpresaDB.GetItems()
         except Exception as e:
             print(e)
     
     def GetItem(Id: int):
         try:
-            return EstadoCivilDB.GetItem(Id)
+            return EmpresaDB.GetItem(Id)
         except Exception as e:
             print(e)
     
     def Delete(Id: int):
         try:
-            return EstadoCivilDB.Delete(Id)
+            return EmpresaDB.Delete(Id)
         except Exception as e:
             print(e)
     

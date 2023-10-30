@@ -2,58 +2,46 @@ from datetime import datetime
 from pydantic import BaseModel
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
-class PersonaNaturalSaveModel(BaseModel):
-    PersonaNaturalId: int 
+class EmpresaSaveModel(BaseModel):
+    EmpresaId: int 
     TipoDocumentoIdentidadId: int 
-    NumDocumento: str 
-    Nombres: str 
-    ApellidoPaterno: str 
-    ApellidoMaterno: str 
-    FechaNacimiento: datetime 
+    NumeroDocumento: str 
+    RazonSocial: str 
+    NombreComercial: str 
     UbigeoId: int 
     Direccion: str 
     Telefono: str 
     Correo: str 
-    SexoId: int 
-    EstadoCivilId: int 
     FechaRegistro: datetime 
     CodUsuario: str 
     EstadoRegistro: bool 
     Action: ProcessActionEnum
 
-class PersonaNaturalItemModel:
-    PersonaNaturalId: int 
+class EmpresaItemModel:
+    EmpresaId: int 
     TipoDocumentoIdentidadId: int 
-    NumDocumento: str 
-    Nombres: str 
-    ApellidoPaterno: str 
-    ApellidoMaterno: str 
-    FechaNacimiento: datetime 
+    NumeroDocumento: str 
+    RazonSocial: str 
+    NombreComercial: str 
     UbigeoId: int 
     Direccion: str 
     Telefono: str 
     Correo: str 
-    SexoId: int 
-    EstadoCivilId: int 
     FechaRegistro: datetime 
     CodUsuario: str 
     EstadoRegistro: bool 
 
     def Cargar(_DB):
-        c =  PersonaNaturalItemModel()
-        c.PersonaNaturalId = _DB["PersonaNaturalId"] 
+        c =  EmpresaItemModel()
+        c.EmpresaId = _DB["EmpresaId"] 
         c.TipoDocumentoIdentidadId = _DB["TipoDocumentoIdentidadId"] 
-        c.NumDocumento = _DB["NumDocumento"] 
-        c.Nombres = _DB["Nombres"] 
-        c.ApellidoPaterno = _DB["ApellidoPaterno"] 
-        c.ApellidoMaterno = _DB["ApellidoMaterno"] 
-        c.FechaNacimiento = _DB["FechaNacimiento"] 
+        c.NumeroDocumento = _DB["NumeroDocumento"] 
+        c.RazonSocial = _DB["RazonSocial"] 
+        c.NombreComercial = _DB["NombreComercial"] 
         c.UbigeoId = _DB["UbigeoId"] 
         c.Direccion = _DB["Direccion"] 
         c.Telefono = _DB["Telefono"] 
         c.Correo = _DB["Correo"] 
-        c.SexoId = _DB["SexoId"] 
-        c.EstadoCivilId = _DB["EstadoCivilId"] 
         c.FechaRegistro = _DB["FechaRegistro"] 
         c.CodUsuario = _DB["CodUsuario"] 
         c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 

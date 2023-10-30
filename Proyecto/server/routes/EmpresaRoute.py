@@ -47,4 +47,12 @@ def Delete(Id: int):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
+@EmpresaRouter.get(f"/api/{ApiName}/GetMainItems/", tags=[ApiName])
+def GetMainItems():
+    try:
+        jsonData = Empresa.GetMainItems()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
 

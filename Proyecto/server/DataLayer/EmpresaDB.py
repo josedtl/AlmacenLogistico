@@ -100,3 +100,19 @@ class EmpresaDB:
             cursor.close()
             conn.close()
 
+    def GetMainItems():
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                cursor.callproc("sp_EmpresaMainItems")
+                resulset = cursor.fetchall()
+            conn.close()
+            list = []
+
+            for row in resulset:
+                Data_ent = EmpresaItemModel.MainCargar(row)
+                list.append(Data_ent)
+            return list
+        except Exception as e:
+            print(e)
