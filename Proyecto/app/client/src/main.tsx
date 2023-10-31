@@ -34,6 +34,8 @@ import PagePersonaNatural from "./Components/PersonaNatural/Main";
 import PagePersonaNaturalSave from "./Components/PersonaNatural/Save";
 import PageEmpresa from "./Components/Empresa/Main";
 import PageEmpresaSave from "./Components/Empresa/Save";
+import PageCliente from "./Components/Cliente/Main";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -52,6 +54,7 @@ const router = createBrowserRouter([
       { path: "OrdenPedidoSave/:Id", element: <PageOrdenPedidoSave />, },
       { path: "Empresa", element: <PageEmpresa />, },
       { path: "EmpresaSave/:Id", element: <PageEmpresaSave />, },
+      { path: "Cliente", element: <PageCliente />, },
     ],
   },
 ]);

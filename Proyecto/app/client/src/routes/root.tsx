@@ -58,6 +58,7 @@ const Root: React.FC = () => {
         getItem(<Link to="/Producto">Producto</Link>, 'C1_5'),
         getItem(<Link to="/PersonaNatural">Persona Natural</Link>, 'C1_6'),
         getItem(<Link to="/Empresa">Empresa</Link>, 'C1_7'),
+        getItem(<Link to="/Cliente">Cliente</Link>, 'C1_8'),
       ]),
   ];
   return (
