@@ -58,4 +58,3 @@ class ClienteDB:
             return list
         except Exception as e:
              print(e)
-

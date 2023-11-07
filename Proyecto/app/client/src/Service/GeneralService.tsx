@@ -7,7 +7,7 @@ import { SexoEntity } from '../Models/SexoEntity';
 import { EstadoCivilEntity } from '../Models/EstadoCivilEntity';
 import { TipoDocumentoIdentidadEntity } from '../Models/TipoDocumentoIdentidadEntity';
 import { UbigeoEntity } from '../Models/UbigeoEntity';
-
+import { PersonaNaturalEntity } from '../Models/PersonaNaturalEntity';
 import { apiLg } from './axios-config';
 import { ProductoEntity } from '../Models/ProductoEntity';
 import { EstadoProcesoEntity, TipoProcesoEntity } from '../Models/GeneralEntity';
@@ -329,6 +329,16 @@ class GeneralService {
       throw error;
     }
   }
+
+  async GetBuscardocumento(NumDocumento: string): Promise<PersonaNaturalEntity[]> {
+    try {
+      const response = await apiLg.get(`api/General/GetBuscardocumento/${NumDocumento}/`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export default GeneralService;

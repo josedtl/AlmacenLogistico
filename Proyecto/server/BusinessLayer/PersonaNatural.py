@@ -42,3 +42,9 @@ class PersonaNatural:
             return PersonaNaturalDB.GetCabeceraItem(Id)
         except Exception as e:
             print(e)
+
+    def GetBuscardocumento(NumDocumento: str):
+        try:
+            return PersonaNaturalDB.GetBuscardocumento(NumDocumento)
+        except Exception as e:
+            print(e)

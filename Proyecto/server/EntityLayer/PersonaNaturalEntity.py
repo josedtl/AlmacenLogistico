@@ -70,3 +70,13 @@ class PersonaNaturalItemModel:
         c.CodUsuario = _DB["CodUsuario"] 
         c.NomDocumento = _DB["NomDocumento"] 
         return c
+
+    def CargarBuscar(_DB):
+        c =  PersonaNaturalItemModel()
+        c.PersonaNaturalId = _DB["PersonaNaturalId"] 
+        c.TipoDocumentoIdentidadId = _DB["TipoDocumentoIdentidadId"]
+        c.NumDocumento = _DB["NumDocumento"] 
+        c.Nombres = _DB["Nombres"] 
+        c.ApellidoPaterno = _DB["ApellidoPaterno"] 
+        c.ApellidoMaterno = _DB["ApellidoMaterno"] 
+        return c

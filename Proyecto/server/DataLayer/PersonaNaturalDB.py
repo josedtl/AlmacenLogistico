@@ -88,3 +88,12 @@ class PersonaNaturalDB:
             return list
         except Exception as e:
             print(e)
+
+    def GetBuscardocumento(NumDocumento: str):
+        try:
+            args = (NumDocumento,)
+            resulset = DBProcedure().DBProcedureConsult("sp_PersonaNatural_Buscar", args)
+            list = [PersonaNaturalItemModel.CargarBuscar(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)

@@ -4,6 +4,7 @@ from BusinessLayer.TipoProducto import *
 from BusinessLayer.Marca import *
 from BusinessLayer.Modelo import *
 from BusinessLayer.Producto import *
+from BusinessLayer.PersonaNatural import *
 
 from EntityLayer.CategoriaEntity import *
 from EntityLayer.TipoProductoEntity import *
@@ -117,3 +118,13 @@ def GetProductoItemLike(NDataLike: EntidadLikeModel):
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
+
+@GeneralRouter.get(f"/api/{ApiName}/GetBuscardocumento/{{NumDocumento}}/", tags=[ApiName])
+def GetBuscardocumento(NumDocumento: str):
+    try:
+        jsonData = PersonaNatural.GetBuscardocumento(NumDocumento)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
