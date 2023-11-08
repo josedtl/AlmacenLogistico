@@ -339,6 +339,16 @@ class GeneralService {
     }
   }
 
+
+  async GetTipoDocumentoIdentidadPorEstadoItems(): Promise<TipoDocumentoIdentidadEntity[]> {
+    try {
+      const response = await apiLg.get(`api/General/GetTipoDocumentoIdentidadPorEstadoItems`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export default GeneralService;

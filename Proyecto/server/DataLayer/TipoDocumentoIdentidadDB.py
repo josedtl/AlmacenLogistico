@@ -93,3 +93,20 @@ class TipoDocumentoIdentidadDB:
             cursor.close()
             conn.close()
 
+
+    def GetTipoDocumentoIdentidadPorEstadoItems():
+        try:
+            conn = get_connection()
+            with conn.cursor() as cursor:
+                cursor = conn.cursor(pymysql.cursors.DictCursor)
+                cursor.callproc("sp_TipoDocumentoIdentidadPorEstadoItems")
+                resulset = cursor.fetchall()
+            conn.close()
+            list = []
+
+            for row in resulset:
+                Data_ent = TipoDocumentoIdentidadItemModel.CargarPorEstado(row)
+                list.append(Data_ent)
+            return list
+        except Exception as e:
+            print(e)

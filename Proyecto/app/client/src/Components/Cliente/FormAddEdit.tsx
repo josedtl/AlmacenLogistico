@@ -70,7 +70,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         Cliente_PersonaNatural.ApellidoPaterno = ItemCP.ApellidoPaterno;
         Cliente_PersonaNatural.ApellidoMaterno = ItemCP.ApellidoMaterno;
         Cliente_PersonaNatural.TipoDocumentoId = ItemCP.TipoDocumentoIdentidadId;
-
+        // Cliente_PersonaNatural.EsEmpresa = ItemCP.EsEmpresa;
         setEnt(Cliente_PersonaNatural);
 
 
@@ -79,7 +79,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     }
 
     async function getCargarDatos() {
-        const Resp_UM = await sGeneral.GetTipoDocumentoIdentidadPersonaItems();
+        const Resp_UM = await sGeneral.GetTipoDocumentoIdentidadPorEstadoItems();
         setOptionsTipoDocumentoIdentidad(Resp_UM);
 
     }

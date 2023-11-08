@@ -27,3 +27,9 @@ class TipoDocumentoIdentidad:
         except Exception as e:
             print(e)
     
+    def GetTipoDocumentoIdentidadPorEstadoItems():
+        try:
+            return TipoDocumentoIdentidadDB.GetTipoDocumentoIdentidadPorEstadoItems()
+        except Exception as e:
+            print(e)
+    

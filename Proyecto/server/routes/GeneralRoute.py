@@ -5,7 +5,7 @@ from BusinessLayer.Marca import *
 from BusinessLayer.Modelo import *
 from BusinessLayer.Producto import *
 from BusinessLayer.PersonaNatural import *
-
+from BusinessLayer.TipoDocumentoIdentidad import *
 from EntityLayer.CategoriaEntity import *
 from EntityLayer.TipoProductoEntity import *
 from EntityLayer.MarcaEntity import *
@@ -128,3 +128,11 @@ def GetBuscardocumento(NumDocumento: str):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
+@GeneralRouter.get(f"/api/{ApiName}/GetTipoDocumentoIdentidadPorEstadoItems/", tags=[ApiName])
+def GetTipoDocumentoIdentidadPorEstadoItems():
+    try:
+        jsonData = TipoDocumentoIdentidad.GetTipoDocumentoIdentidadPorEstadoItems()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
