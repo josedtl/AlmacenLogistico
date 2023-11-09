@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Modal } from 'react-native';
 import TareaService from '../Model/TareaService';
 import { useNavigation } from '@react-navigation/native';
+import ModalComponent from '../components/ModalComponent';
+import { CategoriaEntity } from '../Model/CategoriaEntity';
+
 const TareasScreen: React.FC = () => {
 
     type Nav = {
@@ -10,7 +13,13 @@ const TareasScreen: React.FC = () => {
 
     const { navigate } = useNavigation<Nav>()
 
-
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedItem, setSelectedItem] = useState<CategoriaEntity | null>(null);
+  
+    const openModal = (item: string) => {
+    //   setSelectedItem(item);
+      setModalVisible(true);
+    };
 
     const [tareas, setTareas] = useState<Tarea[]>([]);
     const cargarTareas = async () => {
@@ -53,8 +62,16 @@ const TareasScreen: React.FC = () => {
                     <Text>{tarea.nombre}</Text>
                     <Text>{tarea.descripcion}</Text>
                     <Button title="Eliminar" onPress={() => handleEliminarTarea(tarea.id)} />
+                    <Button title="Editar" onPress={() => openModal('')} />
                 </View>
             ))}
+
+            <Modal visible={modalVisible} animationType="slide">
+                <ModalComponent
+                    selectedItem={selectedItem}
+                    closeModal={() => setModalVisible(false)}
+                />
+            </Modal>
         </View>
     );
 };
