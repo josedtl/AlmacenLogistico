@@ -25,3 +25,10 @@ class TipoDocumentoIdentidadItemModel:
         c.Descripcion = _DB["Descripcion"] 
         c.EsEmpresa = bool(ord(_DB["EsEmpresa"])) 
         return c
+
+    def CargarPorEstado(_DB):
+        c =  TipoDocumentoIdentidadItemModel()
+        c.TipoDocumentoIdentidadId = _DB["TipoDocumentoIdentidadId"] 
+        c.Alias = _DB["Alias"] 
+        c.EsEmpresa = bool(ord(_DB["EsEmpresa"])) 
+        return c
