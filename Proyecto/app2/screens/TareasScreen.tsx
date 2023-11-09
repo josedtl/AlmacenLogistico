@@ -4,6 +4,7 @@ import TareaService from '../Model/TareaService';
 import { useNavigation } from '@react-navigation/native';
 import ModalComponent from '../components/ModalComponent';
 import { CategoriaEntity } from '../Model/CategoriaEntity';
+import { Tarea } from '../Model/Tarea';
 
 const TareasScreen: React.FC = () => {
 
@@ -14,11 +15,13 @@ const TareasScreen: React.FC = () => {
     const { navigate } = useNavigation<Nav>()
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [selectedItem, setSelectedItem] = useState<CategoriaEntity | null>(null);
-  
-    const openModal = (item: string) => {
-    //   setSelectedItem(item);
-      setModalVisible(true);
+    
+    const initialTarea = new Tarea();
+    const [selectedItem, setSelectedItem] = useState<Tarea>(initialTarea);
+
+    const openModal = (item: Tarea) => {
+          setSelectedItem(item);
+        setModalVisible(true);
     };
 
     const [tareas, setTareas] = useState<Tarea[]>([]);
@@ -54,15 +57,20 @@ const TareasScreen: React.FC = () => {
     return (
 
         <View>
-            <Button title="Crear Tarea" onPress={handleNavegarCrearTarea} />
+            <Button title="Agregar" onPress={() => openModal(selectedItem)} />
+            {/* <Button title="Crear Tarea" onPress={handleNavegarCrearTarea} /> */}
             <Button title="Actualizar" onPress={cargarTareas} />
 
             {tareas.map(tarea => (
-                <View key={tarea.id}>
-                    <Text>{tarea.nombre}</Text>
-                    <Text>{tarea.descripcion}</Text>
-                    <Button title="Eliminar" onPress={() => handleEliminarTarea(tarea.id)} />
-                    <Button title="Editar" onPress={() => openModal('')} />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} key={tarea.id}>
+                    <View style={{ flex: 1, alignItems: 'center' }}>
+                        <Text>{tarea.nombre}</Text>
+                        <Text>{tarea.descripcion}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Button title="Eliminar" onPress={() => handleEliminarTarea(tarea.id)} />
+                        <Button title="Editar" onPress={() => openModal(tarea)} />
+                    </View>
                 </View>
             ))}
 
