@@ -18,6 +18,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [form] = Form.useForm();
     const [ValDato, setValDato] = useState<InputStatus>('');
     const [ValNumDocumento, setNumDocumento] = useState<string>('');
+    const [ValEsEmpresa, setValEsEmpresa] = useState<Boolean>(false);
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValDato('');
         setEnt({
@@ -34,11 +35,10 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (Ent.Nombre === '') {
-            setValDato('error');
-            return;
-        }
-        const savedItem = await sCliente.saveItem(Ent);
+        Ent.Estado = true;
+        console.log(Ent);
+        const savedItem = await sCliente.saveItemCompleto(Ent);
+        console.log(savedItem);
         if (savedItem) {
             if (FlaState) {
                 props.updateState(savedItem);
@@ -52,29 +52,85 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     useEffect(() => {
         const updatedPerson = props.item;
-        updatedPerson.Action = updatedPerson.ClienteId > 0 ? 3 : 1;
-        setFlaState(updatedPerson.ClienteId > 0);
-        setEnt(updatedPerson);
+        console.log(updatedPerson);
+        // setEnt(initialCliente);
+        if (updatedPerson.ClienteId > 0) {
+
+            CargarUp(updatedPerson.EsEmpresa,updatedPerson.NumDocumento);
+        }
+
         getCargarDatos();
     }, []);
+
+
+    const CargarUp = async (Fla : Boolean , Num : string) => {
+
+
+        if (Fla) {
+            const Resp_UM = await sGeneral.GetEmpresaBuscaDocumento(Num);
+            const Cliente_Empresa: ClienteEntity = new ClienteEntity();
+            const ItemCP = Resp_UM[0];
+
+            Cliente_Empresa.NumDocumento = ItemCP.NumeroDocumento;
+            Cliente_Empresa.Nombre = ItemCP.RazonSocial;
+            Cliente_Empresa.TipoDocumentoId = ItemCP.TipoDocumentoIdentidadId;
+            Cliente_Empresa.EsEmpresa = true;
+            setNumDocumento(ItemCP.NumeroDocumento);
+            setEnt(Cliente_Empresa);
+            console.log(Resp_UM)
+
+        } else {
+
+            const Resp_UM = await sGeneral.GetPersonaBuscardocumento(Num);
+            const Cliente_PersonaNatural: ClienteEntity = new ClienteEntity();
+            const ItemCP = Resp_UM[0];
+
+            Cliente_PersonaNatural.NumDocumento = ItemCP.NumDocumento;
+            Cliente_PersonaNatural.Nombre = ItemCP.Nombres;
+            Cliente_PersonaNatural.ApellidoPaterno = ItemCP.ApellidoPaterno;
+            Cliente_PersonaNatural.ApellidoMaterno = ItemCP.ApellidoMaterno;
+            Cliente_PersonaNatural.TipoDocumentoId = ItemCP.TipoDocumentoIdentidadId;
+            Cliente_PersonaNatural.EsEmpresa = false;
+            setNumDocumento(ItemCP.NumDocumento);
+            setEnt(Cliente_PersonaNatural);
+
+        }
+
+
+    }
+
 
     const BuscarEntidad = async () => {
 
 
+        if (ValEsEmpresa) {
+            const Resp_UM = await sGeneral.GetEmpresaBuscaDocumento(ValNumDocumento);
+            const Cliente_Empresa: ClienteEntity = new ClienteEntity();
+            const ItemCP = Resp_UM[0];
 
-        const Resp_UM = await sGeneral.GetBuscardocumento(ValNumDocumento);
-        const Cliente_PersonaNatural: ClienteEntity = new ClienteEntity();
-        const ItemCP = Resp_UM[0];
+            Cliente_Empresa.NumDocumento = ItemCP.NumeroDocumento;
+            Cliente_Empresa.Nombre = ItemCP.RazonSocial;
+            Cliente_Empresa.TipoDocumentoId = ItemCP.TipoDocumentoIdentidadId;
+            Cliente_Empresa.EsEmpresa = true;
+            setEnt(Cliente_Empresa);
+            console.log(Resp_UM)
 
-        Cliente_PersonaNatural.Nombre = ItemCP.Nombres;
-        Cliente_PersonaNatural.ApellidoPaterno = ItemCP.ApellidoPaterno;
-        Cliente_PersonaNatural.ApellidoMaterno = ItemCP.ApellidoMaterno;
-        Cliente_PersonaNatural.TipoDocumentoId = ItemCP.TipoDocumentoIdentidadId;
-        // Cliente_PersonaNatural.EsEmpresa = ItemCP.EsEmpresa;
-        setEnt(Cliente_PersonaNatural);
+        } else {
 
+            const Resp_UM = await sGeneral.GetPersonaBuscardocumento(ValNumDocumento);
+            const Cliente_PersonaNatural: ClienteEntity = new ClienteEntity();
+            const ItemCP = Resp_UM[0];
 
-        console.log(Resp_UM);
+            Cliente_PersonaNatural.NumDocumento = ItemCP.NumDocumento;
+            Cliente_PersonaNatural.Nombre = ItemCP.Nombres;
+            Cliente_PersonaNatural.ApellidoPaterno = ItemCP.ApellidoPaterno;
+            Cliente_PersonaNatural.ApellidoMaterno = ItemCP.ApellidoMaterno;
+            Cliente_PersonaNatural.TipoDocumentoId = ItemCP.TipoDocumentoIdentidadId;
+            Cliente_PersonaNatural.EsEmpresa = false;
+            setEnt(Cliente_PersonaNatural);
+
+        }
+
 
     }
 
@@ -87,17 +143,26 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [optionsTipoDocumentoIdentidad, setOptionsTipoDocumentoIdentidad] = useState<TipoDocumentoIdentidadEntity[]>([]);
     const [selectedTipoDocuemntoIdentidad, setSelectedTipoDocuemntoIdentidad] = useState<number | undefined>(undefined);
     const [ValTipoDocuemntoIdentidad, setValTipoDocuemntoIdentidad] = useState<InputStatus>('');
+
     const onChangeTipoDocuemntoIdentidad = async (value: number) => {
         setValTipoDocuemntoIdentidad('');
         Ent.TipoDocumentoId = value;
         setSelectedTipoDocuemntoIdentidad(value)
+        const itemIndex = optionsTipoDocumentoIdentidad.findIndex((data) => data.TipoDocumentoIdentidadId === value);
+
+        if (itemIndex > -1) {
+
+            const ItemsBool = optionsTipoDocumentoIdentidad[itemIndex].EsEmpresa;
+            setValEsEmpresa(ItemsBool);
+        }
+
         console.log(value)
     };
 
 
 
     const MostrarResultado = () => {
-        if (Ent.EsEmpresa) {
+        if (!ValEsEmpresa) {
             return (
                 <>
 

@@ -11,6 +11,7 @@ import { PersonaNaturalEntity } from '../Models/PersonaNaturalEntity';
 import { apiLg } from './axios-config';
 import { ProductoEntity } from '../Models/ProductoEntity';
 import { EstadoProcesoEntity, TipoProcesoEntity } from '../Models/GeneralEntity';
+import { EmpresaEntity } from '../Models/EmpresaEntity';
 
 class GeneralService {
 
@@ -330,7 +331,7 @@ class GeneralService {
     }
   }
 
-  async GetBuscardocumento(NumDocumento: string): Promise<PersonaNaturalEntity[]> {
+  async GetPersonaBuscardocumento(NumDocumento: string): Promise<PersonaNaturalEntity[]> {
     try {
       const response = await apiLg.get(`api/General/GetBuscardocumento/${NumDocumento}/`);
       return response.data.Value;
@@ -348,6 +349,16 @@ class GeneralService {
       throw error;
     }
   }
+
+  async GetEmpresaBuscaDocumento(NumDocumento: string): Promise<EmpresaEntity[]> {
+    try {
+      const response = await apiLg.get(`api/General/GetEmpresaBuscaDocumento/${NumDocumento}/`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
 }
 

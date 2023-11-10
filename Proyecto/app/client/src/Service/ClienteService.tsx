@@ -55,6 +55,20 @@ class ClienteService {
     }
   }
 
+
+  async saveItemCompleto(item: ClienteEntity): Promise<ClienteEntity | null> {
+    try {
+      const response = await apiLg.post(`api/Cliente/SaveCompleto/`, item, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export default ClienteService;

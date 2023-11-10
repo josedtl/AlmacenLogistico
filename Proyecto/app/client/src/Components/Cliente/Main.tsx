@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import { ClienteEntity } from '../../Models/CLienteEntity';
+import { ClienteEntity } from '../../Models/ClienteEntity';
 import ModalItem from './ModalItem';
 import ClienteService from '../../Service/ClienteService';
 import { Col, Row, Typography, Card, Button, Input, Spin, message } from 'antd';
@@ -20,7 +20,26 @@ function Page() {
 
 
   const addItemToState = (item: ClienteEntity) => {
-    setItems([...items, item]);
+
+
+    const itemIndex = items.findIndex((data) => data.ClienteId === item.ClienteId);
+
+    if (itemIndex > -1) {
+      const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+
+      newArray[0].Nombre = newArray[0].Nombre + " " + newArray[0].ApellidoPaterno + " " + newArray[0].ApellidoMaterno
+      setItems(newArray);
+    }
+    else {
+
+      item.Nombre = item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno
+
+      setItems([...items, item]);
+    }
+
+
+
+
     messageAdd.open({
       type: 'success',
       content: 'Se guardó correctamente.',

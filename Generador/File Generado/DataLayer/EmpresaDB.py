@@ -42,15 +42,12 @@ class EmpresaDB:
             args.append(Ent.FechaRegistro)
             args.append(Ent.CodUsuario)
             args.append(Ent.EstadoRegistro)
-            Ent.EmpresaId = DBProcedure().DBProcedureInsertUpdate(
-                Store, args, "v_EmpresaId"
-            )
+            Ent.EmpresaId = DBProcedure().DBProcedureInsertUpdate(Store, args, "v_EmpresaId")
 
             return Ent
         except Exception as e:
             print(e)
             Restore()
-
     def Delete(Id: int):
         try:
             args = (Id,)
@@ -66,22 +63,5 @@ class EmpresaDB:
             list = [EmpresaItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
-            print(e)
-
-    def GetMainItems():
-        try:
-            resulset = DBProcedure().DBProcedureConsult("sp_EmpresaMainItems", [])
-            list = [EmpresaItemModel.Cargar(row) for row in resulset]
-            return list
-        except Exception as e:
-            print(e)
-
-    def GetEmpresaBuscaDocumento(Nombre: str):
-        try:
-            args = (Nombre,)
-            resulset = DBProcedure().DBProcedureConsult("sp_EmpresaBuscarDocumento", args)
-            list = [EmpresaItemModel.Cargar(row) for row in resulset]
-            return list
-        except Exception as e:
-            print(e)
+             print(e)
 

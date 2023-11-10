@@ -1,13 +1,13 @@
-from DataLayer.ClienteDB import *
-from EntityLayer.ClienteEntity import *
+from DataLayer.EmpresaDB import *
+from EntityLayer.EmpresaEntity import *
 from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Restore
 
 
-class Cliente:
-    def Save(Ent: ClienteSaveModel):
+class Empresa:
+    def Save(Ent: EmpresaSaveModel):
         try:
             StartTransaction()
-            data = ClienteDB.Save(Ent)
+            data = EmpresaDB.Save(Ent)
             EndTransaction()
             return data
         except Exception as e:
@@ -16,19 +16,19 @@ class Cliente:
     
     def GetItems():
         try:
-            return ClienteDB.GetItems()
+            return EmpresaDB.GetItems()
         except Exception as e:
             print(e)
     
     def GetItem(Id: int):
         try:
-            return ClienteDB.GetItem(Id)
+            return EmpresaDB.GetItem(Id)
         except Exception as e:
             print(e)
     
     def Delete(Id: int):
         try:
-            return ClienteDB.Delete(Id)
+            return EmpresaDB.Delete(Id)
         except Exception as e:
             print(e)
     

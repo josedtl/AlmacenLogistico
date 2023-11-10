@@ -37,3 +37,9 @@ class Empresa:
             return EmpresaDB.GetMainItems()
         except Exception as e:
             print(e)
+
+    def GetEmpresaBuscaDocumento(NumDocumento: str):
+        try:
+            return EmpresaDB.GetEmpresaBuscaDocumento(NumDocumento)
+        except Exception as e:
+            print(e)

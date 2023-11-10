@@ -58,3 +58,25 @@ class ClienteDB:
             return list
         except Exception as e:
              print(e)
+
+    def SaveCompleto(Ent: ClienteSaveCompletoModel):
+        try:
+      
+            Store =  "sp_ClienteInsertComplete"
+            args = []
+            args.append(Ent.ClienteId)
+            args.append(Ent.EsEmpresa)
+            args.append(Ent.TipoDocumentoId)
+            args.append(Ent.NumDocumento)
+            args.append(Ent.Nombre)
+            args.append(Ent.ApellidoPaterno)
+            args.append(Ent.ApellidoMaterno)
+            args.append(Ent.Estado)
+            # args.append("adm")
+            print(args)
+            Ent.ClienteId = DBProcedure().DBProcedureInsertUpdate(Store, args, "v_ClienteId")
+
+            return Ent
+        except Exception as e:
+            print(e)
+            Restore()

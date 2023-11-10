@@ -48,3 +48,11 @@ def Delete(Id: int):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
+@ClienteRouter.post(f"/api/{ApiName}/SaveCompleto", tags=[ApiName])
+def SaveCompleto(Ent: ClienteSaveCompletoModel):
+    try:
+        Ent = Cliente.SaveCompleto(Ent)
+        return jsonable_encoder(ResponseAPI.Response(Ent))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
