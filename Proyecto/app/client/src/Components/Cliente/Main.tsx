@@ -21,7 +21,7 @@ function Page() {
 
   const addItemToState = (item: ClienteEntity) => {
 
-
+console.log(item);
     const itemIndex = items.findIndex((data) => data.ClienteId === item.ClienteId);
 
     if (itemIndex > -1) {

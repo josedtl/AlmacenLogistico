@@ -6,10 +6,10 @@ export class ClienteEntity {
     TipoDocumentoId: number;
     NumDocumento: string;
     Nombre: string;
-    ApellidoPaterno: string;
-    ApellidoMaterno: string;
+    ApellidoPaterno: string =''; 
+    ApellidoMaterno: string ='';
     Estado: boolean;
-    Action: ProcessActionEnum
+    Key:number =0;
     constructor() {
         this.ClienteId = 0;
         this.EsEmpresa = false;
@@ -19,6 +19,6 @@ export class ClienteEntity {
         this.ApellidoPaterno = '';
         this.ApellidoMaterno = '';
         this.Estado = false;
-        this.Action = ProcessActionEnum.Add;
+        this.Key = 0;
     }
 }

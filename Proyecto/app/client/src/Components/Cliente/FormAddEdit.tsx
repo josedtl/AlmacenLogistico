@@ -36,16 +36,16 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         Ent.Estado = true;
-        console.log(Ent);
         const savedItem = await sCliente.saveItemCompleto(Ent);
-        console.log(savedItem);
         if (savedItem) {
-            if (FlaState) {
-                props.updateState(savedItem);
-            }
-            else {
-                props.addItemToState(savedItem);
-            }
+            // if (FlaState) {
+            //     props.updateState(savedItem);
+            // }
+            // else {
+              
+            // }
+            setEnt(savedItem);
+            props.addItemToState(Ent);
             props.toggle();
         }
     };
@@ -165,8 +165,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         if (!ValEsEmpresa) {
             return (
                 <>
-
-
                     <Row>
                         <Col span={24}>
                             <label>Nombres</label>
@@ -180,11 +178,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                 onChange={onChange}
                                 value={Ent.Nombre === null ? "" : Ent.Nombre}
                             />
-
-
                         </Col>
                     </Row>
-
 
                     <Row>
                         <Col span={24}>
