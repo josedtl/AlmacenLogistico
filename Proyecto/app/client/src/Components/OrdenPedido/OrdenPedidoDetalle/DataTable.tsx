@@ -6,13 +6,12 @@ import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Card, Col, Row, Button, Table, Modal } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PropsTable } from '../../../Lib/PropsItem'
-import moment from 'moment';
 import 'moment/locale/es';
 import { DataType } from '../../../Lib/ResourceModel/DataTableType'
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 
 const DataTable: React.FC<PropsTable> = (props) => {
-    const [size, setSize] = React.useState<SizeType>('middle');
+    const [size] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
     const columns: ColumnsType<DataType> = [
         {

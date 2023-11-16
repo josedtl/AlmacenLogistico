@@ -3,8 +3,7 @@ import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEnti
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
-import { now } from "moment";
-import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Space, Input, Form } from 'antd';
+import {  Select, Button, Col, Row,Space, Input, Form } from 'antd';
 import GeneralService from '../../../Service/GeneralService';
 import { CategoriaEntity } from '../../../Models/CategoriaEntity';
 import { ProductoEntity } from "../../../Models/ProductoEntity";
@@ -12,8 +11,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const initialOrdenPedidoDetalle = new OrdenPedidoDetalleEntity();
     const [Ent, setEnt] = useState<OrdenPedidoDetalleEntity>(initialOrdenPedidoDetalle);
-    const [FlaState, setFlaState] = useState<Boolean>(false);
-    const [form] = Form.useForm();
     const [ValDato, setValDato] = useState<InputStatus>('');
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValDato('');
@@ -47,16 +44,10 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         //     props.toggle();
         // }
     };
-    const [selectedPRoducto, setSelectedProducto] = useState<number | undefined>(undefined);
-    const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
-    const [ValCategoria, setValCategoria] = useState<InputStatus>('');
-    const [ValCodigoUM, setValCodigoUM] = useState<string>('');
-    const [ValStock, setValStock] = useState<number>(0);
     const sGeneral = new GeneralService();
     useEffect(() => {
         const updatedPerson = props.item;
         updatedPerson.Action = updatedPerson.OrdenPedidoDetalleId > 0 ? 3 : 1;
-        setFlaState(updatedPerson.OrdenPedidoDetalleId > 0);
         setEnt(updatedPerson);
     }, []);
     const [optionsCategoria, setOptionsCategoria] = useState<CategoriaEntity[]>([]);
@@ -71,9 +62,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     };
 
     const onChangeCategoria = async (value: number) => {
-        setValCategoria('');
         Ent.CategoriaId = value;
-        setSelectedCategoria(value)
     };
 
     const handleSearchProducto = async (value: string) => {
@@ -87,12 +76,10 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const onChangeProducto = async (value: number, Itemdata: any) => {
         try {
             Ent.ProductoId = value;
-            setSelectedProducto(value)
             console.log(Itemdata);
 
 
             const resp = await sGeneral.GetProductoItemOP(value);
-            setValCodigoUM(resp[0].CodigoUM);
             Ent.Stock = resp[0].Stock
             Ent.NomProducto = resp[0].NomProducto;
             Ent.ProductoId = resp[0].ProductoId;
@@ -110,7 +97,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     useEffect(() => {
         const updatedPerson = props.item;
         updatedPerson.Action = updatedPerson.CategoriaId > 0 ? 3 : 1;
-        setFlaState(updatedPerson.CategoriaId > 0);
         setEnt(updatedPerson);
         setEnt(new OrdenPedidoDetalleEntity);
     }, []);
@@ -218,7 +204,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                         type="text"
                                         style={{ width: '30%', marginTop: '5px', marginBottom: '10px' }}
                                         name="Nombre"
-                                        value={ValCodigoUM}
+                                        // value={ValCodigoUM}
                                     />
                                 </Space.Compact>
                             </Space>

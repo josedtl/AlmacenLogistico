@@ -54,10 +54,15 @@ function Page() {
     const itemsg = await sCategoria.getItems();
     setItems(itemsg);
     setCargarPage(false);
+    setCargado(true);
   };
-
+  const [cargado, setCargado] = useState(false);
   useEffect(() => {
-    getItems();
+    if (!cargado) {
+      console.log(2);
+      getItems();
+    }
+
 
   }, []);
 

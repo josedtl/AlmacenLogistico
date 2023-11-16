@@ -40,7 +40,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
       />
     );
 
-    title = "Agregar OrdenPedidoDetalle";
+    title = "Agregar OrdenPedidoDetalle s";
 
 
   } else if (label === "EnlaceCard") {
@@ -65,7 +65,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
         icon={<PlusOutlined />}
       />
     );
-    title = "Agregar OrdenPedidoDetalle";
+    title = "Agregar OrdenPedidoDetalle d";
   }
 
   return (

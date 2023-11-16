@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input, DatePicker, Space } from 'antd';
+import {  message, Select, Button, Col, Row, Typography, Modal, Spin, Input, DatePicker } from 'antd';
 import { TipoDocumentoIdentidadEntity } from '../../Models/TipoDocumentoIdentidadEntity';
 import { SexoEntity } from '../../Models/SexoEntity';
 import { EstadoCivilEntity } from '../../Models/EstadoCivilEntity';
@@ -28,101 +28,9 @@ const Save = () => {
   const [FechaNacimientoItem, setFechaNacimientoItem] = useState<string>(moment(Ent.FechaNacimiento).format('DD/MM/YYYY hh:mm'));
   const dateFormat = 'YYYY/MM/DD';
 
-  const columns = [
-    {
-      title: 'Nº',
-      dataIndex: 'Cont',
-      key: 'Cont',
-      width: '50px',
-    },
-    {
-      title: 'UnidadMeida',
-      dataIndex: 'UnidadMeida',
-      key: 'UnidadMeida',
-
-    },
-    {
-      title: 'Cantidad ',
-      dataIndex: 'Cantidad',
-      key: 'Cantidad',
-      width: '80px',
-    },
-    {
-      title: 'Moneda',
-      dataIndex: 'Moneda',
-      key: 'Moneda',
-      width: '100px',
-    }, {
-      title: 'ValorVenta',
-      dataIndex: 'ValorVenta',
-      key: 'ValorVenta',
-      width: '100px',
-    }, {
-      title: 'ValorCompra',
-      dataIndex: 'ValorCompra',
-      key: 'ValorCompra',
-      width: '100px',
-    }, {
-      title: 'Fecha Vigencia',
-      dataIndex: 'FechaVigencia',
-      key: 'FechaVigencia',
-      width: '100px',
-    }, {
-      title: 'Action',
-      key: 'action',
-      width: '100px',
-      render: (text: any, record: any) => (
-        <span>
-
-          {/* <Button
-                    type='dashed'
-                    onClick={() => deleteItem(record.CategoriaId)}
-                    style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
-                    size={size}
-                    icon={<DeleteFilled />}
-                />
-                <ModalItem
-                    buttonLabel="Edit"
-                    item={record}
-                    updateState={props.updateState}
-                /> */}
 
 
-
-        </span>
-      ),
-    },
-
-  ];
-
-  const [TabsItems, setTabsItems] = useState<any>([
-    {
-      label: (
-        < >
-          {/* <AndroidOutlined /> */}
-          <Title style={{ fontSize: '18px' }}>
-            Tarifa
-          </Title>
-        </>
-      ),
-      key: 1,
-      children:
-        <span>
-
-          <Row>
-            <Col xs={24}>
-              <Table
-                columns={columns}
-                size="small"
-                scroll={{ y: '100%' }}
-              />
-            </Col>
-          </Row >
-        </span>
-    },
-
-  ]);
-
+ 
 
   const [optionsTipoDocumentoIdentidad, setOptionsTipoDocumentoIdentidad] = useState<TipoDocumentoIdentidadEntity[]>([]);
   const [optionsSexo, setOptionsSexo] = useState<SexoEntity[]>([]);
@@ -155,6 +63,7 @@ const Save = () => {
   };
 
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
+    date;
     setFechaNacimientoItem(dateString);
   };
   const [selectedTipoDocuemntoIdentidad, setSelectedTipoDocuemntoIdentidad] = useState<number | undefined>(undefined);
@@ -163,19 +72,20 @@ const Save = () => {
   const [selectedUbigeo, setselectedUbigeo] = useState<number | undefined>(undefined);
 
   const [ValTipoDocuemntoIdentidad, setValTipoDocuemntoIdentidad] = useState<InputStatus>('');
-  const [ValNumDocumento, setValNumDocumento] = useState<InputStatus>('');
-  const [ValNombres, setValNombres] = useState<InputStatus>('');
-  const [ValApellidoPaterno, setValApellidoPaterno] = useState<InputStatus>('');
-  const [ValApellidoMaterno, setValApellidoMaterno] = useState<InputStatus>('');
+  const [ValNumDocumento] = useState<InputStatus>('');
+  const [ValNombres] = useState<InputStatus>('');
+  const [ValApellidoPaterno] = useState<InputStatus>('');
+  const [ValApellidoMaterno] = useState<InputStatus>('');
   const [ValCodigo, setValCodigo] = useState<InputStatus>('');
   const [ValUbigeo, setValUbigeo] = useState<InputStatus>('');
-  const [ValDireccion, setValDireccion] = useState<InputStatus>('');
-  const [ValTelefono, setValTelefono] = useState<InputStatus>('');
-  const [ValCorreo, setValCorreo] = useState<InputStatus>('');
+  const [ValDireccion] = useState<InputStatus>('');
+  const [ValTelefono] = useState<InputStatus>('');
+  const [ValCorreo] = useState<InputStatus>('');
   const [ValSexo, setValSexo] = useState<InputStatus>('');
   const [ValEstadoCivil, setValEstadoCivil] = useState<InputStatus>('');
 
   const onChangeTipoDocuemntoIdentidad = async (value: number) => {
+    ValCodigo;
     setValTipoDocuemntoIdentidad('');
     Ent.TipoDocumentoIdentidadId = value;
     setSelectedTipoDocuemntoIdentidad(value)
@@ -225,7 +135,11 @@ const Save = () => {
 
   const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
+   selectedTipoDocuemntoIdentidad;
+   selectedSexo;
+   selectedEstadoCivil;
+   selectedUbigeo;
+  
     // if (Ent.Codigo === '') {
     //   setValCodigo('error');
     //   messageAdd.open({ type: 'error', content: 'Ingrese Codigo.', });

@@ -13,7 +13,7 @@ import { DataType } from '../../Lib/ResourceModel/DataTableType'
 
 const DataTable: React.FC<PropsTable> = (props) => {
     const sModelo = new ModeloService();
-    const [size, setSize] = React.useState<SizeType>('middle');
+    const [size] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
     const columns: ColumnsType<DataType> = [
         {

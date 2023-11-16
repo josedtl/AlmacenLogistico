@@ -18,7 +18,7 @@ def Save(Ent: CategoriaSaveModel):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@CategoriaRouter.get(f"/api/{ApiName}/GetItems/", tags=[ApiName])
+@CategoriaRouter.get(f"/api/{ApiName}/GetItems", tags=[ApiName])
 def GetItems():
     try:
         jsonData = Categoria.GetItems()

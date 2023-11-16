@@ -25,7 +25,7 @@ class CategoriaService {
 
   async saveItem(item: CategoriaEntity): Promise<CategoriaEntity | null> {
     try {
-      const response = await apiLg.post(`api/Categoria/Save/`, item, {
+      const response = await apiLg.post(`api/Categoria/Save`, item, {
         headers: {
           'Content-Type': 'application/json',
         },

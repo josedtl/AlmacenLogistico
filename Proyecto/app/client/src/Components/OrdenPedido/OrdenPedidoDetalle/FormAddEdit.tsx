@@ -3,8 +3,7 @@ import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEnti
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
-import { now } from "moment";
-import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Space, Input, Form } from 'antd';
+import { Select, Button, Col, Row, Space, Input, Form } from 'antd';
 import GeneralService from '../../../Service/GeneralService';
 import { CategoriaEntity } from '../../../Models/CategoriaEntity';
 import { ProductoEntity } from "../../../Models/ProductoEntity";
@@ -14,7 +13,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const initialOrdenPedidoDetalle = new OrdenPedidoDetalleEntity();
     const [Ent, setEnt] = useState<OrdenPedidoDetalleEntity>(initialOrdenPedidoDetalle);
     const [FlaState, setFlaState] = useState<Boolean>(false);
-    const [form] = Form.useForm();
     const [ValDato, setValDato] = useState<InputStatus>('');
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValDato('');
@@ -57,8 +55,10 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
     const [ValCategoria, setValCategoria] = useState<InputStatus>('');
     const [ValCodigoUM, setValCodigoUM] = useState<string>('');
-    const [ValStock, setValStock] = useState<number>(0);
     const sGeneral = new GeneralService();
+    selectedPRoducto;
+    selectedCategoria;
+    ValCategoria;
     // useEffect(() => {
     //     const updatedPerson = props.item;
     //     updatedPerson.Action = updatedPerson.OrdenPedidoDetalleId > 0 ? 3 : 1;

@@ -25,7 +25,7 @@ function Page() {
   const [items, setItems] = useState<OrdenPedidoDetalleEntity[]>([]);
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const [CargarPage, setCargarPage] = React.useState(true);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled] = useState(false);
   const { Title } = Typography;
   const [Ent, setEnt] = useState<OrdenPedidoEntity>(new OrdenPedidoEntity());
   const [FechaEmisionItem, setFechaEmisionItem] = useState<string>(moment(Ent.FechaEmision).format('DD/MM/YYYY hh:mm'));
@@ -60,9 +60,7 @@ function Page() {
 
 
   };
-  const toggle = () => {
-    setDisabled(!disabled);
-  };
+
   const updateState = (item: OrdenPedidoDetalleEntity) => {
     console.log(item);
     console.log(items);
@@ -88,31 +86,7 @@ function Page() {
 
   const filterItems = items.filter(d => d.Action != ProcessActionEnum.Delete);
 
-  const [TabsItems, setTabsItems] = useState<any>([
-    {
-      label: (
-        < >
-          {/* <AndroidOutlined /> */}
-          <Title style={{ fontSize: '18px' }}>
-            Producto- Detalle
-          </Title>
-        </>
-      ),
-      key: 1,
-      children:
-        <span>
 
-          <Row>
-            <Col xs={24}>
-              <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
-              <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
-
-            </Col>
-          </Row >
-        </span>
-    },
-
-  ]);
   const [optionsTipoProceso, setOptionsTipoProceso] = useState<TipoProcesoEntity[]>([]);
   const [selectedTipoRequerimeinto, setSelectedTipoRequerimeinto] = useState<number | undefined>(undefined);
 
@@ -121,6 +95,7 @@ function Page() {
     // setValUnidadMedida('');
     Ent.TipoProcesoId = value;
     setSelectedTipoRequerimeinto(value)
+    selectedTipoRequerimeinto;
   };
 
 
@@ -182,11 +157,11 @@ function Page() {
 
 
   };
-  type PositionType = 'left' | 'right';
   const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
     ;
 
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
+    date;
     setFechaEmisionItem(dateString);
   };
   const [modal, contextHolder] = Modal.useModal();
@@ -441,7 +416,7 @@ function Page() {
             type="line"
 
             items={new Array(1).fill(null).map((_, i) => {
-              const id = String(i + 1);
+              i;
               return {
                 label: (
                   < >

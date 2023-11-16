@@ -1,21 +1,19 @@
 "use client"
 import React from 'react';
-import EmpresaService from '../../Service/EmpresaService';
 import { EmpresaEntity } from '../../Models/EmpresaEntity';
 import { EditFilled } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Link } from 'react-router-dom';
 import { PropsTable } from '../../Lib/PropsItem'
-import { Card, Col, Row, Button, Table, Modal } from 'antd';
+import { Card, Col, Row, Button, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import 'moment/locale/es';
 import { DataType } from '../../Lib/ResourceModel/DataTableType'
 
 const DataTable: React.FC<PropsTable> = (props) => {
-    const sEmpresa = new EmpresaService();
-    const [size, setSize] = React.useState<SizeType>('middle');
-    const [modal, contextHolder] = Modal.useModal();
+    const [size] = React.useState<SizeType>('middle');
+    // const [modal, contextHolder] = Modal.useModal();
     const columns: ColumnsType<DataType> = [
         {
             title: 'Nº',
@@ -138,7 +136,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
     return (
 
         <div>
-            {contextHolder}
+            {/* {contextHolder} */}
 
             {ListaCard()}
         </div>

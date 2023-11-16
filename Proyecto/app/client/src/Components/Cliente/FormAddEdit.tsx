@@ -4,7 +4,7 @@ import ClienteService from '../../Service/ClienteService';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../Styles/Button'
-import { Col, Row, Form, Input, Button, Select } from 'antd';
+import { Col, Row, Input, Button, Select } from 'antd';
 import { IconEnlace } from '../../Styles/Icons'
 import { TipoDocumentoIdentidadEntity } from "../../Models/TipoDocumentoIdentidadEntity";
 import GeneralService from '../../Service/GeneralService';
@@ -14,13 +14,9 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const sGeneral = new GeneralService();
     const initialCliente = new ClienteEntity();
     const [Ent, setEnt] = useState<ClienteEntity>(initialCliente);
-    const [FlaState, setFlaState] = useState<Boolean>(false);
-    const [form] = Form.useForm();
-    const [ValDato, setValDato] = useState<InputStatus>('');
     const [ValNumDocumento, setNumDocumento] = useState<string>('');
     const [ValEsEmpresa, setValEsEmpresa] = useState<Boolean>(false);
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValDato('');
         setEnt({
             ...Ent,
             [e.target.name]: e.target.value.toUpperCase()
@@ -141,13 +137,11 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     }
 
     const [optionsTipoDocumentoIdentidad, setOptionsTipoDocumentoIdentidad] = useState<TipoDocumentoIdentidadEntity[]>([]);
-    const [selectedTipoDocuemntoIdentidad, setSelectedTipoDocuemntoIdentidad] = useState<number | undefined>(undefined);
     const [ValTipoDocuemntoIdentidad, setValTipoDocuemntoIdentidad] = useState<InputStatus>('');
 
     const onChangeTipoDocuemntoIdentidad = async (value: number) => {
         setValTipoDocuemntoIdentidad('');
         Ent.TipoDocumentoId = value;
-        setSelectedTipoDocuemntoIdentidad(value)
         const itemIndex = optionsTipoDocumentoIdentidad.findIndex((data) => data.TipoDocumentoIdentidadId === value);
 
         if (itemIndex > -1) {

@@ -1,4 +1,3 @@
-import { ProcessActionEnum } from '../Lib/ResourceModel/Enum'
 
 export class ClienteEntity {
     ClienteId: number;

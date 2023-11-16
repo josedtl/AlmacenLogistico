@@ -5,7 +5,6 @@ import { Button, Form, Input} from 'antd';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import {PropsModel } from '../../Lib/PropsItem'
 import { ButtonAcceptModel} from '../../Styles/Button'
-import { now } from "moment";
 
 const AddEditForm: React.FC<PropsModel> = (props) => {
     const sCategoria = new CategoriaService();

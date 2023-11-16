@@ -96,32 +96,12 @@ const Save = () => {
     }, {
       title: 'Action',
       key: 'action',
-      width: '100px',
-      render: (text: any, record: any) => (
-        <span>
-
-          {/* <Button
-                    type='dashed'
-                    onClick={() => deleteItem(record.CategoriaId)}
-                    style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
-                    size={size}
-                    icon={<DeleteFilled />}
-                />
-                <ModalItem
-                    buttonLabel="Edit"
-                    item={record}
-                    updateState={props.updateState}
-                /> */}
-
-
-
-        </span>
-      ),
+      width: '100px'
     },
 
   ];
 
-  const [TabsItems, setTabsItems] = useState<any>([
+  const [TabsItems] = useState<any>([
     {
       label: (
         < >
@@ -281,16 +261,16 @@ const Save = () => {
     setSelectedUM(value)
   };
 
-  const CategoriaSelectLIst = () => {
+  // const CategoriaSelectLIst = () => {
 
-    return (
-      optionsCategoria.map((categoria) => (
-        <Select.Option key={categoria.CategoriaId} value={categoria.CategoriaId}>
-          {categoria.Nombre}
-        </Select.Option>
-      ))
-    )
-  }
+  //   return (
+  //     optionsCategoria.map((categoria) => (
+  //       <Select.Option key={categoria.CategoriaId} value={categoria.CategoriaId}>
+  //         {categoria.Nombre}
+  //       </Select.Option>
+  //     ))
+  //   )
+  // }
 
 
 
@@ -313,6 +293,11 @@ const Save = () => {
   const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    selectedCategoria;
+    selectedTipoProducto;
+    selectedMarca;
+    selectedModelo;
+    selectedUM;
     if (Ent.Codigo === '') {
       setValCodigo('error');
       messageAdd.open({ type: 'error', content: 'Ingrese Codigo.', });

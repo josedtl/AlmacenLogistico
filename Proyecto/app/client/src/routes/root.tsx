@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   SolutionOutlined,
-  UserOutlined,
   ReconciliationOutlined,
   BlockOutlined
 } from '@ant-design/icons';
-import { Layout, Menu, Button, theme } from 'antd';
+import { Layout, Menu, theme } from 'antd';
 import { Outlet, Link } from "react-router-dom";
 import type { MenuProps } from 'antd';
 
-const { Header, Sider, Content, Footer } = Layout;
+const { Header, Sider, Content } = Layout;
 
 
 
 const Root: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  // const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();

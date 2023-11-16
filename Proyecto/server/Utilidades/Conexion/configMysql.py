@@ -7,7 +7,7 @@ import pymysql
 
 def get_connection():
     return pymysql.connect(
-        host="localhost",
+        host="192.168.18.19",
         database="logisticstoragedb",
         user="root",
         password="123456",

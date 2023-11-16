@@ -41,7 +41,7 @@ const Save = () => {
 
   const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    setValCodigo('');
+    // setValCodigo('');
     // setValNombre('');
     // setValDescripcion('');
     setEnt({
@@ -51,26 +51,21 @@ const Save = () => {
 
   };
 
-  const [selectedTipoDocuemntoIdentidad, setSelectedTipoDocuemntoIdentidad] = useState<number | undefined>(undefined);
-  const [selectedUbigeo, setselectedUbigeo] = useState<number | undefined>(undefined);
+  // const [selectedTipoDocuemntoIdentidad, setSelectedTipoDocuemntoIdentidad] = useState<number | undefined>(undefined);
+  // const [selectedUbigeo, setselectedUbigeo] = useState<number | undefined>(undefined);
 
   const [ValTipoDocuemntoIdentidad, setValTipoDocuemntoIdentidad] = useState<InputStatus>('');
-  const [ValNumDocumento, setValNumDocumento] = useState<InputStatus>('');
-  const [ValNombres, setValNombres] = useState<InputStatus>('');
-  const [ValApellidoPaterno, setValApellidoPaterno] = useState<InputStatus>('');
-  const [ValApellidoMaterno, setValApellidoMaterno] = useState<InputStatus>('');
-  const [ValCodigo, setValCodigo] = useState<InputStatus>('');
+  // const [ValNumDocumento, setValNumDocumento] = useState<InputStatus>('');
+  // const [ValNombres, setValNombres] = useState<InputStatus>('');
+  // const [ValCodigo, setValCodigo] = useState<InputStatus>('');
   const [ValUbigeo, setValUbigeo] = useState<InputStatus>('');
-  const [ValDireccion, setValDireccion] = useState<InputStatus>('');
-  const [ValTelefono, setValTelefono] = useState<InputStatus>('');
-  const [ValCorreo, setValCorreo] = useState<InputStatus>('');
-  const [ValSexo, setValSexo] = useState<InputStatus>('');
-  const [ValEstadoCivil, setValEstadoCivil] = useState<InputStatus>('');
+  // const [ValDireccion, setValDireccion] = useState<InputStatus>('');
+  // const [ValCorreo, setValCorreo] = useState<InputStatus>('');
 
   const onChangeTipoDocuemntoIdentidad = async (value: number) => {
     setValTipoDocuemntoIdentidad('');
     Ent.TipoDocumentoIdentidadId = value;
-    setSelectedTipoDocuemntoIdentidad(value)
+    // setSelectedTipoDocuemntoIdentidad(value)
     console.log(value)
   };
 
@@ -79,7 +74,7 @@ const Save = () => {
   const onChangeUbigeo = async (value: number) => {
     setValUbigeo('');
     Ent.UbigeoId = value;
-    setselectedUbigeo(value)
+    // setselectedUbigeo(value)
   };
 
 
@@ -268,7 +263,7 @@ const Save = () => {
                 </Col>
                 <Col span={24}>
                   <Input
-                    status={ValNumDocumento}
+                    // status={ValNumDocumento}
                     type="text"
                     name="NumeroDocumento"
                     style={{ marginTop: '5px', marginBottom: '10px' }}
@@ -286,7 +281,7 @@ const Save = () => {
             </Col>
             <Col span={24}>
               <Input
-                status={ValNombres}
+                // status={ValNombres}
                 type="text"
                 name="RazonSocial"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
@@ -303,7 +298,7 @@ const Save = () => {
             </Col>
             <Col span={24}>
               <Input
-                status={ValNombres}
+                // status={ValNombres}
                 type="text"
                 name="NombreComercial"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
@@ -323,7 +318,7 @@ const Save = () => {
               <Input
                 type="text"
                 name="Telefono"
-                status={ValCorreo}
+                // status={ValCorreo}
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChangeText}
                 value={Ent.Telefono === null ? "" : Ent.Telefono}
@@ -341,7 +336,7 @@ const Save = () => {
               <Input
                 type="text"
                 name="Correo"
-                status={ValCorreo}
+                // status={ValCorreo}
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChangeText}
                 value={Ent.Correo === null ? "" : Ent.Correo}
@@ -389,7 +384,7 @@ const Save = () => {
               <Input
                 type="text"
                 name="Direccion"
-                status={ValDireccion}
+                // status={ValDireccion}
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChangeText}
                 value={Ent.Direccion === null ? "" : Ent.Direccion}
