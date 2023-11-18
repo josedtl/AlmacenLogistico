@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalItem from '../Categoria/ModalItem'
-import CategoriaService from '../../Service/CategoriaService'
+import CategoriaService from '../../Service/CategoriaService.tsx'
 import { CategoriaEntity } from '../../Models/CategoriaEntity';
 import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
