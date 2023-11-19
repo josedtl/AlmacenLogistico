@@ -55,7 +55,8 @@ origins = [
     "http://localhost:5173",
     "http://192.168.18.12:5173",
     "http://localhost:7030",
-    "http://192.168.18.19:7030"
+    "http://192.168.18.19:7030",
+    "http://localhost:7040"
 ]
 
 
