@@ -129,7 +129,10 @@ function Page() {
 
       </Row>
       <Card>
-        <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
+        <DataTable DataList={filterItems}
+         updateState={updateState} 
+         deleteItemFromState={deleteItemFromState} 
+         EsTabla={disabled} />
       </Card>
     </Spin>
   );
