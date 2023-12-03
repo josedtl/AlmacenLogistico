@@ -20,8 +20,8 @@ export class ProductoController {
     }
 
     @Get('/GetItem/:id')
-    async getItem(@Param('id') id: number) {
-        return this.Services.getItem(id);
+    async getItem(@Param('id') id: string) {
+        return this.Services.getItem(Number(id));
     }
 
     @Post('/Save')

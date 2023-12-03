@@ -182,7 +182,7 @@ const Save = () => {
     if (idNumero > 0) {
 
       const Resp_Producto = await sProducto.getItem(idNumero);
-
+      console.log(Resp_Producto);
       const Resp_Categoria = await sGeneral.GetCategoriaItem(Resp_Producto[0].CategoriaId);
       setOptionsCategoria(Resp_Categoria);
 

@@ -18,6 +18,7 @@ class GeneralService {
   async GetCategoriaItems(): Promise<CategoriaEntity[]> {
     try {
       const response = await apiLg.get(`api/General/getCategoriaItems`);
+      console.log(response);
       return response.data;
 
     } catch (error) {
@@ -28,6 +29,7 @@ class GeneralService {
   async GetCategoriaItem(Id: number): Promise<CategoriaEntity[]> {
     try {
       const response = await apiLg.get(`api/General/getCategoriaItem/${Id}`);
+
       return response.data;
     } catch (error) {
       throw error;
