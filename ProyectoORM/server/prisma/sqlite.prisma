@@ -1,0 +1,118 @@
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+    // relationMode = "prisma"
+}
+
+model TipoEstadoUsuario {
+    TipoEstadoUsuarioId Int       @id @default(autoincrement()) @map("TipoEstadoUsuarioId")
+    nombre              String    @map("Nombre")
+    CodUsuario          String    @map("CodUsuario")
+    Usuario             Usuario[]
+
+    @@map("Catalogo_TipoEstadoUsuario")
+}
+
+model Usuario {
+    UsuarioId           Int               @id @default(autoincrement())
+    Codigo              String
+    contrasena          String
+    FechaRegistro       DateTime
+    CodUsuario          String
+    FechaVencimiento    DateTime
+    TipoEstadoUsuario   TipoEstadoUsuario @relation(fields: [TipoEstadoUsuarioId], references: [TipoEstadoUsuarioId])
+    TipoEstadoUsuarioId Int
+    Rol                 Rol               @relation(fields: [RolId], references: [RolId])
+    RolId               Int
+    usuarioDetalles     UsuarioDetalle[]
+
+    @@map("Catalogo_Usuario")
+}
+
+model UsuarioDetalle {
+    UsuarioDetalleId Int     @id @default(autoincrement())
+    Detalle          String
+    UsuarioId        Int
+    usuario          Usuario @relation(fields: [UsuarioId], references: [UsuarioId])
+
+    @@map("Catalogo_UsuarioDealle")
+}
+
+model Rol {
+    RolId      Int       @id @default(autoincrement())
+    Codigo     String    @unique
+    Nombre     String
+    Usuario    Usuario[]
+    CodUsuario String
+
+    @@map("Catalogo_Rol")
+}
+
+model DatoEntidad {
+    DatoId            Int                 @id @default(autoincrement())
+    Entidad           Entidad             @relation(fields: [EntidadId], references: [EntidadId])
+    EntidadId         Int
+    valor             String
+    Campo             Campo               @relation(fields: [CampoId], references: [CampoId])
+    CampoId           Int
+    DatoEntidadEnlace DatoEntidadEnlace[]
+
+    @@map("DatoEntidad")
+}
+
+model Campo {
+    CampoId     Int           @id @default(autoincrement())
+    campo       String
+    Dato        DatoEntidad[]
+    TypeValor   TypeValor     @relation(fields: [TypeValorId], references: [TypeValorId])
+    TypeValorId Int
+
+    @@map("Campo")
+}
+
+model Entidad {
+    EntidadId                Int                    @id @default(autoincrement())
+    EsEmpresa                Boolean
+    TipoDocumentoIdentidad   TipoDocumentoIdentidad @relation(fields: [TipoDocumentoIdentidadId], references: [TipoDocumentoIdentidadId])
+    TipoDocumentoIdentidadId Int
+    NumDocumento             String
+    NombreCompleto           String
+    FechaRegistro            DateTime               @default(now())
+    CodUsuario               String
+    DatoEntidad              DatoEntidad[]
+
+    @@map("Entidad")
+}
+
+model TipoDocumentoIdentidad {
+    TipoDocumentoIdentidadId Int       @id @default(autoincrement())
+    Nombre                   String    @default("") @map("Nombre")
+    Entidad                  Entidad[]
+
+    @@map("TipDocIdentidad")
+}
+
+model TypeValor {
+    TypeValorId Int     @id @default(autoincrement())
+    Nombre      String
+    Campo       Campo[]
+
+    @@map("TypeValor")
+}
+
+model EnlaceItem {
+    EnlaceItemId      Int                 @id @default(autoincrement())
+    Codigo            String
+    Nombre            String
+    CodUsuario        String
+    FechaRegistro     DateTime
+    Estado            Boolean
+    DatoEntidadEnlace DatoEntidadEnlace[]
+}
+
+model DatoEntidadEnlace {
+    DatoEntidad   DatoEntidad @relation(fields: [DatoEntidadId], references: [DatoId])
+    DatoEntidadId Int         @unique
+    EnlaceItem    EnlaceItem  @relation(fields: [EnlaceItemId], references: [EnlaceItemId])
+    EnlaceItemId  Int         @unique
+}

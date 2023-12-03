@@ -1,0 +1,200 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model DatoEntidad {
+  DatoId          Int            @id @default(autoincrement())
+  Entidad         Entidad        @relation(fields: [EntidadId], references: [EntidadId])
+  EntidadId       Int
+  valor           String
+  Campo           Campo          @relation(fields: [CampoId], references: [CampoId])
+  CampoId         Int
+  ListaRelacion   ListaRelacion? @relation(fields: [ListaRelacionId], references: [ListaRelacionId])
+  ListaRelacionId Int?
+
+  @@map("DatoEntidad")
+}
+
+model Campo {
+  CampoId     Int           @id @default(autoincrement())
+  campo       String
+  Dato        DatoEntidad[]
+  TypeValor   TypeValor     @relation(fields: [TypeValorId], references: [TypeValorId])
+  TypeValorId Int
+
+  @@map("Campo")
+}
+
+model Entidad {
+  EntidadId                Int                    @id @default(autoincrement())
+  EsEmpresa                Boolean
+  TipoDocumentoIdentidad   TipoDocumentoIdentidad @relation(fields: [TipoDocumentoIdentidadId], references: [TipoDocumentoIdentidadId])
+  TipoDocumentoIdentidadId Int
+  NumDocumento             String                 @db.VarChar(30)
+  NombreCompleto           String                 @db.VarChar(30)
+  FechaRegistro            DateTime               @default(now())
+  CodUsuario               String                 @db.VarChar(25)
+  DatoEntidad              DatoEntidad[]
+
+  @@map("Entidad")
+}
+
+model TipoDocumentoIdentidad {
+  TipoDocumentoIdentidadId Int       @id @default(autoincrement())
+  Nombre                   String    @default("") @map("Nombre") @db.VarChar(100)
+  Entidad                  Entidad[]
+
+  @@map("TipDocIdentidad")
+}
+
+model TypeValor {
+  TypeValorId Int     @id @default(autoincrement())
+  Nombre      String  @db.VarChar(40)
+  Campo       Campo[]
+
+  @@map("TypeValor")
+}
+
+model ListaRelacion {
+  ListaRelacionId     Int               @id @default(autoincrement())
+  TipoListaRelacionId Int
+  Nombre              String            @default("") @map("Nombre") @db.VarChar(100)
+  FechaRegistro       DateTime          @default(now())
+  CodUsuario          String            @default("") @map("CodUsuario") @db.VarChar(15)
+  EstadoRegistro      Boolean           @default(true)
+  DatoEntidad         DatoEntidad[]
+  TipoListaRelacion   TipoListaRelacion @relation(fields: [TipoListaRelacionId], references: [TipoListaRelacionId])
+
+  @@map("ListaRelacion")
+}
+
+model TipoListaRelacion {
+  TipoListaRelacionId Int             @id @default(autoincrement())
+  Codigo              String          @default("") @map("Codigo") @db.VarChar(10)
+  Nombre              String          @default("") @map("Nombre") @db.VarChar(100)
+  ListaRelacion       ListaRelacion[]
+
+  @@map("TipoListaRelacion")
+}
+
+model OrdenPedidoModel {
+  OrdenPedidoId           Int       @id @default(autoincrement())
+  ProcesoId               Int
+  TipoProcesoId           Int
+  EstadoProcesoId         Int
+  Codigo                  String    @db.VarChar(20)
+  ResponsableId           Int?
+  NumDocumentoResponsable String?
+  NomResponsable          String?
+  FechaEmision            DateTime
+  BloqueoEdicionOtros     Boolean?
+  FechaRegistro           DateTime?
+  CodUsuario              String?
+  EstadoRegistro          Boolean?
+
+  @@map("transaccion_ordenpedido") // Mapea la tabla con el nombre exacto en la base de datos
+}
+
+model TransaccionOrdenPedidoDetalle {
+  OrdenPedidoDetalleId Int      @id @default(autoincrement())
+  OrdenPedidoId        Int
+  ProductoId           Int
+  UnidadMedidaId       Int
+  CantidadSolicitado   Float
+  CantidadReservado    Float?
+  CantidadFaltante     Float
+  CantidadAtendido     Float
+  Enlazado             Boolean
+  EsAtendido           Boolean
+  FechaRegistro        DateTime
+  CodUsuario           String
+  EstadoRegistro       Boolean?
+
+  @@map("transaccion_ordenpedidodetalle")
+}
+
+model ProductoModel {
+  ProductoId        Int               @id @default(autoincrement())
+  Codigo            String            @db.VarChar(30)
+  CategoriaId       Int
+  TipoProductoId    Int
+  MarcaId           Int
+  ModeloId          Int
+  Nombre            String            @db.VarChar(100)
+  Descripcion       String            @db.VarChar(200)
+  UnidadMedidaId    Int
+  Reserva           Float
+  Stock             Float
+  FechaRegistro     DateTime
+  CodUsuario        String            @db.VarChar(15)
+  EstadoRegistro    Boolean
+  CategoriaModel    CategoriaModel    @relation(fields: [CategoriaId], references: [CategoriaId])
+  TipoProductoModel TipoProductoModel @relation(fields: [TipoProductoId], references: [TipoProductoId])
+  MarcaModel        MarcaModel        @relation(fields: [MarcaId], references: [MarcaId])
+  ModeloModel       ModeloModel       @relation(fields: [ModeloId], references: [ModeloId])
+  UnidadMedidaModel UnidadMedidaModel @relation(fields: [UnidadMedidaId], references: [UnidadMedidaId])
+
+  @@map("catalogo_producto")
+}
+
+model CategoriaModel {
+  CategoriaId    Int             @id @default(autoincrement())
+  Nombre         String          @db.VarChar(100)
+  FechaRegistro  DateTime
+  CodUsuario     String          @db.VarChar(15)
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_categoria")
+}
+
+model TipoProductoModel {
+  TipoProductoId Int             @id @default(autoincrement())
+  Nombre         String          @db.VarChar(50)
+  FechaRegistro  DateTime
+  CodUsuario     String          @db.VarChar(15)
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_tipoproducto")
+}
+
+model MarcaModel {
+  MarcaId        Int             @id @default(autoincrement())
+  Nombre         String          @db.VarChar(100)
+  FechaRegistro  DateTime
+  CodUsuario     String          @db.VarChar(15)
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_marca")
+}
+
+model ModeloModel {
+  ModeloId       Int             @id @default(autoincrement())
+  Nombre         String          @db.VarChar(100)
+  FechaRegistro  DateTime
+  CodUsuario     String          @db.VarChar(15)
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_modelo")
+}
+
+model UnidadMedidaModel {
+  UnidadMedidaId  Int             @id @default(autoincrement())
+  Codigo          String          @db.VarChar(25)
+  CodigoComercial String          @db.VarChar(25)
+  Nombre          String          @db.VarChar(100)
+  ProductoModel   ProductoModel[]
+
+  @@map("catalogo_unidadmedida")
+}

@@ -1,0 +1,7 @@
+nest new
+npm run start:dev
+npm i prisma -D
+npx prisma init --datasource-provider sqlite
+npx prisma migrate dev --name init
+npx prisma migrate deploy
+npx prisma studio
