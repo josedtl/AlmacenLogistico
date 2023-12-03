@@ -14,8 +14,8 @@ model DatoEntidad {
   DatoId          Int            @id @default(autoincrement())
   Entidad         Entidad        @relation(fields: [EntidadId], references: [EntidadId])
   EntidadId       Int
-  valor           String
-  Campo           Campo          @relation(fields: [CampoId], references: [CampoId])
+  valor           String         @db.VarChar(250)
+  CampoEntidad    CampoEntidad   @relation(fields: [CampoId], references: [CampoId])
   CampoId         Int
   ListaRelacion   ListaRelacion? @relation(fields: [ListaRelacionId], references: [ListaRelacionId])
   ListaRelacionId Int?
@@ -23,9 +23,9 @@ model DatoEntidad {
   @@map("DatoEntidad")
 }
 
-model Campo {
+model CampoEntidad {
   CampoId     Int           @id @default(autoincrement())
-  campo       String
+  Campo       String        @db.VarChar(50)
   Dato        DatoEntidad[]
   TypeValor   TypeValor     @relation(fields: [TypeValorId], references: [TypeValorId])
   TypeValorId Int
@@ -35,7 +35,7 @@ model Campo {
 
 model Entidad {
   EntidadId                Int                    @id @default(autoincrement())
-  EsEmpresa                Boolean
+  EsEmpresa                Boolean                @default(false)
   TipoDocumentoIdentidad   TipoDocumentoIdentidad @relation(fields: [TipoDocumentoIdentidadId], references: [TipoDocumentoIdentidadId])
   TipoDocumentoIdentidadId Int
   NumDocumento             String                 @db.VarChar(30)
@@ -49,16 +49,18 @@ model Entidad {
 
 model TipoDocumentoIdentidad {
   TipoDocumentoIdentidadId Int       @id @default(autoincrement())
+  Codigo                   String    @default("") @map("Codigo") @db.VarChar(100)
   Nombre                   String    @default("") @map("Nombre") @db.VarChar(100)
+  EsEmpresa                Boolean   @default(false) @map("EsEmpresa")
   Entidad                  Entidad[]
 
-  @@map("TipDocIdentidad")
+  @@map("catalogo_TipoDocumentoIdentidad")
 }
 
 model TypeValor {
-  TypeValorId Int     @id @default(autoincrement())
-  Nombre      String  @db.VarChar(40)
-  Campo       Campo[]
+  TypeValorId  Int            @id @default(autoincrement())
+  Nombre       String         @db.VarChar(40)
+  CampoEntidad CampoEntidad[]
 
   @@map("TypeValor")
 }
@@ -90,9 +92,9 @@ model OrdenPedidoModel {
   ProcesoId               Int
   TipoProcesoId           Int
   EstadoProcesoId         Int
-  Codigo                  String    @db.VarChar(20)
+  Codigo                  String    @default("") @map("Codigo") @db.VarChar(30)
   ResponsableId           Int?
-  NumDocumentoResponsable String?
+  NumDocumentoResponsable String?   
   NomResponsable          String?
   FechaEmision            DateTime
   BloqueoEdicionOtros     Boolean?
