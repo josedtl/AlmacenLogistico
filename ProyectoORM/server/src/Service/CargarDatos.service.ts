@@ -1,4 +1,4 @@
-import { Entidad, Campo } from '@prisma/client';
+import { Entidad, CampoEntidad } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 @Injectable()
@@ -39,9 +39,9 @@ export class CargarDatosservice {
             { TypeValorId: 1, campo: 'EstadoCivilId' },
         ];
 
-        await this.prisma.campo.createMany({
-            data: campos
-        });
+        // await this.prisma.campoEntidad.createMany({
+        //     data: campos
+        // });
 
 
         return 'ok';

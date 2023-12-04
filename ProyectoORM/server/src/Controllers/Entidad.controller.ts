@@ -16,12 +16,17 @@ import { EntidadEntity } from '../EntityLayer/EntidadEntity';
 export class EntidadController {
   constructor(private readonly EntidadService: EntidadService) { }
 
-  @Get('/getEntidads')
+  @Get('/GetPersonaItems')
   async getEntidad() {
     return this.EntidadService.getEntidads();
     // return "d";
   }
 
+  @Get('/GetEntidadMain')
+  async GetEntidadMain() {
+    return this.EntidadService.GetEntidadMain();
+    // return "d";
+  }
   @Get('/getPersonaItem/:id')
   async getPersonaItem(@Param('id') id: string) {
     const EntidadFound = await this.EntidadService.getPersonaItem(Number(id));
@@ -29,7 +34,7 @@ export class EntidadController {
     return EntidadFound;
   }
 
-  @Post("SaveItem")
+  @Post("/SaveItem")
   async SaveItem(@Body() data: EntidadEntity) {
     return this.EntidadService.SaveItem(data);
   }

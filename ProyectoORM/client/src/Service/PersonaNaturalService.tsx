@@ -9,10 +9,10 @@ class PersonaNaturalService {
 
   async getItems(): Promise<PersonaNaturalEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/PersonaNatural/GetItems/`);
+      const response = await axios.get(`${URL}/api/Entidad/GetPersonaItems`);
       console.log(response.status);
       if (response.status === 200 && response.data.Value != null) {
-        return response.data.Value;
+        return response.data;
       }
       return [];
     } catch (err) {
@@ -68,8 +68,8 @@ class PersonaNaturalService {
 
   async getMainItems(): Promise<PersonaNaturalEntity[]> {
     try {
-      const response = await apiLg.get(`api/PersonaNatural/GetMainItems`);
-      return response.data.Value;
+      const response = await apiLg.get(`api/Entidad/GetEntidadMain`);
+      return response.data;
 
     } catch (error) {
       throw error;
@@ -79,7 +79,7 @@ class PersonaNaturalService {
   async GetCabeceraItem(Id: number): Promise<PersonaNaturalEntity[]> {
     try {
       const response = await apiLg.get(`api/PersonaNatural/GetCabeceraItem/${Id}`);
-      return response.data.Value;
+      return response.data;
     } catch (error) {
       throw error;
     }

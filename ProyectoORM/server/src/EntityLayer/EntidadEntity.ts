@@ -4,7 +4,7 @@ export class EntidadEntity {
     EntidadId: number;
     TipoDocumentoIdentidadId: number;
     NumDocumento: string;
-    NombreCompleto: string;
+    // NombreCompleto: string;
     FechaRegistro: Date;
     CodUsuario: string;
     EsEmpresa: boolean;
@@ -15,7 +15,7 @@ export class EntidadEntity {
     Direccion: string;
     Telefono: string;
     Correo: string;
-    SexoId: number; // Podría ser un número según tu enumeración
-    EstadoCivilId: number; // Podría ser un número según tu enumeración
+    SexoId: number; 
+    EstadoCivilId: number; 
     Accion: AccionEnum;
 }

@@ -66,7 +66,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             render: (record: PersonaNaturalEntity) => (
                 <span>
 
-                    <Link to={`/PersonaNaturalSave/${record.PersonaNaturalId}`}>
+                    <Link to={`/PersonaNaturalSave/${record.EntidadId}`}>
                         <Button
                             type='dashed'
                             style={{ float: "right", marginRight: "10px", color: "#BB9B32", backgroundColor: "white", borderColor: "#BB9B32" }}
@@ -85,10 +85,10 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
     ];
 
-    const dataWithKeys = props.DataList.sort((a, b) => b.PersonaNaturalId - a.PersonaNaturalId).map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.EntidadId - a.EntidadId).map((item, zIndex) => {
         return {
             ...item,
-            key: item.PersonaNaturalId,
+            key: item.EntidadId,
             Cont: (zIndex + 1)
         };
     });
@@ -108,7 +108,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
                                     style={{ marginTop: '10Px', }}
                                     actions={[
-                                        <Link to={`/PersonaNaturalSave/${row.PersonaNaturalId}`}>
+                                        <Link to={`/PersonaNaturalSave/${row.EntidadId}`}>
                                             <EditFilled
                                                 style={{ color: "#BB9B32" }}
                                             />

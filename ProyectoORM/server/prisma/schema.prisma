@@ -34,20 +34,37 @@ model CampoEntidad {
 }
 
 model Entidad {
-  EntidadId                Int                    @id @default(autoincrement())
-  EsEmpresa                Boolean                @default(false)
-  TipoDocumentoIdentidad   TipoDocumentoIdentidad @relation(fields: [TipoDocumentoIdentidadId], references: [TipoDocumentoIdentidadId])
-  TipoDocumentoIdentidadId Int
-  NumDocumento             String                 @db.VarChar(30)
-  NombreCompleto           String                 @db.VarChar(30)
-  FechaRegistro            DateTime               @default(now())
-  CodUsuario               String                 @db.VarChar(25)
-  DatoEntidad              DatoEntidad[]
+  EntidadId                   Int                          @id @default(autoincrement())
+  EsEmpresa                   Boolean                      @default(false)
+  TipoDocumentoIdentidadModel TipoDocumentoIdentidadModel? @relation(fields: [TipoDocumentoIdentidadId], references: [TipoDocumentoIdentidadId])
+  TipoDocumentoIdentidadId    Int?
+  NumDocumento                String                       @db.VarChar(30)
+  NombreCompleto              String                       @db.VarChar(30)
+  FechaRegistro               DateTime                     @default(now())
+  CodUsuario                  String                       @db.VarChar(25)
+  DatoEntidad                 DatoEntidad[]
+  UbigeoModel                 UbigeoModel?                  @relation(fields: [UbigeoId], references: [UbigeoId])
+  UbigeoId                    Int?
 
   @@map("Entidad")
 }
 
-model TipoDocumentoIdentidad {
+model UbigeoModel {
+  UbigeoId          Int               @id
+  CodUbigeo         String            @db.VarChar(20)
+  DesUbigeo         String            @db.VarChar(100)
+  DepartamentoId    Int
+  ProvinciaId       Int
+  DistritoId        Int
+  DepartamentoModel DepartamentoModel @relation(fields: [DepartamentoId], references: [DepartamentoId])
+  ProvinciaModel    ProvinciaModel    @relation(fields: [ProvinciaId], references: [ProvinciaId])
+  DistritoModel     DistritoModel     @relation(fields: [DistritoId], references: [DistritoId])
+  Entidad           Entidad[]
+
+  @@map("catalogo_ubigeo")
+}
+
+model TipoDocumentoIdentidadModel {
   TipoDocumentoIdentidadId Int       @id @default(autoincrement())
   Codigo                   String    @default("") @map("Codigo") @db.VarChar(100)
   Nombre                   String    @default("") @map("Nombre") @db.VarChar(100)
@@ -94,7 +111,7 @@ model OrdenPedidoModel {
   EstadoProcesoId         Int
   Codigo                  String    @default("") @map("Codigo") @db.VarChar(30)
   ResponsableId           Int?
-  NumDocumentoResponsable String?   
+  NumDocumentoResponsable String?
   NomResponsable          String?
   FechaEmision            DateTime
   BloqueoEdicionOtros     Boolean?
@@ -199,4 +216,37 @@ model UnidadMedidaModel {
   ProductoModel   ProductoModel[]
 
   @@map("catalogo_unidadmedida")
+}
+
+model DepartamentoModel {
+  DepartamentoId  Int              @id
+  CodDepartamento Int
+  NomDepartamento String           @db.VarChar(50)
+  UbigeoModel     UbigeoModel[]
+  ProvinciaModel  ProvinciaModel[]
+
+  @@map("catalogo_departamento")
+}
+
+model ProvinciaModel {
+  ProvinciaId       Int               @id
+  CodProvincia      Int
+  NomProvincia      String            @db.VarChar(50)
+  DepartamentoId    Int
+  UbigeoModel       UbigeoModel[]
+  DepartamentoModel DepartamentoModel @relation(fields: [DepartamentoId], references: [DepartamentoId])
+  DistritoModel     DistritoModel[]
+
+  @@map("catalogo_provincia")
+}
+
+model DistritoModel {
+  DistritoId     Int            @id
+  CodDistrito    Int
+  NomDistrito    String         @db.VarChar(50)
+  ProvinciaId    Int
+  UbigeoModel    UbigeoModel[]
+  ProvinciaModel ProvinciaModel @relation(fields: [ProvinciaId], references: [ProvinciaId])
+
+  @@map("catalogo_distrito")
 }

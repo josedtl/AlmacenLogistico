@@ -1,7 +1,7 @@
 import { ProcessActionEnum } from '../Lib/ResourceModel/Enum'
 
 export class PersonaNaturalEntity {
-    PersonaNaturalId: number;
+    EntidadId: number;
     TipoDocumentoIdentidadId: number;
     NumDocumento: string;
     Nombres: string;
@@ -20,7 +20,7 @@ export class PersonaNaturalEntity {
     Action: ProcessActionEnum
     NomDocumento: string;
     constructor() {
-        this.PersonaNaturalId = 0;
+        this.EntidadId = 0;
         this.TipoDocumentoIdentidadId = 0;
         this.NumDocumento = '';
         this.Nombres = '';

@@ -22,13 +22,13 @@ function Main() {
   };
 
   const updateState = (item: PersonaNaturalEntity) => {
-    const itemIndex = items.findIndex((data) => data.PersonaNaturalId === item.PersonaNaturalId);
+    const itemIndex = items.findIndex((data) => data.EntidadId === item.EntidadId);
     const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
     setItems(newArray);
   };
 
   const deleteItemFromState = (id: number) => {
-    const updatedItems = items.filter((item) => item.PersonaNaturalId !== id);
+    const updatedItems = items.filter((item) => item.EntidadId !== id);
     setItems(updatedItems);
   };
 

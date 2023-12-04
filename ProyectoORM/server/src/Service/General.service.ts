@@ -1,4 +1,4 @@
-import { CategoriaModel, TipoDocumentoIdentidad, MarcaModel, ModeloModel } from '@prisma/client';
+import { CategoriaModel, TipoDocumentoIdentidadModel, MarcaModel, ModeloModel } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 

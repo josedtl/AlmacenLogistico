@@ -37,6 +37,7 @@ export class EntidadService {
         NombreCompleto: datos.Nombres + " " + datos.ApellidoPaterno + " " + datos.ApellidoMaterno,
         FechaRegistro: datos.FechaRegistro,
         CodUsuario: datos.CodUsuario,
+        UbigeoId: null,
       }
     }) : await this.prisma.entidad.update({
       where: {
@@ -49,6 +50,7 @@ export class EntidadService {
         NombreCompleto: datos.Nombres + " " + datos.ApellidoPaterno + " " + datos.ApellidoMaterno,
         FechaRegistro: datos.FechaRegistro,
         CodUsuario: datos.CodUsuario,
+        UbigeoId: null
       }
     })
 
@@ -56,7 +58,7 @@ export class EntidadService {
     datos.EntidadId = DatosRetornado.EntidadId;
     const Items: DatoEntidad[] = [];
 
-    const campos = await this.prisma.campo.findMany();
+    const campos = await this.prisma.campoEntidad.findMany();
 
 
 
@@ -69,7 +71,7 @@ export class EntidadService {
     if (datos.Accion == AccionEnum.Update) {
       for (const key in datos) {
         console.log(key);
-        const index = campos.findIndex((i) => i.campo === key)
+        const index = campos.findIndex((i) => i.Campo === key)
         if (index > -1) {
           const indexDato = DatosUpdate.findIndex((ii) => ii.CampoId === campos[index].CampoId)
           if (indexDato > -1) {
@@ -86,14 +88,14 @@ export class EntidadService {
     }
     else {
       for (const key in datos) {
-        const index = campos.findIndex((i) => i.campo === key)
+        const index = campos.findIndex((i) => i.Campo === key)
         if (index > -1) {
           Items.push({
             DatoId: 0,
             EntidadId: DatosRetornado.EntidadId,
             CampoId: campos[index].CampoId,
             valor: String(datos[key]),
-            ListaRelacionId:null
+            ListaRelacionId: null
           });
         }
       }
@@ -139,15 +141,32 @@ export class EntidadService {
 
 
   async getEntidads(): Promise<any> {
+
+    const PersonaItems = await this.prisma.entidad.findMany(
+      {
+        select: {
+          EntidadId: true,
+          NumDocumento: true,
+          TipoDocumentoIdentidadId: true,
+          NombreCompleto: true,
+          CodUsuario: true,
+          FechaRegistro: true,
+          EsEmpresa: true,
+
+        }
+      }
+
+    );
+
     const datos = await this.prisma.datoEntidad.findMany(
       {
         select: {
           EntidadId: true,
           valor: true,
-          Campo: {
+          CampoEntidad: {
             select: {
               CampoId: true,
-              campo: true,
+              Campo: true,
               TypeValor: {
                 select: {
                   Nombre: true
@@ -159,16 +178,30 @@ export class EntidadService {
         }
       }
     );
-    // console.log(datos);
+
     const datosPivotados = {};
 
     datos.forEach((dato) => {
       if (!datosPivotados[dato.EntidadId]) {
-        datosPivotados[dato.EntidadId] = { EntidadId: dato.EntidadId };
+        const datoscabecera = PersonaItems.findIndex((S) => S.EntidadId == dato.EntidadId);
+
+        datosPivotados[dato.EntidadId] = {
+          EntidadId: dato.EntidadId,
+          TipoDocumentoIdentidadId: PersonaItems[datoscabecera].TipoDocumentoIdentidadId,
+          NumDocumento: PersonaItems[datoscabecera].NumDocumento,
+          NombreCompleto: PersonaItems[datoscabecera].NombreCompleto,
+          // UbigeoId: PersonaItems[datoscabecera].UbigeoId,
+          FechaRegistro: PersonaItems[datoscabecera].FechaRegistro,
+          CodUsuario: PersonaItems[datoscabecera].CodUsuario,
+
+        };
       }
-      console.log(dato.Campo.TypeValor.Nombre)
-      datosPivotados[dato.EntidadId][dato.Campo.campo] = convertirValorAlTipoDato(dato.valor, dato.Campo.TypeValor.Nombre);
+      datosPivotados[dato.EntidadId][dato.CampoEntidad.Campo] = convertirValorAlTipoDato(dato.valor, dato.CampoEntidad.TypeValor.Nombre);
+
     });
+
+
+
 
     return Object.values(datosPivotados);
   }
@@ -207,10 +240,10 @@ export class EntidadService {
         select: {
           EntidadId: true,
           valor: true,
-          Campo: {
+          CampoEntidad: {
             select: {
               CampoId: true,
-              campo: true,
+              Campo: true,
               TypeValor: {
                 select: {
                   Nombre: true
@@ -237,9 +270,83 @@ export class EntidadService {
           CodUsuario: PersonaItem.CodUsuario,
         };
       }
-      datosPivotados[dato.EntidadId][dato.Campo.campo] = convertirValorAlTipoDato(dato.valor, dato.Campo.TypeValor.Nombre);
+      datosPivotados[dato.EntidadId][dato.CampoEntidad.Campo] = convertirValorAlTipoDato(dato.valor, dato.CampoEntidad.TypeValor.Nombre);
     });
 
     return Object.values(datosPivotados);
   }
+
+
+
+
+  async GetEntidadMain(): Promise<any> {
+
+    const PersonaItems = await this.prisma.entidad.findMany(
+      {
+        select: {
+          EntidadId: true,
+          NumDocumento: true,
+          NombreCompleto: true,
+          CodUsuario: true,
+          FechaRegistro: true,
+          EsEmpresa: true,
+          TipoDocumentoIdentidadModel: {
+            select: {
+              Nombre: true
+            }
+          }
+
+        }
+      }
+
+    );
+
+    const datos = await this.prisma.datoEntidad.findMany(
+      {
+        select: {
+          EntidadId: true,
+          valor: true,
+          CampoEntidad: {
+            select: {
+              CampoId: true,
+              Campo: true,
+              TypeValor: {
+                select: {
+                  Nombre: true
+                }
+              }
+            }
+
+          }
+        }
+      }
+    );
+
+    const datosPivotados = {};
+
+    datos.forEach((dato) => {
+      if (!datosPivotados[dato.EntidadId]) {
+        const datoscabecera = PersonaItems.findIndex((S) => S.EntidadId == dato.EntidadId);
+
+        datosPivotados[dato.EntidadId] = {
+          EntidadId: dato.EntidadId,
+          NomDocumento: PersonaItems[datoscabecera].TipoDocumentoIdentidadModel.Nombre,
+          NumDocumento: PersonaItems[datoscabecera].NumDocumento,
+          NombreCompleto: PersonaItems[datoscabecera].NombreCompleto,
+          // UbigeoId: PersonaItems[datoscabecera].UbigeoId,
+          FechaRegistro: PersonaItems[datoscabecera].FechaRegistro,
+          CodUsuario: PersonaItems[datoscabecera].CodUsuario,
+
+        };
+      }
+      datosPivotados[dato.EntidadId][dato.CampoEntidad.Campo] = convertirValorAlTipoDato(dato.valor, dato.CampoEntidad.TypeValor.Nombre);
+
+    });
+
+
+
+
+    return Object.values(datosPivotados);
+  }
+
 }

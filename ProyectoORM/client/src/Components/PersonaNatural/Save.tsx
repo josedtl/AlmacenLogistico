@@ -202,7 +202,7 @@ const Save = () => {
         Ent.CodUsuario = "adm";
         Ent.FechaRegistro = new Date();
         Ent.EstadoRegistro = true
-        Ent.Action = Ent.PersonaNaturalId == 0 ? ProcessActionEnum.Add : ProcessActionEnum.Update;
+        Ent.Action = Ent.EntidadId == 0 ? ProcessActionEnum.Add : ProcessActionEnum.Update;
         AddPersonaNatural();
       },
       onCancel() {
@@ -266,7 +266,7 @@ const Save = () => {
       <Row>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           {/* <Title level={3}> PersonaNatural  {params.Id}</Title> */}
-          <Title level={3}> {Ent.PersonaNaturalId > 0 ? 'PersonaNatural' : 'Agregar PersonaNatural'}</Title>
+          <Title level={3}> {Ent.EntidadId > 0 ? 'PersonaNatural' : 'Agregar PersonaNatural'}</Title>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Button
