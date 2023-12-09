@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import { EmpresaEntity } from '../../Models/EmpresaEntity';
+import { EmpresaEntity,EntidadEmpresaEntity } from '../../Models/EmpresaEntity';
 import EmpresaService from '../../Service/EmpresaService';
 import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
 import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , ButtonAddMain} from '../../Styles/Button'
@@ -13,7 +13,7 @@ function Main() {
   }, []);
   const sEmpresa = new EmpresaService();
 
-  const [items, setItems] = useState<EmpresaEntity[]>([]);
+  const [items, setItems] = useState<EntidadEmpresaEntity[]>([]);
   const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled, setDisabled] = useState(false);
   const [Busqueda, setBusqueda] = useState<string>('');
@@ -21,19 +21,20 @@ function Main() {
     setDisabled(!disabled);
   };
 
-  const updateState = (item: EmpresaEntity) => {
-    const itemIndex = items.findIndex((data) => data.EmpresaId === item.EmpresaId);
+  const updateState = (item: EntidadEmpresaEntity) => {
+    const itemIndex = items.findIndex((data) => data.EntidadId === item.EntidadId);
     const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
     setItems(newArray);
   };
 
   const deleteItemFromState = (id: number) => {
-    const updatedItems = items.filter((item) => item.EmpresaId !== id);
+    const updatedItems = items.filter((item) => item.EntidadId !== id);
     setItems(updatedItems);
   };
 
   const getItems = async () => {
     const itemsg = await sEmpresa.GetMainItems();
+    console.log(itemsg);
     setItems(itemsg);
     setCargarPage(false);
 
@@ -42,7 +43,7 @@ function Main() {
     setBusqueda(e.target.value.toUpperCase());
   };
   const filterItems = items.filter(fdata =>
-    fdata.RazonSocial.toLowerCase().includes(Busqueda.toLowerCase())
+    fdata.NombreCompleto.toLowerCase().includes(Busqueda.toLowerCase())
   );
 
   const { Title } = Typography;

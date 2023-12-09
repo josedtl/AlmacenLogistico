@@ -1,4 +1,22 @@
 -- CreateTable
+CREATE TABLE `ConfiguracionEntidad` (
+    `ConfiguracionEntidadId` INTEGER NOT NULL AUTO_INCREMENT,
+    `Codigo` VARCHAR(10) NOT NULL,
+    `Nombre` VARCHAR(150) NOT NULL,
+
+    PRIMARY KEY (`ConfiguracionEntidadId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `ConfiguracionEntidadDetalle` (
+    `ConfiguracionEntidadDetalleId` INTEGER NOT NULL AUTO_INCREMENT,
+    `CampoId` INTEGER NULL,
+    `ConfiguracionEntidadId` INTEGER NULL,
+
+    PRIMARY KEY (`ConfiguracionEntidadDetalleId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `DatoEntidad` (
     `DatoId` INTEGER NOT NULL AUTO_INCREMENT,
     `EntidadId` INTEGER NOT NULL,
@@ -19,8 +37,18 @@ CREATE TABLE `Campo` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `TipoEntidad` (
+    `TipoEntidadId` INTEGER NOT NULL AUTO_INCREMENT,
+    `Codigo` VARCHAR(10) NOT NULL,
+    `Nombre` VARCHAR(100) NOT NULL,
+
+    PRIMARY KEY (`TipoEntidadId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Entidad` (
     `EntidadId` INTEGER NOT NULL AUTO_INCREMENT,
+    `TipoEntidadId` INTEGER NULL,
     `EsEmpresa` BOOLEAN NOT NULL DEFAULT false,
     `TipoDocumentoIdentidadId` INTEGER NULL,
     `NumDocumento` VARCHAR(30) NOT NULL,
@@ -48,7 +76,8 @@ CREATE TABLE `catalogo_ubigeo` (
 CREATE TABLE `catalogo_TipoDocumentoIdentidad` (
     `TipoDocumentoIdentidadId` INTEGER NOT NULL AUTO_INCREMENT,
     `Codigo` VARCHAR(100) NOT NULL DEFAULT '',
-    `Nombre` VARCHAR(100) NOT NULL DEFAULT '',
+    `Alias` VARCHAR(100) NOT NULL DEFAULT '',
+    `Descripcion` VARCHAR(100) NOT NULL DEFAULT '',
     `EsEmpresa` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`TipoDocumentoIdentidadId`)
@@ -225,6 +254,12 @@ CREATE TABLE `catalogo_distrito` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
+ALTER TABLE `ConfiguracionEntidadDetalle` ADD CONSTRAINT `ConfiguracionEntidadDetalle_CampoId_fkey` FOREIGN KEY (`CampoId`) REFERENCES `Campo`(`CampoId`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `ConfiguracionEntidadDetalle` ADD CONSTRAINT `ConfiguracionEntidadDetalle_ConfiguracionEntidadId_fkey` FOREIGN KEY (`ConfiguracionEntidadId`) REFERENCES `ConfiguracionEntidad`(`ConfiguracionEntidadId`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE `DatoEntidad` ADD CONSTRAINT `DatoEntidad_EntidadId_fkey` FOREIGN KEY (`EntidadId`) REFERENCES `Entidad`(`EntidadId`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -235,6 +270,9 @@ ALTER TABLE `DatoEntidad` ADD CONSTRAINT `DatoEntidad_ListaRelacionId_fkey` FORE
 
 -- AddForeignKey
 ALTER TABLE `Campo` ADD CONSTRAINT `Campo_TypeValorId_fkey` FOREIGN KEY (`TypeValorId`) REFERENCES `TypeValor`(`TypeValorId`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Entidad` ADD CONSTRAINT `Entidad_TipoEntidadId_fkey` FOREIGN KEY (`TipoEntidadId`) REFERENCES `TipoEntidad`(`TipoEntidadId`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Entidad` ADD CONSTRAINT `Entidad_TipoDocumentoIdentidadId_fkey` FOREIGN KEY (`TipoDocumentoIdentidadId`) REFERENCES `catalogo_TipoDocumentoIdentidad`(`TipoDocumentoIdentidadId`) ON DELETE SET NULL ON UPDATE CASCADE;

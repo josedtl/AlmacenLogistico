@@ -40,7 +40,8 @@ try:
                 "Correo": fila['Correo'],
                 "SexoId": 1,
                 "EstadoCivilId": 1,
-                "Accion": 1,
+                "UbigeoId":793,
+                "Action": 1,
             }
             response = requests.post(url, json=data)
             if response.status_code == 200:

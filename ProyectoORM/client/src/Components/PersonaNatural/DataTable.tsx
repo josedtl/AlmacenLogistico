@@ -10,6 +10,7 @@ import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import 'moment/locale/es';
 import { DataType } from '../../Lib/ResourceModel/DataTableType'
+import { PersonaNaturalMainEntity } from '../../Models/PersonaNaturalMainEntity';
 
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');
@@ -23,28 +24,30 @@ const DataTable: React.FC<PropsTable> = (props) => {
         {
             title: 'Documento',
             dataIndex: 'NomDocumento',
+            width: '150px',
             key: 'NomDocumento',
         },
         {
             title: 'Numero',
             dataIndex: 'NumDocumento',
+            width: '200px',
             key: 'NumDocumento',
         },
         {
-            title: 'Nombres',
-            dataIndex: 'Nombres',
-            key: 'Nombres',
+            title: 'NombreCompleto',
+            dataIndex: 'NombreCompleto',
+            key: 'NombreCompleto',
         },
-        {
-            title: 'ApellidoPaterno',
-            dataIndex: 'ApellidoPaterno',
-            key: 'ApellidoPaterno',
-        },
-        {
-            title: 'ApellidoMaterno',
-            dataIndex: 'ApellidoMaterno',
-            key: 'ApellidoMaterno',
-        },
+        // {
+        //     title: 'ApellidoPaterno',
+        //     dataIndex: 'ApellidoPaterno',
+        //     key: 'ApellidoPaterno',
+        // },
+        // {
+        //     title: 'ApellidoMaterno',
+        //     dataIndex: 'ApellidoMaterno',
+        //     key: 'ApellidoMaterno',
+        // },
 
         {
             title: 'Fecha de registro',
@@ -63,7 +66,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             fixed: 'right',
             width: 70,
             key: 'action',
-            render: (record: PersonaNaturalEntity) => (
+            render: (record: PersonaNaturalMainEntity) => (
                 <span>
 
                     <Link to={`/PersonaNaturalSave/${record.EntidadId}`}>
@@ -115,7 +118,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
                                         </Link>
                                     ]}
                                     bordered={false}>
-                                    {row.Cont + ".  "}   {row.Nombre}
+                                    {row.Cont + ".  "}   {row.NombreCompleto}
                                 </Card>
 
                             </Col>

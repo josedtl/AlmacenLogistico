@@ -6,11 +6,55 @@ import { DatoEntidad } from '@prisma/client';
 import { AccionEnum } from '../Lib/AccionEnum';
 import { convertirValorAlTipoDato } from '../Lib/Convetidor';
 @Injectable()
-export class EntidadService {
+export class EntidadEmpresaService {
   constructor(private prisma: PrismaService) { }
 
-  async getAllEntidads(): Promise<Entidad[]> {
-    return this.prisma.entidad.findMany();
+  async getAllEntidadEmpresas(): Promise<Entidad[]> {
+    const Items = await this.prisma.entidad.findMany(
+      {
+        where: {
+          TipoEntidad: {
+            Codigo: '0002'
+          }
+        },
+        select: {
+          EntidadId: true,
+          NumDocumento: true,
+          NombreCompleto: true,
+          FechaRegistro: true,
+          CodUsuario: true,
+          TipoDocumentoIdentidadModel: {
+            select: {
+              Alias: true
+            }
+          }
+
+        }
+
+      }
+    );
+
+
+
+    const datosPivotados = {};
+
+    Items.forEach((dato) => {
+      if (!datosPivotados[dato.EntidadId]) {
+        datosPivotados[dato.EntidadId] = {
+          EntidadId: dato.EntidadId,
+          NomDocumento: dato.TipoDocumentoIdentidadModel.Alias,
+          NumDocumento: dato.NumDocumento,
+          NombreCompleto: dato.NombreCompleto,
+          FechaRegistro: dato.FechaRegistro,
+          CodUsuario: dato.CodUsuario
+        };
+      }
+    });
+
+
+    return Object.values(datosPivotados);
+
+
   }
 
   async getEntidadById(id: number): Promise<Entidad> {

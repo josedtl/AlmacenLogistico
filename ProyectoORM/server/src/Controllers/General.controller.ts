@@ -87,6 +87,50 @@ export class GeneralController {
     async getUnidadMedidaLikeItem(@Param('Nombre') Nombre: string) {
         return this.Services.getUnidadMedidaLikeItem(Nombre);
     }
+
+    @Get('/GetTipoDocumentoPersona')
+    async GetTipoDocumentoPersona() {
+        return this.Services.GetTipoDocumentPersona();
+    }
+
+
+    @Get('/GetTipoDocumentoEmpresa')
+    async GetTipoDocumentoEmpresa() {
+        return this.Services.GetTipoDocumentoEmpresa();
+    }
+    @Get('/GetTipoDocumentoIdentidadItem/:Id')
+    async GetTipoDocumentoIdentidadItem(@Param('Id') Id: string) {
+        return this.Services.GetTipoDocumentoIdentidadItem(Number(Id));
+    }
+
+    @Get('/GetUbigeoLikeItem/:Nombre')
+    async GetUbigeoLikeItem(@Param('Nombre') Nombre: string) {
+        return this.Services.GetUbigeoLikeItem(Nombre);
+    }
+    @Get('/GetUbigeoItem/:Id')
+    async GetUbigeoItem(@Param('Id') Id: string) {
+        return this.Services.GetUbigeoItem(Number(Id));
+    }
+
+    @Get('/GetGeneroItems')
+    async GetGeneroItems() {
+        return this.Services.GetGeneroItems();
+    }
+    @Get('/GetEstadoCivilItems')
+    async GetEstadoCivilItems() {
+        return this.Services.GetEstadoCivilItems();
+    }
+
+    @Get('/GetGeneroItem/:Id')
+    async GetGeneroItem(@Param('Id') Id: string) {
+        return this.Services.GetGeneroItem(Number(Id));
+    }
+
+    @Get('/GetEstadoCivilItem/:Id')
+    async GetEstadoCivilItem(@Param('Id') Id: string) {
+        return this.Services.GetEstadoCivilItem(Number(Id));
+    }
+
 }
 
 

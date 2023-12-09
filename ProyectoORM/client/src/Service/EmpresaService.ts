@@ -1,11 +1,11 @@
-import { EmpresaEntity } from '../Models/EmpresaEntity';
+import { EntidadEmpresaEntity , EmpresaEntity} from '../Models/EmpresaEntity';
 import { apiLg } from './axios-config';
 
 class EmpresaService {
 
-  async getItems(): Promise<EmpresaEntity[]> {
+  async getItems(): Promise<EntidadEmpresaEntity[]> {
     try {
-      const response = await apiLg.get(`api/Empresa/GetItems`);
+      const response = await apiLg.get(`api/EntidadEmpresa/getEntidadEmpresas`);
       return response.data.Value;
 
     } catch (error) {
@@ -56,10 +56,10 @@ class EmpresaService {
     }
   }
 
-  async GetMainItems(): Promise<EmpresaEntity[]> {
+  async GetMainItems(): Promise<EntidadEmpresaEntity[]> {
     try {
-      const response = await apiLg.get(`api/Empresa/GetMainItems`);
-      return response.data.Value;
+      const response = await apiLg.get(`api/EntidadEmpresa/getEntidadEmpresas`);
+      return response.data;
 
     } catch (error) {
       throw error;

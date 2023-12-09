@@ -8,17 +8,17 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { EntidadService } from '../Service/Entidad.service';
+import { EntidadEmpresaService } from '../Service/EntidadEmpresa.service';
 import { Entidad } from '@prisma/client';
 import { EntidadEntity } from '../EntityLayer/EntidadEntity';
 
-@Controller('api/Entidad')
-export class EntidadController {
-  constructor(private readonly EntidadService: EntidadService) { }
+@Controller('api/EntidadEmpresa')
+export class EntidadEmpresaController {
+  constructor(private readonly EntidadService: EntidadEmpresaService) { }
 
-  @Get('/GetPersonaItems')
-  async getEntidad() {
-    return this.EntidadService.getEntidads();
+  @Get('/getEntidadEmpresas')
+  async getEntidadEmpresas() {
+    return this.EntidadService.getAllEntidadEmpresas();
     // return "d";
   }
 

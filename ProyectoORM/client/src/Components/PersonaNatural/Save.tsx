@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
-import {  message, Select, Button, Col, Row, Typography, Modal, Spin, Input, DatePicker } from 'antd';
+import { message, Select, Button, Col, Row, Typography, Modal, Spin, Input, DatePicker } from 'antd';
 import { TipoDocumentoIdentidadEntity } from '../../Models/TipoDocumentoIdentidadEntity';
 import { SexoEntity } from '../../Models/SexoEntity';
 import { EstadoCivilEntity } from '../../Models/EstadoCivilEntity';
@@ -16,6 +16,7 @@ import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
 import { ProcessActionEnum } from '../../Lib/ResourceModel/Enum'
+import { ListaRelacionEntity } from '../../Models/ListaRelacionEntity';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
@@ -30,18 +31,21 @@ const Save = () => {
 
 
 
- 
+
 
   const [optionsTipoDocumentoIdentidad, setOptionsTipoDocumentoIdentidad] = useState<TipoDocumentoIdentidadEntity[]>([]);
-  const [optionsSexo, setOptionsSexo] = useState<SexoEntity[]>([]);
-  const [optionsEstadoCivil, setOptionsEstadoCivil] = useState<EstadoCivilEntity[]>([]);
+  const [optionsSexo, setOptionsSexo] = useState<ListaRelacionEntity[]>([]);
+  const [optionsEstadoCivil, setOptionsEstadoCivil] = useState<ListaRelacionEntity[]>([]);
   const [optionsUbigeo, setOptionsUbigeo] = useState<UbigeoEntity[]>([]);
 
 
   const handleSearchUbigeo = async (value: string) => {
     try {
-      const response = await sGeneral.GetUbigeoItemLike(value);
-      setOptionsUbigeo(response);
+
+      if (value.trim() != '') {
+        const response = await sGeneral.GetUbigeoItemLike(value);
+        setOptionsUbigeo(response);
+      }
     } catch (error) {
       console.error('Error al buscar Ubigeo:', error);
     }
@@ -135,11 +139,11 @@ const Save = () => {
 
   const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-   selectedTipoDocuemntoIdentidad;
-   selectedSexo;
-   selectedEstadoCivil;
-   selectedUbigeo;
-  
+    selectedTipoDocuemntoIdentidad;
+    selectedSexo;
+    selectedEstadoCivil;
+    selectedUbigeo;
+
     // if (Ent.Codigo === '') {
     //   setValCodigo('error');
     //   messageAdd.open({ type: 'error', content: 'Ingrese Codigo.', });
@@ -487,7 +491,7 @@ const Save = () => {
                     onChange={onChangeSexo}
                   >
                     {optionsSexo.map((row) => (
-                      <Select.Option key={row.SexoId} value={row.SexoId}>
+                      <Select.Option key={row.ListaRelacionId} value={row.ListaRelacionId}>
                         {row.Nombre}
                       </Select.Option>
                     ))}
@@ -513,7 +517,7 @@ const Save = () => {
                     onChange={onChangeEstadoCivil}
                   >
                     {optionsEstadoCivil.map((row) => (
-                      <Select.Option key={row.EstadoCivilId} value={row.EstadoCivilId}>
+                      <Select.Option key={row.ListaRelacionId} value={row.ListaRelacionId}>
                         {row.Nombre}
                       </Select.Option>
                     ))}

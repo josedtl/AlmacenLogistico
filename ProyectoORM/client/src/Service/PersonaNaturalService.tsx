@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { PersonaNaturalEntity } from '../Models/PersonaNaturalEntity';
 import { apiLg } from './axios-config';
+import { PersonaNaturalMainEntity } from '../Models/PersonaNaturalMainEntity';
 
 const URL = import.meta.env.VITE_SOME_KEY;
 class PersonaNaturalService {
@@ -33,7 +34,7 @@ class PersonaNaturalService {
 
   async saveItem(item: PersonaNaturalEntity): Promise<PersonaNaturalEntity | null> {
     try {
-      const response = await axios.post(`${URL}/api/PersonaNatural/Save/`, item, {
+      const response = await axios.post(`${URL}/api/Entidad/SaveItem`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -66,7 +67,7 @@ class PersonaNaturalService {
   }
 
 
-  async getMainItems(): Promise<PersonaNaturalEntity[]> {
+  async getMainItems(): Promise<PersonaNaturalMainEntity[]> {
     try {
       const response = await apiLg.get(`api/Entidad/GetEntidadMain`);
       return response.data;
@@ -78,7 +79,7 @@ class PersonaNaturalService {
 
   async GetCabeceraItem(Id: number): Promise<PersonaNaturalEntity[]> {
     try {
-      const response = await apiLg.get(`api/PersonaNatural/GetCabeceraItem/${Id}`);
+      const response = await apiLg.get(`api/Entidad/getPersonaItem/${Id}`);
       return response.data;
     } catch (error) {
       throw error;

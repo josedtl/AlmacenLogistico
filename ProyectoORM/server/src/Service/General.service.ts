@@ -211,4 +211,132 @@ export class GeneralService {
         );
     }
 
+    async GetTipoDocumentoEmpresa(): Promise<TipoDocumentoIdentidadModel[]> {
+        return await this.prisma.tipoDocumentoIdentidadModel.findMany(
+            {
+                where: {
+                    EsEmpresa: true
+                }
+            }
+        );
+    }
+
+
+    async GetTipoDocumentPersona(): Promise<TipoDocumentoIdentidadModel[]> {
+        return await this.prisma.tipoDocumentoIdentidadModel.findMany(
+            {
+                where: {
+                    EsEmpresa: false
+                }
+            }
+        );
+    }
+
+    async GetTipoDocumentoIdentidadItem(Id: number): Promise<TipoDocumentoIdentidadModel[]> {
+        return await this.prisma.tipoDocumentoIdentidadModel.findMany(
+            {
+                where: {
+                    TipoDocumentoIdentidadId: Id
+                }
+            }
+        );
+    }
+
+
+    async GetUbigeoLikeItem(Nombre: string): Promise<any[]> {
+        return await this.prisma.ubigeoModel.findMany(
+            {
+                where: {
+                    DesUbigeo: {
+                        contains: Nombre
+                    }
+                },
+                select: {
+                    UbigeoId: true,
+                    DesUbigeo: true,
+                }
+            }
+        );
+    }
+
+    async GetUbigeoItem(Id: number): Promise<any[]> {
+        return await this.prisma.ubigeoModel.findMany(
+            {
+                where: {
+                    UbigeoId: Id
+                }
+            }
+        );
+    }
+
+    async GetGeneroItems(): Promise<any[]> {
+        return await this.prisma.listaRelacion.findMany(
+            {
+                where: {
+                    TipoListaRelacion: {
+                        Codigo: '00001'
+                    }
+                },
+                select: {
+                    ListaRelacionId: true,
+                    Nombre: true
+                }
+
+            }
+        );
+    }
+
+
+    async GetEstadoCivilItems(): Promise<any[]> {
+        return await this.prisma.listaRelacion.findMany(
+            {
+                where: {
+                    TipoListaRelacion: {
+                        Codigo: '00002'
+                    }
+                },
+                select: {
+                    ListaRelacionId: true,
+                    Nombre: true
+                }
+
+            }
+        );
+    }
+
+    async GetGeneroItem(Id: number): Promise<any[]> {
+        return await this.prisma.listaRelacion.findMany(
+            {
+                where: {
+                    ListaRelacionId: Id,
+                    TipoListaRelacion: {
+                        Codigo: '00001'
+                    }
+                },
+                select: {
+                    ListaRelacionId: true,
+                    Nombre: true
+                }
+
+            }
+        );
+    }
+
+    async GetEstadoCivilItem(Id: number): Promise<any[]> {
+        return await this.prisma.listaRelacion.findMany(
+            {
+                where: {
+                    ListaRelacionId: Id,
+                    TipoListaRelacion: {
+                        Codigo: '00002'
+                    }
+                },
+                select: {
+                    ListaRelacionId: true,
+                    Nombre: true
+                }
+
+            }
+        );
+    }
 }

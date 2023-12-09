@@ -7,8 +7,9 @@ import { PersonaModule } from './Modules/Entidad.module';
 import { ListaRelacionModule } from './Modules/ListaRelacion.module';
 import { ProductoModule } from './Modules/Producto.module';
 import { GeneralModule } from './Modules/General.module';
+import { EntidadEmpresa } from './Modules/EntidadEmpresa.module';
 @Module({
-  imports: [CategoriaModule, PersonaModule, ListaRelacionModule, TipoProductoModule, MarcaModule, ModeloModule, ProductoModule,GeneralModule],
+  imports: [CategoriaModule, PersonaModule, ListaRelacionModule, TipoProductoModule, MarcaModule, ModeloModule, ProductoModule,GeneralModule,EntidadEmpresa],
   controllers: [],
   providers: [],
 })

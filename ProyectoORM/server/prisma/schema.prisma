@@ -10,6 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model ConfiguracionEntidad {
+  ConfiguracionEntidadId      Int                           @id @default(autoincrement())
+  Codigo                      String                        @db.VarChar(10)
+  Nombre                      String                        @db.VarChar(150)
+  ConfiguracionEntidadDetalle ConfiguracionEntidadDetalle[]
+}
+
+model ConfiguracionEntidadDetalle {
+  ConfiguracionEntidadDetalleId Int                   @id @default(autoincrement())
+  CampoEntidad                  CampoEntidad?         @relation(fields: [CampoId], references: [CampoId])
+  CampoId                       Int?
+  ConfiguracionEntidad          ConfiguracionEntidad? @relation(fields: [ConfiguracionEntidadId], references: [ConfiguracionEntidadId])
+  ConfiguracionEntidadId        Int?
+}
+
 model DatoEntidad {
   DatoId          Int            @id @default(autoincrement())
   Entidad         Entidad        @relation(fields: [EntidadId], references: [EntidadId])
@@ -24,17 +39,27 @@ model DatoEntidad {
 }
 
 model CampoEntidad {
-  CampoId     Int           @id @default(autoincrement())
-  Campo       String        @db.VarChar(50)
-  Dato        DatoEntidad[]
-  TypeValor   TypeValor     @relation(fields: [TypeValorId], references: [TypeValorId])
-  TypeValorId Int
+  CampoId                     Int                           @id @default(autoincrement())
+  Campo                       String                        @db.VarChar(50)
+  Dato                        DatoEntidad[]
+  TypeValor                   TypeValor                     @relation(fields: [TypeValorId], references: [TypeValorId])
+  TypeValorId                 Int
+  ConfiguracionEntidadDetalle ConfiguracionEntidadDetalle[]
 
   @@map("Campo")
 }
 
+model TipoEntidad {
+  TipoEntidadId Int       @id @default(autoincrement())
+  Codigo        String    @db.VarChar(10)
+  Nombre        String    @db.VarChar(100)
+  Entidad       Entidad[]
+}
+
 model Entidad {
   EntidadId                   Int                          @id @default(autoincrement())
+  TipoEntidad                 TipoEntidad?                 @relation(fields: [TipoEntidadId], references: [TipoEntidadId])
+  TipoEntidadId               Int?
   EsEmpresa                   Boolean                      @default(false)
   TipoDocumentoIdentidadModel TipoDocumentoIdentidadModel? @relation(fields: [TipoDocumentoIdentidadId], references: [TipoDocumentoIdentidadId])
   TipoDocumentoIdentidadId    Int?
@@ -43,7 +68,7 @@ model Entidad {
   FechaRegistro               DateTime                     @default(now())
   CodUsuario                  String                       @db.VarChar(25)
   DatoEntidad                 DatoEntidad[]
-  UbigeoModel                 UbigeoModel?                  @relation(fields: [UbigeoId], references: [UbigeoId])
+  UbigeoModel                 UbigeoModel?                 @relation(fields: [UbigeoId], references: [UbigeoId])
   UbigeoId                    Int?
 
   @@map("Entidad")
@@ -67,7 +92,8 @@ model UbigeoModel {
 model TipoDocumentoIdentidadModel {
   TipoDocumentoIdentidadId Int       @id @default(autoincrement())
   Codigo                   String    @default("") @map("Codigo") @db.VarChar(100)
-  Nombre                   String    @default("") @map("Nombre") @db.VarChar(100)
+  Alias                    String    @default("") @map("Alias") @db.VarChar(100)
+  Descripcion              String    @default("") @map("Descripcion") @db.VarChar(100)
   EsEmpresa                Boolean   @default(false) @map("EsEmpresa")
   Entidad                  Entidad[]
 

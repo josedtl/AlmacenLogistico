@@ -40,3 +40,6 @@ export class PersonaNaturalEntity {
         this.NomDocumento = '';
     }
 }
+
+
+

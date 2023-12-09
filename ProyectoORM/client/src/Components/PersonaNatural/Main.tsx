@@ -7,24 +7,27 @@ import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , Bu
 import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../Styles/Type'
 import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
 import { Link } from "react-router-dom";
+import { PersonaNaturalMainEntity } from '../../Models/PersonaNaturalMainEntity';
 function Main() {
   useEffect(() => {
     getItems();
   }, []);
   const sPersonaNatural = new PersonaNaturalService();
 
-  const [items, setItems] = useState<PersonaNaturalEntity[]>([]);
+  const [items, setItems] = useState<PersonaNaturalMainEntity[]>([]);
   const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled, setDisabled] = useState(false);
   const [Busqueda, setBusqueda] = useState<string>('');
   const toggle = () => {
+    
     setDisabled(!disabled);
+
   };
 
   const updateState = (item: PersonaNaturalEntity) => {
     const itemIndex = items.findIndex((data) => data.EntidadId === item.EntidadId);
     const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
-    setItems(newArray);
+    // setItems(newArray);
   };
 
   const deleteItemFromState = (id: number) => {
@@ -42,7 +45,7 @@ function Main() {
     setBusqueda(e.target.value.toUpperCase());
   };
   const filterItems = items.filter(fdata =>
-    fdata.Nombres.toLowerCase().includes(Busqueda.toLowerCase())
+    fdata.NombreCompleto.toLowerCase().includes(Busqueda.toLowerCase())
   );
 
   const { Title } = Typography;

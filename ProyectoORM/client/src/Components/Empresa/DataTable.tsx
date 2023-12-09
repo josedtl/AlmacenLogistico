@@ -28,18 +28,13 @@ const DataTable: React.FC<PropsTable> = (props) => {
         },
         {
             title: 'Numero',
-            dataIndex: 'NumeroDocumento',
-            key: 'NumeroDocumento',
+            dataIndex: 'NumDocumento',
+            key: 'NumDocumento',
         },
         {
-            title: 'RazonSocial',
-            dataIndex: 'RazonSocial',
-            key: 'RazonSocial',
-        },
-        {
-            title: 'NombreComercial',
-            dataIndex: 'NombreComercial',
-            key: 'NombreComercial',
+            title: 'NombreCompleto',
+            dataIndex: 'NombreCompleto',
+            key: 'NombreCompleto',
         },
         {
             title: 'Fecha de registro',
@@ -80,10 +75,10 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
     ];
 
-    const dataWithKeys = props.DataList.sort((a, b) => b.EmpresaId - a.EmpresaId).map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.EntidadId - a.EntidadId).map((item, zIndex) => {
         return {
             ...item,
-            key: item.EmpresaId,
+            key: item.EntidadId,
             Cont: (zIndex + 1)
         };
     });

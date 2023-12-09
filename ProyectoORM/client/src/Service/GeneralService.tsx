@@ -12,6 +12,7 @@ import { apiLg } from './axios-config';
 import { ProductoEntity } from '../Models/ProductoEntity';
 import { EstadoProcesoEntity, TipoProcesoEntity } from '../Models/GeneralEntity';
 import { EmpresaEntity } from '../Models/EmpresaEntity';
+import { ListaRelacionEntity } from '../Models/ListaRelacionEntity';
 
 class GeneralService {
 
@@ -232,19 +233,23 @@ class GeneralService {
   }
 
 
-  async GetSexoItems(): Promise<SexoEntity[]> {
-    const response = await apiLg.post('gql/General', {
-      query: `
-      {GHSexoItems {SexoId Nombre}}`,
-    });
-    return await response.data.data.GHSexoItems
+  async GetSexoItems(): Promise<ListaRelacionEntity[]> {
+    try {
+      const response = await apiLg.get(`api/General/GetGeneroItems`);
+      return response.data;
+
+    } catch (error) {
+      throw error;
+    }
   }
 
-  async GetSexoItem(Id: number): Promise<SexoEntity[]> {
-    const response = await apiLg.post('gql/General', {
-      query: `{ GHSexoItem(Id: ${Id}) {SexoId Nombre}}`,
-    });
-    return await response.data.data.GHSexoItem
+  async GetSexoItem(Id: number): Promise<ListaRelacionEntity[]> {
+    try {
+      const response = await apiLg.get(`api/General/GetGeneroItem/${Id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async GetSexoItemLike(Nombre: string): Promise<SexoEntity[]> {
@@ -255,12 +260,14 @@ class GeneralService {
     return await response.data.data.GHSexoItemLike;
   }
 
-  async GetEstadoCivilItems(): Promise<EstadoCivilEntity[]> {
-    const response = await apiLg.post('gql/General', {
-      query: `
-      {GHEstadoCivilItems {EstadoCivilId Nombre}}`,
-    });
-    return await response.data.data.GHEstadoCivilItems
+  async GetEstadoCivilItems(): Promise<ListaRelacionEntity[]> {
+    try {
+      const response = await apiLg.get(`api/General/GetEstadoCivilItems`);
+      return response.data;
+
+    } catch (error) {
+      throw error;
+    }
   }
 
   async GetEstadoCivilItem(Id: number): Promise<EstadoCivilEntity[]> {
@@ -279,15 +286,13 @@ class GeneralService {
   }
 
   async GetTipoDocumentoIdentidadPersonaItems(): Promise<TipoDocumentoIdentidadEntity[]> {
-    const response = await apiLg.post('gql/General', {
-      query: `{
-        GHTipoDocumentoIdentidadPersonaItems {
-          TipoDocumentoIdentidadId
-          Alias
-        }
-      }`,
-    });
-    return await response.data.data.GHTipoDocumentoIdentidadPersonaItems
+    try {
+      const response = await apiLg.get(`api/General/GetTipoDocumentoPersona`);
+      return response.data;
+
+    } catch (error) {
+      throw error;
+    }
   }
 
   async GetTipoDocumentoIdentidadEmpresaItems(): Promise<TipoDocumentoIdentidadEntity[]> {
@@ -342,17 +347,19 @@ class GeneralService {
 
 
   async GetUbigeoItemLike(Nombre: string): Promise<UbigeoEntity[]> {
-    const response = await apiLg.post('gql/General', {
-      query: `{
-        GHUbigeoItemLike(Nombre: "${Nombre}") {UbigeoId DesUbigeo}}`,
-    });
-    return await response.data.data.GHUbigeoItemLike;
+    try {
+      
+      const response = await apiLg.get(`api/General/GetUbigeoLikeItem/${Nombre}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async GetUbigeoApiItem(Id: number): Promise<UbigeoEntity[]> {
     try {
-      const response = await apiLg.get(`api/Ubigeo/GetItem/${Id}`);
-      return response.data.Value;
+      const response = await apiLg.get(`api/General/GetUbigeoItem/${Id}`);
+      return response.data;
     } catch (error) {
       throw error;
     }
