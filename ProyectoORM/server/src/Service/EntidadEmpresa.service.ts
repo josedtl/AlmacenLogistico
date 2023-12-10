@@ -1,10 +1,10 @@
 import { Entidad } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { EntidadEntity } from '../EntityLayer/EntidadEntity';
 import { DatoEntidad } from '@prisma/client';
 import { AccionEnum } from '../Lib/AccionEnum';
 import { convertirValorAlTipoDato } from '../Lib/Convetidor';
+import { EntidadEmpresaEntity } from 'src/EntityLayer/EntidadEmpresaEntity';
 @Injectable()
 export class EntidadEmpresaService {
   constructor(private prisma: PrismaService) { }
@@ -71,16 +71,17 @@ export class EntidadEmpresaService {
     });
   }
 
-  async SaveItem(datos: EntidadEntity): Promise<any> {
+  async SaveItem(datos: EntidadEmpresaEntity): Promise<any> {
     const DatosRetornado = datos.Action === AccionEnum.Add ? await this.prisma.entidad.create({
       data: {
-        EsEmpresa: datos.EsEmpresa,
+        EsEmpresa: true,
         TipoDocumentoIdentidadId: datos.TipoDocumentoIdentidadId,
         NumDocumento: datos.NumDocumento,
-        NombreCompleto: datos.Nombres + " " + datos.ApellidoPaterno + " " + datos.ApellidoMaterno,
+        NombreCompleto: datos.NombreCompleto,
         FechaRegistro: datos.FechaRegistro,
         CodUsuario: datos.CodUsuario,
         UbigeoId: datos.UbigeoId,
+        TipoEntidadId: 2
 
       }
     }) : await this.prisma.entidad.update({
@@ -88,14 +89,14 @@ export class EntidadEmpresaService {
         EntidadId: datos.EntidadId
       },
       data: {
-        EsEmpresa: datos.EsEmpresa,
+        EsEmpresa: true,
         TipoDocumentoIdentidadId: datos.TipoDocumentoIdentidadId,
         NumDocumento: datos.NumDocumento,
-        NombreCompleto: datos.Nombres + " " + datos.ApellidoPaterno + " " + datos.ApellidoMaterno,
+        NombreCompleto: datos.NombreCompleto,
         FechaRegistro: datos.FechaRegistro,
         CodUsuario: datos.CodUsuario,
         UbigeoId: datos.UbigeoId,
-
+        TipoEntidadId: 2
       }
     })
 
@@ -103,8 +104,30 @@ export class EntidadEmpresaService {
     datos.EntidadId = DatosRetornado.EntidadId;
     const Items: DatoEntidad[] = [];
 
-    const campos = await this.prisma.campoEntidad.findMany();
+    // const campos = await this.prisma.campoEntidad.findMany();
 
+
+    const campos = await this.prisma.configuracionEntidadDetalle.findMany(
+      {
+        where: {
+          ConfiguracionEntidad: {
+            Codigo: '003'
+          }
+        },
+        select: {
+          CampoId: true,
+          CampoEntidad: {
+            select: {
+              Campo: true
+            }
+          }
+        }
+
+      }
+    );
+
+
+    console.log(campos);
 
 
     const DatosUpdate = await this.prisma.datoEntidad.findMany({
@@ -116,7 +139,7 @@ export class EntidadEmpresaService {
     if (datos.Action == AccionEnum.Update) {
       for (const key in datos) {
         console.log(key);
-        const index = campos.findIndex((i) => i.Campo === key)
+        const index = campos.findIndex((i) => i.CampoEntidad.Campo === key)
         if (index > -1) {
           const indexDato = DatosUpdate.findIndex((ii) => ii.CampoId === campos[index].CampoId)
           if (indexDato > -1) {
@@ -133,7 +156,7 @@ export class EntidadEmpresaService {
     }
     else {
       for (const key in datos) {
-        const index = campos.findIndex((i) => i.Campo === key)
+        const index = campos.findIndex((i) => i.CampoEntidad.Campo === key)
         if (index > -1) {
           Items.push({
             DatoId: 0,
@@ -166,6 +189,7 @@ export class EntidadEmpresaService {
 
     return datos;
   }
+
 
   async updateEntidad(id: number, data: Entidad): Promise<Entidad> {
     return this.prisma.entidad.update({
@@ -279,8 +303,7 @@ export class EntidadEmpresaService {
     return Object.values(datosPivotados);
   }
 
-
-  async getPersonaItem(Id: number): Promise<any> {
+  async getEmpresaItem(Id: number): Promise<any> {
 
     const PersonaItem = await this.prisma.entidad.findUnique(
       {
@@ -309,7 +332,12 @@ export class EntidadEmpresaService {
     const datos = await this.prisma.datoEntidad.findMany(
       {
         where: {
-          EntidadId: Id
+          EntidadId: Id,
+          Entidad: {
+            TipoEntidad: {
+              Codigo: "0002"
+            }
+          }
         },
         select: {
           EntidadId: true,
@@ -337,7 +365,7 @@ export class EntidadEmpresaService {
         datosPivotados[dato.EntidadId] = {
           EntidadId: dato.EntidadId,
           TipoDocumentoIdentidadId: PersonaItem.TipoDocumentoIdentidadId,
-          NumDocumento: PersonaItem.NumDocumento,
+          NumeroDocumento: PersonaItem.NumDocumento,
           NombreCompleto: PersonaItem.NombreCompleto,
           FechaRegistro: PersonaItem.FechaRegistro,
           EsEmpresa: PersonaItem.EsEmpresa,
@@ -350,8 +378,6 @@ export class EntidadEmpresaService {
 
     return Object.values(datosPivotados);
   }
-
-
 
 
   async GetEntidadMain(): Promise<any> {

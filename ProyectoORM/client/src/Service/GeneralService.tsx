@@ -296,15 +296,13 @@ class GeneralService {
   }
 
   async GetTipoDocumentoIdentidadEmpresaItems(): Promise<TipoDocumentoIdentidadEntity[]> {
-    const response = await apiLg.post('gql/General', {
-      query: `{
-        GHTipoDocumentoIdentidadEmpresaItems {
-          TipoDocumentoIdentidadId
-          Alias
-        }
-      }`,
-    });
-    return await response.data.data.GHTipoDocumentoIdentidadEmpresaItems
+    try {
+      const response = await apiLg.get(`api/General/GetTipoDocumentoEmpresa`);
+      return response.data;
+
+    } catch (error) {
+      throw error;
+    }
   }
   async GetTipoDocumentoIdentidadItems(): Promise<TipoDocumentoIdentidadEntity[]> {
     const response = await apiLg.post('gql/General', {

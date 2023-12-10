@@ -11,6 +11,7 @@ import {
 import { EntidadEmpresaService } from '../Service/EntidadEmpresa.service';
 import { Entidad } from '@prisma/client';
 import { EntidadEntity } from '../EntityLayer/EntidadEntity';
+import { EntidadEmpresaEntity } from 'src/EntityLayer/EntidadEmpresaEntity';
 
 @Controller('api/EntidadEmpresa')
 export class EntidadEmpresaController {
@@ -34,15 +35,15 @@ export class EntidadEmpresaController {
     return this.EntidadService.GetEntidadMain();
     // return "d";
   }
-  @Get('/getPersonaItem/:id')
+  @Get('/getEmpresaItem/:id')
   async getPersonaItem(@Param('id') id: string) {
-    const EntidadFound = await this.EntidadService.getPersonaItem(Number(id));
+    const EntidadFound = await this.EntidadService.getEmpresaItem(Number(id));
     if (!EntidadFound) throw new BadRequestException('Entidad does not exist');
     return EntidadFound;
   }
 
   @Post("/SaveItem")
-  async SaveItem(@Body() data: EntidadEntity) {
+  async SaveItem(@Body() data: EntidadEmpresaEntity) {
     try {
       return this.EntidadService.SaveItem(data);
     } catch (error) {

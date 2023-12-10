@@ -8,10 +8,56 @@ import { convertirValorAlTipoDato } from '../Lib/Convetidor';
 @Injectable()
 export class EntidadService {
   constructor(private prisma: PrismaService) { }
+  async getAllEntidads(): Promise<any[]> {
+    const Items = await this.prisma.entidad.findMany(
+      {
+        where: {
+          TipoEntidad: {
+            Codigo: '0001'
+          }
+        },
+        select: {
+          EntidadId: true,
+          NumDocumento: true,
+          NombreCompleto: true,
+          FechaRegistro: true,
+          CodUsuario: true,
+          TipoDocumentoIdentidadModel: {
+            select: {
+              Alias: true
+            }
+          }
 
-  async getAllEntidads(): Promise<Entidad[]> {
-    return this.prisma.entidad.findMany();
+        }
+
+      }
+    );
+
+
+
+    const datosPivotados = {};
+
+    Items.forEach((dato) => {
+      if (!datosPivotados[dato.EntidadId]) {
+        datosPivotados[dato.EntidadId] = {
+          EntidadId: dato.EntidadId,
+          NomDocumento: dato.TipoDocumentoIdentidadModel.Alias,
+          NumDocumento: dato.NumDocumento,
+          NombreCompleto: dato.NombreCompleto,
+          FechaRegistro: dato.FechaRegistro,
+          CodUsuario: dato.CodUsuario
+        };
+      }
+    });
+
+
+    return Object.values(datosPivotados);
+
+
   }
+  // async getAllEntidads(): Promise<Entidad[]> {
+  //   return this.prisma.entidad.findMany();
+  // }
 
   async getEntidadById(id: number): Promise<Entidad> {
     return this.prisma.entidad.findUnique({
@@ -265,7 +311,12 @@ export class EntidadService {
     const datos = await this.prisma.datoEntidad.findMany(
       {
         where: {
-          EntidadId: Id
+          EntidadId: Id,
+          Entidad:{
+            TipoEntidad:{
+              Codigo:"0001"
+            }
+          }
         },
         select: {
           EntidadId: true,
@@ -314,23 +365,27 @@ export class EntidadService {
 
     const Items = await this.prisma.entidad.findMany(
       {
+        where: {
+          TipoEntidad: {
+            Codigo: '0001'
+          }
+        },
         select: {
           EntidadId: true,
           NumDocumento: true,
           NombreCompleto: true,
-          CodUsuario: true,
           FechaRegistro: true,
-          EsEmpresa: true,
+          CodUsuario: true,
           TipoDocumentoIdentidadModel: {
             select: {
               Alias: true
             }
-          }
+          },
+          EsEmpresa:true
 
         }
+
       }
-
-
     );
     const datosPivotados = {};
 

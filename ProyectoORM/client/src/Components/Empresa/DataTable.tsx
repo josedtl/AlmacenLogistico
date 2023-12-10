@@ -56,7 +56,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             render: (record: EmpresaEntity) => (
                 <span>
 
-                    <Link to={`/EmpresaSave/${record.EmpresaId}`}>
+                    <Link to={`/EmpresaSave/${record.EntidadId}`}>
                         <Button
                             type='dashed'
                             style={{ float: "right", marginRight: "10px", color: "#BB9B32", backgroundColor: "white", borderColor: "#BB9B32" }}

@@ -26,7 +26,7 @@ class EmpresaService {
 
   async saveItem(item: EmpresaEntity): Promise<EmpresaEntity | null> {
     try {
-      const response = await apiLg.post(`api/Empresa/Save/`, item, {
+      const response = await apiLg.post(`api/EntidadEmpresa/SaveItem`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -49,8 +49,8 @@ class EmpresaService {
 
   async getItem(Id: number): Promise<EmpresaEntity[]> {
     try {
-      const response = await apiLg.get(`api/Empresa/GetItem/${Id}`);
-      return response.data.Value;
+      const response = await apiLg.get(`api/EntidadEmpresa/getEmpresaItem/${Id}`);
+      return response.data;
     } catch (error) {
       throw error;
     }

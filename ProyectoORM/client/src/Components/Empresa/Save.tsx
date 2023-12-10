@@ -51,8 +51,8 @@ const Save = () => {
 
   };
 
-  // const [selectedTipoDocuemntoIdentidad, setSelectedTipoDocuemntoIdentidad] = useState<number | undefined>(undefined);
-  // const [selectedUbigeo, setselectedUbigeo] = useState<number | undefined>(undefined);
+  const [selectedTipoDocuemntoIdentidad, setSelectedTipoDocuemntoIdentidad] = useState<number | undefined>(undefined);
+  const [selectedUbigeo, setselectedUbigeo] = useState<number | undefined>(undefined);
 
   const [ValTipoDocuemntoIdentidad, setValTipoDocuemntoIdentidad] = useState<InputStatus>('');
   // const [ValNumDocumento, setValNumDocumento] = useState<InputStatus>('');
@@ -65,7 +65,7 @@ const Save = () => {
   const onChangeTipoDocuemntoIdentidad = async (value: number) => {
     setValTipoDocuemntoIdentidad('');
     Ent.TipoDocumentoIdentidadId = value;
-    // setSelectedTipoDocuemntoIdentidad(value)
+    setSelectedTipoDocuemntoIdentidad(value)
     console.log(value)
   };
 
@@ -74,7 +74,7 @@ const Save = () => {
   const onChangeUbigeo = async (value: number) => {
     setValUbigeo('');
     Ent.UbigeoId = value;
-    // setselectedUbigeo(value)
+    setselectedUbigeo(value)
   };
 
 
@@ -161,7 +161,7 @@ const Save = () => {
         Ent.CodUsuario = "adm";
         Ent.FechaRegistro = new Date();
         Ent.EstadoRegistro = true
-        Ent.Action = Ent.EmpresaId == 0 ? ProcessActionEnum.Add : ProcessActionEnum.Update;
+        Ent.Action = Ent.EntidadId == 0 ? ProcessActionEnum.Add : ProcessActionEnum.Update;
         AddEmpresa();
       },
       onCancel() {
@@ -196,7 +196,7 @@ const Save = () => {
     setCargarPage(false);
   };
   useEffect(() => {
-
+    // console.log(idNumero)
     getCargarDatos();
   }, []);
 
@@ -209,7 +209,7 @@ const Save = () => {
       <Row>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           {/* <Title level={3}> Empresa  {params.Id}</Title> */}
-          <Title level={3}> {Ent.EmpresaId > 0 ? 'Empresa' : 'Agregar Empresa'}</Title>
+          <Title level={3}> {Ent.EntidadId > 0 ? 'Empresa' : 'Agregar Empresa'}</Title>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Button
@@ -286,7 +286,7 @@ const Save = () => {
                 name="RazonSocial"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChangeText}
-                value={Ent.RazonSocial === null ? "" : Ent.RazonSocial}
+                value={Ent.NombreComercial === null ? "" : Ent.NombreComercial}
               />
             </Col>
           </Row>
