@@ -283,7 +283,7 @@ const Save = () => {
               <Input
                 // status={ValNombres}
                 type="text"
-                name="RazonSocial"
+                name="NombreComercial"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChangeText}
                 value={Ent.NombreComercial === null ? "" : Ent.NombreComercial}
