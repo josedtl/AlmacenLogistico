@@ -21,27 +21,27 @@ try:
         # Obtener los resultados de la consulta
         resultados = cursor.fetchall()
 
-        url = "http://localhost:8030/api/Entidad/SaveItem"
+        url = "http://localhost:5001/api/Entidad/Save"
         # Mostrar los resultados
         for fila in resultados:
             data = {
                 "EntidadId": 0,
-                "EsEmpresa": False,
+                "TipoEntidadId": 1,
                 "TipoDocumentoIdentidadId": 1,
-                "NumDocumento": fila['NumDocumento'],
+                "NumDocumento": fila["NumDocumento"],
                 "FechaRegistro": "2023-12-04T00:56:41.000Z",
                 "CodUsuario": "adm",
-                "Nombres": fila['Nombres'],
-                "ApellidoMaterno": fila['ApellidoMaterno'],
-                "ApellidoPaterno": fila['ApellidoPaterno'],
+                "UbigeoId": 793,
+                "Nombres": fila["Nombres"],
+                "ApellidoPaterno": fila["ApellidoPaterno"],
+                "ApellidoMaterno": fila["ApellidoMaterno"],
                 "FechaNacimiento": "2023-12-04T00:56:41.000Z",
-                "Direccion": fila['Direccion'],
-                "Telefono": fila['Telefono'],
-                "Correo": fila['Correo'],
+                "Direccion": fila["Direccion"],
+                "Telefono": fila["Telefono"],
+                "Correo": fila["Correo"],
                 "SexoId": 1,
-                "EstadoCivilId": 1,
-                "UbigeoId":793,
-                "Action": 1,
+                "EstadoCivilId":3,
+         
             }
             response = requests.post(url, json=data)
             if response.status_code == 200:

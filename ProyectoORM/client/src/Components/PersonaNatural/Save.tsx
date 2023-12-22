@@ -261,6 +261,20 @@ const Save = () => {
     getCargarDatos();
   }, []);
 
+
+
+  const onChangePrueba = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+  
+  const onSearchPrueba = (value: string) => {
+    console.log('search:', value);
+  };
+  
+  // Filter `option.label` match the user type `input`
+  const filterOptionPrueba = (input: string, option?: { label: string; value: string }) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -554,6 +568,28 @@ const Save = () => {
                   </Select.Option>
                 ))}
               </Select>
+              <Select
+                showSearch
+                placeholder="Select a person"
+                optionFilterProp="children"
+                onChange={onChangePrueba}
+                onSearch={onSearchPrueba}
+                filterOption={filterOptionPrueba}
+                options={[
+                  {
+                    value: 'jack',
+                    label: 'Jack',
+                  },
+                  {
+                    value: 'lucy',
+                    label: 'Lucy',
+                  },
+                  {
+                    value: 'tom',
+                    label: 'Tom',
+                  },
+                ]}
+              />
 
             </Col>
           </Row>
