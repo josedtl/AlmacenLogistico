@@ -533,7 +533,7 @@ const Save = () => {
               <label>Ubigeo</label>
             </Col>
             <Col span={24}>
-              <Select
+              <Select      className="custom-select"
                 status={ValUbigeo}
                 showSearch
                 style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
@@ -545,7 +545,7 @@ const Save = () => {
                 onChange={onChangeUbigeo}
               >
                 {optionsUbigeo.map((row) => (
-                  <Select.Option key={row.UbigeoId} value={row.UbigeoId}>
+                  <Select.Option className="custom-option" key={row.UbigeoId} value={row.UbigeoId}>
                     {row.DesUbigeo}
                   </Select.Option>
                 ))}

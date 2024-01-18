@@ -1,0 +1,20 @@
+#IdContenedorDiv {
+    margin-left: -10px;
+}
+
+
+
+#DivContendor{
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+#IdContenedorInput{
+    width: 100%; 
+
+}
+
+
+.full-width {
+    width: 300px;
+}

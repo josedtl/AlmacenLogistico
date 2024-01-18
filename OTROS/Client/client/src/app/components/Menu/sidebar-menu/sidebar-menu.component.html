@@ -1,0 +1,24 @@
+<div class="card flex justify-content-center">
+  <p-sidebar [(visible)]="sidebarVisible" [blockScroll]="true" [style]="{'background-color':'#F5F5F5'}">
+    <ng-template pTemplate="header">
+      <div>
+        <h4>
+          MENU
+
+        </h4>
+      </div>
+    </ng-template>
+    <p-panelMenu [model]="items" [multiple]="true"
+     [style]="{'margin-left':'-19px','width':'317px'}"></p-panelMenu>
+  </p-sidebar>
+
+
+</div>
+<div class="sidebar-toggle" (click)="sidebarVisible = true">
+  <i [ngClass]="{'fas fa-angle-left': isSidebarExpanded, 'fas fa-angle-right': !isSidebarExpanded}">
+    <svg width="35" height="35" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+      <path fill-rule="evenodd"
+        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+    </svg>
+  </i>
+</div>

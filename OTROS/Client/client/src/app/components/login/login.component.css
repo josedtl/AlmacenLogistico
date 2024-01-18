@@ -1,0 +1,31 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.login-box {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #00315B;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.p-field {
+  margin-bottom: 20px;
+}
+
+button {
+  width: 260px;
+  margin-left: 12px;
+  margin-right: -10px;
+  margin-top: 10px;
+  text-align: center;
+  align-content: center;
+  background-color: #027FAB;
+}
+

@@ -1,0 +1,193 @@
+<!-- TODA LA AREA -->
+<p-card>
+<!-- HEADER -->
+<div style="display: flex; justify-content: space-between;">
+  <div>
+    <h1>Infraestructura</h1>
+  </div>
+
+  <div>
+
+    <p-button [style]="buttonStyle" label="Guardar" icon="pi pi-plus" (click)="saveItem()"
+      styleClass="p-button-outlined p-button-secondary">
+    </p-button>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="row">
+ <!-- COLUMNA 1  (DIVIDIDO EN 3) -->
+ <div class="col-md-3">
+  <div class="box">
+<!-- Fila 1 -->
+    <div class="mb-2">
+      <!-- columna 1 -->
+      <div class="row">
+          <div class="col-md-6">
+            <!-- SucursalId -->
+              <div class="row">
+                <span class="p-fluid">
+                  <label for="username" style="font-weight: 500;">SucursalId</label>
+                  <p-dropdown 
+                    class="p-inputtext-sm" ></p-dropdown>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <!-- Estado -->
+              <div class="row">
+                <span class="p-fluid">
+                  <label for="username" style="font-weight: 500;">Estado</label>
+                  <p-dropdown 
+                    class="p-inputtext-sm" ></p-dropdown>
+                </span>
+              </div>
+            </div>
+      </div>
+    </div>
+<!-- Fila 2 -->
+<div class="mb-2">
+  <div class="row">
+      <div class="col-md-6">
+        <!-- CodigoSistema -->
+          <div class="row">
+            <span class="p-fluid">
+              <label for="username" style="font-weight: 500;">CodigoSistema</label>
+              <p-dropdown 
+                class="p-inputtext-sm" ></p-dropdown>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!-- CodigoInterno -->
+          <div class="row">
+            <span class="p-fluid">
+              <label for="username" style="font-weight: 500;">CodigoInterno</label>
+              <p-dropdown 
+                class="p-inputtext-sm" ></p-dropdown>
+            </span>
+          </div>
+        </div>
+  </div>
+</div>
+<!-- Fila 3 -->
+<div class="col-md-12">
+  <!-- Descripcion -->
+  <div class="row">
+    <span class="p-fluid">
+      <label for="username" style="font-weight: 500;">Descripcion</label>
+      <input class="p-inputtext-sm" [(ngModel)]="newItem.Descripcion" type="text" pInputText>
+    </span>
+  </div>
+
+</div>
+<!-- Fila 4 -->
+<div class="mb-2">
+  <div class="row">
+      <div class="col-md-6">
+        <!-- TipoInfraestructuraId -->
+          <div class="row">
+            <span class="p-fluid">
+              <label for="username" style="font-weight: 500;">TipoInfraestructuraId</label>
+              <p-dropdown 
+                class="p-inputtext-sm" ></p-dropdown>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!-- Aforo -->
+          <div class="row">
+            <span class="p-fluid">
+              <label for="username" style="font-weight: 500;">Aforo</label>
+              <p-dropdown 
+                class="p-inputtext-sm" ></p-dropdown>
+            </span>
+          </div>
+        </div>
+  </div>
+</div>
+<!-- Fila 5 -->
+<div class="mb-2">
+  <div class="row">
+      <div class="col-md-6">
+        <!-- PisoId -->
+          <div class="row">
+            <span class="p-fluid">
+              <label for="username" style="font-weight: 500;">PisoId</label>
+              <p-dropdown 
+                class="p-inputtext-sm" ></p-dropdown>
+            </span>
+          </div>
+        </div>
+        <div class="mb-6">
+          <!-- FechaRegistro -->
+          <div class="row">
+            <span class="p-fluid">
+              <label for="username" style="font-weight: 500;">FechaRegistro</label>
+              <input class="p-inputtext-sm"  type="text" pInputText>
+            </span>
+          </div>
+        </div>
+  </div>
+</div>
+<!-- Fila 6 -->
+<div class="mb-2">
+  <!-- Codigo de Usuario -->
+  <div class="row">
+    <span class="p-fluid">
+      <label for="username" style="font-weight: 500;">Codigo de Usuario</label>
+      <input class="p-inputtext-sm" [(ngModel)]="newItem.CodUsuario" type="text" pInputText>
+    </span>
+  </div>
+</div>
+
+
+  </div>
+</div>
+
+
+<div class="col-md-9">
+  <!--columna 2 -->
+  <div class="box">
+    <p-tabView styleClass="tabview-custom">
+      <p-tabPanel header="Medio de Comunicaciòn">
+        <ng-template pTemplate="header">
+          <i class="pi pi-user"></i>
+          <span>Medio de comunicación</span>
+        </ng-template>
+
+
+        <p-table [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header">
+
+            <tr>
+              <th style="width: 4rem; " id="HeaderTablaColor">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+
+              <th id="HeaderTablaColor">Nº</th>
+              <th id="HeaderTablaColor" style="min-width:7rem">CodigoSistema </th>
+              <th id="HeaderTablaColor" style="min-width:10rem">CodigoInterno </th>
+              <th id="HeaderTablaColor">Fecha de Registro</th>
+              <th id="HeaderTablaColor">Usuario </th>
+              <th id="HeaderTablaColor"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td *ngFor="let col of columns">
+                {{ rowData[col.field] }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+      </p-tabView>
+  </div>
+</div>
+</div>
+
+  <!-- MENSAJE DE CONFIRMACION -->
+  <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
+</p-card>

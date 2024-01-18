@@ -1,0 +1,109 @@
+<p-card>
+  <h1>TipoElemento</h1>
+  <p-table #dt [value]="ListaMainItems" [rows]="10" [paginator]="true" [tableStyle]="{ 'min-width': '75rem' }"
+  [rowsPerPageOptions]="[10, 25, 50]" [(selection)]="selectedItems" [rowHover]="true" dataKey="id"
+  currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} registros" [showCurrentPageReport]="true">
+
+  <ng-template pTemplate="caption">
+
+    <div style="display: flex; justify-content: space-between;">
+      <div>
+        <p-button label="" [style]="buttonStyle" styleClass="p-button-outlined p-button-secondary" (click)="deleteselectedItems()"
+          [disabled]="!ListaMainItems || !ListaMainItems.length">
+          <i class="pi pi-trash" style="font-size: 1.5rem"></i>
+        </p-button>
+        <p-button label=""  [style]="buttonStyle" styleClass="p-button-outlined p-button-secondary"
+         (click)="getTipoElemento()"
+          [disabled]="!ListaMainItems || !ListaMainItems.length">
+          <i class="pi pi-replay" style="font-size: 1.5rem"></i>
+        </p-button>
+
+      </div>
+      <p-button [style]="buttonStyle"
+      label="Agregar" 
+       icon="pi pi-plus" styleClass="p-button-outlined p-button-secondary"
+        (click)="showDialog()">
+      </p-button>
+
+    </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="header">
+
+    <tr>
+      <th style="width: 4rem; " id="HeaderTablaColor">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+
+      <th id="HeaderTablaColor">Nº</th>
+      <th id="HeaderTablaColor" style="min-width:15rem">Nombre </th>
+      <th id="HeaderTablaColor">Fecha de Registro</th>
+      <th id="HeaderTablaColor">Usuario </th>
+      <th id="HeaderTablaColor"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td>
+        <p-tableCheckbox [value]="row"></p-tableCheckbox>
+      </td>
+      <td>
+        {{ row.Item }}
+      </td>
+      <td>
+        {{ row.Nombre }}
+      </td>
+
+      <td>
+        {{ row.FechaRegistro | date: 'MM/dd/yyyy hh:mm' }}
+      </td>
+      <td>
+        {{ row.CodUsuario }}
+      </td>
+
+      <td>
+        <a (click)="Delete_Metho(row.TipoElementoId)" style="cursor: pointer;font-weight: bold;margin-right: 20px; ">
+          <i class="pi pi-trash" style="color: red;"></i>
+        </a>
+        <a (click)="Update_Metho(row)" style="cursor: pointer;">
+          <i class="pi pi-pencil" style="color: orange; font-weight: bold;"></i>
+        </a>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="6">Sin registros.</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">Total de registros {{ ListaMainItems ? ListaMainItems.length
+      : 0 }}</div>
+  </ng-template>
+</p-table>
+
+
+<p-dialog [(visible)]="visibleVentena" [style]="{ width: '450px' }" header="TipoElemento" [modal]="true"
+styleClass="p-fluid">
+<ng-template pTemplate="header" style="background-color: #00315B;">
+  <h3>TipoElemento</h3>
+</ng-template>
+<ng-template pTemplate="content">
+  <div class="field">
+    <label for="name">Nombre</label>
+    <input type="text" pInputText id="name" [(ngModel)]="newItem.Nombre" required autofocus />
+    <small class="p-error" *ngIf="submitted && !newItem.Nombre">Name is required.</small>
+  </div>
+</ng-template>
+
+<ng-template pTemplate="footer">
+  <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+  <button pButton pRipple label="Aceptar" icon="pi pi-check" class="p-button-text" (click)="saveItem()"></button>
+
+</ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
+</p-card>

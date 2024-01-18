@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* Estilo personalizado para el componente Select */
+.custom-select {
+  border: none;
+}
+
+/* Estilo personalizado para las opciones */
+.custom-option {
+  border: none;
+}

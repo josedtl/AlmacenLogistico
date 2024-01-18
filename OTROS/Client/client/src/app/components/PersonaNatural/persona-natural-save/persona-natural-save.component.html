@@ -1,0 +1,293 @@
+<!-- TODA LA AREA -->
+<p-card>
+  <!-- HEADER -->
+  <div style="display: flex; justify-content: space-between;">
+    <div>
+      <h1>Persona Natural</h1>
+    </div>
+    <div>
+      <p-button [style]="buttonStyle" label="Guardar" icon="pi pi-plus" (click)="saveItem()"
+        styleClass="p-button-outlined p-button-secondary">
+      </p-button>
+    </div>
+
+  </div>
+
+  <!-- BODY -->
+  <div class="row">
+    <!-- COLUMNA 1  (DIVIDIDO EN 3) -->
+    <div class="col-md-3">
+      <div class="box">
+
+        <!-- FILA 1 -->
+        <div class="mb-2">
+          <div class="row">
+            <div class="col-md-6">
+              <!-- TIPO DE DOCUMENTO -->
+              <div class="row">
+                <span class="p-fluid">
+                  <label for="username" style="font-weight: 500;">Tipo de Documento</label>
+                  <p-dropdown [options]="TipoDocumentoIdentidadItems" [(ngModel)]="SelectTipoDocumentoIdentidadItem"
+                    class="p-inputtext-sm" optionLabel="Alias"></p-dropdown>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <!-- NUMERO DE DOCUMENTO -->
+              <div class="row">
+                <span class="p-fluid">
+                  <label for="username" style="font-weight: 500;">N° Documento</label>
+                  <input class="p-inputtext-sm" [(ngModel)]="newItem.NumDocumento" type="text" pInputText>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- FILA 2 -->
+        <div class="mb-2">
+          <!-- NOMBRE -->
+          <div class="row">
+            <span class="p-fluid">
+              <label for="username" style="font-weight: 500;">Nombres</label>
+              <input class="p-inputtext-sm" [(ngModel)]="newItem.Nombres" type="text" pInputText>
+            </span>
+          </div>
+        </div>
+
+        <!-- FILA 3 -->
+        <div class="mb-2">
+          <div class="row">
+            <div class="col-md-6">
+              <!-- APELLIDO PATERNO -->
+              <div class="row">
+                <span class="p-fluid">
+                  <label for="username" style="font-weight: 500;">Apellido Paterno</label>
+                  <input class="p-inputtext-sm" [(ngModel)]="newItem.ApellidoPaterno" type="text" pInputText>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <!-- APELLIDO MATERNO -->
+              <div class="row">
+                <span class="p-fluid">
+                  <label for="username" style="font-weight: 500;">Apellido Materno</label>
+                  <input class="p-inputtext-sm" [(ngModel)]="newItem.ApellidoMaterno" type="text" pInputText>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- FILA 4 -->
+        <div class="mb-2">
+          <!-- FECHA NACIMIENTO -->
+          <div class="row">
+            <span class="p-fluid">
+              <label for="username" style="font-weight: 500;">Fecha de Nacimiento</label>
+
+              <p-calendar [touchUI]="false" [(ngModel)]="date" class="p-inputtext-sm" [readonlyInput]="true"
+                dateFormat="dd/mm/yy" [ngModelOptions]="{ standalone: true }"></p-calendar>
+            </span>
+          </div>
+        </div>
+
+        <!-- FILA 5 -->
+        <div class="mb-2">
+          <!-- UBIGEO -->
+          <div class="row ">
+            <span class="p-fluid">
+              <label for="username" style="font-weight: 500;">Ubigeo</label>
+              <p-autoComplete [(ngModel)]="SelectUbigeoItem" class="p-inputtext-sm full-width" [forceSelection]="true"
+                [suggestions]="UbigeoItems" (completeMethod)="GetUbigeoLikeItemEvent($event)"
+                field="DesUbigeo"></p-autoComplete>
+            </span>
+          </div>
+        </div>
+
+        <!-- FILA 6 -->
+        <div class="mb-2">
+          <!-- DIRECCION -->
+          <div class="row">
+            <span class="p-fluid">
+              <label for="username" style="font-weight: 500;">Dirección</label>
+              <input class="p-inputtext-sm" [(ngModel)]="newItem.Direccion" type="text" pInputText>
+            </span>
+          </div>
+        </div>
+
+        <!-- FILA 7 -->
+        <div class="mb-2">
+          <div class="row">
+            <div class="col-md-6">
+              <!-- GENERO -->
+              <div class="row">
+                <span class="p-fluid">
+                  <label for="username" style="font-weight: 500;">Genero</label>
+                  <p-dropdown [options]="GeneroItems" [(ngModel)]="SelectGeneroItem" class="p-inputtext-sm"
+                    optionLabel="Nombre"></p-dropdown> </span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <!-- ESTADO CIVIL -->
+              <div class="row">
+                <span class="p-fluid">
+                  <label for="username" style="font-weight: 500;">Estado civil</label>
+                  <p-dropdown [options]="EstadoCivilItems" [(ngModel)]="SelectEstadoCivilItem" class="p-inputtext-sm"
+                    optionLabel="Nombre"></p-dropdown>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- COLUMNA 2  (DIVIDIDO EN 9) -->
+    <div class="col-md-9">
+      <div class="box">
+        <p-tabView styleClass="tabview-custom">
+          <p-tabPanel header="Medio de Comunicaciòn">
+            <ng-template pTemplate="header">
+              <i class="pi pi-user"></i>
+              <span>Medio de comunicación</span>
+            </ng-template>
+
+
+            <p-table #dt   [value]="DetalleMedioComunicacion_Item"  [tableStyle]="{ 'min-width': '50rem' }">
+
+
+              <ng-template pTemplate="caption">
+
+                <div style="display: flex; justify-content: space-between;">
+                  <div>
+                    <p-button label="" [style]="buttonStyle"
+                      styleClass="p-button-outlined p-button-secondary p-button-sm">
+                      <i class="pi pi-trash" style="font-size: 1.3rem"></i>
+                    </p-button>
+                    <p-button label="" [style]="buttonStyle"
+                      styleClass="p-button-outlined p-button-secondary p-button-sm">
+                      <i class="pi pi-replay" style="font-size: 1.3rem"></i>
+                    </p-button>
+
+                  </div>
+
+                  <div>
+                    <p-button label="" [style]="buttonStyle"
+                      styleClass="p-button-outlined p-button-secondary p-button-sm" (click)="showDialog()">
+                      <i class="pi pi-plus" style="font-size: 1.3rem"></i>
+                    </p-button>
+                  </div>
+
+
+                </div>
+
+              </ng-template>
+
+
+              <ng-template pTemplate="header">
+
+                <tr>
+                  <th style="width: 4rem; " id="HeaderTablaColor">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                  </th>
+
+                  <th id="HeaderTablaColor">Nº</th>
+                  <th id="HeaderTablaColor" style="min-width:7rem">Tipo </th>
+                  <th id="HeaderTablaColor" style="min-width:10rem">Dato </th>
+                  <th id="HeaderTablaColor">Fecha de Registro</th>
+                  <th id="HeaderTablaColor">Usuario </th>
+                  <th id="HeaderTablaColor"></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-row>
+                <tr>
+                  <td>
+                    <p-tableCheckbox [value]="row"></p-tableCheckbox>
+                  </td>
+                  <td> {{ row.Item }} </td>
+                  <td> {{ row.NomMedioComunicacion }} </td>
+                  <td> {{ row.Dato }} </td>
+                  <td>
+                    {{ row.FechaRegistro | date: 'dd/MM/yyyy hh:mm' }}
+                  </td>
+                  <td>
+                    {{ row.CodUsuario }}
+                  </td>
+          
+                  <td>
+               
+                    <a (click)="DeleteDetalle_Metho(row)"
+                      style="cursor: pointer;font-weight: bold;margin-right: 20px; ">
+                      <i class="pi pi-trash" style="color: #00315B;"></i>
+                    </a>
+                    <a (click)="Update_Metho(row)"
+                    style="cursor: pointer;font-weight: bold;margin-right: 20px; ">
+                    <i class="pi pi-pencil" style="color: #00315B;"></i>
+                  </a>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+
+
+
+          </p-tabPanel>
+
+        </p-tabView>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENSAJE DE CONFIRMACION -->
+  <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
+
+  <p-dialog [(visible)]="visibleVentena" [style]="{ width: '450px' }" header="Cargo" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header" style="background-color: #00315B;">
+      <h3>Medio de comunicación</h3>
+    </ng-template>
+    <ng-template pTemplate="content">
+
+
+      <div class="mb-2">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- TIPO DE DOCUMENTO -->
+            <div class="row">
+              <span class="p-fluid">
+                <label for="username" style="font-weight: 500;">Tipo</label>
+                <p-dropdown [options]="MedioComunicacionItems" [(ngModel)]="SelectMedioComunicacionItem"
+                  class="p-inputtext-sm" optionLabel="Nombre"></p-dropdown>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="name">Nombre</label>
+        <input type="text" pInputText id="name"   class="p-inputtext-sm"  [(ngModel)]="newItemDetalle.Dato" required autofocus />
+        <small class="p-error" *ngIf="submitted && !newItemDetalle.Dato">Name is required.</small>
+      </div>
+      <div style="display: flex; margin-top: 15px;">
+        <p-inputSwitch [(ngModel)]="newItem.EstadoRegistro"></p-inputSwitch>
+        <p style="margin-left: 10px;">{{ newItemDetalle.EstadoRegistro? 'Activado': 'Desactivado' }}</p>
+      </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Aceptar" icon="pi pi-check" class="p-button-text" (click)="saveItemDetalle()"></button>
+
+    </ng-template>
+  </p-dialog>
+
+
+</p-card>

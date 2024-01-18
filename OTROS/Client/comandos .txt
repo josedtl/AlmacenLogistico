@@ -1,0 +1,32 @@
+Crear Componente
+ng g c components/TipoElementoMain
+ng g c components/PersonaNatural/PersonaNaturalMain
+ng g c components/PersonaNatural/PersonaNaturalSave
+
+Crear Servicio
+ng g s services/TipoElementoService
+ng g s services/PersonaNatural/PersonaNatural
+ng g s services/cargo/cargo
+
+ng g s services/Auth
+
+
+Ejecutar servidor
+npm start
+
+Emergencia
+npm install
+ng update
+npm update
+
+
+
+CONFIGURAR RUTTAS EN:
+app-routing.module.ts
+
+EN EL HTML SE DISEÑA EN EL MENU
+sidebar-menu.component.html
+
+
+PAGINA DE COMPONENTES UI PRIME
+https://primeng.org/installation
