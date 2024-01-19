@@ -77,7 +77,8 @@ const Root: React.FC = () => {
         style={{
           background: '#001529',
           height:'calc(14px + 100vh)',
-          marginTop:'-14px',
+          marginTop:'0px',
+          marginLeft :'-10px'
         }}
       >
         <div style={{ height: '175px', width: '200px', background: '#B1B1B1' }} className="demo-logo-vertical" >
