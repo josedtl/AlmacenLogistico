@@ -14,7 +14,7 @@ function Main() {
   const sPersonaNatural = new PersonaNaturalService();
 
   const [items, setItems] = useState<PersonaNaturalEntity[]>([]);
-  const [CargarPage, setCargarPage] = React.useState(true);
+  const [CargarPage, setCargarPage] = React.useState(false);
   const [disabled, setDisabled] = useState(false);
   const [Busqueda, setBusqueda] = useState<string>('');
   const toggle = () => {

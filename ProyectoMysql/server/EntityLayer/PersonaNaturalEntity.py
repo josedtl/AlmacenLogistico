@@ -38,7 +38,7 @@ class PersonaNaturalItemModel:
     FechaRegistro: datetime 
     CodUsuario: str 
     EstadoRegistro: bool 
-
+    NomDocumento :str
     def Cargar(_DB):
         c =  PersonaNaturalItemModel()
         c.PersonaNaturalId = _DB["PersonaNaturalId"] 
