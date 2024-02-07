@@ -26,9 +26,9 @@ class PersonaNaturalDB:
         try:
             store_mapping = {
                 ProcessActionEnum.Update: "sp_PersonaNatural_Update",
-                ProcessActionEnum.Add: "sp_PersonaNatural_Save",
+                ProcessActionEnum.Add: "sp_PersonaNatural_Registrar",
             }
-            Store = store_mapping.get(Ent.Action, "sp_PersonaNatural_Save")
+            Store = store_mapping.get(Ent.Action, "sp_PersonaNatural_Registrar")
             args = []
             args.append(Ent.PersonaNaturalId)
             args.append(Ent.TipoDocumentoIdentidadId)
@@ -71,7 +71,7 @@ class PersonaNaturalDB:
 
     def GetMainItems():
         try:
-            resulset = DBProcedure().DBProcedureConsult("sp_PersonaNaturalMainItems", [])
+            resulset = DBProcedure().DBProcedureConsult("sp_Persona_Main", [])
             print("Inicio")
             print(resulset)
             print("Fin")
