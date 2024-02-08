@@ -7,7 +7,8 @@ import pymysql
 
 def get_connection():
     return pymysql.connect(
-        host="192.168.18.19",
+               host="localhost",
+        # host="192.168.18.19",
         database="logisticstoragedb",
         user="root",
         password="123456",
@@ -63,6 +64,8 @@ class DBProcedure:
         except Exception as e:
             conexion.rollback()
             print(e)
+        # finally:
+        #     conexion.close()
 
     def DBProcedureDalete(self, Store, Parametro):
         try:

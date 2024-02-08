@@ -37,7 +37,7 @@ const Save = () => {
 
   const handleSearchUbigeo = async (value: string) => {
     try {
-      const response = await sEntLista.getItemLike('', '');
+      const response = await sEntLista.getItemLike('C014', value);
       setOptionsUbigeo(response);
     } catch (error) {
       console.error('Error al buscar Ubigeo:', error);
@@ -232,10 +232,10 @@ const Save = () => {
       console.log(Resp_PersonaNatural[0]);
 
 
-      // if (Resp_PersonaNatural[0].UbigeoId != null) {
-      //   const Resp_Ubigeo = await sGeneral.GetUbigeoApiItem(Resp_PersonaNatural[0].UbigeoId);
-      //   setOptionsUbigeo(Resp_Ubigeo);
-      // }
+      if (Resp_PersonaNatural[0].UbigeoId != null) {
+        const Resp_Ubigeo = await sEntLista.getItem(Resp_PersonaNatural[0].UbigeoId);
+        setOptionsUbigeo(Resp_Ubigeo);
+      }
 
       const dateFNC = moment(Resp_PersonaNatural[0].FechaNacimiento).format('YYYY-MM-DD')
       setFechaNacimientoItem(dateFNC);

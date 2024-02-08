@@ -1,7 +1,7 @@
 from EntityLayer.EntListaEntity import EntListaEntity
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Conexion.ErrorData import ErrorData
-from Utilidades.Conexion.configMysql import DBProcedure, Restore
+from Utilidades.Conexion.configMysql import DBProcedure, Restore,CloseConnection
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 
@@ -15,6 +15,8 @@ class EntListaDB:
             return list
         except Exception as e:
             print(e)
+        finally:
+            CloseConnection()
 
     def GetItem(Id: int):
         try:
@@ -24,6 +26,8 @@ class EntListaDB:
             return list
         except Exception as e:
             print(e)
+        finally:
+            CloseConnection()
 
     def GetItemLike(Codigo: str, Nombre: str):
         try:
@@ -38,7 +42,8 @@ class EntListaDB:
             return list
         except Exception as e:
             print(e)
-
+        finally:
+            CloseConnection()
     # def Save(Ent: MarcaSaveModel):
     #     try:
     #         store_mapping = {

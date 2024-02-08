@@ -1,22 +1,32 @@
 from DataLayer.EntListaDB import *
+from Utilidades.Conexion.configMysql import StartTransaction,EndTransaction
 
 
 class EntLista:
 
     def GetItems(Codigo: str):
         try:
-            return EntListaDB.GetItems(Codigo)
+            StartTransaction()
+            data = EntListaDB.GetItems(Codigo)
+            EndTransaction()
+            return data
         except Exception as e:
             print(e)
     
     def GetItem(Id: int):
         try:
-            return EntListaDB.GetItem(Id)
+            StartTransaction()
+            data = EntListaDB.GetItem(Id)
+            EndTransaction()
+            return data
         except Exception as e:
             print(e)
     
     def GetItemLike(Codigo: str, Nombre: str):
         try:
-            return EntListaDB.GetItemLike(Codigo,Nombre)
+            StartTransaction()
+            data = EntListaDB.GetItemLike(Codigo,Nombre)
+            EndTransaction()
+            return data
         except Exception as e:
             print(e)

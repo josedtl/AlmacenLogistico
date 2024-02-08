@@ -34,7 +34,10 @@ class PersonaNatural:
     
     def GetMainItems():
         try:
-            return PersonaNaturalDB.GetMainItems()
+            StartTransaction()
+            data =  PersonaNaturalDB.GetMainItems()
+            EndTransaction()
+            return data
         except Exception as e:
             print(e)    
     def GetCabeceraItem(Id: int):
