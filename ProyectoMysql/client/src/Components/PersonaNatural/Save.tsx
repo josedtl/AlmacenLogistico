@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
-import {  message, Select, Button, Col, Row, Typography, Modal, Spin, Input, DatePicker } from 'antd';
-import { TipoDocumentoIdentidadEntity } from '../../Models/TipoDocumentoIdentidadEntity';
-import { SexoEntity } from '../../Models/SexoEntity';
-import { EstadoCivilEntity } from '../../Models/EstadoCivilEntity';
-import { UbigeoEntity } from '../../Models/UbigeoEntity';
+import { message, Select, Button, Col, Row, Typography, Modal, Spin, Input, DatePicker } from 'antd';
 import { PersonaNaturalEntity } from '../../Models/PersonaNaturalEntity';
-import GeneralService from '../../Service/GeneralService';
 import PersonaNaturalService from '../../Service/PersonaNaturalService';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
@@ -16,10 +11,12 @@ import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
 import { ProcessActionEnum } from '../../Lib/ResourceModel/Enum'
+import EntListaService from '../../Service/EntListaService';
+import { EntListaModel } from '../../Models/EntListaEntity';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
-  const sGeneral = new GeneralService();
+  const sEntLista = new EntListaService();
   const sPersonaNatural = new PersonaNaturalService();
   const initialPersonaNatural = new PersonaNaturalEntity();
   const [Ent, setEnt] = useState<PersonaNaturalEntity>(initialPersonaNatural);
@@ -30,17 +27,17 @@ const Save = () => {
 
 
 
- 
 
-  const [optionsTipoDocumentoIdentidad, setOptionsTipoDocumentoIdentidad] = useState<TipoDocumentoIdentidadEntity[]>([]);
-  const [optionsSexo, setOptionsSexo] = useState<SexoEntity[]>([]);
-  const [optionsEstadoCivil, setOptionsEstadoCivil] = useState<EstadoCivilEntity[]>([]);
-  const [optionsUbigeo, setOptionsUbigeo] = useState<UbigeoEntity[]>([]);
+
+  const [optionsTipoDocumentoIdentidad, setOptionsTipoDocumentoIdentidad] = useState<EntListaModel[]>([]);
+  const [optionsSexo, setOptionsSexo] = useState<EntListaModel[]>([]);
+  const [optionsEstadoCivil, setOptionsEstadoCivil] = useState<EntListaModel[]>([]);
+  const [optionsUbigeo, setOptionsUbigeo] = useState<EntListaModel[]>([]);
 
 
   const handleSearchUbigeo = async (value: string) => {
     try {
-      const response = await sGeneral.GetUbigeoItemLike(value);
+      const response = await sEntLista.getItemLike('', '');
       setOptionsUbigeo(response);
     } catch (error) {
       console.error('Error al buscar Ubigeo:', error);
@@ -135,11 +132,11 @@ const Save = () => {
 
   const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-   selectedTipoDocuemntoIdentidad;
-   selectedSexo;
-   selectedEstadoCivil;
-   selectedUbigeo;
-  
+    selectedTipoDocuemntoIdentidad;
+    selectedSexo;
+    selectedEstadoCivil;
+    selectedUbigeo;
+
     // if (Ent.Codigo === '') {
     //   setValCodigo('error');
     //   messageAdd.open({ type: 'error', content: 'Ingrese Codigo.', });
@@ -217,13 +214,13 @@ const Save = () => {
 
 
     setCargarPage(true);
-    const Resp_UM = await sGeneral.GetTipoDocumentoIdentidadPersonaItems();
+    const Resp_UM = await sEntLista.getItems('C001');
     setOptionsTipoDocumentoIdentidad(Resp_UM);
 
-    const Resp_Sexo = await sGeneral.GetSexoItems();
+    const Resp_Sexo = await sEntLista.getItems('C007');
     setOptionsSexo(Resp_Sexo);
 
-    const Resp_EC = await sGeneral.GetEstadoCivilItems();
+    const Resp_EC = await sEntLista.getItems('C008');
     setOptionsEstadoCivil(Resp_EC);
 
     console.log(idNumero)
@@ -235,10 +232,10 @@ const Save = () => {
       console.log(Resp_PersonaNatural[0]);
 
 
-      if (Resp_PersonaNatural[0].UbigeoId != null) {
-        const Resp_Ubigeo = await sGeneral.GetUbigeoApiItem(Resp_PersonaNatural[0].UbigeoId);
-        setOptionsUbigeo(Resp_Ubigeo);
-      }
+      // if (Resp_PersonaNatural[0].UbigeoId != null) {
+      //   const Resp_Ubigeo = await sGeneral.GetUbigeoApiItem(Resp_PersonaNatural[0].UbigeoId);
+      //   setOptionsUbigeo(Resp_Ubigeo);
+      // }
 
       const dateFNC = moment(Resp_PersonaNatural[0].FechaNacimiento).format('YYYY-MM-DD')
       setFechaNacimientoItem(dateFNC);
@@ -303,8 +300,8 @@ const Save = () => {
                     onChange={onChangeTipoDocuemntoIdentidad}
                   >
                     {optionsTipoDocumentoIdentidad.map((row) => (
-                      <Select.Option key={row.TipoDocumentoIdentidadId} value={row.TipoDocumentoIdentidadId}>
-                        {row.Alias}
+                      <Select.Option key={row.ListaId} value={row.ListaId}>
+                        {row.Nombre}
                       </Select.Option>
                     ))}
                   </Select>
@@ -487,7 +484,7 @@ const Save = () => {
                     onChange={onChangeSexo}
                   >
                     {optionsSexo.map((row) => (
-                      <Select.Option key={row.SexoId} value={row.SexoId}>
+                      <Select.Option key={row.ListaId} value={row.ListaId}>
                         {row.Nombre}
                       </Select.Option>
                     ))}
@@ -513,7 +510,7 @@ const Save = () => {
                     onChange={onChangeEstadoCivil}
                   >
                     {optionsEstadoCivil.map((row) => (
-                      <Select.Option key={row.EstadoCivilId} value={row.EstadoCivilId}>
+                      <Select.Option key={row.ListaId} value={row.ListaId}>
                         {row.Nombre}
                       </Select.Option>
                     ))}
@@ -533,7 +530,7 @@ const Save = () => {
               <label>Ubigeo</label>
             </Col>
             <Col span={24}>
-              <Select      className="custom-select"
+              <Select className="custom-select"
                 status={ValUbigeo}
                 showSearch
                 style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
@@ -545,8 +542,8 @@ const Save = () => {
                 onChange={onChangeUbigeo}
               >
                 {optionsUbigeo.map((row) => (
-                  <Select.Option className="custom-option" key={row.UbigeoId} value={row.UbigeoId}>
-                    {row.DesUbigeo}
+                  <Select.Option className="custom-option" key={row.ListaId} value={row.ListaId}>
+                    {row.Nombre}
                   </Select.Option>
                 ))}
               </Select>

@@ -1,8 +1,10 @@
 
 
 export class EntidadLikeModel {
-    Nombre: string;
+    Valor1: string;
+    Valor2: string;
     constructor() {
-        this.Nombre = '';
+        this.Valor1 = '';
+        this.Valor2 = '';
     }
 }

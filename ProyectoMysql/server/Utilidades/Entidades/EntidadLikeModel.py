@@ -2,5 +2,6 @@ from pydantic import BaseModel
 
 
 class EntidadLikeModel(BaseModel):
-    Nombre: str = ""
+    Valor1: str = ""
+    Valor2: str = ""
 
