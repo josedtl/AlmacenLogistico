@@ -15,8 +15,7 @@ class EntListaDB:
             return list
         except Exception as e:
             print(e)
-        finally:
-            CloseConnection()
+
 
     def GetItem(Id: int):
         try:
@@ -26,8 +25,7 @@ class EntListaDB:
             return list
         except Exception as e:
             print(e)
-        finally:
-            CloseConnection()
+
 
     def GetItemLike(Codigo: str, Nombre: str):
         try:
@@ -42,8 +40,7 @@ class EntListaDB:
             return list
         except Exception as e:
             print(e)
-        finally:
-            CloseConnection()
+
     # def Save(Ent: MarcaSaveModel):
     #     try:
     #         store_mapping = {

@@ -7,7 +7,7 @@ import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , Bu
 import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../Styles/Type'
 import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
 import { Link } from "react-router-dom";
-function Main() {
+function Main ()  {
   useEffect(() => {
     getItems();
   }, []);

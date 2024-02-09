@@ -15,6 +15,14 @@ def get_connection():
         cursorclass=pymysql.cursors.DictCursor,
     )
 
+config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': '123456',
+    'database': 'logisticstoragedb',
+    'cursorclass': pymysql.cursors.DictCursor  # Esto convierte los resultados en diccionarios
+}
+
 
 conexion = get_connection()
 
@@ -39,7 +47,6 @@ def CloseConnection():
 
 # dbCominit = conexion.commit()
 
-
 class DBProcedure:
     def DBProcedureInsertUpdate(self, Store, Parametro, out):
         try:
@@ -59,13 +66,11 @@ class DBProcedure:
                 cursor.callproc(Store, Parametro)
                 resulset = cursor.fetchall()
             # print(resulset)
-            cursor.close()
+            # cursor.close()
             return resulset
         except Exception as e:
             conexion.rollback()
             print(e)
-        # finally:
-        #     conexion.close()
 
     def DBProcedureDalete(self, Store, Parametro):
         try:
@@ -78,3 +83,62 @@ class DBProcedure:
             conexion.rollback
         finally:
             cursor.close()
+            
+            
+
+    def DBProcedureConsult(self, Store, Parametro):
+        try:
+            # Utilizar el bloque with para garantizar la correcta apertura y cierre de la conexión
+            with pymysql.connect(**config) as cn:
+                # Crear un objeto cursor
+                with cn.cursor() as cur:
+                    # Ejecutar la consulta SELECT
+                    cur.callproc(Store, Parametro)
+                    resulset = cur.fetchall()
+                    cur.close()
+                return resulset
+
+        except Exception as e:
+            cn.rollback
+            print(f"Error en la consulta: {e}")
+            
+        finally:
+            cur.close()
+# class DBProcedure:
+#     def DBProcedureInsertUpdate(self, Store, Parametro, out):
+#         try:
+#             with conexion.cursor() as cursor:
+#                 cursor.callproc(Store, Parametro)
+#                 Id = cursor.fetchone()[out]
+#             return Id
+#         except Exception as e:
+#             print(e)
+#             conexion.rollback
+#         finally:
+#             cursor.close()
+
+#     def DBProcedureConsult(self, Store, Parametro):
+#         try:
+#             with conexion.cursor() as cursor:
+#                 cursor.callproc(Store, Parametro)
+#                 resulset = cursor.fetchall()
+#             # print(resulset)
+#             cursor.close()
+#             return resulset
+#         except Exception as e:
+#             conexion.rollback()
+#             print(e)
+#         # finally:
+#         #     conexion.close()
+
+#     def DBProcedureDalete(self, Store, Parametro):
+#         try:
+#             with conexion.cursor() as cursor:
+#                 cursor.callproc(Store, Parametro)
+#                 conexion.commit()
+#             return True
+#         except Exception as e:
+#             print(e)
+#             conexion.rollback
+#         finally:
+#             cursor.close()

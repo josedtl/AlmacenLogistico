@@ -56,7 +56,8 @@ class PersonaNaturalItemModel:
         c.EstadoCivilId = _DB["EstadoCivilId"] 
         c.FechaRegistro = _DB["FechaRegistro"] 
         c.CodUsuario = _DB["CodUsuario"] 
-        c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 
+        c.EstadoRegistro = bool(_DB["EstadoRegistro"]) 
+        # c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 
         return c
 
     def CargarMain(_DB):

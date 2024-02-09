@@ -24,11 +24,13 @@ class PersonaNaturalDB:
 
     def Save(Ent: PersonaNaturalSaveModel):
         try:
+            print (Ent)
             store_mapping = {
-                ProcessActionEnum.Update: "sp_PersonaNatural_Update",
+                ProcessActionEnum.Update: "sp_PersonaNatural_Actualizar",
                 ProcessActionEnum.Add: "sp_PersonaNatural_Registrar",
             }
             Store = store_mapping.get(Ent.Action, "sp_PersonaNatural_Registrar")
+            print(Store)
             args = []
             args.append(Ent.PersonaNaturalId)
             args.append(Ent.TipoDocumentoIdentidadId)
@@ -47,7 +49,7 @@ class PersonaNaturalDB:
             args.append(Ent.CodUsuario)
             args.append(Ent.EstadoRegistro)
             Ent.PersonaNaturalId = DBProcedure().DBProcedureInsertUpdate(Store, args, "v_PersonaNaturalId")
-
+            print (Ent.PersonaNaturalId )
             return Ent
         except Exception as e:
             print(e)
