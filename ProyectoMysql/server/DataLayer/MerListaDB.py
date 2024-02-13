@@ -1,5 +1,4 @@
-from EntityLayer.EntListaEntity import EntListaEntity
-from EntityLayer.MerListaEntity import MerListaSaveModel
+from EntityLayer.MerListaEntity import MerListaMainModel, MerListaSaveModel, MerListaTituloModel
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Conexion.ErrorData import ErrorData
 from Utilidades.Conexion.configMysql import DBProcedure, Restore, CloseConnection
@@ -11,8 +10,7 @@ class MerListaDB:
         try:
             args = (Codigo,)
             resulset = DBProcedure().DBProcedureConsult("sp_MerLista_Main", args)
-            print(args)
-            list = [EntListaEntity.Cargar(row) for row in resulset]
+            list = [MerListaMainModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
@@ -27,8 +25,8 @@ class MerListaDB:
             args = []
             args.append(Ent.ListaId)
             args.append(Ent.CampoId)
-            args.append(Ent.Nombre)
             args.append(Ent.Codigo)
+            args.append(Ent.Nombre)
             args.append(Ent.Descripcion)
             args.append(Ent.FechaRegistro)
             args.append(Ent.CodUsuario)
@@ -42,3 +40,12 @@ class MerListaDB:
         except Exception as e:
             print(e)
             Restore()
+            
+    def GetItemTitulo(Codigo: any):
+        try:
+            args = (Codigo,)
+            resulset = DBProcedure().DBProcedureConsult("sp_MerLista_titulo", args)
+            list = [MerListaTituloModel.CargarItem(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)

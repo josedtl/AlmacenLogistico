@@ -19,3 +19,10 @@ class MerLista:
             return data
         except Exception as e:
             print(e)
+
+    def GetItemTitulo(Codigo: str):
+        try:
+            data = MerListaDB.GetItemTitulo(Codigo)
+            return data
+        except Exception as e:
+            print(e)

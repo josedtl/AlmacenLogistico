@@ -9,7 +9,7 @@ import { ProductoEntity } from '../../Models/ProductoEntity';
 import GeneralService from '../../Service/GeneralService';
 import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
 import ProductoService from '../../Service/ProductoService';
-import MDCategoria from '../Categoria/ModalItem';
+import MDCategoria from '../MerListaCategoria/ModalItem';
 import MDTipoProducto from '../TipoProducto/ModalItem';
 import MDMarca from '../Marca/ModalItem';
 import MDModelo from '../Modelo/ModalItem';
@@ -449,7 +449,8 @@ const Save = () => {
               </Select>
               <MDCategoria buttonLabel="Enlace"
                 addItemToState={addItemToStateCategoria}
-                item={new CategoriaEntity()} />
+                item={new CategoriaEntity()}
+                CodigoTabla={'M002'} />
             </Col>
           </Row>
 

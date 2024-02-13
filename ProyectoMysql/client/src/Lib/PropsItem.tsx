@@ -9,7 +9,9 @@ export type PropsModel = {
     item: any;
     updateState?: any;
     addItemToState?: any;
-    toggle?: any
+    toggle?: any;
+    CodigoTabla?: any;
+    title?: any;
 }
 
 
@@ -17,7 +19,9 @@ export type PropsTable = {
     DataList: any[];
     updateState: any;
     deleteItemFromState: any;
-    EsTabla: boolean
+    EsTabla: boolean;
+    CodigoTabla?: string;
+    title?: string;
 }
 
 export type PropsModelDetalle = {

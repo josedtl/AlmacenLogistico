@@ -50,14 +50,18 @@ const Root: React.FC = () => {
       ]),
     getItem('Catalogo', 'C1', <BlockOutlined />,
       [
-        getItem(<Link to="/Categoria">Categoria</Link>, 'C1_1'),
-        getItem(<Link to="/Marca">Marca</Link>, 'C1_2'),
-        getItem(<Link to="/Modelo">Modelo</Link>, 'C1_3'),
-        getItem(<Link to="/TipoProducto">Tipo de producto</Link>, 'C1_4'),
+        // getItem(<Link to="/Categoria">Categoria</Link>, 'C1_1'),
+        // getItem(<Link to="/Marca">Marca</Link>, 'C1_2'),
+        // getItem(<Link to="/Modelo">Modelo</Link>, 'C1_3'),
+        // getItem(<Link to="/TipoProducto">Tipo de producto</Link>, 'C1_4'),
         getItem(<Link to="/Producto">Producto</Link>, 'C1_5'),
         getItem(<Link to="/PersonaNatural">Persona Natural</Link>, 'C1_6'),
         getItem(<Link to="/Empresa">Empresa</Link>, 'C1_7'),
-        getItem(<Link to="/Cliente">Cliente</Link>, 'C1_8'),
+        // getItem(<Link to="/Cliente">Cliente</Link>, 'C1_8'),
+        getItem(<Link to="/MerLista/Categoria/M002">Categoria</Link>, 'MC1_8'),
+        getItem(<Link to="/MerLista/TipoProducto/M003">Tipo Producto</Link>, 'MC1_tp'),
+        getItem(<Link to="/MerLista/Marca/M004">Marca</Link>, 'MC1_M004'),
+        getItem(<Link to="/MerLista/Modelo/M005">Modelo</Link>, 'MC1_M005'),
       ]),
   ];
   return (
