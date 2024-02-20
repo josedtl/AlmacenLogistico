@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import { ProductoEntity } from '../../Models/ProductoEntity';
-import ProductoService from '../../Service/ProductoService';
+import { MercaderiaMainModel } from '../../Models/MercaderiaEntity';
+import MercaderiaService from '../../Service/MercaderiaService';
 import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
 import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , ButtonAddMain} from '../../Styles/Button'
 import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../Styles/Type'
@@ -11,9 +11,9 @@ function Main() {
   useEffect(() => {
     getItems();
   }, []);
-  const sProducto = new ProductoService();
+  const sMercaderia = new MercaderiaService();
 
-  const [items, setItems] = useState<ProductoEntity[]>([]);
+  const [items, setItems] = useState<MercaderiaMainModel[]>([]);
   const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled, setDisabled] = useState(false);
   const [Busqueda, setBusqueda] = useState<string>('');
@@ -21,20 +21,21 @@ function Main() {
     setDisabled(!disabled);
   };
 
-  const updateState = (item: ProductoEntity) => {
-    const itemIndex = items.findIndex((data) => data.ProductoId === item.ProductoId);
+  const updateState = (item: MercaderiaMainModel) => {
+    const itemIndex = items.findIndex((data) => data.MercaderiaId === item.MercaderiaId);
     const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
     setItems(newArray);
   };
 
   const deleteItemFromState = (id: number) => {
-    const updatedItems = items.filter((item) => item.ProductoId !== id);
+    const updatedItems = items.filter((item) => item.MercaderiaId !== id);
     setItems(updatedItems);
   };
 
   const getItems = async () => {
-    const itemsg = await sProducto.getItems();
+    const itemsg = await sMercaderia.getItems();
     setItems(itemsg);
+    console.log(itemsg);
     setCargarPage(false);
 
   };
@@ -42,7 +43,7 @@ function Main() {
     setBusqueda(e.target.value.toUpperCase());
   };
   const filterItems = items.filter(fdata =>
-    fdata.Nombre.toLowerCase().includes(Busqueda.toLowerCase())
+    fdata.Descripcion.toLowerCase().includes(Busqueda.toLowerCase())
   );
 
   const { Title } = Typography;
@@ -109,7 +110,7 @@ function Main() {
 
       </Row>
       <Card>
-        <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
+        <DataTable DataList={filterItems}  EsTabla={disabled} />
       </Card>
 
     </Spin>

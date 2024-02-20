@@ -30,6 +30,7 @@ from routes.UsuarioRoute import UsuarioRouter
 from routes.GeneralRoute import GeneralRouter
 from routes.EntListaRouter import EntListaRouter
 from routes.MerListaRouter import MerListaRouter
+from routes.MercaderiaRoute import MercaderiaRouter
 from ariadne.asgi import GraphQL
 from GraphqlServer import schema
 app = FastAPI(
@@ -97,7 +98,7 @@ app.include_router(UsuarioRouter)
 app.include_router(GeneralRouter)
 app.include_router(EntListaRouter)
 app.include_router(MerListaRouter)
-
+app.include_router(MercaderiaRouter)
 tags_metadata = [
     {
         "name": "PersonaNatural",

@@ -17,9 +17,9 @@ export type PropsModel = {
 
 export type PropsTable = {
     DataList: any[];
-    updateState: any;
-    deleteItemFromState: any;
-    EsTabla: boolean;
+    updateState?: any;
+    deleteItemFromState?: any;
+    EsTabla?: boolean;
     CodigoTabla?: string;
     title?: string;
 }

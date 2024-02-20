@@ -1,6 +1,5 @@
 "use client"
 import React from 'react';
-import { ProductoEntity } from '../../Models/ProductoEntity';
 import { EditFilled } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Link } from 'react-router-dom';
@@ -10,6 +9,7 @@ import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import 'moment/locale/es';
 import { DataType } from '../../Lib/ResourceModel/DataTableType'
+import { MercaderiaMainModel } from '../../Models/MercaderiaEntity';
 
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');
@@ -21,9 +21,34 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'Cont',
         },
         {
-            title: 'Nombre',
-            dataIndex: 'Nombre',
-            key: 'Nombre',
+            title: 'Codigo',
+            dataIndex: 'Codigo',
+            key: 'Codigo',
+        },
+        {
+            title: 'Categoria',
+            dataIndex: 'NomCategoria',
+            key: 'NomCategoria',
+        },
+        {
+            title: 'Tipo Producto',
+            dataIndex: 'NomTipoProducto',
+            key: 'NomTipoProducto',
+        },
+        {
+            title: 'Marca',
+            dataIndex: 'NomMarca',
+            key: 'NomMarca',
+        },
+        {
+            title: 'Modelo',
+            dataIndex: 'NomModelo',
+            key: 'NomModelo',
+        },
+        {
+            title: 'Unidad de Medida',
+            dataIndex: 'NomUnidadMedida',
+            key: 'NomUnidadMedida',
         },
         {
             title: 'Fecha de registro',
@@ -42,10 +67,10 @@ const DataTable: React.FC<PropsTable> = (props) => {
             fixed: 'right',
             width: 70,
             key: 'action',
-            render: (record: ProductoEntity) => (
+            render: (record: MercaderiaMainModel) => (
                 <span>
 
-                    <Link to={`/ProductoSave/${record.ProductoId}`}>
+                    <Link to={`/ProductoSave/${record.MercaderiaId}`}>
                         <Button
                             type='dashed'
                             style={{ float: "right", marginRight: "10px", color: "#BB9B32", backgroundColor: "white", borderColor: "#BB9B32" }}
@@ -64,10 +89,10 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
     ];
 
-    const dataWithKeys = props.DataList.sort((a, b) => b.ProductoId - a.ProductoId).map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.MercaderiaId - a.MercaderiaId).map((item, zIndex) => {
         return {
             ...item,
-            key: item.ProductoId,
+            key: item.MercaderiaId,
             Cont: (zIndex + 1)
         };
     });

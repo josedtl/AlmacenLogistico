@@ -24,7 +24,6 @@ class PersonaNaturalDB:
 
     def Save(Ent: PersonaNaturalSaveModel):
         try:
-            print (Ent)
             store_mapping = {
                 ProcessActionEnum.Update: "sp_PersonaNatural_Actualizar",
                 ProcessActionEnum.Add: "sp_PersonaNatural_Registrar",
@@ -54,6 +53,7 @@ class PersonaNaturalDB:
         except Exception as e:
             print(e)
             Restore()
+            
     def Delete(Id: int):
         try:
             args = (Id,)
