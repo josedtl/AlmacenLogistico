@@ -26,3 +26,10 @@ class MerLista:
             return data
         except Exception as e:
             print(e)
+
+    def GetItemLike(Codigo: str, Nombre: str):
+        try:
+            data = MerListaDB.GetItemLike(Codigo, Nombre)
+            return data
+        except Exception as e:
+            print(e)

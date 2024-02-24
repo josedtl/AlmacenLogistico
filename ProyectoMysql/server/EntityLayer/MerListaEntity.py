@@ -49,3 +49,17 @@ class MerListaTituloModel():
         c.CampoId = _DB["CampoId"] 
         c.Nombre = _DB["Nombre"]    
         return c
+
+class MerListaItemModel():
+    ListaId: int
+    CampoId: int
+    Nombre: str
+    Codigo: str
+
+    def Cargar(_DB):
+        c =  MerListaItemModel()
+        c.ListaId = _DB["ListaId"] 
+        # c.CampoId = _DB["CampoId"] 
+        c.Nombre = _DB["Nombre"] 
+        # c.Codigo = _DB["Codigo"] 
+        return c

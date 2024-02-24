@@ -1,4 +1,4 @@
-from EntityLayer.MerListaEntity import MerListaMainModel, MerListaSaveModel, MerListaTituloModel
+from EntityLayer.MerListaEntity import MerListaItemModel, MerListaMainModel, MerListaSaveModel, MerListaTituloModel
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Conexion.ErrorData import ErrorData
 from Utilidades.Conexion.configMysql import DBProcedure, Restore, CloseConnection
@@ -46,6 +46,20 @@ class MerListaDB:
             args = (Codigo,)
             resulset = DBProcedure().DBProcedureConsult("sp_MerLista_titulo", args)
             list = [MerListaTituloModel.CargarItem(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)
+
+    def GetItemLike(Codigo: str, Nombre: str):
+        try:
+            args = (
+                Codigo,
+                Nombre,
+            )
+            resulset = DBProcedure().DBProcedureConsult(
+                "sp_MerLista_ItemLike", args
+            )
+            list = [MerListaItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)

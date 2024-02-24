@@ -6,7 +6,7 @@ import { TipoProductoEntity } from '../../Models/TipoProductoEntity';
 import { MarcaEntity } from '../../Models/MarcaEntity';
 import { ModeloEntity } from '../../Models/ModeloEntity';
 import { ProductoEntity } from '../../Models/ProductoEntity';
-import GeneralService from '../../Service/GeneralService';
+import MerListaService from '../../Service/MerListaService';
 import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
 import ProductoService from '../../Service/ProductoService';
 import MDCategoria from '../MerListaCategoria/ModalItem';
@@ -16,11 +16,12 @@ import MDModelo from '../Modelo/ModalItem';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
 import { ButtonAddMain } from '../../Styles/Button'
+import { MerListaEntity } from '../../Models/MerListaEntity';
 
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
-  const sGeneral = new GeneralService();
+  const sMerLista = new MerListaService();
   const sProducto = new ProductoService();
   const initialProducto = new ProductoEntity();
   const [Ent, setEnt] = useState<ProductoEntity>(initialProducto);
@@ -28,28 +29,28 @@ const Save = () => {
   const [CargarPage, setCargarPage] = React.useState(true);
 
   const addItemToStateCategoria = async (item: CategoriaEntity) => {
-    const Resp_Categoria = await sGeneral.GetCategoriaItem(item.CategoriaId);
+    const Resp_Categoria = await sMerLista.getItem(item.CategoriaId);
     setOptionsCategoria(Resp_Categoria);
-    Ent.CategoriaId = Resp_Categoria[0].CategoriaId;
+    Ent.CategoriaId = Resp_Categoria[0].ListaId;
 
   };
 
   const addItemToStateMarca = async (item: MarcaEntity) => {
-    const Resp_Marca = await sGeneral.GetMarcaItem(item.MarcaId);
+    const Resp_Marca = await sMerLista.getItem(item.MarcaId);
     setOptionsMarca(Resp_Marca);
-    Ent.MarcaId = Resp_Marca[0].MarcaId;
+    Ent.MarcaId = Resp_Marca[0].ListaId;
 
   };
   const addItemToStateModelo = async (item: ModeloEntity) => {
-    const Resp_Modelo = await sGeneral.GetModeloItem(item.ModeloId);
+    const Resp_Modelo = await sMerLista.getItem(item.ModeloId);
     setOptionsModelo(Resp_Modelo);
-    Ent.ModeloId = Resp_Modelo[0].ModeloId;
+    Ent.ModeloId = Resp_Modelo[0].ListaId;
 
   };
   const addItemToStateTipoProducto = async (item: TipoProductoEntity) => {
-    const Resp_TipoProducto = await sGeneral.GetTipoProductoItem(item.TipoProductoId);
+    const Resp_TipoProducto = await sMerLista.getItem(item.TipoProductoId);
     setOptionsTipoProducto(Resp_TipoProducto);
-    Ent.TipoProductoId = Resp_TipoProducto[0].TipoProductoId;
+    Ent.TipoProductoId = Resp_TipoProducto[0].ListaId;
 
   };
 
@@ -130,15 +131,15 @@ const Save = () => {
   ]);
 
 
-  const [optionsCategoria, setOptionsCategoria] = useState<CategoriaEntity[]>([]);
-  const [optionsTipoProducto, setOptionsTipoProducto] = useState<TipoProductoEntity[]>([]);
-  const [optionsMarca, setOptionsMarca] = useState<MarcaEntity[]>([]);
-  const [optionsModelo, setOptionsModelo] = useState<ModeloEntity[]>([]);
-  const [optionsUM, setOptionsUM] = useState<UnidadMedidaEntity[]>([]);
+  const [optionsCategoria, setOptionsCategoria] = useState<MerListaEntity[]>([]);
+  const [optionsTipoProducto, setOptionsTipoProducto] = useState<MerListaEntity[]>([]);
+  const [optionsMarca, setOptionsMarca] = useState<MerListaEntity[]>([]);
+  const [optionsModelo, setOptionsModelo] = useState<MerListaEntity[]>([]);
+  const [optionsUM, setOptionsUM] = useState<MerListaEntity[]>([]);
 
   const handleSearchCategoria = async (value: string) => {
     try {
-      const responseCategoria = await sGeneral.GetCategoriaItemLike(value);
+      const responseCategoria = await sMerLista.getItemLike("M002",value);
       setOptionsCategoria(responseCategoria);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -147,7 +148,7 @@ const Save = () => {
 
   const handleSearchTipoProducto = async (value: string) => {
     try {
-      const responseTipoProducto = await sGeneral.GetTipoProductoItemLike(value);
+      const responseTipoProducto = await sMerLista.getItemLike("M003",value);
       setOptionsTipoProducto(responseTipoProducto);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -158,7 +159,7 @@ const Save = () => {
 
   const handleSearchMarca = async (value: string) => {
     try {
-      const responseMarca = await sGeneral.GetMarcaItemLike(value);
+      const responseMarca = await sMerLista.getItemLike("M004",value);
       setOptionsMarca(responseMarca);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -167,7 +168,7 @@ const Save = () => {
 
   const handleSearchModelo = async (value: string) => {
     try {
-      const responseModelo = await sGeneral.GetModeloItemLike(value);
+      const responseModelo = await sMerLista.getItemLike("M005",value);
       setOptionsModelo(responseModelo);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -183,16 +184,16 @@ const Save = () => {
 
       const Resp_Producto = await sProducto.getItem(idNumero);
 
-      const Resp_Categoria = await sGeneral.GetCategoriaItem(Resp_Producto[0].CategoriaId);
+      const Resp_Categoria = await sMerLista.getItem(Resp_Producto[0].CategoriaId);
       setOptionsCategoria(Resp_Categoria);
 
-      const Resp_TipoProducto = await sGeneral.GetTipoProductoItem(Resp_Producto[0].TipoProductoId);
+      const Resp_TipoProducto = await sMerLista.getItem(Resp_Producto[0].TipoProductoId);
       setOptionsTipoProducto(Resp_TipoProducto);
 
-      const Resp_Marca = await sGeneral.GetMarcaItem(Resp_Producto[0].MarcaId);
+      const Resp_Marca = await sMerLista.getItem(Resp_Producto[0].MarcaId);
       setOptionsMarca(Resp_Marca);
 
-      const Resp_Modelo = await sGeneral.GetModeloItem(Resp_Producto[0].ModeloId);
+      const Resp_Modelo = await sMerLista.getItem(Resp_Producto[0].ModeloId);
       setOptionsModelo(Resp_Modelo);
 
 
@@ -373,7 +374,7 @@ const Save = () => {
     async function cargarItem() {
 
       setCargarPage(true);
-      const Resp_UM = await sGeneral.GetUnidadMedidaItems();
+      const Resp_UM = await sMerLista.getItems("M0011");
       setOptionsUM(Resp_UM);
       await getCargarDatos();
     }
@@ -442,7 +443,7 @@ const Save = () => {
                 onChange={onChangeCategoria}
               >
                 {optionsCategoria.map((categoria) => (
-                  <Select.Option key={categoria.CategoriaId} value={categoria.CategoriaId}>
+                  <Select.Option key={categoria.ListaId} value={categoria.ListaId}>
                     {categoria.Nombre}
                   </Select.Option>
                 ))}
@@ -474,7 +475,7 @@ const Save = () => {
                 onChange={onChangeTipoProducto}
               >
                 {optionsTipoProducto.map((TipoProducto) => (
-                  <Select.Option key={TipoProducto.TipoProductoId} value={TipoProducto.TipoProductoId}>
+                  <Select.Option key={TipoProducto.ListaId} value={TipoProducto.ListaId}>
                     {TipoProducto.Nombre}
                   </Select.Option>
                 ))}
@@ -508,7 +509,7 @@ const Save = () => {
                 onChange={onChangeMarca}
               >
                 {optionsMarca.map((Marca) => (
-                  <Select.Option key={Marca.MarcaId} value={Marca.MarcaId}>
+                  <Select.Option key={Marca.ListaId} value={Marca.ListaId}>
                     {Marca.Nombre}
                   </Select.Option>
                 ))}
@@ -540,7 +541,7 @@ const Save = () => {
                 onChange={onChangeModelo}
               >
                 {optionsModelo.map((Modelo) => (
-                  <Select.Option key={Modelo.ModeloId} value={Modelo.ModeloId}>
+                  <Select.Option key={Modelo.ListaId} value={Modelo.ListaId}>
                     {Modelo.Nombre}
                   </Select.Option>
                 ))}
@@ -603,7 +604,7 @@ const Save = () => {
                 onChange={onChangeUM}
               >
                 {optionsUM.map((UM) => (
-                  <Select.Option key={UM.UnidadMedidaId} value={UM.UnidadMedidaId}>
+                  <Select.Option key={UM.ListaId} value={UM.ListaId}>
                     {UM.Nombre}
                   </Select.Option>
                 ))}

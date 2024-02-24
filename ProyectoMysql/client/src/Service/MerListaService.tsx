@@ -1,3 +1,5 @@
+import { EntListaModel } from '../Models/EntListaEntity';
+import { EntidadLikeModel } from '../Models/EntidadLikeModel';
 import { MerListaEntity, MerListaTituloModel } from '../Models/MerListaEntity';
 import { apiLg } from './axios-config';
 
@@ -30,15 +32,25 @@ class MerListaService {
           'Content-Type': 'application/json',
         },
       });
+
       return response.data.Value;
     } catch (error) {
       throw error;
     }
   }
 
-  async getItemLike(Nombre: string): Promise<MerListaEntity[]> {
+  async getItemLike(codigo: string, value: string): Promise<MerListaEntity[]> {
     try {
-      const response = await apiLg.get(`api/Categoria/GetItemLike/${Nombre}`);
+
+      const EntLike = new EntidadLikeModel();
+      EntLike.Valor1 = codigo;
+      EntLike.Valor2 = value;
+      const response = await apiLg.post(`api/MerLista/GetItemLike`, EntLike, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response);
       return response.data.Value;
     } catch (error) {
       throw error;
