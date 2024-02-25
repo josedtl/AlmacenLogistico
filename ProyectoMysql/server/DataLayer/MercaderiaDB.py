@@ -46,3 +46,12 @@ class MercaderiaDB:
         except Exception as e:
             print(e)
             Restore()
+
+    def GetCabeceraItem(Id : int):
+        try:
+            args = (Id,)
+            resulset = DBProcedure().DBProcedureConsult("sp_Mercaderia_Item",args)
+            list = [MercaderiaMainModel.Cargar(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)

@@ -20,3 +20,10 @@ class Mercaderia:
             return data
         except Exception as e:
             print(e)    
+
+    def GetCabeceraItem(Id : int):
+        try:
+            data =  MercaderiaDB.GetCabeceraItem(Id)
+            return data
+        except Exception as e:
+            print(e)    

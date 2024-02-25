@@ -17,14 +17,16 @@ import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
 import { ButtonAddMain } from '../../Styles/Button'
 import { MerListaEntity } from '../../Models/MerListaEntity';
+import MercaderiaService from '../../Service/MercaderiaService';
+import { MercaderiaSaveModel } from '../../Models/MercaderiaEntity';
 
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
   const sMerLista = new MerListaService();
-  const sProducto = new ProductoService();
-  const initialProducto = new ProductoEntity();
-  const [Ent, setEnt] = useState<ProductoEntity>(initialProducto);
+  const sMercaderia = new MercaderiaService();
+  const initialProducto = new MercaderiaSaveModel();
+  const [Ent, setEnt] = useState<MercaderiaSaveModel>(initialProducto);
   const { Title } = Typography;
   const [CargarPage, setCargarPage] = React.useState(true);
 
@@ -182,7 +184,7 @@ const Save = () => {
     console.log(idNumero)
     if (idNumero > 0) {
 
-      const Resp_Producto = await sProducto.getItem(idNumero);
+      const Resp_Producto = await sMercaderia.GetCabeceraItem(idNumero);
 
       const Resp_Categoria = await sMerLista.getItem(Resp_Producto[0].CategoriaId);
       setOptionsCategoria(Resp_Categoria);
@@ -279,7 +281,7 @@ const Save = () => {
   const [modal, contextHolder] = Modal.useModal();
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const AddProducto = async () => {
-    const savedItem = await sProducto.saveItem(Ent);
+    const savedItem = await sMercaderia.saveItem(Ent);
     if (savedItem) {
 
       messageAdd.open({
@@ -359,7 +361,7 @@ const Save = () => {
         Ent.Action = 1;
         Ent.FechaRegistro = new Date();
         Ent.EstadoRegistro = true
-        Ent.Action = Ent.ProductoId == 0 ? 1 : 3;
+        Ent.Action = Ent.MercaderiaId == 0 ? 1 : 3;
         AddProducto();
       },
       onCancel() {
@@ -394,7 +396,7 @@ const Save = () => {
       <Row>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           {/* <Title level={3}> Producto  {params.Id}</Title> */}
-          <Title level={3}> {Ent.ProductoId > 0 ? 'Producto' : 'Agregar Producto'}</Title>
+          <Title level={3}> {Ent.MercaderiaId > 0 ? 'Producto' : 'Agregar Producto'}</Title>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Button

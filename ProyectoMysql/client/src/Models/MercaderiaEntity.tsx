@@ -63,4 +63,3 @@ export class MercaderiaMainModel {
         this.EstadoRegistro = false;
     }
 }
-

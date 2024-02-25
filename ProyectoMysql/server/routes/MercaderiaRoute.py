@@ -26,3 +26,13 @@ def GetMainItems():
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
+
+
+@MercaderiaRouter.get(f"/api/{ApiName}/GetCabeceraItem", tags=[ApiName])
+def GetCabeceraItem(Id : int):
+    try:
+        jsonData = Mercaderia.GetCabeceraItem(Id)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
