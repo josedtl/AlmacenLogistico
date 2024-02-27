@@ -21,10 +21,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import PageCategoria from "./Components/Categoria/Main";
-import PageTipoProducto from "./Components/TipoProducto/Main";
-import PageMarca from "./Components/Marca/Main";
-import PageModelo from "./Components/Modelo/Main";
 import PageProdcuto from "./Components/Producto/Main";
 import PageProdcutoSave from "./Components/Producto/Save";
 import PageOrdenPedido from "./Components/OrdenPedido/Main";
@@ -33,7 +29,6 @@ import PagePersonaNatural from "./Components/PersonaNatural/Main";
 import PagePersonaNaturalSave from "./Components/PersonaNatural/Save";
 import PageEmpresa from "./Components/Empresa/Main";
 import PageEmpresaSave from "./Components/Empresa/Save";
-import PageCliente from "./Components/Cliente/Main";
 import PageCategoriaMain from "./Components/MerListaCategoria/Main";
 import PageTipoProductoMain from "./Components/MerListaTipoProducto/Main";
 import PageMarcaMain from "./Components/MerListaMarca/Main";

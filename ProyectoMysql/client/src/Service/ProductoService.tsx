@@ -32,6 +32,7 @@ class ProductoService {
 
   async saveItem(item: ProductoEntity): Promise<ProductoEntity | null> {
     try {
+      console.log(item);
       const response = await axios.post(`${URL}/api/Producto/Save/`, item, {
         headers: {
           'Content-Type': 'application/json',
@@ -39,6 +40,7 @@ class ProductoService {
       });
 
       if (response.status === 200) {
+        console.log(response);
         return response.data.Value;
       } else {
         console.log('Save operation failed');

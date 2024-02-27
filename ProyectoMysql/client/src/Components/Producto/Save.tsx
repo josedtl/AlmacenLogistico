@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
-import { CategoriaEntity } from '../../Models/CategoriaEntity';
-import { TipoProductoEntity } from '../../Models/TipoProductoEntity';
-import { MarcaEntity } from '../../Models/MarcaEntity';
-import { ModeloEntity } from '../../Models/ModeloEntity';
 import MerListaService from '../../Service/MerListaService';
 import MDCategoria from '../MerListaCategoria/ModalItem';
-import MDTipoProducto from '../TipoProducto/ModalItem';
-import MDMarca from '../Marca/ModalItem';
-import MDModelo from '../Modelo/ModalItem';
+import MDTipoProducto from '../MerListaTipoProducto/ModalItem';
+import MDMarca from '../MerListaMarca/ModalItem';
+import MDModelo from '../MerListaModelo/ModalItem';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
 import { ButtonAddMain } from '../../Styles/Button'
@@ -27,27 +23,27 @@ const Save = () => {
   const { Title } = Typography;
   const [CargarPage, setCargarPage] = React.useState(true);
 
-  const addItemToStateCategoria = async (item: CategoriaEntity) => {
-    const Resp_Categoria = await sMerLista.getItem(item.CategoriaId);
+  const addItemToStateCategoria = async (item: MerListaEntity) => {
+    const Resp_Categoria = await sMerLista.getItem(item.ListaId);
     setOptionsCategoria(Resp_Categoria);
     Ent.CategoriaId = Resp_Categoria[0].ListaId;
 
   };
 
-  const addItemToStateMarca = async (item: MarcaEntity) => {
-    const Resp_Marca = await sMerLista.getItem(item.MarcaId);
+  const addItemToStateMarca = async (item: MerListaEntity) => {
+    const Resp_Marca = await sMerLista.getItem(item.ListaId);
     setOptionsMarca(Resp_Marca);
     Ent.MarcaId = Resp_Marca[0].ListaId;
 
   };
-  const addItemToStateModelo = async (item: ModeloEntity) => {
-    const Resp_Modelo = await sMerLista.getItem(item.ModeloId);
+  const addItemToStateModelo = async (item: MerListaEntity) => {
+    const Resp_Modelo = await sMerLista.getItem(item.ListaId);
     setOptionsModelo(Resp_Modelo);
     Ent.ModeloId = Resp_Modelo[0].ListaId;
 
   };
-  const addItemToStateTipoProducto = async (item: TipoProductoEntity) => {
-    const Resp_TipoProducto = await sMerLista.getItem(item.TipoProductoId);
+  const addItemToStateTipoProducto = async (item: MerListaEntity) => {
+    const Resp_TipoProducto = await sMerLista.getItem(item.ListaId);
     setOptionsTipoProducto(Resp_TipoProducto);
     Ent.TipoProductoId = Resp_TipoProducto[0].ListaId;
 
@@ -278,6 +274,12 @@ const Save = () => {
   const [modal, contextHolder] = Modal.useModal();
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const AddProducto = async () => {
+
+    Ent.Stock = 0 ;
+    Ent.Reserva = 0;
+    Ent.Action = Ent.MercaderiaId == 0 ? 1 : 3;
+    console.log("HOLA");
+    console.log(Ent);
     const savedItem = await sMercaderia.saveItem(Ent);
     if (savedItem) {
 
@@ -358,7 +360,7 @@ const Save = () => {
         Ent.Action = 1;
         Ent.FechaRegistro = new Date();
         Ent.EstadoRegistro = true
-        Ent.Action = Ent.MercaderiaId == 0 ? 1 : 3;
+
         AddProducto();
       },
       onCancel() {
@@ -449,7 +451,7 @@ const Save = () => {
               </Select>
               <MDCategoria buttonLabel="Enlace"
                 addItemToState={addItemToStateCategoria}
-                item={new CategoriaEntity()}
+                item={new MerListaEntity()}
                 CodigoTabla={'M002'} />
             </Col>
           </Row>
@@ -481,7 +483,8 @@ const Save = () => {
               </Select>
               <MDTipoProducto buttonLabel="Enlace"
                 addItemToState={addItemToStateTipoProducto}
-                item={new TipoProductoEntity()} />
+                item={new MerListaEntity()} 
+                CodigoTabla={'M003'}/>
 
 
 
@@ -516,7 +519,8 @@ const Save = () => {
 
               <MDMarca buttonLabel="Enlace"
                 addItemToState={addItemToStateMarca}
-                item={new MarcaEntity()} />
+                item={new MerListaEntity()}
+                CodigoTabla={'M004'} />
 
 
 
@@ -547,7 +551,8 @@ const Save = () => {
               </Select>
               <MDModelo buttonLabel="Enlace"
                 addItemToState={addItemToStateModelo}
-                item={new ModeloEntity()} />
+                item={new MerListaEntity()}
+                CodigoTabla={'M005'}  />
 
 
 
