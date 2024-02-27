@@ -29,6 +29,7 @@ from routes.UnidadMedidaRoute import UnidadMedidaRouter
 from routes.UsuarioRoute import UsuarioRouter
 from routes.GeneralRoute import GeneralRouter
 from routes.EntListaRouter import EntListaRouter
+from routes.EntDatoRoute import EntDatoRouter
 from routes.MerListaRouter import MerListaRouter
 from routes.MercaderiaRoute import MercaderiaRouter
 from ariadne.asgi import GraphQL
@@ -99,6 +100,7 @@ app.include_router(GeneralRouter)
 app.include_router(EntListaRouter)
 app.include_router(MerListaRouter)
 app.include_router(MercaderiaRouter)
+app.include_router(EntDatoRouter)
 tags_metadata = [
     {
         "name": "PersonaNatural",

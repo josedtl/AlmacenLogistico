@@ -452,7 +452,8 @@ const Save = () => {
               <MDCategoria buttonLabel="Enlace"
                 addItemToState={addItemToStateCategoria}
                 item={new MerListaEntity()}
-                CodigoTabla={'M002'} />
+                CodigoTabla={'M002'} 
+                title={"Categoria"}/>
             </Col>
           </Row>
 
@@ -484,7 +485,8 @@ const Save = () => {
               <MDTipoProducto buttonLabel="Enlace"
                 addItemToState={addItemToStateTipoProducto}
                 item={new MerListaEntity()} 
-                CodigoTabla={'M003'}/>
+                CodigoTabla={'M003'}
+                title={"Tipo Producto"}/>
 
 
 
@@ -520,7 +522,8 @@ const Save = () => {
               <MDMarca buttonLabel="Enlace"
                 addItemToState={addItemToStateMarca}
                 item={new MerListaEntity()}
-                CodigoTabla={'M004'} />
+                CodigoTabla={'M004'}
+                title={"Marca"} />
 
 
 
@@ -552,7 +555,8 @@ const Save = () => {
               <MDModelo buttonLabel="Enlace"
                 addItemToState={addItemToStateModelo}
                 item={new MerListaEntity()}
-                CodigoTabla={'M005'}  />
+                CodigoTabla={'M005'} 
+                title={"Modelo"} />
 
 
 
