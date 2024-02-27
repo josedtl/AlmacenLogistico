@@ -46,11 +46,12 @@ def GetItemLike(NDataLike: EntidadLikeModel):
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
-# @MerListaRouter.post(f"/api/{ApiName}/GetItems/{{Codigo}}", tags=[ApiName])
-# def GetItems(Codigo: str):
-#     try:
-#         jsonData = MerLista.GetItems(Codigo)
-#         return jsonable_encoder(ResponseAPI.Response(jsonData))
-#     except Exception as e:
-#         print(e)
-#         return jsonable_encoder(ResponseAPIError.Error())
+    
+@MerListaRouter.get(f"/api/{ApiName}/GetItem/{{Id}}", tags=[ApiName])
+def GetItem(Id: int):
+    try:
+        jsonData = MerLista.GetItem(Id)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())

@@ -28,7 +28,7 @@ def GetMainItems():
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@MercaderiaRouter.get(f"/api/{ApiName}/GetCabeceraItem", tags=[ApiName])
+@MercaderiaRouter.get(f"/api/{ApiName}/GetCabeceraItem/{{Id}}", tags=[ApiName])
 def GetCabeceraItem(Id : int):
     try:
         jsonData = Mercaderia.GetCabeceraItem(Id)

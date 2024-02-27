@@ -63,3 +63,12 @@ class MerListaDB:
             return list
         except Exception as e:
             print(e)
+
+    def GetItem(Id: int):
+        try:
+            args = (Id,)
+            resulset = DBProcedure().DBProcedureConsult("sp_MerListaItem", args)
+            list = [MerListaItemModel.Cargar(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)

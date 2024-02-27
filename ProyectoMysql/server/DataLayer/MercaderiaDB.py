@@ -1,4 +1,4 @@
-from EntityLayer.MercaderiaEntity import MercaderiaMainModel, MercaderiaSaveModel
+from EntityLayer.MercaderiaEntity import MercaderiaItemModel, MercaderiaMainModel, MercaderiaSaveModel
 from EntityLayer.ProductoEntity import ProductoSaveModel
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Conexion.ErrorData import ErrorData
@@ -51,7 +51,7 @@ class MercaderiaDB:
         try:
             args = (Id,)
             resulset = DBProcedure().DBProcedureConsult("sp_Mercaderia_Item",args)
-            list = [MercaderiaMainModel.Cargar(row) for row in resulset]
+            list = [MercaderiaItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)

@@ -5,10 +5,7 @@ import { CategoriaEntity } from '../../Models/CategoriaEntity';
 import { TipoProductoEntity } from '../../Models/TipoProductoEntity';
 import { MarcaEntity } from '../../Models/MarcaEntity';
 import { ModeloEntity } from '../../Models/ModeloEntity';
-import { ProductoEntity } from '../../Models/ProductoEntity';
 import MerListaService from '../../Service/MerListaService';
-import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
-import ProductoService from '../../Service/ProductoService';
 import MDCategoria from '../MerListaCategoria/ModalItem';
 import MDTipoProducto from '../TipoProducto/ModalItem';
 import MDMarca from '../Marca/ModalItem';
@@ -141,7 +138,7 @@ const Save = () => {
 
   const handleSearchCategoria = async (value: string) => {
     try {
-      const responseCategoria = await sMerLista.getItemLike("M002",value);
+      const responseCategoria = await sMerLista.getItemLike("M002", value);
       setOptionsCategoria(responseCategoria);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -150,7 +147,7 @@ const Save = () => {
 
   const handleSearchTipoProducto = async (value: string) => {
     try {
-      const responseTipoProducto = await sMerLista.getItemLike("M003",value);
+      const responseTipoProducto = await sMerLista.getItemLike("M003", value);
       setOptionsTipoProducto(responseTipoProducto);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -161,7 +158,7 @@ const Save = () => {
 
   const handleSearchMarca = async (value: string) => {
     try {
-      const responseMarca = await sMerLista.getItemLike("M004",value);
+      const responseMarca = await sMerLista.getItemLike("M004", value);
       setOptionsMarca(responseMarca);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -170,7 +167,7 @@ const Save = () => {
 
   const handleSearchModelo = async (value: string) => {
     try {
-      const responseModelo = await sMerLista.getItemLike("M005",value);
+      const responseModelo = await sMerLista.getItemLike("M005", value);
       setOptionsModelo(responseModelo);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -185,7 +182,7 @@ const Save = () => {
     if (idNumero > 0) {
 
       const Resp_Producto = await sMercaderia.GetCabeceraItem(idNumero);
-
+      console.log(Resp_Producto);
       const Resp_Categoria = await sMerLista.getItem(Resp_Producto[0].CategoriaId);
       setOptionsCategoria(Resp_Categoria);
 

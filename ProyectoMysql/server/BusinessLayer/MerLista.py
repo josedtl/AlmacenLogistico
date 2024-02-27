@@ -33,3 +33,10 @@ class MerLista:
             return data
         except Exception as e:
             print(e)
+
+    def GetItem(Id : int):
+        try:
+            data = MerListaDB.GetItem(Id)
+            return data
+        except Exception as e:
+            print(e)
