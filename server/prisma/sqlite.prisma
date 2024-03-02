@@ -1,0 +1,246 @@
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+    // relationMode = "prisma"
+}
+
+model DatoEntidad {
+  DatoId          Int            @id @default(autoincrement())
+  Entidad         Entidad        @relation(fields: [EntidadId], references: [EntidadId])
+  EntidadId       Int
+  valor           String      
+  CampoEntidad    CampoEntidad   @relation(fields: [CampoId], references: [CampoId])
+  CampoId         Int
+  ListaRelacion   ListaRelacion? @relation(fields: [ListaRelacionId], references: [ListaRelacionId])
+  ListaRelacionId Int?
+
+  @@map("DatoEntidad")
+}
+
+model CampoEntidad {
+  CampoId     Int           @id @default(autoincrement())
+  Campo       String        
+  Dato        DatoEntidad[]
+  TypeValor   TypeValor     @relation(fields: [TypeValorId], references: [TypeValorId])
+  TypeValorId Int
+
+  @@map("Campo")
+}
+
+model Entidad {
+  EntidadId                   Int                          @id @default(autoincrement())
+  EsEmpresa                   Boolean                      @default(false)
+  TipoDocumentoIdentidadModel TipoDocumentoIdentidadModel? @relation(fields: [TipoDocumentoIdentidadId], references: [TipoDocumentoIdentidadId])
+  TipoDocumentoIdentidadId    Int?
+  NumDocumento                String                      
+  NombreCompleto              String                       
+  FechaRegistro               DateTime                     @default(now())
+  CodUsuario                  String                    
+  DatoEntidad                 DatoEntidad[]
+  UbigeoModel                 UbigeoModel?                  @relation(fields: [UbigeoId], references: [UbigeoId])
+  UbigeoId                    Int?
+
+  @@map("Entidad")
+}
+
+model UbigeoModel {
+  UbigeoId          Int               @id
+  CodUbigeo         String            
+  DesUbigeo         String            
+  DepartamentoId    Int
+  ProvinciaId       Int
+  DistritoId        Int
+  DepartamentoModel DepartamentoModel @relation(fields: [DepartamentoId], references: [DepartamentoId])
+  ProvinciaModel    ProvinciaModel    @relation(fields: [ProvinciaId], references: [ProvinciaId])
+  DistritoModel     DistritoModel     @relation(fields: [DistritoId], references: [DistritoId])
+  Entidad           Entidad[]
+
+  @@map("catalogo_ubigeo")
+}
+
+model TipoDocumentoIdentidadModel {
+  TipoDocumentoIdentidadId Int       @id @default(autoincrement())
+  Codigo                   String    @default("") @map("Codigo") 
+  Nombre                   String    @default("") @map("Nombre") 
+  EsEmpresa                Boolean   @default(false) @map("EsEmpresa")
+  Entidad                  Entidad[]
+
+  @@map("catalogo_TipoDocumentoIdentidad")
+}
+
+model TypeValor {
+  TypeValorId  Int            @id @default(autoincrement())
+  Nombre       String         
+  CampoEntidad CampoEntidad[]
+
+  @@map("TypeValor")
+}
+
+model ListaRelacion {
+  ListaRelacionId     Int               @id @default(autoincrement())
+  TipoListaRelacionId Int
+  Nombre              String            @default("") @map("Nombre") 
+  FechaRegistro       DateTime          @default(now())
+  CodUsuario          String            @default("") @map("CodUsuario") 
+  EstadoRegistro      Boolean           @default(true)
+  DatoEntidad         DatoEntidad[]
+  TipoListaRelacion   TipoListaRelacion @relation(fields: [TipoListaRelacionId], references: [TipoListaRelacionId])
+
+  @@map("ListaRelacion")
+}
+
+model TipoListaRelacion {
+  TipoListaRelacionId Int             @id @default(autoincrement())
+  Codigo              String          @default("") @map("Codigo") 
+  Nombre              String          @default("") @map("Nombre") 
+  ListaRelacion       ListaRelacion[]
+
+  @@map("TipoListaRelacion")
+}
+
+model OrdenPedidoModel {
+  OrdenPedidoId           Int       @id @default(autoincrement())
+  ProcesoId               Int
+  TipoProcesoId           Int
+  EstadoProcesoId         Int
+  Codigo                  String    @default("") @map("Codigo")
+  ResponsableId           Int?
+  NumDocumentoResponsable String?
+  NomResponsable          String?
+  FechaEmision            DateTime
+  BloqueoEdicionOtros     Boolean?
+  FechaRegistro           DateTime?
+  CodUsuario              String?
+  EstadoRegistro          Boolean?
+
+  @@map("transaccion_ordenpedido") // Mapea la tabla con el nombre exacto en la base de datos
+}
+
+model TransaccionOrdenPedidoDetalle {
+  OrdenPedidoDetalleId Int      @id @default(autoincrement())
+  OrdenPedidoId        Int
+  ProductoId           Int
+  UnidadMedidaId       Int
+  CantidadSolicitado   Float
+  CantidadReservado    Float?
+  CantidadFaltante     Float
+  CantidadAtendido     Float
+  Enlazado             Boolean
+  EsAtendido           Boolean
+  FechaRegistro        DateTime
+  CodUsuario           String
+  EstadoRegistro       Boolean?
+
+  @@map("transaccion_ordenpedidodetalle")
+}
+
+model ProductoModel {
+  ProductoId        Int               @id @default(autoincrement())
+  Codigo            String            
+  CategoriaId       Int
+  TipoProductoId    Int
+  MarcaId           Int
+  ModeloId          Int
+  Nombre            String            
+  Descripcion       String           
+  UnidadMedidaId    Int
+  Reserva           Float
+  Stock             Float
+  FechaRegistro     DateTime
+  CodUsuario        String            
+  EstadoRegistro    Boolean
+  CategoriaModel    CategoriaModel    @relation(fields: [CategoriaId], references: [CategoriaId])
+  TipoProductoModel TipoProductoModel @relation(fields: [TipoProductoId], references: [TipoProductoId])
+  MarcaModel        MarcaModel        @relation(fields: [MarcaId], references: [MarcaId])
+  ModeloModel       ModeloModel       @relation(fields: [ModeloId], references: [ModeloId])
+  UnidadMedidaModel UnidadMedidaModel @relation(fields: [UnidadMedidaId], references: [UnidadMedidaId])
+
+  @@map("catalogo_producto")
+}
+
+model CategoriaModel {
+  CategoriaId    Int             @id @default(autoincrement())
+  Nombre         String          
+  FechaRegistro  DateTime
+  CodUsuario     String          
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_categoria")
+}
+
+model TipoProductoModel {
+  TipoProductoId Int             @id @default(autoincrement())
+  Nombre         String          
+  FechaRegistro  DateTime
+  CodUsuario     String          
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_tipoproducto")
+}
+
+model MarcaModel {
+  MarcaId        Int             @id @default(autoincrement())
+  Nombre         String         
+  FechaRegistro  DateTime
+  CodUsuario     String          
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_marca")
+}
+
+model ModeloModel {
+  ModeloId       Int             @id @default(autoincrement())
+  Nombre         String          
+  FechaRegistro  DateTime
+  CodUsuario     String         
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_modelo")
+}
+
+model UnidadMedidaModel {
+  UnidadMedidaId  Int             @id @default(autoincrement())
+  Codigo          String          
+  CodigoComercial String          
+  Nombre          String          
+  ProductoModel   ProductoModel[]
+
+  @@map("catalogo_unidadmedida")
+}
+
+model DepartamentoModel {
+  DepartamentoId  Int              @id
+  CodDepartamento Int
+  NomDepartamento String           
+  UbigeoModel     UbigeoModel[]
+  ProvinciaModel  ProvinciaModel[]
+
+  @@map("catalogo_departamento")
+}
+
+model ProvinciaModel {
+  ProvinciaId       Int               @id
+  CodProvincia      Int
+  NomProvincia      String            
+  DepartamentoId    Int
+  UbigeoModel       UbigeoModel[]
+  DepartamentoModel DepartamentoModel @relation(fields: [DepartamentoId], references: [DepartamentoId])
+  DistritoModel     DistritoModel[]
+
+  @@map("catalogo_provincia")
+}
+
+model DistritoModel {
+  DistritoId     Int            @id
+  CodDistrito    Int
+  NomDistrito    String        
+  ProvinciaId    Int
+  UbigeoModel    UbigeoModel[]
+  ProvinciaModel ProvinciaModel @relation(fields: [ProvinciaId], references: [ProvinciaId])
+
+  @@map("catalogo_distrito")
+}

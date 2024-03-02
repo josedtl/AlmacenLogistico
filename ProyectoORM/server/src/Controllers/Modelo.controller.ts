@@ -10,7 +10,9 @@ import {
 } from '@nestjs/common';
 import { ModeloService } from '../Service/Modelo.service';
 import { ModeloEntity } from 'src/EntityLayer/ModeloEntity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Modelo')
 @Controller('api/Modelo')
 export class ModeloController {
     constructor(private readonly Services: ModeloService) { }

@@ -42,7 +42,6 @@ model CampoEntidad {
   CampoId                     Int                           @id @default(autoincrement())
   Campo                       String                        @db.VarChar(50)
   Dato                        DatoEntidad[]
-  TypeValor                   TypeValor                     @relation(fields: [TypeValorId], references: [TypeValorId])
   TypeValorId                 Int
   ConfiguracionEntidadDetalle ConfiguracionEntidadDetalle[]
 
@@ -101,13 +100,13 @@ model TipoDocumentoIdentidadModel {
   @@map("catalogo_TipoDocumentoIdentidad")
 }
 
-model TypeValor {
-  TypeValorId  Int            @id @default(autoincrement())
-  Nombre       String         @db.VarChar(40)
-  CampoEntidad CampoEntidad[]
+// model TypeValor {
+//   TypeValorId  Int            @id @default(autoincrement())
+//   Nombre       String         @db.VarChar(40)
+//   CampoEntidad CampoEntidad[]
 
-  @@map("TypeValor")
-}
+//   @@map("TypeValor")
+// }
 
 model ListaRelacion {
   ListaRelacionId     Int               @id @default(autoincrement())
@@ -277,4 +276,61 @@ model DistritoModel {
   ProvinciaModel ProvinciaModel @relation(fields: [ProvinciaId], references: [ProvinciaId])
 
   @@map("catalogo_distrito")
+}
+
+
+model TypeValor {
+  TypeValorId  Int     @id @default(autoincrement())
+  Codigo       String? @map("Codigo")
+  Nombre       String? @map("Nombre")
+  MerCampo  MerCampo[]
+  @@map("typevalor")
+}
+
+model MerCampo {
+  CampoId     Int      @id
+  Codigo      String   @map("Codigo")
+  Campo       String   @map("Campo")
+  Nombre      String   @map("Nombre")
+  TypeValorId Int      @map("TypeValorId")
+  TypeValor   TypeValor @relation(fields: [TypeValorId], references: [TypeValorId])
+  MerDato      MerDato[]
+  @@map("mer_campo")
+}
+
+model MerLista {
+  ListaId       Int       @id @default(autoincrement())
+  CampoId       Int       @map("CampoId")
+  Codigo        String    @map("Codigo") @db.VarChar(40)
+  Nombre        String    @map("Nombre") @default("") @db.VarChar(250)
+  Descripcion   String    @map("Descripcion") @db.VarChar(250)
+  FechaRegistro DateTime  @map("FechaRegistro") @default(now())
+  CodUsuario    String    @map("CodUsuario") @default("")  @db.VarChar(20)
+  EstadoRegistro Boolean  @map("EstadoRegistro") @default(true)
+  MerDato     MerDato[]
+  @@map("mer_lista")
+}
+
+model Mercaderia {
+  MercaderiaId         Int      @id @default(autoincrement())
+  TipoMercaderiaId     Int      @map("TipoMercaderiaId")
+  EstadoMercaderia     Int      @map("EstadoMercaderia")
+  UnidadMedidaControlId Int     @map("UnidadMedidaControlId")
+  Stock                Float    @map("Stock")
+  Reserva              Float    @map("Reserva")
+
+  @@map("mercaderia")
+}
+
+model MerDato {
+  DatoId       Int      @id @default(autoincrement())
+  MercaderiaId Int      @map("MercaderiaId")
+  CampoId      Int      @map("CampoId")
+  AlfaNumerico String?  @map("AlfaNumerico") @db.VarChar(250)
+  FechaValor   DateTime?   @map("FechaValor") 
+  ListaId      Int?     @map("ListaId")
+  MerCampo     MerCampo @relation(fields: [CampoId], references: [CampoId])
+  MerLista     MerLista? @relation(fields: [ListaId], references: [ListaId])
+
+  @@map("mer_dato")
 }

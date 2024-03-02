@@ -12,7 +12,9 @@ import { EntidadEmpresaService } from '../Service/EntidadEmpresa.service';
 import { Entidad } from '@prisma/client';
 import { EntidadEntity } from '../EntityLayer/EntidadEntity';
 import { EntidadEmpresaEntity } from 'src/EntityLayer/EntidadEmpresaEntity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('EntidadEmpresa')
 @Controller('api/EntidadEmpresa')
 export class EntidadEmpresaController {
   constructor(private readonly EntidadService: EntidadEmpresaService) { }
