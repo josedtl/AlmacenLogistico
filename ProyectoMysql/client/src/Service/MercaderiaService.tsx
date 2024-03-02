@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { MercaderiaMainModel, MercaderiaSaveModel } from '../Models/MercaderiaEntity';
+import { MercaderiaItemCategoriaModel, MercaderiaItemOPModel, MercaderiaMainModel, MercaderiaSaveModel } from '../Models/MercaderiaEntity';
+import { EntidadLikeModel } from '../Models/EntidadLikeModel';
 
 const URL = import.meta.env.VITE_SOME_KEY;
 class MercaderiaService {
@@ -56,7 +57,39 @@ class MercaderiaService {
     }
   }
 
-  
+  async getItemCategoriaLike(codigo: string, value: number): Promise<MercaderiaItemOPModel[]> {
+    try {
+
+      const EntLike = new EntidadLikeModel();
+      EntLike.Valor1 = codigo;
+      EntLike.ValorInt1 = value;
+      console.log(EntLike);
+      const response = await axios.post(`${URL}/api/Mercaderia/GetMercaderiaLikeCategoria`, EntLike, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+  async GetMercaderia_ItemOP(Id:number): Promise<MercaderiaItemOPModel[]> {
+    try {
+      const response = await axios.get(`${URL}/api/Mercaderia/GetMercaderia_ItemOP/${Id}`);
+      console.log(response.status);
+      if (response.status === 200 && response.data.Value != null) {
+        return response.data.Value;
+      }
+      return [];
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  }
 
 }
 

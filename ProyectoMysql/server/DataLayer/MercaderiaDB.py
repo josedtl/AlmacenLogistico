@@ -1,4 +1,4 @@
-from EntityLayer.MercaderiaEntity import MercaderiaItemModel, MercaderiaMainModel, MercaderiaSaveModel
+from EntityLayer.MercaderiaEntity import MercaderiaItemCategoriaModel, MercaderiaItemModel, MercaderiaItemOPModel, MercaderiaMainModel, MercaderiaSaveModel
 from EntityLayer.ProductoEntity import ProductoSaveModel
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Conexion.ErrorData import ErrorData
@@ -52,6 +52,24 @@ class MercaderiaDB:
             args = (Id,)
             resulset = DBProcedure().DBProcedureConsult("sp_Mercaderia_Item",args)
             list = [MercaderiaItemModel.Cargar(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)
+
+    def GetMercaderiaLikeCategoria(Nombre : str, CategoriaId :int):
+        try:
+            args = (Nombre, CategoriaId)
+            resulset = DBProcedure().DBProcedureConsult("sp_Mercaderia_LikeCategoriaItem",args)
+            list = [MercaderiaItemCategoriaModel.Cargar(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)
+
+    def GetMercaderia_ItemOP(Id : int):
+        try:
+            args = (Id,)
+            resulset = DBProcedure().DBProcedureConsult("sp_Mercaderia_ItemOP",args)
+            list = [MercaderiaItemOPModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)

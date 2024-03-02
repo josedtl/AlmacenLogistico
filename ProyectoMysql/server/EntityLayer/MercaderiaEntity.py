@@ -83,3 +83,39 @@ class MercaderiaItemModel:
         c.CodUsuario = _DB["CodUsuario"]
         c.EstadoRegistro = bool(_DB["EstadoRegistro"]) 
         return c
+
+
+class MercaderiaItemCategoriaModel:
+    MercaderiaId: int
+    Codigo: str
+    CategoriaId: int
+    Nombre: str
+    Descripcion: str
+    UnidadMedidaId: int
+
+    def Cargar(_DB):
+        c = MercaderiaItemCategoriaModel()
+        c.MercaderiaId = _DB["MercaderiaId"]
+        c.Codigo = _DB["Codigo"]
+        c.CategoriaId = _DB["CategoriaId"]
+        c.Nombre = _DB["Nombre"]
+        c.Descripcion = _DB["Descripcion"]
+        c.UnidadMedidaId = _DB["UnidadMedidaId"]
+        return c
+
+class MercaderiaItemOPModel:
+    MercaderiaId: int
+    Nombre: str
+    CodigoUM: str
+    Descripcion: str
+    Stock: float
+
+    def Cargar(_DB):
+        c = MercaderiaItemOPModel()
+        c.MercaderiaId = _DB["MercaderiaId"]
+        c.Nombre = _DB["Nombre"]
+        c.Descripcion = _DB["Descripcion"]
+        c.CodigoUM = _DB["CodigoUM"]
+        c.Stock = _DB["Stock"]
+        return c
+    

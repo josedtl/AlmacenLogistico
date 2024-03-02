@@ -63,3 +63,39 @@ export class MercaderiaMainModel {
         this.EstadoRegistro = false;
     }
 }
+
+
+
+export class MercaderiaItemCategoriaModel {
+    MercaderiaId: number;
+    Codigo: string;
+    CategoriaId: number;
+    Nombre: string;
+    Descripcion: string;
+    UnidadMedidaId: number;
+    constructor() {
+        this.MercaderiaId = 0;
+        this.Codigo = '';
+        this.CategoriaId = 0;
+        this.Nombre ="";
+        this.Descripcion = '';
+        this.UnidadMedidaId = 0;
+    }
+}
+
+
+
+export class MercaderiaItemOPModel {
+    MercaderiaId: number;
+    Nombre: string;
+    CodigoUM: string;
+    Descripcion: string;
+    Stock: number;
+    constructor() {
+        this.MercaderiaId = 0;
+        this.Nombre ="";
+        this.CodigoUM = '';
+        this.Descripcion = '';
+        this.Stock = 0;
+    }
+}

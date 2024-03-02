@@ -27,3 +27,16 @@ class Mercaderia:
             return data
         except Exception as e:
             print(e)    
+
+    def GetMercaderiaLikeCategoria(Nombre : str, CategoriaId :int):
+        try:
+            data =  MercaderiaDB.GetMercaderiaLikeCategoria(Nombre, CategoriaId)
+            return data
+        except Exception as e:
+            print(e)    
+    def GetMercaderia_ItemOP(Id : int):
+        try:
+            data =  MercaderiaDB.GetMercaderia_ItemOP(Id)
+            return data
+        except Exception as e:
+            print(e)    
