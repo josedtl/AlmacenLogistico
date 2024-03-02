@@ -4,7 +4,9 @@ import {
     Param,
 } from '@nestjs/common';
 import { GeneralService } from '../Service/General.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('General')
 @Controller('api/General')
 export class GeneralController {
     constructor(private readonly Services: GeneralService) { }

@@ -10,7 +10,9 @@ import {
 } from '@nestjs/common';
 import { MarcaService } from '../Service/Marca.service';
 import { MarcaEntity } from 'src/EntityLayer/MarcaEntity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Marca')
 @Controller('api/Marca')
 export class MarcaController {
     constructor(private readonly Services: MarcaService) { }

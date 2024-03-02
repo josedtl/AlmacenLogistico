@@ -10,7 +10,9 @@ import {
 } from '@nestjs/common';
 import { TipoProductoService } from '../Service/TipoProducto.service';
 import { TipoProductoEntity } from 'src/EntityLayer/TipoProductoEntity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('TipoProducto')
 @Controller('api/TipoProducto')
 export class TipoProductoController {
     constructor(private readonly Services: TipoProductoService) { }
