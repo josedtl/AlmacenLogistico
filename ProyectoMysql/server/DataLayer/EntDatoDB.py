@@ -41,3 +41,16 @@ class EntDatoDB:
         except Exception as e:
             print(e)
 
+    def GetNomCompletoItemLike( Nombre: str):
+        try:
+            args = (
+                Nombre,
+            )
+            resulset = DBProcedure().DBProcedureConsult(
+                "sp_EntDato_NomCompletoItemLike", args
+            )
+            list = [EntDatoItemLikeModel.Cargar(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)
+

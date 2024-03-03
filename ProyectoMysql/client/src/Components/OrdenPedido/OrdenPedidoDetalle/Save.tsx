@@ -16,11 +16,15 @@ import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
+import { InputStatus } from 'antd/es/_util/statusUtils';
+import { EntDatoModel } from '../../../Models/EntDatoEntity';
+import EntDatoService from '../../../Service/EntDatoService';
 function Page() {
 
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
   const sGeneral = new GeneralService();
+  const sEntDato = new EntDatoService();
   const sOrdenPedido = new OrdenPedidoService();
   const [items, setItems] = useState<OrdenPedidoDetalleEntity[]>([]);
   const [messageAdd, contextHolderAdd] = message.useMessage();
@@ -255,9 +259,22 @@ function Page() {
   } else if (Ent.ValorEstadoProceso === 3) {
     color = "blue";
   }
-
-
-
+  const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
+  const [optionsCategoria, setOptionsCategoria] = useState<EntDatoModel[]>([]);
+  const [ValCategoria, setValCategoria] = useState<InputStatus>('');
+  const handleSearchCategoria = async (value: string) => {
+    try {
+      const responseCategoria = await sEntDato.getItemLike("C016", value);
+      setOptionsCategoria(responseCategoria);
+    } catch (error) {
+      console.error('Error al buscar categorías:', error);
+    }
+  };
+  const onChangeCategoria = async (value: number) => {
+    setValCategoria('');
+    Ent.ResponsableId = value;
+    setSelectedCategoria(value)
+  };
 
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
@@ -350,6 +367,24 @@ function Page() {
               <label>Nº Documento</label>
             </Col>
             <Col span={24}>
+
+            <Select
+                status={ValCategoria}
+                showSearch
+                style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+                onSearch={handleSearchCategoria}
+                value={Ent.ResponsableId === 0 ? null : Ent.ResponsableId}
+                key={Ent.ResponsableId}
+                onChange={onChangeCategoria}
+              >
+                {optionsCategoria.map((categoria) => (
+                  <Select.Option key={categoria.EntidadId} value={categoria.EntidadId}>
+                    {categoria.Nombre}
+                  </Select.Option>
+                ))}
+              </Select>
               <Input
                 // status={ValCodigo}
                 type="text"

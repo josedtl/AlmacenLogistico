@@ -24,3 +24,10 @@ class EntDato:
             return data
         except Exception as e:
             print(e)
+
+    def GetNomCompletoItemLike( Nombre: str):
+        try:
+            data = EntDatoDB.GetNomCompletoItemLike(Nombre)
+            return data
+        except Exception as e:
+            print(e)

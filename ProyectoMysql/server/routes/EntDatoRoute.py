@@ -37,3 +37,13 @@ def GetItemLike(NDataLike: EntidadLikeModel):
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
+
+
+@EntDatoRouter.post(f"/api/{ApiName}/GetNomCompletoItemLike", tags=[ApiName])
+def GetItemLike(NDataLike: EntidadLikeModel):
+    try:
+        jsonData = EntDato.GetNomCompletoItemLike( NDataLike.Valor1)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
