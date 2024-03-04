@@ -50,7 +50,6 @@ class MerListaService {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response);
       return response.data.Value;
     } catch (error) {
       throw error;

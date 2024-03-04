@@ -28,7 +28,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         e.preventDefault();
         try {
 
-            console.log("Ejecutando");
             Ent.UnidadMedidaId = 1;
             Ent.FechaRegistro = new Date();
 
@@ -57,7 +56,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [ValCategoria, setValCategoria] = useState<InputStatus>('');
     const [ValCodigoUM, setValCodigoUM] = useState<string>('');
     const sMerLista = new MerListaService();
-     const sMercaderiaService = new MercaderiaService();
+    const sMercaderiaService = new MercaderiaService();
     selectedPRoducto;
     selectedCategoria;
     ValCategoria;
@@ -71,7 +70,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [optionsProducto, setOptionsProducto] = useState<MercaderiaItemOPModel[]>([]);
     const handleSearchCategoria = async (value: string) => {
         try {
-            const responseCategoria = await sMerLista.getItemLike("M002",value);
+            const responseCategoria = await sMerLista.getItemLike("M002", value);
             setOptionsCategoria(responseCategoria);
         } catch (error) {
             console.error('Error al buscar categorías:', error);
@@ -96,8 +95,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         try {
             Ent.ProductoId = value;
             setSelectedProducto(value)
-            console.log(Itemdata);
-
 
             const resp = await sMercaderiaService.GetMercaderia_ItemOP(value);
             setValCodigoUM(resp[0].CodigoUM);
@@ -106,7 +103,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             Ent.ProductoId = resp[0].MercaderiaId;
             Ent.CodigoUM = resp[0].CodigoUM;
 
-            console.log(Ent);
         } catch (error) {
             console.error('Error al buscar categorías:', error);
         }
@@ -123,25 +119,29 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const getItems = async () => {
         const updatedItem = props.item;
-        console.log(updatedItem);
 
-        if (updatedItem.CategoriaId > 0) {
-            const responseCategoria = await sMerLista.getItem(updatedItem.CategoriaId);
-            setOptionsCategoria(responseCategoria);
-        }
         if (updatedItem.ProductoId > 0) {
 
             const responseProducto = await sMercaderiaService.GetMercaderia_ItemOP(updatedItem.ProductoId);
+            if (responseProducto[0].CategoriaId > 0) {
+                const responseCategoria = await sMerLista.getItem(responseProducto[0].CategoriaId);
+                setOptionsCategoria(responseCategoria);
+                updatedItem.CategoriaId = responseProducto[0].CategoriaId;
+            }
+
             setOptionsProducto(responseProducto);
 
+
             setValCodigoUM(responseProducto[0].CodigoUM);
+            updatedItem.Stock = responseProducto[0].Stock;
+
         }
 
+
+
         updatedItem.Action = updatedItem.OrdenPedidoDetalleId > 0 ? ProcessActionEnum.Update : ProcessActionEnum.Add;
-        console.log(updatedItem);
         setFlaState(updatedItem.key === '');
         setEnt(updatedItem);
-        console.log(FlaState);
     }
 
 
@@ -187,7 +187,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                     <Select
                         // status={ValCategoria}
                         showSearch
-                        style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                        style={{ width: '100%', marginTop: '5px', marginBottom: '10px', wordWrap: "break-word" }}
                         defaultActiveFirstOption={false}
                         filterOption={false}
                         onSearch={handleSearchProducto}
@@ -216,6 +216,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
                                 <Space.Compact>
                                     <Input
+                                        readOnly={true}
                                         type="number"
                                         name="Stock"
                                         style={{ marginTop: '5px', marginBottom: '10px' }}
@@ -223,6 +224,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                         value={Ent.Stock === null ? "" : Ent.Stock}
                                     />
                                     <Input
+                                        readOnly={true}
                                         status={ValDato}
                                         type="text"
                                         style={{ width: '30%', marginTop: '5px', marginBottom: '10px' }}
@@ -257,6 +259,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                     />
 
                                     <Input
+                                        readOnly={true}
                                         status={ValDato}
                                         type="text"
                                         style={{ width: '30%', marginTop: '5px', marginBottom: '10px' }}

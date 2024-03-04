@@ -109,6 +109,7 @@ class MercaderiaItemOPModel:
     CodigoUM: str
     Descripcion: str
     Stock: float
+    CategoriaId : int
 
     def Cargar(_DB):
         c = MercaderiaItemOPModel()
@@ -117,5 +118,6 @@ class MercaderiaItemOPModel:
         c.Descripcion = _DB["Descripcion"]
         c.CodigoUM = _DB["CodigoUM"]
         c.Stock = _DB["Stock"]
+        c.CategoriaId = _DB["CategoriaId"]
         return c
     

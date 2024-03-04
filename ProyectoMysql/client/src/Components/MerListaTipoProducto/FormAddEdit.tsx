@@ -51,7 +51,9 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 props.addItemToState(savedItem);
             }
             props.toggle();
+            setEnt(new MerListaEntity());
         }
+
     };
     const label = EstadoRegistrochecked ? 'Registro habilitado' : 'Registro deshabilitar';
 
@@ -60,12 +62,12 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         setEstadoRegistrochecked(e.target.checked);
     };
     useEffect(() => {
+        
         const updatedPerson = props.item;
         updatedPerson.Action = updatedPerson.ListaId > 0 ? 3 : 1;
         setFlaState(updatedPerson.ListaId > 0);
         setEnt(updatedPerson);
         setEstadoRegistrochecked(updatedPerson.EstadoRegistro)
-        console.log(props.CodigoTabla)
     }, []);
 
     return (
@@ -129,7 +131,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             </Row>
             <Row style={{ height: '50px', alignContent: "flex-end", }}>
 
-                <Col span={24} style={{alignContent:"center"}}>
+                <Col span={24} style={{ alignContent: "center" }}>
 
                     <Button
                         onClick={submitFormAdd}
@@ -139,7 +141,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 </Col>
             </Row>
         </>
-   
+
     );
 }
 

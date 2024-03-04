@@ -38,7 +38,6 @@ function Page() {
     const itemIndex = items.findIndex((data) => data.key === item.key);
 
     if (itemIndex == -1) {
-      console.log(item);
       setItems([...items, item]);
       messageAdd.open({
         type: 'success',
@@ -47,7 +46,6 @@ function Page() {
 
     }
     else {
-      console.log(item);
       setItems([...items, item]);
       messageAdd.open({
         type: 'success',
@@ -66,8 +64,6 @@ function Page() {
   };
 
   const updateState = (item: OrdenPedidoDetalleEntity) => {
-    console.log(item);
-    console.log(items);
     const itemIndex = items.findIndex((data) => data.key === item.key);
     const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
     setItems(newArray);
@@ -131,11 +127,17 @@ function Page() {
           data.key = generarGuid();
           data.Action = ProcessActionEnum.Update;
         })
+        console.log(Resp_OPDetalle);
         setItems(Resp_OPDetalle)
         Ent.DetalleItems = Resp_OPDetalle
 
+
+        const Resp_Item = await sEntDato.GetNomCompletoItem(Resp_Producto[0].ResponsableId);
+        setOptionsCategoria(Resp_Item);
+
         const dateEmison = moment(Resp_Producto[0].FechaEmision).format('YYYY-MM-DD')
         setFechaEmisionItem(dateEmison);
+
       }
 
       setCargarPage(false);
@@ -174,9 +176,9 @@ function Page() {
 
   const AddProducto = async () => {
     try {
-
       Ent.DetalleItems = items;
-      console.log(Ent);
+
+   
       const savedItem = await sOrdenPedido.saveItem(Ent);
       if (savedItem) {
         setEnt(savedItem)
@@ -199,7 +201,7 @@ function Page() {
   const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-
+    selectedCategoria;
     modal.confirm({
       title: 'Mensaje del Sistema',
       icon: <ExclamationCircleOutlined />,
@@ -213,7 +215,6 @@ function Page() {
         Ent.TipoProcesoId = 1;
         Ent.ProcesoId = 1;
         Ent.EstadoProcesoId = 1;
-        Ent.ResponsableId = 0;
         Ent.FechaEmision = new Date(fecha);
         Ent.CodUsuario = "adm";
         Ent.Action = 1;
@@ -275,51 +276,98 @@ function Page() {
     Ent.ResponsableId = value;
     setSelectedCategoria(value)
   };
+  const CorrelativoDiv = () => {
+
+    if (Ent.OrdenPedidoId > 0) {
+      return (
+
+        <>
+          <Row>
+            <Col span={24}>
+              <label>Estado</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                // status={ValCodigo}
+                prefix={
+                  <CaretRightOutlined style={{ color, fontSize: '20px' }} />}
+                type="text"
+                name="NomEstadoProceso"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                // onChange={onChange}
+                readOnly={true}
+                value={Ent.NomEstadoProceso === null ? "" : Ent.NomEstadoProceso}
+              />
+            </Col>
+          </Row>
+
+          <Row>
+            <Col span={24}>
+              <label>Codigo</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                // status={ValCodigo}
+                type="text"
+                name="Codigo"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                onChange={onChange}
+                readOnly={true}
+                value={Ent.Codigo === null ? "" : Ent.Codigo}
+              />
+            </Col>
+          </Row>
+        </>
+      )
+    }
+  }
 
 
   const FechaUsuario = () => {
     if (Ent.OrdenPedidoId > 0) {
       return (
-             
+
         <Row>
-        <Col span={12}>
+          <Col span={12}>
 
-          <Row>
-            <Col span={24}>
-              <label>Fecha Registro</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                type="string"
-                name="FechaRegistro"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
-              />
-            </Col>
-          </Row>
-
-
-        </Col>
-        <Col span={12}>
+            <Row>
+              <Col span={24}>
+                <label>Fecha Registro</label>
+              </Col>
+              <Col span={24}>
+                <Input
+                  type="string"
+                  name="FechaRegistro"
+                  style={{ marginTop: '5px', marginBottom: '10px' }}
+                  readOnly={true}
+                  value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
+                />
+              </Col>
+            </Row>
 
 
-          <Row>
-            <Col span={24}>
-              <label>Usuario</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                type="string"
-                name="Stock"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                value={Ent.CodUsuario}
-              />
-            </Col>
-          </Row>
+          </Col>
+          <Col span={12}>
 
 
-        </Col>
-      </Row>
+            <Row>
+              <Col span={24}>
+                <label>Usuario</label>
+              </Col>
+              <Col span={24}>
+                <Input
+                  type="string"
+                  name="Stock"
+                  style={{ marginTop: '5px', marginBottom: '10px' }}
+                  readOnly={true}
+                  value={Ent.CodUsuario}
+                />
+              </Col>
+            </Row>
+
+
+          </Col>
+        </Row>
       )
     }
 
@@ -350,42 +398,7 @@ function Page() {
         <Col xs={24} sm={10} md={8} lg={7} xl={6}>
 
 
-          <Row>
-            <Col span={24}>
-              <label>Estado</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                // status={ValCodigo}
-                prefix={
-
-
-                  <CaretRightOutlined style={{ color, fontSize: '20px' }} />}
-                type="text"
-                name="NomEstadoProceso"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                // onChange={onChange}
-                value={Ent.NomEstadoProceso === null ? "" : Ent.NomEstadoProceso}
-              />
-            </Col>
-          </Row>
-
-          <Row>
-            <Col span={24}>
-              <label>Codigo</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                // status={ValCodigo}
-                type="text"
-                name="Codigo"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                onChange={onChange}
-                value={Ent.Codigo === null ? "" : Ent.Codigo}
-              />
-            </Col>
-          </Row>
-
+          {CorrelativoDiv()}
 
 
           <Row>
@@ -459,7 +472,7 @@ function Page() {
 
 
 
-        {FechaUsuario()}
+          {FechaUsuario()}
 
         </Col>
 

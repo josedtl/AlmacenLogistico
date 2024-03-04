@@ -91,11 +91,13 @@ export class MercaderiaItemOPModel {
     CodigoUM: string;
     Descripcion: string;
     Stock: number;
+    CategoriaId : number
     constructor() {
         this.MercaderiaId = 0;
         this.Nombre ="";
         this.CodigoUM = '';
         this.Descripcion = '';
         this.Stock = 0;
+        this.CategoriaId = 0;
     }
 }

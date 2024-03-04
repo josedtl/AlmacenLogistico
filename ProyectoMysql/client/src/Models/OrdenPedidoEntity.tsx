@@ -18,7 +18,7 @@ export class OrdenPedidoEntity {
     EstadoRegistro: boolean
     Action: ProcessActionEnum
     NomEstadoProceso: string
-    DetalleItems: Array<OrdenPedidoDetalleEntity>
+    DetalleItems:  OrdenPedidoDetalleEntity[]
     color: string
     ValorEstadoProceso: number
     NomTipoProceso: string

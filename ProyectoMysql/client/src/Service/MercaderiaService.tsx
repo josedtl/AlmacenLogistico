@@ -10,7 +10,6 @@ class MercaderiaService {
   async getItems(): Promise<MercaderiaMainModel[]> {
     try {
       const response = await axios.get(`${URL}/api/Mercaderia/GetMainItems`);
-      console.log(response.status);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }
@@ -46,7 +45,6 @@ class MercaderiaService {
   async GetCabeceraItem(Id:number): Promise<MercaderiaSaveModel[]> {
     try {
       const response = await axios.get(`${URL}/api/Mercaderia/GetCabeceraItem/${Id}`);
-      console.log(response.status);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }
@@ -63,13 +61,11 @@ class MercaderiaService {
       const EntLike = new EntidadLikeModel();
       EntLike.Valor1 = codigo;
       EntLike.ValorInt1 = value;
-      console.log(EntLike);
       const response = await axios.post(`${URL}/api/Mercaderia/GetMercaderiaLikeCategoria`, EntLike, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response);
       return response.data.Value;
     } catch (error) {
       throw error;
@@ -80,7 +76,6 @@ class MercaderiaService {
   async GetMercaderia_ItemOP(Id:number): Promise<MercaderiaItemOPModel[]> {
     try {
       const response = await axios.get(`${URL}/api/Mercaderia/GetMercaderia_ItemOP/${Id}`);
-      console.log(response.status);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }

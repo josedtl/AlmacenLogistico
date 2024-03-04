@@ -39,6 +39,20 @@ class EntDatoService {
     }
   }
 
+  async GetNomCompletoItem(value: number): Promise<EntDatoModel[]> {
+    try {
+      const EntLike = new EntidadLikeModel();
+      EntLike.ValorInt1 = value;
+      const response = await apiLg.post(`api/EntDato/GetNomCompletoItem`, EntLike, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
 
 }
 

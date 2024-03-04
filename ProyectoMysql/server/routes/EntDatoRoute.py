@@ -8,27 +8,6 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
 EntDatoRouter = APIRouter()
 ApiName = "EntDato"
 
-
-# @EntListaRouter.get(f"/api/{ApiName}/GetItems/{{Codigo}}", tags=[ApiName])
-# def GetItems(Codigo: str):
-#     try:
-#         jsonData = EntLista.GetItems(Codigo)
-#         return jsonable_encoder(ResponseAPI.Response(jsonData))
-#     except Exception as e:
-#         print(e)
-#         return jsonable_encoder(ResponseAPIError.Error())
-
-
-# @EntListaRouter.get(f"/api/{ApiName}/GetItem/{{Id}}", tags=[ApiName])
-# def GetItem(Id: int):
-#     try:
-#         jsonData = EntLista.GetItem(Id)
-#         return jsonable_encoder(ResponseAPI.Response(jsonData))
-#     except Exception as e:
-#         print(e)
-#         return jsonable_encoder(ResponseAPIError.Error())
-
-
 @EntDatoRouter.post(f"/api/{ApiName}/GetItemLike", tags=[ApiName])
 def GetItemLike(NDataLike: EntidadLikeModel):
     try:
@@ -40,9 +19,18 @@ def GetItemLike(NDataLike: EntidadLikeModel):
 
 
 @EntDatoRouter.post(f"/api/{ApiName}/GetNomCompletoItemLike", tags=[ApiName])
-def GetItemLike(NDataLike: EntidadLikeModel):
+def GetNomCompletoItemLike(NDataLike: EntidadLikeModel):
     try:
         jsonData = EntDato.GetNomCompletoItemLike( NDataLike.Valor1)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+@EntDatoRouter.post(f"/api/{ApiName}/GetNomCompletoItem", tags=[ApiName])
+def GetNomCompletoItem(NDataLike: EntidadLikeModel):
+    try:
+        jsonData = EntDato.GetNomCompletoItem(NDataLike.ValorInt1)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)

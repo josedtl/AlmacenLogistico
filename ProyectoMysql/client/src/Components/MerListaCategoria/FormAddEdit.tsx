@@ -51,6 +51,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 props.addItemToState(savedItem);
             }
             props.toggle();
+            setEnt(new MerListaEntity());
         }
     };
     const label = EstadoRegistrochecked ? 'Registro habilitado' : 'Registro deshabilitar';

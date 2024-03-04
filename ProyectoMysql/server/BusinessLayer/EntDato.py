@@ -1,33 +1,26 @@
 from DataLayer.EntDatoDB import *
-from Utilidades.Conexion.configMysql import StartTransaction,EndTransaction
+from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction
 
 
 class EntDato:
 
-    # def GetItems(Codigo: str):
-    #     try:
-    #         data = EntListaDB.GetItems(Codigo)
-    #         return data
-    #     except Exception as e:
-    #         print(e)
-    
-    # def GetItem(Id: int):
-    #     try:
-    #         data = EntListaDB.GetItem(Id)
-    #         return data
-    #     except Exception as e:
-    #         print(e)
-    
     def GetItemLike(Codigo: str, Nombre: str):
         try:
-            data = EntDatoDB.GetItemLike(Codigo,Nombre)
+            data = EntDatoDB.GetItemLike(Codigo, Nombre)
             return data
         except Exception as e:
             print(e)
 
-    def GetNomCompletoItemLike( Nombre: str):
+    def GetNomCompletoItemLike(Nombre: str):
         try:
             data = EntDatoDB.GetNomCompletoItemLike(Nombre)
+            return data
+        except Exception as e:
+            print(e)
+
+    def GetNomCompletoItem(EntidadId: int):
+        try:
+            data = EntDatoDB.GetNomCompletoItem(EntidadId)
             return data
         except Exception as e:
             print(e)

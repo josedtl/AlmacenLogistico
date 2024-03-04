@@ -12,12 +12,14 @@ import { ButtonAddMain } from '../../Styles/Button'
 import { MerListaEntity } from '../../Models/MerListaEntity';
 import MercaderiaService from '../../Service/MercaderiaService';
 import { MercaderiaSaveModel } from '../../Models/MercaderiaEntity';
-
+import GeneralService from '../../Service/GeneralService';
+import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
   const sMerLista = new MerListaService();
   const sMercaderia = new MercaderiaService();
+  const sGeneralService = new GeneralService();
   const initialProducto = new MercaderiaSaveModel();
   const [Ent, setEnt] = useState<MercaderiaSaveModel>(initialProducto);
   const { Title } = Typography;
@@ -130,7 +132,7 @@ const Save = () => {
   const [optionsTipoProducto, setOptionsTipoProducto] = useState<MerListaEntity[]>([]);
   const [optionsMarca, setOptionsMarca] = useState<MerListaEntity[]>([]);
   const [optionsModelo, setOptionsModelo] = useState<MerListaEntity[]>([]);
-  const [optionsUM, setOptionsUM] = useState<MerListaEntity[]>([]);
+  const [optionsUM, setOptionsUM] = useState<UnidadMedidaEntity[]>([]);
 
   const handleSearchCategoria = async (value: string) => {
     try {
@@ -375,7 +377,7 @@ const Save = () => {
     async function cargarItem() {
 
       setCargarPage(true);
-      const Resp_UM = await sMerLista.getItems("M0011");
+      const Resp_UM = await sGeneralService.GetUnidadMedidaItems();
       setOptionsUM(Resp_UM);
       await getCargarDatos();
     }
@@ -612,7 +614,7 @@ const Save = () => {
                 onChange={onChangeUM}
               >
                 {optionsUM.map((UM) => (
-                  <Select.Option key={UM.ListaId} value={UM.ListaId}>
+                  <Select.Option key={UM.UnidadMedidaId} value={UM.UnidadMedidaId}>
                     {UM.Nombre}
                   </Select.Option>
                 ))}
