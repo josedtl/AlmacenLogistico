@@ -275,7 +275,7 @@ const Save = () => {
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const AddProducto = async () => {
 
-    Ent.Stock = 0 ;
+    Ent.Stock = 0;
     Ent.Reserva = 0;
     Ent.Action = Ent.MercaderiaId == 0 ? 1 : 3;
     console.log("HOLA");
@@ -452,8 +452,8 @@ const Save = () => {
               <MDCategoria buttonLabel="Enlace"
                 addItemToState={addItemToStateCategoria}
                 item={new MerListaEntity()}
-                CodigoTabla={'M002'} 
-                title={"Categoria"}/>
+                CodigoTabla={'M002'}
+                title={"Categoria"} />
             </Col>
           </Row>
 
@@ -484,9 +484,9 @@ const Save = () => {
               </Select>
               <MDTipoProducto buttonLabel="Enlace"
                 addItemToState={addItemToStateTipoProducto}
-                item={new MerListaEntity()} 
+                item={new MerListaEntity()}
                 CodigoTabla={'M003'}
-                title={"Tipo Producto"}/>
+                title={"Tipo Producto"} />
 
 
 
@@ -555,7 +555,7 @@ const Save = () => {
               <MDModelo buttonLabel="Enlace"
                 addItemToState={addItemToStateModelo}
                 item={new MerListaEntity()}
-                CodigoTabla={'M005'} 
+                CodigoTabla={'M005'}
                 title={"Modelo"} />
 
 

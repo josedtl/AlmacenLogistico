@@ -264,7 +264,7 @@ function Page() {
   const [ValCategoria, setValCategoria] = useState<InputStatus>('');
   const handleSearchCategoria = async (value: string) => {
     try {
-      const responseCategoria = await sEntDato.getItemLike("C016", value);
+      const responseCategoria = await sEntDato.GetNomCompletoItemLike(value);
       setOptionsCategoria(responseCategoria);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
@@ -275,6 +275,55 @@ function Page() {
     Ent.ResponsableId = value;
     setSelectedCategoria(value)
   };
+
+
+  const FechaUsuario = () => {
+    if (Ent.OrdenPedidoId > 0) {
+      return (
+             
+        <Row>
+        <Col span={12}>
+
+          <Row>
+            <Col span={24}>
+              <label>Fecha Registro</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                type="string"
+                name="FechaRegistro"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
+              />
+            </Col>
+          </Row>
+
+
+        </Col>
+        <Col span={12}>
+
+
+          <Row>
+            <Col span={24}>
+              <label>Usuario</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                type="string"
+                name="Stock"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                value={Ent.CodUsuario}
+              />
+            </Col>
+          </Row>
+
+
+        </Col>
+      </Row>
+      )
+    }
+
+  }
 
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
@@ -336,6 +385,9 @@ function Page() {
               />
             </Col>
           </Row>
+
+
+
           <Row>
             <Col span={24}>
               <label>Tipo Requerimiento</label>
@@ -364,11 +416,11 @@ function Page() {
 
           <Row>
             <Col span={24}>
-              <label>Nº Documento</label>
+              <label>Responsable</label>
             </Col>
             <Col span={24}>
 
-            <Select
+              <Select
                 status={ValCategoria}
                 showSearch
                 style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
@@ -385,29 +437,7 @@ function Page() {
                   </Select.Option>
                 ))}
               </Select>
-              <Input
-                // status={ValCodigo}
-                type="text"
-                name="NumDocumentoResponsable"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                onChange={onChange}
-                value={Ent.NumDocumentoResponsable === null ? "" : Ent.NumDocumentoResponsable}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={24}>
-              <label>Responsable</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                // status={ValCodigo}
-                type="text"
-                name="NomResponsable"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                onChange={onChange}
-                value={Ent.NomResponsable === null ? "" : Ent.NomResponsable}
-              />
+
             </Col>
           </Row>
 
@@ -429,22 +459,12 @@ function Page() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+        {FechaUsuario()}
 
         </Col>
 
         <Col xs={24} sm={14} md={16} lg={17} xl={18}>
-  
+
           <Tabs
             tabBarExtraContent={operations}
             style={{ marginLeft: '20px' }}
