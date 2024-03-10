@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from BusinessLayer.Producto import *
 from BusinessLayer.PersonaNatural import *
 from BusinessLayer.Empresa import *
+from BusinessLayer.Ubigeo import Ubigeo
 from EntityLayer.EmpresaEntity import *
 from fastapi.encoders import jsonable_encoder
 from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
@@ -38,3 +39,20 @@ def GetEmpresaBuscaDocumento(NumDocumento: str):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
     
+@GeneralRouter.post(f"/api/{ApiName}/GetUbigeoItemLike", tags=[ApiName])
+def GetUbigeoItemLike(NDataLike: EntidadLikeModel):
+    try:
+        jsonData = Ubigeo.GetItemLike(NDataLike.Valor1)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+    
+@GeneralRouter.get(f"/api/{ApiName}/GetUbigeoItem/{{value}}/", tags=[ApiName])
+def GetUbigeoItem(value: int):
+    try:
+        jsonData = Ubigeo.GetItem(value)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())

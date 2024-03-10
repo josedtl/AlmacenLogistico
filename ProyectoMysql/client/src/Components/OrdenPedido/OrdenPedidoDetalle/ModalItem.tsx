@@ -58,14 +58,16 @@ const ModalItem: React.FC<PropsModel> = (props) => {
   } else {
     button = (
 
-      <Button
+      <Button  
         onClick={toggle}
         style={ButtonAddMain}
         size={SizeButtonPrimary}
         icon={<PlusOutlined />}
-      />
+      >
+        Agregar
+      </Button>
     );
-    title = "Agregar OrdenPedidoDetalle d";
+    title = "Producto";
   }
 
   return (

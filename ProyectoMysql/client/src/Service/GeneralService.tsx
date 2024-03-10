@@ -12,6 +12,7 @@ import { apiLg } from './axios-config';
 import { ProductoEntity } from '../Models/ProductoEntity';
 import { EstadoProcesoEntity, TipoProcesoEntity } from '../Models/GeneralEntity';
 import { EmpresaEntity } from '../Models/EmpresaEntity';
+import { EntidadLikeModel } from '../Models/EntidadLikeModel';
 
 class GeneralService {
 
@@ -359,6 +360,31 @@ class GeneralService {
     }
   }
 
+
+  async GetUbigeoItemLikeApi(codigo: string): Promise<UbigeoEntity[]> {
+    try {
+
+      const EntLike = new EntidadLikeModel();
+      EntLike.Valor1 = codigo;
+      const response = await apiLg.post(`api/General/GetUbigeoItemLike`, EntLike, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async GetUbigeoItemApi(Value: number): Promise<UbigeoEntity[]> {
+    try {
+      const response = await apiLg.get(`api/General/GetUbigeoItem/${Value}/`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
 
 }
 

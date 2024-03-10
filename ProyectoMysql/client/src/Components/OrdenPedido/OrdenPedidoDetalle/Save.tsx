@@ -204,7 +204,7 @@ function Page() {
 
   const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
+    KeyTabs;
     selectedCategoria;
     modal.confirm({
       title: 'Mensaje del Sistema',
@@ -314,7 +314,7 @@ function Page() {
                 // status={ValCodigo}
                 type="text"
                 name="Codigo"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
+                style={{ marginTop: '5px', marginBottom: '10px',background:'Silver' }}
                 onChange={onChange}
                 readOnly={true}
                 value={Ent.Codigo === null ? "" : Ent.Codigo}
@@ -394,7 +394,9 @@ function Page() {
             onClick={Guardar_Total}
             size={"large"}
             icon={IconSave}
-          />
+          >
+            Guardar
+          </Button>
 
         </Col>
       </Row>
@@ -486,7 +488,7 @@ function Page() {
             tabBarExtraContent={operations}
             style={{ marginLeft: '20px' }}
             key={'TabGeneral'}
-            type="line"
+            type="card"
 
             items={new Array(1).fill(null).map((_, i) => {
               i;
@@ -494,7 +496,7 @@ function Page() {
                 label: (
                   < >
                     <Title style={{ fontSize: '18px' }}>
-                      Producto- Detalle
+                      Productos
                     </Title>
                   </>
                 ),

@@ -13,10 +13,13 @@ import dayjs from 'dayjs';
 import { ProcessActionEnum } from '../../Lib/ResourceModel/Enum'
 import EntListaService from '../../Service/EntListaService';
 import { EntListaModel } from '../../Models/EntListaEntity';
+import GeneralService from '../../Service/GeneralService';
+import { UbigeoEntity } from '../../Models/UbigeoEntity';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
   const sEntLista = new EntListaService();
+  const sGeneralService = new GeneralService();
   const sPersonaNatural = new PersonaNaturalService();
   const initialPersonaNatural = new PersonaNaturalEntity();
   const [Ent, setEnt] = useState<PersonaNaturalEntity>(initialPersonaNatural);
@@ -32,12 +35,12 @@ const Save = () => {
   const [optionsTipoDocumentoIdentidad, setOptionsTipoDocumentoIdentidad] = useState<EntListaModel[]>([]);
   const [optionsSexo, setOptionsSexo] = useState<EntListaModel[]>([]);
   const [optionsEstadoCivil, setOptionsEstadoCivil] = useState<EntListaModel[]>([]);
-  const [optionsUbigeo, setOptionsUbigeo] = useState<EntListaModel[]>([]);
+  const [optionsUbigeo, setOptionsUbigeo] = useState<UbigeoEntity[]>([]);
 
 
   const handleSearchUbigeo = async (value: string) => {
     try {
-      const response = await sEntLista.getItemLike('C014', value);
+      const response = await sGeneralService.GetUbigeoItemLikeApi(value);
       setOptionsUbigeo(response);
     } catch (error) {
       console.error('Error al buscar Ubigeo:', error);
@@ -233,7 +236,7 @@ const Save = () => {
 
 
       if (Resp_PersonaNatural[0].UbigeoId != null) {
-        const Resp_Ubigeo = await sEntLista.getItem(Resp_PersonaNatural[0].UbigeoId);
+        const Resp_Ubigeo = await sGeneralService.GetUbigeoItemApi(Resp_PersonaNatural[0].UbigeoId);
         setOptionsUbigeo(Resp_Ubigeo);
       }
 
@@ -542,8 +545,8 @@ const Save = () => {
                 onChange={onChangeUbigeo}
               >
                 {optionsUbigeo.map((row) => (
-                  <Select.Option className="custom-option" key={row.ListaId} value={row.ListaId}>
-                    {row.Nombre}
+                  <Select.Option className="custom-option" key={row.UbigeoId} value={row.UbigeoId}>
+                    {row.DesUbigeo}
                   </Select.Option>
                 ))}
               </Select>

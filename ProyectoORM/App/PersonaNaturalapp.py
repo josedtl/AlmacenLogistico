@@ -21,17 +21,14 @@ try:
         # Obtener los resultados de la consulta
         resultados = cursor.fetchall()
 
-        url = "http://localhost:5001/api/Entidad/Save"
+        url = "http://localhost:9085/api/PersonaNatural/Save"
         # Mostrar los resultados
         for fila in resultados:
             data = {
-                "EntidadId": 0,
-                "TipoEntidadId": 1,
+                "PersonaNaturalId": 0,
                 "TipoDocumentoIdentidadId": 1,
                 "NumDocumento": fila["NumDocumento"],
-                "FechaRegistro": "2023-12-04T00:56:41.000Z",
-                "CodUsuario": "adm",
-                "UbigeoId": 793,
+                "UbigeoId": 222,
                 "Nombres": fila["Nombres"],
                 "ApellidoPaterno": fila["ApellidoPaterno"],
                 "ApellidoMaterno": fila["ApellidoMaterno"],
@@ -40,8 +37,11 @@ try:
                 "Telefono": fila["Telefono"],
                 "Correo": fila["Correo"],
                 "SexoId": 1,
-                "EstadoCivilId":3,
-         
+                "EstadoCivilId": 3,
+                "FechaRegistro": "2024-03-10T06:29:15.119Z",
+                "CodUsuario": "ADM",
+                "EstadoRegistro": 1,
+                "Action": 1,
             }
             response = requests.post(url, json=data)
             if response.status_code == 200:

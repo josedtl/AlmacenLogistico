@@ -51,16 +51,9 @@ class EmpresaItemModel:
     def MainCargar(_DB):
         c =  EmpresaItemModel()
         c.EmpresaId = _DB["EmpresaId"] 
-        c.TipoDocumentoIdentidadId = _DB["TipoDocumentoIdentidadId"] 
-        c.NumeroDocumento = _DB["NumeroDocumento"] 
-        c.RazonSocial = _DB["RazonSocial"] 
-        c.NombreComercial = _DB["NombreComercial"] 
-        c.UbigeoId = _DB["UbigeoId"] 
-        c.Direccion = _DB["Direccion"] 
-        c.Telefono = _DB["Telefono"] 
-        c.Correo = _DB["Correo"] 
+        c.NumeroDocumento = _DB["NumDocumento"] 
+        c.NomDocumento = _DB["NomDocumento"] 
+        c.RazonSocial = _DB["Nombres"] 
         c.FechaRegistro = _DB["FechaRegistro"] 
         c.CodUsuario = _DB["CodUsuario"] 
-        c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 
-        c.NomDocumento = _DB["NomDocumento"] 
         return c

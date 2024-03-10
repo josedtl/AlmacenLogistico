@@ -48,14 +48,14 @@ const DataTable: React.FC<PropsTable> = (props) => {
             title: 'Codigo',
             dataIndex: 'Codigo',
             key: 'Codigo',
-            width: 180
+            width: 110
         },
         {
             title: 'Tipo',
-            
+
             dataIndex: 'NomTipoProceso',
             key: 'NomTipoProceso',
-            width: 180
+            width: 90
         },
         {
             title: 'Documento',
@@ -66,6 +66,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
         {
             title: 'Responsable',
             dataIndex: 'NomResponsable',
+            width: '250px',
             key: 'NomResponsable',
         },
         {
@@ -102,8 +103,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
                             size={size}
                             icon={<EditFilled />}
                         >
-
-
+                          
                         </Button>
                     </Link>
 
@@ -133,8 +133,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
                         {dataWithKeys.map(row => (
 
                             <Col key={row.Cont} xs={24} md={12} lg={8} xl={6} xxl={4}>
-                                <Card hoverable={true}
-
+                                <Card hoverable={true} title={row.Cont + ".  " + row.Codigo}
                                     style={{ marginTop: '10Px', }}
                                     actions={[
                                         <Link to={`/OrdenPedidoSave/${row.OrdenPedidoId}`}>
@@ -144,7 +143,9 @@ const DataTable: React.FC<PropsTable> = (props) => {
                                         </Link>
                                     ]}
                                     bordered={false}>
-                                    {row.Cont + ".  "}   {row.Nombre}
+                                    <p> {row.NomEstadoProceso}</p>
+                                    <p>{row.NomResponsable}</p>
+
                                 </Card>
 
                             </Col>
