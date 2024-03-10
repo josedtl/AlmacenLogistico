@@ -32,6 +32,7 @@ function Page() {
   const [disabled] = useState(false);
   const { Title } = Typography;
   const [Ent, setEnt] = useState<OrdenPedidoEntity>(new OrdenPedidoEntity());
+  const [KeyTabs, setKeyTabs] = useState<String>('');
   const [FechaEmisionItem, setFechaEmisionItem] = useState<string>(moment(Ent.FechaEmision).format('DD/MM/YYYY hh:mm'));
   const addItemToState = (item: OrdenPedidoDetalleEntity) => {
 
@@ -102,6 +103,7 @@ function Page() {
 
 
   useEffect(() => {
+    setKeyTabs(generarGuid());
     const dateEmison = moment(new Date()).format('YYYY-MM-DD')
     setFechaEmisionItem(dateEmison);
     getCargarDatos(idNumero);
@@ -126,6 +128,7 @@ function Page() {
         Resp_OPDetalle.map((data) => {
           data.key = generarGuid();
           data.Action = ProcessActionEnum.Update;
+
         })
         console.log(Resp_OPDetalle);
         setItems(Resp_OPDetalle)
@@ -163,7 +166,8 @@ function Page() {
 
 
   };
-  const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
+  // item={new OrdenPedidoDetalleEntity()}
+  const operations = <ModalItem buttonLabel="" addItemToState={addItemToState}   item={new OrdenPedidoDetalleEntity()}/>
     ;
 
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
@@ -481,6 +485,7 @@ function Page() {
           <Tabs
             tabBarExtraContent={operations}
             style={{ marginLeft: '20px' }}
+            key={'TabGeneral'}
             type="line"
 
             items={new Array(1).fill(null).map((_, i) => {
@@ -493,7 +498,7 @@ function Page() {
                     </Title>
                   </>
                 ),
-                key: 'ddsdsd',
+                key: '1',
                 children:
                   <span>
 

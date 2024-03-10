@@ -27,10 +27,10 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         try {
-
+            // Ent.CantidadSolicitado = 1;
             Ent.UnidadMedidaId = 1;
             Ent.FechaRegistro = new Date();
-
+            console.log(Ent);
             if (Ent.key === '') {
                 Ent.key = generarGuid();
                 props.addItemToState(Ent);
@@ -38,7 +38,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             else {
                 props.updateState(Ent);
             }
-            // setEnt(new OrdenPedidoDetalleEntity());
+            setEnt(new OrdenPedidoDetalleEntity());
             props.toggle();
         } catch (e) {
             console.log(e);
@@ -87,6 +87,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         try {
             const responseProducto = await sMercaderiaService.getItemCategoriaLike(value, Ent.CategoriaId);
             setOptionsProducto(responseProducto);
+        
         } catch (error) {
             console.error('Error al buscar categorías:', error);
         }
@@ -103,6 +104,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             Ent.ProductoId = resp[0].MercaderiaId;
             Ent.CodigoUM = resp[0].CodigoUM;
 
+            console.log(resp);
+
         } catch (error) {
             console.error('Error al buscar categorías:', error);
         }
@@ -112,12 +115,13 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     };
     useEffect(() => {
-
+        console.log(props.item);
         getItems();
     }, []);
 
 
     const getItems = async () => {
+    
         const updatedItem = props.item;
 
         if (updatedItem.ProductoId > 0) {
@@ -127,13 +131,19 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 const responseCategoria = await sMerLista.getItem(responseProducto[0].CategoriaId);
                 setOptionsCategoria(responseCategoria);
                 updatedItem.CategoriaId = responseProducto[0].CategoriaId;
+                setOptionsProducto(responseProducto);
+
+                console.log(responseProducto);
+                setValCodigoUM(responseProducto[0].CodigoUM);
+                updatedItem.Stock = responseProducto[0].Stock;
+            } else {
+                setOptionsCategoria([]);
+                setOptionsProducto([]);
+                setValCodigoUM("");
+                updatedItem.Stock = 0;
             }
 
-            setOptionsProducto(responseProducto);
 
-
-            setValCodigoUM(responseProducto[0].CodigoUM);
-            updatedItem.Stock = responseProducto[0].Stock;
 
         }
 
@@ -221,7 +231,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                         name="Stock"
                                         style={{ marginTop: '5px', marginBottom: '10px' }}
                                         // onChange={onChangeText}
-                                        value={Ent.Stock === null ? "" : Ent.Stock}
+                                        value={Ent.Stock === null ? 0 : Ent.Stock}
                                     />
                                     <Input
                                         readOnly={true}
@@ -255,7 +265,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                         name="CantidadSolicitado"
                                         style={{ width: '70%', marginTop: '5px', marginBottom: '10px' }}
                                         onChange={onChange}
-                                        value={Ent.CantidadSolicitado === null ? "" : Ent.CantidadSolicitado}
+                                        value={Ent.CantidadSolicitado === null ? 0 : Ent.CantidadSolicitado}
                                     />
 
                                     <Input

@@ -84,11 +84,19 @@ const DataTable: React.FC<PropsTable> = (props) => {
         },
 
     ];
+    function generarGuid(): string {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
 
     const dataWithKeys = props.DataList.sort((a, b) => b.OrdenPedidoDetalleId - a.OrdenPedidoDetalleId).map((item, zIndex) => {
         return {
             ...item,
-            // key: item.Cont,
+            key: zIndex,
             Cont: (zIndex + 1),
             // Guid :generarGuid(),
         };
@@ -136,7 +144,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
                                             onClick={() => deleteItem(row.OrdenPedidoDetalleId)}
                                             key="setting" />,
                                         <ModalItem
-                                            buttonLabel="EnlaceCard"
+                                            buttonLabel="Edit"
                                             item={row}
                                             updateState={props.updateState}
                                         />

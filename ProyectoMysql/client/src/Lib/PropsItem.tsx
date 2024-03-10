@@ -6,7 +6,7 @@ import { OrdenPedidoDetalleEntity } from "../Models/OrdenPedidoDetalleEntity";
 
 export type PropsModel = {
     buttonLabel?: string;
-    item: any;
+    item?: any;
     updateState?: any;
     addItemToState?: any;
     toggle?: any;
