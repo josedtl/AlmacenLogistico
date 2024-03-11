@@ -2,19 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import { message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
 import { TipoDocumentoIdentidadEntity } from '../../Models/TipoDocumentoIdentidadEntity';
-import { UbigeoEntity } from '../../Models/UbigeoEntity';
 import { EmpresaEntity } from '../../Models/EmpresaEntity';
-import GeneralService from '../../Service/GeneralService';
 import EmpresaService from '../../Service/EmpresaService';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
 import { ButtonAddMain } from '../../Styles/Button'
 import 'moment/locale/es';
 import { ProcessActionEnum } from '../../Lib/ResourceModel/Enum'
+import EntListaService from '../../Service/EntListaService';
+import { EntListaModel } from '../../Models/EntListaEntity';
+import GeneralService from '../../Service/GeneralService';
+import { UbigeoEntity } from '../../Models/UbigeoEntity';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
-  const sGeneral = new GeneralService();
+  const sEntLista = new EntListaService();
+  const sGeneralService = new GeneralService();
   const sEmpresa = new EmpresaService();
   const initialEmpresa = new EmpresaEntity();
   const [Ent, setEnt] = useState<EmpresaEntity>(initialEmpresa);
@@ -23,13 +26,13 @@ const Save = () => {
 
 
 
-  const [optionsTipoDocumentoIdentidad, setOptionsTipoDocumentoIdentidad] = useState<TipoDocumentoIdentidadEntity[]>([]);
+  const [optionsTipoDocumentoIdentidad, setOptionsTipoDocumentoIdentidad] = useState<EntListaModel[]>([]);
   const [optionsUbigeo, setOptionsUbigeo] = useState<UbigeoEntity[]>([]);
 
 
   const handleSearchUbigeo = async (value: string) => {
     try {
-      const response = await sGeneral.GetUbigeoItemLike(value);
+      const response = await sGeneralService.GetUbigeoItemLikeApi(value);
       setOptionsUbigeo(response);
     } catch (error) {
       console.error('Error al buscar Ubigeo:', error);
@@ -51,8 +54,8 @@ const Save = () => {
 
   };
 
-  // const [selectedTipoDocuemntoIdentidad, setSelectedTipoDocuemntoIdentidad] = useState<number | undefined>(undefined);
-  // const [selectedUbigeo, setselectedUbigeo] = useState<number | undefined>(undefined);
+  const [selectedTipoDocuemntoIdentidad, setSelectedTipoDocuemntoIdentidad] = useState<number | undefined>(undefined);
+  const [selectedUbigeo, setselectedUbigeo] = useState<number | undefined>(undefined);
 
   const [ValTipoDocuemntoIdentidad, setValTipoDocuemntoIdentidad] = useState<InputStatus>('');
   // const [ValNumDocumento, setValNumDocumento] = useState<InputStatus>('');
@@ -65,7 +68,7 @@ const Save = () => {
   const onChangeTipoDocuemntoIdentidad = async (value: number) => {
     setValTipoDocuemntoIdentidad('');
     Ent.TipoDocumentoIdentidadId = value;
-    // setSelectedTipoDocuemntoIdentidad(value)
+    setSelectedTipoDocuemntoIdentidad(value)
     console.log(value)
   };
 
@@ -74,7 +77,7 @@ const Save = () => {
   const onChangeUbigeo = async (value: number) => {
     setValUbigeo('');
     Ent.UbigeoId = value;
-    // setselectedUbigeo(value)
+    setselectedUbigeo(value)
   };
 
 
@@ -176,8 +179,9 @@ const Save = () => {
 
 
     setCargarPage(true);
-    const Resp_UM = await sGeneral.GetTipoDocumentoIdentidadEmpresaItems();
+    const Resp_UM = await sEntLista.getItems('C001');
     setOptionsTipoDocumentoIdentidad(Resp_UM);
+
 
     console.log(idNumero)
     Ent.Action = ProcessActionEnum.Add
@@ -188,7 +192,7 @@ const Save = () => {
       console.log(Resp_Empresa[0]);
 
       if (Resp_Empresa[0].UbigeoId != null) {
-        const Resp_Ubigeo = await sGeneral.GetUbigeoApiItem(Resp_Empresa[0].UbigeoId);
+        const Resp_Ubigeo = await sGeneralService.GetUbigeoApiItem(Resp_Empresa[0].UbigeoId);
         setOptionsUbigeo(Resp_Ubigeo);
       }
     }
@@ -246,8 +250,8 @@ const Save = () => {
                     onChange={onChangeTipoDocuemntoIdentidad}
                   >
                     {optionsTipoDocumentoIdentidad.map((row) => (
-                      <Select.Option key={row.TipoDocumentoIdentidadId} value={row.TipoDocumentoIdentidadId}>
-                        {row.Alias}
+                      <Select.Option key={row.ListaId} value={row.ListaId}>
+                        {row.Nombre}
                       </Select.Option>
                     ))}
                   </Select>
@@ -265,10 +269,10 @@ const Save = () => {
                   <Input
                     // status={ValNumDocumento}
                     type="text"
-                    name="NumeroDocumento"
+                    name="NumDocumento"
                     style={{ marginTop: '5px', marginBottom: '10px' }}
                     onChange={onChangeText}
-                    value={Ent.NumeroDocumento === null ? "" : Ent.NumeroDocumento}
+                    value={Ent.NumDocumento === null ? "" : Ent.NumDocumento}
                   />
                 </Col>
               </Row>
@@ -283,10 +287,10 @@ const Save = () => {
               <Input
                 // status={ValNombres}
                 type="text"
-                name="RazonSocial"
+                name="Nombres"
                 style={{ marginTop: '5px', marginBottom: '10px' }}
                 onChange={onChangeText}
-                value={Ent.RazonSocial === null ? "" : Ent.RazonSocial}
+                value={Ent.Nombres === null ? "" : Ent.Nombres}
               />
             </Col>
           </Row>
@@ -354,7 +358,7 @@ const Save = () => {
               <label>Ubigeo</label>
             </Col>
             <Col span={24}>
-              <Select
+              <Select className="custom-select"
                 status={ValUbigeo}
                 showSearch
                 style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
@@ -366,7 +370,7 @@ const Save = () => {
                 onChange={onChangeUbigeo}
               >
                 {optionsUbigeo.map((row) => (
-                  <Select.Option key={row.UbigeoId} value={row.UbigeoId}>
+                  <Select.Option className="custom-option" key={row.UbigeoId} value={row.UbigeoId}>
                     {row.DesUbigeo}
                   </Select.Option>
                 ))}

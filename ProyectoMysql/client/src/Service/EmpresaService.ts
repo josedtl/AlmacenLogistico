@@ -5,7 +5,7 @@ class EmpresaService {
 
   async getItems(): Promise<EmpresaEntity[]> {
     try {
-      const response = await apiLg.get(`api/Empresa/GetItems`);
+      const response = await apiLg.get(`api/Empresa/GetMainItems`);
       return response.data.Value;
 
     } catch (error) {

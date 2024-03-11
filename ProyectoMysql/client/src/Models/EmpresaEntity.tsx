@@ -2,10 +2,10 @@ import { ProcessActionEnum } from '../Lib/ResourceModel/Enum'
 export class EmpresaEntity {
     EmpresaId: number;
     TipoDocumentoIdentidadId: number;
-    NumeroDocumento: string;
-    RazonSocial: string;
+    NumDocumento: string;
+    Nombres: string;
     NombreComercial: string;
-    UbigeoId: number | null;
+    UbigeoId: number ;
     Direccion: string;
     Telefono: string;
     Correo: string;
@@ -18,8 +18,8 @@ export class EmpresaEntity {
     constructor() {
         this.EmpresaId = 0;
         this.TipoDocumentoIdentidadId = 0;
-        this.NumeroDocumento = '';
-        this.RazonSocial = '';
+        this.NumDocumento = '';
+        this.Nombres = '';
         this.NombreComercial = '';
         this.UbigeoId = 0;
         this.Direccion = '';

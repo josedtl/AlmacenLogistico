@@ -5,8 +5,8 @@ from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 class EmpresaSaveModel(BaseModel):
     EmpresaId: int 
     TipoDocumentoIdentidadId: int 
-    NumeroDocumento: str 
-    RazonSocial: str 
+    NumDocumento: str 
+    Nombres: str 
     NombreComercial: str 
     UbigeoId: int 
     Direccion: str 
@@ -20,8 +20,9 @@ class EmpresaSaveModel(BaseModel):
 class EmpresaItemModel:
     EmpresaId: int 
     TipoDocumentoIdentidadId: int 
-    NumeroDocumento: str 
-    RazonSocial: str 
+    NomDocumento: str
+    NumDocumento: str 
+    Nombres: str 
     NombreComercial: str 
     UbigeoId: int 
     Direccion: str 
@@ -30,14 +31,13 @@ class EmpresaItemModel:
     FechaRegistro: datetime 
     CodUsuario: str 
     EstadoRegistro: bool 
-    NomDocumento: str
     
     def Cargar(_DB):
         c =  EmpresaItemModel()
         c.EmpresaId = _DB["EmpresaId"] 
         c.TipoDocumentoIdentidadId = _DB["TipoDocumentoIdentidadId"] 
-        c.NumeroDocumento = _DB["NumeroDocumento"] 
-        c.RazonSocial = _DB["RazonSocial"] 
+        c.NumDocumento = _DB["NumDocumento"] 
+        c.Nombres = _DB["Nombres"] 
         c.NombreComercial = _DB["NombreComercial"] 
         c.UbigeoId = _DB["UbigeoId"] 
         c.Direccion = _DB["Direccion"] 
@@ -51,9 +51,10 @@ class EmpresaItemModel:
     def MainCargar(_DB):
         c =  EmpresaItemModel()
         c.EmpresaId = _DB["EmpresaId"] 
-        c.NumeroDocumento = _DB["NumDocumento"] 
         c.NomDocumento = _DB["NomDocumento"] 
-        c.RazonSocial = _DB["Nombres"] 
+        c.NumDocumento = _DB["NumDocumento"] 
+        c.Nombres = _DB["Nombres"] 
+        c.NombreComercial = _DB["NombreComercial"] 
         c.FechaRegistro = _DB["FechaRegistro"] 
         c.CodUsuario = _DB["CodUsuario"] 
         return c

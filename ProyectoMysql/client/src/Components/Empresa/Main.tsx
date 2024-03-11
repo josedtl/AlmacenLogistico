@@ -42,7 +42,7 @@ function Main() {
     setBusqueda(e.target.value.toUpperCase());
   };
   const filterItems = items.filter(fdata =>
-    fdata.RazonSocial.toLowerCase().includes(Busqueda.toLowerCase())
+    fdata.Nombres.toLowerCase().includes(Busqueda.toLowerCase())
   );
 
   const { Title } = Typography;

@@ -17,17 +17,6 @@ def Save(Ent: EmpresaSaveModel):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-
-@EmpresaRouter.get(f"/api/{ApiName}/GetItems/", tags=[ApiName])
-def GetItems():
-    try:
-        jsonData = Empresa.GetItems()
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-
 @EmpresaRouter.get(f"/api/{ApiName}/GetItem/{{Id}}/", tags=[ApiName])
 def GetItem(Id: int):
     try:
@@ -37,15 +26,6 @@ def GetItem(Id: int):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-
-@EmpresaRouter.delete(f"/api/{ApiName}/Delete/{{Id}}", tags=[ApiName])
-def Delete(Id: int):
-    try:
-        jsonData = Empresa.Delete(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
 
 @EmpresaRouter.get(f"/api/{ApiName}/GetMainItems/", tags=[ApiName])
 def GetMainItems():

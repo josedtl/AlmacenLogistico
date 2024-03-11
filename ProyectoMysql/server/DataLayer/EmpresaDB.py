@@ -16,7 +16,7 @@ class EmpresaDB:
     def GetItem(Id: int):
         try:
             args = (Id,)
-            resulset = DBProcedure().DBProcedureConsult("sp_EmpresaAllItem", args)
+            resulset = DBProcedure().DBProcedureConsult("sp_EmpresaCabeceraItem", args)
             list = [EmpresaItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
@@ -25,15 +25,15 @@ class EmpresaDB:
     def Save(Ent: EmpresaSaveModel):
         try:
             store_mapping = {
-                ProcessActionEnum.Update: "sp_Empresa_Update",
-                ProcessActionEnum.Add: "sp_Empresa_Save",
+                ProcessActionEnum.Update: "sp_Empresa_Actualizar",
+                ProcessActionEnum.Add: "sp_Empresa_Registrar",
             }
-            Store = store_mapping.get(Ent.Action, "sp_Empresa_Save")
+            Store = store_mapping.get(Ent.Action, "sp_Empresa_Registrar")
             args = []
             args.append(Ent.EmpresaId)
             args.append(Ent.TipoDocumentoIdentidadId)
-            args.append(Ent.NumeroDocumento)
-            args.append(Ent.RazonSocial)
+            args.append(Ent.NumDocumento)
+            args.append(Ent.Nombres)
             args.append(Ent.NombreComercial)
             args.append(Ent.UbigeoId)
             args.append(Ent.Direccion)
@@ -51,13 +51,6 @@ class EmpresaDB:
             print(e)
             Restore()
 
-    def Delete(Id: int):
-        try:
-            args = (Id,)
-            Val = DBProcedure().DBProcedureDalete("sp_Empresa_Delete", args)
-            return ResponseAPI.Response(Val)
-        except Exception as e:
-            ErrorData(e)
 
     def GetItemLike(Nombre: str):
         try:
