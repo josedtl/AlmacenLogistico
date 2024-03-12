@@ -74,9 +74,6 @@ class PersonaNaturalDB:
     def GetMainItems():
         try:
             resulset = DBProcedure().DBProcedureConsult("sp_Persona_Main", [])
-            print("Inicio")
-            print(resulset)
-            print("Fin")
             list = [PersonaNaturalItemModel.CargarMain(row) for row in resulset]
             return list
         except Exception as e:

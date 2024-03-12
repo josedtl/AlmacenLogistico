@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import { message, Select, Button, Col, Row, Typography, Modal, Spin, Input, DatePicker } from 'antd';
-import { PersonaNaturalEntity } from '../../Models/PersonaNaturalEntity';
-import PersonaNaturalService from '../../Service/PersonaNaturalService';
+import { PersonaNaturalEntity } from '../../../Models/PersonaNaturalEntity';
+import PersonaNaturalService from '../../../Service/PersonaNaturalService';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
-import { ButtonAddMain } from '../../Styles/Button'
+import { ButtonAddMain } from '../../../Styles/Button'
 import type { DatePickerProps } from 'antd';
 import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
-import { ProcessActionEnum } from '../../Lib/ResourceModel/Enum'
-import EntListaService from '../../Service/EntListaService';
-import { EntListaModel } from '../../Models/EntListaEntity';
-import GeneralService from '../../Service/GeneralService';
-import { UbigeoEntity } from '../../Models/UbigeoEntity';
+import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
+import EntListaService from '../../../Service/EntListaService';
+import { EntListaModel } from '../../../Models/EntListaEntity';
+import GeneralService from '../../../Service/GeneralService';
+import { UbigeoEntity } from '../../../Models/UbigeoEntity';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());

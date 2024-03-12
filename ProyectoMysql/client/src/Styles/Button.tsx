@@ -63,3 +63,11 @@ export const ButtonAcceptModel: CSSProperties = {
     background: '#034078',
     color: "white",
 };
+
+
+export const ButtonDetalleAdd: CSSProperties = {
+    float: "right",
+    color: "#15616d",
+    backgroundColor: "#E5F8FA",
+    borderColor: "#15616d",
+};

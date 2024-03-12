@@ -22,17 +22,20 @@ import {
 } from "react-router-dom";
 
 import PageProdcuto from "./Components/Producto/Main";
+import PageProductoMenu from "./Components/Producto/Menu";
 import PageProdcutoSave from "./Components/Producto/Save";
 import PageOrdenPedido from "./Components/OrdenPedido/Main";
 import PageOrdenPedidoSave from "./Components/OrdenPedido/OrdenPedidoDetalle/Save";
-import PagePersonaNatural from "./Components/PersonaNatural/Main";
-import PagePersonaNaturalSave from "./Components/PersonaNatural/Save";
-import PageEmpresa from "./Components/Empresa/Main";
-import PageEmpresaSave from "./Components/Empresa/Save";
-import PageCategoriaMain from "./Components/MerListaCategoria/Main";
-import PageTipoProductoMain from "./Components/MerListaTipoProducto/Main";
-import PageMarcaMain from "./Components/MerListaMarca/Main";
-import PageModeloMain from "./Components/MerListaModelo/Main";
+import PagePersonaNatural from "./Components/Entidad/PersonaNatural/Main";
+import PagePersonaNaturalSave from "./Components/Entidad/PersonaNatural/Save";
+import PageEmpresa from "./Components/Entidad/Empresa/Main";
+import PageEmpresaSave from "./Components/Entidad/Empresa/Save";
+// import PageCategoriaMain from "./Components/MerListaCategoria/Main";
+// import PageTipoProductoMain from "./Components/MerListaTipoProducto/Main";
+// import PageMarcaMain from "./Components/MerListaMarca/Main";
+// import PageModeloMain from "./Components/MerListaModelo/Main";
+import ProductoEnlace from "./Components/MerLista/Main";
+import EntidadMenu from "./Components/Entidad/Menu";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +47,7 @@ const router = createBrowserRouter([
       // { path: "Marca", element: <PageMarca />, },
       // { path: "Modelo", element: <PageModelo />, },
       { path: "Producto", element: <PageProdcuto />, },
+      { path: "Producto/Menu", element: <PageProductoMenu />, },
       { path: "PersonaNatural", element: <PagePersonaNatural />, },
       { path: "PersonaNaturalSave/:Id", element: <PagePersonaNaturalSave />, },
       { path: "ProductoSave/:Id", element: <PageProdcutoSave />, },
@@ -52,10 +56,11 @@ const router = createBrowserRouter([
       { path: "Empresa", element: <PageEmpresa />, },
       { path: "EmpresaSave/:Id", element: <PageEmpresaSave />, },
       // { path: "Cliente", element: <PageCliente />, },
-      { path: "MerLista/Categoria/:Id", element: <PageCategoriaMain />, },
-      { path: "MerLista/TipoProducto/:Id", element: <PageTipoProductoMain />, },
-      { path: "MerLista/Marca/:Id", element: <PageMarcaMain />, },
-      { path: "MerLista/Modelo/:Id", element: <PageModeloMain />, },
+      { path: "Producto/Enlace/:Id", element: <ProductoEnlace />, },
+      { path: "Entidad", element: <EntidadMenu />, },
+      // { path: "MerLista/TipoProducto/:Id", element: <ProductoEnlace />, },
+      // { path: "MerLista/Marca/:Id", element: <ProductoEnlace />, },
+      // { path: "MerLista/Modelo/:Id", element: <ProductoEnlace />, },
     ],
   },
 ]);

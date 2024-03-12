@@ -5,7 +5,7 @@ import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity';
 import ModalItem from './ModalItem';
 import GeneralService from '../../../Service/GeneralService';
 import OrdenPedidoService from '../../../Service/OrdenPedidoService';
-import { Tabs, DatePicker, message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
+import { Tabs, DatePicker, message, Select, Button, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar, Space } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { IconSave } from '../../../Styles/Icons'
 import { ButtonAddMain } from '../../../Styles/Button'
@@ -19,6 +19,7 @@ import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import { InputStatus } from 'antd/es/_util/statusUtils';
 import { EntDatoModel } from '../../../Models/EntDatoEntity';
 import EntDatoService from '../../../Service/EntDatoService';
+import { SaveFilled } from '@ant-design/icons';
 function Page() {
 
   const { Id } = useParams();
@@ -167,7 +168,7 @@ function Page() {
 
   };
   // item={new OrdenPedidoDetalleEntity()}
-  const operations = <ModalItem buttonLabel="" addItemToState={addItemToState}   item={new OrdenPedidoDetalleEntity()}/>
+  const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
     ;
 
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
@@ -182,7 +183,7 @@ function Page() {
     try {
       Ent.DetalleItems = items;
 
-   
+
       const savedItem = await sOrdenPedido.saveItem(Ent);
       if (savedItem) {
         setEnt(savedItem)
@@ -202,7 +203,7 @@ function Page() {
   }
 
 
-  const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const Guardar_Total = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     KeyTabs;
     selectedCategoria;
@@ -314,7 +315,7 @@ function Page() {
                 // status={ValCodigo}
                 type="text"
                 name="Codigo"
-                style={{ marginTop: '5px', marginBottom: '10px',background:'Silver' }}
+                style={{ marginTop: '5px', marginBottom: '10px', background: 'Silver' }}
                 onChange={onChange}
                 readOnly={true}
                 value={Ent.Codigo === null ? "" : Ent.Codigo}
@@ -377,147 +378,300 @@ function Page() {
 
   }
 
+  const TituloSave = () => {
+    return (
+
+      <Title level={2}> {Ent.OrdenPedidoId > 0 ? `Orden de Pedido - ${Ent.NomEstadoProceso}` : 'Generar Orden de Pedido'}</Title>
+    )
+
+  }
+  const CodigoSave = () => {
+    return (
+
+      <Title level={3}> {Ent.OrdenPedidoId > 0 ? `Código : ${Ent.Codigo}` : ''}</Title>
+    )
+
+  }
+  const layoutStyle = {
+    borderRadius: 8,
+    overflow: 'hidden',
+    width: 'calc(100% - 8px)',
+    maxWidth: 'calc(100% - 8px)',
+  };
+  const contentStyle: React.CSSProperties = {
+    // margin:50,
+    marginLeft: 50,
+    marginRight: 50
+    // textAlign: 'center',
+    // minHeight: 400,
+    // lineHeight: '120px',
+    // color: '#fff',
+    // backgroundColor: '#0958d9',
+  };
+  const footerStyle: React.CSSProperties = {
+    // backgroundColor: "#C9E1E4",
+    borderColor: "#15616d",
+  };
+  const headerStyle: React.CSSProperties = {
+    // backgroundColor: "#C9E1E4",
+    borderColor: "#15616d",
+    color: "#15616d"
+
+  };
+  const { Header, Footer, Sider, Content } = Layout;
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
+      <Flex gap="middle" wrap="wrap" >
 
-      {contextHolder}
-      {contextHolderAdd}
-      <Row>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          {/* <Title level={3}> OrdenPedido  {params.Id}</Title> */}
-          <Title level={3}> {Ent.OrdenPedidoId > 0 ? 'Orden Pedido' : 'Generar Orden Pedido'}</Title>
-        </Col>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <Button
-            style={ButtonAddMain}
-            onClick={Guardar_Total}
-            size={"large"}
-            icon={IconSave}
-          >
-            Guardar
-          </Button>
-
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={24} sm={10} md={8} lg={7} xl={6}>
+        <Layout style={{
+          // height:'calc(100px + 100vh)',
+          // marginTop: '0px',
+          // marginLeft: '-10px'
+        }}>
 
 
-          {CorrelativoDiv()}
+          {/* <Header style={headerStyle}>Header</Header> */}
+          <Content style={contentStyle}>
 
 
-          <Row>
-            <Col span={24}>
-              <label>Tipo Requerimiento</label>
-            </Col>
-            <Col span={24}>
-              <Select
-                showSearch
-                // status={ValUnidadMedida}
-                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                defaultActiveFirstOption={false}
-                filterOption={false}
-                value={Ent.TipoProcesoId === 0 ? null : Ent.TipoProcesoId}
-                key={Ent.TipoProcesoId}
-                onChange={onChangeTipoProceso}
-              >
-                {optionsTipoProceso.map((ItemOp) => (
-                  <Select.Option key={ItemOp.TipoProcesoId} value={ItemOp.TipoProcesoId}>
-                    {ItemOp.Nombre}
-                  </Select.Option>
-                ))}
-              </Select>
+            {contextHolder}
+            {contextHolderAdd}
+            <Row>
+              <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                {TituloSave()}
+                {/* <Title level={3}> {Ent.OrdenPedidoId > 0 ? 'Orden de Pedido' : 'Generar Orden de Pedido'}</Title> */}
+              </Col>
+              <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                <div style={{ float: "right" }}>
+
+                  {CodigoSave()}
+                </div>
+
+              </Col>
+            </Row>
+            <Row>
 
 
-            </Col>
-          </Row>
+              {/* {CorrelativoDiv()} */}
 
-          <Row>
-            <Col span={24}>
-              <label>Responsable</label>
-            </Col>
-            <Col span={24}>
-
-              <Select
-                status={ValCategoria}
-                showSearch
-                style={{ width: '85%', marginTop: '5px', marginBottom: '10px' }}
-                defaultActiveFirstOption={false}
-                filterOption={false}
-                onSearch={handleSearchCategoria}
-                value={Ent.ResponsableId === 0 ? null : Ent.ResponsableId}
-                key={Ent.ResponsableId}
-                onChange={onChangeCategoria}
-              >
-                {optionsCategoria.map((categoria) => (
-                  <Select.Option key={categoria.EntidadId} value={categoria.EntidadId}>
-                    {categoria.Nombre}
-                  </Select.Option>
-                ))}
-              </Select>
-
-            </Col>
-          </Row>
-
-          <Row>
-            <Col span={24}>
-              <label>Fecha de Emision</label>
-            </Col>
-            <Col span={24}>
-              <DatePicker
-                onChange={onChangeDate}
-                value={dayjs(FechaEmisionItem, dateFormat)}
-                // defaultValue={dayjs(FechaEmisionItem, dateFormat)}
-                style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
-                size='large' />
-
-            </Col>
-          </Row>
+              <Col xs={3} >
+                <Row>
+                  <Col span={24}>
+                    <label>Tipo Requerimiento</label>
+                  </Col>
+                  <Col span={24}>
+                    <Select
+                      showSearch
+                      // status={ValUnidadMedida}
+                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                      defaultActiveFirstOption={false}
+                      filterOption={false}
+                      value={Ent.TipoProcesoId === 0 ? null : Ent.TipoProcesoId}
+                      key={Ent.TipoProcesoId}
+                      onChange={onChangeTipoProceso}
+                    >
+                      {optionsTipoProceso.map((ItemOp) => (
+                        <Select.Option key={ItemOp.TipoProcesoId} value={ItemOp.TipoProcesoId}>
+                          {ItemOp.Nombre}
+                        </Select.Option>
+                      ))}
+                    </Select>
 
 
+                  </Col>
+                </Row>
+              </Col>
+              <Col xs={18}>
+                <Row>
+                  <Col span={24}>
+                    <label>Responsable</label>
+                  </Col>
+                  <Col span={24}>
+
+                    <Select
+                      status={ValCategoria}
+                      showSearch
+                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                      defaultActiveFirstOption={false}
+                      filterOption={false}
+                      onSearch={handleSearchCategoria}
+                      value={Ent.ResponsableId === 0 ? null : Ent.ResponsableId}
+                      key={Ent.ResponsableId}
+                      onChange={onChangeCategoria}
+                    >
+                      {optionsCategoria.map((categoria) => (
+                        <Select.Option key={categoria.EntidadId} value={categoria.EntidadId}>
+                          {categoria.Nombre}
+                        </Select.Option>
+                      ))}
+                    </Select>
+
+                  </Col>
+                </Row>
+              </Col>
+              <Col xs={3} >
+                <Row>
+                  <Col span={24}>
+                    <label>Fecha de Emision</label>
+                  </Col>
+                  <Col span={24}>
+                    <DatePicker
+                      onChange={onChangeDate}
+                      value={dayjs(FechaEmisionItem, dateFormat)}
+                      // defaultValue={dayjs(FechaEmisionItem, dateFormat)}
+                      style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
+                      size='middle' />
+
+                  </Col>
+                </Row>
+              </Col>
 
 
-          {FechaUsuario()}
-
-        </Col>
-
-        <Col xs={24} sm={14} md={16} lg={17} xl={18}>
-
-          <Tabs
-            tabBarExtraContent={operations}
-            style={{ marginLeft: '20px' }}
-            key={'TabGeneral'}
-            type="card"
-
-            items={new Array(1).fill(null).map((_, i) => {
-              i;
-              return {
-                label: (
-                  < >
-                    <Title style={{ fontSize: '18px' }}>
-                      Productos
-                    </Title>
-                  </>
-                ),
-                key: '1',
-                children:
-                  <span>
-
-                    <Row>
-                      <Col xs={24}>
-                        <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
-
-                      </Col>
-                    </Row >
-                  </span>,
+              {/* {FechaUsuario()} */}
 
 
-              };
-            })}
-          />
-        </Col>
-      </Row>
+
+            </Row>
+
+            <Row>
+              <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+
+                <Tabs
+                  tabBarExtraContent={operations}
+                  // style={{ marginLeft: '20px' }}
+                  key={'TabGeneral'}
+                  type="card"
+
+                  items={new Array(1).fill(null).map((_, i) => {
+                    i;
+                    return {
+                      label: (
+                        < >
+                          <Title style={{ fontSize: '18px' }}>
+                            Detalle
+                          </Title>
+                        </>
+                      ),
+                      key: '1',
+                      children:
+                        <span>
+
+                          <Row style={{
+
+                            height: 'calc(100px + 40vh)',
+                          }
+                          }>
+                            <Col xs={24}>
+                              <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
+
+                            </Col>
+                          </Row >
+                        </span>,
+
+
+                    };
+                  })}
+                />
+              </Col>
+
+
+            </Row>
+          </Content>
+        
+          <Footer  style={footerStyle}>
+
+            <Row>
+              <Col span={2}>
+
+                <Row>
+                  <Col span={24}>
+                    <label>Fecha Registro</label>
+                  </Col>
+                  <Col span={24}>
+                    <Input
+                      type="string"
+                      name="FechaRegistro"
+                      style={{ marginTop: '5px', marginBottom: '10px' }}
+                      readOnly={true}
+                      value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
+                    />
+                  </Col>
+                </Row>
+
+
+              </Col>
+              <Col span={2}>
+
+
+                <Row>
+                  <Col span={24}>
+                    <label>Usuario</label>
+                  </Col>
+                  <Col span={24}>
+                    <Input
+                      type="string"
+                      name="Stock"
+                      style={{ marginTop: '5px', marginBottom: '10px' }}
+                      readOnly={true}
+                      value={Ent.CodUsuario}
+                    />
+                  </Col>
+                </Row>
+
+
+              </Col>
+              <Col span={18}>
+
+              </Col>
+
+              <Col span={2}>
+                {/* <Button
+                  style={ButtonAddMain}
+                  onClick={Guardar_Total}
+                  size={"large"}
+                  icon={IconSave}
+                >
+                  Guardar
+                </Button> */}
+
+                <Segmented
+                  style={{ float: "right" }}
+                  options={[
+
+                    {
+                      label: (
+                        <div style={{ padding: 4 }} onClick={Guardar_Total}>
+                          <Avatar style={{
+                            backgroundColor: "#15616d",
+                            borderColor: "#15616d",
+
+                          }}
+                            // onClick={Guardar_Total}
+                            shape="square"
+                            size={60}
+                            icon={<SaveFilled />} />
+                          <div>Guardar</div>
+                        </div>
+                      ),
+                      value: 'Guardar',
+                    },
+                  ]}
+                />
+
+              </Col>
+            </Row>
+
+            <Row>
+
+
+
+            </Row>
+          </Footer>
+
+        </Layout>
+      </Flex>
+
     </Spin>
 
   );

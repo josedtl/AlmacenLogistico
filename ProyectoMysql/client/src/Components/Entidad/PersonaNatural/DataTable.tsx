@@ -1,19 +1,18 @@
 "use client"
 import React from 'react';
-import { EmpresaEntity } from '../../Models/EmpresaEntity';
+import { PersonaNaturalEntity } from '../../../Models/PersonaNaturalEntity';
 import { EditFilled } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Link } from 'react-router-dom';
-import { PropsTable } from '../../Lib/PropsItem'
+import { PropsTable } from '../../../Lib/PropsItem'
 import { Card, Col, Row, Button, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import 'moment/locale/es';
-import { DataType } from '../../Lib/ResourceModel/DataTableType'
+import { DataType } from '../../../Lib/ResourceModel/DataTableType'
 
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');
-    // const [modal, contextHolder] = Modal.useModal();
     const columns: ColumnsType<DataType> = [
         {
             title: 'Nº',
@@ -22,7 +21,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'Cont',
         },
         {
-            title: 'NomDocumento',
+            title: 'Documento',
             dataIndex: 'NomDocumento',
             key: 'NomDocumento',
         },
@@ -32,15 +31,21 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'NumDocumento',
         },
         {
-            title: 'RazonSocial',
+            title: 'Nombres',
             dataIndex: 'Nombres',
             key: 'Nombres',
         },
         {
-            title: 'NombreComercial',
-            dataIndex: 'NombreComercial',
-            key: 'NombreComercial',
+            title: 'ApellidoPaterno',
+            dataIndex: 'ApellidoPaterno',
+            key: 'ApellidoPaterno',
         },
+        {
+            title: 'ApellidoMaterno',
+            dataIndex: 'ApellidoMaterno',
+            key: 'ApellidoMaterno',
+        },
+
         {
             title: 'Fecha de registro',
             dataIndex: 'FechaRegistro',
@@ -58,10 +63,10 @@ const DataTable: React.FC<PropsTable> = (props) => {
             fixed: 'right',
             width: 70,
             key: 'action',
-            render: (record: EmpresaEntity) => (
+            render: (record: PersonaNaturalEntity) => (
                 <span>
 
-                    <Link to={`/EmpresaSave/${record.EmpresaId}`}>
+                    <Link to={`/PersonaNaturalSave/${record.PersonaNaturalId}`}>
                         <Button
                             type='dashed'
                             style={{ float: "right", marginRight: "10px", color: "#BB9B32", backgroundColor: "white", borderColor: "#BB9B32" }}
@@ -80,10 +85,10 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
     ];
 
-    const dataWithKeys = props.DataList.sort((a, b) => b.EmpresaId - a.EmpresaId).map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.PersonaNaturalId - a.PersonaNaturalId).map((item, zIndex) => {
         return {
             ...item,
-            key: item.EmpresaId,
+            key: item.PersonaNaturalId,
             Cont: (zIndex + 1)
         };
     });
@@ -103,7 +108,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
                                     style={{ marginTop: '10Px', }}
                                     actions={[
-                                        <Link to={`/EmpresaSave/${row.EmpresaId}`}>
+                                        <Link to={`/PersonaNaturalSave/${row.PersonaNaturalId}`}>
                                             <EditFilled
                                                 style={{ color: "#BB9B32" }}
                                             />
@@ -136,7 +141,6 @@ const DataTable: React.FC<PropsTable> = (props) => {
     return (
 
         <div>
-            {/* {contextHolder} */}
 
             {ListaCard()}
         </div>

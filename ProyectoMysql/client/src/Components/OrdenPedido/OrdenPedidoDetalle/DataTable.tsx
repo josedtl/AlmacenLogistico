@@ -9,7 +9,7 @@ import { PropsTable } from '../../../Lib/PropsItem'
 import 'moment/locale/es';
 import { DataType } from '../../../Lib/ResourceModel/DataTableType'
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
-
+// import  from 'react-emotion';
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
@@ -17,9 +17,11 @@ const DataTable: React.FC<PropsTable> = (props) => {
         {
             title: 'Nº',
             dataIndex: 'Cont',
-            width: '50px',
+            width: 20,
             key: 'Cont',
+            
         },
+
         {
             title: 'NomProducto',
             dataIndex: 'NomProducto',
@@ -29,37 +31,37 @@ const DataTable: React.FC<PropsTable> = (props) => {
         {
             title: 'UM',
             dataIndex: 'CodigoUM',
-            width: '40px',
+            width: 40,
             key: 'CodigoUM',
         },
         {
             title: 'Solicito',
             dataIndex: 'CantidadSolicitado',
-            width: '80px',
+            width: 65,
             key: 'CantidadSolicitado',
         },
         {
             title: 'Faltante',
             dataIndex: 'CantidadFaltante',
-            width: '80px',
+            width: 65,
             key: 'CantidadFaltante',
         },
         {
             title: 'Reservado',
             dataIndex: 'CantidadReservado',
-            width: '80px',
+            width: 65,
             key: 'CantidadReservado',
         },
         {
             title: 'Atendido',
             dataIndex: 'CantidadAtendido',
-            width: '80px',
+            width: 65,
             key: 'CantidadAtendido',
         },
         {
             title: 'Action',
             fixed: 'right',
-            width: 100,
+            width: 60,
             key: 'action',
             render: (record: OrdenPedidoDetalleEntity) =>
                 <span>
@@ -119,7 +121,8 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
 
     };
-
+    
+    // const header = css({ backgroundColor: 'rgb(100, 108, 140)', color: 'white', margin: '50px'});
     const ListaCard = () => {
         if (props.EsTabla) {
 
@@ -158,13 +161,17 @@ const DataTable: React.FC<PropsTable> = (props) => {
         } else {
             return (
                 <Table
-                    bordered
+
+                bordered
+            
                     key="KEY5"
                     columns={columns}
                     dataSource={dataWithKeys}
                     size="small"
                     pagination={false}
-                    scroll={{ x: 'calc(500px + 50%)', y: '65vh' }}
+                    // scroll={{ x: 1500, y: 300 }}
+                    scroll={{ x: '100%', y: '45vh' }}
+                  
                 />
                 // scroll={{ x: 2000, y: '65vh' }}
                 // scroll={{ x: 'calc(700px + 50%)', y: '100%' }}

@@ -1,39 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import { EmpresaEntity } from '../../Models/EmpresaEntity';
-import EmpresaService from '../../Service/EmpresaService';
+import { PersonaNaturalEntity } from '../../../Models/PersonaNaturalEntity';
+import PersonaNaturalService from '../../../Service/PersonaNaturalService';
 import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
-import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , ButtonAddMain} from '../../Styles/Button'
-import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../Styles/Type'
-import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
+import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , ButtonAddMain} from '../../../Styles/Button'
+import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../../Styles/Type'
+import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../../Styles/Icons'
 import { Link } from "react-router-dom";
-function Main() {
+function Main ()  {
   useEffect(() => {
     getItems();
   }, []);
-  const sEmpresa = new EmpresaService();
+  const sPersonaNatural = new PersonaNaturalService();
 
-  const [items, setItems] = useState<EmpresaEntity[]>([]);
-  const [CargarPage, setCargarPage] = React.useState(true);
+  const [items, setItems] = useState<PersonaNaturalEntity[]>([]);
+  const [CargarPage, setCargarPage] = React.useState(false);
   const [disabled, setDisabled] = useState(false);
   const [Busqueda, setBusqueda] = useState<string>('');
   const toggle = () => {
     setDisabled(!disabled);
   };
 
-  const updateState = (item: EmpresaEntity) => {
-    const itemIndex = items.findIndex((data) => data.EmpresaId === item.EmpresaId);
+  const updateState = (item: PersonaNaturalEntity) => {
+    const itemIndex = items.findIndex((data) => data.PersonaNaturalId === item.PersonaNaturalId);
     const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
     setItems(newArray);
   };
 
   const deleteItemFromState = (id: number) => {
-    const updatedItems = items.filter((item) => item.EmpresaId !== id);
+    const updatedItems = items.filter((item) => item.PersonaNaturalId !== id);
     setItems(updatedItems);
   };
 
   const getItems = async () => {
-    const itemsg = await sEmpresa.GetMainItems();
+    const itemsg = await sPersonaNatural.getMainItems();
     setItems(itemsg);
     setCargarPage(false);
 
@@ -51,11 +51,11 @@ function Main() {
       <Row>
 
       <Col xs={18} sm={18} md={12} lg={12} xl={12}>
-          <Title level={2}> Empresa</Title>
+          <Title level={2}> PersonaNatural</Title>
         </Col>
 
         <Col xs={6} sm={6} md={12} lg={12} xl={12}>
-          <Link to={`/EmpresaSave/0`}>
+          <Link to={`/PersonaNaturalSave/0`}>
             <Button
               style={ButtonAddMain}
               size={SizeButtonPrimary}

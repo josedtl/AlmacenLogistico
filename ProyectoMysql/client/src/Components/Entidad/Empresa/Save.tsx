@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import { message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
-import { TipoDocumentoIdentidadEntity } from '../../Models/TipoDocumentoIdentidadEntity';
-import { EmpresaEntity } from '../../Models/EmpresaEntity';
-import EmpresaService from '../../Service/EmpresaService';
+import { TipoDocumentoIdentidadEntity } from '../../../Models/TipoDocumentoIdentidadEntity';
+import { EmpresaEntity } from '../../../Models/EmpresaEntity';
+import EmpresaService from '../../../Service/EmpresaService';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
-import { ButtonAddMain } from '../../Styles/Button'
+import { ButtonAddMain } from '../../../Styles/Button'
 import 'moment/locale/es';
-import { ProcessActionEnum } from '../../Lib/ResourceModel/Enum'
-import EntListaService from '../../Service/EntListaService';
-import { EntListaModel } from '../../Models/EntListaEntity';
-import GeneralService from '../../Service/GeneralService';
-import { UbigeoEntity } from '../../Models/UbigeoEntity';
+import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
+import EntListaService from '../../../Service/EntListaService';
+import { EntListaModel } from '../../../Models/EntListaEntity';
+import GeneralService from '../../../Service/GeneralService';
+import { UbigeoEntity } from '../../../Models/UbigeoEntity';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());

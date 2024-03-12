@@ -24,31 +24,34 @@ const DataTable: React.FC<PropsTable> = (props) => {
             title: 'Codigo',
             dataIndex: 'Codigo',
             key: 'Codigo',
+            width: 170
         },
         {
             title: 'Categoria',
             dataIndex: 'NomCategoria',
             key: 'NomCategoria',
+            width:200
         },
         {
-            title: 'Tipo Producto',
-            dataIndex: 'NomTipoProducto',
-            key: 'NomTipoProducto',
+            title: 'Descripcion',
+            dataIndex: 'Descripcion',
+            key: 'Descripcion',
         },
-        {
-            title: 'Marca',
-            dataIndex: 'NomMarca',
-            key: 'NomMarca',
-        },
-        {
-            title: 'Modelo',
-            dataIndex: 'NomModelo',
-            key: 'NomModelo',
-        },
+        // {
+        //     title: 'Marca',
+        //     dataIndex: 'NomMarca',
+        //     key: 'NomMarca',
+        // },
+        // {
+        //     title: 'Modelo',
+        //     dataIndex: 'NomModelo',
+        //     key: 'NomModelo',
+        // },
         {
             title: 'Unidad de Medida',
             dataIndex: 'NomUnidadMedida',
             key: 'NomUnidadMedida',
+            width:150
         },
         {
             title: 'Fecha de registro',
