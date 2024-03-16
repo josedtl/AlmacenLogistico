@@ -9,6 +9,7 @@ import { PropsTable } from '../../../Lib/PropsItem'
 import 'moment/locale/es';
 import { DataType } from '../../../Lib/ResourceModel/DataTableType'
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
+import { red } from '@ant-design/colors';
 // import  from 'react-emotion';
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');
@@ -19,7 +20,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             dataIndex: 'Cont',
             width: 20,
             key: 'Cont',
-            
+
         },
 
         {
@@ -77,6 +78,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
                         buttonLabel="Edit"
                         item={record}
                         updateState={props.updateState}
+                        keyItem={record.keyItem}
                     />
 
 
@@ -89,12 +91,12 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
 
 
-    const dataWithKeys = props.DataList.sort((a, b) => b.OrdenPedidoDetalleId - a.OrdenPedidoDetalleId).map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.OrdenPedidoDetalleId + a.OrdenPedidoDetalleId).map((item, zIndex) => {
         return {
             ...item,
             key: zIndex,
             Cont: (zIndex + 1),
-            // Guid :generarGuid(),
+          
         };
 
     });
@@ -114,6 +116,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             okType: 'danger',
             cancelText: 'No',
             onOk() {
+                OrdenPedidoDetalleId.Action = ProcessActionEnum.Delete;
                 DeleteItemAll(OrdenPedidoDetalleId);
             },
             onCancel() { },
@@ -121,7 +124,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
 
     };
-    
+
     // const header = css({ backgroundColor: 'rgb(100, 108, 140)', color: 'white', margin: '50px'});
     const ListaCard = () => {
         if (props.EsTabla) {
@@ -144,6 +147,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
                                             buttonLabel="Edit"
                                             item={row}
                                             updateState={props.updateState}
+                                            keyItem={row.key}
                                         />
                                     ]}
                                     bordered={false}>
@@ -162,8 +166,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             return (
                 <Table
 
-                bordered
-            
+                    bordered
                     key="KEY5"
                     columns={columns}
                     dataSource={dataWithKeys}
@@ -171,7 +174,6 @@ const DataTable: React.FC<PropsTable> = (props) => {
                     pagination={false}
                     // scroll={{ x: 1500, y: 300 }}
                     scroll={{ x: '100%', y: '45vh' }}
-                  
                 />
                 // scroll={{ x: 2000, y: '65vh' }}
                 // scroll={{ x: 'calc(700px + 50%)', y: '100%' }}

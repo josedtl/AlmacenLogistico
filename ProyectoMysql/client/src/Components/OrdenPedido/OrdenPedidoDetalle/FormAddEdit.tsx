@@ -29,16 +29,16 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         try {
             // Ent.CantidadSolicitado = 1;
             Ent.UnidadMedidaId = 1;
-            Ent.FechaRegistro = new Date();
+            // Ent.key =props.keyItem;
             console.log(Ent);
-            if (Ent.key === '') {
-                Ent.key = generarGuid();
+            if (Ent.keyItem === '') {
+                Ent.keyItem = generarGuid();
                 props.addItemToState(Ent);
+                setEnt(new OrdenPedidoDetalleEntity());
             }
             else {
                 props.updateState(Ent);
             }
-            setEnt(new OrdenPedidoDetalleEntity());
             props.toggle();
         } catch (e) {
             console.log(e);
@@ -94,14 +94,14 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     };
     const onChangeProducto = async (value: number, Itemdata: any) => {
         try {
-            Ent.ProductoId = value;
+            Ent.MercaderiaId = value;
             setSelectedProducto(value)
 
             const resp = await sMercaderiaService.GetMercaderia_ItemOP(value);
             setValCodigoUM(resp[0].CodigoUM);
             Ent.Stock = resp[0].Stock
             Ent.NomProducto = resp[0].Nombre;
-            Ent.ProductoId = resp[0].MercaderiaId;
+            Ent.MercaderiaId = resp[0].MercaderiaId;
             Ent.CodigoUM = resp[0].CodigoUM;
 
             console.log(resp);
@@ -115,7 +115,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     };
     useEffect(() => {
-        console.log(props.item);
+        // setEnt(new OrdenPedidoDetalleEntity());
+        console.log('FormEdit')
         getItems();
     }, []);
 
@@ -124,9 +125,10 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     
         const updatedItem = props.item;
 
-        if (updatedItem.ProductoId > 0) {
+        if (updatedItem.MercaderiaId > 0) {
 
-            const responseProducto = await sMercaderiaService.GetMercaderia_ItemOP(updatedItem.ProductoId);
+            const responseProducto = await sMercaderiaService.GetMercaderia_ItemOP(updatedItem.MercaderiaId);
+            console.log(responseProducto);
             if (responseProducto[0].CategoriaId > 0) {
                 const responseCategoria = await sMerLista.getItem(responseProducto[0].CategoriaId);
                 setOptionsCategoria(responseCategoria);
@@ -201,7 +203,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                         defaultActiveFirstOption={false}
                         filterOption={false}
                         onSearch={handleSearchProducto}
-                        value={Ent.ProductoId === 0 ? null : Ent.ProductoId}
+                        value={Ent.MercaderiaId === 0 ? null : Ent.MercaderiaId}
                         key={Ent.NomProducto}
                         onChange={onChangeProducto}
                     >

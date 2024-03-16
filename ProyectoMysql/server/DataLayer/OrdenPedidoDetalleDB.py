@@ -50,19 +50,17 @@ class OrdenPedidoDetalleDB:
                 Store = "sp_OrdenPedidoDetalle_Update"
                 # cursor = conn.cursor(pymysql.cursors.DictCursor)
             args = []
+            print (Store)
             args.append(Ent.OrdenPedidoDetalleId)
             args.append(Ent.OrdenPedidoId)
-            args.append(Ent.ProductoId)
+            args.append(Ent.MercaderiaId)
             args.append(Ent.UnidadMedidaId)
             args.append(Ent.CantidadSolicitado)
             args.append(Ent.CantidadReservado)
             args.append(Ent.CantidadFaltante)
             args.append(Ent.CantidadAtendido)
             args.append(Ent.Enlazado)
-            args.append(Ent.EsAtendido)
-            args.append(Ent.FechaRegistro)
-            args.append(Ent.CodUsuario)
-            args.append(Ent.EstadoRegistro)
+            args.append(Ent.Atendido)
             Ent.OrdenPedidoDetalleId = DBProcedure().DBProcedureInsertUpdate(
                 Store, args, "v_OrdenPedidoDetalleId"
             )

@@ -37,7 +37,7 @@ function Page() {
   const [FechaEmisionItem, setFechaEmisionItem] = useState<string>(moment(Ent.FechaEmision).format('DD/MM/YYYY hh:mm'));
   const addItemToState = (item: OrdenPedidoDetalleEntity) => {
 
-    const itemIndex = items.findIndex((data) => data.key === item.key);
+    const itemIndex = items.findIndex((data) => data.keyItem === item.keyItem);
 
     if (itemIndex == -1) {
       setItems([...items, item]);
@@ -62,28 +62,66 @@ function Page() {
       });
     }
 
-
   };
 
   const updateState = (item: OrdenPedidoDetalleEntity) => {
-    const itemIndex = items.findIndex((data) => data.key === item.key);
-    const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
-    setItems(newArray);
-    messageAdd.open({
-      type: 'success',
-      content: 'Se actualizó correctamente.',
-    });
 
+    if (item.OrdenPedidoDetalleId > 0) {
+
+      const itemIndex = items.findIndex((data) => data.OrdenPedidoDetalleId === item.OrdenPedidoDetalleId);
+      const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+      setItems(newArray);
+      messageAdd.open({
+        type: 'success',
+        content: 'Se actualizó correctamente.',
+      });
+    } else {
+      const itemIndex = items.findIndex((data) => data.keyItem === item.keyItem);
+      const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+      setItems(newArray);
+      messageAdd.open({
+        type: 'success',
+        content: 'Se actualizó correctamente.',
+      });
+
+
+
+    }
   };
   const deleteItemFromState = (item: OrdenPedidoDetalleEntity) => {
 
-    const itemIndex = items.findIndex((data) => data.key === item.key);
-    const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
-    setItems(newArray);
-    messageAdd.open({
-      type: 'error',
-      content: 'Se eliminó correctamente.',
-    });
+
+    if (item.OrdenPedidoDetalleId > 0) {
+
+      const itemIndex = items.findIndex((data) => data.OrdenPedidoDetalleId === item.OrdenPedidoDetalleId);
+      const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+      setItems(newArray);
+      messageAdd.open({
+        type: 'success',
+        content: 'Se actualizó correctamente.',
+      });
+    } else {
+      const itemIndex = items.findIndex((data) => data.keyItem === item.keyItem);
+      const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+      setItems(newArray);
+      messageAdd.open({
+        type: 'success',
+        content: 'Se actualizó correctamente.',
+      });
+
+
+
+    }
+    // const itemIndex = items.findIndex((data) => data.keyItem === item.keyItem);
+    // const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+    // setItems(newArray);
+    // messageAdd.open({
+    //   type: 'error',
+    //   content: 'Se eliminó correctamente.',
+    // });
+
+
+
   };
 
   const filterItems = items.filter(d => d.Action != ProcessActionEnum.Delete);
@@ -114,7 +152,8 @@ function Page() {
     try {
 
       setCargarPage(true);
-
+      setEnt(new OrdenPedidoEntity())
+      setItems([])
       const Resp_TR = await sGeneral.GetTipoProcesoItems();
       setOptionsTipoProceso(Resp_TR);
       Ent.Action = ProcessActionEnum.Add
@@ -126,14 +165,18 @@ function Page() {
 
         const Resp_OPDetalle = await sOrdenPedido.GetItemCabeceraOP(Id);
 
-        Resp_OPDetalle.map((data) => {
-          data.key = generarGuid();
-          data.Action = ProcessActionEnum.Update;
+        if (Resp_OPDetalle.length > 0) {
 
-        })
-        console.log(Resp_OPDetalle);
-        setItems(Resp_OPDetalle)
-        Ent.DetalleItems = Resp_OPDetalle
+          Resp_OPDetalle.map((data) => {
+            data.keyItem = generarGuid();
+            data.Action = ProcessActionEnum.Update;
+
+          })
+          console.log(Resp_OPDetalle);
+          setItems(Resp_OPDetalle)
+          Ent.DetalleItems = Resp_OPDetalle
+        }
+
 
 
         const Resp_Item = await sEntDato.GetNomCompletoItem(Resp_Producto[0].ResponsableId);
@@ -168,7 +211,7 @@ function Page() {
 
   };
   // item={new OrdenPedidoDetalleEntity()}
-  const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} />
+  const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} keyItem={''} />
     ;
 
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
@@ -183,7 +226,7 @@ function Page() {
     try {
       Ent.DetalleItems = items;
 
-
+      console.log(Ent);
       const savedItem = await sOrdenPedido.saveItem(Ent);
       if (savedItem) {
         setEnt(savedItem)
@@ -193,8 +236,12 @@ function Page() {
           type: 'success',
           content: 'Se guardó correctamente.',
         });
+        // window.location.reload();
+
+
       } else {
       }
+
     }
     catch (e) {
       console.log(e);
@@ -578,8 +625,8 @@ function Page() {
 
             </Row>
           </Content>
-        
-          <Footer  style={footerStyle}>
+
+          <Footer style={footerStyle}>
 
             <Row>
               <Col span={2}>

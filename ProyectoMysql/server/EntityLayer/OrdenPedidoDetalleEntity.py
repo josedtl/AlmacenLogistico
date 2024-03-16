@@ -6,34 +6,28 @@ from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 class OrdenPedidoDetalleSaveModel(BaseModel):
     OrdenPedidoDetalleId: int 
     OrdenPedidoId: int 
-    ProductoId: int 
+    MercaderiaId: int 
     UnidadMedidaId: int 
     CantidadSolicitado: float 
     CantidadReservado: float 
     CantidadFaltante: float 
     CantidadAtendido: float 
     Enlazado: bool 
-    EsAtendido: bool 
-    FechaRegistro: datetime 
-    CodUsuario: str 
-    EstadoRegistro: bool 
+    Atendido: bool 
     Action: ProcessActionEnum
 
 
 class OrdenPedidoDetalleItemModel:
     OrdenPedidoDetalleId: int 
     OrdenPedidoId: int 
-    ProductoId: int 
+    MercaderiaId: int 
     UnidadMedidaId: int 
     CantidadSolicitado: float 
     CantidadReservado: float 
     CantidadFaltante: float 
     CantidadAtendido: float 
     Enlazado: bool 
-    EsAtendido: bool 
-    FechaRegistro: datetime 
-    CodUsuario: str 
-    EstadoRegistro: bool 
+    Atendido: bool 
     NomProducto: str
     CategoriaId: int
     CodigoUM: str
@@ -44,34 +38,28 @@ class OrdenPedidoDetalleItemModel:
         c = OrdenPedidoDetalleItemModel()
         c.OrdenPedidoDetalleId = _DB["OrdenPedidoDetalleId"]
         c.OrdenPedidoId = _DB["OrdenPedidoId"]
-        c.ProductoId = _DB["ProductoId"]
+        c.MercaderiaId = _DB["MercaderiaId"]
         c.UnidadMedidaId = _DB["UnidadMedidaId"]
         c.CantidadSolicitado = _DB["CantidadSolicitado"]
         c.CantidadReservado = _DB["CantidadReservado"]
         c.CantidadFaltante = _DB["CantidadFaltante"]
         c.CantidadAtendido = _DB["CantidadAtendido"]
         c.Enlazado = bool(ord(_DB["Enlazado"]))
-        c.EsAtendido = bool(ord(_DB["EsAtendido"]))
-        c.FechaRegistro = _DB["FechaRegistro"]
-        c.CodUsuario = _DB["CodUsuario"]
-        c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"]))
+        c.Atendido = bool(ord(_DB["Atendido"]))
         return c
 
     def CargarCabecera(_DB):
         c = OrdenPedidoDetalleItemModel()
         c.OrdenPedidoDetalleId = _DB["OrdenPedidoDetalleId"]
         c.OrdenPedidoId = _DB["OrdenPedidoId"]
-        c.ProductoId = _DB["ProductoId"]
+        c.MercaderiaId = _DB["MercaderiaId"]
         c.UnidadMedidaId = _DB["UnidadMedidaId"]
         c.CantidadSolicitado = _DB["CantidadSolicitado"]
         c.CantidadReservado = _DB["CantidadReservado"]
         c.CantidadFaltante = _DB["CantidadFaltante"]
         c.CantidadAtendido = _DB["CantidadAtendido"]
         c.Enlazado = bool(ord(_DB["Enlazado"]))
-        c.EsAtendido = bool(ord(_DB["EsAtendido"]))
-        c.FechaRegistro = _DB["FechaRegistro"]
-        c.CodUsuario = _DB["CodUsuario"]
-        c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"]))
+        c.Atendido = bool(ord(_DB["Atendido"]))
         c.NomProducto = _DB["NomProducto"]
         c.CategoriaId = _DB["CategoriaId"]
         c.CodigoUM = _DB["CodigoUM"]

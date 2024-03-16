@@ -12,6 +12,9 @@ const ModalItem: React.FC<PropsModel> = (props) => {
   const [modal, setModal] = React.useState(false);
   const toggle = () => {
     setModal(!modal);
+    // console.log("Edit");
+    // console.log(props)
+
   };
   let button: any = "";
   let title = "";
@@ -85,6 +88,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
           addItemToState={props.addItemToState}
           updateState={props.updateState}
           toggle={toggle}
+          keyItem={props.keyItem}
         />
       </Modal>
     </React.Fragment>

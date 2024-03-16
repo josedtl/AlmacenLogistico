@@ -12,6 +12,7 @@ export type PropsModel = {
     toggle?: any;
     CodigoTabla?: any;
     title?: any;
+    keyItem?: any;
 }
 
 
@@ -22,6 +23,7 @@ export type PropsTable = {
     EsTabla?: boolean;
     CodigoTabla?: string;
     title?: string;
+    keyItem?: any;
 }
 
 export type PropsModelDetalle = {

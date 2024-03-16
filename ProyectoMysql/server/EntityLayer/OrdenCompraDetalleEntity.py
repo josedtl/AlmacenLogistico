@@ -5,32 +5,32 @@ from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 class OrdenCompraDetalleSaveModel(BaseModel):
     OrdenCompraDetalleId: int 
     OrdenCompraId: int 
-    ProductoId: int 
+    MercaderiaId: int 
     UnidadMedidaId: int 
-    Cantidad: float 
-    FechaRegistro: datetime 
-    CodUsuario: str 
-    EstadoRegistro: bool 
+    CantidadSolicitado: float 
+    CantidadComprado: float 
+    CantidadFaltante : float 
+    PrecioUnitario: float 
     Action: ProcessActionEnum
 
 class OrdenCompraDetalleItemModel:
     OrdenCompraDetalleId: int 
     OrdenCompraId: int 
-    ProductoId: int 
+    MercaderiaId: int 
     UnidadMedidaId: int 
-    Cantidad: float 
-    FechaRegistro: datetime 
-    CodUsuario: str 
-    EstadoRegistro: bool 
+    CantidadSolicitado: float 
+    CantidadComprado: float 
+    CantidadFaltante : float 
+    PrecioUnitario: float 
 
     def Cargar(_DB):
         c =  OrdenCompraDetalleItemModel()
         c.OrdenCompraDetalleId = _DB["OrdenCompraDetalleId"] 
         c.OrdenCompraId = _DB["OrdenCompraId"] 
-        c.ProductoId = _DB["ProductoId"] 
+        c.MercaderiaId = _DB["MercaderiaId"] 
         c.UnidadMedidaId = _DB["UnidadMedidaId"] 
-        c.Cantidad = _DB["Cantidad"] 
-        c.FechaRegistro = _DB["FechaRegistro"] 
-        c.CodUsuario = _DB["CodUsuario"] 
-        c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 
+        c.CantidadSolicitado = _DB["CantidadSolicitado"] 
+        c.CantidadComprado = _DB["CantidadComprado"] 
+        c.CantidadFaltante = _DB["CantidadFaltante"] 
+        c.PrecioUnitario = _DB["PrecioUnitario"] 
         return c

@@ -6,11 +6,7 @@ from routes.EmpleadoRoute import EmpleadoRouter
 from routes.EmpresaRoute import EmpresaRouter
 from routes.EstadoProcesoRoute import EstadoProcesoRouter
 from routes.ModuloSistemaRoute import ModuloSistemaRouter
-from routes.OrdenCompraControlProcesoRoute import OrdenCompraControlProcesoRouter
-from routes.OrdenCompraDetalleRoute import OrdenCompraDetalleRouter
 from routes.OrdenCompraRoute import OrdenCompraRouter
-from routes.OrdenCompraPedidoEnlaceRoute import OrdenCompraPedidoEnlaceRouter
-from routes.OrdenPedidoControlProcesoRoute import OrdenPedidoControlProcesoRouter
 from routes.OrdenPedidoRoute import OrdenPedidoRouter
 from routes.PersonaNaturalRoute import PersonaNaturalRouter
 from routes.ProcesoRoute import ProcesoRouter
@@ -70,11 +66,7 @@ app.include_router(EmpleadoRouter)
 app.include_router(EmpresaRouter)
 app.include_router(EstadoProcesoRouter)
 app.include_router(ModuloSistemaRouter)
-app.include_router(OrdenCompraControlProcesoRouter)
 app.include_router(OrdenCompraRouter)
-app.include_router(OrdenCompraPedidoEnlaceRouter)
-app.include_router(OrdenPedidoControlProcesoRouter)
-app.include_router(OrdenCompraDetalleRouter)
 app.include_router(OrdenPedidoRouter)
 app.include_router(PersonaNaturalRouter)
 app.include_router(ProcesoRouter)

@@ -7,9 +7,9 @@ class OrdenCompraSaveModel(BaseModel):
     ProcesoId: int 
     EstadoProcesoId: int 
     Codigo: str 
-    EsEmpresaProveedor: bool 
-    ProveedorId: int 
-    Observacion: str 
+    EntidadId: int 
+    NumDocumentoProveedor: str 
+    NomProveedor: str 
     FechaEmision: datetime 
     FechaRegistro: datetime 
     CodUsuario: str 
@@ -21,25 +21,41 @@ class OrdenCompraItemModel:
     ProcesoId: int 
     EstadoProcesoId: int 
     Codigo: str 
-    EsEmpresaProveedor: bool 
-    ProveedorId: int 
-    Observacion: str 
+    EntidadId: int 
+    NumDocumentoProveedor: str 
+    NomProveedor: str 
     FechaEmision: datetime 
     FechaRegistro: datetime 
     CodUsuario: str 
-    EstadoRegistro: bool 
-
+    NomEstadoProceso : str
+    ValorEstadoProceso :int
+    NomTipoProceso: str 
+    
     def Cargar(_DB):
         c =  OrdenCompraItemModel()
         c.OrdenCompraId = _DB["OrdenCompraId"] 
         c.ProcesoId = _DB["ProcesoId"] 
         c.EstadoProcesoId = _DB["EstadoProcesoId"] 
         c.Codigo = _DB["Codigo"] 
-        c.EsEmpresaProveedor = bool(ord(_DB["EsEmpresaProveedor"])) 
-        c.ProveedorId = _DB["ProveedorId"] 
-        c.Observacion = _DB["Observacion"] 
+        c.NumDocumentoProveedor = _DB["NumDocumentoProveedor"] 
+        c.NomProveedor = _DB["NomProveedor"] 
+        c.EntidadId = _DB["EntidadId"] 
         c.FechaEmision = _DB["FechaEmision"] 
         c.FechaRegistro = _DB["FechaRegistro"] 
         c.CodUsuario = _DB["CodUsuario"] 
-        c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 
+        return c
+
+
+    def CargarMain(_DB):
+        c =  OrdenCompraItemModel()
+        c.OrdenCompraId = _DB["OrdenCompraId"] 
+        c.Codigo = _DB["Codigo"] 
+        c.NumDocumentoProveedor = _DB["NumDocumentoProveedor"] 
+        c.NomProveedor = _DB["NomProveedor"] 
+        c.FechaEmision = _DB["FechaEmision"] 
+        c.FechaRegistro = _DB["FechaRegistro"] 
+        c.CodUsuario = _DB["CodUsuario"] 
+        c.NomEstadoProceso = _DB["NomEstadoProceso"] 
+        c.ValorEstadoProceso = _DB["ValorEstadoProceso"] 
+        c.NomTipoProceso = _DB["NomTipoProceso"] 
         return c
