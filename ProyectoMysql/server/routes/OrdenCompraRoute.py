@@ -8,30 +8,10 @@ OrdenCompraRouter = APIRouter()
 ApiName = "OrdenCompra"
 
 
-@OrdenCompraRouter.get(f"/api/{ApiName}/GetItems/", tags=[ApiName])
-def GetItems():
-    try:
-        jsonData = OrdenCompra.GetItems()
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-
-@OrdenCompraRouter.get(f"/api/{ApiName}/GetItem/{{Id}}/", tags=[ApiName])
+@OrdenCompraRouter.get(f"/api/{ApiName}/GetItem/{{Id}}", tags=[ApiName])
 def GetItem(Id: int):
     try:
         jsonData = OrdenCompra.GetItem(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-
-@OrdenCompraRouter.delete(f"/api/{ApiName}/Delete/{{Id}}", tags=[ApiName])
-def Delete(Id: int):
-    try:
-        jsonData = OrdenCompra.Delete(Id)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
@@ -43,6 +23,15 @@ def Save(Ent: OrdenCompraSaveModel):
     try:
         Ent = OrdenCompra.Registrar(Ent)
         return jsonable_encoder(ResponseAPI.Response(Ent))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+@OrdenCompraRouter.get(f"/api/{ApiName}/GetItemMain", tags=[ApiName])
+def GetItemMain():
+    try:
+        jsonData = OrdenCompra.GetItemMain()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())

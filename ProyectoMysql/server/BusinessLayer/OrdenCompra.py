@@ -30,3 +30,8 @@ class OrdenCompra:
         except Exception as e:
             print(e)
     
+    def GetItemMain():
+        try:
+            return OrdenCompraDB.GetItemMain()
+        except Exception as e:
+            print(e)

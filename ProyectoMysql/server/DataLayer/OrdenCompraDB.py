@@ -44,39 +44,7 @@ class OrdenCompraDB:
         except Exception as e:
             print(e)
 
-    # def Registrar(Ent: OrdenCompraSaveModel):
-    #     try:
-    #         Store: str
-    #         Store = "sp_OrdenCompra_Registrar"
-    #         if Ent.Action == ProcessActionEnum.Update:
-    #             Store = "sp_OrdenCompra_Update"
-    #         conn = get_connection()
-    #         with conn.cursor() as cursor:
-    #             cursor = conn.cursor(pymysql.cursors.DictCursor)
-    #             args = []
-    #             args.append(Ent.OrdenCompraId)
-    #             args.append(Ent.ProcesoId)
-    #             args.append(Ent.EstadoProcesoId)
-    #             args.append(Ent.Codigo)
-    #             args.append(Ent.EntidadId)
-    #             args.append(Ent.NumDocumentoProveedor)
-    #             args.append(Ent.NomProveedor)
-    #             args.append(Ent.FechaEmision)
-    #             args.append(Ent.FechaRegistro)
-    #             args.append(Ent.CodUsuario)
-    #             cursor.callproc(Store, args)
-    #             Ent.OrdenCompraId = int(cursor.fetchone()["v_OrdenCompraId"])
 
-    #         conn.commit()
-    #         return Ent
-    #     except Exception as e:
-    #         print(e)
-    #         conn.rollback()
-    #     finally:
-    #         cursor.close()
-    #         conn.close()
-            
-            
     def Registrar(Ent: OrdenCompraSaveModel):
         try:
             store_mapping = {
@@ -140,3 +108,10 @@ class OrdenCompraDB:
             cursor.close()
             conn.close()
 
+    def GetItemMain():
+        try:
+            resulset = DBProcedure().DBProcedureConsult("sp_OrdenCompraMain", [])
+            list = [OrdenCompraItemModel.CargarMain(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)
