@@ -52,7 +52,7 @@ python uvicorn app:app --port 8000 --reload
 9085
 python -m venv venv
 python -m venv venv
-.\venv\Scripts\activate
+.\venv-entorno\Scripts\activate
 
 
 
