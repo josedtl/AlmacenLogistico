@@ -8,16 +8,6 @@ OrdenCompraRouter = APIRouter()
 ApiName = "OrdenCompra"
 
 
-@OrdenCompraRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
-def Save(Ent: OrdenCompraSaveModel):
-    try:
-        Ent = OrdenCompra.Save(Ent)
-        return jsonable_encoder(ResponseAPI.Response(Ent))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-
 @OrdenCompraRouter.get(f"/api/{ApiName}/GetItems/", tags=[ApiName])
 def GetItems():
     try:
@@ -48,3 +38,11 @@ def Delete(Id: int):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
+@OrdenCompraRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
+def Save(Ent: OrdenCompraSaveModel):
+    try:
+        Ent = OrdenCompra.Registrar(Ent)
+        return jsonable_encoder(ResponseAPI.Response(Ent))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())

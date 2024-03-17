@@ -1,11 +1,14 @@
 from DataLayer.OrdenCompraDB import *
 from EntityLayer.OrdenCompraEntity import *
-
+from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Restore
 
 class OrdenCompra:
-    def Save(Ent: OrdenCompraSaveModel):
-        try:
-            return OrdenCompraDB.Save(Ent)
+    def Registrar(Ent: OrdenCompraSaveModel):
+        try:    
+            StartTransaction()
+            data= OrdenCompraDB.Registrar(Ent)
+            EndTransaction()
+            return data
         except Exception as e:
             print(e)
     

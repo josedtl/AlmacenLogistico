@@ -13,7 +13,6 @@ class OrdenCompraSaveModel(BaseModel):
     FechaEmision: datetime 
     FechaRegistro: datetime 
     CodUsuario: str 
-    EstadoRegistro: bool 
     Action: ProcessActionEnum
 
 class OrdenCompraItemModel:

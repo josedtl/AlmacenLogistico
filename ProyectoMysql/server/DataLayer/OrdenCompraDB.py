@@ -42,10 +42,10 @@ class OrdenCompraDB:
         except Exception as e:
             print(e)
 
-    def Save(Ent: OrdenCompraSaveModel):
+    def Registrar(Ent: OrdenCompraSaveModel):
         try:
             Store: str
-            Store = "sp_OrdenCompra_Save"
+            Store = "sp_OrdenCompra_Registrar"
             if Ent.Action == ProcessActionEnum.Update:
                 Store = "sp_OrdenCompra_Update"
             conn = get_connection()
@@ -56,13 +56,12 @@ class OrdenCompraDB:
                 args.append(Ent.ProcesoId)
                 args.append(Ent.EstadoProcesoId)
                 args.append(Ent.Codigo)
-                args.append(Ent.EsEmpresaProveedor)
-                args.append(Ent.ProveedorId)
-                args.append(Ent.Observacion)
+                args.append(Ent.EntidadId)
+                args.append(Ent.NumDocumentoProveedor)
+                args.append(Ent.NomProveedor)
                 args.append(Ent.FechaEmision)
                 args.append(Ent.FechaRegistro)
                 args.append(Ent.CodUsuario)
-                args.append(Ent.EstadoRegistro)
                 cursor.callproc(Store, args)
                 Ent.OrdenCompraId = int(cursor.fetchone()["v_OrdenCompraId"])
 
