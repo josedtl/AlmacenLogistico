@@ -44,13 +44,12 @@ class OrdenPedidoDetalleDB:
 
     def Save(Ent: OrdenPedidoDetalleSaveModel):
         try:
-            Store: str
-            Store = "sp_OrdenPedidoDetalle_Save"
-            if Ent.Action == ProcessActionEnum.Update:
-                Store = "sp_OrdenPedidoDetalle_Update"
-                # cursor = conn.cursor(pymysql.cursors.DictCursor)
+            store_mapping = {
+                ProcessActionEnum.Update: "sp_OrdenPedido_Update",
+                ProcessActionEnum.Add: "sp_OrdenPedidoDetalle_Save",
+            }
+            Store = store_mapping.get(Ent.Action, "sp_OrdenPedidoDetalle_Save")
             args = []
-            print (Store)
             args.append(Ent.OrdenPedidoDetalleId)
             args.append(Ent.OrdenPedidoId)
             args.append(Ent.MercaderiaId)

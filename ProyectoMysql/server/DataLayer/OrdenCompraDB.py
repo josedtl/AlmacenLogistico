@@ -1,8 +1,10 @@
+from DataLayer.OrdenCompraDetalleDB import OrdenCompraDetalleDB
 from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
 from .configMysql import get_connection
 from EntityLayer.OrdenCompraEntity import *
+from Utilidades.Conexion.configMysql import DBProcedure, Restore
 import pymysql
 
 
@@ -42,37 +44,77 @@ class OrdenCompraDB:
         except Exception as e:
             print(e)
 
+    # def Registrar(Ent: OrdenCompraSaveModel):
+    #     try:
+    #         Store: str
+    #         Store = "sp_OrdenCompra_Registrar"
+    #         if Ent.Action == ProcessActionEnum.Update:
+    #             Store = "sp_OrdenCompra_Update"
+    #         conn = get_connection()
+    #         with conn.cursor() as cursor:
+    #             cursor = conn.cursor(pymysql.cursors.DictCursor)
+    #             args = []
+    #             args.append(Ent.OrdenCompraId)
+    #             args.append(Ent.ProcesoId)
+    #             args.append(Ent.EstadoProcesoId)
+    #             args.append(Ent.Codigo)
+    #             args.append(Ent.EntidadId)
+    #             args.append(Ent.NumDocumentoProveedor)
+    #             args.append(Ent.NomProveedor)
+    #             args.append(Ent.FechaEmision)
+    #             args.append(Ent.FechaRegistro)
+    #             args.append(Ent.CodUsuario)
+    #             cursor.callproc(Store, args)
+    #             Ent.OrdenCompraId = int(cursor.fetchone()["v_OrdenCompraId"])
+
+    #         conn.commit()
+    #         return Ent
+    #     except Exception as e:
+    #         print(e)
+    #         conn.rollback()
+    #     finally:
+    #         cursor.close()
+    #         conn.close()
+            
+            
     def Registrar(Ent: OrdenCompraSaveModel):
         try:
-            Store: str
-            Store = "sp_OrdenCompra_Registrar"
-            if Ent.Action == ProcessActionEnum.Update:
-                Store = "sp_OrdenCompra_Update"
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = []
-                args.append(Ent.OrdenCompraId)
-                args.append(Ent.ProcesoId)
-                args.append(Ent.EstadoProcesoId)
-                args.append(Ent.Codigo)
-                args.append(Ent.EntidadId)
-                args.append(Ent.NumDocumentoProveedor)
-                args.append(Ent.NomProveedor)
-                args.append(Ent.FechaEmision)
-                args.append(Ent.FechaRegistro)
-                args.append(Ent.CodUsuario)
-                cursor.callproc(Store, args)
-                Ent.OrdenCompraId = int(cursor.fetchone()["v_OrdenCompraId"])
+            store_mapping = {
+                ProcessActionEnum.Update: "sp_OrdenCompra_Actualizar",
+                ProcessActionEnum.Add: "sp_OrdenCompra_Registrar",
+            }
+            Store = store_mapping.get(Ent.Action, "sp_OrdenCompra_Registrar")
+            args = []
+            args.append(Ent.OrdenCompraId)
+            args.append(Ent.ProcesoId)
+            args.append(Ent.EstadoProcesoId)
+            args.append(Ent.Codigo)
+            args.append(Ent.EntidadId)
+            args.append(Ent.NumDocumentoProveedor)
+            args.append(Ent.NomProveedor)
+            args.append(Ent.FechaEmision)
+            args.append(Ent.FechaRegistro)
+            args.append(Ent.CodUsuario)
+            Ent.OrdenCompraId = DBProcedure().DBProcedureInsertUpdate(
+                Store, args, "v_OrdenCompraId"
+            )
 
-            conn.commit()
+            # for detalle in Ent.DetalleItems:
+            #     detalle.OrdenCompraId = Ent.OrdenCompraId
+            #     if detalle.Action == ProcessActionEnum.Delete:
+            #         OrdenCompraDetalleDB.Delete(detalle.OrdenPedidoDetalleId)
+            #     elif detalle.Action in [
+            #         ProcessActionEnum.Add,
+            #         ProcessActionEnum.Update,
+            #     ]:
+            #         OrdenCompraDetalleDB.Save(detalle)
+
             return Ent
         except Exception as e:
             print(e)
-            conn.rollback()
-        finally:
-            cursor.close()
-            conn.close()
+            Restore()
+
+
 
     def Delete(Id: int):
         try:

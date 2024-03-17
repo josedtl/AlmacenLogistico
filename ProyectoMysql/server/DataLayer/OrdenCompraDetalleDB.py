@@ -1,3 +1,4 @@
+from Utilidades.Conexion.configMysql import DBProcedure, Restore
 from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
@@ -44,34 +45,29 @@ class OrdenCompraDetalleDB:
 
     def Save(Ent: OrdenCompraDetalleSaveModel):
         try:
-            Store: str
-            Store = "sp_OrdenCompraDetalle_Save"
-            if Ent.Action == ProcessActionEnum.Update:
-                Store = "sp_OrdenCompraDetalle_Update"
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = []
-                args.append(Ent.OrdenCompraDetalleId)
-                args.append(Ent.OrdenCompraId)
-                args.append(Ent.ProductoId)
-                args.append(Ent.UnidadMedidaId)
-                args.append(Ent.Cantidad)
-                args.append(Ent.FechaRegistro)
-                args.append(Ent.CodUsuario)
-                args.append(Ent.EstadoRegistro)
-                cursor.callproc(Store, args)
-                Ent.OrdenCompraDetalleId = int(cursor.fetchone()["v_OrdenCompraDetalleId"])
-
-            conn.commit()
+            print('Entro al detalle')
+            store_mapping = {
+                ProcessActionEnum.Update: "sp_OrdenCompraDetalle_Update",
+                ProcessActionEnum.Add: "sp_OrdenCompraDetalle_Save",
+            }
+            Store = store_mapping.get(Ent.Action, "sp_OrdenCompraDetalle_Save")
+            args = []
+            args.append(Ent.OrdenCompraDetalleId)
+            args.append(Ent.OrdenCompraId)
+            args.append(Ent.MercaderiaId)
+            args.append(Ent.UnidadMedidaId)
+            args.append(Ent.CantidadSolicitado)
+            args.append(Ent.CantidadComprado)
+            args.append(Ent.CantidadFaltante)
+            args.append(Ent.PrecioUnitario)
+            Ent.OrdenCompraDetalleId = DBProcedure().DBProcedureInsertUpdate(
+            Store, args, "v_OrdenCompraDetalleId"
+            )
             return Ent
         except Exception as e:
             print(e)
-            conn.rollback()
-        finally:
-            cursor.close()
-            conn.close()
-
+            Restore()
+            
     def Delete(Id: int):
         try:
             conn = get_connection()

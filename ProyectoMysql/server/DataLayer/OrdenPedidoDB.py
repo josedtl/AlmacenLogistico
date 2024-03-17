@@ -87,7 +87,6 @@ class OrdenPedidoDB:
             Ent.OrdenPedidoId = DBProcedure().DBProcedureInsertUpdate(
                 Store, args, "v_OrdenPedidoId"
             )
-            print("ACA")
 
             for detalle in Ent.DetalleItems:
                 detalle.OrdenPedidoId = Ent.OrdenPedidoId

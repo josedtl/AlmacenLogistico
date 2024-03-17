@@ -1,4 +1,5 @@
 from datetime import datetime
+from EntityLayer.OrdenCompraDetalleEntity import OrdenCompraDetalleSaveModel
 from pydantic import BaseModel
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
@@ -14,7 +15,8 @@ class OrdenCompraSaveModel(BaseModel):
     FechaRegistro: datetime 
     CodUsuario: str 
     Action: ProcessActionEnum
-
+    DetalleItems :list[OrdenCompraDetalleSaveModel]
+    
 class OrdenCompraItemModel:
     OrdenCompraId: int 
     ProcesoId: int 
