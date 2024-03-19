@@ -5,9 +5,6 @@ import { apiLg } from './axios-config';
 class OrdenCompraService {
 
 
-
-
-
   async saveItem(item: OrdenCompraEntity): Promise<OrdenCompraEntity | null> {
     try {
       const response = await apiLg.post(`api/OrdenCompra/Registrar`, item, {
@@ -25,6 +22,7 @@ class OrdenCompraService {
   async GetItemCabecera(Id: number): Promise<OrdenCompraEntity[]> {
     try {
       const response = await apiLg.get(`api/OrdenCompra/GetItem/${Id}`);
+      console.log(response);
       return response.data.Value;
     } catch (error) {
       throw error;
@@ -34,7 +32,7 @@ class OrdenCompraService {
   
   async GetItemCabeceraOP(Id: number): Promise<OrdenCompraDetalleEntity[]> {
     try {
-      const response = await apiLg.get(`api/OrdenCompra/GetItemCabeceraOP/${Id}`);
+      const response = await apiLg.get(`api/OrdenCompra/GetItemCabeceraDetalle/${Id}`);
       return response.data.Value;
     } catch (error) {
       throw error;

@@ -6,6 +6,7 @@ export class OrdenCompraEntity {
     OrdenCompraId: number
     ProcesoId: number
     EstadoProcesoId: number
+    TipoProcesoId: number
     Codigo: string
     EntidadId: number
     NumDocumentoProveedor: string
@@ -15,13 +16,14 @@ export class OrdenCompraEntity {
     CodUsuario: string
     Action: ProcessActionEnum
     NomEstadoProceso: string
-    DetalleItems:  OrdenCompraDetalleEntity[]
+    DetalleItems: OrdenCompraDetalleEntity[]
     color: string
     ValorEstadoProceso: number
     constructor() {
         this.OrdenCompraId = 0;
         this.ProcesoId = 0;
         this.EstadoProcesoId = 0;
+        this.TipoProcesoId = 0;
         this.Codigo = '';
         this.EntidadId = 0;
         this.NumDocumentoProveedor = '';

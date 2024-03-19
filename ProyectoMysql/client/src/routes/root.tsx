@@ -44,26 +44,14 @@ const Root: React.FC = () => {
         getItem(<Link to="/OrdenCompra">Orden de Compra</Link>, 'L1_2')
       ]),
     getItem('Operación', 'A2', <ReconciliationOutlined />,
-      [
-        getItem(<Link to="/">Recepción</Link>, 'A2_1'),
-        getItem(<Link to="/">Despacho</Link>, 'A2_2')
+      [getItem(<Link to="/">Reserva</Link>, 'A2_3'),
+      getItem(<Link to="/">Recepción</Link>, 'A2_1'),
+      getItem(<Link to="/">Despacho</Link>, 'A2_2')
       ]),
     getItem('Catalogo', 'C1', <BlockOutlined />,
       [
-        // getItem(<Link to="/Categoria">Categoria</Link>, 'C1_1'),
-        // getItem(<Link to="/Marca">Marca</Link>, 'C1_2'),
-        // getItem(<Link to="/Modelo">Modelo</Link>, 'C1_3'),
-        // getItem(<Link to="/TipoProducto">Tipo de producto</Link>, 'C1_4'),
-        // getItem(<Link to="/Producto">Producto</Link>, 'C1_5'),
         getItem(<Link to="/Producto/Menu">Artículo</Link>, 'C1_55'),
         getItem(<Link to="/Entidad">Entidad</Link>, 'C1_6'),
-        // getItem(<Link to="/PersonaNatural">Persona Natural</Link>, 'C1_6'),
-        // getItem(<Link to="/Empresa">Empresa</Link>, 'C1_7'),
-        // getItem(<Link to="/Cliente">Cliente</Link>, 'C1_8'),
-        // getItem(<Link to="/MerLista/Categoria/M002">Categoria</Link>, 'MC1_8'),
-        // getItem(<Link to="/MerLista/TipoProducto/M003">Tipo Producto</Link>, 'MC1_tp'),
-        // getItem(<Link to="/MerLista/Marca/M004">Marca</Link>, 'MC1_M004'),
-        // getItem(<Link to="/MerLista/Modelo/M005">Modelo</Link>, 'MC1_M005'),
       ]),
   ];
   return (
@@ -82,9 +70,9 @@ const Root: React.FC = () => {
         }}
         style={{
           background: '#001529',
-          height:'calc(14px + 100vh)',
-          marginTop:'0px',
-          marginLeft :'-10px'
+          height: 'calc(14px + 100vh)',
+          marginTop: '0px',
+          marginLeft: '-10px'
         }}
       >
         <div style={{ height: '175px', width: '200px', background: '#B1B1B1' }} className="demo-logo-vertical" >
@@ -95,7 +83,7 @@ const Root: React.FC = () => {
           mode="inline"
           defaultSelectedKeys={['1']}
           items={items}
-     
+
         >
 
         </Menu>
@@ -115,8 +103,8 @@ const Root: React.FC = () => {
 
 
           <h3 style={{ color: 'white', float: 'right', marginTop: '-2px', marginRight: '10px' }}>David Timo</h3>
-    
-    
+
+
         </Header>
         <Content
           style={{

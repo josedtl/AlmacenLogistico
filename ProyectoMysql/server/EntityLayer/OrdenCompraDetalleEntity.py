@@ -22,7 +22,10 @@ class OrdenCompraDetalleItemModel:
     CantidadComprado: float 
     CantidadFaltante : float 
     PrecioUnitario: float 
-
+    NomProducto: str 
+    CategoriaId: int 
+    CodigoUM: str 
+    Stock: float 
     def Cargar(_DB):
         c =  OrdenCompraDetalleItemModel()
         c.OrdenCompraDetalleId = _DB["OrdenCompraDetalleId"] 
@@ -33,4 +36,9 @@ class OrdenCompraDetalleItemModel:
         c.CantidadComprado = _DB["CantidadComprado"] 
         c.CantidadFaltante = _DB["CantidadFaltante"] 
         c.PrecioUnitario = _DB["PrecioUnitario"] 
+        c.NomProducto = _DB["NomProducto"] 
+        c.CategoriaId = _DB["CategoriaId"] 
+        c.CodigoUM = _DB["CodigoUM"] 
+        c.Stock = _DB["Stock"] 
+        
         return c

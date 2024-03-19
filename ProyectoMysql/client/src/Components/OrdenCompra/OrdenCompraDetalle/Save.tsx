@@ -131,12 +131,12 @@ function Page() {
   const [selectedTipoRequerimeinto, setSelectedTipoRequerimeinto] = useState<number | undefined>(undefined);
 
 
-  // const onChangeTipoProceso = async (value: number) => {
-  //   // setValUnidadMedida('');
-  //   Ent.TipoProcesoId = value;
-  //   setSelectedTipoRequerimeinto(value)
-  //   selectedTipoRequerimeinto;
-  // };
+  const onChangeTipoProceso = async (value: number) => {
+    // setValUnidadMedida('');
+    Ent.TipoProcesoId = value;
+    setSelectedTipoRequerimeinto(value)
+    selectedTipoRequerimeinto;
+  };
 
 
 
@@ -501,7 +501,7 @@ function Page() {
               {/* {CorrelativoDiv()} */}
 
               <Col xs={3} >
-                {/* <Row>
+                <Row>
                   <Col span={24}>
                     <label>Tipo Requerimiento</label>
                   </Col>
@@ -525,7 +525,7 @@ function Page() {
 
 
                   </Col>
-                </Row> */}
+                </Row>
               </Col>
               <Col xs={18}>
                 <Row>

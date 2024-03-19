@@ -27,25 +27,18 @@ class OrdenCompraDetalleDB:
 
     def GetItem(Id: int):
         try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Id,)
-                cursor.callproc("sp_OrdenCompraDetalleAllItem", args)
-                resulset = cursor.fetchall()
-            conn.close()
-            list = []
-
-            for row in resulset:
-                Data_ent = OrdenCompraDetalleItemModel.Cargar(row)
-                list.append(Data_ent)
+            args = (Id,)
+            resulset = DBProcedure().DBProcedureConsult(
+                "sp_OrdenCompraDetalleCabeceraItem", args
+            )
+            list = [OrdenCompraDetalleItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
 
     def Save(Ent: OrdenCompraDetalleSaveModel):
         try:
-            print('Entro al detalle')
+            print("Entro al detalle")
             store_mapping = {
                 ProcessActionEnum.Update: "sp_OrdenCompraDetalle_Update",
                 ProcessActionEnum.Add: "sp_OrdenCompraDetalle_Save",
@@ -61,13 +54,13 @@ class OrdenCompraDetalleDB:
             args.append(Ent.CantidadFaltante)
             args.append(Ent.PrecioUnitario)
             Ent.OrdenCompraDetalleId = DBProcedure().DBProcedureInsertUpdate(
-            Store, args, "v_OrdenCompraDetalleId"
+                Store, args, "v_OrdenCompraDetalleId"
             )
             return Ent
         except Exception as e:
             print(e)
             Restore()
-            
+
     def Delete(Id: int):
         try:
             conn = get_connection()
@@ -79,16 +72,18 @@ class OrdenCompraDetalleDB:
             return ResponseAPI.Response(True)
         except Exception as e:
             error_code = e.args[0]
-            error_entity = next((entity for entity in error_entities if entity['code'] == error_code), None)
+            error_entity = next(
+                (entity for entity in error_entities if entity["code"] == error_code),
+                None,
+            )
 
             if error_entity:
-                print(error_entity['message'])
-                return ResponseAPIError.ErrorMensaje(error_entity['messageuser']) 
+                print(error_entity["message"])
+                return ResponseAPIError.ErrorMensaje(error_entity["messageuser"])
             else:
                 error_message = "Ocurrio un error al eliminar el Registro"
                 print(e)
-                return ResponseAPIError.ErrorMensaje(error_message) 
+                return ResponseAPIError.ErrorMensaje(error_message)
         finally:
             cursor.close()
             conn.close()
-

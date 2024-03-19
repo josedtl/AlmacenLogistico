@@ -7,9 +7,9 @@ export class OrdenCompraDetalleEntity {
     MercaderiaId: number;
     UnidadMedidaId: number;
     CantidadSolicitado: number;
-    CantidadReservado: number;
+    CantidadComprado: number;
     CantidadFaltante: number;
-    CantidadAtendido: number;
+    PrecioUnitario: number;
     Enlazado: boolean;
     Atendido: boolean;
     Action: ProcessActionEnum;
@@ -25,9 +25,9 @@ export class OrdenCompraDetalleEntity {
         this.MercaderiaId = 0;
         this.UnidadMedidaId = 0;
         this.CantidadSolicitado = 0;
-        this.CantidadReservado = 0;
+        this.CantidadComprado = 0;
         this.CantidadFaltante = 0;
-        this.CantidadAtendido = 0;
+        this.PrecioUnitario = 0;
         this.Enlazado = false;
         this.Atendido = false;
         this.Action = ProcessActionEnum.Add;
@@ -38,9 +38,9 @@ export class OrdenCompraDetalleEntity {
         this.keyItem = '';
         // Asigna el valor predeterminado de ProcessActionEnum que desees
     }
-    
 
-    
+
+
 }
 
 

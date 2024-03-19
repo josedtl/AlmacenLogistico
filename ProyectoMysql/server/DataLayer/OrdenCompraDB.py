@@ -26,24 +26,17 @@ class OrdenCompraDB:
         except Exception as e:
             print(e)
 
+            
     def GetItem(Id: int):
         try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Id,)
-                cursor.callproc("sp_OrdenCompraAllItem", args)
-                resulset = cursor.fetchall()
-            conn.close()
-            list = []
-
-            for row in resulset:
-                Data_ent = OrdenCompraItemModel.Cargar(row)
-                list.append(Data_ent)
+            args = (Id,)
+            resulset = DBProcedure().DBProcedureConsult(
+                "sp_OrdenCompraAllItem", args
+            )
+            list = [OrdenCompraItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
-
 
     def Registrar(Ent: OrdenCompraSaveModel):
         try:
@@ -54,6 +47,7 @@ class OrdenCompraDB:
             Store = store_mapping.get(Ent.Action, "sp_OrdenCompra_Registrar")
             args = []
             args.append(Ent.OrdenCompraId)
+            args.append(Ent.TipoProcesoId)
             args.append(Ent.ProcesoId)
             args.append(Ent.EstadoProcesoId)
             args.append(Ent.Codigo)
@@ -67,15 +61,15 @@ class OrdenCompraDB:
                 Store, args, "v_OrdenCompraId"
             )
 
-            # for detalle in Ent.DetalleItems:
-            #     detalle.OrdenCompraId = Ent.OrdenCompraId
-            #     if detalle.Action == ProcessActionEnum.Delete:
-            #         OrdenCompraDetalleDB.Delete(detalle.OrdenPedidoDetalleId)
-            #     elif detalle.Action in [
-            #         ProcessActionEnum.Add,
-            #         ProcessActionEnum.Update,
-            #     ]:
-            #         OrdenCompraDetalleDB.Save(detalle)
+            for detalle in Ent.DetalleItems:
+                detalle.OrdenCompraId = Ent.OrdenCompraId
+                if detalle.Action == ProcessActionEnum.Delete:
+                    OrdenCompraDetalleDB.Delete(detalle.OrdenPedidoDetalleId)
+                elif detalle.Action in [
+                    ProcessActionEnum.Add,
+                    ProcessActionEnum.Update,
+                ]:
+                    OrdenCompraDetalleDB.Save(detalle)
 
             return Ent
         except Exception as e:

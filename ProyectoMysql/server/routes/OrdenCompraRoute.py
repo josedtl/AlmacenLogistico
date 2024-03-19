@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from BusinessLayer.OrdenCompra import *
+from BusinessLayer.OrdenCompraDetalle import OrdenCompraDetalle
 from EntityLayer.OrdenCompraEntity import *
 from fastapi.encoders import jsonable_encoder
 from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
@@ -31,6 +32,15 @@ def Save(Ent: OrdenCompraSaveModel):
 def GetItemMain():
     try:
         jsonData = OrdenCompra.GetItemMain()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+    
+@OrdenCompraRouter.get(f"/api/{ApiName}/GetItemCabeceraDetalle/{{Id}}", tags=[ApiName])
+def GetItemCabeceraOP(Id: int):
+    try:
+        jsonData = OrdenCompraDetalle.GetItem(Id)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
