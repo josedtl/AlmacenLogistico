@@ -84,18 +84,18 @@ public class GeneralController {
         return Items;
     }
 
-    @GetMapping("/GetCargoLikeItem/{Nombre}")
-    public ArrayList<CargoItemModel> GetCargoLikeItem(@PathVariable String Nombre) {
-        ArrayList<CargoItemModel> Items = new ArrayList<>();
-        Cargo BS = new Cargo();
-        ArrayList<CargoEntity> Data = BS.GetCargoLikeItem(Nombre);
+    // @GetMapping("/GetCargoLikeItem/{Nombre}")
+    // public ArrayList<CargoItemModel> GetCargoLikeItem(@PathVariable String Nombre) {
+    //     ArrayList<CargoItemModel> Items = new ArrayList<>();
+    //     Cargo BS = new Cargo();
+    //     ArrayList<CargoEntity> Data = BS.GetCargoLikeItem(Nombre);
 
-        for (CargoEntity Item : Data) {
-            Items.add(new CargoItemModel(Item));
-        }
+    //     for (CargoEntity Item : Data) {
+    //         Items.add(new CargoItemModel(Item));
+    //     }
 
-        return Items;
-    }
+    //     return Items;
+    // }
 
     @GetMapping("/GetServicioBasicoItems")
     public ArrayList<ServicioBasicoItemModel> GetServicioBasicoItems() {

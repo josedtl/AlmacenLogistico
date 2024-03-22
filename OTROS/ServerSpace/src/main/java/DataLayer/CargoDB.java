@@ -2,13 +2,14 @@ package DataLayer;
 
 import EntityLayer.CargoEntity;
 import Enumerados.ProcessActionEnum;
+import Framework.BaseDB;
 import Framework.Utilidades;
 import Framework.injector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CargoDB extends DataLayer.MyCode.CargoDB {
+public class CargoDB extends BaseDB{
 
     injector Inj = new injector();
 
@@ -19,16 +20,13 @@ public class CargoDB extends DataLayer.MyCode.CargoDB {
         try {
             Inj.Sp("sp_CargoAllItems");
             ResultSet rs = Inj.RunSelect();
+
+            fillSchemeTable(rs);
             while (rs.next()) {
                 en = new CargoEntity();
-                en.setCargoId(rs.getInt("CargoId"));
-                en.setNombre(rs.getString("Nombre"));
-                en.setFechaRegistro(rs.getTimestamp("FechaRegistro"));
-                en.setCodUsuario(rs.getString("CodUsuario"));
-                en.setEstadoRegistro(rs.getBoolean("EstadoRegistro"));
-                en.setPruebaId(0);
-                DatoMemoria.add(en);
-
+                if (fillFrom(rs, en)) { 
+                    DatoMemoria.add(en);
+                }
             }
 
         } catch (SQLException e) {
@@ -107,5 +105,7 @@ public class CargoDB extends DataLayer.MyCode.CargoDB {
         }
         return State;
     }
+
+
 
 }

@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/api/Cargo")
-public class CargoController {
+public class CargoController  extends Configuracion{
 
     @GetMapping("/GetAllItems")
     public ArrayList<CargoEntity> GetAllItems() {
+        DataConfi();
         Cargo BS = new Cargo();
         return BS.GetAllItems();
     }
