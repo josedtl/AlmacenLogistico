@@ -34,6 +34,8 @@ import ProductoEnlace from "./Components/MerLista/Main";
 import EntidadMenu from "./Components/Entidad/Menu";
 import PageOrdenCompra from "./Components/OrdenCompra/Main";
 import PageOrdenCompraSave from "./Components/OrdenCompra/OrdenCompraDetalle/Save";
+import PageRecepcion from "./Components/Recepcion/Main";
+import PageRecepcionSave from "./Components/Recepcion/RecepcionDetalle/Save";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -58,9 +60,8 @@ const router = createBrowserRouter([
       { path: "Entidad", element: <EntidadMenu />, },
       { path: "OrdenCompra", element: <PageOrdenCompra />, },
       { path: "OrdenCompraSave/:Id", element: <PageOrdenCompraSave />, },
-      // { path: "MerLista/TipoProducto/:Id", element: <ProductoEnlace />, },
-      // { path: "MerLista/Marca/:Id", element: <ProductoEnlace />, },
-      // { path: "MerLista/Modelo/:Id", element: <ProductoEnlace />, },
+      { path: "Recepcion", element: <PageRecepcion />, },
+      { path: "RecepcionSave/:Id", element: <PageRecepcionSave />, },
     ],
   },
 ]);

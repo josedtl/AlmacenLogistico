@@ -22,6 +22,7 @@ from routes.EntListaRouter import EntListaRouter
 from routes.EntDatoRoute import EntDatoRouter
 from routes.MerListaRouter import MerListaRouter
 from routes.MercaderiaRoute import MercaderiaRouter
+from routes.RecepcionRoute import RecepcionRouter
 from ariadne.asgi import GraphQL
 from GraphqlServer import schema
 
@@ -82,6 +83,7 @@ app.include_router(EntListaRouter)
 app.include_router(MerListaRouter)
 app.include_router(MercaderiaRouter)
 app.include_router(EntDatoRouter)
+app.include_router(RecepcionRouter)
 tags_metadata = [
     {
         "name": "PersonaNatural",
