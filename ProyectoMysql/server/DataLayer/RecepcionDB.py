@@ -1,3 +1,4 @@
+from DataLayer.RecepcionDetalleDB import RecepcionDetalleDB
 from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
@@ -37,15 +38,15 @@ class RecepcionDB:
                 Store, args, "v_RecepcionId"
             )
 
-            # for detalle in Ent.DetalleItems:
-            #     detalle.OrdenPedidoId = Ent.OrdenPedidoId
-            #     if detalle.Action == ProcessActionEnum.Delete:
-            #         OrdenPedidoDetalleDB.Delete(detalle.OrdenPedidoDetalleId)
-            #     elif detalle.Action in [
-            #         ProcessActionEnum.Add,
-            #         ProcessActionEnum.Update,
-            #     ]:
-            #         OrdenPedidoDetalleDB.Save(detalle)
+            for detalle in Ent.DetalleItems:
+                detalle.OrdenPedidoId = Ent.OrdenPedidoId
+                if detalle.Action == ProcessActionEnum.Delete:
+                    RecepcionDetalleDB.Delete(detalle.OrdenPedidoDetalleId)
+                elif detalle.Action in [
+                    ProcessActionEnum.Add,
+                    ProcessActionEnum.Update,
+                ]:
+                    RecepcionDetalleDB.Registrar(detalle)
 
             return Ent
         except Exception as e:

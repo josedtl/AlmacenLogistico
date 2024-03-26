@@ -1,5 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel
+from EntityLayer.RecepcionDetalleEntity import RecepcionDetalleSaveModel
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 
@@ -18,7 +19,7 @@ class RecepcionSaveModel(BaseModel):
     FechaRegistro: datetime
     CodUsuario: str
     Action: ProcessActionEnum
-
+    DetalleItems :list[RecepcionDetalleSaveModel]
 
 class RecepcionItemModel:
     RecepcionId: int
