@@ -39,9 +39,9 @@ class RecepcionDB:
             )
 
             for detalle in Ent.DetalleItems:
-                detalle.OrdenPedidoId = Ent.OrdenPedidoId
+                detalle.RecepcionId = Ent.RecepcionId
                 if detalle.Action == ProcessActionEnum.Delete:
-                    RecepcionDetalleDB.Delete(detalle.OrdenPedidoDetalleId)
+                    RecepcionDetalleDB.Delete(detalle.RecepcionDetalleId)
                 elif detalle.Action in [
                     ProcessActionEnum.Add,
                     ProcessActionEnum.Update,
