@@ -4,7 +4,7 @@ from Utilidades.Arreglos.ListError import error_entities
 from .configMysql import get_connection
 from EntityLayer.ProcesoEntity import *
 import pymysql
-
+from Utilidades.Conexion.configMysql import DBProcedure, Restore
 
 class ProcesoDB:
     def GetItems():
@@ -97,3 +97,11 @@ class ProcesoDB:
             cursor.close()
             conn.close()
 
+    def ObtenerTipo(Codigo :str):
+        try:
+            args = (Codigo,)
+            resulset = DBProcedure().DBProcedureConsult("sp_ProcesoObtenerTipo", args)
+            list = [ProcesoItemModel.CargarTipo(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)

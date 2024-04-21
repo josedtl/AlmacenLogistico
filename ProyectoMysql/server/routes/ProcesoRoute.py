@@ -48,3 +48,11 @@ def Delete(Id: int):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
+@ProcesoRouter.get(f"/api/{ApiName}/ObtenerTipo/{{Codigo}}/", tags=[ApiName])
+def ObtenerTipo(Codigo: str):
+    try:
+        jsonData = Proceso.ObtenerTipo(Codigo)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())

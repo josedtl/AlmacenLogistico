@@ -21,14 +21,16 @@ try:
         # Obtener los resultados de la consulta
         resultados = cursor.fetchall()
 
-        url = "http://localhost:9085/api/PersonaNatural/Save"
+        url = "http://localhost/ServiceSpace/api/PersonaNatural/Registrar"
         # Mostrar los resultados
         for fila in resultados:
             data = {
                 "PersonaNaturalId": 0,
-                "TipoDocumentoIdentidadId": 1,
+                "TipoDocumentoIdentidadId": 7,
                 "NumDocumento": fila["NumDocumento"],
-                "UbigeoId": 222,
+                "FechaRegistro": "2024-03-10T06:29:15.119Z",
+                "CodUsuario": "ADM",
+                "UbigeoId": 1,
                 "Nombres": fila["Nombres"],
                 "ApellidoPaterno": fila["ApellidoPaterno"],
                 "ApellidoMaterno": fila["ApellidoMaterno"],
@@ -37,11 +39,7 @@ try:
                 "Telefono": fila["Telefono"],
                 "Correo": fila["Correo"],
                 "SexoId": 1,
-                "EstadoCivilId": 3,
-                "FechaRegistro": "2024-03-10T06:29:15.119Z",
-                "CodUsuario": "ADM",
-                "EstadoRegistro": 1,
-                "Action": 1,
+                "EstadoCivilId": 3
             }
             response = requests.post(url, json=data)
             if response.status_code == 200:

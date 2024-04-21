@@ -37,3 +37,9 @@ class ProcesoItemModel:
         c.CodUsuario = _DB["CodUsuario"] 
         c.EstadoRegistro = bool(ord(_DB["EstadoRegistro"])) 
         return c
+
+    def CargarTipo(_DB):
+        c =  ProcesoItemModel()
+        c.ProcesoId = _DB["ProcesoId"] 
+        c.Nombre = _DB["Nombre"] 
+        return c
