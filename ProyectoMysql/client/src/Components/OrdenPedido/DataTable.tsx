@@ -53,8 +53,8 @@ const DataTable: React.FC<PropsTable> = (props) => {
         {
             title: 'Tipo',
 
-            dataIndex: 'NomTipoProceso',
-            key: 'NomTipoProceso',
+            dataIndex: 'NomProceso',
+            key: 'NomProceso',
             width: 90
         },
         {

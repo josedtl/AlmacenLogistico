@@ -36,7 +36,7 @@ class OrdenPedidoItemModel:
     EstadoRegistro: bool 
     NomEstadoProceso : str
     ValorEstadoProceso :int
-    NomTipoProceso: str 
+    NomProceso: str 
     def Cargar(_DB):
         c =  OrdenPedidoItemModel()
         c.OrdenPedidoId = _DB["OrdenPedidoId"] 
@@ -83,5 +83,5 @@ class OrdenPedidoItemModel:
         c.CodUsuario = _DB["CodUsuario"] 
         c.NomEstadoProceso = _DB["NomEstadoProceso"] 
         c.ValorEstadoProceso = _DB["ValorEstadoProceso"] 
-        c.NomTipoProceso = _DB["NomTipoProceso"] 
+        c.NomProceso = _DB["NomProceso"] 
         return c

@@ -27,3 +27,12 @@ def GetItemOPMain():
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
+
+@RecepcionRouter.get(f"/api/{ApiName}/ObtenerItem/{{Id}}", tags=[ApiName])
+def ObtenerItem(Id : int):
+    try:
+        jsonData = Recepcion.ObtenerItem(Id)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())

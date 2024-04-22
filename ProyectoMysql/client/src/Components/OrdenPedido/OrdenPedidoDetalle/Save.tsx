@@ -3,13 +3,11 @@ import DataTable from './DataTable';
 import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity';
 import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity';
 import ModalItem from './ModalItem';
-import GeneralService from '../../../Service/GeneralService';
+import ProcesoService from '../../../Service/ProcesoService';
 import OrdenPedidoService from '../../../Service/OrdenPedidoService';
-import { Tabs, DatePicker, message, Select, Button, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar, Space } from 'antd';
+import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
-import { IconSave } from '../../../Styles/Icons'
-import { ButtonAddMain } from '../../../Styles/Button'
-import { TipoProcesoEntity } from '../../../Models/GeneralEntity';
+import { ProcesoModel } from '../../../Models/ProcesoEntity';
 import { useParams } from 'react-router-dom';
 import { ExclamationCircleOutlined, CaretRightOutlined } from '@ant-design/icons';
 import moment from 'moment';
@@ -24,9 +22,9 @@ function Page() {
 
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
-  const sGeneral = new GeneralService();
   const sEntDato = new EntDatoService();
   const sOrdenPedido = new OrdenPedidoService();
+  const sProceso =new ProcesoService();
   const [items, setItems] = useState<OrdenPedidoDetalleEntity[]>([]);
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const [CargarPage, setCargarPage] = React.useState(true);
@@ -127,13 +125,13 @@ function Page() {
   const filterItems = items.filter(d => d.Action != ProcessActionEnum.Delete);
 
 
-  const [optionsTipoProceso, setOptionsTipoProceso] = useState<TipoProcesoEntity[]>([]);
+  const [optionsProceso, setOptionsProceso] = useState<ProcesoModel[]>([]);
   const [selectedTipoRequerimeinto, setSelectedTipoRequerimeinto] = useState<number | undefined>(undefined);
 
 
-  const onChangeTipoProceso = async (value: number) => {
+  const onChangeProceso = async (value: number) => {
     // setValUnidadMedida('');
-    Ent.TipoProcesoId = value;
+    Ent.ProcesoId = value;
     setSelectedTipoRequerimeinto(value)
     selectedTipoRequerimeinto;
   };
@@ -154,8 +152,8 @@ function Page() {
       setCargarPage(true);
       setEnt(new OrdenPedidoEntity())
       setItems([])
-      const Resp_TR = await sGeneral.GetTipoProcesoItems();
-      setOptionsTipoProceso(Resp_TR);
+      const Resp_TR = await sProceso.ObtenerTipo("OP001");
+      setOptionsProceso(Resp_TR);
       Ent.Action = ProcessActionEnum.Add
       if (Id > 0) {
 
@@ -210,7 +208,6 @@ function Page() {
 
 
   };
-  // item={new OrdenPedidoDetalleEntity()}
   const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} keyItem={''} />
     ;
 
@@ -236,7 +233,6 @@ function Page() {
           type: 'success',
           content: 'Se guardó correctamente.',
         });
-        // window.location.reload();
 
 
       } else {
@@ -375,55 +371,6 @@ function Page() {
   }
 
 
-  const FechaUsuario = () => {
-    if (Ent.OrdenPedidoId > 0) {
-      return (
-
-        <Row>
-          <Col span={12}>
-
-            <Row>
-              <Col span={24}>
-                <label>Fecha Registro</label>
-              </Col>
-              <Col span={24}>
-                <Input
-                  type="string"
-                  name="FechaRegistro"
-                  style={{ marginTop: '5px', marginBottom: '10px' }}
-                  readOnly={true}
-                  value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
-                />
-              </Col>
-            </Row>
-
-
-          </Col>
-          <Col span={12}>
-
-
-            <Row>
-              <Col span={24}>
-                <label>Usuario</label>
-              </Col>
-              <Col span={24}>
-                <Input
-                  type="string"
-                  name="Stock"
-                  style={{ marginTop: '5px', marginBottom: '10px' }}
-                  readOnly={true}
-                  value={Ent.CodUsuario}
-                />
-              </Col>
-            </Row>
-
-
-          </Col>
-        </Row>
-      )
-    }
-
-  }
 
   const TituloSave = () => {
     return (
@@ -439,12 +386,7 @@ function Page() {
     )
 
   }
-  const layoutStyle = {
-    borderRadius: 8,
-    overflow: 'hidden',
-    width: 'calc(100% - 8px)',
-    maxWidth: 'calc(100% - 8px)',
-  };
+ 
   const contentStyle: React.CSSProperties = {
     // margin:50,
     marginLeft: 50,
@@ -459,13 +401,8 @@ function Page() {
     // backgroundColor: "#C9E1E4",
     borderColor: "#15616d",
   };
-  const headerStyle: React.CSSProperties = {
-    // backgroundColor: "#C9E1E4",
-    borderColor: "#15616d",
-    color: "#15616d"
 
-  };
-  const { Header, Footer, Sider, Content } = Layout;
+  const {  Footer, Content } = Layout;
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -514,12 +451,12 @@ function Page() {
                       style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                       defaultActiveFirstOption={false}
                       filterOption={false}
-                      value={Ent.TipoProcesoId === 0 ? null : Ent.TipoProcesoId}
-                      key={Ent.TipoProcesoId}
-                      onChange={onChangeTipoProceso}
+                      value={Ent.ProcesoId === 0 ? null : Ent.ProcesoId}
+                      key={Ent.ProcesoId}
+                      onChange={onChangeProceso}
                     >
-                      {optionsTipoProceso.map((ItemOp) => (
-                        <Select.Option key={ItemOp.TipoProcesoId} value={ItemOp.TipoProcesoId}>
+                      {optionsProceso.map((ItemOp) => (
+                        <Select.Option key={ItemOp.ProcesoId} value={ItemOp.ProcesoId}>
                           {ItemOp.Nombre}
                         </Select.Option>
                       ))}
@@ -566,7 +503,6 @@ function Page() {
                     <DatePicker
                       onChange={onChangeDate}
                       value={dayjs(FechaEmisionItem, dateFormat)}
-                      // defaultValue={dayjs(FechaEmisionItem, dateFormat)}
                       style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
                       size='middle' />
 
@@ -575,7 +511,6 @@ function Page() {
               </Col>
 
 
-              {/* {FechaUsuario()} */}
 
 
 

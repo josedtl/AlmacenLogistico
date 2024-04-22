@@ -27,7 +27,6 @@ class RecepcionDB:
             args.append(Ent.Codigo)
             args.append(Ent.EntidadId)
             args.append(Ent.ObjetoId)
-            args.append(Ent.TipoRecepcionId)
             args.append(Ent.TipoComprobanteId)
             args.append(Ent.SerieComprobante)
             args.append(Ent.CorrelativoComprobante)
@@ -57,6 +56,15 @@ class RecepcionDB:
         try:
             resulset = DBProcedure().DBProcedureConsult("sp_Recepcion_Main", [])
             list = [RecepcionItemModel.CargarMain(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)
+
+    def ObtenerItem( Id : int):
+        try:
+            args = (Id,)
+            resulset = DBProcedure().DBProcedureConsult("sp_RecepcionObtenerItem", args)
+            list = [RecepcionItemModel.CargarItem(row) for row in resulset]
             return list
         except Exception as e:
             print(e)

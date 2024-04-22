@@ -19,3 +19,9 @@ class Recepcion:
             return RecepcionDB.GetItemMain()
         except Exception as e:
             print(e)
+
+    def ObtenerItem(Id : int):
+        try:
+            return RecepcionDB.ObtenerItem(Id)
+        except Exception as e:
+            print(e)
