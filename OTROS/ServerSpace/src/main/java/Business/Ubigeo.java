@@ -4,7 +4,7 @@ import DataLayer.UbigeoDB;
 import EntityLayer.UbigeoEntity;
 import java.util.ArrayList;
 
-public class Ubigeo extends  Business.MyCode.Ubigeo{
+public class Ubigeo {
 
     public ArrayList<UbigeoEntity> GetAllItems() {
         UbigeoDB BD = new UbigeoDB();
@@ -25,4 +25,9 @@ public class Ubigeo extends  Business.MyCode.Ubigeo{
         UbigeoDB BD = new UbigeoDB();
         return BD.Delete(Id);
     }
+    public ArrayList<UbigeoEntity> GetUbigeoLikeItem(String Nombre) {
+        UbigeoDB BD = new UbigeoDB();
+        return BD.GetUbigeoLikeItem(Nombre);
+    }
+
 }

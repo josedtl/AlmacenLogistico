@@ -4,11 +4,11 @@ import DataLayer.InfraestructuraDB;
 import EntityLayer.InfraestructuraEntity;
 import java.util.ArrayList;
 
-public class Infraestructura extends Business.MyCode.Infraestructura{
+public class Infraestructura {
 
-    public ArrayList<InfraestructuraEntity> GetAllItems() {
+    public ArrayList<InfraestructuraEntity> ObtenerMain() {
         InfraestructuraDB BD = new InfraestructuraDB();
-        return BD.GetAllItems();
+        return BD.ObtenerMain();
     }
 
     public ArrayList<InfraestructuraEntity> GetAllItem(int Id) {
@@ -16,9 +16,9 @@ public class Infraestructura extends Business.MyCode.Infraestructura{
         return BD.GetAllItem(Id);
     }
 
-    public InfraestructuraEntity Save(InfraestructuraEntity Item) {
+    public InfraestructuraEntity Registrar(InfraestructuraEntity Item) {
         InfraestructuraDB BD = new InfraestructuraDB();
-        return BD.Save(Item);
+        return BD.Registrar(Item);
     }
 
     public Boolean Delete(int Id) {

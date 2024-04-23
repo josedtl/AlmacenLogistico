@@ -3,10 +3,9 @@ package Business;
 import DataLayer.PersonaNaturalDB;
 import EntityLayer.PersonaNaturalEntity;
 import Framework.Inj;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PersonaNatural extends Business.MyCode.PersonaNatural {
+public class PersonaNatural {
 
     public ArrayList<PersonaNaturalEntity> GetAllItems() {
         try {

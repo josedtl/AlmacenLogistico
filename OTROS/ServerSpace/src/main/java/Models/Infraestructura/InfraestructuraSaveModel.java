@@ -1,13 +1,50 @@
-package EntityLayer;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+package Models.Infraestructura;
+
 import Enumerados.ProcessActionEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import EntityLayer.InfraestructuraEntity;
+
 import java.sql.Timestamp;
 
-public class InfraestructuraEntity {
+public class InfraestructuraSaveModel {
+
+    public InfraestructuraSaveModel() {
+        this.infraestructuraId = 0;
+        this.sucursalId = 0;
+        this.codigoSistema = "";
+        this.codigoInterno = "";
+        this.descripcion = "";
+        this.tipoInfraestructuraId = 0;
+        this.clasificacionId = 0;
+        this.infraestructuraDimensionId = 0;
+        this.aforo = 0;
+        this.pisoId = 0;
+        this.fechaRegistro = null;
+        this.codUsuario = "";
+        this.estadoRegistro = false;
+    }
+
+    public InfraestructuraSaveModel(InfraestructuraEntity Ent) {
+        this.infraestructuraId = Ent.getInfraestructuraId();
+        this.sucursalId = Ent.getSucursalId();
+        this.codigoSistema = Ent.getCodigoSistema();
+        this.codigoInterno = Ent.getCodigoInterno();
+        this.descripcion = Ent.getDescripcion();
+        this.tipoInfraestructuraId = Ent.getTipoInfraestructuraId();
+        this.clasificacionId = Ent.getClasificacionId();
+        this.infraestructuraDimensionId = Ent.getInfraestructuraDimensionId();
+        this.aforo = Ent.getAforo();
+        this.pisoId = Ent.getPisoId();
+        this.fechaRegistro = Ent.getFechaRegistro();
+        this.codUsuario = Ent.getCodUsuario();
+        this.estadoRegistro = Ent.getEstadoRegistro();
+    }
 
     @JsonProperty("InfraestructuraId")
     private int infraestructuraId = 0;
+
     public int getInfraestructuraId() {
         return infraestructuraId;
     }
@@ -18,6 +55,7 @@ public class InfraestructuraEntity {
 
     @JsonProperty("SucursalId")
     private int sucursalId = 0;
+
     public int getSucursalId() {
         return sucursalId;
     }
@@ -28,6 +66,7 @@ public class InfraestructuraEntity {
 
     @JsonProperty("Estado")
     private int estado = 0;
+
     public int getEstado() {
         return estado;
     }
@@ -38,6 +77,7 @@ public class InfraestructuraEntity {
 
     @JsonProperty("CodigoSistema")
     private String codigoSistema = "";
+
     public String getCodigoSistema() {
         return codigoSistema;
     }
@@ -48,6 +88,7 @@ public class InfraestructuraEntity {
 
     @JsonProperty("CodigoInterno")
     private String codigoInterno = "";
+
     public String getCodigoInterno() {
         return codigoInterno;
     }
@@ -58,6 +99,7 @@ public class InfraestructuraEntity {
 
     @JsonProperty("Descripcion")
     private String descripcion = "";
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -68,6 +110,7 @@ public class InfraestructuraEntity {
 
     @JsonProperty("TipoInfraestructuraId")
     private int tipoInfraestructuraId = 0;
+
     public int getTipoInfraestructuraId() {
         return tipoInfraestructuraId;
     }
@@ -75,18 +118,21 @@ public class InfraestructuraEntity {
     public void setTipoInfraestructuraId(int tipoInfraestructuraId) {
         this.tipoInfraestructuraId = tipoInfraestructuraId;
     }
+
     @JsonProperty("ClasificacionId")
     private int clasificacionId = 0;
+
     public int getClasificacionId() {
         return clasificacionId;
     }
 
-    public void setclasificacionId(int clasificacionId) {
+    public void setClasificacionId(int clasificacionId) {
         this.clasificacionId = clasificacionId;
     }
 
     @JsonProperty("InfraestructuraDimensionId")
     private int infraestructuraDimensionId = 0;
+
     public int getInfraestructuraDimensionId() {
         return infraestructuraDimensionId;
     }
@@ -97,6 +143,7 @@ public class InfraestructuraEntity {
 
     @JsonProperty("Aforo")
     private int aforo = 0;
+
     public int getAforo() {
         return aforo;
     }
@@ -107,6 +154,7 @@ public class InfraestructuraEntity {
 
     @JsonProperty("PisoId")
     private int pisoId = 0;
+
     public int getPisoId() {
         return pisoId;
     }
@@ -117,6 +165,7 @@ public class InfraestructuraEntity {
 
     @JsonProperty("FechaRegistro")
     private Timestamp fechaRegistro = null;
+
     public Timestamp getFechaRegistro() {
         return fechaRegistro;
     }
@@ -127,6 +176,7 @@ public class InfraestructuraEntity {
 
     @JsonProperty("CodUsuario")
     private String codUsuario = "";
+
     public String getCodUsuario() {
         return codUsuario;
     }
@@ -137,6 +187,7 @@ public class InfraestructuraEntity {
 
     @JsonProperty("EstadoRegistro")
     private boolean estadoRegistro = false;
+
     public boolean getEstadoRegistro() {
         return estadoRegistro;
     }
@@ -145,61 +196,14 @@ public class InfraestructuraEntity {
         this.estadoRegistro = estadoRegistro;
     }
 
-// COMPLEMENTARIO*************************************************************************************************************************************
-
     @JsonProperty("Action")
     private ProcessActionEnum action = ProcessActionEnum.Loaded;
 
     public int getAction() {
-        return action.getValor();
+    return action.getValor();
     }
 
     public void setAction(ProcessActionEnum Action) {
-        this.action = Action;
+    this.action = Action;
     }
-
-    @JsonProperty("TipoInfraestructura")
-    private String tipoInfraestructura = "";
-
-    public String getTipoInfraestructura() {
-        return tipoInfraestructura;
-    }
-
-    public void setTipoInfraestructura(String tipoInfraestructura) {
-        this.tipoInfraestructura = tipoInfraestructura;
-    }
-
-    
-    private String clasificacion = "";
-
-    public String getClasificacion() {
-        return clasificacion;
-    }
-
-    public void setClasificacion(String clasificacion) {
-        this.clasificacion = clasificacion;
-    }
-
-
-    private String infraestructuraDimension = "";
-
-
-    public String getInfraestructuraDimension() {
-        return infraestructuraDimension;
-    }
-
-    public void setInfraestructuraDimension(String infraestructuraDimension) {
-        this.infraestructuraDimension = infraestructuraDimension;
-    }
-
-    private String piso= "";
-
-    public String getPiso() {
-        return piso;
-    }
-
-    public void setPiso(String piso) {
-        this.piso = piso;
-    }
-
 }

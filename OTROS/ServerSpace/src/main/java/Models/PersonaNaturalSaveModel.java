@@ -3,7 +3,6 @@ package Models;
 import Enumerados.ProcessActionEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 public class PersonaNaturalSaveModel {
 
@@ -26,7 +25,6 @@ public class PersonaNaturalSaveModel {
         this.codUsuario = "";
         this.estadoRegistro = false;
         this.action = ProcessActionEnum.Loaded;
-        this.detalleMedioComunicacion = new ArrayList<>();
     }
 
     @JsonProperty("PersonaNaturalId")
@@ -216,15 +214,6 @@ public class PersonaNaturalSaveModel {
         this.action = Action;
     }
 
-    @JsonProperty("DetalleMedioComunicacion")
-    private ArrayList<PersonaNaturalMedioComunicacionSaveModel> detalleMedioComunicacion = new ArrayList<>();
-
-    public ArrayList<PersonaNaturalMedioComunicacionSaveModel> getDetalleMedioComunicacion() {
-        return detalleMedioComunicacion;
-    }
-
-    public void setDetalleMedioComunicacion(ArrayList<PersonaNaturalMedioComunicacionSaveModel> ItemDetalle) {
-        this.detalleMedioComunicacion = ItemDetalle;
-    }
+ 
 
 }

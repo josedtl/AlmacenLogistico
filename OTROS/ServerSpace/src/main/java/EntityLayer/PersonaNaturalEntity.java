@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import Enumerados.ProcessActionEnum;
 import java.sql.Timestamp;
 
-public class PersonaNaturalEntity extends EntityLayer.MyCode.PersonaNaturalEntity {
+public class PersonaNaturalEntity {
 
     @JsonProperty("PersonaNaturalId")
     private int personaNaturalId = 0;
@@ -127,15 +127,15 @@ public class PersonaNaturalEntity extends EntityLayer.MyCode.PersonaNaturalEntit
         this.correo = correo;
     }
 
-    @JsonProperty("GeneroId")
-    private int generoId = 0;
+    @JsonProperty("SexoId")
+    private int sexoId = 0;
 
-    public int getGeneroId() {
-        return generoId;
+    public int getSexoId() {
+        return sexoId;
     }
 
-    public void setGeneroId(int generoId) {
-        this.generoId = generoId;
+    public void setSexoId(int sexoId) {
+        this.sexoId = sexoId;
     }
 
     @JsonProperty("EstadoCivilId")
@@ -171,16 +171,6 @@ public class PersonaNaturalEntity extends EntityLayer.MyCode.PersonaNaturalEntit
         this.codUsuario = codUsuario;
     }
 
-    @JsonProperty("EstadoRegistro")
-    private boolean estadoRegistro = false;
-
-    public boolean getEstadoRegistro() {
-        return estadoRegistro;
-    }
-
-    public void setEstadoRegistro(boolean estadoRegistro) {
-        this.estadoRegistro = estadoRegistro;
-    }
 
     @JsonProperty("Action")
     private ProcessActionEnum action = ProcessActionEnum.Loaded;
@@ -191,5 +181,16 @@ public class PersonaNaturalEntity extends EntityLayer.MyCode.PersonaNaturalEntit
 
     public void setAction(ProcessActionEnum Action) {
         this.action = Action;
+    }
+    // COMPLEMENTARIO*************************************************************************************************************************************
+
+    private String tipoDocumento = "";
+
+    public String gettipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 }

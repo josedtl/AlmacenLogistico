@@ -2,7 +2,6 @@ package EntityLayer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import Enumerados.ProcessActionEnum;
-import java.util.Date;
 
 public class UbigeoEntity {
 

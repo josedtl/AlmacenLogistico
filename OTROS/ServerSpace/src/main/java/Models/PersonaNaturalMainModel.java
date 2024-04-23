@@ -8,7 +8,7 @@ public class PersonaNaturalMainModel {
 
     public PersonaNaturalMainModel() {
         this.personaNaturalId = 0;
-        this.nomDocumento = "";
+        this.tipoDocumento = "";
         this.numDocumento = "";
         this.nombres = "";
         this.apellidoPaterno = "";
@@ -19,7 +19,7 @@ public class PersonaNaturalMainModel {
 
     public PersonaNaturalMainModel(PersonaNaturalEntity Ent) {
         this.personaNaturalId = Ent.getPersonaNaturalId();
-        this.nomDocumento = Ent.getNomDocumento();
+        this.tipoDocumento = Ent.gettipoDocumento();
         this.numDocumento = Ent.getNumDocumento();
         this.nombres = Ent.getNombres();
         this.apellidoPaterno = Ent.getApellidoPaterno();
@@ -39,15 +39,15 @@ public class PersonaNaturalMainModel {
         this.personaNaturalId = personaNaturalId;
     }
 
-    @JsonProperty("NomDocumento")
-    private String nomDocumento = "";
+    @JsonProperty("TipoDocumento")
+    private String tipoDocumento = "";
 
-    public String getNomDocumento() {
-        return nomDocumento;
+    public String getTipoDocumento() {
+        return tipoDocumento;
     }
 
-    public void setNomDocumento(String nomDocumento) {
-        this.nomDocumento = nomDocumento;
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
     @JsonProperty("NumDocumento")

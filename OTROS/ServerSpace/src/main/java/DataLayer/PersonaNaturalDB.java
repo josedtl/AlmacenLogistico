@@ -2,13 +2,14 @@ package DataLayer;
 
 import EntityLayer.PersonaNaturalEntity;
 import Enumerados.ProcessActionEnum;
+import Framework.BaseDB;
 import Framework.Inj;
 import Framework.Utilidades;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PersonaNaturalDB extends DataLayer.MyCode.PersonaNaturalDB {
+public class PersonaNaturalDB extends BaseDB{
 
     public ArrayList<PersonaNaturalEntity> GetAllItems() {
 
@@ -17,27 +18,12 @@ public class PersonaNaturalDB extends DataLayer.MyCode.PersonaNaturalDB {
         try {
             Inj.Sp("sp_PersonaNaturalAllItems");
             ResultSet rs = Inj.RunSelect();
+            fillSchemeTable(rs);
             while (rs.next()) {
-
                 en = new PersonaNaturalEntity();
-                en.setPersonaNaturalId(rs.getInt("PersonaNaturalId"));
-                en.setTipoDocumentoIdentidadId(rs.getInt("TipoDocumentoIdentidadId"));
-                en.setNumDocumento(rs.getString("NumDocumento"));
-                en.setNombres(rs.getString("Nombres"));
-                en.setApellidoPaterno(rs.getString("ApellidoPaterno"));
-                en.setApellidoMaterno(rs.getString("ApellidoMaterno"));
-                en.setFechaNacimiento(rs.getTimestamp("FechaNacimiento"));
-                en.setUbigeoId(rs.getInt("UbigeoId"));
-                en.setDireccion(rs.getString("Direccion"));
-                en.setTelefono(rs.getString("Telefono"));
-                en.setCorreo(rs.getString("Correo"));
-                en.setGeneroId(rs.getInt("GeneroId"));
-                en.setEstadoCivilId(rs.getInt("EstadoCivilId"));
-                en.setFechaRegistro(rs.getTimestamp("FechaRegistro"));
-                en.setCodUsuario(rs.getString("CodUsuario"));
-                en.setEstadoRegistro(rs.getBoolean("EstadoRegistro"));
-                DatoMemoria.add(en);
-
+                if (fillFrom(rs, en)) { 
+                    DatoMemoria.add(en);
+                }
             }
 
         } catch (SQLException e) {
@@ -55,28 +41,14 @@ public class PersonaNaturalDB extends DataLayer.MyCode.PersonaNaturalDB {
             Inj.Sp("sp_PersonaNaturalAllItem");
             Inj.Pmt_Integer("v_PersonaNaturalId", PersonaNaturalId, false);
             ResultSet rs = Inj.RunSelect();
+            fillSchemeTable(rs);
             while (rs.next()) {
-
                 en = new PersonaNaturalEntity();
-                en.setPersonaNaturalId(rs.getInt("PersonaNaturalId"));
-                en.setTipoDocumentoIdentidadId(rs.getInt("TipoDocumentoIdentidadId"));
-                en.setNumDocumento(rs.getString("NumDocumento"));
-                en.setNombres(rs.getString("Nombres"));
-                en.setApellidoPaterno(rs.getString("ApellidoPaterno"));
-                en.setApellidoMaterno(rs.getString("ApellidoMaterno"));
-                en.setFechaNacimiento(rs.getTimestamp("FechaNacimiento"));
-                en.setUbigeoId(rs.getInt("UbigeoId"));
-                en.setDireccion(rs.getString("Direccion"));
-                en.setTelefono(rs.getString("Telefono"));
-                en.setCorreo(rs.getString("Correo"));
-                en.setGeneroId(rs.getInt("GeneroId"));
-                en.setEstadoCivilId(rs.getInt("EstadoCivilId"));
-                en.setFechaRegistro(rs.getTimestamp("FechaRegistro"));
-                en.setCodUsuario(rs.getString("CodUsuario"));
-                en.setEstadoRegistro(rs.getBoolean("EstadoRegistro"));
-                DatoMemoria.add(en);
-
+                if (fillFrom(rs, en)) { 
+                    DatoMemoria.add(en);
+                }
             }
+
 
         } catch (SQLException e) {
             System.out.println("ERROR " + e);
@@ -105,11 +77,10 @@ public class PersonaNaturalDB extends DataLayer.MyCode.PersonaNaturalDB {
             Inj.Pmt_String("v_Direccion", entity.getDireccion(), false);
             Inj.Pmt_String("v_Telefono", entity.getTelefono(), false);
             Inj.Pmt_String("v_Correo", entity.getCorreo(), false);
-            Inj.Pmt_Integer("v_GeneroId", entity.getGeneroId(), false);
+            Inj.Pmt_Integer("v_GeneroId", entity.getSexoId(), false);
             Inj.Pmt_Integer("v_EstadoCivilId", entity.getEstadoCivilId(), false);
             Inj.Pmt_String("v_FechaRegistro", Utilidades.getFechaRegistro(), false);
             Inj.Pmt_String("v_CodUsuario", entity.getCodUsuario(), false);
-            Inj.Pmt_Boolean("v_EstadoRegistro", entity.getEstadoRegistro(), false);
             if (entity.getAction() == ProcessActionEnum.Add.getValor()) {
                 int Id = Inj.RunInsert();
                 State = Id > 0;
@@ -121,20 +92,7 @@ public class PersonaNaturalDB extends DataLayer.MyCode.PersonaNaturalDB {
                 Inj.RunUpdate();
             }
 
-            if (entity.getDetalleMedioComunicacion() != null && entity.getDetalleMedioComunicacion().size() > 0) {
-                for (var detalle : entity.getDetalleMedioComunicacion()) {
-
-                    detalle.setPersonaNaturalId(entity.getPersonaNaturalId());
-                    PersonaNaturalMedioComunicacionDB DB_Detalle = new PersonaNaturalMedioComunicacionDB();
-                    if (detalle.getAction() == ProcessActionEnum.Delete.getValor()) {
-                        DB_Detalle.Delete(detalle.getPersonaNaturalMedioComunicacionId());
-                    } else {
-
-                        DB_Detalle.Save(detalle);
-                    }
-                }
-            }
-
+           
         } catch (Exception ex) {
             throw new UnsupportedOperationException("Datalater : " + ex);
         }
@@ -177,11 +135,10 @@ public class PersonaNaturalDB extends DataLayer.MyCode.PersonaNaturalDB {
             Inj.Pmt_String("v_Direccion", entity.getDireccion(), false);
             Inj.Pmt_String("v_Telefono", entity.getTelefono(), false);
             Inj.Pmt_String("v_Correo", entity.getCorreo(), false);
-            Inj.Pmt_Integer("v_GeneroId", entity.getGeneroId(), false);
+            Inj.Pmt_Integer("v_GeneroId", entity.getSexoId(), false);
             Inj.Pmt_Integer("v_EstadoCivilId", entity.getEstadoCivilId(), false);
             Inj.Pmt_String("v_FechaRegistro", Utilidades.getFechaRegistro(), false);
             Inj.Pmt_String("v_CodUsuario", entity.getCodUsuario(), false);
-            Inj.Pmt_Boolean("v_EstadoRegistro", entity.getEstadoRegistro(), false);
 
             if (entity.getAction() == ProcessActionEnum.Add.getValor()) {
                 int Id = Inj.RunInsert();
@@ -194,19 +151,7 @@ public class PersonaNaturalDB extends DataLayer.MyCode.PersonaNaturalDB {
                 Inj.RunUpdate();
             }
 
-            if (entity.getDetalleMedioComunicacion() != null && entity.getDetalleMedioComunicacion().size() > 0) {
-                for (var detalle : entity.getDetalleMedioComunicacion()) {
-
-                    detalle.setPersonaNaturalId(entity.getPersonaNaturalId());
-                    PersonaNaturalMedioComunicacionDB DB_Detalle = new PersonaNaturalMedioComunicacionDB();
-                    if (detalle.getAction() == ProcessActionEnum.Delete.getValor()) {
-                        DB_Detalle.Delete(detalle.getPersonaNaturalMedioComunicacionId());
-                    } else {
-
-                        DB_Detalle.Save(detalle);
-                    }
-                }
-            }
+          
 
             System.out.println("Venta y detalle guardados correctamente.");
         } catch (SQLException e) {

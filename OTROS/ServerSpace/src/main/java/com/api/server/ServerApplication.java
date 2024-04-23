@@ -29,7 +29,7 @@ public class ServerApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200", "http://localhost:54183/") // Permitir solicitudes solo desde http://localhost:8080
+                        .allowedOrigins("http://localhost:5173", "http://localhost:54183/") // Permitir solicitudes solo desde http://localhost:8080
                         .allowedMethods("GET", "POST", "PUT", "DELETE") // Métodos HTTP permitidos
                         .allowedHeaders("*") // Permitir todas las cabeceras
                         .allowCredentials(true); // Permitir el envío de cookies y encabezados de autenticación
