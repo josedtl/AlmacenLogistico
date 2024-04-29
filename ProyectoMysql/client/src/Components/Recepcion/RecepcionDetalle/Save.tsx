@@ -20,12 +20,15 @@ import { InputStatus } from 'antd/es/_util/statusUtils';
 import { EntDatoModel } from '../../../Models/EntDatoEntity';
 import EntDatoService from '../../../Service/EntDatoService';
 import { SaveFilled } from '@ant-design/icons';
+import { ProcesoModel } from '../../../Models/ProcesoEntity';
+import ProcesoService from '../../../Service/ProcesoService';
 function Page() {
 
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
   const sGeneral = new GeneralService();
   const sEntDato = new EntDatoService();
+  const sProceso = new ProcesoService();
   const sRecepcion = new RecepcionService();
   const [items, setItems] = useState<RecepcionDetalleEntity[]>([]);
   const [messageAdd, contextHolderAdd] = message.useMessage();
@@ -127,7 +130,8 @@ function Page() {
   const filterItems = items.filter(d => d.Action != ProcessActionEnum.Delete);
 
 
-  const [optionsTipoProceso, setOptionsTipoProceso] = useState<TipoProcesoEntity[]>([]);
+  // const [optionsTipoProceso, setOptionsTipoProceso] = useState<TipoProcesoEntity[]>([]);
+  const [optionsProceso, setOptionsProceso] = useState<ProcesoModel[]>([]);
   const [selectedTipoRequerimeinto, setSelectedTipoRequerimeinto] = useState<number | undefined>(undefined);
 
 
@@ -154,8 +158,9 @@ function Page() {
       setCargarPage(true);
       setEnt(new RecepcionEntity())
       setItems([])
-      const Resp_TR = await sGeneral.GetTipoProcesoItems();
-      setOptionsTipoProceso(Resp_TR);
+      const Resp_TR = await sProceso.ObtenerTipo("RC001");
+      setOptionsProceso(Resp_TR);
+
       Ent.Action = ProcessActionEnum.Add
       // if (Id > 0) {
 
@@ -264,7 +269,6 @@ function Page() {
       onOk() {
 
         const fecha: Date = new Date(FechaEmisionItem + "T00:00:00");
-        Ent.ProcesoId = 1;
         Ent.EstadoProcesoId = 1;
         Ent.FechaRecepcion = new Date(fecha);
         Ent.CodUsuario = "adm";
@@ -498,12 +502,11 @@ function Page() {
             <Row>
 
 
-              {/* {CorrelativoDiv()} */}
 
               <Col xs={3} >
                 <Row>
                   <Col span={24}>
-                    <label>Tipo Requerimiento</label>
+                    <label>Tipo de Recepción</label>
                   </Col>
                   <Col span={24}>
                     <Select
@@ -516,8 +519,8 @@ function Page() {
                       key={Ent.ProcesoId}
                       onChange={onChangeTipoProceso}
                     >
-                      {optionsTipoProceso.map((ItemOp) => (
-                        <Select.Option key={ItemOp.TipoProcesoId} value={ItemOp.TipoProcesoId}>
+                      {optionsProceso.map((ItemOp) => (
+                        <Select.Option key={ItemOp.ProcesoId} value={ItemOp.ProcesoId}>
                           {ItemOp.Nombre}
                         </Select.Option>
                       ))}
@@ -530,7 +533,7 @@ function Page() {
               <Col xs={18}>
                 <Row>
                   <Col span={24}>
-                    <label>Responsable</label>
+                    <label>Proveedor</label>
                   </Col>
                   <Col span={24}>
 
@@ -558,7 +561,7 @@ function Page() {
               <Col xs={3} >
                 <Row>
                   <Col span={24}>
-                    <label>Fecha de Emision</label>
+                    <label>Fecha de Recepción</label>
                   </Col>
                   <Col span={24}>
                     <DatePicker
@@ -573,11 +576,99 @@ function Page() {
               </Col>
 
 
-              {/* {FechaUsuario()} */}
+            </Row>
+
+            <Row>
+              <Col xs={3} >
+                <Row>
+                  <Col span={24}>
+                    <label>Tipo de Comprobante</label>
+                  </Col>
+                  <Col span={24}>
+                    <Select
+                      showSearch
+                      // status={ValUnidadMedida}
+                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                      defaultActiveFirstOption={false}
+                      filterOption={false}
+                      value={Ent.TipoComprobanteId === 0 ? null : Ent.TipoComprobanteId}
+                      key={Ent.TipoComprobanteId}
+                      onChange={onChangeTipoProceso}
+                    >
+                      {optionsProceso.map((ItemOp) => (
+                        <Select.Option key={ItemOp.ProcesoId} value={ItemOp.ProcesoId}>
+                          {ItemOp.Nombre}
+                        </Select.Option>
+                      ))}
+                    </Select>
 
 
+                  </Col>
+                </Row>
+              </Col>
+
+
+
+              <Col span={2}>
+                <Row>
+                  <Col span={24}>
+                    <label>Serie</label>
+                  </Col>
+                  <Col span={24}>
+                    <Input
+                      // status={ValNombres}
+                      type="text"
+                      name="SerieComprobante"
+                      style={{ marginTop: '5px', marginBottom: '10px' }}
+                      onChange={onChange}
+                      value={Ent.SerieComprobante === null ? "" : Ent.SerieComprobante}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+
+              <Col span={3}>
+                <Row>
+                  <Col span={24}>
+                    <label>Correlativo</label>
+                  </Col>
+                  <Col span={24}>
+                  <Input
+                      // status={ValNombres}
+                      type="text"
+                      name="CorrelativoComprobante"
+                      style={{ marginTop: '5px', marginBottom: '10px' }}
+                      onChange={onChange}
+                      value={Ent.CorrelativoComprobante === null ? "" : Ent.CorrelativoComprobante}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+
+
+
+              <Col span={16}>
+                <Row>
+                  <Col span={24}>
+                    <label>Observación</label>
+                  </Col>
+                  <Col span={24}>
+                  <Input
+                      // status={ValNombres}
+                      type="text"
+                      name="Observacion"
+                      style={{ marginTop: '5px', marginBottom: '10px' }}
+                      onChange={onChange}
+                      value={Ent.Observacion === null ? "" : Ent.Observacion}
+                    />
+                  </Col>
+                </Row>
+              </Col>
 
             </Row>
+
+
+
 
             <Row>
               <Col xs={24} sm={24} md={24} lg={24} xl={24}>

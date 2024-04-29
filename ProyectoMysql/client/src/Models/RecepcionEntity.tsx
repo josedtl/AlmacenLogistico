@@ -19,6 +19,7 @@ export class RecepcionEntity {
     ValorEstadoProceso: number
     NomEstadoProceso : string
     TipoRecepcion : string
+    Observacion : string
     constructor() {
         this.RecepcionId = 0;
         this.ProcesoId = 0;
@@ -38,5 +39,6 @@ export class RecepcionEntity {
         this.ValorEstadoProceso = 0;
         this.NomEstadoProceso = 'dd';
         this.TipoRecepcion= '';
+        this.Observacion = '';
     }
 }

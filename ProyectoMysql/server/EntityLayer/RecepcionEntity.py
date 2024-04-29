@@ -19,6 +19,7 @@ class RecepcionSaveModel(BaseModel):
     CodUsuario: str
     Action: ProcessActionEnum
     DetalleItems :list[RecepcionDetalleSaveModel]
+    Observacion : str
 
 class RecepcionItemModel:
     RecepcionId: int
@@ -36,7 +37,7 @@ class RecepcionItemModel:
     CodUsuario: str
     TipoRecepcion: str
     TipoComprobante: str
-
+    Observacion : str
     def CargarMain(_DB):
         c = RecepcionItemModel()
         c.RecepcionId = _DB["RecepcionId"]
@@ -62,4 +63,5 @@ class RecepcionItemModel:
         c.FechaRecepcion = _DB["FechaRecepcion"]
         c.FechaRegistro = _DB["FechaRegistro"]
         c.CodUsuario = _DB["CodUsuario"]
+        c.Observacion = _DB["Observacion"]
         return c

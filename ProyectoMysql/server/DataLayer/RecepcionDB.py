@@ -33,6 +33,7 @@ class RecepcionDB:
             args.append(Ent.FechaRecepcion)
             args.append(Ent.FechaRegistro)
             args.append(Ent.CodUsuario)
+            args.append(Ent.Observacion)
             Ent.RecepcionId = DBProcedure().DBProcedureInsertUpdate(
                 Store, args, "v_RecepcionId"
             )

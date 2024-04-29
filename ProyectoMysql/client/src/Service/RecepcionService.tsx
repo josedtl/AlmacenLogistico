@@ -27,6 +27,19 @@ class RecepcionService {
       throw error;
     }
   }
+
+  async ObtenerItems(Id: number): Promise<RecepcionEntity[]> {
+    try {
+      const response = await apiLg.get(`api/Recepcion/ObtenerItems/${Id}`);
+      if (response.status === 200 && response.data.Value != null) {
+        return response.data.Value;
+      }
+      return [];
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  }
 }
 
 
