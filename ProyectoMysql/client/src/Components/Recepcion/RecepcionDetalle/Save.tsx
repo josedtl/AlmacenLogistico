@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
 import { RecepcionDetalleEntity } from '../../../Models/RecepcionDetalleEntity';
-import { RecepcionEntity } from '../../../Models/RecepcionEntity';
+import { RecepcionEntity, RecepListaModel } from '../../../Models/RecepcionEntity';
 import ModalItem from './ModalItem';
 import GeneralService from '../../../Service/GeneralService';
 import RecepcionService from '../../../Service/RecepcionService';
@@ -132,8 +132,9 @@ function Page() {
 
   // const [optionsTipoProceso, setOptionsTipoProceso] = useState<TipoProcesoEntity[]>([]);
   const [optionsProceso, setOptionsProceso] = useState<ProcesoModel[]>([]);
+  const [optionsTipoComprobante, setOptionsTipoComprobante] = useState<RecepListaModel[]>([]);
   const [selectedTipoRequerimeinto, setSelectedTipoRequerimeinto] = useState<number | undefined>(undefined);
-
+  const [selectedTipoComprobante, setSelectedTipoComprobante] = useState<number | undefined>(undefined);
 
   const onChangeTipoProceso = async (value: number) => {
     // setValUnidadMedida('');
@@ -142,6 +143,12 @@ function Page() {
     selectedTipoRequerimeinto;
   };
 
+  const onChangeTipoComprobante = async (value: number) => {
+    // setValUnidadMedida('');
+    Ent.TipoComprobanteId = value;
+    setSelectedTipoComprobante(value)
+    selectedTipoComprobante;
+  };
 
 
 
@@ -161,36 +168,48 @@ function Page() {
       const Resp_TR = await sProceso.ObtenerTipo("RC001");
       setOptionsProceso(Resp_TR);
 
+      const Resp_TipoComprobante = await sRecepcion.ReceptListaObtenerLista("C002");
+      setOptionsTipoComprobante(Resp_TipoComprobante);
+
       Ent.Action = ProcessActionEnum.Add
-      // if (Id > 0) {
 
-      //   const Resp_Producto = await sRecepcion.GetItemCabecera(Id);
-      //   Resp_Producto[0].Action = ProcessActionEnum.Update
-      //   setEnt(Resp_Producto[0]);
-
-      //   const Resp_OPDetalle = await sRecepcion.GetItemCabeceraOP(Id);
-
-      //   if (Resp_OPDetalle.length > 0) {
-
-      //     Resp_OPDetalle.map((data) => {
-      //       data.keyItem = generarGuid();
-      //       data.Action = ProcessActionEnum.Update;
-
-      //     })
-      //     console.log(Resp_OPDetalle);
-      //     setItems(Resp_OPDetalle)
-      //     Ent.DetalleItems = Resp_OPDetalle
-      //   }
+      // const Resp_Producto = await sRecepcion.ObtenerItem(Id);
+      // Resp_Producto[0].Action = ProcessActionEnum.Update
+      // setEnt(Resp_Producto[0]);
 
 
 
-      //   const Resp_Item = await sEntDato.GetNomCompletoItem(Resp_Producto[0].ResponsableId);
-      //   setOptionsCategoria(Resp_Item);
 
-      //   const dateEmison = moment(Resp_Producto[0].FechaEmision).format('YYYY-MM-DD')
-      //   setFechaEmisionItem(dateEmison);
+      if (Id > 0) {
 
-      // }
+        const Resp_Producto = await sRecepcion.ObtenerItem(Id);
+        Resp_Producto[0].Action = ProcessActionEnum.Update
+        setEnt(Resp_Producto[0]);
+  
+
+        // const Resp_OPDetalle = await sRecepcion.GetItemCabeceraOP(Id);
+
+        // if (Resp_OPDetalle.length > 0) {
+
+        //   Resp_OPDetalle.map((data) => {
+        //     data.keyItem = generarGuid();
+        //     data.Action = ProcessActionEnum.Update;
+
+        //   })
+        //   console.log(Resp_OPDetalle);
+        //   setItems(Resp_OPDetalle)
+        //   Ent.DetalleItems = Resp_OPDetalle
+        // }
+
+
+
+        const Resp_Item = await sEntDato.GetNomCompletoItem(Resp_Producto[0].EntidadId);
+        setOptionsCategoria(Resp_Item);
+
+        const dateEmison = moment(Resp_Producto[0].FechaRecepcion).format('YYYY-MM-DD')
+        setFechaEmisionItem(dateEmison);
+
+      }
 
       setCargarPage(false);
     } catch (e) { console.log(e); }
@@ -593,10 +612,10 @@ function Page() {
                       filterOption={false}
                       value={Ent.TipoComprobanteId === 0 ? null : Ent.TipoComprobanteId}
                       key={Ent.TipoComprobanteId}
-                      onChange={onChangeTipoProceso}
+                      onChange={onChangeTipoComprobante}
                     >
-                      {optionsProceso.map((ItemOp) => (
-                        <Select.Option key={ItemOp.ProcesoId} value={ItemOp.ProcesoId}>
+                      {optionsTipoComprobante.map((ItemOp) => (
+                        <Select.Option key={ItemOp.ListaId} value={ItemOp.ListaId}>
                           {ItemOp.Nombre}
                         </Select.Option>
                       ))}
@@ -633,7 +652,7 @@ function Page() {
                     <label>Correlativo</label>
                   </Col>
                   <Col span={24}>
-                  <Input
+                    <Input
                       // status={ValNombres}
                       type="text"
                       name="CorrelativoComprobante"
@@ -653,7 +672,7 @@ function Page() {
                     <label>Observación</label>
                   </Col>
                   <Col span={24}>
-                  <Input
+                    <Input
                       // status={ValNombres}
                       type="text"
                       name="Observacion"

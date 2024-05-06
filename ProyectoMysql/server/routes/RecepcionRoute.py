@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from BusinessLayer.Recepcion import *
+from BusinessLayer.ReceptLista import *
 from EntityLayer.RecepcionEntity import *
 from fastapi.encoders import jsonable_encoder
 from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
@@ -32,6 +33,25 @@ def GetItemOPMain():
 def ObtenerItem(Id : int):
     try:
         jsonData = Recepcion.ObtenerItem(Id)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+@RecepcionRouter.get(f"/api/{ApiName}/ReceptListaObtenerLista/{{Codigo}}", tags=[ApiName])
+def ObtenerLista(Codigo: str):
+    try:
+        jsonData = ReceptLista.ObtenerLista(Codigo)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+    
+    
+@RecepcionRouter.get(f"/api/{ApiName}/ReceptListaObtenerItem/{{Id}}", tags=[ApiName])
+def ReceptListaObtenerItem(Id : int):
+    try:
+        jsonData = ReceptLista.ObtenerItem(Id)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)

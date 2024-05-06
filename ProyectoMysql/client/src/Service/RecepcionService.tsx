@@ -1,4 +1,4 @@
-import { RecepcionEntity } from '../Models/RecepcionEntity';
+import { RecepcionEntity, RecepListaModel } from '../Models/RecepcionEntity';
 import { apiLg } from './axios-config';
 
 class RecepcionService {
@@ -28,9 +28,9 @@ class RecepcionService {
     }
   }
 
-  async ObtenerItems(Id: number): Promise<RecepcionEntity[]> {
+  async ObtenerItem(Id: number): Promise<RecepcionEntity[]> {
     try {
-      const response = await apiLg.get(`api/Recepcion/ObtenerItems/${Id}`);
+      const response = await apiLg.get(`api/Recepcion/ObtenerItem/${Id}`);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }
@@ -40,6 +40,28 @@ class RecepcionService {
       return [];
     }
   }
+
+  async ReceptListaObtenerLista(Codigo :string): Promise<RecepListaModel[]> {
+    try {
+      const response = await apiLg.get(`api/Recepcion/ReceptListaObtenerLista/${Codigo}`);
+      return response.data.Value;
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  
+  async ReceptListaObtenerItem(Id: number): Promise<RecepListaModel[]> {
+    try {
+      const response = await apiLg.get(`api/Recepcion/ReceptListaObtenerItem/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
 }
 
 
