@@ -57,6 +57,7 @@ class RecepcionItemModel:
         c.ProcesoId = _DB["ProcesoId"]
         c.EstadoProcesoId = _DB["EstadoProcesoId"]
         c.Codigo = _DB["Codigo"]
+        c.EntidadId = _DB['EntidadId']
         c.TipoComprobanteId = _DB["TipoComprobanteId"]
         c.SerieComprobante = _DB["SerieComprobante"]
         c.CorrelativoComprobante = _DB["CorrelativoComprobante"]
