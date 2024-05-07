@@ -187,19 +187,19 @@ function Page() {
         setEnt(Resp_Producto[0]);
   
 
-        // const Resp_OPDetalle = await sRecepcion.GetItemCabeceraOP(Id);
+        const Resp_OPDetalle = await sRecepcion.ObtenerDetalleItem(Id);
 
-        // if (Resp_OPDetalle.length > 0) {
+        if (Resp_OPDetalle.length > 0) {
 
-        //   Resp_OPDetalle.map((data) => {
-        //     data.keyItem = generarGuid();
-        //     data.Action = ProcessActionEnum.Update;
+          Resp_OPDetalle.map((data) => {
+            data.keyItem = generarGuid();
+            data.Action = ProcessActionEnum.Update;
 
-        //   })
-        //   console.log(Resp_OPDetalle);
-        //   setItems(Resp_OPDetalle)
-        //   Ent.DetalleItems = Resp_OPDetalle
-        // }
+          })
+          console.log(Resp_OPDetalle);
+          setItems(Resp_OPDetalle)
+          Ent.DetalleItems = Resp_OPDetalle
+        }
 
 
 

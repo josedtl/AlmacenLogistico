@@ -17,6 +17,7 @@ export class ProductoEntity {
     Action: number;
     CodigoUM: string;
     NomProducto: string;
+    
     constructor() {
         this.Cont = 0;
         this.ProductoId = 0;

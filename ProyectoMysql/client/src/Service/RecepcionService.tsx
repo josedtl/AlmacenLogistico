@@ -1,3 +1,4 @@
+import { RecepcionDetalleEntity } from '../Models/RecepcionDetalleEntity';
 import { RecepcionEntity, RecepListaModel } from '../Models/RecepcionEntity';
 import { apiLg } from './axios-config';
 
@@ -61,7 +62,18 @@ class RecepcionService {
     }
   }
 
-
+  async ObtenerDetalleItem(Id: number): Promise<RecepcionDetalleEntity[]> {
+    try {
+      const response = await apiLg.get(`api/Recepcion/ObtenerDetalleItem/${Id}`);
+      if (response.status === 200 && response.data.Value != null) {
+        return response.data.Value;
+      }
+      return [];
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  }
 }
 
 

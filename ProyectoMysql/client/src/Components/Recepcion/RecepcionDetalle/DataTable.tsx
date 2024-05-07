@@ -37,21 +37,9 @@ const DataTable: React.FC<PropsTable> = (props) => {
         },
         {
             title: 'Solicito',
-            dataIndex: 'CantidadSolicitado',
+            dataIndex: 'Cantidad',
             width: 65,
-            key: 'CantidadSolicitado',
-        },
-        {
-            title: 'Faltante',
-            dataIndex: 'CantidadFaltante',
-            width: 65,
-            key: 'CantidadFaltante',
-        },
-        {
-            title: 'Reservado',
-            dataIndex: 'CantidadReservado',
-            width: 65,
-            key: 'CantidadReservado',
+            key: 'Cantidad',
         },
         {
             title: 'Atendido',

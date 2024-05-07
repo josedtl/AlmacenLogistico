@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from BusinessLayer.Recepcion import *
+from BusinessLayer.RecepcionDetalle import RecepcionDetalle
 from BusinessLayer.ReceptLista import *
 from EntityLayer.RecepcionEntity import *
 from fastapi.encoders import jsonable_encoder
@@ -52,6 +53,15 @@ def ObtenerLista(Codigo: str):
 def ReceptListaObtenerItem(Id : int):
     try:
         jsonData = ReceptLista.ObtenerItem(Id)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+@RecepcionRouter.get(f"/api/{ApiName}/ObtenerDetalleItem/{{Id}}", tags=[ApiName])
+def ObtenerDetalleItem(Id : int):
+    try:
+        jsonData = RecepcionDetalle.ObtenerItem(Id)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)

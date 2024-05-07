@@ -1,5 +1,6 @@
 
 import { ProcessActionEnum } from '../Lib/ResourceModel/Enum'
+import { RecepcionDetalleEntity } from './RecepcionDetalleEntity'
 
 export class RecepcionEntity {
     RecepcionId: number
@@ -20,6 +21,7 @@ export class RecepcionEntity {
     NomEstadoProceso : string
     TipoRecepcion : string
     Observacion : string
+    DetalleItems:  RecepcionDetalleEntity[]
     constructor() {
         this.RecepcionId = 0;
         this.ProcesoId = 0;
@@ -40,6 +42,7 @@ export class RecepcionEntity {
         this.NomEstadoProceso = 'dd';
         this.TipoRecepcion= '';
         this.Observacion = '';
+        this.DetalleItems = [];
     }
 }
 
