@@ -7,6 +7,8 @@ class RecepcionService {
 
   async saveItem(item: RecepcionEntity): Promise<RecepcionEntity | null> {
     try {
+
+      console.log(item);
       const response = await apiLg.post(`api/Recepcion/Save`, item, {
         headers: {
           'Content-Type': 'application/json',

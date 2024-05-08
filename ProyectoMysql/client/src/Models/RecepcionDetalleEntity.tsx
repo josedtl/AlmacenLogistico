@@ -12,7 +12,12 @@ export class RecepcionDetalleEntity {
     Observacion: string;
     FechaVencimiento: Date;
     Action: number;
+    NomProducto: string;
+    CategoriaId: number
+    CodigoUM: string;
+    Stock: number;
     keyItem: string;
+    
     constructor() {
         this.Cont = 0;
         this.RecepcionDetalleId = 0;
@@ -26,6 +31,10 @@ export class RecepcionDetalleEntity {
         this.FechaVencimiento = new Date();
         this.Action = ProcessActionEnum.Add;
         this.keyItem = '';
+        this.NomProducto = '';
+        this.CategoriaId = 0;
+        this.CodigoUM = '';
+        this.Stock = 0;
     }
 
 

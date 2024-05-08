@@ -185,10 +185,10 @@ function Page() {
         const Resp_Producto = await sRecepcion.ObtenerItem(Id);
         Resp_Producto[0].Action = ProcessActionEnum.Update
         setEnt(Resp_Producto[0]);
-  
 
+        console.log(Id);
         const Resp_OPDetalle = await sRecepcion.ObtenerDetalleItem(Id);
-
+    
         if (Resp_OPDetalle.length > 0) {
 
           Resp_OPDetalle.map((data) => {
@@ -248,7 +248,7 @@ function Page() {
 
   const AddProducto = async () => {
     try {
-      // Ent.DetalleItems = items;
+      Ent.DetalleItems = items;
 
       console.log(Ent);
       const savedItem = await sRecepcion.saveItem(Ent);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity'
+import { RecepcionDetalleEntity } from '../../../Models/RecepcionDetalleEntity'
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
@@ -11,8 +11,8 @@ import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import { MercaderiaItemCategoriaModel, MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
 const AddEditForm: React.FC<PropsModel> = (props) => {
 
-    const initialOrdenPedidoDetalle = new OrdenPedidoDetalleEntity();
-    const [Ent, setEnt] = useState<OrdenPedidoDetalleEntity>(initialOrdenPedidoDetalle);
+    const initialOrdenPedidoDetalle = new RecepcionDetalleEntity();
+    const [Ent, setEnt] = useState<RecepcionDetalleEntity>(initialOrdenPedidoDetalle);
     const [FlaState, setFlaState] = useState<Boolean>(false);
     const [ValDato, setValDato] = useState<InputStatus>('');
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,14 +27,11 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         try {
-            // Ent.CantidadSolicitado = 1;
-            Ent.UnidadMedidaId = 1;
-            // Ent.key =props.keyItem;
             console.log(Ent);
             if (Ent.keyItem === '') {
                 Ent.keyItem = generarGuid();
                 props.addItemToState(Ent);
-                setEnt(new OrdenPedidoDetalleEntity());
+                setEnt(new RecepcionDetalleEntity());
             }
             else {
                 props.updateState(Ent);
@@ -115,7 +112,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     };
     useEffect(() => {
-        // setEnt(new OrdenPedidoDetalleEntity());
+        // setEnt(new RecepcionDetalleEntity());
         console.log('FormEdit')
         getItems();
     }, []);
@@ -264,10 +261,10 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                     <Input
                                         // suffix={ValCodigoUM}
                                         type="number"
-                                        name="CantidadSolicitado"
+                                        name="Cantidad"
                                         style={{ width: '70%', marginTop: '5px', marginBottom: '10px' }}
                                         onChange={onChange}
-                                        value={Ent.CantidadSolicitado === null ? 0 : Ent.CantidadSolicitado}
+                                        value={Ent.Cantidad === null ? 0 : Ent.Cantidad}
                                     />
 
                                     <Input
