@@ -38,6 +38,8 @@ class RecepcionItemModel:
     TipoRecepcion: str
     TipoComprobante: str
     Observacion : str
+    ValorEstadoProceso: int
+    NomEstadoProceso: str
     def CargarMain(_DB):
         c = RecepcionItemModel()
         c.RecepcionId = _DB["RecepcionId"]
@@ -49,6 +51,8 @@ class RecepcionItemModel:
         c.FechaRecepcion = _DB["FechaRecepcion"]
         c.FechaRegistro = _DB["FechaRegistro"]
         c.CodUsuario = _DB["CodUsuario"]
+        c.ValorEstadoProceso = _DB["ValorEstadoProceso"]
+        c.NomEstadoProceso = _DB["NomEstadoProceso"]
         return c
 
     def CargarItem(_DB):
@@ -65,4 +69,5 @@ class RecepcionItemModel:
         c.FechaRegistro = _DB["FechaRegistro"]
         c.CodUsuario = _DB["CodUsuario"]
         c.Observacion = _DB["Observacion"]
+        c.NomEstadoProceso = _DB["NomEstadoProceso"] 
         return c
