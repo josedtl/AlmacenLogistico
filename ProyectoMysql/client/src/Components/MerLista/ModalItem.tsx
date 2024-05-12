@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AddEditForm from "../../Components/MerLista/FormAddEdit";
+import AddEditForm from "./FormAddEdit";
 import { Button, Modal } from 'antd';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { ButtonAddMain, ButtonDetalleEdit, ButtonEnlace, ButtonEnlaceCard } from '../../Styles/Button'
@@ -12,6 +12,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
   const [modal, setModal] = React.useState(false);
   const toggle = () => {
     setModal(!modal);
+    console.log(props.CodigoTabla);
   };
   let button: any = "";
   let title = "";
@@ -28,7 +29,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
         icon={IconEditTable}
       />
     );
-    title = "Editar Categoria";
+    title = "Editar " + props.title;
   } else if (label === "Enlace") {
 
     button = (
@@ -40,7 +41,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
       />
     );
 
-    title = "Agregar Categoria";
+    title = "Agregar " + props.title;;
 
 
   } else if (label === "EnlaceCard") {
@@ -52,7 +53,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
       />
     );
 
-    title = "Editar Categoria";
+    title = "Editar " + props.title;;
 
 
   } else {
@@ -65,7 +66,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
         icon={<PlusOutlined />}
       />
     );
-    title = "Agregar Categoria";
+    title = "Agregar " + props.title;;
   }
 
   return (
@@ -83,6 +84,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
           addItemToState={props.addItemToState}
           updateState={props.updateState}
           toggle={toggle}
+          CodigoTabla={props.CodigoTabla}
         />
       </Modal>
     </React.Fragment>

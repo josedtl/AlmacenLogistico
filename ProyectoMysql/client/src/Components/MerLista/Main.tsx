@@ -10,8 +10,8 @@ import { useParams } from 'react-router-dom';
 import MerListaService from '../../Service/MerListaService';
 function Page() {
   const { Id } = useParams();
-  
-  const idNumero: string = ''+Id?.toString();
+
+  const idNumero: string = '' + Id?.toString();
   const sMerLista = new MerListaService();
   const [items, setItems] = useState<MerListaEntity[]>([]);
   const [messageAdd, contextHolderAdd] = message.useMessage();
@@ -19,8 +19,8 @@ function Page() {
   const [disabled, setDisabled] = useState(false);
   const { Title } = Typography;
   const [Busqueda, setBusqueda] = useState<string>('');
-
-
+  const [TituloItem, setTituloItem] = useState<string>('');
+  const [CodigoTablaItem, setCodigoTablaItem] = useState<string>('');
   const addItemToState = (item: MerListaEntity) => {
     setItems([...items, item]);
     messageAdd.open({
@@ -54,6 +54,13 @@ function Page() {
 
   const getItems = async () => {
     const itemsg = await sMerLista.getItems(idNumero);
+    const itemtitulo = await sMerLista.GetItemTitulo(idNumero);
+
+    if (itemtitulo.length > 0) {
+
+      setTituloItem(itemtitulo[0].Nombre)
+    }
+    setCodigoTablaItem(idNumero);
     setItems(itemsg);
     setCargarPage(false);
     setCargado(true);
@@ -82,11 +89,11 @@ function Page() {
       <Row >
 
         <Col xs={18} sm={18} md={12} lg={12} xl={12}>
-          <Title level={2}> Categoria</Title>
+          <Title level={2}> {TituloItem}</Title>
         </Col>
 
         <Col xs={6} sm={6} md={12} lg={12} xl={12}>
-          <ModalItem buttonLabel="" addItemToState={addItemToState} item={new MerListaEntity()} />
+          <ModalItem buttonLabel="" addItemToState={addItemToState} item={new MerListaEntity()} CodigoTabla={CodigoTablaItem} title={TituloItem} />
         </Col>
 
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
@@ -119,7 +126,7 @@ function Page() {
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
 
           <Input
-            placeholder='Buscar Categoria'
+            placeholder='Buscar'
             type="text"
             name="Nombre"
             onChange={onChange}
@@ -134,7 +141,9 @@ function Page() {
         <DataTable DataList={filterItems}
           updateState={updateState}
           deleteItemFromState={deleteItemFromState}
-          EsTabla={disabled} />
+          EsTabla={disabled}
+          CodigoTabla={CodigoTablaItem}
+          title={TituloItem} />
       </Card>
     </Spin>
   );

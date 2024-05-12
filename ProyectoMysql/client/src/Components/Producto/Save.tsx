@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
-import MerListaService from '../../Service/MerListaService';
-import MDCategoria from '../MerListaCategoria/ModalItem';
-import MDTipoProducto from '../MerListaTipoProducto/ModalItem';
-import MDMarca from '../MerListaMarca/ModalItem';
-import MDModelo from '../MerListaModelo/ModalItem';
+
+
+import MDCategoria from '../MerLista/ModalItem';
+import MDTipoProducto from '../MerLista/ModalItem';
+import MDMarca from '../MerLista/ModalItem';
+import MDModelo from '../MerLista/ModalItem';
+
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
 import { ButtonAddMain } from '../../Styles/Button'
-import { MerListaEntity } from '../../Models/MerListaEntity';
+
 import MercaderiaService from '../../Service/MercaderiaService';
-import { MercaderiaSaveModel } from '../../Models/MercaderiaEntity';
 import GeneralService from '../../Service/GeneralService';
+import MerListaService from '../../Service/MerListaService';
+
+import { MercaderiaSaveModel } from '../../Models/MercaderiaEntity';
+import { MerListaEntity } from '../../Models/MerListaEntity';
 import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
 const Save = () => {
   const { Id } = useParams();

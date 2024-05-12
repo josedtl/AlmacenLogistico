@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from routes.CorrelativoRoute import CorrelativoRouter
-from routes.EmpleadoRoute import EmpleadoRouter
 from routes.EmpresaRoute import EmpresaRouter
 from routes.EstadoProcesoRoute import EstadoProcesoRouter
 from routes.ModuloSistemaRoute import ModuloSistemaRouter
@@ -63,7 +62,6 @@ app.add_middleware(
 
 app.add_route("/gql/General", GraphQL(schema))
 app.include_router(CorrelativoRouter)
-app.include_router(EmpleadoRouter)
 app.include_router(EmpresaRouter)
 app.include_router(EstadoProcesoRouter)
 app.include_router(ModuloSistemaRouter)

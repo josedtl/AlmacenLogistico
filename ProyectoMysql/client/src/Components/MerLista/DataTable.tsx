@@ -1,5 +1,5 @@
 import React from 'react';
-import ModalItem from '../MerLista/ModalItem'
+import ModalItem from './ModalItem.tsx'
 import MerListaService from '../../Service/MerListaService.tsx'
 import { MerListaEntity } from '../../Models/MerListaEntity.tsx';
 import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
@@ -15,6 +15,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
     const sMerLista = new MerListaService();
     const [size] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
+
     const columns: ColumnsType<DataType> = [
         {
             title: 'Nº',
@@ -23,7 +24,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'Cont',
         },
         {
-            title: 'Codigo',
+            title: 'Código',
             dataIndex: 'Codigo',
             width: '120px',
             key: 'Codigo',
@@ -53,11 +54,11 @@ const DataTable: React.FC<PropsTable> = (props) => {
             width: '150px',
             key: 'CodUsuario',
         }, {
-            title: 'Action',
+            title: 'Acción',
             fixed: 'right',
             width: 100,
             key: 'action',
-            render: ( record: MerListaEntity) => 
+            render: (record: MerListaEntity) =>
                 <span>
 
                     <Button
@@ -71,6 +72,8 @@ const DataTable: React.FC<PropsTable> = (props) => {
                         buttonLabel="Edit"
                         item={record}
                         updateState={props.updateState}
+                        title={props.title}
+                        CodigoTabla={props.CodigoTabla}
                     />
 
 
@@ -99,7 +102,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
     }
 
     const deleteItem = async (ListaId: number) => {
-
+        console.log(props.CodigoTabla);
         modal.confirm({
             title: 'Mensaje del Sistema',
             icon: <ExclamationCircleOutlined />,
@@ -137,6 +140,8 @@ const DataTable: React.FC<PropsTable> = (props) => {
                                             buttonLabel="EnlaceCard"
                                             item={row}
                                             updateState={props.updateState}
+                                            title={props.title}
+                                            CodigoTabla={props.CodigoTabla}
                                         />
                                     ]}
                                     bordered={false}>
