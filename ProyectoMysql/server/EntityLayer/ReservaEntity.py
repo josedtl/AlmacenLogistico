@@ -9,7 +9,7 @@ class ReservaEntity:
     Nombre: str
     CodigoComercial: str
     CantidaPedido: float
-    cantidad: float
+    Cantidad: float
 
     def Cargar(_DB):
         c = ReservaEntity()
@@ -18,7 +18,7 @@ class ReservaEntity:
         c.Nombre = _DB["Nombre"]
         c.CodigoComercial = _DB["CodigoComercial"]
         c.CantidaPedido = _DB["CantidaPedido"]
-        c.cantidad = _DB["cantidad"]
+        c.Cantidad = _DB["cantidad"]
         return c
 
 class ReservaMercaderiaOPModel(BaseModel):

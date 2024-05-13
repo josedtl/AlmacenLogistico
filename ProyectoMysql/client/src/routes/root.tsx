@@ -44,7 +44,7 @@ const Root: React.FC = () => {
         getItem(<Link to="/OrdenCompra">Orden de Compra</Link>, 'L1_2')
       ]),
     getItem('Operación', 'A2', <ReconciliationOutlined />,
-      [getItem(<Link to="/">Reserva</Link>, 'A2_3'),
+      [getItem(<Link to="/Reserva">Reserva</Link>, 'A2_3'),
       getItem(<Link to="/Recepcion">Recepción</Link>, 'A2_1'),
       getItem(<Link to="/">Despacho</Link>, 'A2_2')
       ]),

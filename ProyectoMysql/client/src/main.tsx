@@ -36,6 +36,8 @@ import PageOrdenCompra from "./Components/OrdenCompra/Main";
 import PageOrdenCompraSave from "./Components/OrdenCompra/OrdenCompraDetalle/Save";
 import PageRecepcion from "./Components/Recepcion/Main";
 import PageRecepcionSave from "./Components/Recepcion/RecepcionDetalle/Save";
+import PageReservafrom from "./Components/Reserva/Main";
+import PageReservaSave from "./Components/Reserva/ReservaDetalle/Save";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,6 +64,8 @@ const router = createBrowserRouter([
       { path: "OrdenCompraSave/:Id", element: <PageOrdenCompraSave />, },
       { path: "Recepcion", element: <PageRecepcion />, },
       { path: "RecepcionSave/:Id", element: <PageRecepcionSave />, },
+      { path: "Reserva", element: <PageReservafrom />, },
+      { path: "ReservaSave/:Id", element: <PageReservaSave />, },
     ],
   },
 ]);
