@@ -1,4 +1,4 @@
-import { ReservaEntity, ReservaMercaderiaOPModel, ReservaPedidoModel } from '../Models/ReservaEntity';
+import { ReservaEntity, ReservaMercaderiaOPModel, ReservaPedidoModel, ReservaResumenModel } from '../Models/ReservaEntity';
 import { apiLg } from './axios-config';
 
 class ReservaService {
@@ -36,6 +36,14 @@ class ReservaService {
     }
   }
 
+  async ReservaResumen(MercaderiaId: number): Promise<ReservaResumenModel[]> {
+    try {
+      const response = await apiLg.get(`api/Reserva/ReservaResumen/${MercaderiaId}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
 
 }
 

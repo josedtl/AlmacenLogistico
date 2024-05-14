@@ -6,7 +6,7 @@ export class ReservaEntity {
     CodigoComercial: string;
     CantidaPedido: number;
     Cantidad: number;
-    DetalleItems:  ReservaPedidoModel[]
+    Stock: number;
     constructor() {
         this.MercaderiaId = 0;
         this.Codigo = '';
@@ -14,7 +14,7 @@ export class ReservaEntity {
         this.CodigoComercial = '';
         this.CantidaPedido = 0;
         this.Cantidad = 0;
-        this.DetalleItems = [];
+        this.Stock = 0;
     }
 }
 
@@ -42,4 +42,24 @@ export class ReservaPedidoModel {
         this.Cantidad = 0;
     }
 
+}
+
+
+export class ReservaResumenModel {
+    MercaderiaId: number;
+    Codigo: string;
+    Nombre: string;
+    UnidadMedida: string;
+    Stock: number;
+    Reserva: number;
+    DetalleItems: ReservaPedidoModel[]
+    constructor() {
+        this.MercaderiaId = 0;
+        this.Codigo = '';
+        this.Nombre = '';
+        this.UnidadMedida = '';
+        this.Stock = 0;
+        this.Reserva = 0;
+        this.DetalleItems = [];
+    }
 }

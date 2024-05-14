@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import { ReservaEntity ,ReservaPedidoModel} from '../../../Models/ReservaEntity';
+import { ReservaResumenModel ,ReservaPedidoModel} from '../../../Models/ReservaEntity';
 import ModalItem from './ModalItem';
 import ProcesoService from '../../../Service/ProcesoService';
 import ReservaService from '../../../Service/ReservaService';
@@ -29,7 +29,7 @@ function Page() {
   const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled] = useState(false);
   const { Title } = Typography;
-  const [Ent, setEnt] = useState<ReservaEntity>(new ReservaEntity());
+  const [Ent, setEnt] = useState<ReservaResumenModel>(new ReservaResumenModel());
   const [KeyTabs, setKeyTabs] = useState<String>('');
   const addItemToState = (item: ReservaPedidoModel) => {
 
@@ -78,13 +78,12 @@ function Page() {
     try {
 
       setCargarPage(true);
-      setEnt(new ReservaEntity())
+      setEnt(new ReservaResumenModel())
       setItems([])
       if (Id > 0) {
 
-        // const Resp_Producto = await sReserva.g(Id);
-        // Resp_Producto[0].Action = ProcessActionEnum.Update
-        // setEnt(Resp_Producto[0]);
+        const Resp_Producto = await sReserva.ReservaResumen(Id);
+        setEnt(Resp_Producto[0]);
 
         const Resp_OPDetalle = await sReserva.ReservaPedido(Id);
 
@@ -215,6 +214,78 @@ function Page() {
             </Row>
             <Row>
 
+
+              {/* {CorrelativoDiv()} */}
+
+              <Col xs={3} >
+                <Row>
+                  <Col span={24}>
+                    <label>Codigo</label>
+                  </Col>
+                  <Col span={24}>
+                  <Input
+                      type="string"
+                      name="Stock"
+                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                      readOnly={true}
+                      value={Ent.Codigo}
+                    />
+
+                  </Col>
+                </Row>
+              </Col>
+              <Col xs={15}>
+                <Row>
+                  <Col span={24}>
+                    <label>Mercaderia</label>
+                  </Col>
+                  <Col span={24}>
+                  <Input
+                      type="string"
+                      name="Stock"
+                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                      readOnly={true}
+                      value={Ent.Nombre}
+                    />
+                   
+
+                  </Col>
+                </Row>
+              </Col>
+
+              <Col xs={3} >
+                <Row>
+                  <Col span={24}>
+                    <label>Stock</label>
+                  </Col>
+                  <Col span={24}>
+                  <Input
+                      type="string"
+                      name="Stock"
+                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                      readOnly={true}
+                      value={Ent.Stock}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+
+              <Col xs={3} >
+                <Row>
+                  <Col span={24}>
+                    <label>Reserva</label>
+                  </Col>
+                  <Col span={24}>
+                  <Input
+                      type="string"
+                      name="Stock"
+                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                      readOnly={true}
+                      value={Ent.Reserva}
+                    />
+                  </Col>
+                </Row>
+              </Col>
 
 
 

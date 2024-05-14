@@ -54,6 +54,12 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'Cantidad',
         },
         {
+            title: 'Stock',
+            dataIndex: 'Stock',
+            width: '100px',
+            key: 'Stock',
+        },
+        {
             title: 'Action',
             fixed: 'right',
             width: 70,

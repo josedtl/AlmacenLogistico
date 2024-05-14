@@ -41,3 +41,13 @@ class ReservaDB:
             return list
         except Exception as e:
             print(e)
+
+    def ReservaResumen(MercaderiaId : int):
+        try:
+            args = []
+            args.append(MercaderiaId)
+            resulset = DBProcedure().DBProcedureConsult("sp_ReservaObtenerResumen", args)
+            list = [ReservaResumenModel.Cargar(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)

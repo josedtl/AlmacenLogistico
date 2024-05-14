@@ -28,3 +28,10 @@ class Reserva:
             return data
         except Exception as e:
             print(e)    
+    
+    def ReservaResumen(MercaderiaId : int):
+        try:
+            data =  ReservaDB.ReservaResumen(MercaderiaId)
+            return data
+        except Exception as e:
+            print(e)    

@@ -34,3 +34,13 @@ def ReservaPedido(MercaderiaId : int):
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
+    
+
+@ReservaRouter.get(f"/api/{ApiName}/ReservaResumen/{{MercaderiaId}}", tags=[ApiName])
+def ReservaResumen(MercaderiaId : int):
+    try:
+        jsonData = Reserva.ReservaResumen(MercaderiaId)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())

@@ -10,6 +10,7 @@ class ReservaEntity:
     CodigoComercial: str
     CantidaPedido: float
     Cantidad: float
+    Stock: float
 
     def Cargar(_DB):
         c = ReservaEntity()
@@ -19,6 +20,7 @@ class ReservaEntity:
         c.CodigoComercial = _DB["CodigoComercial"]
         c.CantidaPedido = _DB["CantidaPedido"]
         c.Cantidad = _DB["cantidad"]
+        c.Stock = _DB["Stock"]
         return c
 
 class ReservaMercaderiaOPModel(BaseModel):
@@ -38,4 +40,22 @@ class ReservaPedidoModel:
         c.MercaderiaId = _DB["MercaderiaId"]
         c.CodigoPedido = _DB["CodigoPedido"]
         c.Cantidad = _DB["Cantidad"]
+        return c
+
+class ReservaResumenModel:
+    MercaderiaId: int
+    Codigo: str
+    Nombre: str
+    UnidadMedida: str
+    Stock: float
+    Reserva: float
+
+    def Cargar(_DB):
+        c = ReservaResumenModel()
+        c.MercaderiaId = _DB["MercaderiaId"]
+        c.Codigo = _DB["Codigo"]
+        c.Nombre = _DB["Nombre"]
+        c.UnidadMedida = _DB["UnidadMedida"]
+        c.Stock = _DB["Stock"]
+        c.Reserva = _DB["Reserva"]
         return c
