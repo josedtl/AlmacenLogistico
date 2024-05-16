@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>c73cece6-c3a6-45d9-b6f4-99f7a25ae025</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.16" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LogisticStorage.BusinessLayer\LogisticStorage.BusinessLayer.csproj" />
+    <ProjectReference Include="..\LogisticStorage.Common\LogisticStorage.Common.csproj" />
+    <ProjectReference Include="..\LogisticStorage.EntityLayer\LogisticStorage.EntityLayer.csproj" />
+  </ItemGroup>
+
+</Project>

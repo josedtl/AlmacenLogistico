@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Framework.Data\Framework.Data.csproj" />
+    <ProjectReference Include="..\Framework\Framework.csproj" />
+    <ProjectReference Include="..\LogisticStorage.Common\LogisticStorage.Common.csproj" />
+    <ProjectReference Include="..\LogisticStorage.EntityLayer\LogisticStorage.EntityLayer.csproj" />
+  </ItemGroup>
+
+</Project>
