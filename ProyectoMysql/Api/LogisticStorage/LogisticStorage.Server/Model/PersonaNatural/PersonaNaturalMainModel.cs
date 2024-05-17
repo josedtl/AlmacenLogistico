@@ -20,7 +20,7 @@ namespace LogisticStorage.Server
         public PersonaNaturalMainModel(PersonaNaturalEntity Item)
         {
             this.PersonaNaturalId = Item.PersonaNaturalId;
-            //this.TipoDocumento = Item.TipoDocumento;
+            this.TipoDocumento = Item.TipoDocumento;
             this.NumDocumento = Item.NumDocumento;
             this.Nombres = Item.Nombres;
             this.ApellidoPaterno = Item.ApellidoPaterno;

@@ -11,7 +11,7 @@ class MercaderiaDB:
             
     def GetMainItems():
         try:
-            resulset = DBProcedure().DBProcedureConsult("sp_Mercaderia_Main", [])
+            resulset = DBProcedure().DBProcedureConsult("sp_MercaderiaObtenerMain", [])
             list = [MercaderiaMainModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
@@ -20,10 +20,10 @@ class MercaderiaDB:
     def Save(Ent: MercaderiaSaveModel):
         try:
             store_mapping = {
-                ProcessActionEnum.Update: "sp_Mercaderia_Update",
-                ProcessActionEnum.Add: "sp_Mercaderia_Insert",
+                ProcessActionEnum.Update: "sp_Mercaderia_Actualizar",
+                ProcessActionEnum.Add: "sp_Mercaderia_Registrar",
             }
-            Store = store_mapping.get(Ent.Action, "sp_Mercaderia_Insert")
+            Store = store_mapping.get(Ent.Action, "sp_Mercaderia_Registrar")
             args = []
             args.append(Ent.MercaderiaId)
             args.append(Ent.Codigo)
@@ -50,7 +50,7 @@ class MercaderiaDB:
     def GetCabeceraItem(Id : int):
         try:
             args = (Id,)
-            resulset = DBProcedure().DBProcedureConsult("sp_Mercaderia_Item",args)
+            resulset = DBProcedure().DBProcedureConsult("sp_MercaderiaObtenerItem",args)
             list = [MercaderiaItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
@@ -59,7 +59,7 @@ class MercaderiaDB:
     def GetMercaderiaLikeCategoria(Nombre : str, CategoriaId :int):
         try:
             args = (Nombre, CategoriaId)
-            resulset = DBProcedure().DBProcedureConsult("sp_Mercaderia_LikeCategoriaItem",args)
+            resulset = DBProcedure().DBProcedureConsult("sp_MercaderiaBuscarCategoriaItem",args)
             list = [MercaderiaItemCategoriaModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
@@ -68,7 +68,7 @@ class MercaderiaDB:
     def GetMercaderia_ItemOP(Id : int):
         try:
             args = (Id,)
-            resulset = DBProcedure().DBProcedureConsult("sp_Mercaderia_ItemOP",args)
+            resulset = DBProcedure().DBProcedureConsult("sp_MercaderiaObtenerItemOP",args)
             list = [MercaderiaItemOPModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:

@@ -9,7 +9,7 @@ class MercaderiaService {
 
   async getItems(): Promise<MercaderiaMainModel[]> {
     try {
-      const response = await axios.get(`${URL}/api/Mercaderia/GetMainItems`);
+      const response = await axios.get(`${URL}/api/Mercaderia/ObtenerMain`);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }
@@ -24,7 +24,7 @@ class MercaderiaService {
 
   async saveItem(item: MercaderiaSaveModel): Promise<MercaderiaSaveModel | null> {
     try {
-      const response = await axios.post(`${URL}/api/Mercaderia/Save`, item, {
+      const response = await axios.post(`${URL}/api/Mercaderia/Registrar`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -44,7 +44,7 @@ class MercaderiaService {
 
   async GetCabeceraItem(Id:number): Promise<MercaderiaSaveModel[]> {
     try {
-      const response = await axios.get(`${URL}/api/Mercaderia/GetCabeceraItem/${Id}`);
+      const response = await axios.get(`${URL}/api/Mercaderia/ObtenerItem/${Id}`);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }
@@ -61,7 +61,7 @@ class MercaderiaService {
       const EntLike = new EntidadLikeModel();
       EntLike.Valor1 = codigo;
       EntLike.ValorInt1 = value;
-      const response = await axios.post(`${URL}/api/Mercaderia/GetMercaderiaLikeCategoria`, EntLike, {
+      const response = await axios.post(`${URL}/api/Mercaderia/BuscarCategoriaItem`, EntLike, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -75,7 +75,7 @@ class MercaderiaService {
 
   async GetMercaderia_ItemOP(Id:number): Promise<MercaderiaItemOPModel[]> {
     try {
-      const response = await axios.get(`${URL}/api/Mercaderia/GetMercaderia_ItemOP/${Id}`);
+      const response = await axios.get(`${URL}/api/Mercaderia/ObtenerItemOP/${Id}`);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }

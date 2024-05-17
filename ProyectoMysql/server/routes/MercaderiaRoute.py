@@ -9,7 +9,7 @@ MercaderiaRouter = APIRouter()
 ApiName = "Mercaderia"
 
 
-@MercaderiaRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
+@MercaderiaRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
 def Save(Ent: MercaderiaSaveModel):
     try:
         Ent = Mercaderia.Save(Ent)
@@ -19,7 +19,7 @@ def Save(Ent: MercaderiaSaveModel):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@MercaderiaRouter.get(f"/api/{ApiName}/GetMainItems", tags=[ApiName])
+@MercaderiaRouter.get(f"/api/{ApiName}/ObtenerMain", tags=[ApiName])
 def GetMainItems():
     try:
         jsonData = Mercaderia.GetMainItems()
@@ -29,7 +29,7 @@ def GetMainItems():
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@MercaderiaRouter.get(f"/api/{ApiName}/GetCabeceraItem/{{Id}}", tags=[ApiName])
+@MercaderiaRouter.get(f"/api/{ApiName}/ObtenerItem/{{Id}}", tags=[ApiName])
 def GetCabeceraItem(Id : int):
     try:
         jsonData = Mercaderia.GetCabeceraItem(Id)
@@ -38,7 +38,7 @@ def GetCabeceraItem(Id : int):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-@MercaderiaRouter.post(f"/api/{ApiName}/GetMercaderiaLikeCategoria", tags=[ApiName])
+@MercaderiaRouter.post(f"/api/{ApiName}/BuscarCategoriaItem", tags=[ApiName])
 def GetMercaderiaLikeCategoria(NDataLike: EntidadLikeModel):
     try:
         jsonData = Mercaderia.GetMercaderiaLikeCategoria(NDataLike.Valor1, NDataLike.ValorInt1)
@@ -47,7 +47,7 @@ def GetMercaderiaLikeCategoria(NDataLike: EntidadLikeModel):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-@MercaderiaRouter.get(f"/api/{ApiName}/GetMercaderia_ItemOP/{{Id}}", tags=[ApiName])
+@MercaderiaRouter.get(f"/api/{ApiName}/ObtenerItemOP/{{Id}}", tags=[ApiName])
 def GetMercaderia_ItemOP(Id : int):
     try:
         jsonData = Mercaderia.GetMercaderia_ItemOP(Id)
