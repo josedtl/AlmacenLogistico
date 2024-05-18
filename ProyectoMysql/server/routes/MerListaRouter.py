@@ -9,7 +9,7 @@ MerListaRouter = APIRouter()
 ApiName = "MerLista"
 
 
-@MerListaRouter.get(f"/api/{ApiName}/GetItems/{{Codigo}}", tags=[ApiName])
+@MerListaRouter.get(f"/api/{ApiName}/ObtenerMain/{{Codigo}}", tags=[ApiName])
 def GetItems(Codigo: str):
     try:
         jsonData = MerLista.GetItems(Codigo)
@@ -18,7 +18,7 @@ def GetItems(Codigo: str):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-@MerListaRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
+@MerListaRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
 def Save(Ent: MerListaSaveModel):
     try:
         print (Ent)
@@ -29,7 +29,7 @@ def Save(Ent: MerListaSaveModel):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-@MerListaRouter.get(f"/api/{ApiName}/GetItemTitulo/{{Codigo}}", tags=[ApiName])
+@MerListaRouter.get(f"/api/{ApiName}/ObtenerTitulo/{{Codigo}}", tags=[ApiName])
 def GetItemTitulo(Codigo: str):
     try:
         jsonData = MerLista.GetItemTitulo(Codigo)
@@ -38,7 +38,7 @@ def GetItemTitulo(Codigo: str):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-@MerListaRouter.post(f"/api/{ApiName}/GetItemLike", tags=[ApiName])
+@MerListaRouter.post(f"/api/{ApiName}/BuscarItem", tags=[ApiName])
 def GetItemLike(NDataLike: EntidadLikeModel):
     try:
         jsonData = MerLista.GetItemLike(NDataLike.Valor1, NDataLike.Valor2)
@@ -47,7 +47,7 @@ def GetItemLike(NDataLike: EntidadLikeModel):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
     
-@MerListaRouter.get(f"/api/{ApiName}/GetItem/{{Id}}", tags=[ApiName])
+@MerListaRouter.get(f"/api/{ApiName}/ObtenerItem/{{Id}}", tags=[ApiName])
 def GetItem(Id: int):
     try:
         jsonData = MerLista.GetItem(Id)

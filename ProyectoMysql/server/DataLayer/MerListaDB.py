@@ -9,7 +9,7 @@ class MerListaDB:
     def GetItems(Codigo: any):
         try:
             args = (Codigo,)
-            resulset = DBProcedure().DBProcedureConsult("sp_MerLista_Main", args)
+            resulset = DBProcedure().DBProcedureConsult("sp_MerListaObtenerMain", args)
             list = [MerListaMainModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
@@ -44,7 +44,7 @@ class MerListaDB:
     def GetItemTitulo(Codigo: any):
         try:
             args = (Codigo,)
-            resulset = DBProcedure().DBProcedureConsult("sp_MerLista_titulo", args)
+            resulset = DBProcedure().DBProcedureConsult("sp_MerListaObtenertitulo", args)
             list = [MerListaTituloModel.CargarItem(row) for row in resulset]
             return list
         except Exception as e:
@@ -57,7 +57,7 @@ class MerListaDB:
                 Nombre,
             )
             resulset = DBProcedure().DBProcedureConsult(
-                "sp_MerLista_ItemLike", args
+                "sp_MerListaBuscarItem", args
             )
             list = [MerListaItemModel.Cargar(row) for row in resulset]
             return list
@@ -67,7 +67,7 @@ class MerListaDB:
     def GetItem(Id: int):
         try:
             args = (Id,)
-            resulset = DBProcedure().DBProcedureConsult("sp_MerListaItem", args)
+            resulset = DBProcedure().DBProcedureConsult("sp_MerListaObtenerItem", args)
             list = [MerListaItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
