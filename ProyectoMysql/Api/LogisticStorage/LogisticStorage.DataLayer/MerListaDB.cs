@@ -146,7 +146,7 @@ namespace LogisticStorage.DataLayer
             try
             {
                 StartHelper(false);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MercaderiaId", DbType.Int32, 4, false, 0, 0, MercaderiaId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_ListaId", DbType.Int32, 4, false, 0, 0, MercaderiaId);
                 IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_MerListaObtenerItem");
                 FillSchemeTable(dr);
                 List<MerListaEntity> EntityList = new List<MerListaEntity>();

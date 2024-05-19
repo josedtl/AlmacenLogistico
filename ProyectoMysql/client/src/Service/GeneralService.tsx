@@ -118,22 +118,6 @@ class GeneralService {
 
 
 
-
-  async GetUnidadMedidaItems(): Promise<UnidadMedidaEntity[]> {
-    const response = await apiLg.post('gql/General', {
-      query: `
-      {GHUnidadMedidaItems {UnidadMedidaId Nombre}}`,
-    });
-    return await response.data.data.GHUnidadMedidaItems
-  }
-
-  async GetUnidadMedidaItem(Id: number): Promise<UnidadMedidaEntity[]> {
-    const response = await apiLg.post('gql/General', {
-      query: `{ GHUnidadMedidaItem(Id: ${Id}) {UnidadMedidaId Nombre}}`,
-    });
-    return await response.data.data.GHUnidadMedidaItem
-  }
-
   async GetUnidadMedidaItemLike(Nombre: string): Promise<UnidadMedidaEntity[]> {
     const response = await apiLg.post('gql/General', {
       query: `{
@@ -366,7 +350,7 @@ class GeneralService {
 
       const EntLike = new EntidadLikeModel();
       EntLike.Valor1 = codigo;
-      const response = await apiLg.post(`api/General/GetUbigeoItemLike`, EntLike, {
+      const response = await apiLg.post(`api/General/UbigeoBuscarItem`, EntLike, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -379,7 +363,31 @@ class GeneralService {
 
   async GetUbigeoItemApi(Value: number): Promise<UbigeoEntity[]> {
     try {
-      const response = await apiLg.get(`api/General/GetUbigeoItem/${Value}/`);
+      const response = await apiLg.get(`api/General/UbigeoObtenerItem/${Value}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+  
+
+
+  async GetUnidadMedidaItems(): Promise<UnidadMedidaEntity[]> {
+
+    try {
+      const response = await apiLg.get(`api/General/UnidadMedidaObtenerItems`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+
+  }
+
+  async GetUnidadMedidaItem(Id: number): Promise<UnidadMedidaEntity[]> {
+    try {
+      const response = await apiLg.get(`api/General/UnidadMedidaObtenerItem/${Id}`);
       return response.data.Value;
     } catch (error) {
       throw error;

@@ -4,7 +4,7 @@ import { apiLg } from './axios-config';
 
 class MerListaService {
 
-  ServiceName: string = 'PersonaNatural';
+  ServiceName: string = 'MerLista';
 
   async getItems(Codigo :string): Promise<MerListaEntity[]> {
     try {
@@ -20,7 +20,7 @@ class MerListaService {
 
   async saveItem(item: MerListaEntity): Promise<MerListaEntity | null> {
     try {
-      const response = await apiLg.post(`api/${this.ServiceName}/Save`, item, {
+      const response = await apiLg.post(`api/${this.ServiceName}/Registrar`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -38,7 +38,7 @@ class MerListaService {
       const EntLike = new EntidadLikeModel();
       EntLike.Valor1 = codigo;
       EntLike.Valor2 = value;
-      const response = await apiLg.post(`api/${this.ServiceName}/GetItemLike`, EntLike, {
+      const response = await apiLg.post(`api/${this.ServiceName}/BuscarItem`, EntLike, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -52,7 +52,7 @@ class MerListaService {
 
   async getItem(Id: number): Promise<MerListaEntity[]> {
     try {
-      const response = await apiLg.get(`api/${this.ServiceName}/GetItem/${Id}`);
+      const response = await apiLg.get(`api/${this.ServiceName}/ObtenerItem/${Id}`);
       return response.data.Value;
     } catch (error) {
       throw error;
@@ -62,7 +62,7 @@ class MerListaService {
 
   async GetItemTitulo(Codigo :string): Promise<MerListaTituloModel[]> {
     try {
-      const response = await apiLg.get(`api/${this.ServiceName}/GetItemTitulo/${Codigo}`);
+      const response = await apiLg.get(`api/${this.ServiceName}/ObtenerTitulo/${Codigo}`);
       return response.data.Value;
 
     } catch (error) {
