@@ -7,10 +7,10 @@ using System.Data.SqlClient;
 
 namespace LogisticStorage.DataLayer
 {
-	public class PersonaNaturalDB : BaseDataEntity
+	public class EntidadDB : BaseDataEntity
 	{
 
-		public virtual List<PersonaNaturalEntity> ObtenerItem(Int32 PersonaNaturaId)
+		public virtual List<EntidadEntity> ObtenerItem(Int32 PersonaNaturaId)
 		{
 			try
 			{
@@ -18,10 +18,10 @@ namespace LogisticStorage.DataLayer
 				DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_PersonaNaturalId", DbType.Int32, 4, false, 0, 0, PersonaNaturaId);
 				IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_PersonaNaturalCabeceraItem");
 				FillSchemeTable(dr);
-				List<PersonaNaturalEntity> EntityList = new List<PersonaNaturalEntity>();
+				List<EntidadEntity> EntityList = new List<EntidadEntity>();
 				while (dr.Read())
 				{
-					PersonaNaturalEntity entity = new PersonaNaturalEntity();
+					EntidadEntity entity = new EntidadEntity();
 					if (FillFrom(dr, entity)) EntityList.Add(entity);
 					entity.OnLogicalLoaded();
 				}
@@ -34,7 +34,7 @@ namespace LogisticStorage.DataLayer
 				throw ex;
 			}
 		}
-		public virtual bool Registrar(PersonaNaturalEntity Ent)
+		public virtual bool Registrar(EntidadEntity Ent)
 		{
 			StartHelper(true);
 			try
@@ -51,25 +51,9 @@ namespace LogisticStorage.DataLayer
 			return true;
 		}
 
-		public virtual List<PersonaNaturalEntity> Registrar(List<PersonaNaturalEntity> Items)
-		{
-			StartHelper(true);
-			try
-			{
-				for (int o = 0; o < Items.Count; o++) Registrar(Items[o]);
-			}
-			catch (Exception ex)
-			{
-				Helper.CancelTransaction();
-				throw ex;
-			}
+	
 
-			Helper.Close();
-			return Items;
-		}
-
-
-		private bool RegistrarDB(PersonaNaturalEntity Ent)
+		private bool RegistrarDB(EntidadEntity Ent)
 		{
 			if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
 			{
@@ -80,7 +64,7 @@ namespace LogisticStorage.DataLayer
 
 
 
-				DbDatabase.AddParameter(MyUtils.GetOutputDirection(true), "v_PersonaNaturalId", DbType.Int32, 4, false, 0, 0, Ent.PersonaNaturalId);
+				DbDatabase.AddParameter(MyUtils.GetOutputDirection(true), "v_EntidadId", DbType.Int32, 4, false, 0, 0, Ent.EntidadId);
 				DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_TipoDocumentoIdentidadId", DbType.Int32, 4, false, 0, 0, Ent.TipoDocumentoIdentidadId);
 				DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NumDocumento", DbType.String, 100, false, 0, 0, Ent.NumDocumento);
 				DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Nombres", DbType.String, 100, false, 0, 0, Ent.Nombres);
@@ -99,7 +83,7 @@ namespace LogisticStorage.DataLayer
 				int returnValue = DbDatabase.ExecuteNonQuery();
 				if (Ent.LogicalState == LogicalState.Added)
 				{
-					if (Ent.PersonaNaturalId <= 0) Ent.PersonaNaturalId = (Int32)DbDatabase.GetParameterValue("v_PersonaNaturalId");
+					if (Ent.EntidadId <= 0) Ent.EntidadId = (Int32)DbDatabase.GetParameterValue("v_EntidadId");
 					Ent.OnLogicalAdded();
 				}
 				else
@@ -115,19 +99,19 @@ namespace LogisticStorage.DataLayer
 
 
 
-		public virtual List<PersonaNaturalEntity> ObtenerMain()
+		public virtual List<EntidadEntity> ObtenerMain()
 		{
 			try
 			{
 				StartHelper(false);
 				IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(System.Data.CommandType.StoredProcedure, "sp_Persona_Main");
 				FillSchemeTable(dr);
-				List<PersonaNaturalEntity> EntityList = new List<PersonaNaturalEntity>();
+				List<EntidadEntity> EntityList = new List<EntidadEntity>();
 
 				while (dr.Read())
 				{
-					PersonaNaturalEntity entity = new PersonaNaturalEntity();
-					if (FillFrom<PersonaNaturalEntity>(dr, entity)) EntityList.Add(entity);
+					EntidadEntity entity = new EntidadEntity();
+					if (FillFrom<EntidadEntity>(dr, entity)) EntityList.Add(entity);
 					entity.OnLogicalLoaded();
 				}
 

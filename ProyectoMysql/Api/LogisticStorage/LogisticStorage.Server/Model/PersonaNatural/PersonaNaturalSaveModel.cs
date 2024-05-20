@@ -5,9 +5,9 @@ namespace LogisticStorage.Server
 {
     public class PersonaNaturalSaveModel
     {
-        public PersonaNaturalSaveModel(PersonaNaturalEntity Item)
+        public PersonaNaturalSaveModel(EntidadEntity Item)
         {
-            this.PersonaNaturalId = Item.PersonaNaturalId;
+            this.PersonaNaturalId = Item.EntidadId;
             this.NumDocumento = Item.NumDocumento;
             this.Nombres = Item.Nombres;
             this.ApellidoPaterno = Item.ApellidoPaterno;

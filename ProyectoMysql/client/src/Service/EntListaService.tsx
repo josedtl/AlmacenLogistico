@@ -6,7 +6,7 @@ class EntListaService {
 
   async getItems(Codigo: string): Promise<EntListaModel[]> {
     try {
-      const response = await apiLg.get(`api/EntLista/GetItems/${Codigo}`);
+      const response = await apiLg.get(`api/EntLista/ObtenerItems/${Codigo}`);
       return response.data.Value;
 
     } catch (error) {
@@ -16,7 +16,7 @@ class EntListaService {
 
   async getItem(Id: number): Promise<EntListaModel[]> {
     try {
-      const response = await apiLg.get(`api/EntLista/GetItem/${Id}`);
+      const response = await apiLg.get(`api/EntLista/ObtenerItem/${Id}`);
       return response.data.Value;
     } catch (error) {
       throw error;
@@ -30,7 +30,7 @@ class EntListaService {
       const EntLike = new EntidadLikeModel();
       EntLike.Valor1 = codigo;
       EntLike.Valor2 = value;
-      const response = await apiLg.post(`api/EntLista/GetItemLike`, EntLike, {
+      const response = await apiLg.post(`api/EntLista/BuscarItem`, EntLike, {
         headers: {
           'Content-Type': 'application/json',
         },

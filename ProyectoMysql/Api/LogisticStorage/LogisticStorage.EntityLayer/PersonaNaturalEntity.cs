@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace LogisticStorage.EntityLayer
 {
-    public partial class PersonaNaturalEntity : BaseEntityObject
+    public partial class EntidadEntity : BaseEntityObject
     {
 
-        public PersonaNaturalEntity()
+        public EntidadEntity()
         {
-            PersonaNaturalId = GetInt32Default();
+            EntidadId = GetInt32Default();
             Nombres = GetStringDefault();
             ApellidoPaterno = GetStringDefault();
             ApellidoMaterno = GetStringDefault();
@@ -26,11 +26,11 @@ namespace LogisticStorage.EntityLayer
             UbigeoId = GetInt32Default();
             FechaRegistro = DateTime.Now;
             CodUsuario = GetStringDefault();
-			EstadoRegistro =GetBooleanDefault();
+            EstadoRegistro = GetBooleanDefault();
 
-		}
+        }
 
-        public Int32 PersonaNaturalId { get; set; }
+        public Int32 EntidadId { get; set; }
         public Int32 TipoDocumentoIdentidadId { get; set; }
         public String NumDocumento { get; set; }
         public String Nombres { get; set; }
@@ -45,7 +45,8 @@ namespace LogisticStorage.EntityLayer
         public Int32 EstadoCivilId { get; set; }
         public String CodUsuario { get; set; }
         public DateTime FechaRegistro { get; set; }
-		public Boolean EstadoRegistro { get; set; }
+        public Boolean EstadoRegistro { get; set; }
+        public String NombreComercial { get; set; }
 
-	}
+    }
 }

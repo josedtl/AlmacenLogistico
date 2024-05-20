@@ -8,7 +8,7 @@ namespace LogisticStorage.Server
         public PersonaNaturalMainModel()
         {
             this.PersonaNaturalId = 0;
-            this.TipoDocumento = String.Empty;
+            this.NomDocumento = String.Empty;
             this.NumDocumento = String.Empty;
             this.Nombres = String.Empty;
             this.ApellidoPaterno = String.Empty;
@@ -17,10 +17,10 @@ namespace LogisticStorage.Server
             this.CodUsuario = String.Empty;
         }
 
-        public PersonaNaturalMainModel(PersonaNaturalEntity Item)
+        public PersonaNaturalMainModel(EntidadEntity Item)
         {
-            this.PersonaNaturalId = Item.PersonaNaturalId;
-            this.TipoDocumento = Item.TipoDocumento;
+            this.PersonaNaturalId = Item.EntidadId;
+            this.NomDocumento = Item.NomDocumento;
             this.NumDocumento = Item.NumDocumento;
             this.Nombres = Item.Nombres;
             this.ApellidoPaterno = Item.ApellidoPaterno;
@@ -30,7 +30,7 @@ namespace LogisticStorage.Server
         }
 
         [JsonPropertyName("PersonaNaturalId")] public int PersonaNaturalId { get; set; }
-        [JsonPropertyName("TipoDocumento")] public String TipoDocumento { get; set; }
+        [JsonPropertyName("NomDocumento")] public String NomDocumento { get; set; }
         [JsonPropertyName("NumDocumento")] public String NumDocumento { get; set; }
         [JsonPropertyName("Nombres")] public String Nombres { get; set; }
         [JsonPropertyName("ApellidoPaterno")] public String ApellidoPaterno { get; set; }

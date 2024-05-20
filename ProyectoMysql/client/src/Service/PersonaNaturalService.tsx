@@ -9,7 +9,7 @@ class PersonaNaturalService {
 
   async getItems(): Promise<PersonaNaturalEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/PersonaNatural/GetItems/`);
+      const response = await axios.get(`${URL}/api/PersonaNatural/ObtenerMain/`);
       console.log(response.status);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
@@ -33,7 +33,7 @@ class PersonaNaturalService {
 
   async saveItem(item: PersonaNaturalEntity): Promise<PersonaNaturalEntity | null> {
     try {
-      const response = await axios.post(`${URL}/api/PersonaNatural/Save/`, item, {
+      const response = await axios.post(`${URL}/api/PersonaNatural/Registrar/`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -53,7 +53,7 @@ class PersonaNaturalService {
 
   async getItem(Id :number): Promise<PersonaNaturalEntity[]> {
     try {
-      const response = await axios.get(`${URL}/api/PersonaNatural/GetItem/${Id}`);
+      const response = await axios.get(`${URL}/api/PersonaNatural/ObtenerItem/${Id}`);
       console.log(response.status);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
@@ -68,7 +68,7 @@ class PersonaNaturalService {
 
   async getMainItems(): Promise<PersonaNaturalEntity[]> {
     try {
-      const response = await apiLg.get(`api/PersonaNatural/GetMainItems`);
+      const response = await apiLg.get(`api/PersonaNatural/ObtenerMain`);
       return response.data.Value;
 
     } catch (error) {
@@ -78,7 +78,7 @@ class PersonaNaturalService {
 
   async GetCabeceraItem(Id: number): Promise<PersonaNaturalEntity[]> {
     try {
-      const response = await apiLg.get(`api/PersonaNatural/GetCabeceraItem/${Id}`);
+      const response = await apiLg.get(`api/PersonaNatural/ObtenerItem/${Id}`);
       return response.data.Value;
     } catch (error) {
       throw error;

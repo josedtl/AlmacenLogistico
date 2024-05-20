@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LogisticStorage.EntityLayer
 {
-    public partial class PersonaNaturalEntity
+    public partial class EntidadEntity
     {
+        public String NomDocumento { get; set; }
 
-        public String TipoDocumento { get; set; }
     }
 }
