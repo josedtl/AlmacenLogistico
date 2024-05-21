@@ -1,7 +1,7 @@
 ﻿using LogisticStorage.EntityLayer;
 using System.Text.Json.Serialization;
 
-namespace LogisticStorage.Server.Model.Empresa
+namespace LogisticStorage.Server
 {
     public class EmpresaMainModel
     {
