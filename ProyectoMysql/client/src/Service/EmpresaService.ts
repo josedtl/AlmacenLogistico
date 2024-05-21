@@ -5,7 +5,7 @@ class EmpresaService {
 
   async getItems(): Promise<EmpresaEntity[]> {
     try {
-      const response = await apiLg.get(`api/Empresa/GetMainItems`);
+      const response = await apiLg.get(`api/Empresa/ObtenerMain`);
       return response.data.Value;
 
     } catch (error) {
@@ -26,7 +26,7 @@ class EmpresaService {
 
   async saveItem(item: EmpresaEntity): Promise<EmpresaEntity | null> {
     try {
-      const response = await apiLg.post(`api/Empresa/Save/`, item, {
+      const response = await apiLg.post(`api/Empresa/Registrar/`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -49,7 +49,7 @@ class EmpresaService {
 
   async getItem(Id: number): Promise<EmpresaEntity[]> {
     try {
-      const response = await apiLg.get(`api/Empresa/GetItem/${Id}`);
+      const response = await apiLg.get(`api/Empresa/ObtenerItem/${Id}`);
       return response.data.Value;
     } catch (error) {
       throw error;
@@ -58,7 +58,7 @@ class EmpresaService {
 
   async GetMainItems(): Promise<EmpresaEntity[]> {
     try {
-      const response = await apiLg.get(`api/Empresa/GetMainItems`);
+      const response = await apiLg.get(`api/Empresa/ObtenerMain`);
       return response.data.Value;
 
     } catch (error) {

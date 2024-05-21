@@ -11,12 +11,12 @@ namespace LogisticStorage.Server.Controllers
         Base d = new Base();
         [HttpGet]
         [Route("ObtenerMain")]
-        public ResponseAPI<List<EmpresaMainModel>> ObtenerMain()
+        public ResponseAPI<List<EmpresaMainModel>> EmpresaObtenerMain()
         {
             try
             {
                 d.Configurar();
-                var Items = Entidad.ObtenerMain();
+                var Items = Entidad.EmpresaObtenerMain();
                 List<EmpresaMainModel> Lista = new List<EmpresaMainModel>();
                 foreach (var Item in Items) Lista.Add(new EmpresaMainModel(Item));
 
@@ -29,13 +29,13 @@ namespace LogisticStorage.Server.Controllers
         }
 
         [HttpGet]
-        [Route("ObtenerItem/{PersonaNaturalId}")]
-        public ResponseAPI<List<EmpresaSaveModel>> ObtenerItem(Int32 PersonaNaturalId)
+        [Route("ObtenerItem/{EmpresaId}")]
+        public ResponseAPI<List<EmpresaSaveModel>> EmpresaObtenerItem(Int32 EmpresaId)
         {
             try
             {
                 d.Configurar();
-                var Items = Entidad.ObtenerItem(PersonaNaturalId);
+                var Items = Entidad.EmpresaObtenerItem(EmpresaId);
 
                 List<EmpresaSaveModel> Lista = new List<EmpresaSaveModel>();
 
@@ -52,7 +52,7 @@ namespace LogisticStorage.Server.Controllers
 
         [HttpPost]
         [Route("Registrar")]
-        public ResponseAPI<EmpresaSaveModel> Registrar(EmpresaSaveModel Item)
+        public ResponseAPI<EmpresaSaveModel> EmpresaRegistrar(EmpresaSaveModel Item)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace LogisticStorage.Server.Controllers
 				ItemEntity.EstadoRegistro = Item.EstadoRegistro;
 				ItemEntity.LogicalState = (LogicalState)Item.Action;
 
-                Item.EmpresaId = Entidad.Registrar(ItemEntity);
+                Item.EmpresaId = Entidad.EmpresaRegistrar(ItemEntity);
 
                 return new ResponseAPI<EmpresaSaveModel>(Item, true);
             }

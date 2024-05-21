@@ -12,24 +12,41 @@ namespace LogisticStorage.BusinessLayer
     public class Entidad
     {
 
-        public static List<EntidadEntity> ObtenerMain()
+        public static List<EntidadEntity> PersonaNaturalObtenerMain()
         {
             EntidadDB DB = new EntidadDB();
-            return DB.ObtenerMain();
+            return DB.PersonaNaturalObtenerMain();
         }
-        public static List<EntidadEntity> ObtenerItem(Int32 PersonaNaturalId)
+        public static List<EntidadEntity> PersonaNaturalObtenerItem(Int32 PersonaNaturalId)
         {
             EntidadDB DB = new EntidadDB();
-            return DB.ObtenerItem(PersonaNaturalId);
+            return DB.PersonaNaturalObtenerItem(PersonaNaturalId);
         }
-        public static Int32 Registrar(EntidadEntity Ent)
+        public static Int32 PersonaNaturalRegistrar(EntidadEntity Ent)
         {
             EntidadDB DB = new EntidadDB();
-            DB.Registrar(Ent);
+            DB.PersonaNaturalRegistrar(Ent);
 
             return Ent.EntidadId;
         }
 
-      
+        public static List<EntidadEntity> EmpresaObtenerMain()
+        {
+            EntidadDB DB = new EntidadDB();
+            return DB.EmpresaObtenerMain();
+        }
+        public static List<EntidadEntity> EmpresaObtenerItem(Int32 EmpresaId)
+        {
+            EntidadDB DB = new EntidadDB();
+            return DB.EmpresaObtenerItem(EmpresaId);
+        }
+        public static Int32 EmpresaRegistrar(EntidadEntity Ent)
+        {
+            EntidadDB DB = new EntidadDB();
+            DB.EmpresaRegistrar(Ent);
+
+            return Ent.EntidadId;
+        }
+
     }
 }

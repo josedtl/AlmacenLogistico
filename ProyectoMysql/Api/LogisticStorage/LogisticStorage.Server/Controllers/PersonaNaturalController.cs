@@ -16,7 +16,7 @@ namespace LogisticStorage.Server.Controllers
             try
             {
                 d.Configurar();
-                var Items = Entidad.ObtenerMain();
+                var Items = Entidad.PersonaNaturalObtenerMain();
                 List<PersonaNaturalMainModel> Lista = new List<PersonaNaturalMainModel>();
                 foreach (var Item in Items) Lista.Add(new PersonaNaturalMainModel(Item));
 
@@ -35,7 +35,7 @@ namespace LogisticStorage.Server.Controllers
             try
             {
                 d.Configurar();
-                var Items = Entidad.ObtenerItem(PersonaNaturalId);
+                var Items = Entidad.PersonaNaturalObtenerItem(PersonaNaturalId);
 
                 List<PersonaNaturalSaveModel> Lista = new List<PersonaNaturalSaveModel>();
 
@@ -77,7 +77,7 @@ namespace LogisticStorage.Server.Controllers
 				ItemEntity.EstadoRegistro = Item.EstadoRegistro;
 				ItemEntity.LogicalState = (LogicalState)Item.Action;
 
-                Item.PersonaNaturalId = Entidad.Registrar(ItemEntity);
+                Item.PersonaNaturalId = Entidad.PersonaNaturalRegistrar(ItemEntity);
 
                 return new ResponseAPI<PersonaNaturalSaveModel>(Item, true);
             }

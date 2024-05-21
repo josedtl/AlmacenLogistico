@@ -192,7 +192,7 @@ const Save = () => {
       console.log(Resp_Empresa[0]);
 
       if (Resp_Empresa[0].UbigeoId != null) {
-        const Resp_Ubigeo = await sGeneralService.GetUbigeoApiItem(Resp_Empresa[0].UbigeoId);
+        const Resp_Ubigeo = await sGeneralService.GetUbigeoItemApi(Resp_Empresa[0].UbigeoId);
         setOptionsUbigeo(Resp_Ubigeo);
       }
     }

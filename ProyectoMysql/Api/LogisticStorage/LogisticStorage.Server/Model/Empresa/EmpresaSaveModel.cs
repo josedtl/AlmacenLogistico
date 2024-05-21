@@ -26,7 +26,7 @@ namespace LogisticStorage.Server
         {
             this.EmpresaId = Item.EntidadId;
             this.TipoDocumentoIdentidadId = Item.TipoDocumentoIdentidadId;
-            this.NumDocumento = Item.NomDocumento;
+            this.NumDocumento = Item.NumDocumento;
             this.Nombres = Item.Nombres;
             this.NombreComercial = Item.NombreComercial;
             this.UbigeoId = Item.UbigeoId;
