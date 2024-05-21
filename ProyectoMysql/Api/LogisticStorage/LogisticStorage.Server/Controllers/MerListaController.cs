@@ -12,13 +12,13 @@ namespace LogisticStorage.Server.Controllers
         Base d = new Base();
 
         [HttpGet]
-        [Route("ObtenerMain")]
-        public ResponseAPI<List<MerListaMainModel>> ObtenerMain()
+        [Route("ObtenerMain/{Codigo}")]
+        public ResponseAPI<List<MerListaMainModel>> ObtenerMain(String Codigo)
         {
             try
             {
                 d.Configurar();
-                var Items = MerLista.ObtenerMain();
+                var Items = MerLista.ObtenerMain(Codigo);
                 List<MerListaMainModel> Lista = new List<MerListaMainModel>();
                 foreach (var Item in Items) Lista.Add(new MerListaMainModel(Item));
 

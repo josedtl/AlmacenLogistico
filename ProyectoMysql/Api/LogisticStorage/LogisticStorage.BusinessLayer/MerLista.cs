@@ -10,10 +10,10 @@ namespace LogisticStorage.BusinessLayer
 {
     public class MerLista
     {
-        public static List<MerListaEntity> ObtenerMain()
+        public static List<MerListaEntity> ObtenerMain(String Codigo)
         {
             MerListaDB DB = new MerListaDB();
-            return DB.ObtenerMain();
+            return DB.ObtenerMain(Codigo);
         }
         public static Int32 Registrar(MerListaEntity Ent)
         {

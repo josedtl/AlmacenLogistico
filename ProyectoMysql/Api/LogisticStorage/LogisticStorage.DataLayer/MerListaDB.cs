@@ -13,11 +13,12 @@ namespace LogisticStorage.DataLayer
 {
     public class MerListaDB : BaseDataEntity
     {
-        public virtual List<MerListaEntity> ObtenerMain()
+        public virtual List<MerListaEntity> ObtenerMain(String Codigo)
         {
             try
             {
                 StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Codigo", DbType.String, 50, false, 0, 0, Codigo);
                 IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(System.Data.CommandType.StoredProcedure, "sp_MerListaObtenerMain");
                 FillSchemeTable(dr);
                 List<MerListaEntity> EntityList = new List<MerListaEntity>();
