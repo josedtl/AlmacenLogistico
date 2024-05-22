@@ -48,5 +48,12 @@ namespace LogisticStorage.BusinessLayer
             return Ent.EntidadId;
         }
 
+
+        public static List<EntidadEntity> EntidadBuscarNombreCompletoItem(String Nombre)
+        {
+            EntidadDB DB = new EntidadDB();
+            return DB.EntidadBuscarNombreCompletoItem(Nombre);
+        }
+
     }
 }

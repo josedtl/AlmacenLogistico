@@ -121,6 +121,10 @@ namespace LogisticStorage.DataLayer
 			}
 		}
 
+
+
+
+
         public virtual List<EntidadEntity> EmpresaObtenerMain()
         {
             try
@@ -226,6 +230,33 @@ namespace LogisticStorage.DataLayer
 
 
             return true;
+        }
+
+
+
+        public virtual List<EntidadEntity> EntidadBuscarNombreCompletoItem(String Nombre)
+        {
+            try
+            {
+                StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Nombre", DbType.String, 50, false, 0, 0, Nombre);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_EntidadBuscarNomCompletoItem");
+                FillSchemeTable(dr);
+                List<EntidadEntity> EntityList = new List<EntidadEntity>();
+                while (dr.Read())
+                {
+                    EntidadEntity entity = new EntidadEntity();
+                    if (FillFrom(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
     }

@@ -23,7 +23,7 @@ class EntDatoDB:
         try:
             args = (Nombre,)
             resulset = DBProcedure().DBProcedureConsult(
-                "sp_EntDato_NomCompletoItemLike", args
+                "sp_EntidadBuscarNomCompletoItem", args
             )
             list = [EntDatoItemLikeModel.Cargar(row) for row in resulset]
             return list

@@ -10,9 +10,10 @@ import { UbigeoEntity } from '../Models/UbigeoEntity';
 import { PersonaNaturalEntity } from '../Models/PersonaNaturalEntity';
 import { apiLg } from './axios-config';
 import { ProductoEntity } from '../Models/ProductoEntity';
-import { EstadoProcesoEntity, TipoProcesoEntity } from '../Models/GeneralEntity';
+import { EntidadNombreCompletoModel, EstadoProcesoEntity, TipoProcesoEntity } from '../Models/GeneralEntity';
 import { EmpresaEntity } from '../Models/EmpresaEntity';
 import { EntidadLikeModel } from '../Models/EntidadLikeModel';
+import { ProcesoEntity } from '../Models/ProcesoEntity';
 
 class GeneralService {
 
@@ -388,6 +389,31 @@ class GeneralService {
   async GetUnidadMedidaItem(Id: number): Promise<UnidadMedidaEntity[]> {
     try {
       const response = await apiLg.get(`api/General/UnidadMedidaObtenerItem/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async ProcesoObtenerTipo(Codigo: string): Promise<ProcesoEntity[]> {
+    try {
+      const response = await apiLg.get(`api/General/ProcesoObtenerTipo/${Codigo}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async EntidadBuscarNombreCompletoItem(Nombres: string): Promise<EntidadNombreCompletoModel[]> {
+    try {
+
+      const EntLike = new EntidadLikeModel();
+      EntLike.Valor1 = Nombres;
+      const response = await apiLg.post(`api/General/EntidadBuscarNombreCompletoItem`, EntLike, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       return response.data.Value;
     } catch (error) {
       throw error;

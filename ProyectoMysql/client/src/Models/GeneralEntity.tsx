@@ -24,3 +24,13 @@ export class EstadoProcesoEntity {
         this.Nombre = '';
     }
 }
+
+
+export class EntidadNombreCompletoModel {
+    EntidadId: number;
+    Nombres: string;
+    constructor() {
+        this.EntidadId = 0;
+        this.Nombres = '';
+    }
+}

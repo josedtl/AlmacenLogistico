@@ -12,7 +12,6 @@ namespace LogisticStorage.Server.Controllers
     {
         Base d = new Base();
 
-
         [HttpGet]
         [Route("UnidadMedidaObtenerItems")]
         public ResponseAPI<List<UnidadMedidaItemModel>> UnidadMedidaObtenerItems()
@@ -56,8 +55,6 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<List<UnidadMedidaItemModel>>(new List<UnidadMedidaItemModel>(), false, ex.Message);
             }
         }
-
-
 
         [HttpGet]
         [Route("UbigeoObtenerItem/{UbigeoId}")]
@@ -103,5 +100,47 @@ namespace LogisticStorage.Server.Controllers
             }
         }
 
+
+        [HttpGet]
+        [Route("ProcesoObtenerTipo/{Codigo}")]
+        public ResponseAPI<List<ProcesoItemModel>> ProcesoObtenerTipo(String Codigo)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Proceso.ObtenerTipo(Codigo);
+                List<ProcesoItemModel> Lista = new List<ProcesoItemModel>();
+                foreach (var Item in Items) Lista.Add(new ProcesoItemModel(Item));
+                return new ResponseAPI<List<ProcesoItemModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<ProcesoItemModel>>(new List<ProcesoItemModel>(), false, ex.Message);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("EntidadBuscarNombreCompletoItem")]
+        public ResponseAPI<List<EntidadNombreCompletoModel>> EntidadBuscarNombreCompletoItem(EntidadLikeModel Ent)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Entidad.EntidadBuscarNombreCompletoItem(Ent.Valor1);
+
+                List<EntidadNombreCompletoModel> Lista = new List<EntidadNombreCompletoModel>();
+
+                foreach (var Item in Items) Lista.Add(new EntidadNombreCompletoModel(Item));
+
+                return new ResponseAPI<List<EntidadNombreCompletoModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<EntidadNombreCompletoModel>>(new List<EntidadNombreCompletoModel>(), false, ex.Message);
+            }
+        }
     }
 }
