@@ -142,5 +142,27 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<List<EntidadNombreCompletoModel>>(new List<EntidadNombreCompletoModel>(), false, ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("EntidadObtenerNombreCompletoItem/{EntidadId}")]
+        public ResponseAPI<List<EntidadNombreCompletoModel>> EntidadObtenerNombreCompletoItem(Int32 EntidadId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Entidad.EntidadObtenerNombreCompletoItem(EntidadId);
+
+                List<EntidadNombreCompletoModel> Lista = new List<EntidadNombreCompletoModel>();
+
+                foreach (var Item in Items) Lista.Add(new EntidadNombreCompletoModel(Item));
+
+                return new ResponseAPI<List<EntidadNombreCompletoModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<EntidadNombreCompletoModel>>(new List<EntidadNombreCompletoModel>(), false, ex.Message);
+            }
+        }
     }
 }

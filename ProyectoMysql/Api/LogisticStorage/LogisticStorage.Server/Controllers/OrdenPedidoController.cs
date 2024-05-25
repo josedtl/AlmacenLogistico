@@ -2,6 +2,7 @@ using Framework;
 using Microsoft.AspNetCore.Mvc;
 using LogisticStorage.BusinessLayer;
 using LogisticStorage.EntityLayer;
+using LogisticStorage.DataLayer;
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
@@ -29,13 +30,13 @@ namespace LogisticStorage.Server.Controllers
         }
 
         [HttpGet]
-        [Route("ObtenerItem/{EmpresaId}")]
-        public ResponseAPI<List<OrdenPedidoSaveModel>> ObtenerItem(Int32 EmpresaId)
+        [Route("ObtenerItem/{OrdenPedidoId}")]
+        public ResponseAPI<List<OrdenPedidoSaveModel>> ObtenerItem(Int32 OrdenPedidoId)
         {
             try
             {
                 d.Configurar();
-                var Items = OrdenPedido.ObtenerItem(EmpresaId);
+                var Items = OrdenPedido.ObtenerItem(OrdenPedidoId);
 
                 List<OrdenPedidoSaveModel> Lista = new List<OrdenPedidoSaveModel>();
 
@@ -52,7 +53,7 @@ namespace LogisticStorage.Server.Controllers
 
         [HttpPost]
         [Route("Registrar")]
-        public ResponseAPI<OrdenPedidoSaveModel> EmpresaRegistrar(OrdenPedidoSaveModel Item)
+        public ResponseAPI<OrdenPedidoSaveModel> Registrar(OrdenPedidoSaveModel Item)
         {
             try
             {
@@ -70,8 +71,34 @@ namespace LogisticStorage.Server.Controllers
                 ItemEntity.FechaEmision = Item.FechaEmision;
                 ItemEntity.FechaRegistro = Item.FechaRegistro;
                 ItemEntity.CodUsuario = Item.CodUsuario;
-
                 ItemEntity.LogicalState = (LogicalState)Item.Action;
+
+
+                if (Item.DetalleItems != null && Item.DetalleItems.Count > 0)
+                {
+                    ItemEntity.DetalleItem = new List<OrdenPedidoDetalleEntity>();
+                    foreach (var detalle in Item.DetalleItems)
+                    {
+                        ItemEntity.DetalleItem.Add(new OrdenPedidoDetalleEntity
+                        {
+
+                            OrdenPedidoDetalleId = detalle.OrdenPedidoDetalleId,
+                            OrdenPedidoId = detalle.OrdenPedidoId,
+                            MercaderiaId = detalle.MercaderiaId,
+                            UnidadMedidaId = detalle.UnidadMedidaId,
+                            CantidadSolicitado = detalle.CantidadSolicitado,
+                            CantidadReservado = detalle.CantidadReservado,
+                            CantidadFaltante = detalle.CantidadFaltante,
+                            CantidadAtendido = detalle.CantidadAtendido,
+                            Enlazado = detalle.Enlazado,
+                            Atendido = detalle.Atendido,
+                            LogicalState = (LogicalState)detalle.Action
+                        });
+
+                    }
+                }
+
+
 
                 Item.OrdenPedidoId = OrdenPedido.Registrar(ItemEntity);
 
@@ -82,7 +109,27 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<OrdenPedidoSaveModel>(new OrdenPedidoSaveModel(), false, ex.Message);
             }
         }
+        [HttpGet]
+        [Route("ObtenerDetalleItem/{OrdenPedidoId}")]
+        public ResponseAPI<List<OrdenPedidoDetalleSaveModel>> ObtenerDetalleItem(Int32 OrdenPedidoId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = OrdenPedidoDetalle.ObtenerItem(OrdenPedidoId);
 
+                List<OrdenPedidoDetalleSaveModel> Lista = new List<OrdenPedidoDetalleSaveModel>();
+
+                foreach (var Item in Items) Lista.Add(new OrdenPedidoDetalleSaveModel(Item));
+
+                return new ResponseAPI<List<OrdenPedidoDetalleSaveModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<OrdenPedidoDetalleSaveModel>>(new List<OrdenPedidoDetalleSaveModel>(), false, ex.Message);
+            }
+        }
 
     }
 }

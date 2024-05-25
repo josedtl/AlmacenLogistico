@@ -196,7 +196,7 @@ namespace LogisticStorage.DataLayer
         {
             if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
             {
-                String storedName = "sp_PersonaNatural_Actualizar";
+                String storedName = "sp_Empresa_Actualizar";
                 if (Ent.LogicalState == LogicalState.Added) storedName = "sp_Empresa_Registrar";
                 DbDatabase.GetStoredProcCommand(storedName);
                 DbDatabase.SetTransaction(Helper.DbTransaction);
@@ -205,13 +205,13 @@ namespace LogisticStorage.DataLayer
 
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(true), "v_EntidadId", DbType.Int32, 4, false, 0, 0, Ent.EntidadId);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_TipoDocumentoIdentidadId", DbType.Int32, 4, false, 0, 0, Ent.TipoDocumentoIdentidadId);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NumDocumento", DbType.String, 100, false, 0, 0, Ent.NumDocumento);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NumDocumento", DbType.String, 30, false, 0, 0, Ent.NumDocumento);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Nombres", DbType.String, 100, false, 0, 0, Ent.Nombres);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NombreComercial", DbType.String, 100, false, 0, 0, Ent.NombreComercial);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_UbigeoId", DbType.Int32, 4, false, 0, 0, Ent.UbigeoId);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Direccion", DbType.String, 20, false, 0, 0, Ent.Direccion);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Direccion", DbType.String, 100, false, 0, 0, Ent.Direccion);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Telefono", DbType.String, 20, false, 0, 0, Ent.Telefono);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Correo", DbType.String, 20, false, 0, 0, Ent.Correo);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Correo", DbType.String, 50, false, 0, 0, Ent.Correo);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_FechaRegistro", DbType.DateTime, 12, false, 0, 0, Ent.FechaRegistro);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_CodUsuario", DbType.String, 20, false, 0, 0, Ent.CodUsuario);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_EstadoRegistro", DbType.Boolean, 2, false, 0, 0, Ent.EstadoRegistro);
@@ -241,6 +241,31 @@ namespace LogisticStorage.DataLayer
                 StartHelper(false);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Nombre", DbType.String, 50, false, 0, 0, Nombre);
                 IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_EntidadBuscarNomCompletoItem");
+                FillSchemeTable(dr);
+                List<EntidadEntity> EntityList = new List<EntidadEntity>();
+                while (dr.Read())
+                {
+                    EntidadEntity entity = new EntidadEntity();
+                    if (FillFrom(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public virtual List<EntidadEntity> EntidadObtenerNombreCompletoItem(Int32 Id)
+        {
+            try
+            {
+                StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_EntidadId", DbType.Int32,10, false, 0, 0, Id);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_EntidadObtenerNomCompletoItem");
                 FillSchemeTable(dr);
                 List<EntidadEntity> EntityList = new List<EntidadEntity>();
                 while (dr.Read())

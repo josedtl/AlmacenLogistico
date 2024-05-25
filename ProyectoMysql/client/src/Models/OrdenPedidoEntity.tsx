@@ -8,7 +8,7 @@ export class OrdenPedidoEntity {
     TipoProcesoId: number
     EstadoProcesoId: number
     Codigo: string
-    ResponsableId: number
+    EntidadId: number
     NumDocumentoResponsable: string
     NomResponsable: string
     FechaEmision: Date
@@ -28,7 +28,7 @@ export class OrdenPedidoEntity {
         this.TipoProcesoId = 0;
         this.EstadoProcesoId = 0;
         this.Codigo = '';
-        this.ResponsableId = 0;
+        this.EntidadId = 0;
         this.NumDocumentoResponsable = '';
         this.NomResponsable = '';
         this.FechaEmision = new Date();

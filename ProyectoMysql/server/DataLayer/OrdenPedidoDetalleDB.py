@@ -45,7 +45,7 @@ class OrdenPedidoDetalleDB:
     def Save(Ent: OrdenPedidoDetalleSaveModel):
         try:
             store_mapping = {
-                ProcessActionEnum.Update: "sp_OrdenPedido_Update",
+                ProcessActionEnum.Update: "sp_OrdenPedidoDetalle_Update",
                 ProcessActionEnum.Add: "sp_OrdenPedidoDetalle_Save",
             }
             Store = store_mapping.get(Ent.Action, "sp_OrdenPedidoDetalle_Save")

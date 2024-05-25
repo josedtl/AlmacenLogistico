@@ -178,8 +178,8 @@ function Page() {
 
 
 
-        // const Resp_Item = await sEntDato.GetNomCompletoItem(Resp_Producto[0].ResponsableId);
-        // setOptionsCategoria(Resp_Item);
+        const Resp_Item = await sGeneral.EntidadObtenerNombreCompletoItem(Resp_Producto[0].EntidadId);
+        setOptionsEntidad(Resp_Item);
 
         const dateEmison = moment(Resp_Producto[0].FechaEmision).format('YYYY-MM-DD')
         setFechaEmisionItem(dateEmison);
@@ -322,7 +322,7 @@ function Page() {
   };
   const onChangeCategoria = async (value: number) => {
     setValCategoria('');
-    Ent.ResponsableId = value;
+    Ent.EntidadId = value;
     setSelectedCategoria(value)
   };
   const CorrelativoDiv = () => {
@@ -481,8 +481,8 @@ function Page() {
                       defaultActiveFirstOption={false}
                       filterOption={false}
                       onSearch={handleSearchCategoria}
-                      value={Ent.ResponsableId === 0 ? null : Ent.ResponsableId}
-                      key={Ent.ResponsableId}
+                      value={Ent.EntidadId === 0 ? null : Ent.EntidadId}
+                      key={Ent.EntidadId}
                       onChange={onChangeCategoria}
                     >
                       {optionsEntidad.map((categoria) => (

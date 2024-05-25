@@ -24,7 +24,7 @@ namespace LogisticStorage.EntityLayer
             this.NomEstadoProceso = String.Empty;
             this.ValorEstadoProceso = 0;
             this.NomProceso = String.Empty;
-
+            this.DetalleItem = new List<OrdenPedidoDetalleEntity>();
         }
         public Int32 OrdenPedidoId { get; set; }
         public Int32 ProcesoId { get; set; }
@@ -37,6 +37,6 @@ namespace LogisticStorage.EntityLayer
         public DateTime FechaEmision { get; set; }
         public DateTime FechaRegistro { get; set; }
         public String CodUsuario { get; set; }
-
+        public List<OrdenPedidoDetalleEntity> DetalleItem{ get; set; }
     }
 }

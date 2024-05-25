@@ -58,7 +58,7 @@ class OrdenPedidoService {
 
   async GetItemCabecera(Id: number): Promise<OrdenPedidoEntity[]> {
     try {
-      const response = await apiLg.get(`api/OrdenPedido/GetItemCabecera/${Id}`);
+      const response = await apiLg.get(`api/OrdenPedido/ObtenerItem/${Id}`);
       return response.data.Value;
     } catch (error) {
       throw error;
@@ -68,7 +68,8 @@ class OrdenPedidoService {
   
   async GetItemCabeceraOP(Id: number): Promise<OrdenPedidoDetalleEntity[]> {
     try {
-      const response = await apiLg.get(`api/OrdenPedido/ObtenerItem/${Id}`);
+      const response = await apiLg.get(`api/OrdenPedido/ObtenerDetalleItem/${Id}`);
+      console.log(response);
       return response.data.Value;
     } catch (error) {
       throw error;

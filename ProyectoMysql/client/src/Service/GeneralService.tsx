@@ -420,6 +420,15 @@ class GeneralService {
     }
   }
 
+  async EntidadObtenerNombreCompletoItem(Id: number): Promise<EntidadNombreCompletoModel[]> {
+    try {
+      const response = await apiLg.get(`api/General/EntidadObtenerNombreCompletoItem/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export default GeneralService;

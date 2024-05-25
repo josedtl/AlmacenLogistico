@@ -64,8 +64,9 @@ namespace LogisticStorage.Server.Controllers
                 ItemEntity.NumDocumento = Item.NumDocumento;
                 ItemEntity.FechaRegistro = Item.FechaRegistro;
                 ItemEntity.CodUsuario = Item.CodUsuario;
-                ItemEntity.UbigeoId = Item.UbigeoId;
+                ItemEntity.UbigeoId = Item.UbigeoId; 
                 ItemEntity.Nombres = Item.Nombres;
+                ItemEntity.NombreComercial = Item.NombreComercial;
                 ItemEntity.Direccion = Item.Direccion;
                 ItemEntity.Telefono = Item.Telefono;
                 ItemEntity.Correo = Item.Correo;

@@ -18,7 +18,7 @@ namespace LogisticStorage.Server
             this.FechaEmision = DateTime.Now;
             this.FechaRegistro = DateTime.Now;
             this.CodUsuario = String.Empty;
-
+            this.NomEstadoProceso = String.Empty;
         }
 
 
@@ -35,6 +35,7 @@ namespace LogisticStorage.Server
             this.FechaEmision = Item.FechaEmision;
             this.FechaRegistro = Item.FechaRegistro;
             this.CodUsuario = Item.CodUsuario;
+            this.NomEstadoProceso = Item.NomEstadoProceso;
         }
         [JsonPropertyName("OrdenPedidoId")]
         public Int32 OrdenPedidoId { get; set; }
@@ -71,5 +72,11 @@ namespace LogisticStorage.Server
 
         [JsonPropertyName("Action")]
         public Int16 Action { get; set; }
+
+        [JsonPropertyName("NomEstadoProceso")]
+        public String NomEstadoProceso { get; set; }
+
+        [JsonPropertyName("DetalleItems")]
+        public List<OrdenPedidoDetalleSaveModel> DetalleItems { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LogisticStorage.DataLayer
 {
-    public class OrdenPedidoDB:BaseDataEntity
+    public class OrdenPedidoDB : BaseDataEntity
     {
 
         public virtual List<OrdenPedidoEntity> ObtenerMain()
@@ -114,6 +114,23 @@ namespace LogisticStorage.DataLayer
                     if (returnValue <= 0) throw new Exception("ErrorDB.UpdateEntity");
                     Ent.OnLogicalUpdate();
                 }
+            }
+
+            if (Ent.DetalleItem != null && Ent.DetalleItem.Count > 0)
+            {
+                OrdenPedidoDetalleDB OrdenPedidoDetalleDB = new OrdenPedidoDetalleDB();
+                OrdenPedidoDetalleDB.SetHelper(Helper);
+
+                foreach (OrdenPedidoDetalleEntity detalle in Ent.DetalleItem)
+                {
+                    if (Ent.LogicalState == LogicalState.Added)
+                    {
+                        if (detalle.LogicalState != LogicalState.Deleted) detalle.LogicalState = LogicalState.Added;
+                    }
+                    detalle.OrdenPedidoId = Ent.OrdenPedidoId;
+                    OrdenPedidoDetalleDB.Registrar(detalle);
+                }
+
             }
 
 

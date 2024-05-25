@@ -113,23 +113,23 @@ namespace LogisticStorage.Server.Controllers
 
         [HttpGet]
         [Route("ObtenerItemOP/{MercaderiaId}")]
-        public ResponseAPI<List<MercaderiaSaveModel>> ObtenerItemOP(Int32 MercaderiaId)
+        public ResponseAPI<List<MercaderiaItemOPModel>> ObtenerItemOP(Int32 MercaderiaId)
         {
             try
             {
                 d.Configurar();
                 var Items = Mercaderia.ObtenerItemOP(MercaderiaId);
 
-                List<MercaderiaSaveModel> Lista = new List<MercaderiaSaveModel>();
+                List<MercaderiaItemOPModel> Lista = new List<MercaderiaItemOPModel>();
 
-                foreach (var Item in Items) Lista.Add(new MercaderiaSaveModel(Item));
+                foreach (var Item in Items) Lista.Add(new MercaderiaItemOPModel(Item));
 
-                return new ResponseAPI<List<MercaderiaSaveModel>>(Lista, true);
+                return new ResponseAPI<List<MercaderiaItemOPModel>>(Lista, true);
 
             }
             catch (Exception ex)
             {
-                return new ResponseAPI<List<MercaderiaSaveModel>>(new List<MercaderiaSaveModel>(), false, ex.Message);
+                return new ResponseAPI<List<MercaderiaItemOPModel>>(new List<MercaderiaItemOPModel>(), false, ex.Message);
             }
         }
 
