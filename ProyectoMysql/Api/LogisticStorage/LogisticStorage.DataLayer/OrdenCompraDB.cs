@@ -1,5 +1,4 @@
-﻿using Framework.Data;
-using Framework;
+﻿using Framework;
 using LogisticStorage.Common;
 using LogisticStorage.EntityLayer;
 using System;
@@ -11,22 +10,21 @@ using System.Threading.Tasks;
 
 namespace LogisticStorage.DataLayer
 {
-    public class OrdenPedidoDB : BaseDataEntity
+    public class OrdenCompraDB : BaseDataEntity
     {
-
-        public virtual List<OrdenPedidoEntity> ObtenerMain()
+        public virtual List<OrdenCompraEntity> ObtenerMain()
         {
             try
             {
                 StartHelper(false);
-                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(System.Data.CommandType.StoredProcedure, "sp_OrdenPedido_Main");
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(System.Data.CommandType.StoredProcedure, "sp_OrdenCompraMain");
                 FillSchemeTable(dr);
-                List<OrdenPedidoEntity> EntityList = new List<OrdenPedidoEntity>();
+                List<OrdenCompraEntity> EntityList = new List<OrdenCompraEntity>();
 
                 while (dr.Read())
                 {
-                    OrdenPedidoEntity entity = new OrdenPedidoEntity();
-                    if (FillFrom<OrdenPedidoEntity>(dr, entity)) EntityList.Add(entity);
+                    OrdenCompraEntity entity = new OrdenCompraEntity();
+                    if (FillFrom<OrdenCompraEntity>(dr, entity)) EntityList.Add(entity);
                     entity.OnLogicalLoaded();
                 }
 
@@ -39,18 +37,18 @@ namespace LogisticStorage.DataLayer
             }
         }
 
-        public virtual List<OrdenPedidoEntity> ObtenerItem(Int32 OrdenPedidoId)
+        public virtual List<OrdenCompraEntity> ObtenerItem(Int32 OrdenCompraId)
         {
             try
             {
                 StartHelper(false);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_OrdenPedidoId", DbType.Int32, 4, false, 0, 0, OrdenPedidoId);
-                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_OrdenPedidoCabeceraItem");
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_OrdenCompraId", DbType.Int32, 4, false, 0, 0, OrdenCompraId);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_OrdenCompraAllItem");
                 FillSchemeTable(dr);
-                List<OrdenPedidoEntity> EntityList = new List<OrdenPedidoEntity>();
+                List<OrdenCompraEntity> EntityList = new List<OrdenCompraEntity>();
                 while (dr.Read())
                 {
-                    OrdenPedidoEntity entity = new OrdenPedidoEntity();
+                    OrdenCompraEntity entity = new OrdenCompraEntity();
                     if (FillFrom(dr, entity)) EntityList.Add(entity);
                     entity.OnLogicalLoaded();
                 }
@@ -64,7 +62,7 @@ namespace LogisticStorage.DataLayer
             }
         }
 
-        public virtual bool Registrar(OrdenPedidoEntity Ent)
+        public virtual bool Registrar(OrdenCompraEntity Ent)
         {
             StartHelper(true);
             try
@@ -81,32 +79,32 @@ namespace LogisticStorage.DataLayer
             return true;
         }
 
-        private bool RegistrarDB(OrdenPedidoEntity Ent)
+        private bool RegistrarDB(OrdenCompraEntity Ent)
         {
             if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
             {
-                String storedName = "sp_OrdenPedido_Update";
-                if (Ent.LogicalState == LogicalState.Added) storedName = "sp_OrdenPedido_SaveOP";
+                String storedName = "sp_OrdenCompra_Actualizar";
+                if (Ent.LogicalState == LogicalState.Added) storedName = "sp_OrdenCompra_Registrar";
                 DbDatabase.GetStoredProcCommand(storedName);
                 DbDatabase.SetTransaction(Helper.DbTransaction);
 
 
 
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(true), "v_OrdenPedidoId", DbType.Int32, 4, false, 0, 0, Ent.OrdenPedidoId);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_ProcesoId", DbType.Int32, 4, false, 0, 0, Ent.ProcesoId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(true), "v_OrdenCompraId", DbType.Int32, 4, false, 0, 0, Ent.OrdenCompraId);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_TipoProcesoId", DbType.Int32, 4, false, 0, 0, Ent.TipoProcesoId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_ProcesoId", DbType.Int32, 4, false, 0, 0, Ent.ProcesoId);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_EstadoProcesoId", DbType.Int32, 4, false, 0, 0, Ent.EstadoProcesoId);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Codigo", DbType.String, 100, false, 0, 0, Ent.Codigo);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_EntidadId", DbType.Int32, 4, false, 0, 0, Ent.EntidadId);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NumDocumentoResponsable", DbType.String, 100, false, 0, 0, Ent.NumDocumentoResponsable);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NomResponsable", DbType.String, 20, false, 0, 0, Ent.NomResponsable);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NumDocumentoProveedor", DbType.String, 100, false, 0, 0, Ent.NumDocumentoProveedor);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NomProveedor", DbType.String, 20, false, 0, 0, Ent.NomProveedor);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_FechaEmision", DbType.DateTime, 12, false, 0, 0, Ent.FechaEmision);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_FechaRegistro", DbType.DateTime, 12, false, 0, 0, Ent.FechaRegistro);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_CodUsuario", DbType.String, 20, false, 0, 0, Ent.CodUsuario);
                 int returnValue = DbDatabase.ExecuteNonQuery();
                 if (Ent.LogicalState == LogicalState.Added)
                 {
-                    if (Ent.OrdenPedidoId <= 0) Ent.OrdenPedidoId = (Int32)DbDatabase.GetParameterValue("v_OrdenPedidoId");
+                    if (Ent.OrdenCompraId <= 0) Ent.OrdenCompraId = (Int32)DbDatabase.GetParameterValue("v_OrdenCompraId");
                     Ent.OnLogicalAdded();
                 }
                 else
@@ -116,19 +114,19 @@ namespace LogisticStorage.DataLayer
                 }
             }
 
-            if (Ent.DetalleItem != null && Ent.DetalleItem.Count > 0)
+            if (Ent.Detalles != null && Ent.Detalles.Count > 0)
             {
-                OrdenPedidoDetalleDB OrdenPedidoDetalleDB = new OrdenPedidoDetalleDB();
-                OrdenPedidoDetalleDB.SetHelper(Helper);
+                OrdenCompraDetalleDB OrdenCompraDetalleDB = new OrdenCompraDetalleDB();
+                OrdenCompraDetalleDB.SetHelper(Helper);
 
-                foreach (OrdenPedidoDetalleEntity detalle in Ent.DetalleItem)
+                foreach (OrdenCompraDetalleEntity detalle in Ent.Detalles)
                 {
                     if (Ent.LogicalState == LogicalState.Added)
                     {
                         if (detalle.LogicalState != LogicalState.Deleted) detalle.LogicalState = LogicalState.Added;
                     }
-                    detalle.OrdenPedidoId = Ent.OrdenPedidoId;
-                    OrdenPedidoDetalleDB.Registrar(detalle);
+                    detalle.OrdenCompraId = Ent.OrdenCompraId;
+                    OrdenCompraDetalleDB.Registrar(detalle);
                 }
 
             }

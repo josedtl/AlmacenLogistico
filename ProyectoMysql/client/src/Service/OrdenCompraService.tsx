@@ -21,7 +21,7 @@ class OrdenCompraService {
 
   async GetItemCabecera(Id: number): Promise<OrdenCompraEntity[]> {
     try {
-      const response = await apiLg.get(`api/OrdenCompra/GetItem/${Id}`);
+      const response = await apiLg.get(`api/OrdenCompra/ObtenerItem/${Id}`);
       console.log(response);
       return response.data.Value;
     } catch (error) {
@@ -32,7 +32,7 @@ class OrdenCompraService {
   
   async GetItemCabeceraOP(Id: number): Promise<OrdenCompraDetalleEntity[]> {
     try {
-      const response = await apiLg.get(`api/OrdenCompra/GetItemCabeceraDetalle/${Id}`);
+      const response = await apiLg.get(`api/OrdenCompra/ObtenerDetalleItem/${Id}`);
       return response.data.Value;
     } catch (error) {
       throw error;
@@ -41,7 +41,7 @@ class OrdenCompraService {
 
   async GetItemOPMain(): Promise<OrdenCompraEntity[]> {
     try {
-      const response = await apiLg.get(`api/OrdenCompra/GetItemMain`);
+      const response = await apiLg.get(`api/OrdenCompra/ObtenerMain`);
       return response.data.Value;
 
     } catch (error) {

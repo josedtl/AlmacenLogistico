@@ -9,7 +9,7 @@ import { Tabs, DatePicker, message, Select, Button, Col, Row, Typography, Modal,
 import type { DatePickerProps } from 'antd';
 import { IconSave } from '../../../Styles/Icons'
 import { ButtonAddMain } from '../../../Styles/Button'
-import { TipoProcesoEntity } from '../../../Models/GeneralEntity';
+import { EntidadNombreCompletoModel, TipoProcesoEntity } from '../../../Models/GeneralEntity';
 import { useParams } from 'react-router-dom';
 import { ExclamationCircleOutlined, CaretRightOutlined } from '@ant-design/icons';
 import moment from 'moment';
@@ -20,6 +20,7 @@ import { InputStatus } from 'antd/es/_util/statusUtils';
 import { EntDatoModel } from '../../../Models/EntDatoEntity';
 import EntDatoService from '../../../Service/EntDatoService';
 import { SaveFilled } from '@ant-design/icons';
+import { ProcesoModel } from '../../../Models/ProcesoEntity';
 function Page() {
 
   const { Id } = useParams();
@@ -127,7 +128,7 @@ function Page() {
   const filterItems = items.filter(d => d.Action != ProcessActionEnum.Delete);
 
 
-  const [optionsTipoProceso, setOptionsTipoProceso] = useState<TipoProcesoEntity[]>([]);
+  const [optionsTipoProceso, setOptionsTipoProceso] = useState<ProcesoModel[]>([]);
   const [selectedTipoRequerimeinto, setSelectedTipoRequerimeinto] = useState<number | undefined>(undefined);
 
 
@@ -154,7 +155,7 @@ function Page() {
       setCargarPage(true);
       setEnt(new OrdenCompraEntity())
       setItems([])
-      const Resp_TR = await sGeneral.GetTipoProcesoItems();
+      const Resp_TR = await sGeneral.ProcesoObtenerTipo("OP001");
       setOptionsTipoProceso(Resp_TR);
       Ent.Action = ProcessActionEnum.Add
       if (Id > 0) {
@@ -177,10 +178,9 @@ function Page() {
           Ent.DetalleItems = Resp_OPDetalle
         }
 
+        const Resp_Item = await sGeneral.EntidadObtenerNombreCompletoItem(Resp_Producto[0].EntidadId);
 
-
-        const Resp_Item = await sEntDato.GetNomCompletoItem(Resp_Producto[0].EntidadId);
-        setOptionsCategoria(Resp_Item);
+        setOptionsEntidad(Resp_Item);
 
         const dateEmison = moment(Resp_Producto[0].FechaEmision).format('YYYY-MM-DD')
         setFechaEmisionItem(dateEmison);
@@ -311,12 +311,12 @@ function Page() {
     color = "blue";
   }
   const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
-  const [optionsCategoria, setOptionsCategoria] = useState<EntDatoModel[]>([]);
+  const [optionsEntidad, setOptionsEntidad] = useState<EntidadNombreCompletoModel[]>([]);
   const [ValCategoria, setValCategoria] = useState<InputStatus>('');
   const handleSearchCategoria = async (value: string) => {
     try {
-      const responseCategoria = await sEntDato.GetNomCompletoItemLike(value);
-      setOptionsCategoria(responseCategoria);
+      const responseCategoria = await sGeneral.EntidadBuscarNombreCompletoItem(value);
+      setOptionsEntidad(responseCategoria);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
     }
@@ -512,12 +512,12 @@ function Page() {
                       style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                       defaultActiveFirstOption={false}
                       filterOption={false}
-                      value={Ent.TipoProcesoId === 0 ? null : Ent.TipoProcesoId}
+                      value={Ent.ProcesoId === 0 ? null : Ent.ProcesoId}
                       key={Ent.TipoProcesoId}
                       onChange={onChangeTipoProceso}
                     >
                       {optionsTipoProceso.map((ItemOp) => (
-                        <Select.Option key={ItemOp.TipoProcesoId} value={ItemOp.TipoProcesoId}>
+                        <Select.Option key={ItemOp.ProcesoId} value={ItemOp.ProcesoId}>
                           {ItemOp.Nombre}
                         </Select.Option>
                       ))}
@@ -545,9 +545,9 @@ function Page() {
                       key={Ent.EntidadId}
                       onChange={onChangeCategoria}
                     >
-                      {optionsCategoria.map((categoria) => (
+                      {optionsEntidad.map((categoria) => (
                         <Select.Option key={categoria.EntidadId} value={categoria.EntidadId}>
-                          {categoria.Nombre}
+                          {categoria.Nombres}
                         </Select.Option>
                       ))}
                     </Select>
