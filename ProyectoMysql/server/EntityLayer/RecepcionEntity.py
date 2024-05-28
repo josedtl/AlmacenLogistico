@@ -18,8 +18,8 @@ class RecepcionSaveModel(BaseModel):
     FechaRegistro: datetime
     CodUsuario: str
     Action: ProcessActionEnum
-    DetalleItems :list[RecepcionDetalleSaveModel]
     Observacion : str
+    DetalleItems :list[RecepcionDetalleSaveModel]
 
 class RecepcionItemModel:
     RecepcionId: int

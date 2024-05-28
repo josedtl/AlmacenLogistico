@@ -28,6 +28,7 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<List<ReservaItemModel>>(new List<ReservaItemModel>(), false, ex.Message);
             }
         }
+
         [HttpPost]
         [Route("ReservarMercaderia")]
         public ResponseAPI<ReservaMercaderiaOPModel> ReservarMercaderia(ReservaMercaderiaOPModel Item)
@@ -95,8 +96,6 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<List<ReservaResumenModel>>(new List<ReservaResumenModel>(), false, ex.Message);
             }
         }
-
-
 
     }
 }
