@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import { message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
-import { TipoDocumentoIdentidadEntity } from '../../../Models/TipoDocumentoIdentidadEntity';
 import { EmpresaEntity } from '../../../Models/EmpresaEntity';
 import EmpresaService from '../../../Service/EmpresaService';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'

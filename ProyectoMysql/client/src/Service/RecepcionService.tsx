@@ -9,7 +9,7 @@ class RecepcionService {
     try {
 
       console.log(item);
-      const response = await apiLg.post(`api/Recepcion/Save`, item, {
+      const response = await apiLg.post(`api/Recepcion/Registrar`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -23,7 +23,7 @@ class RecepcionService {
 
   async GetItemOPMain(): Promise<RecepcionEntity[]> {
     try {
-      const response = await apiLg.get(`api/Recepcion/GetItemMain`);
+      const response = await apiLg.get(`api/Recepcion/ObtenerMain`);
       return response.data.Value;
 
     } catch (error) {

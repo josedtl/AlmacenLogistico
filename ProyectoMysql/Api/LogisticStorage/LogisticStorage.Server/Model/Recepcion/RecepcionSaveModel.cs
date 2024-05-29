@@ -20,6 +20,8 @@ namespace LogisticStorage.Server
             this.FechaRegistro = DateTime.Now;
             this.CodUsuario = String.Empty;
             this.Observacion = String.Empty;
+            this.ValorEstadoProceso = 0;
+            this.NomEstadoProceso = String.Empty;
         }
         public RecepcionSaveModel(RecepcionEntity Item)
         {
@@ -36,6 +38,8 @@ namespace LogisticStorage.Server
             this.FechaRegistro = Item.FechaRegistro;
             this.CodUsuario = Item.CodUsuario;
             this.Observacion = Item.Observacion;
+            this.ValorEstadoProceso = Item.ValorEstadoProceso;
+            this.NomEstadoProceso = Item.NomEstadoProceso;
             this.DetalleItems = new List<RecepcionDetalleSaveModel>();
         }
 
@@ -53,7 +57,8 @@ namespace LogisticStorage.Server
         [JsonPropertyName("CodUsuario")] public String CodUsuario { get; set; }
         [JsonPropertyName("Observacion")] public String Observacion { get; set; }
         [JsonPropertyName("Action")] public Int16 Action { get; set; }
-
+        [JsonPropertyName("ValorEstadoProceso")] public Int16 ValorEstadoProceso { get; set; }
+        [JsonPropertyName("NomEstadoProceso")] public String NomEstadoProceso { get; set; }
         [JsonPropertyName("DetalleItems")] public List<RecepcionDetalleSaveModel> DetalleItems { get; set; }
 
     }

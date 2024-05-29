@@ -15,15 +15,12 @@ import 'moment/locale/es';
 import dayjs from 'dayjs';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import { InputStatus } from 'antd/es/_util/statusUtils';
-import { EntDatoModel } from '../../../Models/EntDatoEntity';
-import EntDatoService from '../../../Service/EntDatoService';
 import { SaveFilled } from '@ant-design/icons';
 import { EntidadNombreCompletoModel } from '../../../Models/GeneralEntity';
 function Page() {
 
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
-  const sEntDato = new EntDatoService();
   const sOrdenPedido = new OrdenPedidoService();
   const sGeneral =new GeneralService();
   const [items, setItems] = useState<OrdenPedidoDetalleEntity[]>([]);

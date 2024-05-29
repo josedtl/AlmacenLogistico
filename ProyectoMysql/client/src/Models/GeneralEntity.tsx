@@ -34,3 +34,11 @@ export class EntidadNombreCompletoModel {
         this.Nombres = '';
     }
 }
+// export class RecepListaModel {
+//     ListaId: number;
+//     Nombre: string;
+//     constructor() {
+//         this.ListaId = 0;
+//         this.Nombre = '';
+//     }
+// }

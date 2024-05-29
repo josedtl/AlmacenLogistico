@@ -15,12 +15,12 @@ namespace LogisticStorage.DataLayer
     {
 
 
-        public virtual List<RecepcionDetalleEntity> ObtenerItem(Int32 RecepcionDetalleId)
+        public virtual List<RecepcionDetalleEntity> ObtenerItem(Int32 RecepcionId)
         {
             try
             {
                 StartHelper(false);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_RecepcionDetalleId", DbType.Int32, 4, false, 0, 0, RecepcionDetalleId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_RecepcionId", DbType.Int32, 4, false, 0, 0, RecepcionId);
                 IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_RecepcionDetalleObtenerItem");
                 FillSchemeTable(dr);
                 List<RecepcionDetalleEntity> EntityList = new List<RecepcionDetalleEntity>();

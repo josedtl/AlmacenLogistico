@@ -18,6 +18,8 @@ namespace LogisticStorage.Server
             this.FechaRegistro = DateTime.Now;
             this.FechaVencimiento = DateTime.Now;
             this.Observacion = String.Empty;
+            this.NomProducto = String.Empty;
+            this.CodigoUM = String.Empty;
         }
         public RecepcionDetalleSaveModel(RecepcionDetalleEntity Item)
         {
@@ -31,6 +33,9 @@ namespace LogisticStorage.Server
             this.FechaRegistro = Item.FechaRegistro;
             this.FechaVencimiento = Item.FechaVencimiento;
             this.Observacion = Item.Observacion;
+            this.NomProducto = Item.NomProducto;
+            this.CodigoUM = Item.CodigoUM;
+
         }
         [JsonPropertyName("RecepcionDetalleId")] public Int32 RecepcionDetalleId { get; set; }
         [JsonPropertyName("RecepcionId")] public Int32 RecepcionId { get; set; }
@@ -42,5 +47,7 @@ namespace LogisticStorage.Server
         [JsonPropertyName("FechaVencimiento")] public DateTime FechaVencimiento { get; set; }
         [JsonPropertyName("Observacion")] public String Observacion { get; set; }
         [JsonPropertyName("Action")] public Int16 Action { get; set; }
+        [JsonPropertyName("NomProducto")] public String NomProducto { get; set; }
+        [JsonPropertyName("CodigoUM")] public String CodigoUM { get; set; }
     }
 }

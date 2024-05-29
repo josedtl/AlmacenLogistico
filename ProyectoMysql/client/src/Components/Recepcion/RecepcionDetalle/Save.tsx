@@ -9,7 +9,7 @@ import { Tabs, DatePicker, message, Select, Button, Col, Row, Typography, Modal,
 import type { DatePickerProps } from 'antd';
 import { IconSave } from '../../../Styles/Icons'
 import { ButtonAddMain } from '../../../Styles/Button'
-import { TipoProcesoEntity } from '../../../Models/GeneralEntity';
+import { EntidadNombreCompletoModel, TipoProcesoEntity } from '../../../Models/GeneralEntity';
 import { useParams } from 'react-router-dom';
 import { ExclamationCircleOutlined, CaretRightOutlined } from '@ant-design/icons';
 import moment from 'moment';
@@ -165,18 +165,13 @@ function Page() {
       setCargarPage(true);
       setEnt(new RecepcionEntity())
       setItems([])
-      const Resp_TR = await sProceso.ObtenerTipo("RC001");
+      const Resp_TR = await sGeneral.ProcesoObtenerTipo("RC001");
       setOptionsProceso(Resp_TR);
 
-      const Resp_TipoComprobante = await sRecepcion.ReceptListaObtenerLista("C002");
+      const Resp_TipoComprobante = await sGeneral.RecepListaObtenerItems("C002");
       setOptionsTipoComprobante(Resp_TipoComprobante);
 
       Ent.Action = ProcessActionEnum.Add
-
-      // const Resp_Producto = await sRecepcion.ObtenerItem(Id);
-      // Resp_Producto[0].Action = ProcessActionEnum.Update
-      // setEnt(Resp_Producto[0]);
-
 
 
 
@@ -189,7 +184,7 @@ function Page() {
         console.log(Id);
         const Resp_OPDetalle = await sRecepcion.ObtenerDetalleItem(Id);
     
-        if (Resp_OPDetalle.length > 0) {
+        // if (Resp_OPDetalle.length > 0) {
 
           Resp_OPDetalle.map((data) => {
             data.keyItem = generarGuid();
@@ -199,12 +194,12 @@ function Page() {
           console.log(Resp_OPDetalle);
           setItems(Resp_OPDetalle)
           Ent.DetalleItems = Resp_OPDetalle
-        }
+        // }
 
 
 
-        const Resp_Item = await sEntDato.GetNomCompletoItem(Resp_Producto[0].EntidadId);
-        setOptionsCategoria(Resp_Item);
+        const Resp_Item = await sGeneral.EntidadObtenerNombreCompletoItem(Resp_Producto[0].EntidadId);
+        setOptionsEntidad(Resp_Item);
 
         const dateEmison = moment(Resp_Producto[0].FechaRecepcion).format('YYYY-MM-DD')
         setFechaEmisionItem(dateEmison);
@@ -334,12 +329,12 @@ function Page() {
     color = "blue";
   }
   const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
-  const [optionsCategoria, setOptionsCategoria] = useState<EntDatoModel[]>([]);
+  const [optionsEntidad, setOptionsEntidad] = useState<EntidadNombreCompletoModel[]>([]);
   const [ValCategoria, setValCategoria] = useState<InputStatus>('');
   const handleSearchCategoria = async (value: string) => {
     try {
-      const responseCategoria = await sEntDato.GetNomCompletoItemLike(value);
-      setOptionsCategoria(responseCategoria);
+      const responseCategoria = await sGeneral.EntidadBuscarNombreCompletoItem(value);
+      setOptionsEntidad(responseCategoria);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
     }
@@ -567,9 +562,9 @@ function Page() {
                       key={Ent.EntidadId}
                       onChange={onChangeCategoria}
                     >
-                      {optionsCategoria.map((categoria) => (
+                      {optionsEntidad.map((categoria) => (
                         <Select.Option key={categoria.EntidadId} value={categoria.EntidadId}>
-                          {categoria.Nombre}
+                          {categoria.Nombres}
                         </Select.Option>
                       ))}
                     </Select>

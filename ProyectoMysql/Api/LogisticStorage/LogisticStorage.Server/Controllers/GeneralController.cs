@@ -164,5 +164,47 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<List<EntidadNombreCompletoModel>>(new List<EntidadNombreCompletoModel>(), false, ex.Message);
             }
         }
+
+
+        [HttpGet]
+        [Route("RecepListaObtenerItem/{ListaId}")]
+        public ResponseAPI<List<RecepListaModel>> RecepListaObtenerItem(Int32 ListaId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = RecepLista.ObtenerItem(ListaId);
+
+                List<RecepListaModel> Lista = new List<RecepListaModel>();
+
+                foreach (var Item in Items) Lista.Add(new RecepListaModel(Item));
+
+                return new ResponseAPI<List<RecepListaModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<RecepListaModel>>(new List<RecepListaModel>(), false, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("RecepListaObtenerItems/{Codigo}")]
+        public ResponseAPI<List<RecepListaModel>> RecepListaObtenerItems(String Codigo)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = RecepLista.ObtenerItems(Codigo);
+                List<RecepListaModel> Lista = new List<RecepListaModel>();
+                foreach (var Item in Items) Lista.Add(new RecepListaModel(Item));
+                return new ResponseAPI<List<RecepListaModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<RecepListaModel>>(new List<RecepListaModel>(), false, ex.Message);
+            }
+        }
     }
 }
