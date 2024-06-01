@@ -3,7 +3,7 @@ import { TipoDocumentoIdentidadEntity } from '../Models/TipoDocumentoIdentidadEn
 import { UbigeoEntity } from '../Models/UbigeoEntity';
 import { PersonaNaturalEntity } from '../Models/PersonaNaturalEntity';
 import { apiLg } from './axios-config';
-import { EntidadNombreCompletoModel } from '../Models/GeneralEntity';
+import { EntidadNombreCompletoModel,TipoEntidadItemModel ,DatosClienteItemModel } from '../Models/GeneralEntity';
 import { EmpresaEntity } from '../Models/EmpresaEntity';
 import { EntidadLikeModel } from '../Models/EntidadLikeModel';
 import { ProcesoEntity } from '../Models/ProcesoEntity';
@@ -152,6 +152,35 @@ class GeneralService {
             throw error;
         }
     }
+
+    async GetTipoEntidadObtenerItems(): Promise<TipoEntidadItemModel[]> {
+        try {
+          const response = await apiLg.get(`api/General/TipoEntidadObtenerItems`);
+          return response.data.Value;
+        } catch (error) {
+          throw error;
+        }
+      }
+      
+  async saveEnlaceEntidad(item: DatosClienteItemModel): Promise<DatosClienteItemModel | null> {
+    try {
+      const response = await apiLg.post(`/api/General/EntidadRegistrarEnlace`, item, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status === 200) {
+        return response.data.Value;
+      } else {
+        console.log('Save operation failed');
+        return null;
+      }
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
 
 }
 

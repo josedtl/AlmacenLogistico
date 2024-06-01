@@ -34,7 +34,6 @@ const Save = () => {
     const Resp_Categoria = await sMerLista.getItem(item.ListaId);
     setOptionsCategoria(Resp_Categoria);
     Ent.CategoriaId = Resp_Categoria[0].ListaId;
-
   };
 
   const addItemToStateMarca = async (item: MerListaEntity) => {

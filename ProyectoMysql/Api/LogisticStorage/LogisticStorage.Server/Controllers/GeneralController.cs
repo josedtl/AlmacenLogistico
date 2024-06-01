@@ -4,6 +4,8 @@ using LogisticStorage.BusinessLayer;
 using LogisticStorage.EntityLayer;
 using LogisticStorage.DataLayer;
 using LogisticStorage.Server.Model.General;
+using LogisticStorage.Server.Model.Empresa;
+using LogisticStorage.Server.Model.PersonaNatural;
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
@@ -206,5 +208,69 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<List<RecepListaModel>>(new List<RecepListaModel>(), false, ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("TipoEntidadObtenerItems")]
+        public ResponseAPI<List<TipoEntidadModel>> ObtenerItems()
+        {
+            try
+            {
+                d.Configurar();
+                var Items = TipoEntidad.ObtenerItems();
+
+                List<TipoEntidadModel> Lista = new List<TipoEntidadModel>();
+
+                foreach (var Item in Items) Lista.Add(new TipoEntidadModel(Item));
+
+                return new ResponseAPI<List<TipoEntidadModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<TipoEntidadModel>>(new List<TipoEntidadModel>(), false, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("EntidadRegistrarEnlace")]
+        public ResponseAPI<DatosClienteItemModel> EntidadRegistrarEnlace(DatosClienteItemModel Item)
+        {
+            try
+            {
+                d.Configurar();
+                EntidadEntity ItemEntity = new EntidadEntity();
+                if(Item.TipoEntidadId == 1)
+                {
+                    ItemEntity.EntidadId = Item.EntidadId;
+                    ItemEntity.TipoDocumentoIdentidadId = Item.TipoDocumentoIdentidadId;
+                    ItemEntity.NumDocumento = Item.NumDocumento;
+                    ItemEntity.Nombres = Item.Nombres;
+                    ItemEntity.ApellidoPaterno = Item.ApellidoPaterno;
+                    ItemEntity.ApellidoMaterno = Item.ApellidoMaterno;
+                    ItemEntity.CodUsuario = Item.CodUsuario;
+
+                    Item.EntidadId = Entidad.PersonaNaturalRegistrarEnlace(ItemEntity);
+                } 
+                else if( Item.TipoEntidadId ==2)
+                {
+
+                    ItemEntity.EntidadId = Item.EntidadId;
+                    ItemEntity.TipoDocumentoIdentidadId = Item.TipoDocumentoIdentidadId;
+                    ItemEntity.NumDocumento = Item.NumDocumento;
+                    ItemEntity.NombreComercial = Item.NombreComercial;
+                    ItemEntity.CodUsuario = Item.CodUsuario;
+
+                    Item.EntidadId = Entidad.EmpresaRegistrarEnlace(ItemEntity);
+                }
+               
+
+                return new ResponseAPI<DatosClienteItemModel>(Item, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<DatosClienteItemModel>(new DatosClienteItemModel(), false, ex.Message);
+            }
+        }
+
     }
 }

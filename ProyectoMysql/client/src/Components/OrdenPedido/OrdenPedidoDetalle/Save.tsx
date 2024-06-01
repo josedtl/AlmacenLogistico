@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity';
-import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity';
 import ModalItem from './ModalItem';
-import GeneralService from '../../../Service/GeneralService';
-import OrdenPedidoService from '../../../Service/OrdenPedidoService';
 import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
-import { ProcesoModel } from '../../../Models/ProcesoEntity';
 import { useParams } from 'react-router-dom';
 import { ExclamationCircleOutlined, CaretRightOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
+
+import MDFiltro from '../../Entidad/EnlaceEntidad/ModalItem';
+
 import { InputStatus } from 'antd/es/_util/statusUtils';
 import { SaveFilled } from '@ant-design/icons';
+//SERVICE
+import GeneralService from '../../../Service/GeneralService';
+import OrdenPedidoService from '../../../Service/OrdenPedidoService';
+
+//EMTITY
 import { EntidadNombreCompletoModel } from '../../../Models/GeneralEntity';
+import { ProcesoModel } from '../../../Models/ProcesoEntity';
+import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity';
+import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity';
+import { DatosClienteItemModel } from '../../../Models/GeneralEntity'
 function Page() {
 
   const { Id } = useParams();
@@ -32,6 +39,8 @@ function Page() {
   const [KeyTabs, setKeyTabs] = useState<String>('');
   const [FechaEmisionItem, setFechaEmisionItem] = useState<string>(moment(Ent.FechaEmision).format('DD/MM/YYYY hh:mm'));
   const addItemToState = (item: OrdenPedidoDetalleEntity) => {
+
+
 
     const itemIndex = items.findIndex((data) => data.keyItem === item.keyItem);
 
@@ -134,7 +143,11 @@ function Page() {
     selectedTipoRequerimeinto;
   };
 
-
+  const addItemToStateCliente = async (item: DatosClienteItemModel) => {
+    const Resp_Entidad = await sGeneral.EntidadObtenerNombreCompletoItem(item.EntidadId);
+    setOptionsEntidad(Resp_Entidad);
+    Ent.EntidadId = Resp_Entidad[0].EntidadId;
+  };
 
 
   useEffect(() => {
@@ -459,7 +472,7 @@ function Page() {
                         </Select.Option>
                       ))}
                     </Select>
-
+                   
 
                   </Col>
                 </Row>
@@ -488,6 +501,11 @@ function Page() {
                         </Select.Option>
                       ))}
                     </Select>
+                    <MDFiltro buttonLabel="dsdsd"
+                      addItemToState={addItemToStateCliente}
+                      item={new DatosClienteItemModel ()}
+                      CodigoTabla={'M002'}
+                      title={"Sucursal"} />
 
                   </Col>
                 </Row>

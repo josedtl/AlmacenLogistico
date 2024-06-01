@@ -42,3 +42,41 @@ export class EntidadNombreCompletoModel {
 //         this.Nombre = '';
 //     }
 // }
+
+export class TipoEntidadItemModel {
+    TipoEntidadId: number;
+    Codigo: string;
+    Nombre: string;
+
+    constructor() {
+        this.TipoEntidadId = 0;
+        this.Codigo = '';
+        this.Nombre = '';
+    }
+
+
+}
+
+export class DatosClienteItemModel {
+    TipoEntidadId: number;
+    TipoDocumentoIdentidadId: number;
+    NumDocumento: string;
+    Nombres: string;
+    ApellidoPaterno: string = '';
+    ApellidoMaterno: string = '';
+    CodUsuario: string;
+    NombreComercial: string;
+    EntidadId: number;
+    constructor() {
+        this.TipoEntidadId = 0;
+        this.TipoDocumentoIdentidadId = 0;
+        this.NumDocumento = '';
+        this.Nombres = '';
+        this.ApellidoPaterno = '';
+        this.ApellidoMaterno = '';
+        this.CodUsuario = '';
+        this.EntidadId=0;
+        this.NombreComercial = '';
+    }
+
+}

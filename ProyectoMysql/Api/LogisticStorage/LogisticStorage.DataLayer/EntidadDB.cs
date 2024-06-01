@@ -35,6 +35,8 @@ namespace LogisticStorage.DataLayer
 			}
 		}
 
+
+
 		public virtual bool PersonaNaturalRegistrar(EntidadEntity Ent)
 		{
 			StartHelper(true);
@@ -95,6 +97,7 @@ namespace LogisticStorage.DataLayer
 
 			return true;
 		}
+
 
 		public virtual List<EntidadEntity> PersonaNaturalObtenerMain()
 		{
@@ -283,6 +286,96 @@ namespace LogisticStorage.DataLayer
                 throw ex;
             }
         }
+        public virtual bool PersonaNaturalRegistrarEnlace(EntidadEntity Ent)
+        {
+            StartHelper(true);
+            try
+            {
+                PersonaNaturalRegistrarEnlaceDB(Ent);
+            }
+            catch (Exception ex)
+            {
+                Helper.CancelTransaction();
+                throw ex;
+            }
+
+            Helper.Close();
+            return true;
+        }
+
+
+        private bool PersonaNaturalRegistrarEnlaceDB(EntidadEntity Ent)
+        {
+            if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
+            {
+                String storedName = "sp_PersonaRegistarEnlace";
+                DbDatabase.GetStoredProcCommand(storedName);
+                DbDatabase.SetTransaction(Helper.DbTransaction);
+
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(true), "v_EntidadId", DbType.Int32, 4, false, 0, 0, Ent.EntidadId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_TipoDocumentoIdentidadId", DbType.Int32, 4, false, 0, 0, Ent.TipoDocumentoIdentidadId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NumDocumento", DbType.String, 100, false, 0, 0, Ent.NumDocumento);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Nombres", DbType.String, 100, false, 0, 0, Ent.Nombres);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_ApellidoPaterno", DbType.String, 100, false, 0, 0, Ent.ApellidoPaterno);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_ApellidoMaterno", DbType.String, 100, false, 0, 0, Ent.ApellidoMaterno);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_CodUsuario", DbType.String, 20, false, 0, 0, Ent.CodUsuario);
+                int returnValue = DbDatabase.ExecuteNonQuery();
+                if (Ent.LogicalState == LogicalState.Added)
+                {
+                    if (Ent.EntidadId <= 0) Ent.EntidadId = (Int32)DbDatabase.GetParameterValue("v_EntidadId");
+                    Ent.OnLogicalAdded();
+                }
+            }
+
+
+            return true;
+        }
+
+
+        public virtual bool EmpresaRegistrarEnlace(EntidadEntity Ent)
+        {
+            StartHelper(true);
+            try
+            {
+                EmpresaRegistrarEnlaceDB(Ent);
+            }
+            catch (Exception ex)
+            {
+                Helper.CancelTransaction();
+                throw ex;
+            }
+
+            Helper.Close();
+            return true;
+        }
+
+        private bool EmpresaRegistrarEnlaceDB(EntidadEntity Ent)
+        {
+            if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
+            {
+                String storedName = "sp_Empresa_RegistrarEnlace";
+                DbDatabase.GetStoredProcCommand(storedName);
+                DbDatabase.SetTransaction(Helper.DbTransaction);
+
+
+
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(true), "v_EntidadId", DbType.Int32, 4, false, 0, 0, Ent.EntidadId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_TipoDocumentoIdentidadId", DbType.Int32, 4, false, 0, 0, Ent.TipoDocumentoIdentidadId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NumDocumento", DbType.String, 30, false, 0, 0, Ent.NumDocumento);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NombreComercial", DbType.String, 100, false, 0, 0, Ent.NombreComercial);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_CodUsuario", DbType.String, 20, false, 0, 0, Ent.CodUsuario);
+                int returnValue = DbDatabase.ExecuteNonQuery();
+                if (Ent.LogicalState == LogicalState.Added)
+                {
+                    if (Ent.EntidadId <= 0) Ent.EntidadId = (Int32)DbDatabase.GetParameterValue("v_EntidadId");
+                    Ent.OnLogicalAdded();
+                }
+            }
+
+
+            return true;
+        }
+
 
     }
 }

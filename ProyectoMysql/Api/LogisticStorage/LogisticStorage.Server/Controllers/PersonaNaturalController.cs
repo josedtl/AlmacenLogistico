@@ -2,6 +2,7 @@ using Framework;
 using Microsoft.AspNetCore.Mvc;
 using LogisticStorage.BusinessLayer;
 using LogisticStorage.EntityLayer;
+using LogisticStorage.Server.Model.PersonaNatural;
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
@@ -86,7 +87,6 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<PersonaNaturalSaveModel>(new PersonaNaturalSaveModel(), false, ex.Message);
             }
         }
-
 
     }
 }

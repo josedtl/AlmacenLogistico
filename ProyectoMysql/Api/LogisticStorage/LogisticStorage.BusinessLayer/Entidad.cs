@@ -30,6 +30,14 @@ namespace LogisticStorage.BusinessLayer
             return Ent.EntidadId;
         }
 
+        public static Int32 PersonaNaturalRegistrarEnlace(EntidadEntity Ent)
+        {
+            EntidadDB DB = new EntidadDB();
+            DB.PersonaNaturalRegistrarEnlace(Ent);
+
+            return Ent.EntidadId;
+        }
+
         public static List<EntidadEntity> EmpresaObtenerMain()
         {
             EntidadDB DB = new EntidadDB();
@@ -58,6 +66,14 @@ namespace LogisticStorage.BusinessLayer
         {
             EntidadDB DB = new EntidadDB();
             return DB.EntidadObtenerNombreCompletoItem(EntidadId);
+        }
+
+        public static Int32 EmpresaRegistrarEnlace(EntidadEntity Ent)
+        {
+            EntidadDB DB = new EntidadDB();
+            DB.EmpresaRegistrarEnlace(Ent);
+
+            return Ent.EntidadId;
         }
     }
 }
