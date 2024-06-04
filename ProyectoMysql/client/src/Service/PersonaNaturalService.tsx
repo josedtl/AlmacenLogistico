@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { PersonaNaturalEntity} from '../Models/PersonaNaturalEntity';
-import { DatosClienteItemModel} from '../Models/GeneralEntity';
 import { apiLg } from './axios-config';
 
 const URL = import.meta.env.VITE_SOME_KEY;

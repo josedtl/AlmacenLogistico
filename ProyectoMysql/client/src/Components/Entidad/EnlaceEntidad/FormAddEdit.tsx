@@ -1,43 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Form, Select } from 'antd';
-import { Button, Col, Row, Input, message, Modal } from 'antd';
+import {  Select } from 'antd';
+import { Button, Col, Row, Input } from 'antd';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
-import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 //SERVICE
-import MerListaService from '../../../Service/MerListaService';
 import EntListaService from '../../../Service/EntListaService';
 import GeneralService from '../../../Service/GeneralService';
-import PersonaNaturalService from '../../../Service/PersonaNaturalService';
-import { EmpresaEntity } from '../../../Models/EmpresaEntity';
 //ENTITY
-import { MerListaEntity } from '../../../Models/MerListaEntity'
 import { EntListaModel } from '../../../Models/EntListaEntity';
 import { DatosClienteItemModel, TipoEntidadItemModel } from '../../../Models/GeneralEntity'
-import EmpresaService from '../../../Service/EmpresaService';
-import { EntDatoModel } from "../../../Models/EntDatoEntity";
 
 const AddEditForm: React.FC<PropsModel> = (props) => {
-    const sMerLista = new MerListaService();
     const sGeneralService = new GeneralService();
     const sEntLista = new EntListaService();
-    const [FlaState, setFlaState] = useState<Boolean>(false);
-    const [ValDato, setValDato] = useState<InputStatus>('');
 
-    const sPersonaNatural = new PersonaNaturalService();
-
-    const sEmpresa = new EmpresaService();
-
-    const initialEmpresa = new EmpresaEntity();
-    const [Empre, setEmpre] = useState<EmpresaEntity>(initialEmpresa);
 
     const initialTipoEntidad = new DatosClienteItemModel();
     const [EntDato, setEntDato] = useState<DatosClienteItemModel>(initialTipoEntidad);
 
 
-    const [EstadoRegistrochecked, setEstadoRegistrochecked] = useState(true);
 
     const [ValCodigo, setValCodigo] = useState<InputStatus>('');
     const [ValNumDocumento] = useState<InputStatus>('');
@@ -79,12 +62,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const [CargarPage, setCargarPage] = React.useState(true);
 
-    const toggle = () => {
-        setDisabled(!disabled);
-    };
 
-    const [modal, contextHolder] = Modal.useModal();
-    const [messageAdd, contextHolderAdd] = message.useMessage();
+
 
     const AddCliente = async () => {
 
@@ -102,6 +81,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     }
     const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        CargarPage
+        selectedTipoEnt
         selectedTipoDocuemntoIdentidad;
         EntDato.CodUsuario = "adm";
         AddCliente();
@@ -110,33 +91,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     };
 
 
-    const [disabled, setDisabled] = useState(false);
-    const [Busqueda, setBusqueda] = useState<string>('');
-
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setBusqueda(e.target.value.toUpperCase());
-    };
 
 
-    // const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    //     e.preventDefault();
-
-    //     console.log(EntDato)
-    //     const savedItem = await sMerLista.saveItem(EntDatoModelato);
-
-    //     if (savedItem) {
-    //         if (FlaState) {
-    //             props.updateState(savedItem);
-    //         }
-    //         else {
-    //             props.addItemToState(savedItem);
-    //         }
-    //         props.toggle();
-    //         setEnt(new MerListaEntity());
-    //     }
-    // };
-
-    const label = EstadoRegistrochecked ? 'Registro habilitado' : 'Registro deshabilitar';
 
     const getCargarDatos = async () => {
 

@@ -8,7 +8,7 @@ import MerListaService from '../../../Service/MerListaService';
 import MercaderiaService from '../../../Service/MercaderiaService';
 import { MerListaEntity } from '../../../Models/MerListaEntity';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
-import { MercaderiaItemCategoriaModel, MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
+import {  MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
 const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const initialOrdenPedidoDetalle = new OrdenPedidoDetalleEntity();
@@ -23,7 +23,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         });
 
     };
-
+    FlaState;
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         try {
@@ -94,6 +94,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     };
     const onChangeProducto = async (value: number, Itemdata: any) => {
         try {
+            Itemdata;
             Ent.MercaderiaId = value;
             setSelectedProducto(value)
 

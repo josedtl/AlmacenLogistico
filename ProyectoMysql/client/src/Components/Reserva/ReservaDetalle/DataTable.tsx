@@ -9,7 +9,6 @@ import { PropsTable } from '../../../Lib/PropsItem'
 import 'moment/locale/es';
 import { DataType } from '../../../Lib/ResourceModel/DataTableType'
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
-import { red } from '@ant-design/colors';
 // import  from 'react-emotion';
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');

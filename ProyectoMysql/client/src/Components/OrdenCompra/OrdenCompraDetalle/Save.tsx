@@ -5,20 +5,17 @@ import { OrdenCompraEntity } from '../../../Models/OrdenCompraEntity';
 import ModalItem from './ModalItem';
 import GeneralService from '../../../Service/GeneralService';
 import OrdenCompraService from '../../../Service/OrdenCompraService';
-import { Tabs, DatePicker, message, Select, Button, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar, Space } from 'antd';
+import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
-import { IconSave } from '../../../Styles/Icons'
-import { ButtonAddMain } from '../../../Styles/Button'
-import { EntidadNombreCompletoModel, TipoProcesoEntity } from '../../../Models/GeneralEntity';
+
+import { EntidadNombreCompletoModel } from '../../../Models/GeneralEntity';
 import { useParams } from 'react-router-dom';
-import { ExclamationCircleOutlined, CaretRightOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import { InputStatus } from 'antd/es/_util/statusUtils';
-import { EntDatoModel } from '../../../Models/EntDatoEntity';
-import EntDatoService from '../../../Service/EntDatoService';
 import { SaveFilled } from '@ant-design/icons';
 import { ProcesoModel } from '../../../Models/ProcesoEntity';
 function Page() {
@@ -26,7 +23,6 @@ function Page() {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
   const sGeneral = new GeneralService();
-  const sEntDato = new EntDatoService();
   const sOrdenCompra = new OrdenCompraService();
   const [items, setItems] = useState<OrdenCompraDetalleEntity[]>([]);
   const [messageAdd, contextHolderAdd] = message.useMessage();
@@ -202,14 +198,7 @@ function Page() {
       return v.toString(16);
     });
   }
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEnt({
-      ...Ent,
-      [e.target.name]: e.target.value.toUpperCase()
-    });
-
-
-  };
+ 
   // item={new OrdenCompraDetalleEntity()}
   const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenCompraDetalleEntity()} keyItem={''} />
     ;
@@ -301,15 +290,15 @@ function Page() {
 
 
 
-  let color = "while";
+  // let color = "while";
 
-  if (Ent.ValorEstadoProceso === 0) {
-    color = "green";
-  } else if (Ent.ValorEstadoProceso === 2) {
-    color = "green";
-  } else if (Ent.ValorEstadoProceso === 3) {
-    color = "blue";
-  }
+  // if (Ent.ValorEstadoProceso === 0) {
+  //   color = "green";
+  // } else if (Ent.ValorEstadoProceso === 2) {
+  //   color = "green";
+  // } else if (Ent.ValorEstadoProceso === 3) {
+  //   color = "blue";
+  // }
   const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
   const [optionsEntidad, setOptionsEntidad] = useState<EntidadNombreCompletoModel[]>([]);
   const [ValCategoria, setValCategoria] = useState<InputStatus>('');
@@ -326,102 +315,8 @@ function Page() {
     Ent.EntidadId = value;
     setSelectedCategoria(value)
   };
-  const CorrelativoDiv = () => {
-
-    if (Ent.OrdenCompraId > 0) {
-      return (
-
-        <>
-          <Row>
-            <Col span={24}>
-              <label>Estado</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                // status={ValCodigo}
-                prefix={
-                  <CaretRightOutlined style={{ color, fontSize: '20px' }} />}
-                type="text"
-                name="NomEstadoProceso"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                // onChange={onChange}
-                readOnly={true}
-                value={Ent.NomEstadoProceso === null ? "" : Ent.NomEstadoProceso}
-              />
-            </Col>
-          </Row>
-
-          <Row>
-            <Col span={24}>
-              <label>Codigo</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                // status={ValCodigo}
-                type="text"
-                name="Codigo"
-                style={{ marginTop: '5px', marginBottom: '10px', background: 'Silver' }}
-                onChange={onChange}
-                readOnly={true}
-                value={Ent.Codigo === null ? "" : Ent.Codigo}
-              />
-            </Col>
-          </Row>
-        </>
-      )
-    }
-  }
 
 
-  const FechaUsuario = () => {
-    if (Ent.OrdenCompraId > 0) {
-      return (
-
-        <Row>
-          <Col span={12}>
-
-            <Row>
-              <Col span={24}>
-                <label>Fecha Registro</label>
-              </Col>
-              <Col span={24}>
-                <Input
-                  type="string"
-                  name="FechaRegistro"
-                  style={{ marginTop: '5px', marginBottom: '10px' }}
-                  readOnly={true}
-                  value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
-                />
-              </Col>
-            </Row>
-
-
-          </Col>
-          <Col span={12}>
-
-
-            <Row>
-              <Col span={24}>
-                <label>Usuario</label>
-              </Col>
-              <Col span={24}>
-                <Input
-                  type="string"
-                  name="Stock"
-                  style={{ marginTop: '5px', marginBottom: '10px' }}
-                  readOnly={true}
-                  value={Ent.CodUsuario}
-                />
-              </Col>
-            </Row>
-
-
-          </Col>
-        </Row>
-      )
-    }
-
-  }
 
   const TituloSave = () => {
     return (
@@ -437,12 +332,7 @@ function Page() {
     )
 
   }
-  const layoutStyle = {
-    borderRadius: 8,
-    overflow: 'hidden',
-    width: 'calc(100% - 8px)',
-    maxWidth: 'calc(100% - 8px)',
-  };
+
   const contentStyle: React.CSSProperties = {
     // margin:50,
     marginLeft: 50,
@@ -457,13 +347,8 @@ function Page() {
     // backgroundColor: "#C9E1E4",
     borderColor: "#15616d",
   };
-  const headerStyle: React.CSSProperties = {
-    // backgroundColor: "#C9E1E4",
-    borderColor: "#15616d",
-    color: "#15616d"
 
-  };
-  const { Header, Footer, Sider, Content } = Layout;
+  const {  Footer, Content } = Layout;
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 

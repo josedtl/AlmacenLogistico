@@ -8,7 +8,7 @@ import MerListaService from '../../../Service/MerListaService';
 import MercaderiaService from '../../../Service/MercaderiaService';
 import { MerListaEntity } from '../../../Models/MerListaEntity';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
-import { MercaderiaItemCategoriaModel, MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
+import {  MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
 const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const initialOrdenCompraDetalle = new OrdenCompraDetalleEntity();
@@ -60,6 +60,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     selectedPRoducto;
     selectedCategoria;
     ValCategoria;
+    FlaState;
     // useEffect(() => {
     //     const updatedPerson = props.item;
     //     updatedPerson.Action = updatedPerson.OrdenCompraDetalleId > 0 ? 3 : 1;
@@ -94,6 +95,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     };
     const onChangeProducto = async (value: number, Itemdata: any) => {
         try {
+            Itemdata;
             Ent.MercaderiaId = value;
             setSelectedProducto(value)
 

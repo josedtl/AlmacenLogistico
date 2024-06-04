@@ -1,13 +1,11 @@
 "use client"
 import React from 'react';
-import { OrdenPedidoEntity } from '../..//Models/OrdenPedidoEntity';
-import { EditFilled, CaretRightOutlined } from '@ant-design/icons';
+import { EditFilled } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Link } from 'react-router-dom';
 import { PropsTable } from '../../Lib/PropsItem'
 import { Card, Col, Row, Button, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import moment from 'moment';
 import 'moment/locale/es';
 import { DataType } from '../../Lib/ResourceModel/DataTableType'
 import { ReservaEntity } from '../../Models/ReservaEntity';

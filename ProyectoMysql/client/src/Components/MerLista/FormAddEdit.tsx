@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MerListaEntity } from '../../Models/MerListaEntity'
 import MerListaService from '../../Service/MerListaService';
-import { Form, Grid } from 'antd';
+
 import { Checkbox, Button, Col, Row, Input } from 'antd';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../Lib/PropsItem'
@@ -13,7 +13,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const initialMerLista = new MerListaEntity();
     const [Ent, setEnt] = useState<MerListaEntity>(initialMerLista);
     const [FlaState, setFlaState] = useState<Boolean>(false);
-    const [form] = Form.useForm();
+
     const [ValDato, setValDato] = useState<InputStatus>('');
 
     const [EstadoRegistrochecked, setEstadoRegistrochecked] = useState(true);

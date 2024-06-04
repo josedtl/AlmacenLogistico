@@ -2,38 +2,29 @@ import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
 import { ReservaResumenModel ,ReservaPedidoModel} from '../../../Models/ReservaEntity';
 import ModalItem from './ModalItem';
-import ProcesoService from '../../../Service/ProcesoService';
 import ReservaService from '../../../Service/ReservaService';
-import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar } from 'antd';
-import type { DatePickerProps } from 'antd';
-import { ProcesoModel } from '../../../Models/ProcesoEntity';
+import { Tabs, message, Col, Row, Typography, Modal, Spin, Input, Flex, Layout } from 'antd';
+
 import { useParams } from 'react-router-dom';
-import { ExclamationCircleOutlined, CaretRightOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import 'moment/locale/es';
-import dayjs from 'dayjs';
-import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
-import { InputStatus } from 'antd/es/_util/statusUtils';
-import { EntDatoModel } from '../../../Models/EntDatoEntity';
-import EntDatoService from '../../../Service/EntDatoService';
-import { SaveFilled } from '@ant-design/icons';
 function Page() {
 
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
-  const sEntDato = new EntDatoService();
   const sReserva = new ReservaService();
-  const sProceso = new ProcesoService();
   const [items, setItems] = useState<ReservaPedidoModel[]>([]);
   const [messageAdd, contextHolderAdd] = message.useMessage();
+  messageAdd;
   const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled] = useState(false);
   const { Title } = Typography;
   const [Ent, setEnt] = useState<ReservaResumenModel>(new ReservaResumenModel());
   const [KeyTabs, setKeyTabs] = useState<String>('');
+  KeyTabs;
   const addItemToState = (item: ReservaPedidoModel) => {
 
-
+    item;
 
   
  
@@ -41,11 +32,11 @@ function Page() {
   };
 
   const updateState = (item: ReservaPedidoModel) => {
-
+    item;
  
   };
   const deleteItemFromState = (item: ReservaPedidoModel) => {
-
+    item;
     // const itemIndex = items.findIndex((data) => data.keyItem === item.keyItem);
     // const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
     // setItems(newArray);
@@ -61,9 +52,6 @@ function Page() {
   const filterItems = items;
 
 
-  const [optionsProceso, setOptionsProceso] = useState<ProcesoModel[]>([]);
-  const [selectedTipoRequerimeinto, setSelectedTipoRequerimeinto] = useState<number | undefined>(undefined);
-
 
 
 
@@ -71,6 +59,7 @@ function Page() {
   useEffect(() => {
     setKeyTabs(generarGuid());
     const dateEmison = moment(new Date()).format('YYYY-MM-DD')
+    dateEmison;
     getCargarDatos(idNumero);
   }, []);
 
@@ -119,35 +108,13 @@ function Page() {
       return v.toString(16);
     });
   }
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEnt({
-      ...Ent,
-      [e.target.name]: e.target.value.toUpperCase()
-    });
 
-
-  };
   const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new ReservaPedidoModel()} keyItem={''} />
     ;
 
   const [modal, contextHolder] = Modal.useModal();
-  const dateFormat = 'YYYY/MM/DD';
+  modal;
 
-
-
-
-
-  const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
-  const [optionsCategoria, setOptionsCategoria] = useState<EntDatoModel[]>([]);
-  const [ValCategoria, setValCategoria] = useState<InputStatus>('');
-  const handleSearchCategoria = async (value: string) => {
-    try {
-      const responseCategoria = await sEntDato.GetNomCompletoItemLike(value);
-      setOptionsCategoria(responseCategoria);
-    } catch (error) {
-      console.error('Error al buscar categorías:', error);
-    }
-  };
 
 
   const TituloSave = () => {
@@ -175,12 +142,10 @@ function Page() {
     // color: '#fff',
     // backgroundColor: '#0958d9',
   };
-  const footerStyle: React.CSSProperties = {
-    // backgroundColor: "#C9E1E4",
-    borderColor: "#15616d",
-  };
+
 
   const { Footer, Content } = Layout;
+  Footer;
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 

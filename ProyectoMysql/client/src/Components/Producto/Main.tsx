@@ -21,16 +21,6 @@ function Main() {
     setDisabled(!disabled);
   };
 
-  const updateState = (item: MercaderiaMainModel) => {
-    const itemIndex = items.findIndex((data) => data.MercaderiaId === item.MercaderiaId);
-    const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
-    setItems(newArray);
-  };
-
-  const deleteItemFromState = (id: number) => {
-    const updatedItems = items.filter((item) => item.MercaderiaId !== id);
-    setItems(updatedItems);
-  };
 
   const getItems = async () => {
     const itemsg = await sMercaderia.getItems();

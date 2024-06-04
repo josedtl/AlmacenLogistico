@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { GoldOutlined, BookOutlined, UserOutlined } from '@ant-design/icons';
+import React, { useEffect } from 'react';
+import { GoldOutlined, BookOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
-import { Col, Row, Typography, Card, Button, Spin, Input, Flex, Segmented } from 'antd';
+import { Col, Row, Typography,  Spin, Flex, Segmented } from 'antd';
 import { Link } from "react-router-dom";
 
 function Menu() {

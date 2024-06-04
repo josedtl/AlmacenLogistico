@@ -102,7 +102,8 @@ const Save = () => {
 
   const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
+    selectedTipoDocuemntoIdentidad
+    selectedUbigeo
     // if (Ent.Codigo === '') {
     //   setValCodigo('error');
     //   messageAdd.open({ type: 'error', content: 'Ingrese Codigo.', });

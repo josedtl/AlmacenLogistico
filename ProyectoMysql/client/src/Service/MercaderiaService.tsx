@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { MercaderiaItemCategoriaModel, MercaderiaItemOPModel, MercaderiaMainModel, MercaderiaSaveModel } from '../Models/MercaderiaEntity';
+import {  MercaderiaItemOPModel, MercaderiaMainModel, MercaderiaSaveModel } from '../Models/MercaderiaEntity';
 import { EntidadLikeModel } from '../Models/EntidadLikeModel';
 
 const URL = import.meta.env.VITE_SOME_KEY;

@@ -4,7 +4,7 @@ import ModalItem from './ModalItem';
 import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { useParams } from 'react-router-dom';
-import { ExclamationCircleOutlined, CaretRightOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
@@ -211,14 +211,7 @@ function Page() {
       return v.toString(16);
     });
   }
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEnt({
-      ...Ent,
-      [e.target.name]: e.target.value.toUpperCase()
-    });
 
-
-  };
   const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} keyItem={''} />
     ;
 
@@ -310,15 +303,15 @@ function Page() {
 
 
 
-  let color = "while";
+  // let color = "while";
 
-  if (Ent.ValorEstadoProceso === 0) {
-    color = "green";
-  } else if (Ent.ValorEstadoProceso === 2) {
-    color = "green";
-  } else if (Ent.ValorEstadoProceso === 3) {
-    color = "blue";
-  }
+  // if (Ent.ValorEstadoProceso === 0) {
+  //   color = "green";
+  // } else if (Ent.ValorEstadoProceso === 2) {
+  //   color = "green";
+  // } else if (Ent.ValorEstadoProceso === 3) {
+  //   color = "blue";
+  // }
   const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
   const [optionsEntidad, setOptionsEntidad] = useState<EntidadNombreCompletoModel[]>([]);
   const [ValCategoria, setValCategoria] = useState<InputStatus>('');
@@ -335,51 +328,51 @@ function Page() {
     Ent.EntidadId = value;
     setSelectedCategoria(value)
   };
-  const CorrelativoDiv = () => {
+  // const CorrelativoDiv = () => {
 
-    if (Ent.OrdenPedidoId > 0) {
-      return (
+  //   if (Ent.OrdenPedidoId > 0) {
+  //     return (
 
-        <>
-          <Row>
-            <Col span={24}>
-              <label>Estado</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                // status={ValCodigo}
-                prefix={
-                  <CaretRightOutlined style={{ color, fontSize: '20px' }} />}
-                type="text"
-                name="NomEstadoProceso"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                // onChange={onChange}
-                readOnly={true}
-                value={Ent.NomEstadoProceso === null ? "" : Ent.NomEstadoProceso}
-              />
-            </Col>
-          </Row>
+  //       <>
+  //         <Row>
+  //           <Col span={24}>
+  //             <label>Estado</label>
+  //           </Col>
+  //           <Col span={24}>
+  //             <Input
+  //               // status={ValCodigo}
+  //               prefix={
+  //                 <CaretRightOutlined style={{ color, fontSize: '20px' }} />}
+  //               type="text"
+  //               name="NomEstadoProceso"
+  //               style={{ marginTop: '5px', marginBottom: '10px' }}
+  //               // onChange={onChange}
+  //               readOnly={true}
+  //               value={Ent.NomEstadoProceso === null ? "" : Ent.NomEstadoProceso}
+  //             />
+  //           </Col>
+  //         </Row>
 
-          <Row>
-            <Col span={24}>
-              <label>Codigo</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                // status={ValCodigo}
-                type="text"
-                name="Codigo"
-                style={{ marginTop: '5px', marginBottom: '10px', background: 'Silver' }}
-                onChange={onChange}
-                readOnly={true}
-                value={Ent.Codigo === null ? "" : Ent.Codigo}
-              />
-            </Col>
-          </Row>
-        </>
-      )
-    }
-  }
+  //         <Row>
+  //           <Col span={24}>
+  //             <label>Codigo</label>
+  //           </Col>
+  //           <Col span={24}>
+  //             <Input
+  //               // status={ValCodigo}
+  //               type="text"
+  //               name="Codigo"
+  //               style={{ marginTop: '5px', marginBottom: '10px', background: 'Silver' }}
+  //               onChange={onChange}
+  //               readOnly={true}
+  //               value={Ent.Codigo === null ? "" : Ent.Codigo}
+  //             />
+  //           </Col>
+  //         </Row>
+  //       </>
+  //     )
+  //   }
+  // }
 
 
 
