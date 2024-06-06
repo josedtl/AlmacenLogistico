@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Entidades\AlumnoEntity.cs" />
     <Compile Include="Entidades\AulaEntity.cs" />
+    <Compile Include="Entidades\CursoNotaEntity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
