@@ -3,18 +3,20 @@ import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEnti
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
-import { Select, Button, Col, Row, Space, Input, Form } from 'antd';
+import { Select, Button, Col, Row, Space, Input, Form, message ,Modal} from 'antd';
 import MerListaService from '../../../Service/MerListaService';
 import MercaderiaService from '../../../Service/MercaderiaService';
 import { MerListaEntity } from '../../../Models/MerListaEntity';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
-import {  MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
+import { MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
 const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const initialOrdenPedidoDetalle = new OrdenPedidoDetalleEntity();
     const [Ent, setEnt] = useState<OrdenPedidoDetalleEntity>(initialOrdenPedidoDetalle);
     const [FlaState, setFlaState] = useState<Boolean>(false);
+    const [ValSolicitar, setValSolicitar] = useState<InputStatus>('');
     const [ValDato, setValDato] = useState<InputStatus>('');
+    const [messageAdd, contextHolderAdd] = message.useMessage();
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValDato('');
         setEnt({
@@ -26,7 +28,27 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     FlaState;
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        
+
         try {
+            if (Ent.CategoriaId === 0) {
+                setValCategoria('error');
+                messageAdd.open({ type: 'error', content: 'Seleccione una Categoria.', });
+                return;
+            }
+            if (Ent.MercaderiaId === 0) {
+                setValProducto('error');
+                messageAdd.open({ type: 'error', content: 'Seleccione un Producto.', });
+                return;
+            }
+    
+            if (Ent.CantidadSolicitado <= 0) {
+                setValSolicitar('error');
+                messageAdd.open({ type: 'error', content: 'Seleccione un número', });
+                return;
+            }
+    
+
             // Ent.CantidadSolicitado = 1;
             Ent.UnidadMedidaId = 1;
             // Ent.key =props.keyItem;
@@ -55,6 +77,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
     const [ValCategoria, setValCategoria] = useState<InputStatus>('');
     const [ValCodigoUM, setValCodigoUM] = useState<string>('');
+    const [ValProducto, setValProducto] = useState<InputStatus>('');
+
     const sMerLista = new MerListaService();
     const sMercaderiaService = new MercaderiaService();
     selectedPRoducto;
@@ -87,7 +111,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         try {
             const responseProducto = await sMercaderiaService.getItemCategoriaLike(value, Ent.CategoriaId);
             setOptionsProducto(responseProducto);
-        
+
         } catch (error) {
             console.error('Error al buscar categorías:', error);
         }
@@ -123,7 +147,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
 
     const getItems = async () => {
-    
+
         const updatedItem = props.item;
 
         if (updatedItem.MercaderiaId > 0) {
@@ -159,18 +183,21 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
 
 
+    const [modal, contextHolder] = Modal.useModal();
     return (
 
         // <Form form={form} name="formItem" layout="vertical" autoComplete="off">
         <>
 
+{contextHolder}
+            {contextHolderAdd}
             <Row>
                 <Col span={24}>
                     <label>Categoria</label>
                 </Col>
                 <Col span={24}>
                     <Select
-                        // status={ValCategoria}
+                        status={ValCategoria}
                         showSearch
                         style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                         defaultActiveFirstOption={false}
@@ -198,7 +225,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 </Col>
                 <Col span={24}>
                     <Select
-                        // status={ValCategoria}
+                        status={ValProducto}
                         showSearch
                         style={{ width: '100%', marginTop: '5px', marginBottom: '10px', wordWrap: "break-word" }}
                         defaultActiveFirstOption={false}
@@ -264,6 +291,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                 <Space.Compact>
                                     <Input
                                         // suffix={ValCodigoUM}
+                                        status={ValSolicitar}
                                         type="number"
                                         name="CantidadSolicitado"
                                         style={{ width: '70%', marginTop: '5px', marginBottom: '10px' }}

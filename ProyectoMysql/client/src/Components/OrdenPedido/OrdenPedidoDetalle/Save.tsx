@@ -29,7 +29,7 @@ function Page() {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
   const sOrdenPedido = new OrdenPedidoService();
-  const sGeneral =new GeneralService();
+  const sGeneral = new GeneralService();
   const [items, setItems] = useState<OrdenPedidoDetalleEntity[]>([]);
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const [CargarPage, setCargarPage] = React.useState(true);
@@ -254,6 +254,19 @@ function Page() {
     e.preventDefault();
     KeyTabs;
     selectedCategoria;
+    if (Ent.TipoProcesoId === 0) {
+      setValTipoRequerimiento('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione un Tipo de Requerimiento.', });
+      return;
+    }
+    if (Ent.NomResponsable.trimEnd() === '') {
+      setValResponsable('error');
+      messageAdd.open({ type: 'error', content: 'Ingrese Nombre del Responsable .', });
+      return;
+    }
+
+   
+
     modal.confirm({
       title: 'Mensaje del Sistema',
       icon: <ExclamationCircleOutlined />,
@@ -314,7 +327,9 @@ function Page() {
   // }
   const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
   const [optionsEntidad, setOptionsEntidad] = useState<EntidadNombreCompletoModel[]>([]);
-  const [ValCategoria, setValCategoria] = useState<InputStatus>('');
+  const [ValResponsable, setValResponsable] = useState<InputStatus>('');
+  const [ValTipoRequerimiento, setValTipoRequerimiento] = useState<InputStatus>('');
+  
   const handleSearchCategoria = async (value: string) => {
     try {
       const responseCategoria = await sGeneral.EntidadBuscarNombreCompletoItem(value);
@@ -324,7 +339,7 @@ function Page() {
     }
   };
   const onChangeCategoria = async (value: number) => {
-    setValCategoria('');
+    setValResponsable('');
     Ent.EntidadId = value;
     setSelectedCategoria(value)
   };
@@ -390,7 +405,7 @@ function Page() {
     )
 
   }
- 
+
   const contentStyle: React.CSSProperties = {
     // margin:50,
     marginLeft: 50,
@@ -406,7 +421,7 @@ function Page() {
     borderColor: "#15616d",
   };
 
-  const {  Footer, Content } = Layout;
+  const { Footer, Content } = Layout;
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -451,7 +466,7 @@ function Page() {
                   <Col span={24}>
                     <Select
                       showSearch
-                      // status={ValUnidadMedida}
+                      status={ValTipoRequerimiento}
                       style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                       defaultActiveFirstOption={false}
                       filterOption={false}
@@ -465,7 +480,7 @@ function Page() {
                         </Select.Option>
                       ))}
                     </Select>
-                   
+
 
                   </Col>
                 </Row>
@@ -478,9 +493,9 @@ function Page() {
                   <Col span={24}>
 
                     <Select
-                      status={ValCategoria}
+                      status={ValResponsable}
                       showSearch
-                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                      style={{ width: '95%', marginTop: '5px', marginBottom: '10px' }}
                       defaultActiveFirstOption={false}
                       filterOption={false}
                       onSearch={handleSearchCategoria}
@@ -496,9 +511,9 @@ function Page() {
                     </Select>
                     <MDFiltro buttonLabel="dsdsd"
                       addItemToState={addItemToStateCliente}
-                      item={new DatosClienteItemModel ()}
+                      item={new DatosClienteItemModel()}
                       CodigoTabla={'M002'}
-                      title={"Sucursal"} />
+                      title={"Cliente"} />
 
                   </Col>
                 </Row>
@@ -518,10 +533,6 @@ function Page() {
                   </Col>
                 </Row>
               </Col>
-
-
-
-
 
             </Row>
 
@@ -573,46 +584,66 @@ function Page() {
           <Footer style={footerStyle}>
 
             <Row>
-              <Col span={2}>
-
+              <Col span={5}>
                 <Row>
-                  <Col span={24}>
-                    <label>Fecha Registro</label>
+                  <Col span={12}>
+                    <label>Usuario : </label>
                   </Col>
-                  <Col span={24}>
-                    <Input
-                      type="string"
-                      name="FechaRegistro"
-                      style={{ marginTop: '5px', marginBottom: '10px' }}
-                      readOnly={true}
-                      value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
-                    />
-                  </Col>
-                </Row>
+                  <Col span={12}>
+                    <label
+                      className='CodUsuario'
+                      style={{ marginTop: '5px', marginBottom: '10px' }}></label>
 
-
-              </Col>
-              <Col span={2}>
-
-
-                <Row>
-                  <Col span={24}>
-                    <label>Usuario</label>
-                  </Col>
-                  <Col span={24}>
-                    <Input
+                    {/* <Input
                       type="string"
                       name="Stock"
                       style={{ marginTop: '5px', marginBottom: '10px' }}
                       readOnly={true}
                       value={Ent.CodUsuario}
-                    />
+                    /> */}
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col span={12}>
+                    <label>Fecha Modificación : </label>
+                  </Col>
+                  <Col span={12}>
+                    <label
+                      className='FechaRegistro'
+                      style={{ marginTop: '5px', marginBottom: '10px' }}></label>
+                    {/* <Input
+                      type="string"
+                      name="FechaRegistro"
+                      style={{ marginTop: '5px', marginBottom: '10px' }}
+                      readOnly={true}
+                      value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
+                    /> */}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={12}>
+                    <label>Fecha Creación : </label>
+                  </Col>
+                  <Col span={12}>
+                    <label
+                      className='FechaRegistro'
+                      style={{ marginTop: '5px', marginBottom: '10px' }}></label>
+                    {/* <Input
+                      type="string"
+                      name="FechaRegistro"
+                      style={{ marginTop: '5px', marginBottom: '10px' }}
+                      readOnly={true}
+                      value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
+                    /> */}
                   </Col>
                 </Row>
 
 
+
+
               </Col>
-              <Col span={18}>
+              <Col span={16}>
 
               </Col>
 

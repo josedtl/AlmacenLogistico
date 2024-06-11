@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {  Select } from 'antd';
-import { Button, Col, Row, Input } from 'antd';
+import { Select } from 'antd';
+import { Button, Col, Row, Input, message } from 'antd';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
@@ -21,10 +21,11 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [EntDato, setEntDato] = useState<DatosClienteItemModel>(initialTipoEntidad);
 
 
+    const [messageAdd, contextHolderAdd] = message.useMessage();
 
     const [ValCodigo, setValCodigo] = useState<InputStatus>('');
-    const [ValNumDocumento] = useState<InputStatus>('');
-    const [ValNombres] = useState<InputStatus>('');
+    const [ValNumDocumento, setvalNumDocumento] = useState<InputStatus>('');
+    const [ValNombres, setvalNombreComercial] = useState<InputStatus>('');
     const [ValApellidoPaterno] = useState<InputStatus>('');
     const [ValApellidoMaterno] = useState<InputStatus>('');
     const [ValTipoEnt, setValTipoEnt] = useState<InputStatus>('');
@@ -72,18 +73,44 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         console.log(saveEnlace);
 
         if (saveEnlace) {
-           
+
             props.addItemToState(saveEnlace);
             props.toggle();
             setEntDato(new DatosClienteItemModel());
         }
-     
+
     }
     const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         CargarPage
         selectedTipoEnt
         selectedTipoDocuemntoIdentidad;
+
+        if (EntDato.TipoEntidadId === 0) {
+            setValTipoEnt('error');
+            messageAdd.open({ type: 'error', content: 'Seleccione una Entidad.', });
+            return;
+        }
+        if (EntDato.TipoDocumentoIdentidadId === 0) {
+            setValTipoDocuemntoIdentidad('error');
+            messageAdd.open({ type: 'error', content: 'Seleccione una Documento de Identidad.', });
+            return;
+        }
+        if (EntDato.NumDocumento.trimEnd() === '') {
+            setvalNumDocumento('error');
+            messageAdd.open({ type: 'error', content: 'Ingrese Número de Documento.', });
+            return;
+        }
+        if (EntDato.NombreComercial.trimEnd() === '') {
+            setvalNombreComercial('error');
+            messageAdd.open({ type: 'error', content: 'Ingrese Nombre Comercial.', });
+            return;
+        }
+
+
+
+
+
         EntDato.CodUsuario = "adm";
         AddCliente();
 
@@ -229,12 +256,16 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         } else {
             return (
                 <>
+
+                    {contextHolderAdd}
                     <Row>
                         <Col span={24}>
                             <Col span={24}>
                                 <label>Tipo Documento</label>
                             </Col>
                             <Col span={24}>
+
+
                                 <Select
                                     status={ValTipoDocuemntoIdentidad}
                                     allowClear
@@ -242,7 +273,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                     defaultActiveFirstOption={false}
                                     filterOption={false}
                                     optionFilterProp="children"
-                                    value={EntDato.TipoDocumentoIdentidadId === 2 ? null : EntDato.TipoDocumentoIdentidadId}
+                                    value={EntDato.TipoDocumentoIdentidadId === 0 ? null : EntDato.TipoDocumentoIdentidadId}
                                     key={EntDato.TipoDocumentoIdentidadId}
                                     onChange={onChangeTipoDocuemntoIdentidad}
                                 >
