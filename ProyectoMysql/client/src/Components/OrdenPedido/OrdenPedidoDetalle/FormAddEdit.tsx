@@ -19,6 +19,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [messageAdd, contextHolderAdd] = message.useMessage();
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValDato('');
+        setValSolicitar('');
         setEnt({
             ...Ent,
             [e.target.name]: e.target.value.toUpperCase()
@@ -118,6 +119,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     };
     const onChangeProducto = async (value: number, Itemdata: any) => {
         try {
+            setValProducto('');
             Itemdata;
             Ent.MercaderiaId = value;
             setSelectedProducto(value)
