@@ -44,7 +44,7 @@ function Page() {
 
     if (itemIndex == -1) {
       setItems([...items, item]);
-      
+
       messageAdd.open({
         type: 'success',
         content: 'Se guardó correctamente.',
@@ -142,7 +142,7 @@ function Page() {
     selectedTipoRequerimeinto;
   };
 
-  const addItemToStateCliente = async (item: DatosClienteItemModel) => {
+  const event_AgregarCliente = async (item: DatosClienteItemModel) => {
     const Resp_Entidad = await sGeneral.EntidadObtenerNombreCompletoItem(item.EntidadId);
     setOptionsEntidad(Resp_Entidad);
     Ent.EntidadId = Resp_Entidad[0].EntidadId;
@@ -153,10 +153,10 @@ function Page() {
     setKeyTabs(generarGuid());
     const dateEmison = moment(new Date()).format('YYYY-MM-DD')
     setFechaEmisionItem(dateEmison);
-    getCargarDatos(idNumero);
+    voidCargarDatos(idNumero);
   }, []);
 
-  const getCargarDatos = async (Id: number) => {
+  const voidCargarDatos = async (Id: number) => {
     try {
 
       setCargarPage(true);
@@ -232,7 +232,7 @@ function Page() {
       if (savedItem) {
         setEnt(savedItem)
         setItems(savedItem.DetalleItems)
-        getCargarDatos(savedItem.OrdenPedidoId);
+        voidCargarDatos(savedItem.OrdenPedidoId);
         messageAdd.open({
           type: 'success',
           content: 'Se guardó correctamente.',
@@ -259,7 +259,7 @@ function Page() {
       messageAdd.open({ type: 'error', content: 'Seleccione un Tipo de Requerimiento.', });
       return;
     }
-    if (Ent.NomResponsable.trimEnd() === '') {
+    if (Ent.EntidadId === 0) {
       setValResponsable('error');
       messageAdd.open({ type: 'error', content: 'Ingrese Nombre del Responsable .', });
       return;
@@ -276,15 +276,15 @@ function Page() {
       cancelText: 'No',
       onOk() {
 
+        if (Ent.OrdenPedidoId === 0) {
+          Ent.TipoProcesoId = 1;
+          Ent.EstadoProcesoId = 1;
+          Ent.FechaRegistro = new Date();
+          Ent.EstadoRegistro = true
+        }
         const fecha: Date = new Date(FechaEmisionItem + "T00:00:00");
-        Ent.TipoProcesoId = 1;
-        Ent.ProcesoId = 1;
-        Ent.EstadoProcesoId = 1;
         Ent.FechaEmision = new Date(fecha);
         Ent.CodUsuario = "adm";
-        Ent.Action = 1;
-        Ent.FechaRegistro = new Date();
-        Ent.EstadoRegistro = true
         Ent.Action = Ent.OrdenPedidoId == 0 ? 1 : 3;
         AddProducto();
 
@@ -330,7 +330,7 @@ function Page() {
   const [ValResponsable, setValResponsable] = useState<InputStatus>('');
   const [ValTipoRequerimiento, setValTipoRequerimiento] = useState<InputStatus>('');
 
-  const handleSearchCategoria = async (value: string) => {
+  const search_Categoria = async (value: string) => {
     try {
       const responseCategoria = await sGeneral.EntidadBuscarNombreCompletoItem(value);
       setOptionsEntidad(responseCategoria);
@@ -338,7 +338,7 @@ function Page() {
       console.error('Error al buscar categorías:', error);
     }
   };
-  const onChangeCategoria = async (value: number) => {
+  const onchange_Categoria = async (value: number) => {
     setValResponsable('');
     Ent.EntidadId = value;
     setSelectedCategoria(value)
@@ -498,10 +498,10 @@ function Page() {
                       style={{ width: '95%', marginTop: '5px', marginBottom: '10px' }}
                       defaultActiveFirstOption={false}
                       filterOption={false}
-                      onSearch={handleSearchCategoria}
+                      onSearch={search_Categoria}
                       value={Ent.EntidadId === 0 ? null : Ent.EntidadId}
                       key={Ent.EntidadId}
-                      onChange={onChangeCategoria}
+                      onChange={onchange_Categoria}
                     >
                       {optionsEntidad.map((categoria) => (
                         <Select.Option key={categoria.EntidadId} value={categoria.EntidadId}>
@@ -510,7 +510,7 @@ function Page() {
                       ))}
                     </Select>
                     <MDFiltro buttonLabel="dsdsd"
-                      addItemToState={addItemToStateCliente}
+                      addItemToState={event_AgregarCliente}
                       item={new DatosClienteItemModel()}
                       CodigoTabla={'M002'}
                       title={"Cliente"} />
