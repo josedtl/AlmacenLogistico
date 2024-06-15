@@ -25,9 +25,10 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const [ValCodigo, setValCodigo] = useState<InputStatus>('');
     const [ValNumDocumento, setvalNumDocumento] = useState<InputStatus>('');
-    const [ValNombres, setvalNombreComercial] = useState<InputStatus>('');
-    const [ValApellidoPaterno] = useState<InputStatus>('');
-    const [ValApellidoMaterno] = useState<InputStatus>('');
+    const [ValNombre, setvalNombre] = useState<InputStatus>('');
+    const [ValNombreComercial, setvalNombreComercial] = useState<InputStatus>('');
+    const [ValApellidoPaterno, setValApellidoPaterno] = useState<InputStatus>('');
+    const [ValApellidoMaterno, setValApellidoMaterno] = useState<InputStatus>('');
     const [ValTipoEnt, setValTipoEnt] = useState<InputStatus>('');
     const [ValTipoDocuemntoIdentidad, setValTipoDocuemntoIdentidad] = useState<InputStatus>('');
     const [selectedTipoEnt, setSelectedTipoEnt] = useState<number | undefined>(undefined);
@@ -54,6 +55,11 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValCodigo('');
+        setvalNombre('');
+        setvalNombreComercial('');
+        setvalNumDocumento('');
+        setValApellidoPaterno('');
+        setValApellidoMaterno('');
         setEntDato({
             ...EntDato,
             [e.target.name]: e.target.value.toUpperCase()
@@ -202,7 +208,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                             </Col>
                             <Col span={24}>
                                 <Input
-                                    status={ValNombres}
+                                    status={ValNombre}
                                     type="text"
                                     name="Nombres"
                                     style={{ marginTop: '5px', marginBottom: '10px' }}
@@ -314,7 +320,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                             </Col>
                             <Col span={24}>
                                 <Input
-                                    status={ValNombres}
+                                    status={ValNombreComercial}
                                     type="text"
                                     name="NombreComercial"
                                     style={{ marginTop: '5px', marginBottom: '10px' }}

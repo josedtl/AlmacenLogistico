@@ -136,7 +136,7 @@ function Page() {
 
 
   const onChangeProceso = async (value: number) => {
-    // setValUnidadMedida('');
+    setValTipoRequerimiento('');
     Ent.ProcesoId = value;
     setSelectedTipoRequerimeinto(value)
     selectedTipoRequerimeinto;
@@ -254,7 +254,7 @@ function Page() {
     e.preventDefault();
     KeyTabs;
     selectedCategoria;
-    if (Ent.TipoProcesoId === 0) {
+    if (Ent.ProcesoId === 0) {
       setValTipoRequerimiento('error');
       messageAdd.open({ type: 'error', content: 'Seleccione un Tipo de Requerimiento.', });
       return;
@@ -265,7 +265,7 @@ function Page() {
       return;
     }
 
-   
+
 
     modal.confirm({
       title: 'Mensaje del Sistema',
@@ -329,7 +329,7 @@ function Page() {
   const [optionsEntidad, setOptionsEntidad] = useState<EntidadNombreCompletoModel[]>([]);
   const [ValResponsable, setValResponsable] = useState<InputStatus>('');
   const [ValTipoRequerimiento, setValTipoRequerimiento] = useState<InputStatus>('');
-  
+
   const handleSearchCategoria = async (value: string) => {
     try {
       const responseCategoria = await sGeneral.EntidadBuscarNombreCompletoItem(value);

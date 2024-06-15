@@ -127,9 +127,12 @@ function Page() {
   const [optionsTipoProceso, setOptionsTipoProceso] = useState<ProcesoModel[]>([]);
   const [selectedTipoRequerimeinto, setSelectedTipoRequerimeinto] = useState<number | undefined>(undefined);
 
+  const [ValTipoRequerimiento, setValTipoRequerimiento] = useState<InputStatus>('');
+  const [ValProveedor, setValProveedor] = useState<InputStatus>('');
+  
 
   const onChangeTipoProceso = async (value: number) => {
-    // setValUnidadMedida('');
+    setValTipoRequerimiento('');
     Ent.TipoProcesoId = value;
     setSelectedTipoRequerimeinto(value)
     selectedTipoRequerimeinto;
@@ -148,10 +151,11 @@ function Page() {
   const getCargarDatos = async (Id: number) => {
     try {
 
+
       setCargarPage(true);
       setEnt(new OrdenCompraEntity())
       setItems([])
-      const Resp_TR = await sGeneral.ProcesoObtenerTipo("OP001");
+      const Resp_TR = await sGeneral.ProcesoObtenerTipo("OC001");
       setOptionsTipoProceso(Resp_TR);
       Ent.Action = ProcessActionEnum.Add
       if (Id > 0) {
@@ -241,6 +245,21 @@ function Page() {
 
   const Guardar_Total = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
+
+
+
+    if (Ent.ProcesoId === 0) {
+      setValTipoRequerimiento('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione un Tipo de Requerimiento.', });
+      return;
+    }
+    if (Ent.NomProveedor.trimEnd() === '') {
+      setValProveedor('error');
+      messageAdd.open({ type: 'error', content: 'Ingrese Nombre del Responsable .', });
+      return;
+    }
+
+
     KeyTabs;
     selectedCategoria;
     modal.confirm({
@@ -393,7 +412,7 @@ function Page() {
                   <Col span={24}>
                     <Select
                       showSearch
-                      // status={ValUnidadMedida}
+                       status={ValTipoRequerimiento}
                       style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                       defaultActiveFirstOption={false}
                       filterOption={false}
@@ -415,12 +434,12 @@ function Page() {
               <Col xs={18}>
                 <Row>
                   <Col span={24}>
-                    <label>Responsable</label>
+                    <label>Proveedor</label>
                   </Col>
                   <Col span={24}>
 
                     <Select
-                      status={ValCategoria}
+                      status={ValProveedor}
                       showSearch
                       style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                       defaultActiveFirstOption={false}

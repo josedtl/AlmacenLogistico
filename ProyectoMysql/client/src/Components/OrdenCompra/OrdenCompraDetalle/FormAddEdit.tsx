@@ -3,7 +3,7 @@ import { OrdenCompraDetalleEntity } from '../../../Models/OrdenCompraDetalleEnti
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
-import { Select, Button, Col, Row, Space, Input, Form } from 'antd';
+import { Select, Button, Col, Row, Space, Input, Form,message } from 'antd';
 import MerListaService from '../../../Service/MerListaService';
 import MercaderiaService from '../../../Service/MercaderiaService';
 import { MerListaEntity } from '../../../Models/MerListaEntity';
@@ -15,8 +15,11 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [Ent, setEnt] = useState<OrdenCompraDetalleEntity>(initialOrdenCompraDetalle);
     const [FlaState, setFlaState] = useState<Boolean>(false);
     const [ValDato, setValDato] = useState<InputStatus>('');
+    const [messageAdd, contextHolderAdd] = message.useMessage();
+    const [ValSolicitar, setValSolicitar] = useState<InputStatus>('');
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValDato('');
+        setValSolicitar('');
         setEnt({
             ...Ent,
             [e.target.name]: e.target.value.toUpperCase()
@@ -27,6 +30,25 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         try {
+
+
+            if (Ent.CategoriaId === 0) {
+                setValCategoria('error');
+                messageAdd.open({ type: 'error', content: 'Seleccione una Categoria.', });
+                return;
+            }
+            if (Ent.MercaderiaId === 0) {
+                setValProducto('error');
+                messageAdd.open({ type: 'error', content: 'Seleccione un Producto.', });
+                return;
+            }
+    
+            if (Ent.CantidadSolicitado <= 0) {
+                setValSolicitar('error');
+                messageAdd.open({ type: 'error', content: 'Seleccione un número', });
+                return;
+            }
+
             // Ent.CantidadSolicitado = 1;
             Ent.UnidadMedidaId = 1;
             // Ent.key =props.keyItem;
@@ -57,6 +79,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [ValCodigoUM, setValCodigoUM] = useState<string>('');
     const sMerLista = new MerListaService();
     const sMercaderiaService = new MercaderiaService();
+    const [ValProducto, setValProducto] = useState<InputStatus>('');
+
     selectedPRoducto;
     selectedCategoria;
     ValCategoria;
@@ -95,6 +119,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     };
     const onChangeProducto = async (value: number, Itemdata: any) => {
         try {
+            setValProducto('');
             Itemdata;
             Ent.MercaderiaId = value;
             setSelectedProducto(value)
@@ -171,7 +196,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 </Col>
                 <Col span={24}>
                     <Select
-                        // status={ValCategoria}
+                        status={ValCategoria}
                         showSearch
                         style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                         defaultActiveFirstOption={false}
@@ -199,7 +224,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 </Col>
                 <Col span={24}>
                     <Select
-                        // status={ValCategoria}
+                        status={ValProducto}
                         showSearch
                         style={{ width: '100%', marginTop: '5px', marginBottom: '10px', wordWrap: "break-word" }}
                         defaultActiveFirstOption={false}
@@ -264,7 +289,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
                                 <Space.Compact>
                                     <Input
-                                        // suffix={ValCodigoUM}
+                                        status={ValSolicitar}
                                         type="number"
                                         name="CantidadSolicitado"
                                         style={{ width: '70%', marginTop: '5px', marginBottom: '10px' }}
@@ -274,7 +299,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
                                     <Input
                                         readOnly={true}
-                                        status={ValDato}
+                                       // status={ValSolicitar}
                                         type="text"
                                         style={{ width: '30%', marginTop: '5px', marginBottom: '10px' }}
                                         name="Nombre"
