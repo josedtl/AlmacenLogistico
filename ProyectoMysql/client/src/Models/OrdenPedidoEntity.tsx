@@ -22,6 +22,7 @@ export class OrdenPedidoEntity {
     color: string
     ValorEstadoProceso: number
     NomProceso: string
+    keyItem: string;
     constructor() {
         this.OrdenPedidoId = 0;
         this.ProcesoId = 0;
@@ -42,5 +43,6 @@ export class OrdenPedidoEntity {
         this.color = 'red';
         this.ValorEstadoProceso = 0;
         this.NomProceso = ''
+        this.keyItem = '';
     }
 }
