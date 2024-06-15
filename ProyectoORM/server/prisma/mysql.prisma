@@ -1,117 +1,330 @@
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-model TipoEstadoUsuario {
-  TipoEstadoUsuarioId Int       @id @default(autoincrement()) @map("TipoEstadoUsuarioId")
-  nombre              String    @map("Nombre") @db.VarChar(255)
-  CodUsuario          String    @map("CodUsuario") @db.VarChar(10)
-  Usuario             Usuario[]
-
-  @@map("Catalogo_TipoEstadoUsuario")
+model ConfiguracionEntidad {
+  ConfiguracionEntidadId      Int                           @id @default(autoincrement())
+  Codigo                      String                        @db.VarChar(10)
+  Nombre                      String                        @db.VarChar(150)
+  ConfiguracionEntidadDetalle ConfiguracionEntidadDetalle[]
 }
 
-model Usuario {
-  UsuarioId           Int               @id @default(autoincrement())
-  Codigo              String            @db.VarChar(20)
-  contrasena          String            @db.VarChar(40)
-  FechaRegistro       DateTime
-  CodUsuario          String            @db.VarChar(15)
-  FechaVencimiento    DateTime
-  TipoEstadoUsuario   TipoEstadoUsuario @relation(fields: [TipoEstadoUsuarioId], references: [TipoEstadoUsuarioId])
-  TipoEstadoUsuarioId Int
-  Rol                 Rol               @relation(fields: [RolId], references: [RolId])
-  RolId               Int
-  usuarioDetalles     UsuarioDetalle[]
-
-  @@map("Catalogo_Usuario")
-}
-
-model UsuarioDetalle {
-  UsuarioDetalleId Int     @id @default(autoincrement())
-  Detalle          String
-  UsuarioId        Int
-  usuario          Usuario @relation(fields: [UsuarioId], references: [UsuarioId])
-
-  @@map("Catalogo_UsuarioDealle")
-}
-
-model Rol {
-  RolId      Int       @id @default(autoincrement())
-  Codigo     String    @unique
-  Nombre     String
-  Usuario    Usuario[]
-  CodUsuario String
-
-  @@map("Catalogo_Rol")
+model ConfiguracionEntidadDetalle {
+  ConfiguracionEntidadDetalleId Int                   @id @default(autoincrement())
+  CampoEntidad                  CampoEntidad?         @relation(fields: [CampoId], references: [CampoId])
+  CampoId                       Int?
+  ConfiguracionEntidad          ConfiguracionEntidad? @relation(fields: [ConfiguracionEntidadId], references: [ConfiguracionEntidadId])
+  ConfiguracionEntidadId        Int?
 }
 
 model DatoEntidad {
-  DatoId    Int     @id @default(autoincrement())
-  Entidad   Entidad @relation(fields: [EntidadId], references: [EntidadId])
-  EntidadId Int
-  valor     String
-  Campo     Campo   @relation(fields: [CampoId], references: [CampoId])
-  CampoId   Int
-  // DatoEntidadEnlace DatoEntidadEnlace[]
+  DatoId          Int            @id @default(autoincrement())
+  Entidad         Entidad        @relation(fields: [EntidadId], references: [EntidadId])
+  EntidadId       Int
+  valor           String         @db.VarChar(250)
+  CampoEntidad    CampoEntidad   @relation(fields: [CampoId], references: [CampoId])
+  CampoId         Int
+  ListaRelacion   ListaRelacion? @relation(fields: [ListaRelacionId], references: [ListaRelacionId])
+  ListaRelacionId Int?
 
   @@map("DatoEntidad")
 }
 
-model Campo {
-  CampoId     Int           @id @default(autoincrement())
-  campo       String
-  Dato        DatoEntidad[]
-  TypeValor   TypeValor     @relation(fields: [TypeValorId], references: [TypeValorId])
-  TypeValorId Int
+model CampoEntidad {
+  CampoId                     Int                           @id @default(autoincrement())
+  Campo                       String                        @db.VarChar(50)
+  Dato                        DatoEntidad[]
+  TypeValorId                 Int
+  ConfiguracionEntidadDetalle ConfiguracionEntidadDetalle[]
 
   @@map("Campo")
 }
 
+model TipoEntidad {
+  TipoEntidadId Int       @id @default(autoincrement())
+  Codigo        String    @db.VarChar(10)
+  Nombre        String    @db.VarChar(100)
+  Entidad       Entidad[]
+}
+
 model Entidad {
-  EntidadId                Int                    @id @default(autoincrement())
-  EsEmpresa                Boolean
-  TipoDocumentoIdentidad   TipoDocumentoIdentidad @relation(fields: [TipoDocumentoIdentidadId], references: [TipoDocumentoIdentidadId])
-  TipoDocumentoIdentidadId Int
-  NumDocumento             String                 @db.VarChar(30)
-  NombreCompleto           String                 @db.VarChar(30)
-  FechaRegistro            DateTime               @default(now())
-  CodUsuario               String                 @db.VarChar(25)
-  DatoEntidad              DatoEntidad[]
+  EntidadId                   Int                          @id @default(autoincrement())
+  TipoEntidad                 TipoEntidad?                 @relation(fields: [TipoEntidadId], references: [TipoEntidadId])
+  TipoEntidadId               Int?
+  EsEmpresa                   Boolean                      @default(false)
+  TipoDocumentoIdentidadModel TipoDocumentoIdentidadModel? @relation(fields: [TipoDocumentoIdentidadId], references: [TipoDocumentoIdentidadId])
+  TipoDocumentoIdentidadId    Int?
+  NumDocumento                String                       @db.VarChar(30)
+  NombreCompleto              String                       @db.VarChar(30)
+  FechaRegistro               DateTime                     @default(now())
+  CodUsuario                  String                       @db.VarChar(25)
+  DatoEntidad                 DatoEntidad[]
+  UbigeoModel                 UbigeoModel?                 @relation(fields: [UbigeoId], references: [UbigeoId])
+  UbigeoId                    Int?
+  OrdenPedidoModel            OrdenPedidoModel[]
 
   @@map("Entidad")
 }
 
-model TipoDocumentoIdentidad {
+model UbigeoModel {
+  UbigeoId          Int               @id
+  CodUbigeo         String            @db.VarChar(20)
+  DesUbigeo         String            @db.VarChar(100)
+  DepartamentoId    Int
+  ProvinciaId       Int
+  DistritoId        Int
+  DepartamentoModel DepartamentoModel @relation(fields: [DepartamentoId], references: [DepartamentoId])
+  ProvinciaModel    ProvinciaModel    @relation(fields: [ProvinciaId], references: [ProvinciaId])
+  DistritoModel     DistritoModel     @relation(fields: [DistritoId], references: [DistritoId])
+  Entidad           Entidad[]
+
+  @@map("catalogo_ubigeo")
+}
+
+model TipoDocumentoIdentidadModel {
   TipoDocumentoIdentidadId Int       @id @default(autoincrement())
-  Nombre                   String    @default("") @map("Nombre") @db.VarChar(100)
+  Codigo                   String    @default("") @map("Codigo") @db.VarChar(100)
+  Alias                    String    @default("") @map("Alias") @db.VarChar(100)
+  Descripcion              String    @default("") @map("Descripcion") @db.VarChar(100)
+  EsEmpresa                Boolean   @default(false) @map("EsEmpresa")
   Entidad                  Entidad[]
 
-  @@map("TipDocIdentidad")
+  @@map("catalogo_TipoDocumentoIdentidad")
 }
+
+// model TypeValor {
+//   TypeValorId  Int            @id @default(autoincrement())
+//   Nombre       String         @db.VarChar(40)
+//   CampoEntidad CampoEntidad[]
+
+//   @@map("TypeValor")
+// }
+
+model ListaRelacion {
+  ListaRelacionId     Int               @id @default(autoincrement())
+  TipoListaRelacionId Int
+  Nombre              String            @default("") @map("Nombre") @db.VarChar(100)
+  FechaRegistro       DateTime          @default(now())
+  CodUsuario          String            @default("") @map("CodUsuario") @db.VarChar(15)
+  EstadoRegistro      Boolean           @default(true)
+  DatoEntidad         DatoEntidad[]
+  TipoListaRelacion   TipoListaRelacion @relation(fields: [TipoListaRelacionId], references: [TipoListaRelacionId])
+
+  @@map("ListaRelacion")
+}
+
+model TipoListaRelacion {
+  TipoListaRelacionId Int             @id @default(autoincrement())
+  Codigo              String          @default("") @map("Codigo") @db.VarChar(10)
+  Nombre              String          @default("") @map("Nombre") @db.VarChar(100)
+  ListaRelacion       ListaRelacion[]
+
+  @@map("TipoListaRelacion")
+}
+
+model OrdenPedidoModel {
+  OrdenPedidoId           Int       @id @default(autoincrement())
+  ProcesoId               Int
+  TipoProcesoId           Int
+  EstadoProcesoId         Int
+  Codigo                  String    @default("") @map("Codigo") @db.VarChar(30)
+  Entidad                 Entidad?  @relation(fields: [EntidadId], references: [EntidadId])
+  EntidadId               Int?
+  NumDocumentoResponsable String?
+  NomResponsable          String?
+  FechaEmision            DateTime
+  BloqueoEdicionOtros     Boolean?
+  FechaRegistro           DateTime?
+  CodUsuario              String?
+  EstadoRegistro          Boolean?
+
+  @@map("transaccion_ordenpedido") // Mapea la tabla con el nombre exacto en la base de datos
+}
+
+model TransaccionOrdenPedidoDetalle {
+  OrdenPedidoDetalleId Int      @id @default(autoincrement())
+  OrdenPedidoId        Int
+  ProductoId           Int
+  UnidadMedidaId       Int
+  CantidadSolicitado   Float
+  CantidadReservado    Float?
+  CantidadFaltante     Float
+  CantidadAtendido     Float
+  Enlazado             Boolean
+  EsAtendido           Boolean
+  FechaRegistro        DateTime
+  CodUsuario           String
+  EstadoRegistro       Boolean?
+
+  @@map("transaccion_ordenpedidodetalle")
+}
+
+model ProductoModel {
+  ProductoId        Int               @id @default(autoincrement())
+  Codigo            String            @db.VarChar(30)
+  CategoriaId       Int
+  TipoProductoId    Int
+  MarcaId           Int
+  ModeloId          Int
+  Nombre            String            @db.VarChar(100)
+  Descripcion       String            @db.VarChar(200)
+  UnidadMedidaId    Int
+  Reserva           Float
+  Stock             Float
+  FechaRegistro     DateTime
+  CodUsuario        String            @db.VarChar(15)
+  EstadoRegistro    Boolean
+  CategoriaModel    CategoriaModel    @relation(fields: [CategoriaId], references: [CategoriaId])
+  TipoProductoModel TipoProductoModel @relation(fields: [TipoProductoId], references: [TipoProductoId])
+  MarcaModel        MarcaModel        @relation(fields: [MarcaId], references: [MarcaId])
+  ModeloModel       ModeloModel       @relation(fields: [ModeloId], references: [ModeloId])
+  UnidadMedidaModel UnidadMedidaModel @relation(fields: [UnidadMedidaId], references: [UnidadMedidaId])
+
+  @@map("catalogo_producto")
+}
+
+model CategoriaModel {
+  CategoriaId    Int             @id @default(autoincrement())
+  Nombre         String          @db.VarChar(100)
+  FechaRegistro  DateTime
+  CodUsuario     String          @db.VarChar(15)
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_categoria")
+}
+
+model TipoProductoModel {
+  TipoProductoId Int             @id @default(autoincrement())
+  Nombre         String          @db.VarChar(50)
+  FechaRegistro  DateTime
+  CodUsuario     String          @db.VarChar(15)
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_tipoproducto")
+}
+
+model MarcaModel {
+  MarcaId        Int             @id @default(autoincrement())
+  Nombre         String          @db.VarChar(100)
+  FechaRegistro  DateTime
+  CodUsuario     String          @db.VarChar(15)
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_marca")
+}
+
+model ModeloModel {
+  ModeloId       Int             @id @default(autoincrement())
+  Nombre         String          @db.VarChar(100)
+  FechaRegistro  DateTime
+  CodUsuario     String          @db.VarChar(15)
+  EstadoRegistro Boolean
+  ProductoModel  ProductoModel[]
+
+  @@map("catalogo_modelo")
+}
+
+model UnidadMedidaModel {
+  UnidadMedidaId  Int             @id @default(autoincrement())
+  Codigo          String          @db.VarChar(25)
+  CodigoComercial String          @db.VarChar(25)
+  Nombre          String          @db.VarChar(100)
+  ProductoModel   ProductoModel[]
+
+  @@map("catalogo_unidadmedida")
+}
+
+model DepartamentoModel {
+  DepartamentoId  Int              @id
+  CodDepartamento Int
+  NomDepartamento String           @db.VarChar(50)
+  UbigeoModel     UbigeoModel[]
+  ProvinciaModel  ProvinciaModel[]
+
+  @@map("catalogo_departamento")
+}
+
+model ProvinciaModel {
+  ProvinciaId       Int               @id
+  CodProvincia      Int
+  NomProvincia      String            @db.VarChar(50)
+  DepartamentoId    Int
+  UbigeoModel       UbigeoModel[]
+  DepartamentoModel DepartamentoModel @relation(fields: [DepartamentoId], references: [DepartamentoId])
+  DistritoModel     DistritoModel[]
+
+  @@map("catalogo_provincia")
+}
+
+model DistritoModel {
+  DistritoId     Int            @id
+  CodDistrito    Int
+  NomDistrito    String         @db.VarChar(50)
+  ProvinciaId    Int
+  UbigeoModel    UbigeoModel[]
+  ProvinciaModel ProvinciaModel @relation(fields: [ProvinciaId], references: [ProvinciaId])
+
+  @@map("catalogo_distrito")
+}
+
 
 model TypeValor {
-  TypeValorId Int     @id @default(autoincrement())
-  Nombre      String  @db.VarChar(40)
-  Campo       Campo[]
-
-  @@map("TypeValor")
+  TypeValorId  Int     @id @default(autoincrement())
+  Codigo       String? @map("Codigo")
+  Nombre       String? @map("Nombre")
+  MerCampo  MerCampo[]
+  @@map("typevalor")
 }
 
-// model EnlaceItem {
-//   EnlaceItemId      Int                 @id @default(autoincrement())
-//   Codigo            String
-//   Nombre            String
-//   CodUsuario        String
-//   FechaRegistro     DateTime
-//   Estado            Boolean
-//   DatoEntidadEnlace DatoEntidadEnlace[]
-// }
+model MerCampo {
+  CampoId     Int      @id
+  Codigo      String   @map("Codigo")
+  Campo       String   @map("Campo")
+  Nombre      String   @map("Nombre")
+  TypeValorId Int      @map("TypeValorId")
+  TypeValor   TypeValor @relation(fields: [TypeValorId], references: [TypeValorId])
+  MerDato      MerDato[]
+  @@map("mer_campo")
+}
 
-// model DatoEntidadEnlace {
-//   DatoEntidad   DatoEntidad @relation(fields: [DatoEntidadId], references: [DatoId])
-//   DatoEntidadId Int         @unique
-//   EnlaceItem    EnlaceItem  @relation(fields: [EnlaceItemId], references: [EnlaceItemId])
-//   EnlaceItemId  Int         @unique
-// }
+model MerLista {
+  ListaId       Int       @id @default(autoincrement())
+  CampoId       Int       @map("CampoId")
+  Codigo        String    @map("Codigo") @db.VarChar(40)
+  Nombre        String    @map("Nombre") @default("") @db.VarChar(250)
+  Descripcion   String    @map("Descripcion") @db.VarChar(250)
+  FechaRegistro DateTime  @map("FechaRegistro") @default(now())
+  CodUsuario    String    @map("CodUsuario") @default("")  @db.VarChar(20)
+  EstadoRegistro Boolean  @map("EstadoRegistro") @default(true)
+  MerDato     MerDato[]
+  @@map("mer_lista")
+}
+
+model Mercaderia {
+  MercaderiaId         Int      @id @default(autoincrement())
+  TipoMercaderiaId     Int      @map("TipoMercaderiaId")
+  EstadoMercaderia     Int      @map("EstadoMercaderia")
+  UnidadMedidaControlId Int     @map("UnidadMedidaControlId")
+  Stock                Float    @map("Stock")
+  Reserva              Float    @map("Reserva")
+
+  @@map("mercaderia")
+}
+
+model MerDato {
+  DatoId       Int      @id @default(autoincrement())
+  MercaderiaId Int      @map("MercaderiaId")
+  CampoId      Int      @map("CampoId")
+  AlfaNumerico String?  @map("AlfaNumerico") @db.VarChar(250)
+  FechaValor   DateTime?   @map("FechaValor") 
+  ListaId      Int?     @map("ListaId")
+  MerCampo     MerCampo @relation(fields: [CampoId], references: [CampoId])
+  MerLista     MerLista? @relation(fields: [ListaId], references: [ListaId])
+
+  @@map("mer_dato")
+}

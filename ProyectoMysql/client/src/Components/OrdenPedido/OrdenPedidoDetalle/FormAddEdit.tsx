@@ -48,7 +48,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 return;
             }
     
-
             // Ent.CantidadSolicitado = 1;
             Ent.UnidadMedidaId = 1;
             // Ent.key =props.keyItem;

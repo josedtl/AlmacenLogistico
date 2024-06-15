@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
 import ModalItem from './ModalItem';
-import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar } from 'antd';
+import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Flex, Layout, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { useParams } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
@@ -40,32 +40,31 @@ function Page() {
   const [FechaEmisionItem, setFechaEmisionItem] = useState<string>(moment(Ent.FechaEmision).format('DD/MM/YYYY hh:mm'));
   const addItemToState = (item: OrdenPedidoDetalleEntity) => {
 
-
-
     const itemIndex = items.findIndex((data) => data.keyItem === item.keyItem);
 
     if (itemIndex == -1) {
       setItems([...items, item]);
+      
       messageAdd.open({
         type: 'success',
         content: 'Se guardó correctamente.',
       });
 
     }
-    else {
-      setItems([...items, item]);
-      messageAdd.open({
-        type: 'success',
-        content: 'Se guardó correctamente.',
-      });
+    // else {
+    //   setItems([...items, item]);
+    //   messageAdd.open({
+    //     type: 'success',
+    //     content: 'Se guardó correctamente.',
+    //   });
 
-      const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
-      setItems(newArray);
-      messageAdd.open({
-        type: 'success',
-        content: 'Se actualizó correctamente.',
-      });
-    }
+    //   const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+    //   setItems(newArray);
+    //   messageAdd.open({
+    //     type: 'success',
+    //     content: 'Se actualizó correctamente.',
+    //   });
+    // }
 
   };
 
@@ -170,6 +169,7 @@ function Page() {
 
         const Resp_Producto = await sOrdenPedido.GetItemCabecera(Id);
         Resp_Producto[0].Action = ProcessActionEnum.Update
+
         setEnt(Resp_Producto[0]);
 
         const Resp_OPDetalle = await sOrdenPedido.GetItemCabeceraOP(Id);
