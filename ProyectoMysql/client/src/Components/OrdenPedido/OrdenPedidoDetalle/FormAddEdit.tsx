@@ -3,7 +3,7 @@ import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEnti
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
-import { Select, Button, Col, Row, Space, Input, Form, message ,Modal} from 'antd';
+import { Select, Button, Col, Row, Space, Input, Form, message, Modal } from 'antd';
 import MerListaService from '../../../Service/MerListaService';
 import MercaderiaService from '../../../Service/MercaderiaService';
 import { MerListaEntity } from '../../../Models/MerListaEntity';
@@ -29,7 +29,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     FlaState;
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        
 
         try {
             if (Ent.CategoriaId === 0) {
@@ -42,13 +41,13 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 messageAdd.open({ type: 'error', content: 'Seleccione un Producto.', });
                 return;
             }
-    
+
             if (Ent.CantidadSolicitado <= 0) {
                 setValSolicitar('error');
                 messageAdd.open({ type: 'error', content: 'Seleccione un número', });
                 return;
             }
-    
+
 
             // Ent.CantidadSolicitado = 1;
             Ent.UnidadMedidaId = 1;
@@ -191,7 +190,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         // <Form form={form} name="formItem" layout="vertical" autoComplete="off">
         <>
 
-{contextHolder}
+            {contextHolder}
             {contextHolderAdd}
             <Row>
                 <Col span={24}>
