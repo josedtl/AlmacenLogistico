@@ -3,12 +3,21 @@ import { OrdenCompraDetalleEntity } from '../../../Models/OrdenCompraDetalleEnti
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
-import { Select, Button, Col, Row, Space, Input, Form,message } from 'antd';
+import { Select, Button, Col, Row, Space, Input, Form, message, Radio } from 'antd';
 import MerListaService from '../../../Service/MerListaService';
 import MercaderiaService from '../../../Service/MercaderiaService';
 import { MerListaEntity } from '../../../Models/MerListaEntity';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
-import {  MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
+import DataTableOrden from '../OrdenCompraDetalle/DataTableOrden';
+import DataTableItem from '../OrdenCompraDetalle/DataTableItem';
+import type { RadioChangeEvent } from 'antd';
+import { MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
+import { EntDatoModel } from "../../../Models/EntDatoEntity";
+import { OrdenPedidoEntity } from "../../../Models/OrdenPedidoEntity";
+import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity'
+
+import OrdenPedidoService from '../../../Service/OrdenPedidoService';
+
 const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const initialOrdenCompraDetalle = new OrdenCompraDetalleEntity();
@@ -16,16 +25,31 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [FlaState, setFlaState] = useState<Boolean>(false);
     const [ValDato, setValDato] = useState<InputStatus>('');
     const [messageAdd, contextHolderAdd] = message.useMessage();
+    const [FlaNumero, setNumeroState] = useState<number>(0);
+
+    const sOrdenPedido = new OrdenPedidoService();
     const [ValSolicitar, setValSolicitar] = useState<InputStatus>('');
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValDato('');
-        setValSolicitar('');
-        setEnt({
-            ...Ent,
-            [e.target.name]: e.target.value.toUpperCase()
-        });
+
+    const [items, setItems] = useState<OrdenPedidoEntity[]>([]);
+    const [itemsItem, setItemsItem] = useState<OrdenPedidoEntity[]>([]);
+
+    const [selectedOption, setSelectedOption] = useState(1);
+    // const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setValDato('');
+    //     setValSolicitar('');
+    //     setEnt({
+    //         ...Ent,
+    //         [e.target.name]: e.target.value.toUpperCase()
+    //     });
+
+    // };
+
+    const onChange = (e: RadioChangeEvent) => {
+        setSelectedOption(e.target.value);
 
     };
+
+
 
     const submitFormAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -42,7 +66,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 messageAdd.open({ type: 'error', content: 'Seleccione un Producto.', });
                 return;
             }
-    
+
             if (Ent.CantidadSolicitado <= 0) {
                 setValSolicitar('error');
                 messageAdd.open({ type: 'error', content: 'Seleccione un número', });
@@ -91,28 +115,20 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     //     setFlaState(updatedPerson.OrdenCompraDetalleId > 0);
     //     setEnt(updatedPerson);
     // }, []);
+
+
+
     const [optionsCategoria, setOptionsCategoria] = useState<MerListaEntity[]>([]);
     const [optionsProducto, setOptionsProducto] = useState<MercaderiaItemOPModel[]>([]);
-    const handleSearchCategoria = async (value: string) => {
-        try {
-            const responseCategoria = await sMerLista.getItemLike("M002", value);
-            setOptionsCategoria(responseCategoria);
-        } catch (error) {
-            console.error('Error al buscar categorías:', error);
-        }
-    };
 
-    const onChangeCategoria = async (value: number) => {
-        setValCategoria('');
-        Ent.CategoriaId = value;
-        setSelectedCategoria(value)
-    };
+    const [optionsOrden, setOptionsOrden] = useState<OrdenCompraDetalleEntity[]>([]);
+
 
     const handleSearchProducto = async (value: string) => {
         try {
             const responseProducto = await sMercaderiaService.getItemCategoriaLike(value, Ent.CategoriaId);
             setOptionsProducto(responseProducto);
-        
+
         } catch (error) {
             console.error('Error al buscar categorías:', error);
         }
@@ -149,9 +165,11 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
 
     const getItems = async () => {
-    
+
         const updatedItem = props.item;
 
+        const main = await sOrdenPedido.GetItemOPMain();
+        
         if (updatedItem.MercaderiaId > 0) {
 
             const responseProducto = await sMercaderiaService.GetMercaderia_ItemOP(updatedItem.MercaderiaId);
@@ -182,138 +200,50 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         setFlaState(updatedItem.key === '');
         setEnt(updatedItem);
     }
+    const filterItems = items.filter(d => d.Action != ProcessActionEnum.Delete);
+
+    const filterItemsItem = itemsItem.filter(d => d.Action != ProcessActionEnum.Delete);
+
+    const [disabled, setDisabled] = useState(false);
+
+    const TipoEntidad = () => {
+        if (selectedOption == 0) {
+
+            return <DataTableOrden DataList={filterItems} EsTabla={disabled} />
+
+        }
+        else {
+            return <DataTableItem DataList={filterItemsItem} EsTabla={disabled} />
+        }
+
+    }
+
 
 
 
     return (
 
-        // <Form form={form} name="formItem" layout="vertical" autoComplete="off">
         <>
 
             <Row>
                 <Col span={24}>
-                    <label>Categoria</label>
-                </Col>
-                <Col span={24}>
-                    <Select
-                        status={ValCategoria}
-                        showSearch
-                        style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                        defaultActiveFirstOption={false}
-                        filterOption={false}
-                        onSearch={handleSearchCategoria}
-                        value={Ent.CategoriaId === 0 ? null : Ent.CategoriaId}
-                        key={Ent.CategoriaId}
-                        onChange={onChangeCategoria}
-                    >
-                        {optionsCategoria.map((categoria) => (
-                            <Select.Option key={categoria.ListaId} value={categoria.ListaId}>
-                                {categoria.Nombre}
-                            </Select.Option>
-
-                        ))}
-                    </Select>
-
-                </Col>
-            </Row>
-
-
-            <Row>
-                <Col span={24}>
-                    <label>Producto</label>
-                </Col>
-                <Col span={24}>
-                    <Select
-                        status={ValProducto}
-                        showSearch
-                        style={{ width: '100%', marginTop: '5px', marginBottom: '10px', wordWrap: "break-word" }}
-                        defaultActiveFirstOption={false}
-                        filterOption={false}
-                        onSearch={handleSearchProducto}
-                        value={Ent.MercaderiaId === 0 ? null : Ent.MercaderiaId}
-                        key={Ent.NomProducto}
-                        onChange={onChangeProducto}
-                    >
-                        {optionsProducto.map((Producto) => (
-                            <Select.Option key={Producto.MercaderiaId} value={Producto.MercaderiaId}>
-                                {Producto.Nombre}
-                            </Select.Option>
-                        ))}
-                    </Select>
-
-                </Col>
-            </Row>
-            <Row>
-                <Col span={12}>
-
                     <Row>
-                        <Col span={24}>
-                            <label>Stock</label>
-                        </Col>
-                        <Col span={24}>
-                            <Space direction="vertical" size="middle">
 
-                                <Space.Compact>
-                                    <Input
-                                        readOnly={true}
-                                        type="number"
-                                        name="Stock"
-                                        style={{ marginTop: '5px', marginBottom: '10px' }}
-                                        // onChange={onChangeText}
-                                        value={Ent.Stock === null ? 0 : Ent.Stock}
-                                    />
-                                    <Input
-                                        readOnly={true}
-                                        status={ValDato}
-                                        type="text"
-                                        style={{ width: '30%', marginTop: '5px', marginBottom: '10px' }}
-                                        name="Nombre"
-                                        value={ValCodigoUM}
-                                    />
-                                </Space.Compact>
-                            </Space>
-                        </Col>
+                        <Radio.Group
+                            style={{ marginTop: '5px', marginBottom: '10px' }}>
+                            <Radio value={0} onChange={onChange}   >Por Orden</Radio>
+                            <Radio value={1} onChange={onChange}   >Por Item</Radio>
+                        </Radio.Group>
+
                     </Row>
-
-
                 </Col>
-                <Col span={12}>
 
-
-                    <Row>
-                        <Col span={24}>
-                            <label>Solicitar</label>
-                        </Col>
-                        <Col span={24}>
-                            <Space direction="vertical" size="middle">
-
-                                <Space.Compact>
-                                    <Input
-                                        status={ValSolicitar}
-                                        type="number"
-                                        name="CantidadSolicitado"
-                                        style={{ width: '70%', marginTop: '5px', marginBottom: '10px' }}
-                                        onChange={onChange}
-                                        value={Ent.CantidadSolicitado === null ? 0 : Ent.CantidadSolicitado}
-                                    />
-
-                                    <Input
-                                        readOnly={true}
-                                       // status={ValSolicitar}
-                                        type="text"
-                                        style={{ width: '30%', marginTop: '5px', marginBottom: '10px' }}
-                                        name="Nombre"
-                                        value={ValCodigoUM}
-                                    />
-                                </Space.Compact>
-                            </Space>
-
-                        </Col>
-                    </Row>
-
-
-                </Col>
             </Row>
+            <Col xs={24} >
+                {TipoEntidad()}
+                {/* <DataTableOrden DataList={filterItems} EsTabla={disabled} /> */}
+
+            </Col>
 
             <Form.Item>
                 <Button

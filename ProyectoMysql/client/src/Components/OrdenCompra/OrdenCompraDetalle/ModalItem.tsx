@@ -77,7 +77,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
     <React.Fragment>
       {button}
       <Modal title={title} open={modal} onOk={toggle}
-        width={500}
+        width={1000}
         onCancel={toggle}
 
         footer={[
