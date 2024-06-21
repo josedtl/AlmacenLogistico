@@ -34,9 +34,6 @@ namespace LogisticStorage.DataLayer
 				throw ex;
 			}
 		}
-
-
-
 		public virtual bool PersonaNaturalRegistrar(EntidadEntity Ent)
 		{
 			StartHelper(true);
@@ -53,7 +50,6 @@ namespace LogisticStorage.DataLayer
 			Helper.Close();
 			return true;
 		}
-
 		private bool PersonaNaturalRegistrarDB(EntidadEntity Ent)
 		{
 			if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
@@ -97,8 +93,6 @@ namespace LogisticStorage.DataLayer
 
 			return true;
 		}
-
-
 		public virtual List<EntidadEntity> PersonaNaturalObtenerMain()
 		{
 			try
@@ -123,11 +117,6 @@ namespace LogisticStorage.DataLayer
 				throw ex;
 			}
 		}
-
-
-
-
-
         public virtual List<EntidadEntity> EmpresaObtenerMain()
         {
             try
@@ -234,9 +223,6 @@ namespace LogisticStorage.DataLayer
 
             return true;
         }
-
-
-
         public virtual List<EntidadEntity> EntidadBuscarNombreCompletoItem(String Nombre)
         {
             try
@@ -261,7 +247,6 @@ namespace LogisticStorage.DataLayer
                 throw ex;
             }
         }
-
         public virtual List<EntidadEntity> EntidadObtenerNombreCompletoItem(Int32 Id)
         {
             try
@@ -302,8 +287,6 @@ namespace LogisticStorage.DataLayer
             Helper.Close();
             return true;
         }
-
-
         private bool PersonaNaturalRegistrarEnlaceDB(EntidadEntity Ent)
         {
             if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
@@ -330,8 +313,6 @@ namespace LogisticStorage.DataLayer
 
             return true;
         }
-
-
         public virtual bool EmpresaRegistrarEnlace(EntidadEntity Ent)
         {
             StartHelper(true);
@@ -348,7 +329,6 @@ namespace LogisticStorage.DataLayer
             Helper.Close();
             return true;
         }
-
         private bool EmpresaRegistrarEnlaceDB(EntidadEntity Ent)
         {
             if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
