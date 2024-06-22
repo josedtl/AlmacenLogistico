@@ -56,6 +56,8 @@ export class OrdenPedidoFiltroOCDModel {
     UnidadMedidaId: number;
     NomUnidad: string;
     CantidadSolicitado: number;
+    keyItem: string;
+    Action: ProcessActionEnum;
     constructor() {
         this.Cont = 0;
         this.OrdenPedidoDetalleId = 0;
@@ -68,6 +70,8 @@ export class OrdenPedidoFiltroOCDModel {
         this.UnidadMedidaId = 0;
         this.NomUnidad = '';
         this.CantidadSolicitado = 0;
+        this.keyItem = '';
+        this.Action = ProcessActionEnum.Add;
     }
    
 }

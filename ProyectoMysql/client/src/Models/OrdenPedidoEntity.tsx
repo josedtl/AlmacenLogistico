@@ -55,6 +55,7 @@ export class OrdenPedidoFiltroOCOModel {
     NomResponsable: string
     FechaEmision: Date
     keyItem: string;
+    Action: ProcessActionEnum
     constructor() {
         this.OrdenPedidoId = 0;
         this.Codigo = '';
@@ -63,5 +64,6 @@ export class OrdenPedidoFiltroOCOModel {
         this.NomResponsable = '';
         this.FechaEmision = new Date();
         this.keyItem = '';
+        this.Action = ProcessActionEnum.Add;
     }
 }

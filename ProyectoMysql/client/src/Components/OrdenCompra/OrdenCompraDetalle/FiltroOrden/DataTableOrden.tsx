@@ -1,61 +1,65 @@
 import React from 'react';
-import ModalItem from './ModalItem'
-import { OrdenCompraDetalleEntity } from '../../../Models/OrdenCompraDetalleEntity';
+import ModalItem from '../ModalItem'
 import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Card, Col, Row, Button, Table, Modal } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { PropsTable } from '../../../Lib/PropsItem'
+import { PropsTable } from '../../../../Lib/PropsItem'
+import { Checkbox } from 'antd';
+import type { CheckboxProps } from 'antd';
 import 'moment/locale/es';
-import { DataType } from '../../../Lib/ResourceModel/DataTableType'
-import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
+import { DataType } from '../../../../Lib/ResourceModel/DataTableType'
+import { ProcessActionEnum } from '../../../../Lib/ResourceModel/Enum'
 
+import { OrdenPedidoFiltroOCOModel } from '../../../../Models/OrdenPedidoEntity';
 // import  from 'react-emotion';
-const DataTable: React.FC<PropsTable> = (props) => {
+const DataTableOrden: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
     const columns: ColumnsType<DataType> = [
         {
             title: 'Nº',
             dataIndex: 'Cont',
-            width: 20,
+            width: 15,
             key: 'Cont',
 
         },
+
         {
-            title: 'Mercaderia',
-            dataIndex: 'NomProducto',
-            width: '200px',
-            key: 'NomProducto',
+            title: 'Orden Pedido',
+            dataIndex: 'Codigo',
+            width: 30,
+            key: 'Codigo',
         },
-      
         {
-            title: 'Solicito',
-            dataIndex: 'CantidadSolicitado',
-            width: 65,
-            key: 'CantidadSolicitado',
+            title: 'Tipo',
+            dataIndex: 'NomProceso',
+            width: 30,
+            key: 'NomProceso',
         },
+        {
+            title: 'Responsable',
+            dataIndex: 'NomResponsable',
+            width: 100,
+            key: 'NomResponsable',
+        },
+        {
+            title: 'Fecha Emision',
+            dataIndex: 'FechaEmision',
+            width: 50,
+            key: 'FechaEmision',
+        },
+
         {
             title: 'Action',
             fixed: 'right',
-            width: 60,
+            width: 30,
             key: 'action',
-            render: (record: OrdenCompraDetalleEntity) =>
+            render: (record: OrdenPedidoFiltroOCOModel) =>
                 <span>
 
-                    <Button
-                        type='dashed'
-                        onClick={() => deleteItem(record)}
-                        style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
-                        size={size}
-                        icon={<DeleteFilled />}
-                    />
-                    <ModalItem
-                        buttonLabel="Edit"
-                        item={record}
-                        updateState={props.updateState}
-                        keyItem={record.keyItem}
-                    />
+
+                    <Checkbox onChange={onChange}></Checkbox>
 
 
 
@@ -65,6 +69,9 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
     ];
 
+    const onChange: CheckboxProps['onChange'] = (e) => {
+        console.log(`checked = ${e.target.checked}`);
+    };
 
 
     const dataWithKeys = props.DataList.sort((a, b) => b.OrdenCompraDetalleId + a.OrdenCompraDetalleId).map((item, zIndex) => {
@@ -72,17 +79,17 @@ const DataTable: React.FC<PropsTable> = (props) => {
             ...item,
             key: zIndex,
             Cont: (zIndex + 1),
-          
+
         };
 
     });
 
-    const DeleteItemAll = async (OrdenCompraDetalleId: OrdenCompraDetalleEntity) => {
-        OrdenCompraDetalleId.Action = ProcessActionEnum.Delete;
-        props.deleteItemFromState(OrdenCompraDetalleId);
+    const DeleteItemAll = async (OrdenPedidoId: OrdenPedidoFiltroOCOModel) => {
+        OrdenPedidoId.Action = ProcessActionEnum.Delete;
+        props.deleteItemFromState(OrdenPedidoId);
     }
 
-    const deleteItem = async (OrdenCompraDetalleId: OrdenCompraDetalleEntity) => {
+    const deleteItem = async (OrdenPedidoId: OrdenPedidoFiltroOCOModel) => {
 
         modal.confirm({
             title: 'Mensaje del Sistema',
@@ -92,8 +99,8 @@ const DataTable: React.FC<PropsTable> = (props) => {
             okType: 'danger',
             cancelText: 'No',
             onOk() {
-                OrdenCompraDetalleId.Action = ProcessActionEnum.Delete;
-                DeleteItemAll(OrdenCompraDetalleId);
+                OrdenPedidoId.Action = ProcessActionEnum.Delete;
+                DeleteItemAll(OrdenPedidoId);
             },
             onCancel() { },
         });
@@ -117,7 +124,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
                                     actions={[
                                         <DeleteFilled
                                             style={{ color: "#C64541" }}
-                                            onClick={() => deleteItem(row.OrdenCompraDetalleId)}
+                                            onClick={() => deleteItem(row.OrdenPedidoId)}
                                             key="setting" />,
                                         <ModalItem
                                             buttonLabel="Edit"
@@ -167,5 +174,5 @@ const DataTable: React.FC<PropsTable> = (props) => {
     );
 }
 
-export default DataTable;
+export default DataTableOrden;
 
