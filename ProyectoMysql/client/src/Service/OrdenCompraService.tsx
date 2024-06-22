@@ -1,5 +1,7 @@
 import { OrdenCompraDetalleEntity } from '../Models/OrdenCompraDetalleEntity';
 import { OrdenCompraEntity } from '../Models/OrdenCompraEntity';
+import { OrdenPedidoFiltroOCOModel } from '../Models/OrdenPedidoEntity';
+import { OrdenPedidoFiltroOCDModel } from '../Models/OrdenPedidoDetalleEntity';
 import { apiLg } from './axios-config';
 
 class OrdenCompraService {
@@ -48,6 +50,26 @@ class OrdenCompraService {
       throw error;
     }
   }
+
+  async getObtenerFiltroOCO(): Promise<OrdenPedidoFiltroOCOModel[]> {
+    try {
+      const response = await apiLg.get(`api/OrdenCompra/ObtenerFiltroOCO`);
+      return response.data.Value;
+
+    } catch (error) {
+      throw error;
+    }
+  }
+  async getObtenerFiltroOCD(): Promise<OrdenPedidoFiltroOCDModel[]> {
+    try {
+      const response = await apiLg.get(`api/OrdenCompra/ObtenerFiltroOCD`);
+      return response.data.Value;
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 

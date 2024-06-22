@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using LogisticStorage.BusinessLayer;
 using LogisticStorage.EntityLayer;
 using LogisticStorage.DataLayer;
+using LogisticStorage.Server.Model.OrdenPedido;
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
@@ -125,6 +126,44 @@ namespace LogisticStorage.Server.Controllers
             catch (Exception ex)
             {
                 return new ResponseAPI<List<OrdenCompraDetalleSaveModel>>(new List<OrdenCompraDetalleSaveModel>(), false, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("ObtenerFiltroOCO")]
+        public ResponseAPI<List<OrdenPedidoFiltroOCOModel>> ObtenerFiltroOCO()
+        {
+            try
+            {
+                d.Configurar();
+                var Items = OrdenPedido.ObtenerFiltroOCO();
+                List<OrdenPedidoFiltroOCOModel> Lista = new List<OrdenPedidoFiltroOCOModel>();
+                foreach (var Item in Items) Lista.Add(new OrdenPedidoFiltroOCOModel(Item));
+
+                return new ResponseAPI<List<OrdenPedidoFiltroOCOModel>>(Lista, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<OrdenPedidoFiltroOCOModel>>(new List<OrdenPedidoFiltroOCOModel>(), false, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("ObtenerFiltroOCD")]
+        public ResponseAPI<List<OrdenPedidoFiltroOCDModel>> ObtenerFiltroOCD()
+        {
+            try
+            {
+                d.Configurar();
+                var Items = OrdenPedidoDetalle.ObtenerFiltroOCD();
+                List<OrdenPedidoFiltroOCDModel> Lista = new List<OrdenPedidoFiltroOCDModel>();
+                foreach (var Item in Items) Lista.Add(new OrdenPedidoFiltroOCDModel(Item));
+
+                return new ResponseAPI<List<OrdenPedidoFiltroOCDModel>>(Lista, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<OrdenPedidoFiltroOCDModel>>(new List<OrdenPedidoFiltroOCDModel>(), false, ex.Message);
             }
         }
 

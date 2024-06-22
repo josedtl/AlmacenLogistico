@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using LogisticStorage.BusinessLayer;
 using LogisticStorage.EntityLayer;
 using LogisticStorage.DataLayer;
+using LogisticStorage.Server.Model.OrdenPedido;
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
@@ -130,6 +131,10 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<List<OrdenPedidoDetalleSaveModel>>(new List<OrdenPedidoDetalleSaveModel>(), false, ex.Message);
             }
         }
+
+    
+
+
 
     }
 }

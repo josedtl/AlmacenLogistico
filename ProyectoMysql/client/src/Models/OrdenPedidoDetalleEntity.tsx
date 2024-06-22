@@ -44,3 +44,31 @@ export class OrdenPedidoDetalleEntity {
 }
 
 
+export class OrdenPedidoFiltroOCDModel {
+    Cont: number = 0;
+    OrdenPedidoDetalleId: number;
+    OrdenPedidoId: number;
+    Codigo : string;
+    ProcesoId: number;
+    NomProceso: string;
+    MercaderiaId: number;
+    NomMercaderia: string;
+    UnidadMedidaId: number;
+    NomUnidad: string;
+    CantidadSolicitado: number;
+    constructor() {
+        this.Cont = 0;
+        this.OrdenPedidoDetalleId = 0;
+        this.OrdenPedidoId = 0;
+        this.Codigo = '';
+        this.ProcesoId = 0;
+        this.NomProceso = '';
+        this.MercaderiaId = 0;
+        this.NomMercaderia = '';
+        this.UnidadMedidaId = 0;
+        this.NomUnidad = '';
+        this.CantidadSolicitado = 0;
+    }
+   
+}
+

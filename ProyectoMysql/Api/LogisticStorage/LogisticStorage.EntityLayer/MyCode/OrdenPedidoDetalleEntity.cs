@@ -12,5 +12,11 @@ namespace LogisticStorage.EntityLayer
         public Int32 CategoriaId { get; set; }
         public String CodigoUM { get; set; }
         public Decimal Stock { get; set; }
+        public String NomProceso { get; set; }
+        public String NomUnidad { get; set; }
+        public String Codigo { get; set; }
+        public String NomMercaderia { get; set; }
+        public Int32 ProcesoId { get; set; }
+
     }
 }

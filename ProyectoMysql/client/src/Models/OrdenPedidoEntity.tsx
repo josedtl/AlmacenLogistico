@@ -46,3 +46,22 @@ export class OrdenPedidoEntity {
         this.keyItem = '';
     }
 }
+
+export class OrdenPedidoFiltroOCOModel {
+    OrdenPedidoId: number
+    Codigo: string
+    EntidadId: number
+    NomProceso: string
+    NomResponsable: string
+    FechaEmision: Date
+    keyItem: string;
+    constructor() {
+        this.OrdenPedidoId = 0;
+        this.Codigo = '';
+        this.EntidadId = 0;
+        this.NomProceso = ''
+        this.NomResponsable = '';
+        this.FechaEmision = new Date();
+        this.keyItem = '';
+    }
+}

@@ -15,5 +15,11 @@ namespace LogisticStorage.BusinessLayer
             OrdenPedidoDetalleDB DB = new OrdenPedidoDetalleDB();
             return DB.ObtenerItem(OrdenPedidoId);
         }
+
+        public static List<OrdenPedidoDetalleEntity> ObtenerFiltroOCD()
+        {
+            OrdenPedidoDetalleDB DB = new OrdenPedidoDetalleDB();
+            return DB.ObtenerFiltroOCD();
+        }
     }
 }

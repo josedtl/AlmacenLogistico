@@ -136,5 +136,30 @@ namespace LogisticStorage.DataLayer
 
             return true;
         }
+
+        public virtual List<OrdenPedidoEntity> ObtenerFiltroOCO()
+        {
+            try
+            {
+                StartHelper(false);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(System.Data.CommandType.StoredProcedure, "sp_OrdenPedidoObtenerFiltroOCO");
+                FillSchemeTable(dr);
+                List<OrdenPedidoEntity> EntityList = new List<OrdenPedidoEntity>();
+
+                while (dr.Read())
+                {
+                    OrdenPedidoEntity entity = new OrdenPedidoEntity();
+                    if (FillFrom<OrdenPedidoEntity>(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

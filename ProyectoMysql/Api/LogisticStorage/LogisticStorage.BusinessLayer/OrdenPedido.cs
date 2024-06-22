@@ -28,5 +28,10 @@ namespace LogisticStorage.BusinessLayer
 
             return Ent.OrdenPedidoId;
         }
+        public static List<OrdenPedidoEntity> ObtenerFiltroOCO()
+        {
+            OrdenPedidoDB DB = new OrdenPedidoDB();
+            return DB.ObtenerFiltroOCO();
+        }
     }
 }
