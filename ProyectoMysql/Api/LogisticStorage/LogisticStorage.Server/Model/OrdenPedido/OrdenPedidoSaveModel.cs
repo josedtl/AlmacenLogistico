@@ -34,7 +34,7 @@ namespace LogisticStorage.Server
             this.NomResponsable = Item.NomResponsable;
             this.FechaEmision = Item.FechaEmision;
             this.FechaRegistro = Item.FechaRegistro;
-            this.FechaModificacion  
+            this.FechaModificacion  = Item.FechaModificacion;
             this.CodUsuario = Item.CodUsuario;
             this.NomEstadoProceso = Item.NomEstadoProceso;
         }
