@@ -64,7 +64,7 @@ class EmpresaDB:
     def GetMainItems():
         try:
             resulset = DBProcedure().DBProcedureConsult("sp_EmpresaMainItems", [])
-            list = [EmpresaItemModel.MainCargar(row) for row in resulset]
+            list = [EmpresaItemModel.MainCargar(row) for row in resulset] 
             return list
         except Exception as e:
             print(e)

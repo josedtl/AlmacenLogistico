@@ -8,7 +8,7 @@ EmpresaRouter = APIRouter()
 ApiName = "Empresa"
 
 
-@EmpresaRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
+@EmpresaRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
 def Save(Ent: EmpresaSaveModel):
     try:
         Ent = Empresa.Save(Ent)
@@ -17,7 +17,7 @@ def Save(Ent: EmpresaSaveModel):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-@EmpresaRouter.get(f"/api/{ApiName}/GetItem/{{Id}}/", tags=[ApiName])
+@EmpresaRouter.get(f"/api/{ApiName}/ObtenerItem/{{EmpresaId}}/", tags=[ApiName])
 def GetItem(Id: int):
     try:
         jsonData = Empresa.GetItem(Id)
@@ -27,7 +27,7 @@ def GetItem(Id: int):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@EmpresaRouter.get(f"/api/{ApiName}/GetMainItems/", tags=[ApiName])
+@EmpresaRouter.get(f"/api/{ApiName}/ObtenerMain/", tags=[ApiName])
 def GetMainItems():
     try:
         jsonData = Empresa.GetMainItems()

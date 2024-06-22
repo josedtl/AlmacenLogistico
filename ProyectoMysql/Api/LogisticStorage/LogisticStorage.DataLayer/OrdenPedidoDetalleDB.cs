@@ -104,14 +104,14 @@ namespace LogisticStorage.DataLayer
             {
                 if (m_Helper.IsTransactional)
                 {
-                    DbDatabase.GetStoredProcCommand("up_ClausulaCotizacionDetalle_DeleteByKey");
+                    DbDatabase.GetStoredProcCommand("sp_OrdenPedidoDetalle_Eliminar");
                     DbDatabase.SetTransaction(Helper.DbTransaction);
                     DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_OrdenPedidoDetalleId", DbType.Int32, 4, false, 0, 0, Item.OrdenPedidoDetalleId);
                     returnValue = DbDatabase.ExecuteNonQuery();
                 }
                 else
                 {
-                    returnValue = DbDatabase.ExecuteNonQuery("up_ClausulaCotizacionDetalle_DeleteByKey", Item.OrdenPedidoDetalleId);
+                    returnValue = DbDatabase.ExecuteNonQuery("sp_OrdenPedidoDetalle_Eliminar", Item.OrdenPedidoDetalleId);
                 }
 
             }

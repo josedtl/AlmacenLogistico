@@ -94,14 +94,6 @@ model TipoDocumentoIdentidadModel {
   @@map("catalogo_TipoDocumentoIdentidad")
 }
 
-// model TypeValor {
-//   TypeValorId  Int            @id @default(autoincrement())
-//   Nombre       String         @db.VarChar(40)
-//   CampoEntidad CampoEntidad[]
-
-//   @@map("TypeValor")
-// }
-
 model ListaRelacion {
   ListaRelacionId     Int               @id @default(autoincrement())
   TipoListaRelacionId Int

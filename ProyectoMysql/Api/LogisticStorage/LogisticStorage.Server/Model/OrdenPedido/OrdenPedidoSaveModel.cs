@@ -34,6 +34,7 @@ namespace LogisticStorage.Server
             this.NomResponsable = Item.NomResponsable;
             this.FechaEmision = Item.FechaEmision;
             this.FechaRegistro = Item.FechaRegistro;
+            this.FechaModificacion  = Item.FechaModificacion;
             this.CodUsuario = Item.CodUsuario;
             this.NomEstadoProceso = Item.NomEstadoProceso;
         }
@@ -66,6 +67,8 @@ namespace LogisticStorage.Server
 
         [JsonPropertyName("FechaRegistro")]
         public DateTime FechaRegistro { get; set; }
+        [JsonPropertyName("FechaModificacion")]
+        public DateTime FechaModificacion { get; set; }
 
         [JsonPropertyName("CodUsuario")]
         public String CodUsuario { get; set; }

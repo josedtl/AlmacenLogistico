@@ -143,7 +143,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     };
     useEffect(() => {
         // setEnt(new OrdenPedidoDetalleEntity());
-        console.log('FormEdit')
+   
         getItems();
     }, []);
 

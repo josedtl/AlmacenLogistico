@@ -26,19 +26,87 @@ import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity';
 import { DatosClienteItemModel } from '../../../Models/GeneralEntity'
 function Page() {
 
-  const { Id } = useParams();
-  const idNumero = Number(Id?.toString());
+
+  // Instancia 
   const sOrdenPedido = new OrdenPedidoService();
   const sGeneral = new GeneralService();
+
+
+  // Variables Globales
+  const { Id } = useParams();
+  const idNumero = Number(Id?.toString());
+
   const [items, setItems] = useState<OrdenPedidoDetalleEntity[]>([]);
-  const [messageAdd, contextHolderAdd] = message.useMessage();
-  const [CargarPage, setCargarPage] = React.useState(true);
-  const [disabled] = useState(false);
-  const { Title } = Typography;
   const [Ent, setEnt] = useState<OrdenPedidoEntity>(new OrdenPedidoEntity());
-  const [KeyTabs, setKeyTabs] = useState<String>('');
   const [FechaEmisionItem, setFechaEmisionItem] = useState<string>(moment(Ent.FechaEmision).format('DD/MM/YYYY hh:mm'));
-  const addItemToState = (item: OrdenPedidoDetalleEntity) => {
+
+  const [CargarPage, setCargarPage] = React.useState(true);
+  const [KeyTabs, setKeyTabs] = useState<String>('');
+  const [disabled] = useState(false);
+
+  // Componentes
+  const [messageAdd, contextHolderAdd] = message.useMessage();
+  const { Title } = Typography;
+
+
+
+  // Load
+  useEffect(() => {
+    setKeyTabs(generarGuid());
+    const dateEmison = moment(new Date()).format('YYYY-MM-DD')
+    setFechaEmisionItem(dateEmison);
+    voidCargarDatos(idNumero);
+  }, []);
+
+
+
+  const voidCargarDatos = async (Id: number) => {
+    try {
+
+      setCargarPage(true);
+      setEnt(new OrdenPedidoEntity())
+      setItems([])
+      const Resp_TR = await sGeneral.ProcesoObtenerTipo("OP001");
+      setOptionsProceso(Resp_TR);
+      Ent.Action = ProcessActionEnum.Add
+      if (Id > 0) {
+
+        const Resp_Producto = await sOrdenPedido.GetItemCabecera(Id);
+        Resp_Producto[0].Action = ProcessActionEnum.Update
+
+        setEnt(Resp_Producto[0]);
+
+        const Resp_OPDetalle = await sOrdenPedido.GetItemCabeceraOP(Id);
+
+        if (Resp_OPDetalle.length > 0) {
+
+          Resp_OPDetalle.map((data) => {
+            data.keyItem = generarGuid();
+            data.Action = ProcessActionEnum.Update;
+
+          })
+
+          setItems(Resp_OPDetalle)
+          Ent.DetalleItems = Resp_OPDetalle
+        }
+
+
+
+        const Resp_Item = await sGeneral.EntidadObtenerNombreCompletoItem(Resp_Producto[0].EntidadId);
+        setOptionsEntidad(Resp_Item);
+
+        const dateEmison = moment(Resp_Producto[0].FechaEmision).format('YYYY-MM-DD')
+        setFechaEmisionItem(dateEmison);
+
+      }
+
+      setCargarPage(false);
+    } catch (e) { console.log(e); }
+  };
+
+  // Evemtos
+
+  const event_AgregarDetalle = (item: OrdenPedidoDetalleEntity) => {
 
     const itemIndex = items.findIndex((data) => data.keyItem === item.keyItem);
 
@@ -68,7 +136,7 @@ function Page() {
 
   };
 
-  const updateState = (item: OrdenPedidoDetalleEntity) => {
+  const event_ActualizarDetalle = (item: OrdenPedidoDetalleEntity) => {
 
     if (item.OrdenPedidoDetalleId > 0) {
 
@@ -87,12 +155,10 @@ function Page() {
         type: 'success',
         content: 'Se actualizó correctamente.',
       });
-
-
-
     }
   };
-  const deleteItemFromState = (item: OrdenPedidoDetalleEntity) => {
+
+  const event_EliminarDetalle = (item: OrdenPedidoDetalleEntity) => {
 
 
     if (item.OrdenPedidoDetalleId > 0) {
@@ -128,6 +194,13 @@ function Page() {
 
   };
 
+  const event_AgregarCliente = async (item: DatosClienteItemModel) => {
+    const Resp_Entidad = await sGeneral.EntidadObtenerNombreCompletoItem(item.EntidadId);
+    setOptionsEntidad(Resp_Entidad);
+    Ent.EntidadId = Resp_Entidad[0].EntidadId;
+  };
+
+
   const filterItems = items.filter(d => d.Action != ProcessActionEnum.Delete);
 
 
@@ -142,63 +215,6 @@ function Page() {
     selectedTipoRequerimeinto;
   };
 
-  const event_AgregarCliente = async (item: DatosClienteItemModel) => {
-    const Resp_Entidad = await sGeneral.EntidadObtenerNombreCompletoItem(item.EntidadId);
-    setOptionsEntidad(Resp_Entidad);
-    Ent.EntidadId = Resp_Entidad[0].EntidadId;
-  };
-
-
-  useEffect(() => {
-    setKeyTabs(generarGuid());
-    const dateEmison = moment(new Date()).format('YYYY-MM-DD')
-    setFechaEmisionItem(dateEmison);
-    voidCargarDatos(idNumero);
-  }, []);
-
-  const voidCargarDatos = async (Id: number) => {
-    try {
-
-      setCargarPage(true);
-      setEnt(new OrdenPedidoEntity())
-      setItems([])
-      const Resp_TR = await sGeneral.ProcesoObtenerTipo("OP001");
-      setOptionsProceso(Resp_TR);
-      Ent.Action = ProcessActionEnum.Add
-      if (Id > 0) {
-
-        const Resp_Producto = await sOrdenPedido.GetItemCabecera(Id);
-        Resp_Producto[0].Action = ProcessActionEnum.Update
-
-        setEnt(Resp_Producto[0]);
-
-        const Resp_OPDetalle = await sOrdenPedido.GetItemCabeceraOP(Id);
-
-        if (Resp_OPDetalle.length > 0) {
-
-          Resp_OPDetalle.map((data) => {
-            data.keyItem = generarGuid();
-            data.Action = ProcessActionEnum.Update;
-
-          })
-          console.log(Resp_OPDetalle);
-          setItems(Resp_OPDetalle)
-          Ent.DetalleItems = Resp_OPDetalle
-        }
-
-
-
-        const Resp_Item = await sGeneral.EntidadObtenerNombreCompletoItem(Resp_Producto[0].EntidadId);
-        setOptionsEntidad(Resp_Item);
-
-        const dateEmison = moment(Resp_Producto[0].FechaEmision).format('YYYY-MM-DD')
-        setFechaEmisionItem(dateEmison);
-
-      }
-
-      setCargarPage(false);
-    } catch (e) { console.log(e); }
-  };
 
 
 
@@ -212,8 +228,7 @@ function Page() {
     });
   }
 
-  const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenPedidoDetalleEntity()} keyItem={''} />
-    ;
+  const operations = <ModalItem buttonLabel="" addItemToState={event_AgregarDetalle} item={new OrdenPedidoDetalleEntity()} keyItem={''} />;
 
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
     date;
@@ -225,11 +240,27 @@ function Page() {
 
   const AddProducto = async () => {
     try {
+      if (Ent.OrdenPedidoId === 0) {
+        Ent.TipoProcesoId = 1;
+        Ent.EstadoProcesoId = 1;
+        Ent.FechaRegistro = new Date();
+        Ent.EstadoRegistro = true
+        Ent.Action =1;
+      }
+      const fecha: Date = new Date(FechaEmisionItem + "T00:00:00");
+      Ent.FechaEmision = new Date(fecha);
+      Ent.CodUsuario = "adm";
+
+
+
       Ent.DetalleItems = items;
 
       console.log(Ent);
       const savedItem = await sOrdenPedido.saveItem(Ent);
+      console.log(savedItem);
+
       if (savedItem) {
+
         setEnt(savedItem)
         setItems(savedItem.DetalleItems)
         voidCargarDatos(savedItem.OrdenPedidoId);
@@ -266,7 +297,8 @@ function Page() {
     }
 
 
-
+    console.log(Ent.Action);
+    console.log(Ent);
     modal.confirm({
       title: 'Mensaje del Sistema',
       icon: <ExclamationCircleOutlined />,
@@ -276,16 +308,7 @@ function Page() {
       cancelText: 'No',
       onOk() {
 
-        if (Ent.OrdenPedidoId === 0) {
-          Ent.TipoProcesoId = 1;
-          Ent.EstadoProcesoId = 1;
-          Ent.FechaRegistro = new Date();
-          Ent.EstadoRegistro = true
-        }
-        const fecha: Date = new Date(FechaEmisionItem + "T00:00:00");
-        Ent.FechaEmision = new Date(fecha);
-        Ent.CodUsuario = "adm";
-        Ent.Action = Ent.OrdenPedidoId == 0 ? 1 : 3;
+
         AddProducto();
 
         let secondsToGo = 3;
@@ -312,19 +335,9 @@ function Page() {
       },
     });
 
+
   };
 
-
-
-  // let color = "while";
-
-  // if (Ent.ValorEstadoProceso === 0) {
-  //   color = "green";
-  // } else if (Ent.ValorEstadoProceso === 2) {
-  //   color = "green";
-  // } else if (Ent.ValorEstadoProceso === 3) {
-  //   color = "blue";
-  // }
   const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
   const [optionsEntidad, setOptionsEntidad] = useState<EntidadNombreCompletoModel[]>([]);
   const [ValResponsable, setValResponsable] = useState<InputStatus>('');
@@ -343,53 +356,6 @@ function Page() {
     Ent.EntidadId = value;
     setSelectedCategoria(value)
   };
-  // const CorrelativoDiv = () => {
-
-  //   if (Ent.OrdenPedidoId > 0) {
-  //     return (
-
-  //       <>
-  //         <Row>
-  //           <Col span={24}>
-  //             <label>Estado</label>
-  //           </Col>
-  //           <Col span={24}>
-  //             <Input
-  //               // status={ValCodigo}
-  //               prefix={
-  //                 <CaretRightOutlined style={{ color, fontSize: '20px' }} />}
-  //               type="text"
-  //               name="NomEstadoProceso"
-  //               style={{ marginTop: '5px', marginBottom: '10px' }}
-  //               // onChange={onChange}
-  //               readOnly={true}
-  //               value={Ent.NomEstadoProceso === null ? "" : Ent.NomEstadoProceso}
-  //             />
-  //           </Col>
-  //         </Row>
-
-  //         <Row>
-  //           <Col span={24}>
-  //             <label>Codigo</label>
-  //           </Col>
-  //           <Col span={24}>
-  //             <Input
-  //               // status={ValCodigo}
-  //               type="text"
-  //               name="Codigo"
-  //               style={{ marginTop: '5px', marginBottom: '10px', background: 'Silver' }}
-  //               onChange={onChange}
-  //               readOnly={true}
-  //               value={Ent.Codigo === null ? "" : Ent.Codigo}
-  //             />
-  //           </Col>
-  //         </Row>
-  //       </>
-  //     )
-  //   }
-  // }
-
-
 
   const TituloSave = () => {
     return (
@@ -407,17 +373,12 @@ function Page() {
   }
 
   const contentStyle: React.CSSProperties = {
-    // margin:50,
+
     marginLeft: 50,
     marginRight: 50
-    // textAlign: 'center',
-    // minHeight: 400,
-    // lineHeight: '120px',
-    // color: '#fff',
-    // backgroundColor: '#0958d9',
+
   };
   const footerStyle: React.CSSProperties = {
-    // backgroundColor: "#C9E1E4",
     borderColor: "#15616d",
   };
 
@@ -428,13 +389,9 @@ function Page() {
       <Flex gap="middle" wrap="wrap" >
 
         <Layout style={{
-          // height:'calc(100px + 100vh)',
-          // marginTop: '0px',
-          // marginLeft: '-10px'
         }}>
 
 
-          {/* <Header style={headerStyle}>Header</Header> */}
           <Content style={contentStyle}>
 
 
@@ -443,7 +400,6 @@ function Page() {
             <Row>
               <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                 {TituloSave()}
-                {/* <Title level={3}> {Ent.OrdenPedidoId > 0 ? 'Orden de Pedido' : 'Generar Orden de Pedido'}</Title> */}
               </Col>
               <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                 <div style={{ float: "right" }}>
@@ -454,9 +410,6 @@ function Page() {
               </Col>
             </Row>
             <Row>
-
-
-              {/* {CorrelativoDiv()} */}
 
               <Col xs={3} >
                 <Row>
@@ -565,7 +518,7 @@ function Page() {
                           }
                           }>
                             <Col xs={24}>
-                              <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
+                              <DataTable DataList={filterItems} updateState={event_ActualizarDetalle} deleteItemFromState={event_EliminarDetalle} EsTabla={disabled} />
 
                             </Col>
                           </Row >
