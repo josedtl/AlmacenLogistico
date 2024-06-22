@@ -20,6 +20,7 @@ namespace LogisticStorage.EntityLayer
             this.NomResponsable = String.Empty;
             this.FechaEmision = DateTime.Now;
             this.FechaRegistro = DateTime.Now;
+            this.FechaModificacion = DateTime.Now;
             this.CodUsuario = String.Empty;
             this.NomEstadoProceso = String.Empty;
             this.ValorEstadoProceso = 0;
@@ -36,7 +37,8 @@ namespace LogisticStorage.EntityLayer
         public String NomResponsable { get; set; }
         public DateTime FechaEmision { get; set; }
         public DateTime FechaRegistro { get; set; }
+        public DateTime FechaModificacion { get; set; }
         public String CodUsuario { get; set; }
-        public List<OrdenPedidoDetalleEntity> DetalleItem{ get; set; }
+        public List<OrdenPedidoDetalleEntity> DetalleItem { get; set; }
     }
 }
