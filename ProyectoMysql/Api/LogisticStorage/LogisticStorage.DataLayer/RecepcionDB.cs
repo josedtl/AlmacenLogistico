@@ -99,7 +99,7 @@ namespace LogisticStorage.DataLayer
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_TipoComprobanteId", DbType.Int32, 4, false, 0, 0, Ent.TipoComprobanteId);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_SerieComprobante", DbType.String, 50, false, 0, 0, Ent.SerieComprobante);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_CorrelativoComprobante", DbType.String, 50, false, 0, 0, Ent.CorrelativoComprobante);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_FechaEmision", DbType.DateTime, 12, false, 0, 0, Ent.FechaRecepcion);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_FechaRecepcion", DbType.DateTime, 12, false, 0, 0, Ent.FechaRecepcion);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_FechaRegistro", DbType.DateTime, 12, false, 0, 0, Ent.FechaRegistro);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_CodUsuario", DbType.String, 20, false, 0, 0, Ent.CodUsuario);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Observacion", DbType.String, 100, false, 0, 0, Ent.Observacion);
