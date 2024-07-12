@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import ModalItem from '../ModalItem'
-import {  OrdenPedidoFiltroOCDModel} from '../../../../Models/OrdenPedidoDetalleEntity';
 import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Card, Col, Row, Button, Table, Modal } from 'antd';
@@ -12,6 +11,7 @@ import 'moment/locale/es';
 import { DataType } from '../../../../Lib/ResourceModel/DataTableType'
 import { ProcessActionEnum } from '../../../../Lib/ResourceModel/Enum'
 
+import { OrdenPedidoFiltroOCDModel } from '../../../../Models/OrdenPedidoDetalleEntity';
 // import  from 'react-emotion';
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');
@@ -24,7 +24,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'Cont',
 
         }, {
-            title: 'Orden Pedido',
+            title: 'Orden Detalle',
             dataIndex: 'Codigo',
             width: 60,
             key: 'Codigo',
@@ -53,123 +53,64 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'CantidadSolicitado',
         },
         {
-            title: 'Action',
+            title: 'Seleccionar',
             fixed: 'right',
             width: 60,
             key: 'action',
             render: (record: OrdenPedidoFiltroOCDModel) =>
                 <span>
-
-<Checkbox onChange={onChange}></Checkbox>
-
-
+                    <Checkbox checked={record.Seleccionar}  value={record.OrdenPedidoDetalleId} onChange={onChange}></Checkbox>
                 </span>
             ,
         },
 
     ];
 
-    const onChange: CheckboxProps['onChange'] = (e) => {
-        console.log(`checked = ${e.target.checked}`);
-    };
-
-
-    const dataWithKeys = props.DataList.sort((a, b) => b.OrdenPedidoDetalleEntity + a.OrdenPedidoDetalleEntity).map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.OrdenPedidoDetalleId + a.OrdenPedidoDetalleId).map((item, zIndex) => {
         return {
             ...item,
             key: zIndex,
             Cont: (zIndex + 1),
-          
+            Seleccionar: false
         };
-
     });
 
-    const DeleteItemAll = async (OrdenPedidoDetalleEntity: OrdenPedidoFiltroOCDModel) => {
-        OrdenPedidoDetalleEntity.Action = ProcessActionEnum.Delete;
-        props.deleteItemFromState(OrdenPedidoDetalleEntity);
-    }
+    const [ItemsListaAlter, setItemsListaAlter] = useState<any[]>(dataWithKeys);
 
-    const deleteItem = async (OrdenPedidoDetalleEntity: OrdenPedidoFiltroOCDModel) => {
+    const onChange: CheckboxProps['onChange'] = (e) => {
 
-        modal.confirm({
-            title: 'Mensaje del Sistema',
-            icon: <ExclamationCircleOutlined />,
-            content: '¿Desea eliminar el registro?',
-            okText: 'Si',
-            okType: 'danger',
-            cancelText: 'No',
-            onOk() {
-                OrdenPedidoDetalleEntity.Action = ProcessActionEnum.Delete;
-                DeleteItemAll(OrdenPedidoDetalleEntity);
-            },
-            onCancel() { },
-        });
+        console.log(`checked = ${e.target.value}`);
+        const idNumero = Number(e.target.value);
 
+        const itemIndex = ItemsListaAlter.findIndex((data) => data.OrdenPedidoDetalleId === idNumero);
+
+        const updateData = ItemsListaAlter[itemIndex];
+
+        updateData.Seleccionar = !updateData.Seleccionar;
+
+        const newArray = [...ItemsListaAlter.slice(0, itemIndex), updateData, ...ItemsListaAlter.slice(itemIndex + 1)];
+        setItemsListaAlter(newArray);
+
+        console.log(ItemsListaAlter);
 
     };
 
-    // const header = css({ backgroundColor: 'rgb(100, 108, 140)', color: 'white', margin: '50px'});
-    const ListaCard = () => {
-        if (props.EsTabla) {
 
-            return (
-                <>
-                    <Row gutter={16} style={{ backgroundColor: '#FAFAFA' }} >
-                        {dataWithKeys.map(row => (
-
-                            <Col key={row.Cont} xs={24} md={12} lg={8} xl={6} xxl={4}>
-                                <Card hoverable={true}
-
-                                    style={{ marginTop: '10Px', }}
-                                    actions={[
-                                        <DeleteFilled
-                                            style={{ color: "#C64541" }}
-                                            onClick={() => deleteItem(row.OrdenPedidoDetalleEntity)}
-                                            key="setting" />,
-                                        <ModalItem
-                                            buttonLabel="Edit"
-                                            item={row}
-                                            updateState={props.updateState}
-                                            keyItem={row.key}
-                                        />
-                                    ]}
-                                    bordered={false}>
-                                    {row.Cont + ".  "}   {row.Nombre}
-                                </Card>
-
-                            </Col>
-
-
-                        ))}
-                    </Row>
-
-                </>
-            )
-        } else {
-            return (
-                <Table
-
-                    bordered
-                    key="KEY5"
-                    columns={columns}
-                    dataSource={dataWithKeys}
-                    size="small"
-                    pagination={false}
-                    // scroll={{ x: 1500, y: 300 }}
-                    scroll={{ x: '100%', y: '45vh' }}
-                />
-                // scroll={{ x: 2000, y: '65vh' }}
-                // scroll={{ x: 'calc(700px + 50%)', y: '100%' }}
-            )
-        }
-
-    }
 
     return (
         <div>
             {contextHolder}
+            <Table
 
-            {ListaCard()}
+                bordered
+                key="KEY5"
+                columns={columns}
+                dataSource={ItemsListaAlter}
+                size="small"
+                pagination={false}
+                // scroll={{ x: 1500, y: 300 }}
+                scroll={{ x: '100%', y: '45vh' }}
+            />
         </div>
     );
 }

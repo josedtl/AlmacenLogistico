@@ -58,6 +58,7 @@ export class OrdenPedidoFiltroOCDModel {
     CantidadSolicitado: number;
     keyItem: string;
     Action: ProcessActionEnum;
+    Seleccionar : boolean;
     constructor() {
         this.Cont = 0;
         this.OrdenPedidoDetalleId = 0;
@@ -72,6 +73,7 @@ export class OrdenPedidoFiltroOCDModel {
         this.CantidadSolicitado = 0;
         this.keyItem = '';
         this.Action = ProcessActionEnum.Add;
+        this.Seleccionar=false;
     }
    
 }

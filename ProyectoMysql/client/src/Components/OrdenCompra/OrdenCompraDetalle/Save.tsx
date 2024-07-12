@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import { OrdenCompraDetalleEntity } from '../../../Models/OrdenCompraDetalleEntity';
-import { OrdenCompraEntity } from '../../../Models/OrdenCompraEntity';
+import DataTableItem from './FiltroDetalle/DataTableItem';
 import ModalItem from './ModalItem';
-import GeneralService from '../../../Service/GeneralService';
-import OrdenCompraService from '../../../Service/OrdenCompraService';
 import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
-
-import { EntidadNombreCompletoModel } from '../../../Models/GeneralEntity';
 import { useParams } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
@@ -17,7 +12,15 @@ import dayjs from 'dayjs';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import { InputStatus } from 'antd/es/_util/statusUtils';
 import { SaveFilled } from '@ant-design/icons';
+
+//services
+import GeneralService from '../../../Service/GeneralService';
+import OrdenCompraService from '../../../Service/OrdenCompraService';
+//entity
+import { EntidadNombreCompletoModel } from '../../../Models/GeneralEntity';
 import { ProcesoModel } from '../../../Models/ProcesoEntity';
+import { OrdenCompraDetalleEntity } from '../../../Models/OrdenCompraDetalleEntity';
+import { OrdenCompraEntity } from '../../../Models/OrdenCompraEntity';
 function Page() {
 
   const { Id } = useParams();
