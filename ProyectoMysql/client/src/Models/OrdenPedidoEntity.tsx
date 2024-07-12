@@ -23,6 +23,7 @@ export class OrdenPedidoEntity {
     ValorEstadoProceso: number
     NomProceso: string
     keyItem: string;
+    Seleccionar : boolean;
     constructor() {
         this.OrdenPedidoId = 0;
         this.ProcesoId = 0;
@@ -44,6 +45,7 @@ export class OrdenPedidoEntity {
         this.ValorEstadoProceso = 0;
         this.NomProceso = ''
         this.keyItem = '';
+        this.Seleccionar=false;
     }
 }
 
@@ -56,6 +58,7 @@ export class OrdenPedidoFiltroOCOModel {
     FechaEmision: Date
     keyItem: string;
     Action: ProcessActionEnum
+    Seleccionar : boolean;
     constructor() {
         this.OrdenPedidoId = 0;
         this.Codigo = '';
@@ -65,5 +68,6 @@ export class OrdenPedidoFiltroOCOModel {
         this.FechaEmision = new Date();
         this.keyItem = '';
         this.Action = ProcessActionEnum.Add;
+        this.Seleccionar=false;
     }
 }
