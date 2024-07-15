@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import { InputStatus } from 'antd/es/_util/statusUtils';
 import { SaveFilled } from '@ant-design/icons';
-
+import ModalItemDetalle from '../DetallePorItem/ModalItem';
 //services
 import GeneralService from '../../../Service/GeneralService';
 import OrdenCompraService from '../../../Service/OrdenCompraService';
@@ -132,11 +132,11 @@ function Page() {
 
   const [ValTipoRequerimiento, setValTipoRequerimiento] = useState<InputStatus>('');
   const [ValProveedor, setValProveedor] = useState<InputStatus>('');
-  
+
 
   const onChangeTipoProceso = async (value: number) => {
     setValTipoRequerimiento('');
-    Ent.TipoProcesoId = value;
+    Ent.ProcesoId = value;
     setSelectedTipoRequerimeinto(value)
     selectedTipoRequerimeinto;
   };
@@ -176,7 +176,6 @@ function Page() {
             data.Action = ProcessActionEnum.Update;
 
           })
-          console.log(Resp_OPDetalle);
           setItems(Resp_OPDetalle)
           Ent.DetalleItems = Resp_OPDetalle
         }
@@ -205,10 +204,12 @@ function Page() {
       return v.toString(16);
     });
   }
- 
+  ModalItemDetalle
   // item={new OrdenCompraDetalleEntity()}
-  const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenCompraDetalleEntity()} keyItem={''} />
-    ;
+
+  // const operations = <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenCompraDetalleEntity()} keyItem={''}/>;
+  const operations = Ent.ProcesoId === 5 ? <ModalItem buttonLabel="" addItemToState={addItemToState} item={new OrdenCompraDetalleEntity()} keyItem={''}/>:<ModalItemDetalle buttonLabel="" addItemToState={addItemToState} item={new OrdenCompraDetalleEntity()} keyItem={''}/>;
+    
 
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
     date;
@@ -222,7 +223,6 @@ function Page() {
     try {
       Ent.DetalleItems = items;
 
-      console.log(Ent);
       const savedItem = await sOrdenCompra.saveItem(Ent);
       if (savedItem) {
         setEnt(savedItem)
@@ -251,16 +251,16 @@ function Page() {
 
 
 
-    if (Ent.ProcesoId === 0) {
-      setValTipoRequerimiento('error');
-      messageAdd.open({ type: 'error', content: 'Seleccione un Tipo de Requerimiento.', });
-      return;
-    }
-    if (Ent.NomProveedor.trimEnd() === '') {
-      setValProveedor('error');
-      messageAdd.open({ type: 'error', content: 'Ingrese Nombre del Responsable .', });
-      return;
-    }
+    // if (Ent.ProcesoId === 0) {
+    //   setValTipoRequerimiento('error');
+    //   messageAdd.open({ type: 'error', content: 'Seleccione un Tipo de Requerimiento.', });
+    //   return;
+    // }
+    // if (Ent.NomProveedor.trimEnd() === '') {
+    //   setValProveedor('error');
+    //   messageAdd.open({ type: 'error', content: 'Ingrese Nombre del Responsable .', });
+    //   return;
+    // }
 
 
     KeyTabs;
@@ -275,7 +275,7 @@ function Page() {
       onOk() {
 
         const fecha: Date = new Date(FechaEmisionItem + "T00:00:00");
-        Ent.ProcesoId = 1;
+        Ent.TipoProcesoId=3;
         Ent.EstadoProcesoId = 1;
         Ent.FechaEmision = new Date(fecha);
         Ent.CodUsuario = "adm";
@@ -370,7 +370,7 @@ function Page() {
     borderColor: "#15616d",
   };
 
-  const {  Footer, Content } = Layout;
+  const { Footer, Content } = Layout;
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -415,12 +415,12 @@ function Page() {
                   <Col span={24}>
                     <Select
                       showSearch
-                       status={ValTipoRequerimiento}
+                      status={ValTipoRequerimiento}
                       style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                       defaultActiveFirstOption={false}
                       filterOption={false}
                       value={Ent.ProcesoId === 0 ? null : Ent.ProcesoId}
-                      key={Ent.TipoProcesoId}
+                      key={Ent.ProcesoId}
                       onChange={onChangeTipoProceso}
                     >
                       {optionsTipoProceso.map((ItemOp) => (

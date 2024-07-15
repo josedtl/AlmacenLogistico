@@ -9,7 +9,7 @@ import 'moment/locale/es';
 import { DataType } from '../../../Lib/ResourceModel/DataTableType'
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 
-import { OrdenPedidoFiltroOCDModel , OrdenPedidoDetalleEntity} from '../../../Models/OrdenPedidoDetalleEntity';
+import { OrdenPedidoFiltroOCDModel, OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity';
 import { OrdenCompraDetalleEntity } from '../../../Models/OrdenCompraDetalleEntity';
 // import  from 'react-emotion';
 const DataTable: React.FC<PropsTable> = (props) => {
@@ -22,28 +22,18 @@ const DataTable: React.FC<PropsTable> = (props) => {
             width: 20,
             key: 'Cont',
 
-        }, {
-            title: 'Orden Detalle',
-            dataIndex: 'Codigo',
-            width: 60,
-            key: 'Codigo',
-        }, {
-            title: 'Tipo',
-            dataIndex: 'NomProceso',
-            width: 50,
-            key: 'NomProceso',
         },
         {
-            title: 'Mercaderia',
-            dataIndex: 'NomMercaderia',
-            width: 150,
-            key: 'NomMercaderia',
+            title: 'NomProducto',
+            dataIndex: 'NomProducto',
+            width: '200px',
+            key: 'NomProducto',
         },
         {
             title: 'UM',
-            dataIndex: 'NomUnidad',
-            width: 50,
-            key: 'NomUnidad',
+            dataIndex: 'CodigoUM',
+            width: 40,
+            key: 'CodigoUM',
         },
         {
             title: 'Cantidad',
@@ -52,13 +42,13 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'CantidadSolicitado',
         },
         {
-            title: 'Seleccionar',
+            title: 'Accion',
             fixed: 'right',
             width: 60,
             key: 'action',
             render: (record: OrdenPedidoDetalleEntity) =>
                 <span>
-                      <Button
+                    <Button
                         type='dashed'
                         // onClick={() => deleteItem(record)}
                         style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
@@ -83,7 +73,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             ...item,
             key: zIndex,
             Cont: (zIndex + 1),
-          
+
         };
 
     });
