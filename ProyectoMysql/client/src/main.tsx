@@ -40,6 +40,7 @@ import PageReservafrom from "./Components/Reserva/Main";
 import PageReservaSave from "./Components/Reserva/ReservaDetalle/Save";
 import PageTarifa from "./Components/Tarifa/Main";
 import PageTarifaSave from "./Components/Tarifa/Save";
+import PageDespacho from "./Components/Despacho/Main";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,7 @@ const router = createBrowserRouter([
       { path: "ReservaSave/:Id", element: <PageReservaSave />, },
       { path: "Tarifa", element: <PageTarifa />, },
       { path: "TarifaSave/:Id", element: <PageTarifaSave />, },
+      { path: "Despacho", element: <PageDespacho />, },
     ],
   },
 ]);
