@@ -272,5 +272,27 @@ namespace LogisticStorage.Server.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("EstadoProcesoObtenerItems")]
+        public ResponseAPI<List<EstadoProcesoModel>> EstadoProcesoObtenerItems()
+        {
+            try
+            {
+                d.Configurar();
+                var Items = EstadoProceso.ObtenerItems();
+
+                List<EstadoProcesoModel> Lista = new List<EstadoProcesoModel>();
+
+                foreach (var Item in Items) Lista.Add(new EstadoProcesoModel(Item));
+
+                return new ResponseAPI<List<EstadoProcesoModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<EstadoProcesoModel>>(new List<EstadoProcesoModel>(), false, ex.Message);
+            }
+        }
+
     }
 }
