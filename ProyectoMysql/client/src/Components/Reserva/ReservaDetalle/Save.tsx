@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import { ReservaResumenModel ,ReservaPedidoModel} from '../../../Models/ReservaEntity';
+import { ReservaResumenModel, ReservaPedidoModel } from '../../../Models/ReservaEntity';
 import ModalItem from './ModalItem';
 import ReservaService from '../../../Service/ReservaService';
-import { Tabs, message, Col, Row, Typography, Modal, Spin, Input, Flex, Layout } from 'antd';
-
+import { Tabs, message, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar } from 'antd';
+import { SaveFilled } from '@ant-design/icons';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/es';
@@ -26,14 +26,14 @@ function Page() {
 
     item;
 
-  
- 
+
+
 
   };
 
   const updateState = (item: ReservaPedidoModel) => {
     item;
- 
+
   };
   const deleteItemFromState = (item: ReservaPedidoModel) => {
     item;
@@ -120,7 +120,7 @@ function Page() {
   const TituloSave = () => {
     return (
 
-      <Title level={2}> { 'Reserva'}</Title>
+      <Title level={2}> {'Reserva'}</Title>
     )
 
   }
@@ -143,6 +143,15 @@ function Page() {
     // backgroundColor: '#0958d9',
   };
 
+  const footerStyle: React.CSSProperties = {
+    borderColor: "#15616d",
+  };
+
+  const Guardar_Total = async (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+
+  };
 
   const { Footer, Content } = Layout;
   Footer;
@@ -188,7 +197,7 @@ function Page() {
                     <label>Codigo</label>
                   </Col>
                   <Col span={24}>
-                  <Input
+                    <Input
                       type="string"
                       name="Stock"
                       style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
@@ -205,14 +214,14 @@ function Page() {
                     <label>Mercaderia</label>
                   </Col>
                   <Col span={24}>
-                  <Input
+                    <Input
                       type="string"
                       name="Stock"
                       style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                       readOnly={true}
                       value={Ent.Nombre}
                     />
-                   
+
 
                   </Col>
                 </Row>
@@ -224,7 +233,7 @@ function Page() {
                     <label>Stock</label>
                   </Col>
                   <Col span={24}>
-                  <Input
+                    <Input
                       type="string"
                       name="Stock"
                       style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
@@ -241,7 +250,7 @@ function Page() {
                     <label>Reserva</label>
                   </Col>
                   <Col span={24}>
-                  <Input
+                    <Input
                       type="string"
                       name="Stock"
                       style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
@@ -302,6 +311,116 @@ function Page() {
 
             </Row>
           </Content>
+
+          <Footer style={footerStyle}>
+
+            <Row>
+              <Col span={5}>
+                <Row>
+                  <Col span={12}>
+                    <label>Usuario : </label>
+                  </Col>
+                  <Col span={12}>
+                    <label
+                      className='CodUsuario'
+                      style={{ marginTop: '5px', marginBottom: '10px' }}></label>
+
+                    {/* <Input
+          type="string"
+          name="Stock"
+          style={{ marginTop: '5px', marginBottom: '10px' }}
+          readOnly={true}
+          value={Ent.CodUsuario}
+        /> */}
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col span={12}>
+                    <label>Fecha Modificación : </label>
+                  </Col>
+                  <Col span={12}>
+                    <label
+                      className='FechaRegistro'
+                      style={{ marginTop: '5px', marginBottom: '10px' }}></label>
+                    {/* <Input
+          type="string"
+          name="FechaRegistro"
+          style={{ marginTop: '5px', marginBottom: '10px' }}
+          readOnly={true}
+          value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
+        /> */}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={12}>
+                    <label>Fecha Creación : </label>
+                  </Col>
+                  <Col span={12}>
+                    <label
+                      className='FechaRegistro'
+                      style={{ marginTop: '5px', marginBottom: '10px' }}></label>
+                    {/* <Input
+          type="string"
+          name="FechaRegistro"
+          style={{ marginTop: '5px', marginBottom: '10px' }}
+          readOnly={true}
+          value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
+        /> */}
+                  </Col>
+                </Row>
+
+
+
+
+              </Col>
+              <Col span={16}>
+
+              </Col>
+
+              <Col span={2}>
+                {/* <Button
+      style={ButtonAddMain}
+      onClick={Guardar_Total}
+      size={"large"}
+      icon={IconSave}
+    >
+      Guardar
+    </Button> */}
+
+                <Segmented
+                  style={{ float: "right" }}
+                  options={[
+
+                    {
+                      label: (
+                        <div style={{ padding: 4 }} onClick={Guardar_Total}>
+                          <Avatar style={{
+                            backgroundColor: "#15616d",
+                            borderColor: "#15616d",
+
+                          }}
+                            // onClick={Guardar_Total}
+                            shape="square"
+                            size={60}
+                            icon={<SaveFilled />} />
+                          <div>Guardar</div>
+                        </div>
+                      ),
+                      value: 'Guardar',
+                    },
+                  ]}
+                />
+
+              </Col>
+            </Row>
+
+            <Row>
+
+
+
+            </Row>
+          </Footer>
 
         </Layout>
       </Flex>
