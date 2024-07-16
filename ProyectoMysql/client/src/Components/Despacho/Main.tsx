@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import DataTable from './DataTable';
-import { RecepcionEntity } from '../../Models/RecepcionEntity';
-import RecepcionService from '../../Service/RecepcionService';
 import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
 import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain, ButtonAddMain } from '../../Styles/Button'
 import { SizeMainButtonSecondary, SizeButtonPrimary } from '../../Styles/Type'
 import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
+import DataTable from './DataTable';
 import { Link } from "react-router-dom";
+
+//service
+import DespachoService from '../../Service/DespachoService';
+
+//entity
+import { DespachoEntity } from '../../Models/DespachoEntity';
 function Main() {
   useEffect(() => {
     getItems();
   }, []);
-  const sRecepcion = new RecepcionService();
 
-  const [items, setItems] = useState<RecepcionEntity[]>([]);
+  const sDespacho = new DespachoService();
+
+  const [items, setItems] = useState<DespachoEntity[]>([]);
   const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled, setDisabled] = useState(false);
   const [Busqueda, setBusqueda] = useState<string>('');
@@ -21,26 +26,18 @@ function Main() {
     setDisabled(!disabled);
   };
 
-  const updateState = (item: RecepcionEntity) => {
-    const itemIndex = items.findIndex((data) => data.RecepcionId === item.RecepcionId);
-    const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
-    setItems(newArray);
-  };
-
-  const deleteItemFromState = (id: number) => {
-    const updatedItems = items.filter((item) => item.RecepcionId !== id);
-    setItems(updatedItems);
-  };
-
   const getItems = async () => {
-    const itemsg = await sRecepcion.GetItemOPMain();
-    setItems(itemsg);
+    const itemsg = await sDespacho.GetMain();
+    //   setItems(itemsg); 
+    console.log(itemsg);
+
     setCargarPage(false);
 
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBusqueda(e.target.value.toUpperCase());
   };
+  
   const filterItems = items.filter(fdata =>
     fdata.Codigo.toLowerCase().includes(Busqueda.toLowerCase())
   );
@@ -51,11 +48,11 @@ function Main() {
       <Row>
 
         <Col xs={18} sm={18} md={12} lg={12} xl={12}>
-          <Title level={2}> Recepción</Title>
+          <Title level={2}> Despacho</Title>
         </Col>
 
         <Col xs={6} sm={6} md={12} lg={12} xl={12}>
-          <Link to={`/RecepcionSave/0`}>
+          <Link to={`/DespachoSave/0`}>
             <Button
               style={ButtonAddMain}
               size={SizeButtonPrimary}
@@ -100,7 +97,7 @@ function Main() {
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
 
           <Input
-            placeholder='Buscar Orden'
+            placeholder='Buscar Despacho'
             type="text"
             name="Nombre"
             onChange={onChange}
@@ -112,7 +109,9 @@ function Main() {
 
       </Row>
       <Card>
-        <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
+        <DataTable DataList={filterItems}
+          //  updateState={updateState} deleteItemFromState={deleteItemFromState} 
+          EsTabla={disabled} />
       </Card>
 
     </Spin>
