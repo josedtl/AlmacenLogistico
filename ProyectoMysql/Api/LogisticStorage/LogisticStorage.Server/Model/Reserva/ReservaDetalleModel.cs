@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
-namespace LogisticStorage.EntityLayer
+namespace LogisticStorage.Server
 {
-    public class ReservaDetalleEntity : BaseEntityObject
+    public class ReservaDetalleModel
     {
-        public ReservaDetalleEntity()
+        public ReservaDetalleModel()
         {
             this.OrdenPedidoDetalleId = 0;
             this.MercaderiaId = 0;
             this.Cantidad = 0;
         }
 
+        [JsonPropertyName("OrdenPedidoDetalleId")]
         public Int32 OrdenPedidoDetalleId { get; set; }
+        [JsonPropertyName("MercaderiaId")]
         public Int32 MercaderiaId { get; set; }
+        [JsonPropertyName("Cantidad")]
         public Decimal Cantidad { get; set; }
     }
 }

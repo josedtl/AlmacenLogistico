@@ -8,16 +8,37 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace LogisticStorage.DataLayer
 {
     public class ReservaDetalleDB : BaseDataEntity
     {
-        public virtual bool Registrar(OrdenPedidoDetalleEntity Ent)
+
+        public virtual List<ReservaDetalleEntity> ReservaLista(List<ReservaDetalleEntity> Items)
         {
             StartHelper(true);
             try
             {
+                for (int o = 0; o < Items.Count; o++) Reserva(Items[o]);
+            }
+            catch (Exception ex)
+            {
+                Helper.CancelTransaction();
+                throw ex;
+            }
+
+            Helper.Close();
+            return Items;
+        }
+
+
+        public virtual bool Reserva(ReservaDetalleEntity Ent)
+        {
+            StartHelper(true);
+            try
+            {
+                ReservarDB(Ent);
                 //if (Ent.LogicalState == LogicalState.Deleted) EliminarDB(Ent);
                 //else RegistrarDB(Ent);
             }
@@ -30,7 +51,7 @@ namespace LogisticStorage.DataLayer
             Helper.Close();
             return true;
         }
-        private bool ReservarDB(OrdenPedidoDetalleEntity Ent)
+        private bool ReservarDB(ReservaDetalleEntity Ent)
         {
   
                 String storedName = "sp_ReservarMercaderiaItem";
@@ -39,20 +60,20 @@ namespace LogisticStorage.DataLayer
 
 
 
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_OrdenPedidoId", DbType.Int32, 4, false, 0, 0, Ent.OrdenPedidoId);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MercaderiaId", DbType.Int32, 4, false, 0, 0, Ent.MercaderiaId);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_CantidadSolicitado", DbType.Decimal, 15, false, 0, 0, Ent.CantidadSolicitado);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_CantidaReserva", DbType.Decimal, 15, false, 0, 0, Ent.Cantidad);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_OrdenPedidoDetalleId", DbType.Int32, 4, false, 0, 0, Ent.OrdenPedidoDetalleId);
                 int returnValue = DbDatabase.ExecuteNonQuery();
-                if (Ent.LogicalState == LogicalState.Added)
-                {
-                    if (Ent.OrdenPedidoDetalleId <= 0) Ent.OrdenPedidoDetalleId = (Int32)DbDatabase.GetParameterValue("v_OrdenPedidoDetalleId");
-                    Ent.OnLogicalAdded();
-                }
-                else
-                {
-                    if (returnValue <= 0) throw new Exception("ErrorDB.UpdateEntity");
-                    Ent.OnLogicalUpdate();
-                }
+                //if (Ent.LogicalState == LogicalState.Added)
+                //{
+                //    if (Ent.OrdenPedidoDetalleId <= 0) Ent.OrdenPedidoDetalleId = (Int32)DbDatabase.GetParameterValue("v_OrdenPedidoDetalleId");
+                //    Ent.OnLogicalAdded();
+                //}
+                //else
+                //{
+                //    if (returnValue <= 0) throw new Exception("ErrorDB.UpdateEntity");
+                //    Ent.OnLogicalUpdate();
+                //}
        
 
 

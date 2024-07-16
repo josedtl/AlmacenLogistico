@@ -63,3 +63,19 @@ export class ReservaResumenModel {
         this.DetalleItems = [];
     }
 }
+
+
+
+export class ReservaDetalleEntity {
+   
+    OrdenPedidoDetalleId: number;
+    MercaderiaId: number;
+    Cantidad: number;
+    constructor() {
+
+        this.OrdenPedidoDetalleId = 0;
+        this.MercaderiaId = 0;
+        this.Cantidad = 0;
+    }
+}
+
