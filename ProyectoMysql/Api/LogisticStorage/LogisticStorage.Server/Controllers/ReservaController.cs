@@ -42,7 +42,7 @@ namespace LogisticStorage.Server.Controllers
                 ItemEntity.Cantidad = Item.Cantidad;
                 ItemEntity.OrdenPedidoDetalleId = Item.OrdenPedidoDetalleId;
                 ItemEntity.LogicalState = (LogicalState)Item.Action;
-                
+
                 Item.MercaderiaId = Reserva.ReservarMercaderia(ItemEntity);
 
                 return new ResponseAPI<ReservaMercaderiaOPModel>(Item, true);
@@ -97,5 +97,34 @@ namespace LogisticStorage.Server.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("ReservarMercaderiaDetalle")]
+        public ResponseAPI<List<ReservaDetalleModel>> ReservarLista(List<ReservaDetalleModel> Items)
+        {
+            try
+            {
+                d.Configurar();
+                List<ReservaDetalleEntity> ItemEntity = new List<ReservaDetalleEntity>();
+
+
+                foreach (var Item in Items)
+                {
+                    ItemEntity.Add(new ReservaDetalleEntity
+                    {
+                        Cantidad = Item.Cantidad,
+                        OrdenPedidoDetalleId = Item.OrdenPedidoDetalleId,
+                        MercaderiaId = Item.MercaderiaId
+                    });
+                }
+
+                ReservaDetalle.ReservaLista(ItemEntity);
+
+                return new ResponseAPI<List<ReservaDetalleModel>>(Items, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<ReservaDetalleModel>>(new List<ReservaDetalleModel>(), false, ex.Message);
+            }
+        }
     }
 }

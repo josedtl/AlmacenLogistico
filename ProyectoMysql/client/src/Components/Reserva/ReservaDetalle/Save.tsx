@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import { ReservaResumenModel, ReservaPedidoModel } from '../../../Models/ReservaEntity';
+import { ReservaResumenModel, ReservaPedidoModel, ReservaDetalleEntity } from '../../../Models/ReservaEntity';
 import ModalItem from './ModalItem';
 import ReservaService from '../../../Service/ReservaService';
 import { Tabs, message, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar } from 'antd';
@@ -21,6 +21,7 @@ function Page() {
   const { Title } = Typography;
   const [Ent, setEnt] = useState<ReservaResumenModel>(new ReservaResumenModel());
   const [KeyTabs, setKeyTabs] = useState<String>('');
+  const [ItemReservaDetalle, setItemReservaDetalle] = useState<ReservaDetalleEntity[]>([]);
   KeyTabs;
   const addItemToState = (item: ReservaPedidoModel) => {
 
@@ -83,7 +84,6 @@ function Page() {
           //   data.Action = ProcessActionEnum.Update;
 
           // })
-          console.log(Resp_OPDetalle);
           setItems(Resp_OPDetalle)
           Ent.DetalleItems = Resp_OPDetalle
         }
@@ -146,9 +146,26 @@ function Page() {
   const footerStyle: React.CSSProperties = {
     borderColor: "#15616d",
   };
-
+  const sOrdenPedido = new ReservaService();
   const Guardar_Total = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
+
+    filterItems.forEach((d) => (
+      ItemReservaDetalle.push(d)
+    ));
+
+    console.log(ItemReservaDetalle);
+    const savedItem = await sOrdenPedido.ReservarMercaderiaDetalle(ItemReservaDetalle);
+
+    if (savedItem) {
+      messageAdd.open({
+        type: 'success',
+        content: 'Se guardó correctamente.',
+      });
+
+
+    } else {
+    }
 
 
   };
