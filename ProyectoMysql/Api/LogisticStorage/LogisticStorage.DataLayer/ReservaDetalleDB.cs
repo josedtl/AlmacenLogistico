@@ -13,7 +13,23 @@ namespace LogisticStorage.DataLayer
 {
     public class ReservaDetalleDB : BaseDataEntity
     {
+        public virtual bool Registrar(OrdenPedidoDetalleEntity Ent)
+        {
+            StartHelper(true);
+            try
+            {
+                //if (Ent.LogicalState == LogicalState.Deleted) EliminarDB(Ent);
+                //else RegistrarDB(Ent);
+            }
+            catch (Exception ex)
+            {
+                Helper.CancelTransaction();
+                throw ex;
+            }
 
+            Helper.Close();
+            return true;
+        }
         private bool ReservarDB(OrdenPedidoDetalleEntity Ent)
         {
   
