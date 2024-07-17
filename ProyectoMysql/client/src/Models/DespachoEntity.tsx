@@ -13,5 +13,18 @@ export class DespachoEntity {
         this.Documento = '';
         this.FechaRegistro = new Date();
     }
+}
 
+export class DespachoDetalleEntity {
+    DespachoDetalleId: number;
+    DespachoId: number;
+    Cantidad: number;
+    OrdenPedidoDetalleId: number;
+    constructor() {
+        this.DespachoDetalleId = 0;
+        this.DespachoId = 0;
+        this.Cantidad = 0;
+        this.OrdenPedidoDetalleId = 0;
+
+    }
 }
