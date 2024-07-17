@@ -28,19 +28,18 @@ function Main() {
 
   const getItems = async () => {
     const itemsg = await sDespacho.GetMain();
-    //   setItems(itemsg); 
+    setItems(itemsg);
     console.log(itemsg);
-
     setCargarPage(false);
 
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBusqueda(e.target.value.toUpperCase());
   };
-  
-  const filterItems = items.filter(fdata =>
-    fdata.Codigo.toLowerCase().includes(Busqueda.toLowerCase())
-  );
+
+  // const filterItems = items.filter(fdata =>
+  //   fdata.Codigo.toLowerCase().includes(Busqueda.toLowerCase())
+  // );
 
   const { Title } = Typography;
   return (
@@ -109,7 +108,7 @@ function Main() {
 
       </Row>
       <Card>
-        <DataTable DataList={filterItems}
+        <DataTable DataList={items}
           //  updateState={updateState} deleteItemFromState={deleteItemFromState} 
           EsTabla={disabled} />
       </Card>
