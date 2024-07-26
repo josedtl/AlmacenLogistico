@@ -28,5 +28,51 @@ namespace LogisticStorage.Server.Controllers
             }
         }
 
+
+        [HttpGet]
+        [Route("ObtenerCabecera/{OrdenPedidoId}")]
+        public ResponseAPI<List<DespachoCabeceraModel>> ObtenerCabecera(Int32 OrdenPedidoId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Despacho.ObtenerCabecera(OrdenPedidoId);
+
+                List<DespachoCabeceraModel> Lista = new List<DespachoCabeceraModel>();
+
+                foreach (var Item in Items) Lista.Add(new DespachoCabeceraModel(Item));
+
+                return new ResponseAPI<List<DespachoCabeceraModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<DespachoCabeceraModel>>(new List<DespachoCabeceraModel>(), false, ex.Message);
+            }
+        }
+
+
+        [HttpGet]
+        [Route("ObtenerDetalle/{OrdenPedidoId}")]
+        public ResponseAPI<List<DespachoDetalleModel>> ObtenerDetalle(Int32 OrdenPedidoId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = DespachoDetalle.ObtenerDetalle(OrdenPedidoId);
+
+                List<DespachoDetalleModel> Lista = new List<DespachoDetalleModel>();
+
+                foreach (var Item in Items) Lista.Add(new DespachoDetalleModel(Item));
+
+                return new ResponseAPI<List<DespachoDetalleModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<DespachoDetalleModel>>(new List<DespachoDetalleModel>(), false, ex.Message);
+            }
+        }
+
     }
 }

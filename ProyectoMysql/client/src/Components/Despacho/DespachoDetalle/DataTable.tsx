@@ -1,6 +1,5 @@
 import React from 'react';
 import ModalItem from './ModalItem'
-import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity';
 import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Card, Col, Row, Button, Table, Modal } from 'antd';
@@ -10,6 +9,7 @@ import 'moment/locale/es';
 import { DataType } from '../../../Lib/ResourceModel/DataTableType'
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 
+import { DespachoDetalleModel } from '../../../Models/DespachoEntity';
 // import  from 'react-emotion';
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');
@@ -42,12 +42,6 @@ const DataTable: React.FC<PropsTable> = (props) => {
             key: 'CantidadSolicitado',
         },
         {
-            title: 'Faltante',
-            dataIndex: 'CantidadFaltante',
-            width: 65,
-            key: 'CantidadFaltante',
-        },
-        {
             title: 'Reservado',
             dataIndex: 'CantidadReservado',
             width: 65,
@@ -64,7 +58,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             fixed: 'right',
             width: 60,
             key: 'action',
-            render: (record: OrdenPedidoDetalleEntity) =>
+            render: (record: DespachoDetalleModel) =>
                 <span>
 
                     {/* <Button

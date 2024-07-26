@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogisticStorage.EntityLayer
 {
-    public class DespachoEntity : BaseEntityObject
+    public partial class DespachoEntity : BaseEntityObject
     {
 
         public DespachoEntity(){

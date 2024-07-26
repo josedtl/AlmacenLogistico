@@ -1,4 +1,4 @@
-import { DespachoEntity} from '../Models/DespachoEntity';
+import { DespachoEntity,DespachoCabeceraModel,DespachoDetalleModel} from '../Models/DespachoEntity';
 import { apiLg } from './axios-config';
 
 class DespachoService {
@@ -12,6 +12,26 @@ class DespachoService {
       throw error;
     }
   }
+  async GetItemCabecera(Id: number): Promise<DespachoCabeceraModel[]> {
+    try {
+      const response = await apiLg.get(`api/Despacho/ObtenerCabecera/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+ 
+  async GetItemDetalle(Id: number): Promise<DespachoDetalleModel[]> {
+    try {
+      const response = await apiLg.get(`api/Despacho/ObtenerDetalle/${Id}`);
+      console.log(response);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
 }
 
 export default DespachoService;

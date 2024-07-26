@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 
 //entitys
-import { DespachoEntity, DespachoDetalleEntity } from '../../../Models/DespachoEntity'
+import { DespachoEntity, DespachoCabeceraModel,DespachoDetalleModel } from '../../../Models/DespachoEntity'
 import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity'
 import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity'
 
@@ -25,7 +25,7 @@ function Page() {
     const sOrdenPedido = new OrdenPedidoService();
     //const [items, setItems] = useState<DespachoDetalleEntity[]>([]);
     
-  const [items, setItems] = useState<OrdenPedidoDetalleEntity[]>([]);
+  const [items, setItems] = useState<DespachoDetalleModel[]>([]);
     //const [Ent, setEnt] = useState<DespachoDetalleEntity>(new DespachoDetalleEntity());
 
 
@@ -33,7 +33,7 @@ function Page() {
     const [KeyTabs, setKeyTabs] = useState<String>('');
     const [disabled] = useState(false);
 
-    const [Ent, setEnt] = useState<OrdenPedidoEntity>(new OrdenPedidoEntity());
+    const [Ent, setEnt] = useState<DespachoCabeceraModel>(new DespachoCabeceraModel());
 
     // Componentes
     const [messageAdd, contextHolderAdd] = message.useMessage();
@@ -54,22 +54,22 @@ function Page() {
         setItems([])
         if (Id > 0) {
 
-            const Resp_OPCabecera = await sOrdenPedido.GetItemCabecera(Id);
-            Resp_OPCabecera[0].Action = ProcessActionEnum.Update
+            const Resp_Cabecera = await sDespacho.GetItemCabecera(Id);
+            Resp_Cabecera[0].Action = ProcessActionEnum.Update
     
-            setEnt(Resp_OPCabecera[0]);
+            setEnt(Resp_Cabecera[0]);
     
-            const Resp_OPDetalle = await sOrdenPedido.GetItemCabeceraOP(Id);
+            const Resp_Detalle = await sDespacho.GetItemDetalle(Id);
     
-            if (Resp_OPDetalle.length > 0) {
+            if (Resp_Detalle.length > 0) {
     
-              Resp_OPDetalle.map((data) => {
+                Resp_Detalle.map((data) => {
                 data.Action = ProcessActionEnum.Update;
     
               })
     
-              setItems(Resp_OPDetalle);
-              Ent.DetalleItems = Resp_OPDetalle
+              setItems(Resp_Detalle);
+              Ent.DetalleItems = Resp_Detalle
             }
     
     
@@ -147,7 +147,7 @@ function Page() {
                                             name="Stock"
                                             style={{ marginTop: '5px', marginBottom: '10px' }}
                                             readOnly={true}
-                                        //   value={Ent.CodUsuario}
+                                           value={Ent.NomResponsable}
                                         />
 
 

@@ -15,6 +15,11 @@ namespace LogisticStorage.BusinessLayer
             DespachoDB DB = new DespachoDB();
             return DB.DespachoObtenerMain();
         }
+        public static List<DespachoEntity> ObtenerCabecera(Int32 OrdenPedidoId)
+        {
+            DespachoDB DB = new DespachoDB();
 
+            return DB.ObtenerCabecera(OrdenPedidoId);
+        }
     }
 }

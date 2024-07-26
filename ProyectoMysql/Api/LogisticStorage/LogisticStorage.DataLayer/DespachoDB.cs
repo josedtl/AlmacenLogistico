@@ -37,5 +37,32 @@ namespace LogisticStorage.DataLayer
             }
         }
 
+
+        public virtual List<DespachoEntity> ObtenerCabecera(Int32 OrdenPedidoId)
+        {
+            try
+            {
+                StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_OrdenPedidoId", DbType.Int32, 4, false, 0, 0, OrdenPedidoId);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_Despacho_ObtenerCabecera");
+                FillSchemeTable(dr);
+                List<DespachoEntity> EntityList = new List<DespachoEntity>();
+                while (dr.Read())
+                {
+                    DespachoEntity entity = new DespachoEntity();
+                    if (FillFrom(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
     }
 }
