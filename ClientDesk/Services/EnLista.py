@@ -4,7 +4,7 @@ import requests
 class EnLista:
     def Get_EntListaCodigo(Codigo: str):
         try:
-            url = "http://localhost:9085/api/EntLista/GetItems/" + Codigo
+            url = "http://localhost/AlmacenLogisticoService/api/EntLista/ObtenerItems/" + Codigo
             response = requests.get(url)
             data = response.json()
             return data.get("Value", [])

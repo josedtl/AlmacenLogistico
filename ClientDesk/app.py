@@ -1,9 +1,14 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import requests
 from Services.EnLista import *
 from tkcalendar import DateEntry
 
+def hello():
+    messagebox.showinfo("Mensaje", "Hola, mundo")
+
+def about():
+    messagebox.showinfo("Acerca de", "Este es un ejemplo de menú en tkinter")
 
 def sumar():
     try:
