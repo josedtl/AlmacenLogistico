@@ -160,11 +160,13 @@ function Page() {
                                         <label>Fecha de Registro</label>
                                     </Col>
                                     <Col span={24}>
-                                        <DatePicker
-                                            //   onChange={onChangeDate}
-                                            //   value={dayjs(FechaEmisionItem, dateFormat)}
-                                            style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
-                                            size='middle' />
+                                    <Input
+                                            type="string"
+                                            name="Stock"
+                                            style={{ marginTop: '5px', marginBottom: '10px' }}
+                                            readOnly={true}
+                                        //    value={Ent.}
+                                        />
 
                                     </Col>
                                 </Row>
@@ -214,6 +216,22 @@ function Page() {
                                     </Col>
                                 </Row>
                             </Col>
+                            <Col xs={3} >
+                                <Row>
+                                    <Col span={24}>
+                                        <label>Fecha de Registro</label>
+                                    </Col>
+                                    <Col span={24}>
+                                        <DatePicker
+                                            //   onChange={onChangeDate}
+                                            //   value={dayjs(FechaEmisionItem, dateFormat)}
+                                            style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
+                                            size='middle' />
+
+                                    </Col>
+                                </Row>
+                            </Col>
+
 
                         </Row>
                         <Row>

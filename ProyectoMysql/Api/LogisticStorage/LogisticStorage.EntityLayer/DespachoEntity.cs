@@ -10,19 +10,21 @@ namespace LogisticStorage.EntityLayer
     {
 
         public DespachoEntity(){
+            DespachoId = 0;
+            EntidadEntregadoId = 0;
             OrdenPedidoId = 0;
             Codigo = "";
-            Nombre = "";
-            NombreCompleto = "";
-            Documento = "";
             FechaRegistro=DateTime.Now;
+            FechaHoraEntrega=DateTime.Now;
         }
 
-        public Int32 OrdenPedidoId {  get; set; }
+        public Int32 DespachoId { get; set; }
         public string Codigo{  get; set; }
-        public string Nombre {  get; set; }
-        public string NombreCompleto{  get; set; }
-        public string Documento {  get; set; }
+        public DateTime FechaHoraEntrega { get; set; }
+        public Int32 EntidadEntregadoId { get; set; }
+        public Int32 OrdenPedidoId {  get; set; }
         public DateTime FechaRegistro {  get; set; }
+
+        public List<DespachoDetalleEntity> DetalleItem { get; set; }
     }
 }

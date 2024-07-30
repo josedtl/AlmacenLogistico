@@ -110,6 +110,7 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<OrdenPedidoSaveModel>(new OrdenPedidoSaveModel(), false, ex.Message);
             }
         }
+
         [HttpGet]
         [Route("ObtenerDetalleItem/{OrdenPedidoId}")]
         public ResponseAPI<List<OrdenPedidoDetalleSaveModel>> ObtenerDetalleItem(Int32 OrdenPedidoId)
