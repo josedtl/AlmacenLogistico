@@ -4,6 +4,8 @@ from Services.EnLista import *
 from tkcalendar import DateEntry
 
 class FormPersona(tk.Frame):
+    
+
     def __init__(self, parent):
         super().__init__(parent)
         
@@ -40,11 +42,10 @@ class FormPersona(tk.Frame):
 
         label_Correo = tk.Label(self, text="Correo:", width=20)
         entry_Correo = ttk.Entry(self, width=30)
-
-
+        
+        btn_Guardar = tk.Button(self, text="Guardar", command=self.GuardarEvent)
         # btn_sumar = tk.Button(self, text="Sumar", command=sumar)
 
-        label_resultado = tk.Label(self, text="Resultado: ")
 
         # Colocar widgets en la self
         _padx = 10
@@ -90,10 +91,7 @@ class FormPersona(tk.Frame):
         entry_Correo.grid(row=_Row, column=1, padx=_padx, pady=_pady)
 
         _Row += 1
-        # btn_sumar.grid(row=_Row, column=0, columnspan=2, pady=_pady)
-
-        _Row += 1
-        label_resultado.grid(row=_Row, column=0, columnspan=2, pady=_pady)
+        btn_Guardar.grid(row=_Row, column=0, columnspan=2, pady=_pady)
         
         try:
             data = EnLista.Get_EntListaCodigo("C001")
@@ -114,5 +112,7 @@ class FormPersona(tk.Frame):
         except requests.exceptions.RequestException as e:
             print(f"Error al obtener datos de la API: {e}")
     
-    def submit(self):
+
+    def GuardarEvent(self):
         messagebox.showinfo("Formulario 1", "Formulario 1 enviado")
+    
