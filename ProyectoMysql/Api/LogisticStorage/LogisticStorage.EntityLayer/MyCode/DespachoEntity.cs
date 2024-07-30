@@ -15,7 +15,9 @@ namespace LogisticStorage.EntityLayer
         public Int32 EntidadId { get; set; }
         public String NomResponsable { get; set; }
         public String NomProceso { get; set; }
-        
+        public string Nombre { get; set; }
+        public string NombreCompleto { get; set; }
+        public string Documento { get; set; }
 
     }
 }

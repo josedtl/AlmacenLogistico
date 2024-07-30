@@ -19,6 +19,9 @@ namespace LogisticStorage.EntityLayer
             
         }
 
+        public Int32 DespachoDetalleId { get; set; }
+        public Int32 DespachoId { get; set; }
+        public Int32 Cantidad { get; set; }    
         public Int32 OrdenPedidoId { get; set; }
         public Int32 OrdenPedidoDetalleId { get; set; }
         public String NomProducto { get; set; }
