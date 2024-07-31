@@ -7,8 +7,15 @@ export class DespachoEntity {
     NombreCompleto: string;
     Documento: string;
     FechaRegistro: Date;
-    
     Action: ProcessActionEnum
+    DespachoId: 0;
+    EntidadEntregadoId: 0;
+    FechaHoraEntrega: Date;
+    ProcesoId: number;
+    NomProceso: string;
+    EntidadId: number;
+    NomResponsable: string;
+    DetalleItems: DespachoDetalleModel[]
     constructor() {
         this.OrdenPedidoId = 0;
         this.Codigo = '';
@@ -17,6 +24,17 @@ export class DespachoEntity {
         this.Documento = '';
         this.FechaRegistro = new Date();
         this.Action = ProcessActionEnum.Add;
+        this.DespachoId = 0;
+        this.EntidadEntregadoId = 0;
+        this.FechaHoraEntrega = new Date();
+        this.OrdenPedidoId = 0;
+        this.ProcesoId = 0;
+        this.NomProceso = "";
+        this.EntidadId = 0;
+        this.NomResponsable = "";
+        this.Action = ProcessActionEnum.Add;
+        this.DetalleItems = [];
+
     }
 }
 
@@ -25,7 +43,6 @@ export class DespachoDetalleEntity {
     DespachoId: number;
     Cantidad: number;
     OrdenPedidoDetalleId: number;
-    
     Action: ProcessActionEnum
     constructor() {
         this.DespachoDetalleId = 0;
@@ -37,16 +54,15 @@ export class DespachoDetalleEntity {
     }
 }
 
-export class DespachoCabeceraModel{
-    OrdenPedidoId:number;
-    ProcesoId:number;
-    NomProceso:string;
-    EntidadId:number;
-    NomResponsable:string;
-    
-    DetalleItems:  DespachoDetalleModel[]
+export class DespachoCabeceraModel {
+    OrdenPedidoId: number;
+    ProcesoId: number;
+    NomProceso: string;
+    EntidadId: number;
+    NomResponsable: string;
+    DetalleItems: DespachoDetalleModel[]
     Action: ProcessActionEnum
-    constructor(){
+    constructor() {
 
         this.OrdenPedidoId = 0;
         this.ProcesoId = 0;
@@ -58,17 +74,19 @@ export class DespachoCabeceraModel{
     }
 }
 
-export class DespachoDetalleModel{
-    OrdenPedidoId:number;
-    OrdenPedidoDetalleId:number;
-    NomProducto:string;
-    CodigoUM:string;
-    CantidadSolicitado:number;
-    CantidadReservado:number;
-    CantidadAtendido:number;
-
+export class DespachoDetalleModel {
+    OrdenPedidoId: number;
+    OrdenPedidoDetalleId: number;
+    NomProducto: string;
+    CodigoUM: string;
+    CantidadSolicitado: number;
+    CantidadReservado: number;
+    CantidadAtendido: number;
     Action: ProcessActionEnum
-    constructor(){
+    DespachoDetalleId: number;
+    DespachoId: number;
+    Cantidad: number;
+    constructor() {
         this.OrdenPedidoId = 0;
         this.OrdenPedidoDetalleId = 0;
         this.NomProducto = "";
@@ -77,5 +95,8 @@ export class DespachoDetalleModel{
         this.CantidadReservado = 0;
         this.CantidadAtendido = 0;
         this.Action = ProcessActionEnum.Add;
+        this.DespachoDetalleId = 0;
+        this.DespachoId = 0;
+        this.Cantidad = 0;
     }
 }

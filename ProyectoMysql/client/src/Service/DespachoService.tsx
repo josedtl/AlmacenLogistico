@@ -12,7 +12,7 @@ class DespachoService {
       throw error;
     }
   }
-  async GetItemCabecera(Id: number): Promise<DespachoCabeceraModel[]> {
+  async GetItemCabecera(Id: number): Promise<DespachoEntity[]> {
     try {
       const response = await apiLg.get(`api/Despacho/ObtenerCabecera/${Id}`);
       return response.data.Value;
@@ -25,6 +25,18 @@ class DespachoService {
     try {
       const response = await apiLg.get(`api/Despacho/ObtenerDetalle/${Id}`);
       console.log(response);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async saveItem(item: DespachoEntity): Promise<DespachoEntity | null> {
+    try {
+      const response = await apiLg.post(`api/Despacho/Registrar/`, item, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       return response.data.Value;
     } catch (error) {
       throw error;
