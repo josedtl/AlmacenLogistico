@@ -1,0 +1,42 @@
+venv
+__pycache__
+virtual-env
+venv-entorno
+
+# Compiled Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# IDE / Editor folders
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Python environment files
+Pipfile.lock
+poetry.lock
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# Compiled Python files
+*.pyc
+*.pyo
+__pycache__/

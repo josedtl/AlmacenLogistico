@@ -9,7 +9,7 @@ class FormPersonaPageMain(tk.Frame):
         super().__init__(parent)
 
         self.tree = ttk.Treeview(self, columns=(
-            "Nº", "Documento", "Numero", "Nombres", "ApellidoPaterno", 
+            "PersonaNaturalId", "Nº", "Documento", "Numero", "Nombres", "ApellidoPaterno", 
             "ApellidoMaterno", "Fecha de registro", "Usuario", "Action"
         ), show='headings')
 
@@ -23,6 +23,7 @@ class FormPersonaPageMain(tk.Frame):
         self.tree.heading("Usuario", text="Usuario")
         self.tree.heading("Action", text="Action")
 
+        self.tree.column("PersonaNaturalId", width=0, stretch=tk.NO)
         self.tree.column("Nº", width=50)
         self.tree.column("Documento", width=100)
         self.tree.column("Numero", width=100)
@@ -43,32 +44,22 @@ class FormPersonaPageMain(tk.Frame):
         self.add_button = tk.Button(self, text="Agregar", command=self.open_add_window)
         self.add_button.pack(pady=10)
 
+        self.tree.bind("<Double-1>", self.open_edit_window)
         # Cargar datos iniciales
         self.dataApi = EnLista.Get_PersonaLista()
+
         self.refresh_table()
 
-        # for i, item in enumerate(self.dataApi):
-        #     # Asumiendo que item es un diccionario
-        #     row = (
-        #         i + 1,
-        #         item.get("Documento", ""),
-        #         item.get("Numero", ""),
-        #         item.get("Nombres", ""),
-        #         item.get("ApellidoPaterno", ""),
-        #         item.get("ApellidoMaterno", ""),
-        #         item.get("FechaDeRegistro", ""),
-        #         item.get("Usuario", ""),
-        #         ""  # Aquí puedes añadir algún texto o dejarlo vacío para la columna 'Action'
-        #     )
-        #     self.tree.insert("", "end", values=row)
 
     def open_add_window(self):
         AddEditWindow(self, refresh_callback=self.refresh_table)
 
     def open_edit_window(self, event):
         item = self.tree.selection()
+        
         if item:
             item_values = self.tree.item(item, 'values')
+            # print(item_values)
             AddEditWindow(self, item_values, item, refresh_callback=self.refresh_table)
     
     def refresh_table(self):
@@ -80,14 +71,15 @@ class FormPersonaPageMain(tk.Frame):
         for i, item in enumerate(self.dataApi):
             # Asumiendo que item es un diccionario
             row = (
+                item.PersonaNaturalId,
                 i + 1,
-                item.get("NomDocumento", ""),
-                item.get("NumDocumento", ""),
-                item.get("Nombres", ""),
-                item.get("ApellidoPaterno", ""),
-                item.get("ApellidoMaterno", ""),
-                item.get("FechaRegistro", ""),
-                item.get("CodUsuario", ""),
+                item.NomDocumento,
+                item.NumDocumento, 
+                item.Nombres,
+                item.ApellidoPaterno,
+                item.ApellidoMaterno,
+                item.FechaRegistro,
+                item.CodUsuario,
                 ""  # Aquí puedes añadir algún texto o dejarlo vacío para la columna 'Action'
             )
             self.tree.insert("", "end", values=row)
