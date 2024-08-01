@@ -2,8 +2,8 @@ import tkinter as tk
 from tkinter import messagebox
 from form1 import Form1
 from form2 import Form2
-from formPersonaPage import FormPersona
-from formPersonaPageMain import FormPersonaPageMain
+from formPersonaPage import  FormPersona
+from Formulario.PerssonaNatural.Main import  FormPersonaPageMain
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
