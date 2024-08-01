@@ -2,7 +2,7 @@
 from pydantic import BaseModel
 from datetime import datetime
 
-class EntListaEntity(BaseModel):
+class DespachoMainModel(BaseModel):
     OrdenPedidoId: int
     Codigo: str
     Nombre: str

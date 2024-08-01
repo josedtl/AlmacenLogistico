@@ -3,6 +3,7 @@ from tkinter import messagebox
 from form1 import Form1
 from form2 import Form2
 from formPersonaPage import  FormPersona
+from Formulario.Despacho.Main import  DespachoMain
 from Formulario.PerssonaNatural.Main import  FormPersonaPageMain
 class App(tk.Tk):
     def __init__(self):
@@ -14,10 +15,8 @@ class App(tk.Tk):
         
         # Crear el menú "Formularios"
         form_menu = tk.Menu(menu_bar, tearoff=0)
-        form_menu.add_command(label="Formulario 1", command=self.load_form1)
-        form_menu.add_command(label="Formulario 2", command=self.load_form2)
-        form_menu.add_command(label="Persona", command=self.load_formPersona)
-        form_menu.add_command(label="Persona Main", command=self.load_formPersonaMain)
+        form_menu.add_command(label="Despacho", command=self.load_formDespachoMain)
+        form_menu.add_command(label="Persona", command=self.load_formPersonaMain)
         menu_bar.add_cascade(label="Formularios", menu=form_menu)
         
         # Crear el menú "Ayuda"
@@ -46,10 +45,10 @@ class App(tk.Tk):
         form2 = Form2(self.container)
         form2.pack(fill="both", expand=True)
         
-    def load_formPersona(self):
+    def load_formDespachoMain(self):
         self.clear_container()
-        m_formPersona = FormPersona(self.container)
-        m_formPersona.pack(fill="both", expand=True)
+        m_formDespachoMain = DespachoMain(self.container)
+        m_formDespachoMain.pack(fill="both", expand=True)
 
     def load_formPersonaMain(self):
         self.clear_container()
