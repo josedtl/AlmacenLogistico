@@ -3,11 +3,11 @@ from typing import List
 from pydantic import BaseModel, ValidationError
 from datetime import datetime
 from Entidades.PersonaNatural import EntListaEntity, PersonaNaturalEntity, PersonaNaturalSaveModel
-
+from envData import envData
 class EnLista:
     def Get_EntListaCodigo(Codigo: str) -> List[EntListaEntity]:
         try:
-            url = "http://localhost/AlmacenLogisticoService/api/EntLista/ObtenerItems/" + Codigo
+            url = f"{envData.servidor}api/EntLista/ObtenerItems/" + Codigo
             response = requests.get(url)
             response.raise_for_status()  # Verifica si la solicitud fue exitosa
             data = response.json()
@@ -20,7 +20,7 @@ class EnLista:
 
     def Get_PersonaLista() -> List[PersonaNaturalEntity]:
         try:
-            url = "http://localhost/AlmacenLogisticoService/api/PersonaNatural/ObtenerMain/"
+            url = f"{envData.servidor}api/PersonaNatural/ObtenerMain/"
             response = requests.get(url)
             response.raise_for_status()  # Verifica si la solicitud fue exitosa
             data = response.json()
@@ -33,7 +33,7 @@ class EnLista:
 
     def ObtenerItemPersonaNatural(PersonaNaturalId: int) -> List[PersonaNaturalSaveModel]:
         try:
-            url = "http://localhost/AlmacenLogisticoService/api/PersonaNatural/ObtenerItem/" + PersonaNaturalId
+            url = f"{envData.servidor}api/PersonaNatural/ObtenerItem/" + PersonaNaturalId
             response = requests.get(url)
             response.raise_for_status()  # Verifica si la solicitud fue exitosa
             data = response.json()

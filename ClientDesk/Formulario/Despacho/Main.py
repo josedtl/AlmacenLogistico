@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from Services.InvocadorDespacho import InvocadorDespacho
-
+from  .Save import SaveDespacho
 
 class DespachoMain(tk.Frame):
     def __init__(self, parent):
@@ -49,7 +49,7 @@ class DespachoMain(tk.Frame):
         if item:
             item_values = self.tree.item(item, 'values')
             # print(item_values)
-            # AddEditWindow(self, item_values, item, refresh_callback=self.refresh_table)
+            SaveDespacho(self, item_values, item, refresh_callback=self.refresh_table)
     
     def refresh_table(self):
         # Limpiar tabla
