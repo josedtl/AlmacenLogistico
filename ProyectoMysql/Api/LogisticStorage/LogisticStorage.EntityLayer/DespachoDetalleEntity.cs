@@ -16,7 +16,9 @@ namespace LogisticStorage.EntityLayer
             this.CantidadSolicitado = 0;
             this.CantidadReservado = 0;
             this.CantidadAtendido = 0;
-            
+            this.DetalleReservaItem = new List<ReservaEntity>();
+
+
         }
 
         public Int32 DespachoDetalleId { get; set; }
@@ -29,6 +31,9 @@ namespace LogisticStorage.EntityLayer
         public double CantidadSolicitado { get; set; }
         public double CantidadReservado { get; set; }
         public double CantidadAtendido { get; set; }
+
+        public List<ReservaEntity> DetalleReservaItem { get; set; }
+
 
     }
 }

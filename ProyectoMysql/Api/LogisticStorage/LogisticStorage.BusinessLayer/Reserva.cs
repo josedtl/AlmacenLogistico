@@ -32,5 +32,11 @@ namespace LogisticStorage.BusinessLayer
             ReservaDB DB = new ReservaDB();
             return DB.ReservaResumen(MercaderiaId);
         }
+
+        public static List<ReservaEntity> ObtenerReservaOPItem(Int32 OrdenPedidoId)
+        {
+            ReservaDB DB = new ReservaDB();
+            return DB.ObtenerReservaOPItem(OrdenPedidoId);
+        }
     }
 }

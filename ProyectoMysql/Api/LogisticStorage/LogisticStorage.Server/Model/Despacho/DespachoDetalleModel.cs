@@ -18,7 +18,7 @@ namespace LogisticStorage.Server.Model.Despacho
         public DespachoDetalleModel(DespachoDetalleEntity ent)
         {
             this.OrdenPedidoId = ent.OrdenPedidoId;
-            this.OrdenPedidoDetalleId = ent.OrdenPedidoId;
+            this.OrdenPedidoDetalleId = ent.OrdenPedidoDetalleId;
             this.NomProducto = ent.NomProducto;
             this.CodigoUM = ent.CodigoUM;
             this.CantidadSolicitado = ent.CantidadSolicitado;

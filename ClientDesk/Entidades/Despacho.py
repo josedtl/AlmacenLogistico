@@ -1,4 +1,5 @@
 
+from typing import List
 from pydantic import BaseModel
 from datetime import datetime
 
@@ -10,27 +11,43 @@ class DespachoMainModel(BaseModel):
     Documento: str
     FechaRegistro : datetime
 
-class DespachoCabeceraModel(BaseModel):
-    OrdenPedidoId: int
-    NomProceso: str
-    ProcesoId: int
-    EntidadId: int
-    NomResponsable: str
 
+class DespachoReservaOPModel(BaseModel):
+    ReservaId: int 
+    OrdenPedidoId: int 
+    OrdenPedidoDetalleId: int 
+    MercaderiaId: int 
+    Cantidad: float    
+    StockId: int    
+    
 class DespachoDetalleModel(BaseModel):
     OrdenPedidoId: int = 0
     OrdenPedidoDetalleId: int = 0
     NomProducto: str = ""
     CodigoUM: str = ""
-    CantidadSolicitado: int = 0
-    CantidadReservado: int = 0
-    CantidadAtendido: int = 0
+    CantidadSolicitado: float = 0
+    CantidadReservado: float = 0
+    CantidadAtendido: float = 0
+    DetalleReservaItem : List[DespachoReservaOPModel] = []
+
+
+class DespachoCabeceraModel(BaseModel):
+    OrdenPedidoId: int
+    NomProceso: str
+    ProcesoId: int
+    EntidadId: int 
+    NomResponsable: str
+    DetalleItems :List[DespachoDetalleModel] = []
+
+
+    
 
 class DespachoDetalleSaveModel(BaseModel):
     DespachoDetalleId: int = 0
     DespachoId: int = 0
     OrdenPedidoDetalleId: int = 0
-    Cantidad: int = 0
+    Cantidad: float = 0
+    
 
 class DespachoMainModel(BaseModel):
     OrdenPedidoId: int 
@@ -39,3 +56,6 @@ class DespachoMainModel(BaseModel):
     NombreCompleto: str
     Documento: str
     FechaRegistro: datetime
+    
+    
+

@@ -87,7 +87,7 @@ namespace LogisticStorage.Server.Controllers
 
                 ItemEntity.DespachoId = Item.DespachoId;
                 ItemEntity.OrdenPedidoId = Item.OrdenPedidoId;
-                ItemEntity.EntidadEntregadoId = Item.EntidadEntregadoId;
+                ItemEntity.EntidadEntregadoId = 18;
                 ItemEntity.Codigo = Item.Codigo;
                 ItemEntity.FechaHoraEntrega = Item.FechaHoraEntrega;
                 ItemEntity.FechaRegistro = Item.FechaRegistro;
@@ -99,14 +99,35 @@ namespace LogisticStorage.Server.Controllers
                     ItemEntity.DetalleItem = new List<DespachoDetalleEntity>();
                     foreach (var detalle in Item.DetalleItems)
                     {
-                        ItemEntity.DetalleItem.Add(new DespachoDetalleEntity
+
+                        List<ReservaEntity> reservaEntities = null;
+                        reservaEntities = new List<ReservaEntity>();
+                        if (detalle.DetalleReservaItem != null && detalle.DetalleReservaItem.Count > 0)
                         {
 
+                            foreach (var reserva in detalle.DetalleReservaItem)
+                            {
+                                reservaEntities.Add(new ReservaEntity
+                                {
+                                    ReservaId = reserva.ReservaId,
+                                    OrdenPedidoId = reserva.OrdenPedidoId,
+                                    OrdenPedidoDetalleId = reserva.OrdenPedidoDetalleId,
+                                    MercaderiaId = reserva.MercaderiaId,
+                                    Cantidad = reserva.Cantidad,
+                                    StockId = reserva.StockId
+
+                                });
+                            }
+
+                        }
+                        ItemEntity.DetalleItem.Add(new DespachoDetalleEntity
+                        {
                             DespachoDetalleId = detalle.DespachoDetalleId,
                             OrdenPedidoDetalleId = detalle.OrdenPedidoDetalleId,
                             DespachoId = detalle.DespachoId,
                             Cantidad = detalle.Cantidad,
-                            LogicalState = (LogicalState)detalle.Action
+                            LogicalState = (LogicalState)detalle.Action,
+                            DetalleReservaItem = reservaEntities
                         });
 
                     }
@@ -119,6 +140,28 @@ namespace LogisticStorage.Server.Controllers
             catch (Exception ex)
             {
                 return new ResponseAPI<DespachoSaveModel>(new DespachoSaveModel(), false, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("ObtenerReservaOPItem/{OrdenPedidoId}")]
+        public ResponseAPI<List<DespachoReservaOPModel>> ObtenerReservaOPItem(Int32 OrdenPedidoId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Reserva.ObtenerReservaOPItem(OrdenPedidoId);
+
+                List<DespachoReservaOPModel> Lista = new List<DespachoReservaOPModel>();
+
+                foreach (var Item in Items) Lista.Add(new DespachoReservaOPModel(Item));
+
+                return new ResponseAPI<List<DespachoReservaOPModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<DespachoReservaOPModel>>(new List<DespachoReservaOPModel>(), false, ex.Message);
             }
         }
 

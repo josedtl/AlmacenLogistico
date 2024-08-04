@@ -75,20 +75,41 @@ class SaveDespacho(tk.Toplevel):
         try:
             self.OrdenPedidoId = 0
             if item_values != None:
-                 self.lstDespachoCabecera = InvocadorDespacho.ObtenerCabecera(item_values[0])
+                 lstDespachoCabecera: List[DespachoCabeceraModel] = []
+                 lstDespachoCabecera = InvocadorDespacho.ObtenerCabecera(item_values[0])
                  
-                 ItemEnt = self.lstDespachoCabecera[0]
-                 self.OrdenPedidoId = ItemEnt.OrdenPedidoId
-                 self.entry_TipoRequerimiento.insert(0,ItemEnt.NomProceso)
-                 self.entry_Entidad.insert(0,ItemEnt.NomResponsable)
+                 self.ItemEnt = lstDespachoCabecera[0]
+                 self.ItemEnt.EntidadId = 18
+                 self.OrdenPedidoId = self.ItemEnt.OrdenPedidoId
+                 self.entry_TipoRequerimiento.insert(0,self.ItemEnt.NomProceso)
+                 self.entry_Entidad.insert(0,self.ItemEnt.NomResponsable)
             
                  self.Accion = 3
-                 self.lstDespachoDetalle = InvocadorDespacho.ObtenerDetalle(item_values[0])
-                 print (self.lstDespachoDetalle )
+                 
+                 lstDespachoDetalle: List[DespachoDetalleModel] = []
+                 reservas: List[DespachoReservaOPModel] = []
+                 
+                 
+                 lstDespachoDetalle = InvocadorDespacho.ObtenerDetalle(item_values[0])
+                 reservas = InvocadorDespacho.ObtenerReservaOPItem(item_values[0])
+       
                  for row in self.tree.get_children():
                     self.tree.delete(row)
+                
+                
+                 for i, item in enumerate(lstDespachoDetalle):
+                     item.CantidadReservado = 0
+                     
+                     for ii in reservas:
+                        if  ii.OrdenPedidoDetalleId == item.OrdenPedidoDetalleId:
+                            item.CantidadReservado += ii.Cantidad
+                            item.DetalleReservaItem.append(ii)
+                     self.ItemEnt.DetalleItems.append(item)
+                            
+                 self.lstDespachoDetalle = lstDespachoDetalle
+                 
                  for i, item in enumerate(self.lstDespachoDetalle):
-                        # Asumiendo que item es un diccionario
+          
                      row = (
                         item.OrdenPedidoDetalleId,
                         i + 1,
@@ -100,6 +121,8 @@ class SaveDespacho(tk.Toplevel):
                      )
                      self.tree.insert("", "end", values=row)
 
+                #  print(self.ItemEnt)
+
         except requests.exceptions.RequestException as e:
             print(f"Error al obtener datos de la API: {e}")
 
@@ -107,42 +130,5 @@ class SaveDespacho(tk.Toplevel):
         self.destroy()
 
     def GuardarEvent(self):
-
-        m_DocumentoId = self.lstDocumentos[self.combo_datos.current()].ListaId
-        m_SexoId = self.lstSexo[self.combo_Sexo.current()].ListaId
-        m_EstadoCivilId = self.lstEstadoCivil[self.combo_EstadoCivil.current()].ListaId
-        # Recolectar los datos del formulario
-        tipo_documento = m_DocumentoId  # Asumiendo que el índice corresponde al ID
-        numero_documento = self.entry_NumeroDocumento.get()
-        nombres = self.entry_Nombres.get()
-        apellido_paterno = self.entry_ApellidoPaterno.get()
-        apellido_materno = self.entry_ApellidoMaterno.get()
-        fecha_nacimiento = self.calendario.get_date().isoformat()
-        sexo = m_SexoId  # Asumiendo que el índice corresponde al ID
-        estado_civil = m_EstadoCivilId  # Asumiendo que el índice corresponde al ID
-        telefono = self.entry_Telefono.get()
-        correo = self.entry_Correo.get()
-     
-        # Crear el objeto PersonaNatural
-        # persona_natural = PersonaNatural(
-        #     persona_natural_id= self.PersonaNaturalId ,
-        #     tipo_documento_identidad_id=tipo_documento,
-        #     num_documento=numero_documento,
-        #     fecha_registro=datetime.now().isoformat(),
-        #     cod_usuario="current_user",  # Reemplazar con el usuario actual
-        #     ubigeo_id=0,  # Asignar correctamente según tu lógica
-        #     nombres=nombres,
-        #     apellido_paterno=apellido_paterno,
-        #     apellido_materno=apellido_materno,
-        #     fecha_nacimiento=fecha_nacimiento,
-        #     direccion="",  # Asignar correctamente según tu lógica
-        #     telefono=telefono,
-        #     correo=correo,
-        #     sexo_id=sexo,
-        #     estado_civil_id=estado_civil,
-        #     action=self.Accion ,
-        #     estado_registro=True
-        # )
-
-        self.refresh_callback()
-        self.destroy()
+        
+        InvocadorDespacho.Registrar(self.ItemEnt)

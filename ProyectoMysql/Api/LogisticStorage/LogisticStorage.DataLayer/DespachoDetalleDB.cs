@@ -59,9 +59,10 @@ namespace LogisticStorage.DataLayer
 
         private bool RegistrarDB(DespachoDetalleEntity Ent)
         {
-            if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
-            {
+            //if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
+            //{
                 String storedName = "sp_DespachoDetalle_Update";
+                Ent.LogicalState = LogicalState.Added;
                 if (Ent.LogicalState == LogicalState.Added) storedName = "sp_DespachoDetalle_Save";
                 DbDatabase.GetStoredProcCommand(storedName);
                 DbDatabase.SetTransaction(Helper.DbTransaction);
@@ -83,7 +84,25 @@ namespace LogisticStorage.DataLayer
                     if (returnValue <= 0) throw new Exception("ErrorDB.UpdateEntity");
                     Ent.OnLogicalUpdate();
                 }
-            }
+
+
+                if (Ent.DetalleReservaItem != null && Ent.DetalleReservaItem.Count > 0)
+                {
+                    ReservaDB ReservaDB = new ReservaDB();
+                    ReservaDB.SetHelper(Helper);
+
+                    foreach (ReservaEntity detalle in Ent.DetalleReservaItem)
+                    {
+                        //if (Ent.LogicalState == LogicalState.Added)
+                        //{
+                        //    if (detalle.LogicalState != LogicalState.Deleted) detalle.LogicalState = LogicalState.Added;
+                        //}
+                        //detalle.OrdenPedidoId = Ent.OrdenPedidoId;
+                        ReservaDB.ReservarDespacho(detalle);
+                    }
+
+                }
+            //}
 
 
             return true;

@@ -6,19 +6,19 @@ namespace LogisticStorage.Server.Model.Despacho
     public class DespachoDetalleSaveModel
     {
         public DespachoDetalleSaveModel() { 
-            DespachoDetalleId = 0;
-            DespachoId = 0;
-            OrdenPedidoDetalleId = 0;
-            Cantidad = 0;
+            this.DespachoDetalleId = 0;
+            this.DespachoId = 0;
+            this.OrdenPedidoDetalleId = 0;
+            this.Cantidad = 0;
+            this.DetalleReservaItem = new List<DespachoReservaOPModel>();
         }
 
         public DespachoDetalleSaveModel( DespachoDetalleEntity ent)
         {
-            DespachoDetalleId = ent.DespachoDetalleId;
-            DespachoId = ent.DespachoId;
-            OrdenPedidoDetalleId = ent.OrdenPedidoDetalleId;
-            Cantidad = ent.Cantidad;
-         
+            this.DespachoDetalleId = ent.DespachoDetalleId;
+            this.DespachoId = ent.DespachoId;
+            this.OrdenPedidoDetalleId = ent.OrdenPedidoDetalleId;
+            this.Cantidad = ent.Cantidad;
         }
 
         [JsonPropertyName("DespachoDetalleId")]
@@ -35,6 +35,10 @@ namespace LogisticStorage.Server.Model.Despacho
 
         [JsonPropertyName("Action")]
         public Int16 Action { get; set; }
+
+
+        [JsonPropertyName("DetalleReservaItem")]
+        public List<DespachoReservaOPModel> DetalleReservaItem { get; set; }
 
     }
 }
