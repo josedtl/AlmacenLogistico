@@ -53,6 +53,8 @@ class FormPersonaPageMain(tk.Frame):
 
     def open_add_window(self):
         AddEditWindow(self, refresh_callback=self.refresh_table)
+        
+
 
     def open_edit_window(self, event):
         item = self.tree.selection()

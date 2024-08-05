@@ -25,7 +25,7 @@ class SaveDespacho(tk.Toplevel):
         self.calendario = DateEntry(self, textvariable=self.fecha_seleccionada, width=27, borderwidth=2, date_pattern='dd-MM-yyyy')
 
         self.tree = ttk.Treeview(self, columns=(
-            "OrdenPedidoDetalleId", "Nº", "NomProducto", "CodigoUM", "CantidadSolicitado", "CantidadReservado", 
+            "OrdenPedidoDetalleId", "Nº", "NomProducto", "CodigoUM", "CantidadSolicitado", "Cantidad", 
              "CantidadAtendido"
         ), show='headings')  
 
@@ -130,5 +130,5 @@ class SaveDespacho(tk.Toplevel):
         self.destroy()
 
     def GuardarEvent(self):
-        
+        print(self.ItemEnt)
         InvocadorDespacho.Registrar(self.ItemEnt)

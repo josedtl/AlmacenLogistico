@@ -36,7 +36,7 @@ function Main() {
     const itemsg = await sRecepcion.GetItemOPMain();
     setItems(itemsg);
     setCargarPage(false);
-
+console.log(itemsg);
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBusqueda(e.target.value.toUpperCase());

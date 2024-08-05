@@ -31,7 +31,7 @@ namespace LogisticStorage.Server.Model.Despacho
         public Int32 OrdenPedidoDetalleId { get; set; }
 
         [JsonPropertyName("Cantidad")]
-        public Int32 Cantidad { get; set; }
+        public Decimal Cantidad { get; set; }
 
         [JsonPropertyName("Action")]
         public Int16 Action { get; set; }
