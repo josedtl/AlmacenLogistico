@@ -34,15 +34,15 @@ class SaveDespacho(tk.Toplevel):
         self.tree.heading("NomProducto", text="NomProducto")
         self.tree.heading("CodigoUM", text="CodigoUM")
         self.tree.heading("CantidadSolicitado", text="CantidadSolicitado")
-        self.tree.heading("CantidadReservado", text="CantidadReservado")
-        self.tree.heading("CantidadAtendido", text="CantidadAtendido")
+        self.tree.heading("Cantidad", text="Cantidad")
+        self.tree.heading("CantidadAtendido", text="Cantidad a Despachar")
 
         self.tree.column("OrdenPedidoDetalleId", width=0, stretch=tk.NO)
         self.tree.column("Nº", width=50)
         self.tree.column("NomProducto", width=100)
         self.tree.column("CodigoUM", width=150)
         self.tree.column("CantidadSolicitado", width=150)
-        self.tree.column("CantidadReservado", width=150)
+        self.tree.column("Cantidad", width=150)
         self.tree.column("CantidadAtendido", width=150)
         self.scrollbar = ttk.Scrollbar(self, orient="vertical", command=self.tree.yview)
 
@@ -98,11 +98,11 @@ class SaveDespacho(tk.Toplevel):
                 
                 
                  for i, item in enumerate(lstDespachoDetalle):
-                     item.CantidadReservado = 0
+                     item.Cantidad = 0
                      
                      for ii in reservas:
                         if  ii.OrdenPedidoDetalleId == item.OrdenPedidoDetalleId:
-                            item.CantidadReservado += ii.Cantidad
+                            item.Cantidad += ii.Cantidad
                             item.DetalleReservaItem.append(ii)
                      self.ItemEnt.DetalleItems.append(item)
                             
@@ -116,7 +116,7 @@ class SaveDespacho(tk.Toplevel):
                         item.NomProducto,
                         item.CodigoUM, 
                         item.CantidadSolicitado,
-                        item.CantidadReservado,
+                        item.Cantidad,
                         item.CantidadAtendido
                      )
                      self.tree.insert("", "end", values=row)

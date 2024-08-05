@@ -26,7 +26,7 @@ class DespachoDetalleModel(BaseModel):
     NomProducto: str = ""
     CodigoUM: str = ""
     CantidadSolicitado: float = 0
-    CantidadReservado: float = 0
+    Cantidad: float = 0
     CantidadAtendido: float = 0
     DetalleReservaItem : List[DespachoReservaOPModel] = []
 

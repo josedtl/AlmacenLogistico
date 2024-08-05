@@ -11,7 +11,7 @@ namespace LogisticStorage.Server.Model.Despacho
             this.NomProducto = "";
             this.CodigoUM = "";
             this.CantidadSolicitado = 0;
-            this.CantidadReservado = 0;
+            this.Cantidad = 0;
             this.CantidadAtendido = 0;
         }
 
@@ -22,7 +22,7 @@ namespace LogisticStorage.Server.Model.Despacho
             this.NomProducto = ent.NomProducto;
             this.CodigoUM = ent.CodigoUM;
             this.CantidadSolicitado = ent.CantidadSolicitado;
-            this.CantidadReservado = ent.CantidadReservado;
+            this.Cantidad = ent.CantidadReservado;
             this.CantidadAtendido = ent.CantidadAtendido;
         }
 
@@ -37,7 +37,7 @@ namespace LogisticStorage.Server.Model.Despacho
         [JsonPropertyName("CantidadSolicitado")]
         public double CantidadSolicitado { get; set; }
         [JsonPropertyName("CantidadReservado")]
-        public double CantidadReservado { get; set; }
+        public double Cantidad { get; set; }
         [JsonPropertyName("CantidadAtendido")]
         public double CantidadAtendido { get; set; }
     }
