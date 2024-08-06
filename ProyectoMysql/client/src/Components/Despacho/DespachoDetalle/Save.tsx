@@ -34,7 +34,6 @@ function Page() {
     //const [items, setItems] = useState<DespachoDetalleEntity[]>([]);
 
     const [items, setItems] = useState<DespachoDetalleModel[]>([]);
-    //const [Ent, setEnt] = useState<DespachoDetalleEntity>(new DespachoDetalleEntity());
 
 
     const [CargarPage, setCargarPage] = React.useState(true);
@@ -83,10 +82,7 @@ function Page() {
         if (Id > 0) {
 
             const Resp_Cabecera = await sDespacho.GetItemCabecera(Id);
-            Resp_Cabecera[0].Action = ProcessActionEnum.Update
-
             setEnt(Resp_Cabecera[0]);
-
             const Resp_Detalle = await sDespacho.GetItemDetalle(Id);
 
             if (Resp_Detalle.length > 0) {
@@ -94,29 +90,28 @@ function Page() {
                 Resp_Detalle.map((data) => {
                     data.Action = ProcessActionEnum.Update;
 
-
                 })
 
                 setItems(Resp_Detalle);
                 Ent.DetalleItems = Resp_Detalle
             }
-        }
 
-        if (Id > 0) {
-            const Resp_Detalle = await sDespacho.GetItemDetalle(Id);
-            Resp_Detalle[0].Action = ProcessActionEnum.Update
 
+  // const filterItems = items.filter(fdata =>
+  //   fdata.Codigo.toLowerCase().includes(Busqueda.toLowerCase())
+  // );
 
             const Resp_DetalleItem = await sDespacho.GetDetalleOP(Id);
 
-            if (Resp_DetalleItem.length > 0) {
-                Resp_DetalleItem.map((data) => {
-                    data.Action = ProcessActionEnum.Update;
 
-                })
-
-            }
+            Ent.DetalleItems.map((detalle) => {
+                    detalle.DetalleReserva=Resp_DetalleItem.filter(d =>d.OrdenPedidoDetalleId = detalle.OrdenPedidoDetalleId)
+            })
         }
+
+
+
+        console.log(Ent);
 
         setCargarPage(false);
     }
@@ -126,33 +121,27 @@ function Page() {
     const AddProducto = async () => {
         try {
 
-            Ent.Action = Ent.DespachoId == 0 ? 1 : 3;
-            if (Ent.DespachoId === 0) {
-                Ent.FechaRegistro = new Date();
-                Ent.Action = 1;
-            }
+          
+            // Ent.DetalleItems = items;
 
-            Ent.DetalleItems = items;
-
-            // console.log(Ent);
+   
             const savedItem = await sDespacho.saveItem(Ent);
-            console.log('NADA')
-            console.log(savedItem);
+       
 
-            if (savedItem) {
+            // if (savedItem) {
 
-                setEnt(savedItem)
-                setItems(savedItem.DetalleItems)
-                getCargarDatos(savedItem.DespachoId);
-                messageAdd.open({
-                    type: 'success',
-                    content: 'Se guardó correctamente.',
-                });
+            //     setEnt(savedItem)
+            //     setItems(savedItem.DetalleItems)
+            //     getCargarDatos(savedItem.DespachoId);
+            //     messageAdd.open({
+            //         type: 'success',
+            //         content: 'Se guardó correctamente.',
+            //     });
 
 
-            } else {
+            // } else {
 
-            }
+            // }
 
         }
         catch (e) {
@@ -168,15 +157,13 @@ function Page() {
         e.preventDefault();
         KeyTabs;
 
-        if (Ent.EntidadEntregadoId === 0) {
+        if (Ent.EntidadId === 0) {
             setValEntregado('error');
             messageAdd.open({ type: 'error', content: 'Seleccione al responsable', });
             return;
         }
 
         selectedEntregado
-        console.log(Ent.Action);
-        console.log(Ent);
         modal.confirm({
             title: 'Mensaje del Sistema',
             icon: <ExclamationCircleOutlined />,
@@ -326,8 +313,8 @@ function Page() {
                                             defaultActiveFirstOption={false}
                                             filterOption={false}
                                             onSearch={search_Persona}
-                                            value={Ent.EntidadEntregadoId === 0 ? null : Ent.EntidadEntregadoId}
-                                            key={Ent.EntidadEntregadoId}
+                                            value={Ent.EntidadId === 0 ? null : Ent.EntidadId}
+                                            key={Ent.EntidadId}
                                             onChange={onchange_Persona}
                                         >
                                             {optionsEntregado.map((Persona) => (
