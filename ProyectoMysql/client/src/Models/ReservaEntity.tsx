@@ -79,3 +79,42 @@ export class ReservaDetalleEntity {
     }
 }
 
+export class  Reserva{
+    ReservaId : number;
+    OrdenPedidoId: number;
+    OrdenPedidoDetalleId: number;
+    MercaderiaId: number;
+    Cantidad: number;
+    StockId: number;
+
+    Codigo: string;
+    Nombre: string;
+    CodigoComercial: string;
+    CantidaPedido: number;
+    Stock: number;
+    CodigoPedido
+    UnidadMedida
+    Reserva: number;
+    constructor(){
+        this.ReservaId = 0;
+        this.OrdenPedidoId = 0;
+        this.OrdenPedidoDetalleId = 0;
+        this.MercaderiaId = 0;
+        this.Cantidad = 0;
+        this.StockId = 0;
+   
+        this.Codigo ='';
+        this.Nombre = '';
+        this.CodigoComercial = '';
+        this.CantidaPedido = 0;
+        this.Stock = 0;
+        this.CodigoPedido = '';
+        this.UnidadMedida = '';
+        this.Reserva = 0;
+
+    }
+
+}
+
+
+

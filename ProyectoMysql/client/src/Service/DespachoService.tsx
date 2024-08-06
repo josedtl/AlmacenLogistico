@@ -1,4 +1,4 @@
-import { DespachoEntity,DespachoCabeceraModel,DespachoDetalleModel} from '../Models/DespachoEntity';
+import { DespachoEntity,DespachoReservaOPModel,DespachoDetalleModel} from '../Models/DespachoEntity';
 import { apiLg } from './axios-config';
 
 class DespachoService {
@@ -37,12 +37,20 @@ class DespachoService {
           'Content-Type': 'application/json',
         },
       });
+      console.log(response);
       return response.data.Value;
     } catch (error) {
       throw error;
     }
   }
-
+  async GetDetalleOP(Id: number): Promise<DespachoReservaOPModel[]> {
+    try {
+      const response = await apiLg.get(`api/Despacho/ObtenerReservaOPItem/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
 
 }
 
