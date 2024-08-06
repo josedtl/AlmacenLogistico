@@ -1,5 +1,7 @@
 
 import { ProcessActionEnum } from '../Lib/ResourceModel/Enum'
+import { Reserva } from '../Models/ReservaEntity'
+
 export class DespachoEntity {
     OrdenPedidoId: number;
     Codigo: string;
@@ -86,6 +88,8 @@ export class DespachoDetalleModel {
     DespachoDetalleId: number;
     DespachoId: number;
     Cantidad: number;
+    DetalleReserva: Reserva[]
+
     constructor() {
         this.OrdenPedidoId = 0;
         this.OrdenPedidoDetalleId = 0;
@@ -98,5 +102,25 @@ export class DespachoDetalleModel {
         this.DespachoDetalleId = 0;
         this.DespachoId = 0;
         this.Cantidad = 0;
+        this.DetalleReserva = [];
+    }
+}
+export class DespachoReservaOPModel {
+    ReservaId: number;
+    OrdenPedidoId: number;
+    OrdenPedidoDetalleId: number;
+    MercaderiaId: number;
+    Cantidad: number;
+    StockId: number;
+    Action: ProcessActionEnum
+    constructor() {
+
+        this.ReservaId = 0;
+        this.OrdenPedidoId = 0;
+        this.OrdenPedidoDetalleId = 0;
+        this.MercaderiaId = 0;
+        this.Cantidad = 0;
+        this.StockId = 0;
+        this.Action = ProcessActionEnum.Add;
     }
 }

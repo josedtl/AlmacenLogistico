@@ -94,10 +94,27 @@ function Page() {
                 Resp_Detalle.map((data) => {
                     data.Action = ProcessActionEnum.Update;
 
+
                 })
 
                 setItems(Resp_Detalle);
                 Ent.DetalleItems = Resp_Detalle
+            }
+        }
+
+        if (Id > 0) {
+            const Resp_Detalle = await sDespacho.GetItemDetalle(Id);
+            Resp_Detalle[0].Action = ProcessActionEnum.Update
+
+
+            const Resp_DetalleItem = await sDespacho.GetDetalleOP(Id);
+
+            if (Resp_DetalleItem.length > 0) {
+                Resp_DetalleItem.map((data) => {
+                    data.Action = ProcessActionEnum.Update;
+
+                })
+
             }
         }
 
@@ -119,7 +136,7 @@ function Page() {
 
             // console.log(Ent);
             const savedItem = await sDespacho.saveItem(Ent);
-            console.log ('NADA')
+            console.log('NADA')
             console.log(savedItem);
 
             if (savedItem) {
