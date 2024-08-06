@@ -15,12 +15,14 @@ class SaveDespacho(tk.Toplevel):
         self.refresh_callback = refresh_callback
 
         label_TipoRequerimiento = tk.Label(self, text="TipoRequerimiento:", width=20)
-        self.entry_TipoRequerimiento = ttk.Entry(self, width=30)
+        self.entry_TipoRequerimiento = ttk.Entry(self, width=30,)
+        self.entry_TipoRequerimiento.state(['readonly'])
 
         label_Entidad = tk.Label(self, text="Responsable:", width=20)
         self.entry_Entidad = ttk.Entry(self, width=30)
-                                       
-        label_FechaNacimiento = tk.Label(self, text="Fecha de Nacimiento:", width=20)
+        self.entry_Entidad.state(['readonly'])
+                                    
+        label_FechaNacimiento = tk.Label(self, text="Fecha:", width=20)
         self.fecha_seleccionada = tk.StringVar()
         self.calendario = DateEntry(self, textvariable=self.fecha_seleccionada, width=27, borderwidth=2, date_pattern='dd-MM-yyyy')
 
@@ -49,28 +51,25 @@ class SaveDespacho(tk.Toplevel):
         btn_Guardar = tk.Button(self, text="Guardar", command=self.GuardarEvent)
         btn_Cancelar = tk.Button(self, text="Cancelar", command=self.CancelarEvent)
     
-        _padx = 10
-        _pady = 10
+        _padx = 5
+        _pady = 5
         _Row = 0
     
         _Row += 1
-        label_TipoRequerimiento.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-        self.entry_TipoRequerimiento.grid(row=_Row, column=1, padx=_padx, pady=_pady)
+        label_TipoRequerimiento.grid(row=_Row, column=0,columnspan=2, padx=_padx, pady=_pady)
+        label_Entidad.grid(row=_Row, column=2,columnspan=8, padx=_padx, pady=_pady)
+        label_FechaNacimiento.grid(row=_Row, column=10,columnspan=2, padx=_padx, pady=_pady)
+        _Row += 1
+        
+        self.entry_TipoRequerimiento.grid(row=_Row, column=0,columnspan=2, padx=_padx, pady=_pady,sticky="ew")
+        self.entry_Entidad.grid(row=_Row, column=2,columnspan=8, padx=_padx, pady=_pady,sticky="ew")
+        self.calendario.grid(row=_Row, column=10,columnspan=2, padx=_padx, pady=_pady,sticky="ew")
+        _Row += 1
+        self.tree.grid(row=_Row, column=0,columnspan=12, padx=_padx, pady=_pady)
 
         _Row += 1
-        label_Entidad.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-        self.entry_Entidad.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-        _Row += 1
-        label_FechaNacimiento.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-        self.calendario.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-       
-        self.tree.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-        _Row += 1
-        btn_Guardar.grid(row=_Row, column=0, columnspan=2, pady=_pady)
-        _Row += 1
-        btn_Cancelar.grid(row=_Row, column=0, columnspan=2, pady=_pady)
+        btn_Guardar.grid(row=_Row, column=5, pady=_pady)
+        btn_Cancelar.grid(row=_Row, column=7,  pady=_pady)
         
         try:
             self.OrdenPedidoId = 0
