@@ -164,7 +164,5 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<List<DespachoReservaOPModel>>(new List<DespachoReservaOPModel>(), false, ex.Message);
             }
         }
-
-
     }
 }
