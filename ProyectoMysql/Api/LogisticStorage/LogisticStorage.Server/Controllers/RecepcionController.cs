@@ -2,7 +2,6 @@ using Framework;
 using Microsoft.AspNetCore.Mvc;
 using LogisticStorage.BusinessLayer;
 using LogisticStorage.EntityLayer;
-using LogisticStorage.DataLayer;
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
