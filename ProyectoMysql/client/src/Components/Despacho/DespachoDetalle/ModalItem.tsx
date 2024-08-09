@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AddEditForm from "./FormAddEdit";
+import AddEditForm from "../../OrdenPedido/OrdenPedidoDetalle/FormAddEdit";
 import { Button, Modal } from 'antd';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { ButtonDetalleAdd, ButtonDetalleEdit, ButtonEnlace, ButtonEnlaceCard } from '../../../Styles/Button'

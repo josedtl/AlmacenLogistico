@@ -1,4 +1,4 @@
-import { DespachoEntity,DespachoReservaOPModel,DespachoDetalleModel} from '../Models/DespachoEntity';
+import { DespachoEntity,DespachoReservaOPModel,DespachoDetalleEntity} from '../Models/DespachoEntity';
 import { apiLg } from './axios-config';
 
 class DespachoService {
@@ -21,7 +21,7 @@ class DespachoService {
     }
   }
  
-  async GetItemDetalle(Id: number): Promise<DespachoDetalleModel[]> {
+  async GetItemDetalle(Id: number): Promise<DespachoDetalleEntity[]> {
     try {
       const response = await apiLg.get(`api/Despacho/ObtenerDetalle/${Id}`);
       console.log(response);
@@ -32,17 +32,17 @@ class DespachoService {
   }
   async saveItem(item: DespachoEntity): Promise<DespachoEntity | null> {
     try {
-      const response = await apiLg.post(`api/Despacho/Registrar/`, item, {
+      const response = await apiLg.post(`api/Despacho/Registrar`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response);
       return response.data.Value;
     } catch (error) {
       throw error;
     }
   }
+  
   async GetDetalleOP(Id: number): Promise<DespachoReservaOPModel[]> {
     try {
       const response = await apiLg.get(`api/Despacho/ObtenerReservaOPItem/${Id}`);
