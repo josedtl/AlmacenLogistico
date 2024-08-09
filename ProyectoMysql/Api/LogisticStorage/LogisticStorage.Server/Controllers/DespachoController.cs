@@ -33,46 +33,46 @@ namespace LogisticStorage.Server.Controllers
 
         [HttpGet]
         [Route("ObtenerCabecera/{OrdenPedidoId}")]
-        public ResponseAPI<List<DespachoCabeceraModel>> ObtenerCabecera(Int32 OrdenPedidoId)
+        public ResponseAPI<List<DespachoSaveModel>> ObtenerCabecera(Int32 OrdenPedidoId)
         {
             try
             {
                 d.Configurar();
                 var Items = Despacho.ObtenerCabecera(OrdenPedidoId);
 
-                List<DespachoCabeceraModel> Lista = new List<DespachoCabeceraModel>();
+                List<DespachoSaveModel> Lista = new List<DespachoSaveModel>();
 
-                foreach (var Item in Items) Lista.Add(new DespachoCabeceraModel(Item));
+                foreach (var Item in Items) Lista.Add(new DespachoSaveModel(Item));
 
-                return new ResponseAPI<List<DespachoCabeceraModel>>(Lista, true);
+                return new ResponseAPI<List<DespachoSaveModel>>(Lista, true);
 
             }
             catch (Exception ex)
             {
-                return new ResponseAPI<List<DespachoCabeceraModel>>(new List<DespachoCabeceraModel>(), false, ex.Message);
+                return new ResponseAPI<List<DespachoSaveModel>>(new List<DespachoSaveModel>(), false, ex.Message);
             }
         }
 
 
         [HttpGet]
         [Route("ObtenerDetalle/{OrdenPedidoId}")]
-        public ResponseAPI<List<DespachoDetalleModel>> ObtenerDetalle(Int32 OrdenPedidoId)
+        public ResponseAPI<List<DespachoDetalleSaveModel>> ObtenerDetalle(Int32 OrdenPedidoId)
         {
             try
             {
                 d.Configurar();
                 var Items = DespachoDetalle.ObtenerDetalle(OrdenPedidoId);
 
-                List<DespachoDetalleModel> Lista = new List<DespachoDetalleModel>();
+                List<DespachoDetalleSaveModel> Lista = new List<DespachoDetalleSaveModel>();
 
-                foreach (var Item in Items) Lista.Add(new DespachoDetalleModel(Item));
+                foreach (var Item in Items) Lista.Add(new DespachoDetalleSaveModel(Item));
 
-                return new ResponseAPI<List<DespachoDetalleModel>>(Lista, true);
+                return new ResponseAPI<List<DespachoDetalleSaveModel>>(Lista, true);
 
             }
             catch (Exception ex)
             {
-                return new ResponseAPI<List<DespachoDetalleModel>>(new List<DespachoDetalleModel>(), false, ex.Message);
+                return new ResponseAPI<List<DespachoDetalleSaveModel>>(new List<DespachoDetalleSaveModel>(), false, ex.Message);
             }
         }
 
@@ -90,7 +90,6 @@ namespace LogisticStorage.Server.Controllers
                 ItemEntity.EntidadEntregadoId = 18;
                 ItemEntity.Codigo = Item.Codigo;
                 ItemEntity.FechaHoraEntrega = Item.FechaHoraEntrega;
-                ItemEntity.FechaRegistro = Item.FechaRegistro;
                 ItemEntity.LogicalState = (LogicalState)Item.Action;
 
 

@@ -10,6 +10,10 @@ namespace LogisticStorage.Server.Model.Despacho
             this.DespachoId = 0;
             this.OrdenPedidoDetalleId = 0;
             this.Cantidad = 0;
+            this.NomProducto = String.Empty;
+            this.CodigoUM = String.Empty;
+            this.CantidadSolicitado = 0;
+            this.CantidadAtendido =0;
             this.DetalleReservaItem = new List<DespachoReservaOPModel>();
         }
 
@@ -19,6 +23,10 @@ namespace LogisticStorage.Server.Model.Despacho
             this.DespachoId = ent.DespachoId;
             this.OrdenPedidoDetalleId = ent.OrdenPedidoDetalleId;
             this.Cantidad = ent.Cantidad;
+            this.NomProducto = ent.NomProducto;
+            this.CodigoUM= ent.CodigoUM;
+            this.CantidadSolicitado = ent.CantidadSolicitado;
+            this.CantidadAtendido = ent.CantidadAtendido;
         }
 
         [JsonPropertyName("DespachoDetalleId")]
@@ -37,6 +45,14 @@ namespace LogisticStorage.Server.Model.Despacho
         public Int16 Action { get; set; }
 
 
+        [JsonPropertyName("NomProducto")]
+        public String NomProducto { get; set; }
+        [JsonPropertyName("CodigoUM")]
+        public String CodigoUM { get; set; }
+        [JsonPropertyName("CantidadSolicitado")]
+        public double CantidadSolicitado { get; set; }
+        [JsonPropertyName("CantidadAtendido")]
+        public double CantidadAtendido { get; set; }
         [JsonPropertyName("DetalleReservaItem")]
         public List<DespachoReservaOPModel> DetalleReservaItem { get; set; }
 

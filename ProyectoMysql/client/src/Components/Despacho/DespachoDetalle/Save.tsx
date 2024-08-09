@@ -9,7 +9,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 
 //entitys
-import { DespachoEntity, DespachoCabeceraModel, DespachoDetalleModel } from '../../../Models/DespachoEntity'
+import { DespachoEntity, DespachoDetalleEntity } from '../../../Models/DespachoEntity'
 import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity'
 import { EntidadNombreCompletoModel } from '../../../Models/GeneralEntity'
 
@@ -33,7 +33,7 @@ function Page() {
 
     //const [items, setItems] = useState<DespachoDetalleEntity[]>([]);
 
-    const [items, setItems] = useState<DespachoDetalleModel[]>([]);
+    const [items, setItems] = useState<DespachoDetalleEntity[]>([]);
 
 
     const [CargarPage, setCargarPage] = React.useState(true);
@@ -83,6 +83,8 @@ function Page() {
 
             const Resp_Cabecera = await sDespacho.GetItemCabecera(Id);
             setEnt(Resp_Cabecera[0]);
+
+            console.log(Resp_Cabecera);
             const Resp_Detalle = await sDespacho.GetItemDetalle(Id);
 
             if (Resp_Detalle.length > 0) {
@@ -96,11 +98,6 @@ function Page() {
                 Ent.DetalleItems = Resp_Detalle
             }
 
-
-  // const filterItems = items.filter(fdata =>
-  //   fdata.Codigo.toLowerCase().includes(Busqueda.toLowerCase())
-  // );
-
             const Resp_DetalleItem = await sDespacho.GetDetalleOP(Id);
 
 
@@ -111,7 +108,6 @@ function Page() {
 
 
 
-        console.log(Ent);
 
         setCargarPage(false);
     }
@@ -122,26 +118,25 @@ function Page() {
         try {
 
           
-            // Ent.DetalleItems = items;
+             Ent.DetalleItems = items;
 
-   
-            const savedItem = await sDespacho.saveItem(Ent);
+             const savedItem = await sDespacho.saveItem(Ent);
        
 
-            // if (savedItem) {
+            if (savedItem) {
 
-            //     setEnt(savedItem)
-            //     setItems(savedItem.DetalleItems)
-            //     getCargarDatos(savedItem.DespachoId);
-            //     messageAdd.open({
-            //         type: 'success',
-            //         content: 'Se guardó correctamente.',
-            //     });
+                setEnt(savedItem)
+                setItems(savedItem.DetalleItems)
+                getCargarDatos(savedItem.DespachoId);
+                messageAdd.open({
+                    type: 'success',
+                    content: 'Se guardó correctamente.',
+                });
 
 
-            // } else {
+            } else {
 
-            // }
+            }
 
         }
         catch (e) {
@@ -259,7 +254,26 @@ function Page() {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col xs={18}>
+                            <Col xs={3}>
+                                <Row>
+                                    <Col span={24}>
+                                        <label>Codigo</label>
+                                    </Col>
+                                    <Col span={24}>
+                                        <Input
+                                            type="string"
+                                            name="Codigo"
+                                            style={{ marginTop: '5px', marginBottom: '10px' }}
+                                            readOnly={true}
+                                            value={Ent.Codigo}
+                                        />
+
+
+                                    </Col>
+                                </Row>
+                            </Col>
+
+                            <Col xs={15}>
                                 <Row>
                                     <Col span={24}>
                                         <label>Responsable</label>
@@ -267,7 +281,7 @@ function Page() {
                                     <Col span={24}>
                                         <Input
                                             type="string"
-                                            name="Stock"
+                                            name="NomResponsable"
                                             style={{ marginTop: '5px', marginBottom: '10px' }}
                                             readOnly={true}
                                             value={Ent.NomResponsable}
@@ -283,14 +297,13 @@ function Page() {
                                         <label>Fecha de Registro</label>
                                     </Col>
                                     <Col span={24}>
-                                        <Input
-                                            type="string"
-                                            name="Stock"
+                                    <Input
+                                            type="text"
+                                            name="FechaRegistro"
                                             style={{ marginTop: '5px', marginBottom: '10px' }}
                                             readOnly={true}
-                                        // value={Ent.FechaRegistro}
+                                            value={Ent.FechaRegistro}
                                         />
-
                                     </Col>
                                 </Row>
                             </Col>
