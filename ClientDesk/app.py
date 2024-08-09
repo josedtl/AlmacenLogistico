@@ -1,140 +1,39 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
-import requests
-from Services.EnLista import *
-from tkcalendar import DateEntry
+from tkinter import messagebox
+from controller import FormController
 
-def hello():
-    messagebox.showinfo("Mensaje", "Hola, mundo")
+class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Aplicación con Menú y Formularios")
+        
+        # Crear un contenedor donde se cargarán los formularios
+        self.container = tk.Frame(self)
+        self.container.pack(fill="both", expand=True)
 
-def about():
-    messagebox.showinfo("Acerca de", "Este es un ejemplo de menú en tkinter")
+        # Inicializar el controlador de formularios
+        self.form_controller = FormController(self.container)
+        
+        # Crear la barra de menú
+        menu_bar = tk.Menu(self)
+        
+        # Crear el menú "Formularios"
+        form_menu = tk.Menu(menu_bar, tearoff=0)
+        form_menu.add_command(label="Despacho", command=self.form_controller.load_formDespachoMain)
+        form_menu.add_command(label="Persona", command=self.form_controller.load_formPersonaMain)
+        menu_bar.add_cascade(label="Formularios", menu=form_menu)
+        
+        # Crear el menú "Ayuda"
+        help_menu = tk.Menu(menu_bar, tearoff=0)
+        help_menu.add_command(label="Acerca de...", command=self.about)
+        menu_bar.add_cascade(label="Ayuda", menu=help_menu)
+        
+        # Configurar la ventana para usar la barra de menú
+        self.config(menu=menu_bar)
+    
+    def about(self):
+        messagebox.showinfo("Acerca de", "Esta es una aplicación de ejemplo con formularios en tkinter")
 
-def sumar():
-    try:
-        num1 = int(entry_num1.get())
-        num2 = int(entry_num2.get())
-        resultado = num1 + num2
-        label_resultado.config(text=f"Resultado: {resultado}")
-    except ValueError:
-        label_resultado.config(text="Por favor, ingresa números válidos.")
-
-
-def cargar_datos():
-    try:
-        data = EnLista.Get_EntListaCodigo("C001")
-        combo_datos["values"] = ()
-        valores = [item["Nombre"] for item in data]
-        combo_datos["values"] = tuple(valores)
-
-        dataSexo = EnLista.Get_EntListaCodigo("C007")
-        combo_Sexo["values"] = ()
-        valoresSexo = [item["Nombre"] for item in dataSexo]
-        combo_Sexo["values"] = tuple(valoresSexo)
-
-        dataEC = EnLista.Get_EntListaCodigo("C008")
-        combo_EstadoCivil["values"] = ()
-        valoresEC = [item["Nombre"] for item in dataEC]
-        combo_EstadoCivil["values"] = tuple(valoresEC)
-
-    except requests.exceptions.RequestException as e:
-        print(f"Error al obtener datos de la API: {e}")
-
-
-# Crear la ventana principal
-ventana = tk.Tk()
-ventana.title("Sumadora")
-
-# Crear widgets
-label_TipoDocumento = tk.Label(ventana, text="Tipo Documento:", width=20)
-combo_datos = ttk.Combobox(ventana, state="readonly", width=27)
-
-label_NumeroDocumento = tk.Label(ventana, text="Número Documento:", width=20)
-entry_NumeroDocumento = ttk.Entry(ventana, width=30)
-
-label_Nombres = tk.Label(ventana, text="Nombres:", width=20)
-entry_Nombres = ttk.Entry(ventana, width=30)
-
-label_ApellidoPaterno = tk.Label(ventana, text="Apellido Paterno:", width=20)
-entry_ApellidoPaterno = ttk.Entry(ventana, width=30)
-
-label_ApellidoMaterno = tk.Label(ventana, text="Apellido Materno:", width=20)
-entry_ApellidoMaterno = ttk.Entry(ventana, width=30)
-
-label_FechaNacimiento = tk.Label(ventana, text="Fecha de Nacimiento:", width=20)
-fecha_seleccionada = tk.StringVar()
-calendario = DateEntry(
-    ventana, textvariable=fecha_seleccionada, width=27, borderwidth=2
-)
-# calendario.pack(padx=10, pady=10)
-
-label_Sexo = tk.Label(ventana, text="Sexo:", width=20)
-combo_Sexo = ttk.Combobox(ventana, state="readonly", width=27)
-
-label_EstadoCivil = tk.Label(ventana, text="Estado Civil", width=20)
-combo_EstadoCivil = ttk.Combobox(ventana, state="readonly", width=27)
-
-label_Telefono = tk.Label(ventana, text="Telefono:", width=20)
-entry_Telefono = ttk.Entry(ventana, width=30)
-
-label_Correo = tk.Label(ventana, text="Correo:", width=20)
-entry_Correo = ttk.Entry(ventana, width=30)
-
-
-btn_sumar = tk.Button(ventana, text="Sumar", command=sumar)
-
-label_resultado = tk.Label(ventana, text="Resultado: ")
-
-# Colocar widgets en la ventana
-_padx = 10
-_pady = 10
-_Row = 0
-label_TipoDocumento.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-combo_datos.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-_Row += 1
-label_NumeroDocumento.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-entry_NumeroDocumento.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-_Row += 1
-label_Nombres.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-entry_Nombres.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-_Row += 1
-label_ApellidoPaterno.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-entry_ApellidoPaterno.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-_Row += 1
-label_ApellidoMaterno.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-entry_ApellidoMaterno.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-_Row += 1
-label_FechaNacimiento.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-calendario.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-_Row += 1
-label_Sexo.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-combo_Sexo.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-_Row += 1
-label_EstadoCivil.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-combo_EstadoCivil.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-_Row += 1
-label_Telefono.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-entry_Telefono.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-_Row += 1
-label_Correo.grid(row=_Row, column=0, padx=_padx, pady=_pady)
-entry_Correo.grid(row=_Row, column=1, padx=_padx, pady=_pady)
-
-_Row += 1
-btn_sumar.grid(row=_Row, column=0, columnspan=2, pady=_pady)
-
-_Row += 1
-label_resultado.grid(row=_Row, column=0, columnspan=2, pady=_pady)
-
-cargar_datos()
-
-# Iniciar el bucle principal
-ventana.mainloop()
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()
