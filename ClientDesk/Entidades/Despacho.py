@@ -20,34 +20,30 @@ class DespachoReservaOPModel(BaseModel):
     Cantidad: float    
     StockId: int    
     
-class DespachoDetalleModel(BaseModel):
-    OrdenPedidoId: int = 0
-    OrdenPedidoDetalleId: int = 0
-    NomProducto: str = ""
-    CodigoUM: str = ""
-    CantidadSolicitado: float = 0
-    Cantidad: float = 0
-    CantidadAtendido: float = 0
-    DetalleReservaItem : List[DespachoReservaOPModel] = []
-
-
-class DespachoCabeceraModel(BaseModel):
-    OrdenPedidoId: int
-    NomProceso: str
-    ProcesoId: int
-    EntidadId: int 
-    NomResponsable: str
-    DetalleItems :List[DespachoDetalleModel] = []
-
-
-    
 
 class DespachoDetalleSaveModel(BaseModel):
     DespachoDetalleId: int = 0
     DespachoId: int = 0
     OrdenPedidoDetalleId: int = 0
     Cantidad: float = 0
+    Action : int = 0
+    NomProducto : str = ""
+    CodigoUM : str = ""
+    CantidadSolicitado : float = 0
+    CantidadAtendido : float = 0
+    DetalleReservaItem : List[DespachoReservaOPModel] = []
     
+class DespachoSaveModel(BaseModel):
+    DespachoId : int = 0
+    OrdenPedidoId: int = 0
+    Codigo: str = ''
+    EntidadEntregadoId: int = 0
+    FechaHoraEntrega : datetime = datetime.now()
+    FechaRegistro : str = ''
+    Action : int = 0
+    NomProceso: str = ''
+    NomResponsable: str = ''
+    DetalleItems :List[DespachoDetalleSaveModel] = []
 
 class DespachoMainModel(BaseModel):
     OrdenPedidoId: int 

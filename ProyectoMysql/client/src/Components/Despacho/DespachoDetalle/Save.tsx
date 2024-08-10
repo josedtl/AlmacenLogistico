@@ -9,7 +9,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 
 //entitys
-import { DespachoEntity, DespachoDetalleEntity } from '../../../Models/DespachoEntity'
+import { DespachoEntity, DespachoDetalleEntity, DespachoReservaOPModel } from '../../../Models/DespachoEntity'
 import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity'
 import { EntidadNombreCompletoModel } from '../../../Models/GeneralEntity'
 
@@ -33,7 +33,7 @@ function Page() {
 
     //const [items, setItems] = useState<DespachoDetalleEntity[]>([]);
 
-    const [items, setItems] = useState<DespachoDetalleEntity[]>([]);
+    // const [items, setItems] = useState<DespachoDetalleEntity[]>([]);
 
 
     const [CargarPage, setCargarPage] = React.useState(true);
@@ -41,6 +41,9 @@ function Page() {
     const [disabled] = useState(false);
 
     const [Ent, setEnt] = useState<DespachoEntity>(new DespachoEntity());
+    const [EntDetalle, setEntDetalle] = useState<DespachoDetalleEntity[]>([]);
+    const [EntDetalleReserva, setEntDetalleReserva] = useState<DespachoReservaOPModel[]>([]);
+
 
     const [ValEntregado, setValEntregado] = useState<InputStatus>('');
 
@@ -64,7 +67,7 @@ function Page() {
     const { Footer, Content } = Layout;
     const onchange_Persona = async (value: number) => {
         setValEntregado('');
-        Ent.EntidadId = value;
+        Ent.EntidadEntregadoId = value;
         setSelectedEntregado(value);
         selectedEntregado;
     };
@@ -78,32 +81,38 @@ function Page() {
         setCargarPage(true);
         selectedEntregado;
         setEnt(new DespachoEntity())
-        setItems([])
+        setEntDetalle([])
         if (Id > 0) {
 
             const Resp_Cabecera = await sDespacho.GetItemCabecera(Id);
             setEnt(Resp_Cabecera[0]);
 
-            console.log(Resp_Cabecera);
             const Resp_Detalle = await sDespacho.GetItemDetalle(Id);
-
-            if (Resp_Detalle.length > 0) {
-
-                Resp_Detalle.map((data) => {
-                    data.Action = ProcessActionEnum.Update;
-
-                })
-
-                setItems(Resp_Detalle);
-                Ent.DetalleItems = Resp_Detalle
-            }
-
+            setEntDetalle(Resp_Detalle);
             const Resp_DetalleItem = await sDespacho.GetDetalleOP(Id);
+            setEntDetalleReserva(Resp_DetalleItem);
 
 
-            Ent.DetalleItems.map((detalle) => {
-                    detalle.DetalleReserva=Resp_DetalleItem.filter(d =>d.OrdenPedidoDetalleId = detalle.OrdenPedidoDetalleId)
-            })
+            // if (Resp_Detalle.length > 0) {
+
+            //     Resp_Detalle.map((data) => {
+            //         data.Action = ProcessActionEnum.Update;
+
+            //     })
+
+            //     setEntDetalle(Resp_Detalle);
+            //     Ent.DetalleItems = Resp_Detalle
+            // }
+
+
+
+
+            // Ent.DetalleItems.map((detalle) => {
+            //     detalle.DetalleReserva = Resp_DetalleItem.filter(d => d.OrdenPedidoDetalleId = detalle.OrdenPedidoDetalleId)
+            // })
+
+            // console.log(Ent);
+
         }
 
 
@@ -116,27 +125,58 @@ function Page() {
 
     const AddProducto = async () => {
         try {
+            Ent.DetalleItems = EntDetalle
 
-          
-             Ent.DetalleItems = items;
+            Ent.DetalleItems.map((detalle) => {
+                detalle.DetalleReservaItem = EntDetalleReserva.filter(d => d.OrdenPedidoDetalleId = detalle.OrdenPedidoDetalleId)
+            })
 
-             const savedItem = await sDespacho.saveItem(Ent);
-       
+            // console.log(Ent);
+            const savedItem = await sDespacho.saveItem(Ent);
+            // if (EntDetalle.length > 0) {
 
-            if (savedItem) {
+            //     EntDetalle.map((data) => {
+            //         data.Action = ProcessActionEnum.Update;
 
-                setEnt(savedItem)
-                setItems(savedItem.DetalleItems)
-                getCargarDatos(savedItem.DespachoId);
-                messageAdd.open({
-                    type: 'success',
-                    content: 'Se guardó correctamente.',
-                });
+            //     })
+
+            //     Ent.DetalleItems = EntDetalle
+            // }
 
 
-            } else {
 
-            }
+
+            // Ent.DetalleItems.map((detalle) => {
+            //     detalle.DetalleReserva = EntDetalleReserva.filter(d => d.OrdenPedidoDetalleId = detalle.OrdenPedidoDetalleId)
+            // })
+
+            // console.log(Ent);
+
+
+
+
+
+
+
+            //  Ent.DetalleItems = items;
+
+            // const savedItem = await sDespacho.saveItem(Ent);
+
+
+            // if (savedItem) {
+
+            //     setEnt(savedItem)
+            //     setItems(savedItem.DetalleItems)
+            //     getCargarDatos(savedItem.DespachoId);
+            //     messageAdd.open({
+            //         type: 'success',
+            //         content: 'Se guardó correctamente.',
+            //     });
+
+
+            // } else {
+
+            // }
 
         }
         catch (e) {
@@ -149,10 +189,11 @@ function Page() {
 
     const Guardar_Total = async (e: React.MouseEvent<HTMLDivElement>) => {
         console.log('guardado')
+        // console.log(Ent);
         e.preventDefault();
         KeyTabs;
 
-        if (Ent.EntidadId === 0) {
+        if (Ent.EntidadEntregadoId === 0) {
             setValEntregado('error');
             messageAdd.open({ type: 'error', content: 'Seleccione al responsable', });
             return;
@@ -297,7 +338,7 @@ function Page() {
                                         <label>Fecha de Registro</label>
                                     </Col>
                                     <Col span={24}>
-                                    <Input
+                                        <Input
                                             type="text"
                                             name="FechaRegistro"
                                             style={{ marginTop: '5px', marginBottom: '10px' }}
@@ -326,8 +367,8 @@ function Page() {
                                             defaultActiveFirstOption={false}
                                             filterOption={false}
                                             onSearch={search_Persona}
-                                            value={Ent.EntidadId === 0 ? null : Ent.EntidadId}
-                                            key={Ent.EntidadId}
+                                            value={Ent.EntidadEntregadoId === 0 ? null : Ent.EntidadEntregadoId}
+                                            key={Ent.EntidadEntregadoId}
                                             onChange={onchange_Persona}
                                         >
                                             {optionsEntregado.map((Persona) => (
@@ -404,7 +445,7 @@ function Page() {
                                                     }
                                                     }>
                                                         <Col xs={24}>
-                                                            <DataTable DataList={items} EsTabla={disabled} />
+                                                            <DataTable DataList={EntDetalle} EsTabla={disabled} />
 
                                                         </Col>
                                                     </Row >

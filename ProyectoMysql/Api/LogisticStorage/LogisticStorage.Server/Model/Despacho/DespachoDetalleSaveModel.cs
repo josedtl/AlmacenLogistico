@@ -27,6 +27,7 @@ namespace LogisticStorage.Server.Model.Despacho
             this.CodigoUM= ent.CodigoUM;
             this.CantidadSolicitado = ent.CantidadSolicitado;
             this.CantidadAtendido = ent.CantidadAtendido;
+            this.DetalleReservaItem = new List<DespachoReservaOPModel>();
         }
 
         [JsonPropertyName("DespachoDetalleId")]

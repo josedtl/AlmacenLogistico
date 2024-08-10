@@ -15,6 +15,7 @@ namespace LogisticStorage.Server.Model.Despacho
             this.FechaRegistro = String.Empty;
             this.NomProceso = String.Empty;
             this.NomResponsable = String.Empty;
+            this.DetalleItems = new List<DespachoDetalleSaveModel>();
         }
 
         public DespachoSaveModel(DespachoEntity Ent)
@@ -27,6 +28,7 @@ namespace LogisticStorage.Server.Model.Despacho
             this.FechaRegistro = Ent.FechaRegistro.ToString("dd-MM-yyyy");
             this.NomProceso = Ent.NomProceso;
             this.NomResponsable = Ent.NomResponsable;
+            this.DetalleItems = new List<DespachoDetalleSaveModel>();
         }
 
 

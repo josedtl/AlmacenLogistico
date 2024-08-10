@@ -5,6 +5,7 @@ from datetime import datetime
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkcalendar import DateEntry
+from Entidades.Despacho import DespachoDetalleSaveModel, DespachoSaveModel
 from Services.InvocadorDespacho import *
 
 
@@ -14,14 +15,20 @@ class SaveDespacho(tk.Toplevel):
     
         self.refresh_callback = refresh_callback
 
+
+        label_OrdenPedido = tk.Label(self, text="Orden de Pedido:", width=20)
+        self.entry_OrdenPedido= ttk.Entry(self, width=30,)
+        
         label_TipoRequerimiento = tk.Label(self, text="TipoRequerimiento:", width=20)
         self.entry_TipoRequerimiento = ttk.Entry(self, width=30,)
-        self.entry_TipoRequerimiento.state(['readonly'])
+        # self.entry_TipoRequerimiento.state(['readonly'])
 
         label_Entidad = tk.Label(self, text="Responsable:", width=20)
         self.entry_Entidad = ttk.Entry(self, width=30)
-        self.entry_Entidad.state(['readonly'])
+        # self.entry_Entidad.state(['readonly'])
                                     
+
+        
         label_FechaNacimiento = tk.Label(self, text="Fecha:", width=20)
         self.fecha_seleccionada = tk.StringVar()
         self.calendario = DateEntry(self, textvariable=self.fecha_seleccionada, width=27, borderwidth=2, date_pattern='dd-MM-yyyy')
@@ -55,13 +62,16 @@ class SaveDespacho(tk.Toplevel):
         _pady = 5
         _Row = 0
     
+    
         _Row += 1
-        label_TipoRequerimiento.grid(row=_Row, column=0,columnspan=2, padx=_padx, pady=_pady)
+        label_OrdenPedido.grid(row=_Row, column=0,padx=_padx, pady=_pady)
+        label_TipoRequerimiento.grid(row=_Row, column=1, padx=_padx, pady=_pady)
         label_Entidad.grid(row=_Row, column=2,columnspan=8, padx=_padx, pady=_pady)
         label_FechaNacimiento.grid(row=_Row, column=10,columnspan=2, padx=_padx, pady=_pady)
         _Row += 1
         
-        self.entry_TipoRequerimiento.grid(row=_Row, column=0,columnspan=2, padx=_padx, pady=_pady,sticky="ew")
+        self.entry_OrdenPedido.grid(row=_Row, column=0, padx=_padx, pady=_pady,sticky="ew")
+        self.entry_TipoRequerimiento.grid(row=_Row, column=1, padx=_padx, pady=_pady,sticky="ew")
         self.entry_Entidad.grid(row=_Row, column=2,columnspan=8, padx=_padx, pady=_pady,sticky="ew")
         self.calendario.grid(row=_Row, column=10,columnspan=2, padx=_padx, pady=_pady,sticky="ew")
         _Row += 1
@@ -74,18 +84,18 @@ class SaveDespacho(tk.Toplevel):
         try:
             self.OrdenPedidoId = 0
             if item_values != None:
-                 lstDespachoCabecera: List[DespachoCabeceraModel] = []
+                 lstDespachoCabecera: List[DespachoSaveModel] = []
                  lstDespachoCabecera = InvocadorDespacho.ObtenerCabecera(item_values[0])
                  
                  self.ItemEnt = lstDespachoCabecera[0]
-                 self.ItemEnt.EntidadId = 18
+                 self.ItemEnt.EntidadEntregadoId = 18
                  self.OrdenPedidoId = self.ItemEnt.OrdenPedidoId
                  self.entry_TipoRequerimiento.insert(0,self.ItemEnt.NomProceso)
                  self.entry_Entidad.insert(0,self.ItemEnt.NomResponsable)
-            
+                 self.entry_OrdenPedido.insert(0,self.ItemEnt.Codigo)
                  self.Accion = 3
                  
-                 lstDespachoDetalle: List[DespachoDetalleModel] = []
+                 lstDespachoDetalle: List[DespachoDetalleSaveModel] = []
                  reservas: List[DespachoReservaOPModel] = []
                  
                  
@@ -120,7 +130,6 @@ class SaveDespacho(tk.Toplevel):
                      )
                      self.tree.insert("", "end", values=row)
 
-                #  print(self.ItemEnt)
 
         except requests.exceptions.RequestException as e:
             print(f"Error al obtener datos de la API: {e}")

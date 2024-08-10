@@ -6,25 +6,25 @@ export class DespachoEntity {
     DespachoId = 0;
     OrdenPedidoId: number;
     Codigo = '';
-    NomProceso: string;
-    ProcesoId: number;
-    EntidadId: number ;
-    NomResponsable: string;
-    DetalleItems: DespachoDetalleEntity[];
+    EntidadEntregadoId: number ;
     FechaHoraEntrega: Date;
     FechaRegistro : '';
+    Action : number ;
+    NomProceso: string;
+    NomResponsable: string;
+    DetalleItems: DespachoDetalleEntity[];
 
     constructor() {
         this.DespachoId=0;
         this.OrdenPedidoId = 0;
         this.Codigo="";
-        this.ProcesoId = 0;
         this.NomProceso = "";
-        this.EntidadId = 0;
+        this.EntidadEntregadoId = 0;
         this.NomResponsable = "";
         this.FechaHoraEntrega =new Date();
         this.FechaRegistro = ""; 
         this.DetalleItems = [];
+        this.Action =0;
 
     }
 }
@@ -32,15 +32,15 @@ export class DespachoEntity {
 export class DespachoDetalleEntity {
     DespachoDetalleId: number;
     DespachoId: number;
-    Cantidad: number;
     OrdenPedidoDetalleId: number;
+    Cantidad: number;
     Action: ProcessActionEnum
     NomProducto:'';
     CodigoUM:'';
     CantidadSolicitado:0;
     CantidadAtendido:0;
+    DetalleReservaItem: DespachoReservaOPModel[]
 
-    DetalleReserva: DespachoReservaOPModel[]
     constructor() {
         this.DespachoDetalleId = 0;
         this.DespachoId = 0;
@@ -51,7 +51,7 @@ export class DespachoDetalleEntity {
         this.CantidadSolicitado = 0;
         this.CantidadAtendido =0;
         this.Action = ProcessActionEnum.Add;
-        this.DetalleReserva = [];
+        this.DetalleReservaItem = [];
     }
 }
 
