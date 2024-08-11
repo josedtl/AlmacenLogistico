@@ -374,19 +374,6 @@ function Page() {
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
-      <Flex gap="middle" wrap="wrap" >
-
-        <Layout style={{
-          // height:'calc(100px + 100vh)',
-          // marginTop: '0px',
-          // marginLeft: '-10px'
-        }}>
-
-
-          {/* <Header style={headerStyle}>Header</Header> */}
-          <Content style={contentStyle}>
-
-
             {contextHolder}
             {contextHolderAdd}
             <Row>
@@ -404,10 +391,7 @@ function Page() {
             </Row>
             <Row>
 
-
-              {/* {CorrelativoDiv()} */}
-
-              <Col xs={3} >
+              <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={3} >
                 <Row>
                   <Col span={24}>
                     <label>Tipo Requerimiento</label>
@@ -434,7 +418,7 @@ function Page() {
                   </Col>
                 </Row>
               </Col>
-              <Col xs={18}>
+              <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={18} >
                 <Row>
                   <Col span={24}>
                     <label>Proveedor</label>
@@ -462,7 +446,7 @@ function Page() {
                   </Col>
                 </Row>
               </Col>
-              <Col xs={3} >
+              <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={3}  >
                 <Row>
                   <Col span={24}>
                     <label>Fecha de Emision</label>
@@ -529,7 +513,7 @@ function Page() {
 
 
             </Row>
-          </Content>
+      
 
           <Footer style={footerStyle}>
 
@@ -621,9 +605,8 @@ function Page() {
             </Row>
           </Footer>
 
-        </Layout>
-      </Flex>
-
+       
+      
     </Spin>
 
   );
