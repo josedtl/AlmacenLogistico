@@ -3,19 +3,16 @@ import DataTable from './DataTable';
 import ModalItem from './ModalItem';
 import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Flex, Layout, Input, Segmented, Avatar } from 'antd';
 import { useParams } from 'react-router-dom';
-import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import { SaveFilled } from '@ant-design/icons';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 
 //entitys
 import { DespachoEntity, DespachoDetalleEntity, DespachoReservaOPModel } from '../../../Models/DespachoEntity'
-import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity'
 import { EntidadNombreCompletoModel } from '../../../Models/GeneralEntity'
 
 //service
 import DespachoService from '../../../Service/DespachoService'
-import OrdenPedidoService from '../../../Service/OrdenPedidoService';
 
 import GeneralService from '../../../Service/GeneralService';
 
@@ -28,16 +25,9 @@ function Page() {
     // Instancia 
     const sDespacho = new DespachoService();
 
-    const sOrdenPedido = new OrdenPedidoService();
     const sGeneral = new GeneralService();
 
-    //const [items, setItems] = useState<DespachoDetalleEntity[]>([]);
-
-    // const [items, setItems] = useState<DespachoDetalleEntity[]>([]);
-
-
     const [CargarPage, setCargarPage] = React.useState(true);
-    const [KeyTabs, setKeyTabs] = useState<String>('');
     const [disabled] = useState(false);
 
     const [Ent, setEnt] = useState<DespachoEntity>(new DespachoEntity());
@@ -64,7 +54,6 @@ function Page() {
         }
     };
 
-    const { Footer, Content } = Layout;
     const onchange_Persona = async (value: number) => {
         setValEntregado('');
         Ent.EntidadEntregadoId = value;
@@ -104,9 +93,6 @@ function Page() {
             //     Ent.DetalleItems = Resp_Detalle
             // }
 
-
-
-
             // Ent.DetalleItems.map((detalle) => {
             //     detalle.DetalleReserva = Resp_DetalleItem.filter(d => d.OrdenPedidoDetalleId = detalle.OrdenPedidoDetalleId)
             // })
@@ -123,7 +109,7 @@ function Page() {
 
 
 
-    const AddProducto = async () => {
+    const AddDespacho = async () => {
         try {
             Ent.DetalleItems = EntDetalle
 
@@ -131,7 +117,6 @@ function Page() {
                 detalle.DetalleReservaItem = EntDetalleReserva.filter(d => d.OrdenPedidoDetalleId = detalle.OrdenPedidoDetalleId)
             })
 
-            // console.log(Ent);
             const savedItem = await sDespacho.saveItem(Ent);
             // if (EntDetalle.length > 0) {
 
@@ -189,9 +174,7 @@ function Page() {
 
     const Guardar_Total = async (e: React.MouseEvent<HTMLDivElement>) => {
         console.log('guardado')
-        // console.log(Ent);
         e.preventDefault();
-        KeyTabs;
 
         if (Ent.EntidadEntregadoId === 0) {
             setValEntregado('error');
@@ -210,7 +193,7 @@ function Page() {
             onOk() {
 
 
-                AddProducto();
+                AddDespacho();
 
                 let secondsToGo = 3;
 
@@ -253,15 +236,6 @@ function Page() {
     return (
         <Spin spinning={CargarPage} tip="Cargando" size="large">
 
-            <Flex gap="middle" wrap="wrap" >
-
-                <Layout style={{
-                }}>
-
-
-                    <Content style={contentStyle}>
-
-
                         {contextHolder}
                         {contextHolderAdd}
                         <Row>
@@ -270,14 +244,11 @@ function Page() {
 
                                 <Title level={2}> Despacho</Title>
                             </Col>
-                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-
-
-                            </Col>
+                       
                         </Row>
                         <Row>
 
-                            <Col xs={3} >
+                            <Col xs={24} sm={12} md={12} lg={4} xl={4} xxl={3} >
                                 <Row>
                                     <Col span={24}>
                                         <label>Tipo Requerimiento</label>
@@ -295,7 +266,7 @@ function Page() {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col xs={3}>
+                            <Col xs={24} sm={12} md={12} lg={4} xl={4} xxl={3} >
                                 <Row>
                                     <Col span={24}>
                                         <label>Codigo</label>
@@ -314,7 +285,7 @@ function Page() {
                                 </Row>
                             </Col>
 
-                            <Col xs={15}>
+                            <Col xs={24} sm={16} md={12} lg={11} xl={11} xxl={15}>
                                 <Row>
                                     <Col span={24}>
                                         <label>Responsable</label>
@@ -332,7 +303,7 @@ function Page() {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col xs={3} >
+                            <Col xs={24} sm={8} md={12} lg={5} xl={5} xxl={3}>
                                 <Row>
                                     <Col span={24}>
                                         <label>Fecha de Registro</label>
@@ -353,7 +324,7 @@ function Page() {
 
                         <Row>
 
-                            <Col xs={15}>
+                            <Col xs={24} sm={24} md={12} lg={15} xl={15} xxl={18}>
                                 <Row>
                                     <Col span={24}>
                                         <label>Entregado a :</label>
@@ -363,7 +334,7 @@ function Page() {
                                         <Select
                                             status={ValEntregado}
                                             showSearch
-                                            style={{ width: '95%', marginTop: '5px', marginBottom: '10px' }}
+                                            style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                                             defaultActiveFirstOption={false}
                                             filterOption={false}
                                             onSearch={search_Persona}
@@ -382,7 +353,7 @@ function Page() {
                                 </Row>
                             </Col>
 
-                            <Col xs={3} >
+                            <Col xs={24} sm={12} md={12} lg={4} xl={4} xxl={3}>
                                 <Row>
                                     <Col span={24}>
                                         <label>Hora</label>
@@ -398,10 +369,10 @@ function Page() {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col xs={3} >
+                            <Col xs={24} sm={12} md={12} lg={5} xl={5} xxl={3} >
                                 <Row>
                                     <Col span={24}>
-                                        <label>Fecha de Registro</label>
+                                        <label>Fecha de Entrega</label>
                                     </Col>
                                     <Col span={24}>
                                         <DatePicker
@@ -487,11 +458,8 @@ function Page() {
                             />
 
                         </Col>
-                    </Content>
 
-
-                </Layout>
-            </Flex>
+           
 
         </Spin>
 
