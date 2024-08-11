@@ -42,6 +42,7 @@ import PageTarifa from "./Components/Tarifa/Main";
 import PageTarifaSave from "./Components/Tarifa/Save";
 import PageDespacho from "./Components/Despacho/Main";
 import PageDespachoSave from "./Components/Despacho/DespachoDetalle/Save";
+import PageStock from "./Components/Stock/Main";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,8 @@ const router = createBrowserRouter([
       { path: "TarifaSave/:Id", element: <PageTarifaSave />, },
       { path: "Despacho", element: <PageDespacho />, },
       { path: "DespachoSave/:Id", element: <PageDespachoSave />, },
+      { path: "StockMercaderia", element: <PageStock />, },
+      
     ],
   },
 ]);

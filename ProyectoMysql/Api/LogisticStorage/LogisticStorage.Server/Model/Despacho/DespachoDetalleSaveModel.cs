@@ -56,6 +56,5 @@ namespace LogisticStorage.Server.Model.Despacho
         public double CantidadAtendido { get; set; }
         [JsonPropertyName("DetalleReservaItem")]
         public List<DespachoReservaOPModel> DetalleReservaItem { get; set; }
-
     }
 }
