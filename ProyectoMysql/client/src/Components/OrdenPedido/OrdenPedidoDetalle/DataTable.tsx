@@ -18,7 +18,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
         {
             title: 'Nº',
             dataIndex: 'Cont',
-            width: 20,
+            width: '50px',
             key: 'Cont',
 
         },
@@ -96,7 +96,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             ...item,
             key: zIndex,
             Cont: (zIndex + 1),
-          
+
         };
 
     });

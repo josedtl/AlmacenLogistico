@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
 import ModalItem from './ModalItem';
-import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Flex, Layout, Segmented, Avatar } from 'antd';
+import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Layout, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { useParams } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
@@ -26,7 +26,6 @@ import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity';
 import { DatosClienteItemModel } from '../../../Models/GeneralEntity'
 function Page() {
 
-
   // Instancia 
   const sOrdenPedido = new OrdenPedidoService();
   const sGeneral = new GeneralService();
@@ -48,8 +47,6 @@ function Page() {
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const { Title } = Typography;
 
-
-
   // Load
   useEffect(() => {
     setKeyTabs(generarGuid());
@@ -57,8 +54,6 @@ function Page() {
     setFechaEmisionItem(dateEmison);
     voidCargarDatos(idNumero);
   }, []);
-
-
 
   const voidCargarDatos = async (Id: number) => {
     try {
@@ -90,8 +85,6 @@ function Page() {
           Ent.DetalleItems = Resp_OPDetalle
         }
 
-
-
         const Resp_Item = await sGeneral.EntidadObtenerNombreCompletoItem(Resp_Producto[0].EntidadId);
         setOptionsEntidad(Resp_Item);
 
@@ -119,20 +112,6 @@ function Page() {
       });
 
     }
-    // else {
-    //   setItems([...items, item]);
-    //   messageAdd.open({
-    //     type: 'success',
-    //     content: 'Se guardó correctamente.',
-    //   });
-
-    //   const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
-    //   setItems(newArray);
-    //   messageAdd.open({
-    //     type: 'success',
-    //     content: 'Se actualizó correctamente.',
-    //   });
-    // }
 
   };
 
@@ -200,13 +179,9 @@ function Page() {
     Ent.EntidadId = Resp_Entidad[0].EntidadId;
   };
 
-
   const filterItems = items.filter(d => d.Action != ProcessActionEnum.Delete);
-
-
   const [optionsProceso, setOptionsProceso] = useState<ProcesoModel[]>([]);
   const [selectedTipoRequerimeinto, setSelectedTipoRequerimeinto] = useState<number | undefined>(undefined);
-
 
   const onChangeProceso = async (value: number) => {
     setValTipoRequerimiento('');
@@ -214,7 +189,6 @@ function Page() {
     setSelectedTipoRequerimeinto(value)
     selectedTipoRequerimeinto;
   };
-
 
   function generarGuid(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -233,7 +207,6 @@ function Page() {
   const [modal, contextHolder] = Modal.useModal();
   const dateFormat = 'YYYY/MM/DD';
 
-
   const AddProducto = async () => {
     try {
       if (Ent.OrdenPedidoId === 0) {
@@ -241,7 +214,7 @@ function Page() {
         Ent.EstadoProcesoId = 1;
         Ent.FechaRegistro = new Date();
         Ent.EstadoRegistro = true
-        Ent.Action =1;
+        Ent.Action = 1;
       }
       const fecha: Date = new Date(FechaEmisionItem + "T00:00:00");
       Ent.FechaEmision = new Date(fecha);
@@ -276,7 +249,6 @@ function Page() {
 
   }
 
-
   const Guardar_Total = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     KeyTabs;
@@ -292,9 +264,6 @@ function Page() {
       return;
     }
 
-
-    console.log(Ent.Action);
-    console.log(Ent);
     modal.confirm({
       title: 'Mensaje del Sistema',
       icon: <ExclamationCircleOutlined />,
@@ -303,7 +272,6 @@ function Page() {
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-
 
         AddProducto();
 
@@ -331,7 +299,6 @@ function Page() {
       },
     });
 
-
   };
 
   const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
@@ -356,248 +323,231 @@ function Page() {
   const TituloSave = () => {
     return (
 
-      <Title level={2}> {Ent.OrdenPedidoId > 0 ? `Orden de Pedido - ${Ent.NomEstadoProceso}` : 'Generar Orden de Pedido'}</Title>
+      <Title level={3}> {Ent.OrdenPedidoId > 0 ? `O. Pedido - ${Ent.NomEstadoProceso}` : 'Generar O. Pedido'}</Title>
     )
-
-  }
-  const CodigoSave = () => {
-    return (
-
-      <Title level={3}> {Ent.OrdenPedidoId > 0 ? `Código : ${Ent.Codigo}` : ''}</Title>
-    )
-
   }
 
-  const contentStyle: React.CSSProperties = {
-
-    marginLeft: 50,
-    marginRight: 50
-
-  };
   const footerStyle: React.CSSProperties = {
     borderColor: "#15616d",
   };
 
-  const { Footer, Content } = Layout;
+  const { Footer } = Layout;
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
-      <Flex gap="middle" wrap="wrap" >
+      {contextHolder}
+      {contextHolderAdd}
+      <Row>
+        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+          {TituloSave()}
+        </Col>
 
-        <Layout style={{
-        }}>
+      </Row>
+      <Row>
+        <Col xs={24} sm={12} md={12} lg={4} xl={3} xxl={2} >
+          <Row>
+            <Col span={24}>
+              <label>Código</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                readOnly={true}
+                type="text"
+                name="Codigo"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                value={Ent.Codigo === null ? "" : Ent.Codigo}
+              />
 
 
-          <Content style={contentStyle}>
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={24} sm={12} md={12} lg={4} xl={3} xxl={2} >
+          <Row>
+            <Col span={24}>
+              <label>Requerimiento</label>
+            </Col>
+            <Col span={24}>
+              <Select
+                showSearch
+                status={ValTipoRequerimiento}
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+                value={Ent.ProcesoId === 0 ? null : Ent.ProcesoId}
+                key={Ent.ProcesoId}
+                onChange={onChangeProceso}
+              >
+                {optionsProceso.map((ItemOp) => (
+                  <Select.Option key={ItemOp.ProcesoId} value={ItemOp.ProcesoId}>
+                    {ItemOp.Nombre}
+                  </Select.Option>
+                ))}
+              </Select>
 
 
-            {contextHolder}
-            {contextHolderAdd}
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={24} sm={24} md={12} lg={12} xl={15} xxl={17}>
+          <Row>
+            <Col span={24}>
+              <label>Responsable</label>
+            </Col>
+            <Col span={24}>
+
+              <Select
+                status={ValResponsable}
+                showSearch
+                style={{ width: '93%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+                onSearch={search_Categoria}
+                value={Ent.EntidadId === 0 ? null : Ent.EntidadId}
+                key={Ent.EntidadId}
+                onChange={onchange_Categoria}
+              >
+                {optionsEntidad.map((categoria) => (
+                  <Select.Option key={categoria.EntidadId} value={categoria.EntidadId}>
+                    {categoria.Nombres}
+                  </Select.Option>
+                ))}
+              </Select>
+              <MDFiltro buttonLabel="dsdsd"
+                addItemToState={event_AgregarCliente}
+                item={new DatosClienteItemModel()}
+                CodigoTabla={'M002'}
+                title={"Cliente"} />
+
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={24} sm={24} md={12} lg={4} xl={3} xxl={3} >
+          <Row>
+            <Col span={24}>
+              <label>Fecha de Emision</label>
+            </Col>
+            <Col span={24}>
+              <DatePicker
+                onChange={onChangeDate}
+                value={dayjs(FechaEmisionItem, dateFormat)}
+                style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
+                size='middle' />
+
+            </Col>
+          </Row>
+        </Col>
+
+      </Row>
+
+      <Row>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+
+          <Tabs
+            tabBarExtraContent={operations}
+            key={'TabGeneral'}
+            type="card"
+
+            items={new Array(1).fill(null).map((_, i) => {
+              i;
+              return {
+                label: (
+                  < >
+                    <Title style={{ fontSize: '18px' }}>
+                      Detalle
+                    </Title>
+                  </>
+                ),
+                key: '1',
+                children:
+                  <span>
+
+                    <Row style={{
+
+                      height: 'calc(100px + 40vh)',
+                    }
+                    }>
+                      <Col xs={24}>
+                        <DataTable DataList={filterItems} updateState={event_ActualizarDetalle} deleteItemFromState={event_EliminarDetalle} EsTabla={disabled} />
+
+                      </Col>
+                    </Row >
+                  </span>,
+              };
+            })}
+          />
+        </Col>
+
+      </Row>
+
+      <Footer style={footerStyle}>
+
+        <Row>
+          <Col span={5}>
             <Row>
-              <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                {TituloSave()}
+              <Col span={12}>
+                <label>Usuario : </label>
               </Col>
-              <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                <div style={{ float: "right" }}>
+              <Col span={12}>
+                <label
+                  className='CodUsuario'
+                  style={{ marginTop: '5px', marginBottom: '10px' }}></label>
 
-                  {CodigoSave()}
-                </div>
-
-              </Col>
-            </Row>
-            <Row>
-
-              <Col xs={3} >
-                <Row>
-                  <Col span={24}>
-                    <label>Tipo Requerimiento</label>
-                  </Col>
-                  <Col span={24}>
-                    <Select
-                      showSearch
-                      status={ValTipoRequerimiento}
-                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                      defaultActiveFirstOption={false}
-                      filterOption={false}
-                      value={Ent.ProcesoId === 0 ? null : Ent.ProcesoId}
-                      key={Ent.ProcesoId}
-                      onChange={onChangeProceso}
-                    >
-                      {optionsProceso.map((ItemOp) => (
-                        <Select.Option key={ItemOp.ProcesoId} value={ItemOp.ProcesoId}>
-                          {ItemOp.Nombre}
-                        </Select.Option>
-                      ))}
-                    </Select>
-
-
-                  </Col>
-                </Row>
-              </Col>
-              <Col xs={18}>
-                <Row>
-                  <Col span={24}>
-                    <label>Responsable</label>
-                  </Col>
-                  <Col span={24}>
-
-                    <Select
-                      status={ValResponsable}
-                      showSearch
-                      style={{ width: '95%', marginTop: '5px', marginBottom: '10px' }}
-                      defaultActiveFirstOption={false}
-                      filterOption={false}
-                      onSearch={search_Categoria}
-                      value={Ent.EntidadId === 0 ? null : Ent.EntidadId}
-                      key={Ent.EntidadId}
-                      onChange={onchange_Categoria}
-                    >
-                      {optionsEntidad.map((categoria) => (
-                        <Select.Option key={categoria.EntidadId} value={categoria.EntidadId}>
-                          {categoria.Nombres}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                    <MDFiltro buttonLabel="dsdsd"
-                      addItemToState={event_AgregarCliente}
-                      item={new DatosClienteItemModel()}
-                      CodigoTabla={'M002'}
-                      title={"Cliente"} />
-
-                  </Col>
-                </Row>
-              </Col>
-              <Col xs={3} >
-                <Row>
-                  <Col span={24}>
-                    <label>Fecha de Emision</label>
-                  </Col>
-                  <Col span={24}>
-                    <DatePicker
-                      onChange={onChangeDate}
-                      value={dayjs(FechaEmisionItem, dateFormat)}
-                      style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
-                      size='middle' />
-
-                  </Col>
-                </Row>
-              </Col>
-
-            </Row>
-
-            <Row>
-              <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-
-                <Tabs
-                  tabBarExtraContent={operations}
-                  // style={{ marginLeft: '20px' }}
-                  key={'TabGeneral'}
-                  type="card"
-
-                  items={new Array(1).fill(null).map((_, i) => {
-                    i;
-                    return {
-                      label: (
-                        < >
-                          <Title style={{ fontSize: '18px' }}>
-                            Detalle
-                          </Title>
-                        </>
-                      ),
-                      key: '1',
-                      children:
-                        <span>
-
-                          <Row style={{
-
-                            height: 'calc(100px + 40vh)',
-                          }
-                          }>
-                            <Col xs={24}>
-                              <DataTable DataList={filterItems} updateState={event_ActualizarDetalle} deleteItemFromState={event_EliminarDetalle} EsTabla={disabled} />
-
-                            </Col>
-                          </Row >
-                        </span>,
-
-
-                    };
-                  })}
-                />
-              </Col>
-
-
-            </Row>
-          </Content>
-
-          <Footer style={footerStyle}>
-
-            <Row>
-              <Col span={5}>
-                <Row>
-                  <Col span={12}>
-                    <label>Usuario : </label>
-                  </Col>
-                  <Col span={12}>
-                    <label
-                      className='CodUsuario'
-                      style={{ marginTop: '5px', marginBottom: '10px' }}></label>
-
-                    {/* <Input
+                {/* <Input
                       type="string"
                       name="Stock"
                       style={{ marginTop: '5px', marginBottom: '10px' }}
                       readOnly={true}
                       value={Ent.CodUsuario}
                     /> */}
-                  </Col>
-                </Row>
+              </Col>
+            </Row>
 
-                <Row>
-                  <Col span={12}>
-                    <label>Fecha Modificación : </label>
-                  </Col>
-                  <Col span={12}>
-                    <label
-                      className='FechaRegistro'
-                      style={{ marginTop: '5px', marginBottom: '10px' }}></label>
-                    {/* <Input
+            <Row>
+              <Col span={12}>
+                <label>Fecha Modificación : </label>
+              </Col>
+              <Col span={12}>
+                <label
+                  className='FechaRegistro'
+                  style={{ marginTop: '5px', marginBottom: '10px' }}></label>
+                {/* <Input
                       type="string"
                       name="FechaRegistro"
                       style={{ marginTop: '5px', marginBottom: '10px' }}
                       readOnly={true}
                       value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
                     /> */}
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span={12}>
-                    <label>Fecha Creación : </label>
-                  </Col>
-                  <Col span={12}>
-                    <label
-                      className='FechaRegistro'
-                      style={{ marginTop: '5px', marginBottom: '10px' }}></label>
-                    {/* <Input
+              </Col>
+            </Row>
+            <Row>
+              <Col span={12}>
+                <label>Fecha Creación : </label>
+              </Col>
+              <Col span={12}>
+                <label
+                  className='FechaRegistro'
+                  style={{ marginTop: '5px', marginBottom: '10px' }}></label>
+                {/* <Input
                       type="string"
                       name="FechaRegistro"
                       style={{ marginTop: '5px', marginBottom: '10px' }}
                       readOnly={true}
                       value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
                     /> */}
-                  </Col>
-                </Row>
-
-
-
-
               </Col>
-              <Col span={16}>
+            </Row>
 
-              </Col>
 
-              <Col span={2}>
-                {/* <Button
+
+
+          </Col>
+          <Col span={16}>
+
+          </Col>
+
+          <Col span={2}>
+            {/* <Button
                   style={ButtonAddMain}
                   onClick={Guardar_Total}
                   size={"large"}
@@ -606,42 +556,39 @@ function Page() {
                   Guardar
                 </Button> */}
 
-                <Segmented
-                  style={{ float: "right" }}
-                  options={[
+            <Segmented
+              style={{ float: "right" }}
+              options={[
 
-                    {
-                      label: (
-                        <div style={{ padding: 4 }} onClick={Guardar_Total}>
-                          <Avatar style={{
-                            backgroundColor: "#15616d",
-                            borderColor: "#15616d",
+                {
+                  label: (
+                    <div style={{ padding: 4 }} onClick={Guardar_Total}>
+                      <Avatar style={{
+                        backgroundColor: "#15616d",
+                        borderColor: "#15616d",
 
-                          }}
-                            // onClick={Guardar_Total}
-                            shape="square"
-                            size={60}
-                            icon={<SaveFilled />} />
-                          <div>Guardar</div>
-                        </div>
-                      ),
-                      value: 'Guardar',
-                    },
-                  ]}
-                />
+                      }}
+                        // onClick={Guardar_Total}
+                        shape="square"
+                        size={60}
+                        icon={<SaveFilled />} />
+                      <div>Guardar</div>
+                    </div>
+                  ),
+                  value: 'Guardar',
+                },
+              ]}
+            />
 
-              </Col>
-            </Row>
+          </Col>
+        </Row>
 
-            <Row>
+        <Row>
 
 
 
-            </Row>
-          </Footer>
-
-        </Layout>
-      </Flex>
+        </Row>
+      </Footer>
 
     </Spin>
 

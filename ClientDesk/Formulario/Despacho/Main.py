@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from Services.InvocadorDespacho import InvocadorDespacho
-from  .Save import SaveDespacho
+from .Save import SaveDespacho
 
 class DespachoMain(tk.Frame):
     def __init__(self, parent):

@@ -73,7 +73,7 @@ export const ButtonDetalleAdd: CSSProperties = {
 };
 
 export const ButtonEnlaceEstatico: CSSProperties = {
-    width: '5%',
+    width: '7%',
     float: "right",
     color: "#15616d",
     backgroundColor: "#E5F8FA",
