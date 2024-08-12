@@ -8,72 +8,42 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
 OrdenPedidoRouter = APIRouter()
 ApiName = "OrdenPedido"
 
+@OrdenPedidoRouter.get(f"/api/{ApiName}/ObtenerMain/", tags=[ApiName])
+def ObtenerMain():
+    try:
+        jsonData = OrdenPedido.ObtenerMain()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
 
-@OrdenPedidoRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
-def Save(Ent: OrdenPedidoSaveModel):
+
+@OrdenPedidoRouter.get(f"/api/{ApiName}/ObtenerItem/{{OrdenPedidoId}}/", tags=[ApiName])
+def ObtenerItem(Id: int):
+    try:
+        jsonData = OrdenPedido.ObtenerItem(Id)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+
+
+@OrdenPedidoRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
+def Registrar(Ent: OrdenPedidoSaveModel):
     try:
         print(jsonable_encoder(Ent))
         Ent.FechaRegistro = datetime.now()
-        Ent = OrdenPedido.Save(Ent)
+        Ent = OrdenPedido.Registrar(Ent)
         return jsonable_encoder(ResponseAPI.Response(Ent))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-
-@OrdenPedidoRouter.get(f"/api/{ApiName}/GetItems/", tags=[ApiName])
-def GetItems():
+@OrdenPedidoRouter.get(f"/api/{ApiName}/ObtenerDetalleItem/{{OrdenPedidoId}}/", tags=[ApiName])
+def ObtenerDetalleItem(Id: int):
     try:
-        jsonData = OrdenPedido.GetItems()
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-
-@OrdenPedidoRouter.get(f"/api/{ApiName}/GetItem/{{Id}}/", tags=[ApiName])
-def GetItem(Id: int):
-    try:
-        jsonData = OrdenPedido.GetItem(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-
-@OrdenPedidoRouter.delete(f"/api/{ApiName}/Delete/{{Id}}", tags=[ApiName])
-def Delete(Id: int):
-    try:
-        jsonData = OrdenPedido.Delete(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-
-@OrdenPedidoRouter.get(f"/api/{ApiName}/GetItemCabecera/{{Id}}/", tags=[ApiName])
-def GetItemCabecera(Id: int):
-    try:
-        jsonData = OrdenPedido.GetItemCabecera(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-
-@OrdenPedidoRouter.get(f"/api/{ApiName}/GetItemCabeceraOP/{{Id}}/", tags=[ApiName])
-def GetItemCabeceraOP(Id: int):
-    try:
-        jsonData = OrdenPedidoDetalle.GetItemCabeceraOP(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-@OrdenPedidoRouter.get(f"/api/{ApiName}/GetItemOPMain/", tags=[ApiName])
-def GetItemOPMain():
-    try:
-        jsonData = OrdenPedido.GetItemOPMain()
+        jsonData = OrdenPedidoDetalle.ObtenerItem(Id)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)

@@ -46,6 +46,7 @@ namespace LogisticStorage.Server.Model.Despacho
 
         [JsonPropertyName("FechaHoraEntrega")]
         public DateTime FechaHoraEntrega { get; set; }
+
         [JsonPropertyName("FechaRegistro")]
         public String FechaRegistro { get; set; }
 

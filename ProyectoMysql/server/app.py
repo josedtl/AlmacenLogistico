@@ -1,28 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from routes.CorrelativoRoute import CorrelativoRouter
 from routes.EmpresaRoute import EmpresaRouter
-from routes.EstadoProcesoRoute import EstadoProcesoRouter
-from routes.ModuloSistemaRoute import ModuloSistemaRouter
 from routes.OrdenCompraRoute import OrdenCompraRouter
 from routes.OrdenPedidoRoute import OrdenPedidoRouter
 from routes.PersonaNaturalRoute import PersonaNaturalRouter
-from routes.ProcesoRoute import ProcesoRouter
-from routes.ProcesoSecuenciaRoute import ProcesoSecuenciaRouter
-from routes.ProductoRoute import ProductoRouter
-from routes.TarifaProductoRoute import TarifaProductoRouter
-from routes.TipoProcesoRoute import TipoProcesoRouter
-from routes.UbigeoRoute import UbigeoRouter
-from routes.UnidadMedidaRoute import UnidadMedidaRouter
-from routes.UsuarioRoute import UsuarioRouter
 from routes.GeneralRoute import GeneralRouter
 from routes.EntListaRouter import EntListaRouter
-from routes.EntDatoRoute import EntDatoRouter
 from routes.MerListaRouter import MerListaRouter
 from routes.MercaderiaRoute import MercaderiaRouter
 from routes.RecepcionRoute import RecepcionRouter
 from routes.ReservaRoute import ReservaRouter
+from routes.DespachoRoute import DespachoRouter
 from ariadne.asgi import GraphQL
 from GraphqlServer import schema
 
@@ -62,28 +51,17 @@ app.add_middleware(
 
 
 app.add_route("/gql/General", GraphQL(schema))
-app.include_router(CorrelativoRouter)
 app.include_router(EmpresaRouter)
-app.include_router(EstadoProcesoRouter)
-app.include_router(ModuloSistemaRouter)
 app.include_router(OrdenCompraRouter)
 app.include_router(OrdenPedidoRouter)
 app.include_router(PersonaNaturalRouter)
-app.include_router(ProcesoRouter)
-app.include_router(ProcesoSecuenciaRouter)
-app.include_router(ProductoRouter)
-app.include_router(TarifaProductoRouter)
-app.include_router(TipoProcesoRouter)
-app.include_router(UbigeoRouter)
-app.include_router(UnidadMedidaRouter)
-app.include_router(UsuarioRouter)
 app.include_router(GeneralRouter)
 app.include_router(EntListaRouter)
 app.include_router(MerListaRouter)
 app.include_router(MercaderiaRouter)
-app.include_router(EntDatoRouter)
 app.include_router(RecepcionRouter)
 app.include_router(ReservaRouter)
+app.include_router(DespachoRouter)
 
 tags_metadata = [
     {

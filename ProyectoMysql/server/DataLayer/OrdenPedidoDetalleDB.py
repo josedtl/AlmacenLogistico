@@ -2,47 +2,22 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
 from Utilidades.Conexion.configMysql import get_connection, DBProcedure,Restore
-from EntityLayer.OrdenPedidoDetalleEntity import *
+from EntityLayer.OrdenPedidoEntity import *
 import pymysql
 
 
 class OrdenPedidoDetalleDB:
-    def GetItems():
+    def ObtenerItem(Id: int):
         try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor.callproc("sp_OrdenPedidoDetalleAllItems")
-                resulset = cursor.fetchall()
-            conn.close()
-            list = []
-
-            for row in resulset:
-                Data_ent = OrdenPedidoDetalleItemModel.Cargar(row)
-                list.append(Data_ent)
+            args = (Id,)
+            resulset = DBProcedure().DBProcedureConsult("sp_OrdenPedidoDetalleItemCabecera", args)
+            list = [OrdenPedidoDetalleSaveModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
 
-    def GetItem(Id: int):
-        try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Id,)
-                cursor.callproc("sp_OrdenPedidoDetalleAllItem", args)
-                resulset = cursor.fetchall()
-            conn.close()
-            list = []
 
-            for row in resulset:
-                Data_ent = OrdenPedidoDetalleItemModel.Cargar(row)
-                list.append(Data_ent)
-            return list
-        except Exception as e:
-            print(e)
-
-    def Save(Ent: OrdenPedidoDetalleSaveModel):
+    def RegistrarDB(Ent: OrdenPedidoDetalleSaveModel):
         try:
             store_mapping = {
                 ProcessActionEnum.Update: "sp_OrdenPedidoDetalle_Update",
@@ -63,21 +38,18 @@ class OrdenPedidoDetalleDB:
             Ent.OrdenPedidoDetalleId = DBProcedure().DBProcedureInsertUpdate(
                 Store, args, "v_OrdenPedidoDetalleId"
             )
-            print(Ent.OrdenPedidoDetalleId)
             return Ent
         except Exception as e:
             print("detalle")
             Restore()
 
-    def Delete(Id: int):
+
+
+    def EliminarDB(Id: int):
         try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Id,)
-                cursor.callproc("sp_OrdenPedidoDetalle_Delete", args)
-                conn.commit()
-            return ResponseAPI.Response(True)
+            args = (Id,)
+            Val = DBProcedure.DBProcedureDalete("sp_OrdenPedido_Delete", args)
+            return ResponseAPI.Response(Val)
         except Exception as e:
             error_code = e.args[0]
             error_entity = next(
@@ -93,23 +65,12 @@ class OrdenPedidoDetalleDB:
                 print(e)
                 return ResponseAPIError.ErrorMensaje(error_message)
         finally:
-            cursor.close()
-            conn.close()
+            Restore()
 
-    def GetItemCabeceraOP(Id: int):
+    def ObtenerFiltroOCD():
         try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Id,)
-                cursor.callproc("sp_OrdenPedidoDetalleItemCabecera", args)
-                resulset = cursor.fetchall()
-            conn.close()
-            list = []
-
-            for row in resulset:
-                Data_ent = OrdenPedidoDetalleItemModel.CargarCabecera(row)
-                list.append(Data_ent)
+            resulset = DBProcedure().DBProcedureConsult("sp_OrdenPedidoDetalleObtenerFiltroOCD", [])
+            list = [OrdenPedidoFiltroOCDModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)

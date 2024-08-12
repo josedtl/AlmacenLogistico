@@ -3,32 +3,16 @@ from EntityLayer.OrdenPedidoDetalleEntity import *
 
 
 class OrdenPedidoDetalle:
-    def Save( Ent: OrdenPedidoDetalleSaveModel):
+
+    def ObtenerItem(Id: int):
         try:
-            return OrdenPedidoDetalleDB.Save(Ent)
+            return OrdenPedidoDetalleDB.ObtenerItem(Id)
         except Exception as e:
             print(e)
 
-    def GetItems():
+    def ObtenerFiltroOCD():
         try:
-            return OrdenPedidoDetalleDB.GetItems()
+            return OrdenPedidoDetalleDB.ObtenerItem()
         except Exception as e:
             print(e)
 
-    def GetItem(Id: int):
-        try:
-            return OrdenPedidoDetalleDB.GetItem(Id)
-        except Exception as e:
-            print(e)
-
-    def Delete(Id: int):
-        try:
-            return OrdenPedidoDetalleDB.Delete(Id)
-        except Exception as e:
-            print(e)
-
-    def GetItemCabeceraOP(Id: int):
-        try:
-            return OrdenPedidoDetalleDB.GetItemCabeceraOP(Id)
-        except Exception as e:
-            print(e)

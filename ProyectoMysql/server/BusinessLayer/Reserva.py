@@ -35,3 +35,10 @@ class Reserva:
             return data
         except Exception as e:
             print(e)    
+
+    def ObtenerReservaOPItem(OrdenPedidoId : int):
+        try:
+            data =  ReservaDB.ObtenerReservaOPItem(OrdenPedidoId)
+            return data
+        except Exception as e:
+            print(e)    

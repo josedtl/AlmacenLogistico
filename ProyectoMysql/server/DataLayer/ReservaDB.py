@@ -1,3 +1,4 @@
+from EntityLayer.DespachoEntity import DespachoReservaOPModel
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Conexion.ErrorData import ErrorData
 from Utilidades.Conexion.configMysql import DBProcedure, Restore
@@ -48,6 +49,16 @@ class ReservaDB:
             args.append(MercaderiaId)
             resulset = DBProcedure().DBProcedureConsult("sp_ReservaObtenerResumen", args)
             list = [ReservaResumenModel.Cargar(row) for row in resulset]
+            return list
+        except Exception as e:
+            print(e)
+
+    def ObtenerReservaOPItem(OrdenPedidoId : int):
+        try:
+            args = []
+            args.append(OrdenPedidoId)
+            resulset = DBProcedure().DBProcedureConsult("sp_ObtenerReservarOPItem", args)
+            list = [DespachoReservaOPModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
