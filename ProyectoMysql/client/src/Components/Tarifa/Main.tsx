@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import { MercaderiaMainModel } from '../../Models/MercaderiaEntity';
-import MercaderiaService from '../../Service/MercaderiaService';
 import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
 import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , ButtonAddMain} from '../../Styles/Button'
 import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../Styles/Type'
 import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
 import { Link } from "react-router-dom";
+
+//entity
+import { TarifaEntity } from '../../Models/TarifaEntity';
+
+//services
+import MercaderiaService from '../../Service/MercaderiaService';
 function Main() {
   useEffect(() => {
     getItems();
   }, []);
-  const sMercaderia = new MercaderiaService();
+  // const sMercaderia = new MercaderiaService();
 
-  const [items, setItems] = useState<MercaderiaMainModel[]>([]);
+  const [items, setItems] = useState<TarifaEntity[]>([]);
   const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled, setDisabled] = useState(false);
   const [Busqueda, setBusqueda] = useState<string>('');
@@ -23,17 +27,18 @@ function Main() {
 
 
   const getItems = async () => {
-    const itemsg = await sMercaderia.getItems();
-    setItems(itemsg);
-    console.log(itemsg);
+    // const itemsg = await sMercaderia.getItems();
+    // setItems(itemsg);
+    //console.log(itemsg);
     setCargarPage(false);
 
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBusqueda(e.target.value.toUpperCase());
   };
+
   const filterItems = items.filter(fdata =>
-    fdata.Descripcion.toLowerCase().includes(Busqueda.toLowerCase())
+    fdata.cod.toLowerCase().includes(Busqueda.toLowerCase())
   );
 
   const { Title } = Typography;

@@ -19,6 +19,7 @@ namespace LogisticStorage.EntityLayer
             this.FechaCreacion = DateTime.Now;
             this.Vigente = false;
             this.ObjetoReferenciaId = 0;
+            this.MercaderiaId = 0;
         }
 
         public Int32 TarifaId { get; set; }
@@ -31,6 +32,8 @@ namespace LogisticStorage.EntityLayer
         public Boolean Vigente { get; set; }
 
         public Int32 ObjetoReferenciaId { get; }
+        public Int32 MercaderiaId { get; set; }
+
 
     }
 }

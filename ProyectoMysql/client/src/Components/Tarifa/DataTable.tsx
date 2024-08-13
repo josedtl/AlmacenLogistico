@@ -9,7 +9,7 @@ import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import 'moment/locale/es';
 import { DataType } from '../../Lib/ResourceModel/DataTableType'
-import { MercaderiaMainModel } from '../../Models/MercaderiaEntity';
+import { TarifaEntity } from '../../Models/TarifaEntity';
 
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');
@@ -19,61 +19,59 @@ const DataTable: React.FC<PropsTable> = (props) => {
             dataIndex: 'Cont',
             width: '50px',
             key: 'Cont',
+        },    
+        {
+            title: 'Mercaderia',
+            dataIndex: 'MercaderiaId',
+            key: 'MercaderiaId',
+            width: 100
         },
         {
-            title: 'Codigo',
-            dataIndex: 'Codigo',
-            key: 'Codigo',
-            width: 170
+            title: 'Unidad Medida',
+            dataIndex: 'UnidadMedidaId',
+            key: 'UnidadMedidaId',
+            width: 100
         },
         {
-            title: 'Categoria',
-            dataIndex: 'NomCategoria',
-            key: 'NomCategoria',
-            width:200
+            title: 'Moneda',
+            dataIndex: 'MonedaId',
+            key: 'MonedaId',
+            width:100
         },
         {
-            title: 'Descripcion',
-            dataIndex: 'Descripcion',
-            key: 'Descripcion',
-        },
-        // {
-        //     title: 'Marca',
-        //     dataIndex: 'NomMarca',
-        //     key: 'NomMarca',
-        // },
-        // {
-        //     title: 'Modelo',
-        //     dataIndex: 'NomModelo',
-        //     key: 'NomModelo',
-        // },
-        {
-            title: 'Unidad de Medida',
-            dataIndex: 'NomUnidadMedida',
-            key: 'NomUnidadMedida',
-            width:150
+            title: '% Impuesto',
+            dataIndex: 'PorcentajeImpuestoId',
+            key: 'PorcentajeImpuestoId  ', 
+            width:100
         },
         {
-            title: 'Fecha de registro',
-            dataIndex: 'FechaRegistro',
+            title: 'Precio Sin Inpuesto',
+            dataIndex: 'PrecioSinInpuesto',
+            key: 'PrecioSinInpuesto',
+            width:100
+        },
+        {
+            title: 'Precio Con Inpuesto',
+            dataIndex: 'PrecioConInpuesto',
+            key: 'PrecioConInpuesto',
+            width:100
+        },
+        {
+            title: 'Fecha Creacion',
+            dataIndex: 'FechaCreacion',
             width: '150px',
-            key: 'FechaRegistro',
+            key: 'FechaCreacion',
             render: (date: string) => moment(date).format('DD/MM/YYYY hh:mm'),
         },
         {
-            title: 'Usuario',
-            dataIndex: 'CodUsuario',
-            width: '100px',
-            key: 'CodUsuario',
-        }, {
             title: 'Action',
             fixed: 'right',
             width: 70,
             key: 'action',
-            render: (record: MercaderiaMainModel) => (
+            render: (record: TarifaEntity) => (
                 <span>
 
-                    <Link to={`/ProductoSave/${record.MercaderiaId}`}>
+                    <Link to={`/ProductoSave/${record.TarifaId}`}>
                         <Button
                             type='dashed'
                             style={{ float: "right", marginRight: "10px", color: "#BB9B32", backgroundColor: "white", borderColor: "#BB9B32" }}
@@ -92,10 +90,10 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
     ];
 
-    const dataWithKeys = props.DataList.sort((a, b) => b.MercaderiaId - a.MercaderiaId).map((item, zIndex) => {
+    const dataWithKeys = props.DataList.sort((a, b) => b.TarifaId - a.TarifaId).map((item, zIndex) => {
         return {
             ...item,
-            key: item.MercaderiaId,
+            key: item.TarifaId,
             Cont: (zIndex + 1)
         };
     });
@@ -115,7 +113,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
                                     style={{ marginTop: '10Px', }}
                                     actions={[
-                                        <Link to={`/ProductoSave/${row.ProductoId}`}>
+                                        <Link to={`/ProductoSave/${row.TarifaId}`}>
                                             <EditFilled
                                                 style={{ color: "#BB9B32" }}
                                             />
