@@ -11,10 +11,9 @@ import MercaderiaService from '../../Service/MercaderiaService';
 import GeneralService from '../../Service/GeneralService';
 import MerListaService from '../../Service/MerListaService';
 
-import { MercaderiaSaveModel } from '../../Models/MercaderiaEntity';
 import { MerListaEntity } from '../../Models/MerListaEntity';
 import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
-import {TarifaEntity  } from '../../Models/TarifaEntity';
+import { TarifaEntity } from '../../Models/TarifaEntity';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
@@ -27,7 +26,7 @@ const Save = () => {
   const { Title } = Typography;
   const [CargarPage, setCargarPage] = React.useState(true);
 
- 
+
   const [optionsMercaderia, setOptionsMercaderia] = useState<MerListaEntity[]>([]);
   const [optionsUM, setOptionsUM] = useState<UnidadMedidaEntity[]>([]);
 
@@ -60,8 +59,6 @@ const Save = () => {
   };
   const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    setValNombre('');
-    setValDescripcion('');
     setEnt({
       ...Ent,
       [e.target.name]: e.target.value.toUpperCase()
@@ -70,10 +67,12 @@ const Save = () => {
   };
   const [selectedModelo, setSelectedModelo] = useState<number | undefined>(undefined);
   const [selectedUM, setSelectedUM] = useState<number | undefined>(undefined);
+  const [selectedMoneda, setSelectedMoneda] = useState<number | undefined>(undefined);
+  const [selectedImpuesto, setSelectedImpuesto] = useState<number | undefined>(undefined);
 
   const [ValModelo, setValModelo] = useState<InputStatus>('');
-  const [ValNombre, setValNombre] = useState<InputStatus>('');
-  const [ValDescripcion, setValDescripcion] = useState<InputStatus>('');
+  const [ValImpuesto, setValImpuesto] = useState<InputStatus>('');
+  const [ValMoneda, setValMoneda] = useState<InputStatus>('');
   const [ValUnidadMedida, setValUnidadMedida] = useState<InputStatus>('');
 
 
@@ -89,6 +88,16 @@ const Save = () => {
     setValUnidadMedida('');
     Ent.UnidadMedidaId = value;
     setSelectedUM(value)
+  };
+  const onChangeMoneda = async (value: number) => {
+    setValMoneda('');
+    Ent.MonedaId = value;
+    setSelectedMoneda(value)
+  };
+  const onChangeImpuesto = async (value: number) => {
+    setValImpuesto('');
+    Ent.PorcentajeImpuestoId = value;
+    setSelectedImpuesto(value)
   };
 
   const [modal, contextHolder] = Modal.useModal();
@@ -113,7 +122,7 @@ const Save = () => {
     e.preventDefault();
 
     selectedUM;
-  
+
 
     if (Ent.MercaderiaId === 0) {
       setValModelo('error');
@@ -216,39 +225,6 @@ const Save = () => {
             </Col>
           </Row>
 
-          {/* <Row>
-            <Col span={24}>
-              <label>Nombre</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                type="text"
-                name="Nombre"
-                status={ValNombre}
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                onChange={onChangeText}
-                value={Ent.Nombre === null ? "" : Ent.Nombre}
-              />
-            </Col>
-          </Row>
-
-          <Row>
-            <Col span={24}>
-              <label>Descripcion</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                type="TextArea"
-
-                name="Descripcion"
-                status={ValDescripcion}
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                onChange={onChangeText}
-                value={Ent.Descripcion === null ? "" : Ent.Descripcion}
-              />
-
-            </Col>
-          </Row> */}
 
           <Row>
             <Col span={24}>
@@ -275,20 +251,21 @@ const Save = () => {
 
             </Col>
           </Row>
-<Row>
+
+          <Row>
             <Col span={24}>
               <label>Moneda</label>
             </Col>
             <Col span={24}>
               <Select
                 allowClear
-                status={ValUnidadMedida}
+                status={ValMoneda}
                 style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                 defaultActiveFirstOption={false}
                 filterOption={false}
                 value={Ent.MonedaId === 0 ? null : Ent.MonedaId}
                 key={Ent.MonedaId}
-                onChange={onChangeUM}
+                onChange={onChangeMoneda}
               >
                 {optionsUM.map((UM) => (
                   <Select.Option key={UM.Nombre} value={UM.Nombre}>
@@ -298,6 +275,67 @@ const Save = () => {
               </Select>
 
 
+            </Col>
+          </Row>
+
+          <Row>
+            <Col span={24}>
+              <label>% Impuesto</label>
+            </Col>
+            <Col span={24}>
+              <Select
+                allowClear
+                status={ValImpuesto}
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+                value={Ent.MonedaId === 0 ? null : Ent.MonedaId}
+                key={Ent.MonedaId}
+                onChange={onChangeImpuesto}
+              >
+                {optionsUM.map((UM) => (
+                  <Select.Option key={UM.Nombre} value={UM.Nombre}>
+                    {UM.Nombre}
+                  </Select.Option>
+                ))}
+              </Select>
+
+
+            </Col>
+          </Row>
+          <Row>
+
+            <Col span={12}>
+              <Row>
+                <Col span={24}>
+                  <label>Precio Con Inpuesto</label>
+                </Col>
+                <Col span={24}>
+                  <Input
+                    type="number"
+                    name="PrecioConInpuesto"
+                    style={{ marginTop: '5px', marginBottom: '10px' }}
+                    onChange={onChangeText}
+                    value={Ent.PrecioConInpuesto === null ? "" : Ent.PrecioConInpuesto}
+                  />
+                </Col>
+              </Row>
+            </Col>
+            <Col span={12}>
+              <Row>
+                <Col span={24}>
+                  <label>Precio Sin Inpuesto</label>
+                </Col>
+                <Col span={24}>
+                  <Input
+                    type="number"
+                    name="PrecioSinInpuesto"
+                    style={{ marginTop: '5px', marginBottom: '10px' }}
+                    onChange={onChangeText}
+                    value={Ent.PrecioSinInpuesto === null ? "" : Ent.PrecioSinInpuesto}
+                  />
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Col>
