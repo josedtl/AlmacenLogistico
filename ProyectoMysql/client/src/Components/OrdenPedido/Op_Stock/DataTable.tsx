@@ -10,7 +10,6 @@ import 'moment/locale/es';
 import { DataType } from '../../../Lib/ResourceModel/DataTableType'
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 
-// import  from 'react-emotion';
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
@@ -40,18 +39,6 @@ const DataTable: React.FC<PropsTable> = (props) => {
             dataIndex: 'CantidadSolicitado',
             width: 65,
             key: 'CantidadSolicitado',
-        },
-        {
-            title: 'Faltante',
-            dataIndex: 'CantidadFaltante',
-            width: 65,
-            key: 'CantidadFaltante',
-        },
-        {
-            title: 'Reservado',
-            dataIndex: 'CantidadReservado',
-            width: 65,
-            key: 'CantidadReservado',
         },
         {
             title: 'Atendido',

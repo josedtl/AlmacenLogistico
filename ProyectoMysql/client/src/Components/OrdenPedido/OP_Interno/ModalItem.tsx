@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AddEditForm from "../../OrdenPedido/OP_Interno/FormAddEdit";
+import AddEditForm from "./FormAddEdit";
 import { Button, Modal } from 'antd';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { ButtonDetalleAdd, ButtonDetalleEdit, ButtonEnlace, ButtonEnlaceCard } from '../../../Styles/Button'
@@ -12,8 +12,6 @@ const ModalItem: React.FC<PropsModel> = (props) => {
   const [modal, setModal] = React.useState(false);
   const toggle = () => {
     setModal(!modal);
-    // console.log("Edit");
-    // console.log(props)
 
   };
   let button: any = "";
@@ -31,7 +29,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
         icon={IconEditTable}
       />
     );
-    title = "Editar DespachoDetalle";
+    title = "Editar OrdenPedidoDetalle";
   } else if (label === "Enlace") {
 
     button = (
@@ -43,7 +41,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
       />
     );
 
-    title = "Agregar DespachoDetalle";
+    title = "Agregar OrdenPedidoDetalle s";
 
 
   } else if (label === "EnlaceCard") {
@@ -55,7 +53,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
       />
     );
 
-    title = "Editar DespachoDetalle";
+    title = "Editar OrdenPedidoDetalle";
 
 
   } else {

@@ -9,8 +9,12 @@ import MercaderiaService from '../../../Service/MercaderiaService';
 import { MerListaEntity } from '../../../Models/MerListaEntity';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import { MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
+import { UnidadMedidaEntity } from "../../../Models/UnidadMedidaEntity";
+import GeneralService from '../../../Service/GeneralService';
+
 const AddEditForm: React.FC<PropsModel> = (props) => {
 
+    const sGeneralService = new GeneralService();
     const initialOrdenPedidoDetalle = new OrdenPedidoDetalleEntity();
     const [Ent, setEnt] = useState<OrdenPedidoDetalleEntity>(initialOrdenPedidoDetalle);
     const [FlaState, setFlaState] = useState<Boolean>(false);
@@ -47,7 +51,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 messageAdd.open({ type: 'error', content: 'Seleccione un número', });
                 return;
             }
-    
+
 
 
             // Ent.CantidadSolicitado = 1;
@@ -79,6 +83,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [ValCategoria, setValCategoria] = useState<InputStatus>('');
     const [ValCodigoUM, setValCodigoUM] = useState<string>('');
     const [ValProducto, setValProducto] = useState<InputStatus>('');
+    const [optionsUM, setOptionsUM] = useState<UnidadMedidaEntity[]>([]);
 
     const sMerLista = new MerListaService();
     const sMercaderiaService = new MercaderiaService();
@@ -142,8 +147,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     };
     useEffect(() => {
-        // setEnt(new OrdenPedidoDetalleEntity());
-   
+
         getItems();
     }, []);
 
@@ -151,7 +155,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const getItems = async () => {
 
         const updatedItem = props.item;
-
+        const Resp_UM = await sGeneralService.GetUnidadMedidaItems();
+        setOptionsUM(Resp_UM);
         if (updatedItem.MercaderiaId > 0) {
 
             const responseProducto = await sMercaderiaService.GetMercaderia_ItemOP(updatedItem.MercaderiaId);
@@ -183,9 +188,15 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         setEnt(updatedItem);
     }
 
-
-
+    const [ValUnidadMedida, setValUnidadMedida] = useState<InputStatus>('');
+    const [selectedUM, setSelectedUM] = useState<number | undefined>(undefined);
+    const onChangeUM = async (value: number) => {
+        setValUnidadMedida('');
+        Ent.UnidadMedidaId = value;
+        setSelectedUM(value)
+    };
     const [modal, contextHolder] = Modal.useModal();
+    modal;
     return (
 
         // <Form form={form} name="formItem" layout="vertical" autoComplete="off">
@@ -220,7 +231,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 </Col>
             </Row>
 
-
             <Row>
                 <Col span={24}>
                     <label>Producto</label>
@@ -246,6 +256,82 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
                 </Col>
             </Row>
+
+
+
+
+            <Row>
+                <Col span={12}>
+
+                    <Row>
+                        <Col span={24}>
+                            <label>Unidad de Medida</label>
+                        </Col>
+                        <Col span={24}>
+
+                            <Select
+                                allowClear
+                                status={ValUnidadMedida}
+                                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                                defaultActiveFirstOption={false}
+                                filterOption={false}
+                                value={Ent.UnidadMedidaId === 0 ? null : Ent.UnidadMedidaId}
+                                key={Ent.UnidadMedidaId}
+                                onChange={onChangeUM}
+                            >
+                                {optionsUM.map((UM) => (
+                                    <Select.Option key={UM.UnidadMedidaId} value={UM.UnidadMedidaId}>
+                                        {UM.Nombre}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+
+                        </Col>
+                    </Row>
+
+
+                </Col>
+                <Col span={12}>
+
+
+                    <Row>
+                        <Col span={24}>
+                            <label>Precio</label>
+                        </Col>
+                        <Col span={24}>
+                            <Space direction="vertical" size="middle">
+
+                                <Space.Compact>
+                                    <Input
+                                        readOnly={true}
+                                        status={ValDato}
+                                        type="text"
+                                        style={{ width: '30%', marginTop: '5px', marginBottom: '10px' }}
+                                        name="Nombre"
+                                        value={ValCodigoUM}
+                                    />
+                                    <Input
+                                        // suffix={ValCodigoUM}
+                                        status={ValSolicitar}
+                                        type="number"
+                                        name="CantidadSolicitado"
+                                        style={{ width: '70%', marginTop: '5px', marginBottom: '10px' }}
+                                        onChange={onChange}
+                                        value={Ent.CantidadSolicitado === null ? 0 : Ent.CantidadSolicitado}
+                                    />
+
+
+                                </Space.Compact>
+                            </Space>
+
+                        </Col>
+                    </Row>
+
+
+                </Col>
+            </Row>
+
+
             <Row>
                 <Col span={12}>
 

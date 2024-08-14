@@ -25,7 +25,7 @@ import PageProdcuto from "./Components/Producto/Main";
 import PageProductoMenu from "./Components/Producto/Menu";
 import PageProdcutoSave from "./Components/Producto/Save";
 import PageOrdenPedido from "./Components/OrdenPedido/Main";
-import PageOrdenPedidoSave from "./Components/OrdenPedido/OrdenPedidoDetalle/Save";
+import PageOrdenPedidoSave from "./Components/OrdenPedido/Save";
 import PagePersonaNatural from "./Components/Entidad/PersonaNatural/Main";
 import PagePersonaNaturalSave from "./Components/Entidad/PersonaNatural/Save";
 import PageEmpresa from "./Components/Entidad/Empresa/Main";

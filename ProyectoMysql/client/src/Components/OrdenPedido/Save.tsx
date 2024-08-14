@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import DataTable from './DataTable';
-import ModalItem from './ModalItem';
+import DataTable from './OP_Interno/DataTable';
+import DataTable_Venta from './OP_Venta/DataTable';
+import DataTable_Stock from './Op_Stock/DataTable';
+import ModalItem from './OP_Interno/ModalItem';
+import ModalItem_Venta from './OP_Venta/ModalItem';
+import ModalItem_Stock from './Op_Stock/ModalItem';
+
 import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Layout, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { useParams } from 'react-router-dom';
@@ -8,22 +13,22 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
-import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
+import { ProcessActionEnum } from '../../Lib/ResourceModel/Enum'
 
-import MDFiltro from '../../Entidad/EnlaceEntidad/ModalItem';
+import MDFiltro from '../Entidad/EnlaceEntidad/ModalItem';
 
 import { InputStatus } from 'antd/es/_util/statusUtils';
 import { SaveFilled } from '@ant-design/icons';
 //SERVICE
-import GeneralService from '../../../Service/GeneralService';
-import OrdenPedidoService from '../../../Service/OrdenPedidoService';
+import GeneralService from '../../Service/GeneralService';
+import OrdenPedidoService from '../../Service/OrdenPedidoService';
 
 //EMTITY
-import { EntidadNombreCompletoModel } from '../../../Models/GeneralEntity';
-import { ProcesoModel } from '../../../Models/ProcesoEntity';
-import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity';
-import { OrdenPedidoEntity } from '../../../Models/OrdenPedidoEntity';
-import { DatosClienteItemModel } from '../../../Models/GeneralEntity'
+import { EntidadNombreCompletoModel } from '../../Models/GeneralEntity';
+import { ProcesoModel } from '../../Models/ProcesoEntity';
+import { OrdenPedidoDetalleEntity } from '../../Models/OrdenPedidoDetalleEntity';
+import { OrdenPedidoEntity } from '../../Models/OrdenPedidoEntity';
+import { DatosClienteItemModel } from '../../Models/GeneralEntity'
 function Page() {
 
   // Instancia 
@@ -188,6 +193,8 @@ function Page() {
     Ent.ProcesoId = value;
     setSelectedTipoRequerimeinto(value)
     selectedTipoRequerimeinto;
+
+    console.log(Ent.ProcesoId);
   };
 
   function generarGuid(): string {
@@ -332,6 +339,61 @@ function Page() {
   };
 
   const { Footer } = Layout;
+
+
+  const Tabla_TipoRequerimiento = () => {
+    if (Ent.ProcesoId === 1) {
+
+      return (
+
+        <DataTable_Stock DataList={filterItems} updateState={event_ActualizarDetalle} deleteItemFromState={event_EliminarDetalle} EsTabla={disabled} />
+
+
+      )
+    } else if (Ent.ProcesoId === 2) {
+      return (
+        <DataTable_Venta DataList={filterItems} updateState={event_ActualizarDetalle} deleteItemFromState={event_EliminarDetalle} EsTabla={disabled} />
+
+      )
+    } else if (Ent.ProcesoId === 3) {
+      return (
+        <DataTable DataList={filterItems} updateState={event_ActualizarDetalle} deleteItemFromState={event_EliminarDetalle} EsTabla={disabled} />
+      )
+    } else {
+      return (
+        <>
+        </>)
+    }
+
+  }
+
+
+  const AgregarButton_TipoRequerimiento = () => {
+    if (Ent.ProcesoId === 1) {
+
+      return (
+
+
+        <ModalItem_Stock buttonLabel="" addItemToState={event_AgregarDetalle} item={new OrdenPedidoDetalleEntity()} keyItem={''} />
+
+      )
+    } else if (Ent.ProcesoId === 2) {
+      return (
+        <ModalItem_Venta buttonLabel="" addItemToState={event_AgregarDetalle} item={new OrdenPedidoDetalleEntity()} keyItem={''} />
+
+      )
+    } else if (Ent.ProcesoId === 3) {
+      return (
+        <ModalItem buttonLabel="" addItemToState={event_AgregarDetalle} item={new OrdenPedidoDetalleEntity()} keyItem={''} />
+      )
+    } else {
+      return (
+        <>
+        </>)
+    }
+
+  }
+
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -444,7 +506,7 @@ function Page() {
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
 
           <Tabs
-            tabBarExtraContent={operations}
+            tabBarExtraContent={AgregarButton_TipoRequerimiento()}
             key={'TabGeneral'}
             type="card"
 
@@ -468,7 +530,9 @@ function Page() {
                     }
                     }>
                       <Col xs={24}>
-                        <DataTable DataList={filterItems} updateState={event_ActualizarDetalle} deleteItemFromState={event_EliminarDetalle} EsTabla={disabled} />
+
+                        {Tabla_TipoRequerimiento()}
+
 
                       </Col>
                     </Row >
