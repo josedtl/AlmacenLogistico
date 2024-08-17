@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace LogisticStorage.EntityLayer
 {
-    public class TarifaEntity
+    public partial class TarifaEntity : BaseEntityObject
     {
         public TarifaEntity()
         {
-            this.TarifaId = 0;
-            this.UnidadMedidaId = 0;
-            this.MonedaId = 0;
-            this.PorcentajeImpuestoId = 0;
-            this.PrecioSinInpuesto = 0;
-            this.PrecioConInpuesto = 0;
+            this.TarifaId = GetInt32Default();
+            this.UnidadMedidaId = GetInt32Default();
+            this.MonedaId = GetInt32Default();
+            this.PorcentajeImpuestoId = GetInt32Default();
+            this.PrecioSinInpuesto = GetInt32Default();
+            this.PrecioConInpuesto = GetInt32Default();
             this.FechaCreacion = DateTime.Now;
-            this.Vigente = false;
-            this.ObjetoReferenciaId = 0;
-            this.MercaderiaId = 0;
+            this.Vigente = GetBooleanDefault();
+            this.ObjetoReferenciaId = GetInt32Default();
+            this.MercaderiaId = GetInt32Default();
         }
 
         public Int32 TarifaId { get; set; }

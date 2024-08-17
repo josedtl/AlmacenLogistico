@@ -22,26 +22,26 @@ const DataTable: React.FC<PropsTable> = (props) => {
         },    
         {
             title: 'Mercaderia',
-            dataIndex: 'MercaderiaId',
-            key: 'MercaderiaId',
+            dataIndex: 'NomProducto',
+            key: 'NomProducto',
             width: 100
         },
         {
             title: 'Unidad Medida',
-            dataIndex: 'UnidadMedidaId',
-            key: 'UnidadMedidaId',
+            dataIndex: 'NomUnidad',
+            key: 'NomUnidad',
             width: 100
         },
         {
             title: 'Moneda',
-            dataIndex: 'MonedaId',
-            key: 'MonedaId',
+            dataIndex: 'NomMoneda',
+            key: 'NomMoneda',
             width:100
         },
         {
             title: '% Impuesto',
-            dataIndex: 'PorcentajeImpuestoId',
-            key: 'PorcentajeImpuestoId  ', 
+            dataIndex: 'Valor',
+            key: 'Valor  ', 
             width:100
         },
         {

@@ -12,6 +12,11 @@ export class TarifaEntity {
     cod:string;
     
     Action: number;
+
+    Valor:string;
+    NomProducto :string;
+    NomMoneda :string;
+    NomUnidad:string;
     constructor() {
         this.TarifaId = 0;
         this.UnidadMedidaId = 0;
@@ -23,6 +28,10 @@ export class TarifaEntity {
         this.Vigente = true;
         this.MercaderiaId=0;
         this.cod='';
-        this.Action=0;
+        this.Action=0;     
+        this.Valor='';
+        this.NomProducto = '';
+        this.NomMoneda = '';
+        this.NomUnidad = '';
     }
 }

@@ -10,12 +10,14 @@ import { Link } from "react-router-dom";
 import { TarifaEntity } from '../../Models/TarifaEntity';
 
 //services
-import MercaderiaService from '../../Service/MercaderiaService';
+import TarifaService from '../../Service/TarifaService';
+
 function Main() {
   useEffect(() => {
     getItems();
   }, []);
-  // const sMercaderia = new MercaderiaService();
+
+   const sTarifa = new TarifaService();
 
   const [items, setItems] = useState<TarifaEntity[]>([]);
   const [CargarPage, setCargarPage] = React.useState(true);
@@ -27,9 +29,9 @@ function Main() {
 
 
   const getItems = async () => {
-    // const itemsg = await sMercaderia.getItems();
-    // setItems(itemsg);
-    //console.log(itemsg);
+    const itemsg = await sTarifa.getItems();
+    setItems(itemsg);
+    console.log(itemsg);
     setCargarPage(false);
 
   };
@@ -38,7 +40,7 @@ function Main() {
   };
 
   const filterItems = items.filter(fdata =>
-    fdata.cod.toLowerCase().includes(Busqueda.toLowerCase())
+    fdata.NomProducto.toLowerCase().includes(Busqueda.toLowerCase())
   );
 
   const { Title } = Typography;
