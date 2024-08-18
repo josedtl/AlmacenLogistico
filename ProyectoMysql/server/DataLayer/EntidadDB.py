@@ -7,9 +7,7 @@ from Utilidades.Arreglos.ListError import error_entities
 from .configMysql import get_connection
 from Utilidades.Conexion.configMysql import DBProcedure, Restore
 from EntityLayer.OrdenPedidoEntity import *
-import pymysql
 from DataLayer.OrdenPedidoDetalleDB import OrdenPedidoDetalleDB
-from DataLayer.CorrelativoDB import CorrelativoDB
 from Utilidades.Conexion.ErrorData import ErrorData
 
 

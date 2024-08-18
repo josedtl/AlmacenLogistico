@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 
-class MercaderiaMainModel:
+class MercaderiaMainModel(BaseModel):
     MercaderiaId: int
     Codigo: str
     NomCategoria: int
@@ -16,20 +16,9 @@ class MercaderiaMainModel:
     CodUsuario: str
     EstadoRegistro: bool
 
-    def Cargar(_DB):
-        c = MercaderiaMainModel()
-        c.MercaderiaId = _DB["MercaderiaId"]
-        c.Codigo = _DB["Codigo"]
-        c.NomCategoria = _DB["NomCategoria"]
-        c.NomTipoProducto = _DB["NomTipoProducto"]
-        c.NomMarca = _DB["NomMarca"]
-        c.NomModelo = _DB["NomModelo"]
-        c.Descripcion = _DB["Descripcion"]
-        c.NomUnidadMedida = _DB["NomUnidadMedida"]
-        c.FechaRegistro = _DB["FechaRegistro"]
-        c.CodUsuario = _DB["CodUsuario"]
-        c.EstadoRegistro = bool(_DB["EstadoRegistro"]) 
-        return c
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
 
 
 class MercaderiaSaveModel(BaseModel):
@@ -48,44 +37,12 @@ class MercaderiaSaveModel(BaseModel):
     CodUsuario: str
     EstadoRegistro: bool
     Action: ProcessActionEnum
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
 
 
-
-class MercaderiaItemModel:
-    MercaderiaId: int
-    Codigo: str
-    CategoriaId: int
-    TipoProductoId: int
-    MarcaId: int
-    ModeloId: int
-    Nombre: str
-    Descripcion: str
-    UnidadMedidaId: int
-    Reserva: float
-    Stock: float
-    FechaRegistro: datetime
-    CodUsuario: str
-    EstadoRegistro: bool
-    Action: ProcessActionEnum
-
-    def Cargar(_DB):
-        c = MercaderiaItemModel()
-        c.MercaderiaId = _DB["MercaderiaId"]
-        c.Codigo = _DB["Codigo"]
-        c.CategoriaId = _DB["CategoriaId"]
-        c.TipoProductoId = _DB["TipoProductoId"]
-        c.MarcaId = _DB["MarcaId"]
-        c.ModeloId = _DB["ModeloId"]
-        c.Nombre = _DB["Nombre"]
-        c.Descripcion = _DB["Descripcion"]
-        c.UnidadMedidaId = _DB["UnidadMedidaId"]
-        c.FechaRegistro = _DB["FechaRegistro"]
-        c.CodUsuario = _DB["CodUsuario"]
-        c.EstadoRegistro = bool(_DB["EstadoRegistro"]) 
-        return c
-
-
-class MercaderiaItemCategoriaModel:
+class MercaderiaItemCategoriaModel(BaseModel):
     MercaderiaId: int
     Codigo: str
     CategoriaId: int
@@ -93,31 +50,18 @@ class MercaderiaItemCategoriaModel:
     Descripcion: str
     UnidadMedidaId: int
 
-    def Cargar(_DB):
-        c = MercaderiaItemCategoriaModel()
-        c.MercaderiaId = _DB["MercaderiaId"]
-        c.Codigo = _DB["Codigo"]
-        c.CategoriaId = _DB["CategoriaId"]
-        c.Nombre = _DB["Nombre"]
-        c.Descripcion = _DB["Descripcion"]
-        c.UnidadMedidaId = _DB["UnidadMedidaId"]
-        return c
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
 
-class MercaderiaItemOPModel:
-    MercaderiaId: int
-    Nombre: str
-    CodigoUM: str
-    Descripcion: str
-    Stock: float
-    CategoriaId : int
+class MercaderiaItemOPModel(BaseModel):
+    MercaderiaId: int = 0
+    Nombre: str = ''
+    CodigoUM: str = ''
+    Descripcion: str = ''
+    Stock: float = 0
+    CategoriaId : int = 0
 
-    def Cargar(_DB):
-        c = MercaderiaItemOPModel()
-        c.MercaderiaId = _DB["MercaderiaId"]
-        c.Nombre = _DB["Nombre"]
-        c.Descripcion = _DB["Descripcion"]
-        c.CodigoUM = _DB["CodigoUM"]
-        c.Stock = _DB["Stock"]
-        c.CategoriaId = _DB["CategoriaId"]
-        return c
-    
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)

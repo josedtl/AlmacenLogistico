@@ -4,60 +4,53 @@ from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 
 class MerListaSaveModel(BaseModel):
-    ListaId: int
-    CampoId: int
-    Nombre: str
-    Codigo: str
-    Descripcion: str
-    FechaRegistro: datetime
-    CodUsuario: str
-    EstadoRegistro: bool
-    Action: ProcessActionEnum
-    CodigoTabla: str
+    ListaId: int = 0
+    CampoId: int = 0
+    Nombre: str = ''
+    Codigo: str = ''
+    Descripcion: str = ''
+    FechaRegistro: datetime = datetime.now()
+    CodUsuario: str = ''
+    EstadoRegistro: bool = False
+    Action: ProcessActionEnum = ProcessActionEnum.Loaded
+    CodigoTabla: str = ''
 
-class MerListaMainModel():
-    ListaId: int
-    CampoId: int
-    Nombre: str
-    Codigo: str
-    Descripcion: str
-    FechaRegistro: datetime
-    CodUsuario: str
-    EstadoRegistro: bool
-    Action: ProcessActionEnum
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
 
 
-    def Cargar(_DB):
-        c =  MerListaMainModel()
-        c.ListaId = _DB["ListaId"] 
-        c.CampoId = _DB["CampoId"] 
-        c.Codigo = _DB["Codigo"] 
-        c.Nombre = _DB["Nombre"] 
-        c.Descripcion = _DB["Descripcion"] 
-        c.FechaRegistro = _DB["FechaRegistro"] 
-        c.CodUsuario = _DB["CodUsuario"] 
-        c.EstadoRegistro  = bool(ord(_DB["EstadoRegistro"])) 
-        
-        
-        return c
+class MerListaMainModel(BaseModel):
+    ListaId: int = 0
+    CampoId: int = 0
+    Nombre: str = ''
+    Codigo: str = ''
+    Descripcion: str = ''
+    FechaRegistro: datetime = datetime.now()
+    CodUsuario: str = ''
+    EstadoRegistro: bool = False
+    Action: ProcessActionEnum = ProcessActionEnum.Loaded
 
-class MerListaTituloModel():
-    CampoId: int
-    Nombre: str
-    def CargarItem(_DB):
-        c =  MerListaTituloModel()
-        c.CampoId = _DB["CampoId"] 
-        c.Nombre = _DB["Nombre"]    
-        return c
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
 
-class MerListaItemModel():
-    ListaId: int
-    CampoId: int
-    Nombre: str
-    Codigo: str
 
-    def Cargar(_DB):
-        c =  MerListaItemModel()
-        c.ListaId = _DB["ListaId"] 
-        c.Nombre = _DB["Nombre"] 
-        return c
+class MerListaTituloModel(BaseModel):
+    CampoId: int = 0
+    Nombre: str = ''
+
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
+
+
+class MerListaItemModel(BaseModel):
+    ListaId: int = 0
+    CampoId: int = 0
+    Nombre: str = 0
+    Codigo: str = 0
+
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)

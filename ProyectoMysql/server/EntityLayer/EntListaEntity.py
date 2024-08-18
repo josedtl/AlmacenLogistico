@@ -1,11 +1,11 @@
+from pydantic import BaseModel
 
-
-class EntListaEntity:
+class EntListaEntity(BaseModel):
     ListaId: int 
+    CampoId: int 
     Nombre: str 
-
-    def Cargar(_DB):
-        c =  EntListaEntity()
-        c.ListaId = _DB["ListaId"] 
-        c.Nombre = _DB["Nombre"] 
-        return c
+    Codigo: str 
+    
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)

@@ -1,7 +1,7 @@
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Conexion.ErrorData import ErrorData
 from Utilidades.Conexion.configMysql import DBProcedure, Restore
-from EntityLayer.DespachoDetalleEntity import *
+from EntityLayer.DespachoEntity import *
 
 
 class DepachoDetalleDB:

@@ -1,66 +1,59 @@
 from datetime import datetime
-from EntityLayer.OrdenCompraDetalleEntity import OrdenCompraDetalleSaveModel
 from pydantic import BaseModel
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 
+class OrdenCompraDetalleSaveModel (BaseModel):
+    OrdenCompraDetalleId: int = 0
+    OrdenCompraId: int = 0
+    MercaderiaId: int = 0
+    UnidadMedidaId: int = 0
+    CantidadSolicitado: float = 0
+    CantidadComprado: float = 0
+    CantidadFaltante: float = 0
+    PrecioUnitario: float = 0
+    NomProducto: str = ''
+    CategoriaId: int = 0
+    CodigoUM: str = ''
+    Stock: float = 0
+
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
+    
 class OrdenCompraSaveModel(BaseModel):
-    OrdenCompraId: int
-    ProcesoId: int
-    EstadoProcesoId: int
-    TipoProcesoId: int
-    Codigo: str
-    EntidadId: int
-    NumDocumentoProveedor: str
-    NomProveedor: str
-    FechaEmision: datetime
-    FechaRegistro: datetime
-    CodUsuario: str
-    Action: ProcessActionEnum
-    DetalleItems: list[OrdenCompraDetalleSaveModel]
+    OrdenCompraId: int = 0
+    ProcesoId: int = 0
+    EstadoProcesoId: int = 0
+    TipoProcesoId: int = 0
+    Codigo: str = ''
+    EntidadId: int = 0
+    NumDocumentoProveedor: str = ''
+    NomProveedor: str = ''
+    FechaEmision: datetime = datetime.now()
+    FechaRegistro: datetime = datetime.now()
+    CodUsuario: str = ''
+    Action: ProcessActionEnum = ProcessActionEnum.Loaded
+    NomEstadoProceso: str = ''
+    DetalleItems: list[OrdenCompraDetalleSaveModel] = []
+
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
+
+class OrdenCompraMainModel(BaseModel):
+    OrdenCompraId: int = 0
+    Codigo: str  = ''
+    NumDocumentoProveedor: str = ''
+    NomProveedor: str = ''
+    FechaEmision: datetime = datetime.now()
+    FechaRegistro: datetime = datetime.now()
+    CodUsuario: str = ''
+    NomEstadoProceso: str = ''
+    ValorEstadoProceso: int = 0
+
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
 
 
-class OrdenCompraItemModel:
-    OrdenCompraId: int
-    TipoProcesoId: int
-    ProcesoId: int
-    EstadoProcesoId: int
-    Codigo: str
-    EntidadId: int
-    NumDocumentoProveedor: str
-    NomProveedor: str
-    FechaEmision: datetime
-    FechaRegistro: datetime
-    CodUsuario: str
-    NomEstadoProceso: str
-    ValorEstadoProceso: int
-    NomEstadoProceso : str
-
-    def Cargar(_DB):
-        c = OrdenCompraItemModel()
-        c.OrdenCompraId = _DB["OrdenCompraId"]
-        c.TipoProcesoId = _DB["TipoProcesoId"]
-        c.ProcesoId = _DB["ProcesoId"]
-        c.EstadoProcesoId = _DB["EstadoProcesoId"]
-        c.Codigo = _DB["Codigo"]
-        c.NumDocumentoProveedor = _DB["NumDocumentoProveedor"]
-        c.NomProveedor = _DB["NomProveedor"]
-        c.EntidadId = _DB["EntidadId"]
-        c.FechaEmision = _DB["FechaEmision"]
-        c.FechaRegistro = _DB["FechaRegistro"]
-        c.CodUsuario = _DB["CodUsuario"]
-        c.NomEstadoProceso = _DB["NomEstadoProceso"] 
-        return c
-
-    def CargarMain(_DB):
-        c = OrdenCompraItemModel()
-        c.OrdenCompraId = _DB["OrdenCompraId"]
-        c.Codigo = _DB["Codigo"]
-        c.NumDocumentoProveedor = _DB["NumDocumentoProveedor"]
-        c.NomProveedor = _DB["NomProveedor"]
-        c.FechaEmision = _DB["FechaEmision"]
-        c.FechaRegistro = _DB["FechaRegistro"]
-        c.CodUsuario = _DB["CodUsuario"]
-        c.NomEstadoProceso = _DB["NomEstadoProceso"]
-        c.ValorEstadoProceso = _DB["ValorEstadoProceso"]
-        return c

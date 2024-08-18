@@ -3,59 +3,57 @@ from pydantic import BaseModel
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 
-class ReservaEntity:
-    MercaderiaId: int
-    Codigo: str
-    Nombre: str
-    CodigoComercial: str
-    CantidaPedido: float
-    Cantidad: float
-    Stock: float
+class ReservaDetalleModel(BaseModel):
+    OrdenPedidoDetalleId: int = 0
+    MercaderiaId: int = 0
+    Cantidad: float = 0
 
-    def Cargar(_DB):
-        c = ReservaEntity()
-        c.MercaderiaId = _DB["MercaderiaId"]
-        c.Codigo = _DB["Codigo"]
-        c.Nombre = _DB["Nombre"]
-        c.CodigoComercial = _DB["CodigoComercial"]
-        c.CantidaPedido = _DB["CantidaPedido"]
-        c.Cantidad = _DB["cantidad"]
-        c.Stock = _DB["Stock"]
-        return c
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
+
+class ReservaItemModel(BaseModel):
+    MercaderiaId: int = 0
+    Codigo: str = ''
+    Nombre: str = ''
+    CodigoComercial: str = ''
+    CantidaPedido: float = 0
+    Cantidad: float = 0
+    Stock: float = 0
+    
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
 
 class ReservaMercaderiaOPModel(BaseModel):
-    Cantidad: float
-    MercaderiaId: int
-    OrdenPedidoDetalleId: int
+    Cantidad: float = 0
+    MercaderiaId: int = 0
+    OrdenPedidoDetalleId: int = 0
+    OrdenPedidoDetalleId: int = 0
+    Action : ProcessActionEnum = ProcessActionEnum.Loaded
+    
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB) 
+    
+class ReservaPedidoModel(BaseModel):
+    OrdenPedidoDetalleId: int = 0
+    MercaderiaId: int = 0
+    CodigoPedido: str = ''
+    Cantidad: float = ''
 
-class ReservaPedidoModel:
-    OrdenPedidoDetalleId: int
-    MercaderiaId: int
-    CodigoPedido: str
-    Cantidad: float
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
 
-    def Cargar(_DB):
-        c = ReservaPedidoModel()
-        c.OrdenPedidoDetalleId = _DB["OrdenPedidoDetalleId"]
-        c.MercaderiaId = _DB["MercaderiaId"]
-        c.CodigoPedido = _DB["CodigoPedido"]
-        c.Cantidad = _DB["Cantidad"]
-        return c
+class ReservaResumenModel(BaseModel):
+    MercaderiaId: int = 0
+    Codigo: str = ''
+    Nombre: str = ''
+    UnidadMedida: str = ''
+    Stock: float = 0
+    Reserva: float = 0
 
-class ReservaResumenModel:
-    MercaderiaId: int
-    Codigo: str
-    Nombre: str
-    UnidadMedida: str
-    Stock: float
-    Reserva: float
-
-    def Cargar(_DB):
-        c = ReservaResumenModel()
-        c.MercaderiaId = _DB["MercaderiaId"]
-        c.Codigo = _DB["Codigo"]
-        c.Nombre = _DB["Nombre"]
-        c.UnidadMedida = _DB["UnidadMedida"]
-        c.Stock = _DB["Stock"]
-        c.Reserva = _DB["Reserva"]
-        return c
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)

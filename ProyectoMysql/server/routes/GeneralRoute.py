@@ -11,6 +11,28 @@ from Utilidades.Entidades.EntidadLikeModel import EntidadLikeModel
 GeneralRouter = APIRouter()
 ApiName = "General"
 
+
+
+@GeneralRouter.get(f"/api/{ApiName}/UnidadMedidaObtenerItems", tags=[ApiName])
+def UnidadMedidaObtenerItems():
+    try:
+        jsonData = PersonaNatural.GetBuscardocumento(NumDocumento)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+@GeneralRouter.get(f"/api/{ApiName}/UnidadMedidaObtenerItem/{{UnidadMedidaId}}", tags=[ApiName])
+def UnidadMedidaObtenerItem(NumDocumento: str):
+    try:
+        jsonData = PersonaNatural.GetBuscardocumento(NumDocumento)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+  
+
+
 @GeneralRouter.post(f"/api/{ApiName}/GetProductoItemLike", tags=[ApiName])
 def GetProductoItemLike(NDataLike: EntidadLikeModel):
     try:
