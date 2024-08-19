@@ -1,39 +1,27 @@
-from DataLayer.OrdenCompraDetalleDB import OrdenCompraDetalleDB
-from Utilidades.Entidades.ResponseAPI import ResponseAPIError
+from DataLayer.OrdenCompraDetalleDB import *
+from DataLayer.DepachoDetalleDB import *
+from EntityLayer.OrdenCompraEntity import OrdenCompraMainModel, OrdenCompraSaveModel
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
-from Utilidades.Arreglos.ListError import error_entities
-from .configMysql import get_connection
-from EntityLayer.OrdenCompraEntity import *
+from Utilidades.Conexion.ErrorData import ErrorData
 from Utilidades.Conexion.configMysql import DBProcedure, Restore
-import pymysql
+from EntityLayer.DespachoEntity import *
 
 
 class OrdenCompraDB:
-    def GetItems():
+    def ObtenerMain():
         try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor.callproc("sp_OrdenCompraAllItems")
-                resulset = cursor.fetchall()
-            conn.close()
-            list = []
-
-            for row in resulset:
-                Data_ent = OrdenCompraItemModel.Cargar(row)
-                list.append(Data_ent)
+            resulset = DBProcedure().DBProcedureConsult("sp_OrdenCompraMain", [])
+            list = [OrdenCompraMainModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
 
             
-    def GetItem(Id: int):
+    def ObtenerItem(OrdenCompraId: int):
         try:
-            args = (Id,)
-            resulset = DBProcedure().DBProcedureConsult(
-                "sp_OrdenCompraAllItem", args
-            )
-            list = [OrdenCompraItemModel.Cargar(row) for row in resulset]
+            args = (OrdenCompraId,)
+            resulset = DBProcedure().DBProcedureConsult("sp_OrdenCompraAllItem", args)
+            list = [OrdenCompraSaveModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
@@ -64,7 +52,7 @@ class OrdenCompraDB:
             for detalle in Ent.DetalleItems:
                 detalle.OrdenCompraId = Ent.OrdenCompraId
                 if detalle.Action == ProcessActionEnum.Delete:
-                    OrdenCompraDetalleDB.Delete(detalle.OrdenPedidoDetalleId)
+                    OrdenCompraDetalleDB.EliminarDB(detalle.OrdenCompraDetalleId)
                 elif detalle.Action in [
                     ProcessActionEnum.Add,
                     ProcessActionEnum.Update,
@@ -76,36 +64,3 @@ class OrdenCompraDB:
             print(e)
             Restore()
 
-
-
-    def Delete(Id: int):
-        try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Id,)
-                cursor.callproc("sp_OrdenCompra_Delete", args)
-                conn.commit()
-            return ResponseAPI.Response(True)
-        except Exception as e:
-            error_code = e.args[0]
-            error_entity = next((entity for entity in error_entities if entity['code'] == error_code), None)
-
-            if error_entity:
-                print(error_entity['message'])
-                return ResponseAPIError.ErrorMensaje(error_entity['messageuser']) 
-            else:
-                error_message = "Ocurrio un error al eliminar el Registro"
-                print(e)
-                return ResponseAPIError.ErrorMensaje(error_message) 
-        finally:
-            cursor.close()
-            conn.close()
-
-    def GetItemMain():
-        try:
-            resulset = DBProcedure().DBProcedureConsult("sp_OrdenCompraMain", [])
-            list = [OrdenCompraItemModel.CargarMain(row) for row in resulset]
-            return list
-        except Exception as e:
-            print(e)

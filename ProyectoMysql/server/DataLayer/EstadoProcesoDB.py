@@ -1,45 +1,17 @@
-from Utilidades.Entidades.ResponseAPI import ResponseAPIError
+from DataLayer.DepachoDetalleDB import *
+from EntityLayer.GeneralEntity import EstadoProcesoModel
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
-from Utilidades.Arreglos.ListError import error_entities
-from .configMysql import get_connection
-from EntityLayer.EstadoProcesoEntity import *
-import pymysql
+from Utilidades.Conexion.ErrorData import ErrorData
+from Utilidades.Conexion.configMysql import DBProcedure, Restore
+from EntityLayer.DespachoEntity import *
 
 
 class EstadoProcesoDB:
-    def GetItems():
+    def ObtenerItems():
         try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor.callproc("sp_EstadoProcesoAllItems")
-                resulset = cursor.fetchall()
-            conn.close()
-            list = []
-
-            for row in resulset:
-                Data_ent = EstadoProcesoItemModel.Cargar(row)
-                list.append(Data_ent)
+            resulset = DBProcedure().DBProcedureConsult("sp_EstadoProcesoObtenerItems", [])
+            list = [EstadoProcesoModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
 
-    def GetItem(Id: int):
-        try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Id,)
-                cursor.callproc("sp_EstadoProcesoAllItem", args)
-                resulset = cursor.fetchall()
-            conn.close()
-            list = []
-
-            for row in resulset:
-                Data_ent = EstadoProcesoItemModel.Cargar(row)
-                list.append(Data_ent)
-            return list
-        except Exception as e:
-            print(e)
-
-  

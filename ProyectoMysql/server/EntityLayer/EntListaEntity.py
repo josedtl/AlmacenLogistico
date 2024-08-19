@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class EntListaEntity(BaseModel):
+class EntListaItemModel(BaseModel):
     ListaId: int 
     CampoId: int 
     Nombre: str 

@@ -6,7 +6,7 @@ from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 
 class MerListaDB:
-    def GetItems(Codigo: any):
+    def ObtenerMain(Codigo: str):
         try:
             args = (Codigo,)
             resulset = DBProcedure().DBProcedureConsult("sp_MerListaObtenerMain", args)
@@ -15,7 +15,7 @@ class MerListaDB:
         except Exception as e:
             print(e)
 
-    def Save(Ent: MerListaSaveModel):
+    def RegistrarDB(Ent: MerListaSaveModel):
         try:
             store_mapping = {
                 ProcessActionEnum.Update: "sp_MerLista_Actualizar",
@@ -28,8 +28,8 @@ class MerListaDB:
             args.append(Ent.Codigo)
             args.append(Ent.Nombre)
             args.append(Ent.Descripcion)
-            args.append(Ent.FechaRegistro)
             args.append(Ent.CodUsuario)
+            args.append(Ent.FechaRegistro)
             args.append(Ent.EstadoRegistro)
             args.append(Ent.CodigoTabla)
             Ent.ListaId = DBProcedure().DBProcedureInsertUpdate(
@@ -41,7 +41,7 @@ class MerListaDB:
             print(e)
             Restore()
             
-    def GetItemTitulo(Codigo: any):
+    def ObtenerTitulo(Codigo: str):
         try:
             args = (Codigo,)
             resulset = DBProcedure().DBProcedureConsult("sp_MerListaObtenertitulo", args)
@@ -50,7 +50,7 @@ class MerListaDB:
         except Exception as e:
             print(e)
 
-    def GetItemLike(Codigo: str, Nombre: str):
+    def BuscarItem(Codigo: str, Nombre: str):
         try:
             args = (
                 Codigo,
@@ -68,7 +68,7 @@ class MerListaDB:
         try:
             args = (Id,)
             resulset = DBProcedure().DBProcedureConsult("sp_MerListaObtenerItem", args)
-            list = [MerListaItemModel.Cargar(row) for row in resulset]
+            list = [MerListaSaveModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)

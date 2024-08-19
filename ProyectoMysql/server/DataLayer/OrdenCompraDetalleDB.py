@@ -1,40 +1,23 @@
+
+from DataLayer.DepachoDetalleDB import *
+from EntityLayer.OrdenCompraEntity import OrdenCompraDetalleSaveModel, OrdenCompraMainModel, OrdenCompraSaveModel
+from Utilidades.Entidades.ResponseAPI import ResponseAPI,ResponseAPIError
+from Utilidades.Conexion.ErrorData import ErrorData
 from Utilidades.Conexion.configMysql import DBProcedure, Restore
-from Utilidades.Entidades.ResponseAPI import ResponseAPIError
-from Utilidades.Entidades.ResponseAPI import ResponseAPI
+from EntityLayer.DespachoEntity import *
 from Utilidades.Arreglos.ListError import error_entities
-from .configMysql import get_connection
-from EntityLayer.OrdenCompraDetalleEntity import *
-import pymysql
 
 
 class OrdenCompraDetalleDB:
-    def GetItems():
+    def ObtenerItem(OrdenCompraId: int):
         try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                cursor.callproc("sp_OrdenCompraDetalleAllItems")
-                resulset = cursor.fetchall()
-            conn.close()
-            list = []
-
-            for row in resulset:
-                Data_ent = OrdenCompraDetalleItemModel.Cargar(row)
-                list.append(Data_ent)
+            args = (OrdenCompraId,)
+            resulset = DBProcedure().DBProcedureConsult("sp_OrdenCompraDetalleCabeceraItem", args)
+            list = [OrdenCompraSaveModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
 
-    def GetItem(Id: int):
-        try:
-            args = (Id,)
-            resulset = DBProcedure().DBProcedureConsult(
-                "sp_OrdenCompraDetalleCabeceraItem", args
-            )
-            list = [OrdenCompraDetalleItemModel.Cargar(row) for row in resulset]
-            return list
-        except Exception as e:
-            print(e)
 
     def Save(Ent: OrdenCompraDetalleSaveModel):
         try:
@@ -61,15 +44,11 @@ class OrdenCompraDetalleDB:
             print(e)
             Restore()
 
-    def Delete(Id: int):
+    def EliminarDB(Id: int):
         try:
-            conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor = conn.cursor(pymysql.cursors.DictCursor)
-                args = (Id,)
-                cursor.callproc("sp_OrdenCompraDetalle_Delete", args)
-                conn.commit()
-            return ResponseAPI.Response(True)
+            args = (Id,)
+            Val = DBProcedure.DBProcedureDalete("sp_OrdenCompraDetalle_Delete", args)
+            return ResponseAPI.Response(Val)
         except Exception as e:
             error_code = e.args[0]
             error_entity = next(
@@ -85,5 +64,4 @@ class OrdenCompraDetalleDB:
                 print(e)
                 return ResponseAPIError.ErrorMensaje(error_message)
         finally:
-            cursor.close()
-            conn.close()
+            Restore()

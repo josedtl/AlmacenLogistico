@@ -3,7 +3,6 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
 from Utilidades.Conexion.configMysql import get_connection, DBProcedure,Restore
 from EntityLayer.OrdenPedidoEntity import *
-import pymysql
 
 
 class OrdenPedidoDetalleDB:

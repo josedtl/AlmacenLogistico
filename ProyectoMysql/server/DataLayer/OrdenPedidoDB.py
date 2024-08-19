@@ -1,13 +1,6 @@
-from Utilidades.Entidades.ResponseAPI import ResponseAPIError
-from Utilidades.Entidades.ResponseAPI import ResponseAPI
-from Utilidades.Arreglos.ListError import error_entities
-from .configMysql import get_connection
 from Utilidades.Conexion.configMysql import DBProcedure, Restore
 from EntityLayer.OrdenPedidoEntity import *
-import pymysql
 from DataLayer.OrdenPedidoDetalleDB import OrdenPedidoDetalleDB
-from DataLayer.CorrelativoDB import CorrelativoDB
-from Utilidades.Conexion.ErrorData import ErrorData
 
 
 class OrdenPedidoDB:
@@ -66,22 +59,6 @@ class OrdenPedidoDB:
         except Exception as e:
             print(e)
             Restore()
-
-
-    def Delete(Id: int):
-        try:
-            # conn = get_connection()
-            # with conn.cursor() as cursor:
-            #     cursor = conn.cursor(pymysql.cursors.DictCursor)
-            #     args = (Id,)
-            #     cursor.callproc("sp_OrdenPedido_Delete", args)
-            #     conn.commit()
-            args = (Id,)
-            Val = DBProcedure.DBProcedureDalete("sp_OrdenPedido_Delete", args)
-            return ResponseAPI.Response(Val)
-        except Exception as e:
-            return ErrorData(e)
-
 
 
 

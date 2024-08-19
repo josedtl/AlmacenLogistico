@@ -16,7 +16,8 @@ class OrdenCompraDetalleSaveModel (BaseModel):
     CategoriaId: int = 0
     CodigoUM: str = ''
     Stock: float = 0
-
+    Action: ProcessActionEnum = ProcessActionEnum.Loaded
+    
     @classmethod
     def Cargar(cls, _DB):
         return cls.parse_obj(_DB)

@@ -59,8 +59,6 @@ namespace LogisticStorage.DataLayer
 				DbDatabase.GetStoredProcCommand(storedName);
 				DbDatabase.SetTransaction(Helper.DbTransaction);
 
-
-
 				DbDatabase.AddParameter(MyUtils.GetOutputDirection(true), "v_EntidadId", DbType.Int32, 4, false, 0, 0, Ent.EntidadId);
 				DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_TipoDocumentoIdentidadId", DbType.Int32, 4, false, 0, 0, Ent.TipoDocumentoIdentidadId);
 				DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_NumDocumento", DbType.String, 100, false, 0, 0, Ent.NumDocumento);

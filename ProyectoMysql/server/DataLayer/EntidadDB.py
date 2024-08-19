@@ -1,5 +1,5 @@
 from EntityLayer.EmpresaEntity import EmpresaMainModel, EmpresaSaveModel
-from EntityLayer.GeneralEntity import EntidadNombreCompletoModel
+from EntityLayer.GeneralEntity import DatosClienteItemModel, EntidadNombreCompletoModel
 from EntityLayer.PersonaNaturalEntity import PersonaNaturalMainModel, PersonaNaturalSaveModel
 from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
@@ -124,3 +124,42 @@ class EntidadDB:
             return list
         except Exception as e:
             print(e)
+            
+
+    def PersonaNaturalRegistrarEnlaceDB(Ent: DatosClienteItemModel):
+        try:
+        
+            Store = "sp_PersonaRegistarEnlace"
+            args = []
+            args.append(Ent.EntidadId)
+            args.append(Ent.TipoDocumentoIdentidadId)
+            args.append(Ent.NumDocumento)
+            args.append(Ent.Nombres)
+            args.append(Ent.ApellidoPaterno)
+            args.append(Ent.ApellidoMaterno)
+            args.append(Ent.CodUsuario)
+            Ent.EntidadId = DBProcedure().DBProcedureInsertUpdate(Store, args, "v_EntidadId")
+            return Ent
+        except Exception as e:
+            print(e)
+            Restore()
+
+
+    def EmpresaRegistrar(Ent: DatosClienteItemModel):
+        try:
+   
+            Store = "sp_Empresa_RegistrarEnlace"
+            args = []
+            args.append(Ent.EntidadId)
+            args.append(Ent.TipoDocumentoIdentidadId)
+            args.append(Ent.NumDocumento)
+            args.append(Ent.NombreComercial)
+            args.append(Ent.CodUsuario)
+            Ent.EntidadId = DBProcedure().DBProcedureInsertUpdate(
+                Store, args, "v_EntidadId"
+            )
+
+            return Ent
+        except Exception as e:
+            print(e)
+            Restore()
