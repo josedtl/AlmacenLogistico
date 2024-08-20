@@ -1,4 +1,4 @@
-from DataLayer.RecepcionDetalleDB import RecepcionDetalleDB
+from DataLayer.RecepcionDetalleDB import *
 from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
@@ -40,7 +40,7 @@ class RecepcionDB:
             for detalle in Ent.DetalleItems:
                 detalle.RecepcionId = Ent.RecepcionId
                 if detalle.Action == ProcessActionEnum.Delete:
-                    RecepcionDetalleDB.Delete(detalle.RecepcionDetalleId)
+                    RecepcionDetalleDB.d(detalle.RecepcionDetalleId)
                 elif detalle.Action in [
                     ProcessActionEnum.Add,
                     ProcessActionEnum.Update,
@@ -52,7 +52,7 @@ class RecepcionDB:
             print(e)
             Restore()
 
-    def GetItemMain():
+    def ObtenerMain()-> list[RecepcionItemModel]:
         try:
             resulset = DBProcedure().DBProcedureConsult("sp_Recepcion_Main", [])
             list = [RecepcionItemModel.Cargar(row) for row in resulset]
@@ -60,7 +60,7 @@ class RecepcionDB:
         except Exception as e:
             print(e)
 
-    def ObtenerItem( Id : int):
+    def ObtenerItem( Id : int) -> list[RecepcionItemModel]:
         try:
             args = (Id,)
             resulset = DBProcedure().DBProcedureConsult("sp_RecepcionObtenerItem", args)

@@ -4,29 +4,29 @@ from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Re
 
 
 class OrdenPedido:
-    def ObtenerMain():
+    def ObtenerMain()-> list[OrdenPedidoMainModel] :
         try:
             return OrdenPedidoDB.ObtenerMain()
         except Exception as e:
             print(e)
             
-    def ObtenerItem(Id: int):
+    def ObtenerItem(Id: int)-> list[OrdenPedidoSaveModel]:
         try:
             return OrdenPedidoDB.ObtenerItem(Id)
         except Exception as e:
             print(e)
             
-    def Registrar(Ent: OrdenPedidoSaveModel):
+    def Registrar(Ent: OrdenPedidoSaveModel) -> int:
         try:
             StartTransaction()
-            data = OrdenPedidoDB.RegistrarDB(Ent)
+            Value : int = OrdenPedidoDB.RegistrarDB(Ent)
             EndTransaction()
-            return data
+            return Value
         except Exception as e:
             Restore()
             print(e)
 
-    def ObtenerFiltroOCO():
+    def ObtenerFiltroOCO()-> list[OrdenPedidoFiltroOCOModel]:
         try:
             return OrdenPedidoDB.ObtenerFiltroOCO()
         except Exception as e:

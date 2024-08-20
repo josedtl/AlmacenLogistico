@@ -1,5 +1,4 @@
 from DataLayer.RecepcionDetalleDB import *
-from EntityLayer.RecepcionDetalleEntity import *
 from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Restore
 
 

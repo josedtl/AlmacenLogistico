@@ -16,7 +16,7 @@ namespace LogisticStorage.BusinessLayer
             return DB.ObtenerItem(ListaId);
         }
 
-        public static List<RecepListaEntity> ObtenerItems(String Codigo)
+        public static List<RecepListaEntity> ObtenerLista(String Codigo)
         {
             RecepListaDB DB = new RecepListaDB();
             return DB.ObtenerItems(Codigo);

@@ -4,39 +4,41 @@ from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Re
 
 
 class Mercaderia:
-    def Save(Ent: MercaderiaSaveModel):
+
+    def ObtenerMain():
+        try:
+            data =  MercaderiaDB.ObtenerMain()
+            return data
+        except Exception as e:
+            print(e)    
+
+    def Registrar(Ent: MercaderiaSaveModel):
         try:
             StartTransaction()
-            data = MercaderiaDB.Save(Ent)
+            data = MercaderiaDB.RegistrarDB(Ent)
             EndTransaction()
-            return data
+            return data.MercaderiaId
         except Exception as e:
             Restore()
             print(e)
-    
-    def GetMainItems():
+
+    def ObtenerItem(MercaderiaId : int):
         try:
-            data =  MercaderiaDB.GetMainItems()
+            data =  MercaderiaDB.ObtenerItem(MercaderiaId)
             return data
         except Exception as e:
             print(e)    
 
-    def GetCabeceraItem(Id : int):
+    def BuscarCategoriaItem(Nombre : str, CategoriaId :int):
         try:
-            data =  MercaderiaDB.GetCabeceraItem(Id)
+            data =  MercaderiaDB.BuscarCategoriaItem(Nombre, CategoriaId)
             return data
         except Exception as e:
             print(e)    
 
-    def GetMercaderiaLikeCategoria(Nombre : str, CategoriaId :int):
+    def ObtenerItemOP(Id : int):
         try:
-            data =  MercaderiaDB.GetMercaderiaLikeCategoria(Nombre, CategoriaId)
-            return data
-        except Exception as e:
-            print(e)    
-    def GetMercaderia_ItemOP(Id : int):
-        try:
-            data =  MercaderiaDB.GetMercaderia_ItemOP(Id)
+            data =  MercaderiaDB.ObtenerItemOP(Id)
             return data
         except Exception as e:
             print(e)    

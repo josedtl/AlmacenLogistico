@@ -1,29 +1,15 @@
-from DataLayer.UnidadMedidaDB import *
-from EntityLayer.UnidadMedidaEntity import *
-
+from DataLayer.UbigeoDB import *
+from EntityLayer.GeneralEntity import *
 
 class UnidadMedida:
-    def Save(Ent: UnidadMedidaSaveModel):
+    def BuscarItem(Nombre : str):
         try:
-            return UnidadMedidaDB.Save(Ent)
+            return UbigeoDB.BuscarItem(Nombre)
         except Exception as e:
             print(e)
-    
-    def GetItems():
+
+    def ObtenerItems(UbigeoId : int):
         try:
-            return UnidadMedidaDB.GetItems()
+            return UbigeoDB.ObtenerItem(UbigeoId)
         except Exception as e:
             print(e)
-    
-    def GetItem(Id: int):
-        try:
-            return UnidadMedidaDB.GetItem(Id)
-        except Exception as e:
-            print(e)
-    
-    def Delete(Id: int):
-        try:
-            return UnidadMedidaDB.Delete(Id)
-        except Exception as e:
-            print(e)
-    

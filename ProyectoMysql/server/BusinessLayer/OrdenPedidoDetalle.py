@@ -1,5 +1,4 @@
 from DataLayer.OrdenPedidoDetalleDB import *
-from EntityLayer.OrdenPedidoDetalleEntity import *
 
 
 class OrdenPedidoDetalle:
@@ -12,7 +11,7 @@ class OrdenPedidoDetalle:
 
     def ObtenerFiltroOCD():
         try:
-            return OrdenPedidoDetalleDB.ObtenerItem()
+            return OrdenPedidoDetalleDB.ObtenerFiltroOCD()
         except Exception as e:
             print(e)
 

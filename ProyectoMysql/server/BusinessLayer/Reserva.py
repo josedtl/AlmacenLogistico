@@ -1,4 +1,4 @@
-from DataLayer.ReservaDB import ReservaDB
+from DataLayer.ReservaDB import *
 from EntityLayer.ReservaEntity import ReservaMercaderiaOPModel
 from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Restore
 
@@ -15,9 +15,9 @@ class Reserva:
     def ReservarMercaderia(Ent: ReservaMercaderiaOPModel):
         try:
             StartTransaction()
-            data = ReservaDB.ReservarMercaderia(Ent)
+            data = ReservaDB.ReservarMercaderiaDB(Ent)
             EndTransaction()
-            return data
+            return data.MercaderiaId
         except Exception as e:
             Restore()
             print(e)

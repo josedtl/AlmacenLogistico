@@ -4,39 +4,39 @@ from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction
 
 class MerLista:
 
-    def GetItems(Codigo: str):
+    def ObtenerMain(Codigo: str):
         try:
-            data = MerListaDB.GetItems(Codigo)
+            data = MerListaDB.ObtenerMain(Codigo)
             return data
         except Exception as e:
             print(e)
 
-    def Save(Ent: MerListaSaveModel):
+    def Registrar(Ent: MerListaSaveModel):
         try:
             StartTransaction()
-            data = MerListaDB.Save(Ent)
+            data = MerListaDB.RegistrarDB(Ent)
             EndTransaction()
             return data
         except Exception as e:
             print(e)
 
-    def GetItemTitulo(Codigo: str):
+    def ObtenerTitulo(Codigo: str):
         try:
-            data = MerListaDB.GetItemTitulo(Codigo)
+            data = MerListaDB.ObtenerTitulo(Codigo)
             return data
         except Exception as e:
             print(e)
 
-    def GetItemLike(Codigo: str, Nombre: str):
+    def BuscarItem(Codigo: str, Nombre: str):
         try:
-            data = MerListaDB.GetItemLike(Codigo, Nombre)
+            data = MerListaDB.BuscarItem(Codigo, Nombre)
             return data
         except Exception as e:
             print(e)
 
-    def GetItem(Id : int):
+    def ObtenerItem(Id : int):
         try:
-            data = MerListaDB.GetItem(Id)
+            data = MerListaDB.ObtenerItem(Id)
             return data
         except Exception as e:
             print(e)

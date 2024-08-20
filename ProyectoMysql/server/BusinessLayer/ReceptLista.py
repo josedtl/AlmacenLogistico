@@ -4,9 +4,9 @@ from Utilidades.Conexion.configMysql import StartTransaction,EndTransaction
 
 class ReceptLista:
 
-    def ObtenerLista(Codigo: str):
+    def ObtenerItems(Codigo: str):
         try:
-            data = ReceptListaDB.ObtenerLista(Codigo)
+            data = ReceptListaDB.ObtenerItems(Codigo)
             return data
         except Exception as e:
             print(e)

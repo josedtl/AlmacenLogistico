@@ -4,7 +4,7 @@ from DataLayer.OrdenPedidoDetalleDB import OrdenPedidoDetalleDB
 
 
 class OrdenPedidoDB:
-    def ObtenerMain():
+    def ObtenerMain()-> list[OrdenPedidoMainModel] :
         try:
             resulset = DBProcedure().DBProcedureConsult("sp_OrdenPedido_Main", [])
             list = [OrdenPedidoMainModel.Cargar(row) for row in resulset]
@@ -12,7 +12,7 @@ class OrdenPedidoDB:
         except Exception as e:
             print(e)
 
-    def ObtenerItem(Id: int):
+    def ObtenerItem(Id: int) -> list[OrdenPedidoSaveModel]:
         try:
             args = (Id,)
             resulset = DBProcedure().DBProcedureConsult("sp_OrdenPedidoCabeceraItem", args)
@@ -21,7 +21,7 @@ class OrdenPedidoDB:
         except Exception as e:
             print(e)
 
-    def RegistrarDB(Ent: OrdenPedidoSaveModel):
+    def RegistrarDB(Ent: OrdenPedidoSaveModel)-> int:
         try:
             store_mapping = {
                 ProcessActionEnum.Update: "sp_OrdenPedido_Update",
@@ -55,14 +55,14 @@ class OrdenPedidoDB:
                 ]:
                     OrdenPedidoDetalleDB.RegistrarDB(detalle)
 
-            return Ent
+            return Ent.OrdenPedidoId
         except Exception as e:
             print(e)
             Restore()
 
 
 
-    def ObtenerFiltroOCO():
+    def ObtenerFiltroOCO()-> list[OrdenPedidoFiltroOCOModel] :
         try:
             resulset = DBProcedure().DBProcedureConsult("sp_OrdenPedidoObtenerFiltroOCO", [])
             list = [OrdenPedidoFiltroOCOModel.Cargar(row) for row in resulset]

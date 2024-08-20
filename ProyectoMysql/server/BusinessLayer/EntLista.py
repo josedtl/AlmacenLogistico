@@ -3,24 +3,34 @@ from Utilidades.Conexion.configMysql import StartTransaction,EndTransaction
 
 
 class EntLista:
+    def Registrar(Ent: EntListaItemModel):
+        try:
+            StartTransaction()
+            data = EntListaDB.RegistrarDB(Ent)
+            EndTransaction()
+            return data
+        except Exception as e:
+            Restore()
+            print(e)
 
-    def GetItems(Codigo: str):
+    def BuscarItem(Codigo : str, Nombre :str):
         try:
-            data = EntListaDB.GetItems(Codigo)
+            data =  EntListaDB.BuscarItem(Codigo, Nombre)
             return data
         except Exception as e:
-            print(e)
-    
-    def GetItem(Id: int):
+            print(e)     
+
+    def ObtenerItem(ListaId : int):
         try:
-            data = EntListaDB.GetItem(Id)
+            data =  EntListaDB.ObtenerItem(ListaId)
             return data
         except Exception as e:
-            print(e)
-    
-    def GetItemLike(Codigo: str, Nombre: str):
+            print(e)    
+
+
+    def ObtenerItems(Codigo : str):
         try:
-            data = EntListaDB.GetItemLike(Codigo,Nombre)
+            data =  EntListaDB.ObtenerItems(Codigo)
             return data
         except Exception as e:
-            print(e)
+            print(e)    

@@ -9,7 +9,7 @@ from Utilidades.Arreglos.ListError import error_entities
 
 
 class OrdenCompraDetalleDB:
-    def ObtenerItem(OrdenCompraId: int):
+    def ObtenerItem(OrdenCompraId: int)-> list[OrdenCompraSaveModel]:
         try:
             args = (OrdenCompraId,)
             resulset = DBProcedure().DBProcedureConsult("sp_OrdenCompraDetalleCabeceraItem", args)
@@ -19,7 +19,7 @@ class OrdenCompraDetalleDB:
             print(e)
 
 
-    def Save(Ent: OrdenCompraDetalleSaveModel):
+    def Save(Ent: OrdenCompraDetalleSaveModel)-> OrdenCompraDetalleSaveModel:
         try:
             print("Entro al detalle")
             store_mapping = {

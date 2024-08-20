@@ -1,34 +1,16 @@
 from DataLayer.UbigeoDB import *
-from EntityLayer.UbigeoEntity import *
+from EntityLayer.GeneralEntity import *
 
 
 class Ubigeo:
-    def Save(Ent: UbigeoSaveModel):
+    def BuscarItem(Nombre : str):
         try:
-            return UbigeoDB.Save(Ent)
-        except Exception as e:
-            print(e)
-    
-    def GetItems():
-        try:
-            return UbigeoDB.GetItems()
-        except Exception as e:
-            print(e)
-    
-    def GetItem(Id: int):
-        try:
-            return UbigeoDB.GetItem(Id)
-        except Exception as e:
-            print(e)
-    
-    def Delete(Id: int):
-        try:
-            return UbigeoDB.Delete(Id)
+            return UbigeoDB.BuscarItem(Nombre)
         except Exception as e:
             print(e)
 
-    def GetItemLike(Nombre: str):
+    def ObtenerItem(UbigeoId : int):
         try:
-            return UbigeoDB.GetItemLike(Nombre)
+            return UbigeoDB.ObtenerItem(UbigeoId)
         except Exception as e:
             print(e)

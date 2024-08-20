@@ -13,7 +13,7 @@ namespace LogisticStorage.BusinessLayer
         public static List<EstadoProcesoEntity> ObtenerItems()
         {
             EstadoProcesoDB DB = new EstadoProcesoDB();
-            return DB.ObtenerItems();
+            return DB.ObtenerItems();   
         }
 
     }

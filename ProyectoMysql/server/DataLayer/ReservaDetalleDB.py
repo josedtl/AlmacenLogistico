@@ -10,7 +10,7 @@ from Utilidades.Conexion.ErrorData import ErrorData
 
 class ReservaDetalleDB:
 
-    def RegistrarDB(Ent: ReservaDetalleModel):
+    def ReservarDB(Ent: ReservaDetalleModel):
         try:
     
             Store = "sp_ReservarMercaderiaItem"
@@ -29,10 +29,10 @@ class ReservaDetalleDB:
             Restore()
 
 
-    def RegistrarLista (Items: list[ReservaDetalleModel]):
+    def ReservaLista (Items: list[ReservaDetalleModel]):
         try:
             for item in Items:
-                ReservaDetalleDB.RegistrarDB(item) 
+                ReservaDetalleDB.ReservarDB(item) 
         except Exception as e:
             print(e)
             Restore()

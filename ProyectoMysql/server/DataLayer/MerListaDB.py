@@ -64,7 +64,7 @@ class MerListaDB:
         except Exception as e:
             print(e)
 
-    def GetItem(Id: int):
+    def ObtenerItem(Id: int):
         try:
             args = (Id,)
             resulset = DBProcedure().DBProcedureConsult("sp_MerListaObtenerItem", args)
