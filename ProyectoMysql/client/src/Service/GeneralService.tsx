@@ -8,6 +8,8 @@ import { EmpresaEntity } from '../Models/EmpresaEntity';
 import { EntidadLikeModel } from '../Models/EntidadLikeModel';
 import { ProcesoEntity } from '../Models/ProcesoEntity';
 import { RecepListaModel } from '../Models/RecepcionEntity';
+import { PorcentajeImporteEntity } from '../Models/PorcentajeImporteEntity';
+import { MonedaEntity } from '../Models/MonedaEntity';
 
 class GeneralService {
 
@@ -181,6 +183,47 @@ class GeneralService {
       return null;
     }
   }
+
+  
+  async GetMonedaItems(): Promise<MonedaEntity[]> {
+
+    try {
+        const response = await apiLg.get(`api/General/MonedaObtenerItems`);
+        return response.data.Value;
+    } catch (error) {
+        throw error;
+    }
+
+}
+
+async GetMonedaItem(Id: number): Promise<MonedaEntity[]> {
+    try {
+        const response = await apiLg.get(`api/General/MonedaObtenerItem/${Id}`);
+        return response.data.Value;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async GetPorcentajeImporteItems(): Promise<PorcentajeImporteEntity[]> {
+
+    try {
+        const response = await apiLg.get(`api/General/PorcentajeImpuestoObtenerItems`);
+        return response.data.Value;
+    } catch (error) {
+        throw error;
+    }
+
+}
+
+async GetPorcentajeImporteItem(Id: number): Promise<PorcentajeImporteEntity[]> {
+    try {
+        const response = await apiLg.get(`api/General/PorcentajeImpuestoObtenerItem/${Id}`);
+        return response.data.Value;
+    } catch (error) {
+        throw error;
+    }
+}
 
 }
 
