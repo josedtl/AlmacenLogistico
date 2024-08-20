@@ -2,7 +2,7 @@ from datetime import datetime
 from pydantic import BaseModel
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
-class ReservaItemModel(BaseModel):
+class StockMercaderiaMainModel(BaseModel):
     MercaderiaId: int = 0
     Codigo: str = ''
     NomCategoria: str = ''

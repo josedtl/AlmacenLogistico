@@ -4,6 +4,19 @@ from Utilidades.Conexion.configMysql import StartTransaction, EndTransaction, Re
 
 
 class Despacho:
+
+    def DespachoObtenerMain():
+        try:
+            return DepachoDB.DespachoObtenerMain()
+        except Exception as e:
+            print(e)
+
+    def ObtenerCabecera(Id: int):
+        try:
+            return DepachoDB.ObtenerCabecera(Id)
+        except Exception as e:
+            print(e)
+            
     def Registrar(Ent: DespachoSaveModel):
         try:
             StartTransaction()
@@ -14,16 +27,7 @@ class Despacho:
             Restore()
             print(e)
     
-    def DespachoObtenerMain():
-        try:
-            return DepachoDB.DespachoObtenerMain()
-        except Exception as e:
-            print(e)
-    
-    def ObtenerCabecera(Id: int):
-        try:
-            return DepachoDB.ObtenerCabecera(Id)
-        except Exception as e:
-            print(e)
+
+
     
    

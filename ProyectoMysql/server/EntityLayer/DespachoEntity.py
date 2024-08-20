@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
+from EntityLayer.ReservaEntity import ReservaSaveModel
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 class DespachoMainModel(BaseModel):
@@ -35,7 +36,9 @@ class DespachoDetalleSaveModel(BaseModel):
     CodigoUM: str = ''
     CantidadSolicitado : float = 0
     CantidadAtendido : float = 0
-    
+    Action: ProcessActionEnum = ProcessActionEnum.Loaded
+    DetalleReservaItem : Optional[list[ReservaSaveModel]] = []
+
     @classmethod
     def Cargar(cls, _DB):
         return cls.parse_obj(_DB)

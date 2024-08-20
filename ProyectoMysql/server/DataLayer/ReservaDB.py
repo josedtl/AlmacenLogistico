@@ -11,12 +11,12 @@ class ReservaDB:
     def GetMercaderiaMainItems():
         try:
             resulset = DBProcedure().DBProcedureConsult("sp_ReservaMercaderiaListaMain", [])
-            list = [ReservaEntity.Cargar(row) for row in resulset]
+            list = [ReservaItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
             
-    def ReservarMercaderia(Ent: ReservaMercaderiaOPModel):
+    def ReservarMercaderiaDB(Ent: ReservaMercaderiaOPModel):
         try:
    
             Store = "sp_ReservarMercaderiaItem"
@@ -25,7 +25,7 @@ class ReservaDB:
             args.append(Ent.Cantidad)
             args.append(Ent.OrdenPedidoDetalleId)
             Ent.MercaderiaId = DBProcedure().DBProcedureInsertUpdate(
-                Store, args, "_MercaderiaId"
+                Store, args, "v_MercaderiaId"
             )
            
             return Ent
@@ -62,3 +62,24 @@ class ReservaDB:
             return list
         except Exception as e:
             print(e)
+
+    def ReservarDespachoDB(Ent: ReservaSaveModel):
+        try:
+   
+            Store = "sp_RegistrarReservaDespacho"
+            args = []
+            args.append(Ent.ReservaId)
+            args.append(Ent.OrdenPedidoId)
+            args.append(Ent.OrdenPedidoDetalleId)
+            args.append(Ent.MercaderiaId)
+            args.append(Ent.Cantidad)
+            args.append(Ent.StockId)
+
+            Ent.MercaderiaId = DBProcedure().DBProcedureInsertUpdate(
+                Store, args, "v_MercaderiaId"
+            )
+           
+            return Ent
+        except Exception as e:
+            print(e)
+            Restore()

@@ -6,7 +6,7 @@ from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 
 class ReceptListaDB:
-    def ObtenerLista(Codigo: any):
+    def ObtenerItems(Codigo: str):
         try:
             args = (Codigo,)
             resulset = DBProcedure().DBProcedureConsult("sp_RecepListaObtenerLista", args)

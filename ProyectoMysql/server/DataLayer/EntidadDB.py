@@ -145,7 +145,7 @@ class EntidadDB:
             Restore()
 
 
-    def EmpresaRegistrar(Ent: DatosClienteItemModel):
+    def EmpresaRegistrarEnlace(Ent: DatosClienteItemModel):
         try:
    
             Store = "sp_Empresa_RegistrarEnlace"

@@ -1,4 +1,3 @@
-from EntityLayer.RecepcionDetalleEntity import RecepcionDetalleItemModel
 from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
@@ -41,7 +40,7 @@ class RecepcionDetalleDB:
         try:
             args = (Id,)
             resulset = DBProcedure().DBProcedureConsult("sp_RecepcionDetalleObtenerItem", args)
-            list = [RecepcionDetalleItemModel.CargarItem(row) for row in resulset]
+            list = [RecepcionDetalleSaveModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
