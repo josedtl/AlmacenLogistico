@@ -293,6 +293,93 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<List<EstadoProcesoModel>>(new List<EstadoProcesoModel>(), false, ex.Message);
             }
         }
+        [HttpGet]
+        [Route("MonedaObtenerItems")]
+        public ResponseAPI<List<MonedaModel>> MonedaObtenerItems()
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Moneda.ObtenerItems();
+
+                List<MonedaModel> Lista = new List<MonedaModel>();
+
+                foreach (var Item in Items) Lista.Add(new MonedaModel(Item));
+
+                return new ResponseAPI<List<MonedaModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<MonedaModel>>(new List<MonedaModel>(), false, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("MonedaObtenerItem/{MonedaId}")]
+        public ResponseAPI<List<MonedaModel>> MonedaObtenerItem(Int32 MonedaId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Moneda.ObtenerItem(MonedaId);
+
+                List<MonedaModel> Lista = new List<MonedaModel>();
+
+                foreach (var Item in Items) Lista.Add(new MonedaModel(Item));
+
+                return new ResponseAPI<List<MonedaModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<MonedaModel>>(new List<MonedaModel>(), false, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("PorcentajeImpuestoObtenerItems")]
+        public ResponseAPI<List<PorcentajeImpuestoModel>> PorcentajeImpuestoObtenerItems()
+        {
+            try
+            {
+                d.Configurar();
+                var Items = PorcentajeImpuesto.ObtenerItems();
+
+                List<PorcentajeImpuestoModel> Lista = new List<PorcentajeImpuestoModel>();
+
+                foreach (var Item in Items) Lista.Add(new PorcentajeImpuestoModel(Item));
+
+                return new ResponseAPI<List<PorcentajeImpuestoModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<PorcentajeImpuestoModel>>(new List<PorcentajeImpuestoModel>(), false, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("PorcentajeImpuestoObtenerItem/{PorcentajeImpuestoId}")]
+        public ResponseAPI<List<PorcentajeImpuestoModel>> PorcentajeImpuestoObtenerItem(Int32 PorcentajeImpuestoId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = PorcentajeImpuesto.ObtenerItem(PorcentajeImpuestoId);
+
+                List<PorcentajeImpuestoModel> Lista = new List<PorcentajeImpuestoModel>();
+
+                foreach (var Item in Items) Lista.Add(new PorcentajeImpuestoModel(Item));
+
+                return new ResponseAPI<List<PorcentajeImpuestoModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<PorcentajeImpuestoModel>>(new List<PorcentajeImpuestoModel>(), false, ex.Message);
+            }
+        }
 
     }
 }

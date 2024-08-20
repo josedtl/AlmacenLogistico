@@ -13,13 +13,17 @@ import MerListaService from '../../Service/MerListaService';
 
 import { MerListaEntity } from '../../Models/MerListaEntity';
 import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
+import { PorcentajeImporteEntity } from '../../Models/PorcentajeImporteEntity';
+import { MonedaEntity } from '../../Models/MonedaEntity';
 import { TarifaEntity } from '../../Models/TarifaEntity';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
+
   const sMerLista = new MerListaService();
   const sMercaderia = new MercaderiaService();
-  const sGeneralService = new GeneralService();
+
+  const sGeneral = new GeneralService();
 
   const initialProducto = new TarifaEntity();
   const [Ent, setEnt] = useState<TarifaEntity>(initialProducto);
@@ -30,16 +34,8 @@ const Save = () => {
   const [optionsMercaderia, setOptionsMercaderia] = useState<MerListaEntity[]>([]);
   const [optionsUM, setOptionsUM] = useState<UnidadMedidaEntity[]>([]);
 
-  const handleSearchMercaderia = async (value: string) => {
-    try {
-      const responseModelo = await sMerLista.getItemLike("M005", value);
-      setOptionsMercaderia(responseModelo);
-    } catch (error) {
-      console.error('Error al buscar categorías:', error);
-    }
-  };
-
-
+  const [optionsMoneda, setOptionsMoneda] = useState<MonedaEntity[]>([]);
+  const [optionsImporte, setOptionsImporte] = useState<PorcentajeImporteEntity[]>([]);
 
   const getCargarDatos = async () => {
 
@@ -65,6 +61,7 @@ const Save = () => {
     });
 
   };
+
   const [selectedModelo, setSelectedModelo] = useState<number | undefined>(undefined);
   const [selectedUM, setSelectedUM] = useState<number | undefined>(undefined);
   const [selectedMoneda, setSelectedMoneda] = useState<number | undefined>(undefined);
@@ -75,7 +72,14 @@ const Save = () => {
   const [ValMoneda, setValMoneda] = useState<InputStatus>('');
   const [ValUnidadMedida, setValUnidadMedida] = useState<InputStatus>('');
 
-
+  const handleSearchMercaderia = async (value: string) => {
+    try {
+      const responseModelo = await sMerLista.getItemLike("M002", value);
+      setOptionsMercaderia(responseModelo);
+    } catch (error) {
+      console.error('Error al buscar categorías:', error);
+    }
+  };
 
 
   const onChangeModelo = async (value: number) => {
@@ -122,7 +126,7 @@ const Save = () => {
     e.preventDefault();
 
     selectedUM;
-
+    selectedMoneda;
 
     if (Ent.MercaderiaId === 0) {
       setValModelo('error');
@@ -162,8 +166,15 @@ const Save = () => {
     async function cargarItem() {
 
       setCargarPage(true);
-      const Resp_UM = await sGeneralService.GetUnidadMedidaItems();
+      const Resp_UM = await sGeneral.GetUnidadMedidaItems();
       setOptionsUM(Resp_UM);
+
+      // const Resp_Moneda = await sGeneral.GetMonedaItems();
+      // setOptionsMoneda(Resp_Moneda);
+
+      // const Resp_Importe = await sGeneral.GetPorcentajeImporteItems();
+      // setOptionsImporte(Resp_Importe);
+
       await getCargarDatos();
     }
 
@@ -257,7 +268,7 @@ const Save = () => {
               <label>Moneda</label>
             </Col>
             <Col span={24}>
-              <Select
+            <Select
                 allowClear
                 status={ValMoneda}
                 style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
@@ -267,9 +278,9 @@ const Save = () => {
                 key={Ent.MonedaId}
                 onChange={onChangeMoneda}
               >
-                {optionsUM.map((UM) => (
-                  <Select.Option key={UM.Nombre} value={UM.Nombre}>
-                    {UM.Nombre}
+                {optionsMoneda.map((M) => (
+                  <Select.Option key={M.MonedaId} value={M.MonedaId}>
+                    {M.Simbolo}
                   </Select.Option>
                 ))}
               </Select>
@@ -289,13 +300,13 @@ const Save = () => {
                 style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                 defaultActiveFirstOption={false}
                 filterOption={false}
-                value={Ent.MonedaId === 0 ? null : Ent.MonedaId}
-                key={Ent.MonedaId}
+                value={Ent.PorcentajeImpuestoId === 0 ? null : Ent.PorcentajeImpuestoId}
+                key={Ent.PorcentajeImpuestoId}
                 onChange={onChangeImpuesto}
               >
-                {optionsUM.map((UM) => (
-                  <Select.Option key={UM.Nombre} value={UM.Nombre}>
-                    {UM.Nombre}
+                {optionsImporte.map((PI) => (
+                  <Select.Option key={PI.PorcentajeImpuestoId} value={PI.PorcentajeImpuestoId}>
+                    {PI.Nombre}
                   </Select.Option>
                 ))}
               </Select>
