@@ -127,6 +127,7 @@ const Save = () => {
 
     selectedUM;
     selectedMoneda;
+    selectedImpuesto;
 
     if (Ent.MercaderiaId === 0) {
       setValModelo('error');
@@ -169,11 +170,11 @@ const Save = () => {
       const Resp_UM = await sGeneral.GetUnidadMedidaItems();
       setOptionsUM(Resp_UM);
 
-      // const Resp_Moneda = await sGeneral.GetMonedaItems();
-      // setOptionsMoneda(Resp_Moneda);
+      const Resp_Moneda = await sGeneral.GetMonedaItems();
+      setOptionsMoneda(Resp_Moneda);
 
-      // const Resp_Importe = await sGeneral.GetPorcentajeImporteItems();
-      // setOptionsImporte(Resp_Importe);
+      const Resp_Importe = await sGeneral.GetPorcentajeImporteItems();
+      setOptionsImporte(Resp_Importe);
 
       await getCargarDatos();
     }
