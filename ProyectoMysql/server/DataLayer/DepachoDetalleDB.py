@@ -1,3 +1,4 @@
+from DataLayer.ReservaDB import *
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Conexion.ErrorData import ErrorData
 from Utilidades.Conexion.configMysql import DBProcedure, Restore
@@ -18,19 +19,20 @@ class DepachoDetalleDB:
 
     def Registrar(Ent: DespachoDetalleSaveModel):
         try:
-            store_mapping = {
-                ProcessActionEnum.Update: "sp_DespachoDetalle_Update",
-                ProcessActionEnum.Add: "sp_DespachoDetalle_Save",
-            }
-            Store = store_mapping.get(Ent.Action, "sp_DespachoDetalle_Save")
+
+            Store =  "sp_DespachoDetalle_Save"
             args = []
             args.append(Ent.DespachoDetalleId)
             args.append(Ent.OrdenPedidoDetalleId)
             args.append(Ent.DespachoId)
             args.append(Ent.Cantidad)
             Ent.DespachoDetalleId = DBProcedure().DBProcedureInsertUpdate(
-                Store, args, "v_DespachoId"
+                Store, args, "v_DespachoDetalleId"
             )
+
+            for detalle in Ent.DetalleReservaItem:
+                ReservaDB.ReservarDespachoDB(detalle)
+
 
             return Ent
         except Exception as e:

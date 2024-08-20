@@ -1,4 +1,4 @@
-from DataLayer.TipoProcesoDB import *
+from DataLayer.TipoEntidadDB import *
 from EntityLayer.TipoProcesoEntity import *
 
 

@@ -57,3 +57,15 @@ class ReservaResumenModel(BaseModel):
     @classmethod
     def Cargar(cls, _DB):
         return cls.parse_obj(_DB)
+
+class ReservaSaveModel(BaseModel):
+    ReservaId: int = 0
+    OrdenPedidoId: int = 0
+    OrdenPedidoDetalleId: int = 0
+    MercaderiaId: int = 0
+    Cantidad: float = 0
+    StockId: int = 0
+
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)

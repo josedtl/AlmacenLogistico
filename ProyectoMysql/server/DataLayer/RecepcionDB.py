@@ -6,7 +6,6 @@ from .configMysql import get_connection
 from Utilidades.Conexion.configMysql import DBProcedure, Restore
 from EntityLayer.RecepcionEntity import *
 import pymysql
-from DataLayer.CorrelativoDB import CorrelativoDB
 from Utilidades.Conexion.ErrorData import ErrorData
 
 
@@ -56,7 +55,7 @@ class RecepcionDB:
     def GetItemMain():
         try:
             resulset = DBProcedure().DBProcedureConsult("sp_Recepcion_Main", [])
-            list = [RecepcionItemModel.CargarMain(row) for row in resulset]
+            list = [RecepcionItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
@@ -65,7 +64,7 @@ class RecepcionDB:
         try:
             args = (Id,)
             resulset = DBProcedure().DBProcedureConsult("sp_RecepcionObtenerItem", args)
-            list = [RecepcionItemModel.CargarItem(row) for row in resulset]
+            list = [RecepcionItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)

@@ -102,8 +102,6 @@ namespace LogisticStorage.DataLayer
                     }
 
                 }
-            //}
-
 
             return true;
         }
