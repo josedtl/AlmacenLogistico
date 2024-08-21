@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from BusinessLayer.Recepcion import *
 from BusinessLayer.RecepcionDetalle import RecepcionDetalle
-from BusinessLayer.ReceptLista import *
+from BusinessLayer.RecepLista import *
 from EntityLayer.RecepcionEntity import *
 from fastapi.encoders import jsonable_encoder
 from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
@@ -9,8 +9,28 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
 RecepcionRouter = APIRouter()
 ApiName = "Recepcion"
 
+@RecepcionRouter.get(f"/api/{ApiName}/ObtenerMain", tags=[ApiName])
+def ObtenerMain():
+    try:
+        jsonData = Recepcion.ObtenerMain()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
 
-@RecepcionRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
+
+@RecepcionRouter.get(f"/api/{ApiName}/ObtenerItem/{{RecepcionId}}", tags=[ApiName])
+def ObtenerItem(RecepcionId : int):
+    try:
+        jsonData = Recepcion.ObtenerItem(RecepcionId    )
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+
+
+@RecepcionRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
 def Save(Ent: RecepcionSaveModel):
     try:
         Ent.FechaRegistro = datetime.now()
@@ -21,43 +41,6 @@ def Save(Ent: RecepcionSaveModel):
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@RecepcionRouter.get(f"/api/{ApiName}/GetItemMain", tags=[ApiName])
-def GetItemOPMain():
-    try:
-        jsonData = Recepcion.GetItemMain()
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-@RecepcionRouter.get(f"/api/{ApiName}/ObtenerItem/{{Id}}", tags=[ApiName])
-def ObtenerItem(Id : int):
-    try:
-        jsonData = Recepcion.ObtenerItem(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-@RecepcionRouter.get(f"/api/{ApiName}/ReceptListaObtenerLista/{{Codigo}}", tags=[ApiName])
-def ObtenerLista(Codigo: str):
-    try:
-        jsonData = ReceptLista.ObtenerLista(Codigo)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-    
-    
-@RecepcionRouter.get(f"/api/{ApiName}/ReceptListaObtenerItem/{{Id}}", tags=[ApiName])
-def ReceptListaObtenerItem(Id : int):
-    try:
-        jsonData = ReceptLista.ObtenerItem(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
 @RecepcionRouter.get(f"/api/{ApiName}/ObtenerDetalleItem/{{Id}}", tags=[ApiName])
 def ObtenerDetalleItem(Id : int):
     try:
@@ -66,3 +49,4 @@ def ObtenerDetalleItem(Id : int):
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
+

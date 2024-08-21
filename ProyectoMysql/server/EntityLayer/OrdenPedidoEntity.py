@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from Utilidades.Enumerado.ProcessActionEnum import ProcessActionEnum
 
 
@@ -20,6 +20,15 @@ class OrdenPedidoDetalleSaveModel(BaseModel):
     Stock: float = 0 
     Action: ProcessActionEnum = ProcessActionEnum.Loaded
 
+    @validator('Enlazado', 'Atendido', pre=True)
+    def convertir_a_bool(cls, v: any) -> bool:
+        if isinstance(v, str):
+            if v.lower() in ('true', '1'):
+                return True
+            elif v.lower() in ('false', '0'):
+                return False
+        return bool(v)
+    
     @classmethod
     def Cargar(cls, _DB):
         return cls.parse_obj(_DB)
@@ -58,7 +67,7 @@ class OrdenPedidoMainModel(BaseModel):
     EntidadId: int = 0 
     NumDocumentoResponsable: str = ''
     NomResponsable: str = ''
-    FechaEmision: str = ''
+    FechaEmision: datetime  = datetime.now()
     FechaRegistro: datetime  = datetime.now()
     CodUsuario: str = ''
     NomEstadoProceso : str

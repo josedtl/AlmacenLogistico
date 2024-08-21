@@ -1,4 +1,4 @@
-from EntityLayer.EntListaEntity import EntListaEntity, EntListaItemModel
+from EntityLayer.EntListaEntity import  *
 from EntityLayer.MerListaEntity import MerListaSaveModel
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Conexion.ErrorData import ErrorData

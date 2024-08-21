@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from BusinessLayer import OrdenPedido
 from BusinessLayer.OrdenCompra import *
 from BusinessLayer.OrdenCompraDetalle import OrdenCompraDetalle
 from EntityLayer.OrdenCompraEntity import *
@@ -8,11 +9,19 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
 OrdenCompraRouter = APIRouter()
 ApiName = "OrdenCompra"
 
-
-@OrdenCompraRouter.get(f"/api/{ApiName}/GetItem/{{Id}}", tags=[ApiName])
-def GetItem(Id: int):
+@OrdenCompraRouter.get(f"/api/{ApiName}/ObtenerMain", tags=[ApiName])
+def ObtenerMain():
     try:
-        jsonData = OrdenCompra.GetItem(Id)
+        jsonData = OrdenCompra.ObtenerMain()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+    
+@OrdenCompraRouter.get(f"/api/{ApiName}/ObtenerItem/{{OrdenCompraId}}", tags=[ApiName])
+def ObtenerItem(OrdenCompraId: int):
+    try:
+        jsonData = OrdenCompra.ObtenerItem(OrdenCompraId)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
@@ -20,7 +29,7 @@ def GetItem(Id: int):
 
 
 @OrdenCompraRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
-def Save(Ent: OrdenCompraSaveModel):
+def Registrar(Ent: OrdenCompraSaveModel):
     try:
         Ent = OrdenCompra.Registrar(Ent)
         return jsonable_encoder(ResponseAPI.Response(Ent))
@@ -28,20 +37,22 @@ def Save(Ent: OrdenCompraSaveModel):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-@OrdenCompraRouter.get(f"/api/{ApiName}/GetItemMain", tags=[ApiName])
-def GetItemMain():
+
+    
+@OrdenCompraRouter.get(f"/api/{ApiName}/ObtenerDetalleItem/{{OrdenCompraId}}", tags=[ApiName])
+def ObtenerDetalleItem(OrdenCompraId: int):
     try:
-        jsonData = OrdenCompra.GetItemMain()
+        jsonData = OrdenCompraDetalle.ObtenerItem(OrdenCompraId)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
     
-@OrdenCompraRouter.get(f"/api/{ApiName}/GetItemCabeceraDetalle/{{Id}}", tags=[ApiName])
-def GetItemCabeceraOP(Id: int):
-    try:
-        jsonData = OrdenCompraDetalle.GetItem(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
+# @OrdenCompraRouter.get(f"/api/{ApiName}/ObtenerMain", tags=[ApiName])
+# def ObtenerMain():
+#     try:
+#         jsonData = OrdenPedido.ObtenerFiltro()
+#         return jsonable_encoder(ResponseAPI.Response(jsonData))
+#     except Exception as e:
+#         print(e)
+#         return jsonable_encoder(ResponseAPIError.Error())

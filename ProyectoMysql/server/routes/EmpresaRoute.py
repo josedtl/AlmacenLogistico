@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from BusinessLayer.Empresa import *
+from BusinessLayer.Entidad import *
 from EntityLayer.EmpresaEntity import *
 from fastapi.encoders import jsonable_encoder
 from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
@@ -7,32 +7,33 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
 EmpresaRouter = APIRouter()
 ApiName = "Empresa"
 
-
-@EmpresaRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
-def Save(Ent: EmpresaSaveModel):
+@EmpresaRouter.get(f"/api/{ApiName}/ObtenerMain/", tags=[ApiName])
+def ObtenerMain():
     try:
-        Ent = Empresa.Save(Ent)
-        return jsonable_encoder(ResponseAPI.Response(Ent))
+        jsonData = Entidad.EmpresaObtenerMain()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
 @EmpresaRouter.get(f"/api/{ApiName}/ObtenerItem/{{EmpresaId}}/", tags=[ApiName])
-def GetItem(Id: int):
+def ObtenerItem(EmpresaId: int):
     try:
-        jsonData = Empresa.GetItem(Id)
+        jsonData = Entidad.EmpresaObtenerItem(EmpresaId)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@EmpresaRouter.get(f"/api/{ApiName}/ObtenerMain/", tags=[ApiName])
-def GetMainItems():
+@EmpresaRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
+def Registrar(Ent: EmpresaSaveModel):
     try:
-        jsonData = Empresa.GetMainItems()
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
+        Ent = Entidad.EmpresaRegistrar(Ent)
+        return jsonable_encoder(ResponseAPI.Response(Ent))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
+
+
 

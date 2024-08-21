@@ -1,19 +1,19 @@
-from DataLayer.ReceptListaDB import *
+from DataLayer.RecepListaDB import *
 from Utilidades.Conexion.configMysql import StartTransaction,EndTransaction
 
 
-class ReceptLista:
+class RecepLista:
 
     def ObtenerItems(Codigo: str):
         try:
-            data = ReceptListaDB.ObtenerItems(Codigo)
+            data = RecepListaDB.ObtenerItems(Codigo)
             return data
         except Exception as e:
             print(e)
     
     def ObtenerItem(Id: int):
         try:
-            data = ReceptListaDB.ObtenerItem(Id)
+            data = RecepListaDB.ObtenerItem(Id)
             return data
         except Exception as e:
             print(e)

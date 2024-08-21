@@ -1,15 +1,15 @@
-from DataLayer.UnidadMedidaDB import *
+from DataLayer.PorcentajeImpuestoDB import *
 from EntityLayer.GeneralEntity import *
 
-class UnidadMedida:
+class PorcentajeImpuesto:
     def ObtenerItems():
         try:
-            return UnidadMedidaDB.ObtenerItems()
+            return PorcentajeImpuestoDB.ObtenerItems()
         except Exception as e:
             print(e)
 
     def ObtenerItem(Id : int):
         try:
-            return UnidadMedidaDB.ObtenerItem(Id)
+            return PorcentajeImpuestoDB.ObtenerItem(Id)
         except Exception as e:
             print(e)

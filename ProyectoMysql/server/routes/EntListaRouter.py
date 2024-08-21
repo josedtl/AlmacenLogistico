@@ -8,31 +8,40 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
 EntListaRouter = APIRouter()
 ApiName = "EntLista"
 
-
-@EntListaRouter.get(f"/api/{ApiName}/GetItems/{{Codigo}}", tags=[ApiName])
-def GetItems(Codigo: str):
-    try:
-        jsonData = EntLista.GetItems(Codigo)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-
-@EntListaRouter.get(f"/api/{ApiName}/GetItem/{{Id}}", tags=[ApiName])
+@EntListaRouter.get(f"/api/{ApiName}/ObtenerItem/{{Id}}", tags=[ApiName])
 def GetItem(Id: int):
     try:
-        jsonData = EntLista.GetItem(Id)
+        jsonData = EntLista.ObtenerItem(Id)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@EntListaRouter.post(f"/api/{ApiName}/GetItemLike", tags=[ApiName])
-def GetProductoItemLike(NDataLike: EntidadLikeModel):
+@EntListaRouter.get(f"/api/{ApiName}/ObtenerItems/{{Codigo}}", tags=[ApiName])
+def ObtenerItems(Codigo: str):
     try:
-        jsonData = EntLista.GetItemLike(NDataLike.Valor1, NDataLike.Valor2)
+        jsonData = EntLista.ObtenerItems(Codigo)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+
+@EntListaRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
+def Registrar(Ent: MerListaSaveModel):
+    try:
+        Ent = EntLista.Registrar(Ent)
+        return jsonable_encoder(ResponseAPI.Response(Ent))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+    
+
+@EntListaRouter.post(f"/api/{ApiName}/BuscarItem", tags=[ApiName])
+def BuscarItem(NDataLike: EntidadLikeModel):
+    try:
+        jsonData = EntLista.BuscarItem(NDataLike.Valor1, NDataLike.Valor2)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)

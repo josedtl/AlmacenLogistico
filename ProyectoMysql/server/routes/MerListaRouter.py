@@ -10,20 +10,18 @@ ApiName = "MerLista"
 
 
 @MerListaRouter.get(f"/api/{ApiName}/ObtenerMain/{{Codigo}}", tags=[ApiName])
-def GetItems(Codigo: str):
+def ObtenerMain(Codigo: str):
     try:
-        jsonData = MerLista.GetItems(Codigo)
+        jsonData = MerLista.ObtenerMain(Codigo)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
 @MerListaRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
-def Save(Ent: MerListaSaveModel):
+def Registrar(Ent: MerListaSaveModel):
     try:
-        print (Ent)
-        Ent = MerLista.Save(Ent)
-    
+        Ent = MerLista.Registrar(Ent)
         return jsonable_encoder(ResponseAPI.Response(Ent))
     except Exception as e:
         print(e)
@@ -32,26 +30,27 @@ def Save(Ent: MerListaSaveModel):
 @MerListaRouter.get(f"/api/{ApiName}/ObtenerTitulo/{{Codigo}}", tags=[ApiName])
 def GetItemTitulo(Codigo: str):
     try:
-        jsonData = MerLista.GetItemTitulo(Codigo)
+        jsonData = MerLista.ObtenerTitulo(Codigo)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-@MerListaRouter.post(f"/api/{ApiName}/BuscarItem", tags=[ApiName])
-def GetItemLike(NDataLike: EntidadLikeModel):
+@MerListaRouter.get(f"/api/{ApiName}/ObtenerItem/{{MerListaId}}", tags=[ApiName])
+def ObtenerItem(MerListaId: int):
     try:
-        jsonData = MerLista.GetItemLike(NDataLike.Valor1, NDataLike.Valor2)
+        jsonData = MerLista.ObtenerItem(MerListaId)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
     
-@MerListaRouter.get(f"/api/{ApiName}/ObtenerItem/{{Id}}", tags=[ApiName])
-def GetItem(Id: int):
+@MerListaRouter.post(f"/api/{ApiName}/BuscarItem", tags=[ApiName])
+def BuscarItem(NDataLike: EntidadLikeModel):
     try:
-        jsonData = MerLista.GetItem(Id)
+        jsonData = MerLista.BuscarItem(NDataLike.Valor1, NDataLike.Valor2)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
+    

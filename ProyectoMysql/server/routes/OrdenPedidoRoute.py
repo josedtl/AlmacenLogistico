@@ -8,7 +8,7 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
 OrdenPedidoRouter = APIRouter()
 ApiName = "OrdenPedido"
 
-@OrdenPedidoRouter.get(f"/api/{ApiName}/ObtenerMain/", tags=[ApiName])
+@OrdenPedidoRouter.get(f"/api/{ApiName}/ObtenerMain", tags=[ApiName])
 def ObtenerMain():
     try:
         jsonData = OrdenPedido.ObtenerMain()
@@ -18,7 +18,7 @@ def ObtenerMain():
         return jsonable_encoder(ResponseAPIError.Error())
 
 
-@OrdenPedidoRouter.get(f"/api/{ApiName}/ObtenerItem/{{OrdenPedidoId}}/", tags=[ApiName])
+@OrdenPedidoRouter.get(f"/api/{ApiName}/ObtenerItem/{{Id}}", tags=[ApiName])
 def ObtenerItem(Id: int):
     try:
         jsonData = OrdenPedido.ObtenerItem(Id)
@@ -40,7 +40,7 @@ def Registrar(Ent: OrdenPedidoSaveModel):
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-@OrdenPedidoRouter.get(f"/api/{ApiName}/ObtenerDetalleItem/{{OrdenPedidoId}}/", tags=[ApiName])
+@OrdenPedidoRouter.get(f"/api/{ApiName}/ObtenerDetalleItem/{{Id}}", tags=[ApiName])
 def ObtenerDetalleItem(Id: int):
     try:
         jsonData = OrdenPedidoDetalle.ObtenerItem(Id)

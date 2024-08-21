@@ -3,7 +3,7 @@ from DataLayer.EstadoProcesoDB import *
 
 class EstadoProceso:
 
-    def ObtenerItem():
+    def ObtenerItems():
         try:
             data =  EstadoProcesoDB.ObtenerItems()
             return data

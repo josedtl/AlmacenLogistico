@@ -1,17 +1,18 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+from routes.DespachoRoute import DespachoRouter
 from routes.EmpresaRoute import EmpresaRouter
+from routes.EntListaRouter import EntListaRouter
+from routes.GeneralRoute import GeneralRouter
+from routes.MercaderiaRoute import MercaderiaRouter
+from routes.MerListaRouter import MerListaRouter
 from routes.OrdenCompraRoute import OrdenCompraRouter
 from routes.OrdenPedidoRoute import OrdenPedidoRouter
 from routes.PersonaNaturalRoute import PersonaNaturalRouter
-from routes.GeneralRoute import GeneralRouter
-from routes.EntListaRouter import EntListaRouter
-from routes.MerListaRouter import MerListaRouter
-from routes.MercaderiaRoute import MercaderiaRouter
 from routes.RecepcionRoute import RecepcionRouter
 from routes.ReservaRoute import ReservaRouter
-from routes.DespachoRoute import DespachoRouter
+from routes.StockRoute import StockRouter
 from ariadne.asgi import GraphQL
 from GraphqlServer import schema
 
@@ -51,18 +52,18 @@ app.add_middleware(
 
 
 app.add_route("/gql/General", GraphQL(schema))
+app.include_router(DespachoRouter)
 app.include_router(EmpresaRouter)
+app.include_router(EntListaRouter)
+app.include_router(GeneralRouter)
+app.include_router(MercaderiaRouter)
+app.include_router(MerListaRouter)
 app.include_router(OrdenCompraRouter)
 app.include_router(OrdenPedidoRouter)
 app.include_router(PersonaNaturalRouter)
-app.include_router(GeneralRouter)
-app.include_router(EntListaRouter)
-app.include_router(MerListaRouter)
-app.include_router(MercaderiaRouter)
 app.include_router(RecepcionRouter)
 app.include_router(ReservaRouter)
-app.include_router(DespachoRouter)
-
+app.include_router(StockRouter)
 tags_metadata = [
     {
         "name": "PersonaNatural",

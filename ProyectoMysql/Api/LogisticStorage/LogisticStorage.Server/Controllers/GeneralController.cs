@@ -197,7 +197,7 @@ namespace LogisticStorage.Server.Controllers
             try
             {
                 d.Configurar();
-                var Items = RecepLista.ObtenerItems(Codigo);
+                var Items = RecepLista.ObtenerLista(Codigo);
                 List<RecepListaModel> Lista = new List<RecepListaModel>();
                 foreach (var Item in Items) Lista.Add(new RecepListaModel(Item));
                 return new ResponseAPI<List<RecepListaModel>>(Lista, true);

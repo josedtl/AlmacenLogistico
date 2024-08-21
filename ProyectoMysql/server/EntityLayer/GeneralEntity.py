@@ -75,3 +75,25 @@ class UnidadMedidaItemModel(BaseModel):
     @classmethod
     def Cargar(cls, _DB):
         return cls.parse_obj(_DB)
+    
+class MonedaModel(BaseModel):
+    MonedaId: int = 0
+    CodMoneda: str = ''
+    Simbolo: str = ''
+    Descripcion: str = ''
+    
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)
+    
+class PorcentajeImpuestoModel(BaseModel):
+    PorcentajeImpuestoId : int = 0
+    Nombre : str = ''
+    Descripcion : str = ''
+    Valor : float = 0
+    ValorOperacion : float = 0
+    EstadoRegistro : bool = False
+
+    @classmethod
+    def Cargar(cls, _DB):
+        return cls.parse_obj(_DB)

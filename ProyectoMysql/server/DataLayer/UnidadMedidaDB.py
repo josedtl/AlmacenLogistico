@@ -9,6 +9,7 @@ class UnidadMedidaDB:
     def ObtenerItems():
         try:
             resulset = DBProcedure().DBProcedureConsult("sp_UnidadMedidaAllItems", [])
+            print(resulset)
             list = [UnidadMedidaItemModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:

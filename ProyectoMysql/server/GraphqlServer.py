@@ -1,8 +1,6 @@
 from ariadne import QueryType, make_executable_schema, load_schema_from_path, gql
 from ariadne.asgi import GraphQL
 from BusinessLayer.UnidadMedida import UnidadMedida
-from BusinessLayer.Producto import Producto
-from BusinessLayer.TipoProceso import TipoProceso
 from BusinessLayer.EstadoProceso import EstadoProceso
 from BusinessLayer.Ubigeo import Ubigeo
 type_defs = load_schema_from_path("types.graphql")

@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from BusinessLayer.ReservaDetalle import *
 from BusinessLayer.Reserva import *
 from EntityLayer.ReservaEntity import *
 from fastapi.encoders import jsonable_encoder
@@ -41,6 +42,15 @@ def ReservaResumen(MercaderiaId : int):
     try:
         jsonData = Reserva.ReservaResumen(MercaderiaId)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+@ReservaRouter.post(f"/api/{ApiName}/ReservarMercaderiaDetalle", tags=[ApiName])
+def ReservarLista(Items: list[ReservaDetalleModel]):
+    try:
+        Ent = ReservaDetalle.ReservaLista(Items)
+        return jsonable_encoder(ResponseAPI.Response(Ent))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())

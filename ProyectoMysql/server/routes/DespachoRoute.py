@@ -36,9 +36,8 @@ def ObtenerDetalle(OrdenPedidoId : int):
         return jsonable_encoder(ResponseAPIError.Error())
 
 @DespachoRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
-def Save(Ent: DespachoSaveModel):
+def Registrar(Ent: DespachoSaveModel):
     try:
-        print(jsonable_encoder(Ent))
         Ent.FechaRegistro = datetime.now()
         Ent = Despacho.Registrar(Ent)
         return jsonable_encoder(ResponseAPI.Response(Ent))

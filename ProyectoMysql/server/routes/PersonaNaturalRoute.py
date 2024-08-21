@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from BusinessLayer.PersonaNatural import *
+from BusinessLayer.Entidad import *
 from EntityLayer.PersonaNaturalEntity import *
 from fastapi.encoders import jsonable_encoder
 from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
@@ -7,61 +7,32 @@ from Utilidades.Entidades.ResponseAPI import ResponseAPI, ResponseAPIError
 PersonaNaturalRouter = APIRouter()
 ApiName = "PersonaNatural"
 
-
-@PersonaNaturalRouter.post(f"/api/{ApiName}/Save", tags=[ApiName])
-def Save(Ent: PersonaNaturalSaveModel):
+@PersonaNaturalRouter.get(f"/api/{ApiName}/ObtenerMain", tags=[ApiName])
+def ObtenerMain():
     try:
-        Ent = PersonaNatural.Save(Ent)
+        jsonData = Entidad.PersonaNaturalObtenerMain()
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+@PersonaNaturalRouter.get(f"/api/{ApiName}/ObtenerItem/{{PersonaNaturalId}}/", tags=[ApiName])
+def ObtenerItem(PersonaNaturalId: int):
+    try:
+        jsonData = Entidad.PersonaNaturalObtenerItem(PersonaNaturalId)
+        return jsonable_encoder(ResponseAPI.Response(jsonData))
+    except Exception as e:
+        print(e)
+        return jsonable_encoder(ResponseAPIError.Error())
+
+
+
+@PersonaNaturalRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
+def Registrar(Ent: PersonaNaturalSaveModel):
+    try:
+        Ent = Entidad.PersonaNaturalRegistrar(Ent)
         return jsonable_encoder(ResponseAPI.Response(Ent))
     except Exception as e:
         print(e)
         return jsonable_encoder(ResponseAPIError.Error())
 
-
-@PersonaNaturalRouter.get(f"/api/{ApiName}/GetItems/", tags=[ApiName])
-def GetItems():
-    try:
-        jsonData = PersonaNatural.GetItems()
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-
-@PersonaNaturalRouter.get(f"/api/{ApiName}/GetItem/{{Id}}/", tags=[ApiName])
-def GetItem(Id: int):
-    try:
-        jsonData = PersonaNatural.GetItem(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-
-@PersonaNaturalRouter.delete(f"/api/{ApiName}/Delete/{{Id}}", tags=[ApiName])
-def Delete(Id: int):
-    try:
-        jsonData = PersonaNatural.Delete(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-@PersonaNaturalRouter.get(f"/api/{ApiName}/GetMainItems", tags=[ApiName])
-def GetMainItems():
-    try:
-        jsonData = PersonaNatural.GetMainItems()
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-
-@PersonaNaturalRouter.get(f"/api/{ApiName}/GetCabeceraItem/{{Id}}/", tags=[ApiName])
-def GetCabeceraItem(Id: int):
-    try:
-        jsonData = PersonaNatural.GetCabeceraItem(Id)
-        return jsonable_encoder(ResponseAPI.Response(jsonData))
-    except Exception as e:
-        print(e)
-        return jsonable_encoder(ResponseAPIError.Error())
-    
