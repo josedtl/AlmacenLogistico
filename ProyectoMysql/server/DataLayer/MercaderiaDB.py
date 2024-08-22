@@ -59,7 +59,7 @@ class MercaderiaDB:
 
     def ObtenerItemOP(MercaderiaId :int):
         try:
-            args = ( MercaderiaId)
+            args = ( MercaderiaId,)
             resulset = DBProcedure().DBProcedureConsult("sp_MercaderiaObtenerItemOP",args)
             list = [MercaderiaItemOPModel.Cargar(row) for row in resulset]
             return list

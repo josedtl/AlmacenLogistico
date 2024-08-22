@@ -16,10 +16,10 @@ class OrdenPedido:
         except Exception as e:
             print(e)
             
-    def Registrar(Ent: OrdenPedidoSaveModel) -> int:
+    def Registrar(Ent: OrdenPedidoSaveModel) -> OrdenPedidoSaveModel:
         try:
             StartTransaction()
-            Value : int = OrdenPedidoDB.RegistrarDB(Ent)
+            Value = OrdenPedidoDB.RegistrarDB(Ent)
             EndTransaction()
             return Value
         except Exception as e:

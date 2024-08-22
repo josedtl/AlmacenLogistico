@@ -18,12 +18,12 @@ class Recepcion:
         except Exception as e:
             print(e)
 
-    def Registrar(Ent: RecepcionSaveModel) -> int:
+    def Registrar(Ent: RecepcionSaveModel) -> RecepcionSaveModel:
         try:
             StartTransaction()
             data = RecepcionDB.Registrar(Ent)
             EndTransaction()
-            return data.RecepcionId
+            return data
         except Exception as e:
             Restore()
             print(e)

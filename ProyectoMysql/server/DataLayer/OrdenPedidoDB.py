@@ -21,7 +21,7 @@ class OrdenPedidoDB:
         except Exception as e:
             print(e)
 
-    def RegistrarDB(Ent: OrdenPedidoSaveModel)-> int:
+    def RegistrarDB(Ent: OrdenPedidoSaveModel)-> OrdenPedidoSaveModel:
         try:
             store_mapping = {
                 ProcessActionEnum.Update: "sp_OrdenPedido_Update",
@@ -55,7 +55,7 @@ class OrdenPedidoDB:
                 ]:
                     OrdenPedidoDetalleDB.RegistrarDB(detalle)
 
-            return Ent.OrdenPedidoId
+            return Ent
         except Exception as e:
             print(e)
             Restore()

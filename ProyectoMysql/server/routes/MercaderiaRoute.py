@@ -51,6 +51,7 @@ def BuscarCategoriaItem(NDataLike: EntidadLikeModel):
 def ObtenerItemOP(MercaderiaId : int):
     try:
         jsonData = Mercaderia.ObtenerItemOP(MercaderiaId)
+        print(jsonData)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)

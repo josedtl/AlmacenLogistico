@@ -45,26 +45,26 @@ class RecepcionDB:
                     ProcessActionEnum.Add,
                     ProcessActionEnum.Update,
                 ]:
-                    RecepcionDetalleDB.Registrar(detalle)
+                    RecepcionDetalleDB.RegistrarDB(detalle)
 
             return Ent
         except Exception as e:
             print(e)
             Restore()
 
-    def ObtenerMain()-> list[RecepcionItemModel]:
+    def ObtenerMain()-> list[RecepcionMainModel]:
         try:
             resulset = DBProcedure().DBProcedureConsult("sp_Recepcion_Main", [])
-            list = [RecepcionItemModel.Cargar(row) for row in resulset]
+            list = [RecepcionMainModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)
 
-    def ObtenerItem( Id : int) -> list[RecepcionItemModel]:
+    def ObtenerItem( Id : int) -> list[RecepcionSaveModel]:
         try:
             args = (Id,)
             resulset = DBProcedure().DBProcedureConsult("sp_RecepcionObtenerItem", args)
-            list = [RecepcionItemModel.Cargar(row) for row in resulset]
+            list = [RecepcionSaveModel.Cargar(row) for row in resulset]
             return list
         except Exception as e:
             print(e)

@@ -32,7 +32,6 @@ def ObtenerItem(Id: int):
 @OrdenPedidoRouter.post(f"/api/{ApiName}/Registrar", tags=[ApiName])
 def Registrar(Ent: OrdenPedidoSaveModel):
     try:
-        print(jsonable_encoder(Ent))
         Ent.FechaRegistro = datetime.now()
         Ent = OrdenPedido.Registrar(Ent)
         return jsonable_encoder(ResponseAPI.Response(Ent))

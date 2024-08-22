@@ -125,6 +125,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             setSelectedProducto(value)
 
             const resp = await sMercaderiaService.GetMercaderia_ItemOP(value);
+            console.log(resp)
             setValCodigoUM(resp[0].CodigoUM);
             Ent.Stock = resp[0].Stock
             Ent.NomProducto = resp[0].Nombre;

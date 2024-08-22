@@ -45,6 +45,7 @@ def Save(Ent: RecepcionSaveModel):
 def ObtenerDetalleItem(Id : int):
     try:
         jsonData = RecepcionDetalle.ObtenerItem(Id)
+        print(jsonData)
         return jsonable_encoder(ResponseAPI.Response(jsonData))
     except Exception as e:
         print(e)
