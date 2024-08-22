@@ -15,16 +15,18 @@ class TarifaService {
   }
   async saveItem(item: TarifaEntity): Promise<TarifaEntity | null> {
     try {
-      const response = await apiLg.post(`api/Tarifa/Registrar/`, item, {
+      const response = await apiLg.post(`api/Tarifa/Registrar`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
       return response.data.Value;
     } catch (error) {
-      throw error;
+      console.error('Error al guardar el item:', error);
+        throw error;
     }
   }
+
 
 
 }

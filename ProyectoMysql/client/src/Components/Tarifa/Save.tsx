@@ -10,6 +10,7 @@ import { ButtonAddMain } from '../../Styles/Button'
 import MercaderiaService from '../../Service/MercaderiaService';
 import GeneralService from '../../Service/GeneralService';
 import MerListaService from '../../Service/MerListaService';
+import TarifaService from '../../Service/TarifaService';
 
 import { MerListaEntity } from '../../Models/MerListaEntity';
 import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
@@ -24,6 +25,8 @@ const Save = () => {
   const sMercaderia = new MercaderiaService();
 
   const sGeneral = new GeneralService();
+  const sTarifa = new TarifaService();
+
 
   const initialProducto = new TarifaEntity();
   const [Ent, setEnt] = useState<TarifaEntity>(initialProducto);
@@ -106,19 +109,50 @@ const Save = () => {
 
   const [modal, contextHolder] = Modal.useModal();
   const [messageAdd, contextHolderAdd] = message.useMessage();
-  const AddProducto = async () => {
+
+  const roundToTwoDecimals = (num: number): number => {
+    return parseFloat(num.toFixed(2));
+  };
+
+  const AddTarifa = async () => {
 
     Ent.Action = Ent.TarifaId == 0 ? 1 : 3;
 
-    // const savedItem = await sMercaderia.saveItem(Ent);
-    // if (savedItem) {
+    const porcentajeImpuesto = optionsImporte.find(option => option.PorcentajeImpuestoId === Ent.PorcentajeImpuestoId);
 
-    //   messageAdd.open({
-    //     type: 'success',
-    //     content: 'Se guardó correctamente.',
-    //   });
-    // } else {
-    // }
+    if (porcentajeImpuesto === undefined) {
+      console.error('Porcentaje de impuesto no encontrado.');
+      return;
+    }
+
+    const valorImpuesto = porcentajeImpuesto.Valor;
+
+    // Calcular PrecioConImpuesto si PrecioSinImpuesto está disponible
+    if (Ent.PrecioSinInpuesto && !Ent.PrecioConInpuesto) {
+      Ent.PrecioConInpuesto = roundToTwoDecimals(Ent.PrecioSinInpuesto * (1 + valorImpuesto / 100));
+    }
+
+    // Calcular PrecioSinImpuesto si PrecioConImpuesto está disponible
+    if (Ent.PrecioConInpuesto && !Ent.PrecioSinInpuesto) {
+      Ent.PrecioSinInpuesto = roundToTwoDecimals(Ent.PrecioConInpuesto / (1 + valorImpuesto / 100));
+    }
+    setEnt({ ...Ent });
+
+
+    console.log(Ent);
+    const savedItem = await sTarifa.saveItem(Ent);
+    console.log(savedItem);
+    if (savedItem) {
+      messageAdd.open({
+        type: 'success',
+        content: 'Se guardó correctamente.',
+      });
+    } else {
+      messageAdd.open({
+        type: 'error',
+        content: 'Error al guardar el item.',
+      });
+    }
   }
 
 
@@ -140,6 +174,16 @@ const Save = () => {
       messageAdd.open({ type: 'error', content: 'Seleccione una unidad de medida.', });
       return;
     }
+    if (Ent.MonedaId === 0) {
+      setValMoneda('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione una Moneda.', });
+      return;
+    }
+    if (Ent.PorcentajeImpuestoId === 0) {
+      setValImpuesto('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione un Impuesto.', });
+      return;
+    }
 
 
     modal.confirm({
@@ -153,7 +197,7 @@ const Save = () => {
         Ent.Action = 1;
         Ent.FechaCreacion = new Date();
 
-        AddProducto();
+        AddTarifa();
       },
       onCancel() {
         console.log('Cancel');
@@ -269,7 +313,7 @@ const Save = () => {
               <label>Moneda</label>
             </Col>
             <Col span={24}>
-            <Select
+              <Select
                 allowClear
                 status={ValMoneda}
                 style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
@@ -307,7 +351,7 @@ const Save = () => {
               >
                 {optionsImporte.map((PI) => (
                   <Select.Option key={PI.PorcentajeImpuestoId} value={PI.PorcentajeImpuestoId}>
-                    {PI.Nombre}
+                    {PI.Valor + '%'}
                   </Select.Option>
                 ))}
               </Select>
