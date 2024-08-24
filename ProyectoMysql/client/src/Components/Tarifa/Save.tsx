@@ -10,6 +10,7 @@ import { ButtonAddMain } from '../../Styles/Button'
 import MercaderiaService from '../../Service/MercaderiaService';
 import GeneralService from '../../Service/GeneralService';
 import MerListaService from '../../Service/MerListaService';
+import TarifaService from '../../Service/TarifaService';
 
 import { MerListaEntity } from '../../Models/MerListaEntity';
 import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
@@ -24,6 +25,8 @@ const Save = () => {
   const sMercaderia = new MercaderiaService();
 
   const sGeneral = new GeneralService();
+  const sTarifa = new TarifaService();
+
 
   const initialProducto = new TarifaEntity();
   const [Ent, setEnt] = useState<TarifaEntity>(initialProducto);
@@ -36,6 +39,8 @@ const Save = () => {
 
   const [optionsMoneda, setOptionsMoneda] = useState<MonedaEntity[]>([]);
   const [optionsImporte, setOptionsImporte] = useState<PorcentajeImporteEntity[]>([]);
+  const [getPrecioSinInpuesto, setPrecioSinInpuesto] = useState<string>('0');
+  const [getPrecioConInpuesto, setPrecioConInpuesto] = useState<string>('0');
 
   const getCargarDatos = async () => {
 
@@ -53,6 +58,62 @@ const Save = () => {
 
     setCargarPage(false);
   };
+  const onChangeTextConImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // const ValorCI = Number(e.target.value);
+    // const str = "123.45";
+    const decimal = parseFloat(e.target.value.toLowerCase());
+    console.log(decimal);
+    console.log(e.target.value)
+    setPrecioConInpuesto(e.target.value);
+    const porcentajeImpuesto = optionsImporte.find(option => option.PorcentajeImpuestoId === Ent.PorcentajeImpuestoId);
+
+    if (porcentajeImpuesto === undefined) {
+      console.error('Porcentaje de impuesto no encontrado.');
+      return;
+    }
+
+    const valorImpuesto = porcentajeImpuesto.Valor;
+
+    if (!isNaN(decimal) && e.target.value.trim() !== "") {
+      setPrecioSinInpuesto(roundToTwoDecimals(decimal / (1 + valorImpuesto / 100)).toString());
+    }
+
+    // setEnt({ ...Ent });
+  }
+
+  const onChangeTextSinImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPrecioSinInpuesto(e.target.value);
+
+
+    const decimal = parseFloat(e.target.value.toLowerCase());
+    console.log(decimal);
+
+    const porcentajeImpuesto = optionsImporte.find(option => option.PorcentajeImpuestoId === Ent.PorcentajeImpuestoId);
+
+    if (porcentajeImpuesto === undefined) {
+      console.error('Porcentaje de impuesto no encontrado.');
+      return;
+    }
+
+    const valorImpuesto = porcentajeImpuesto.Valor;
+
+    if (!isNaN(decimal) && e.target.value.trim() !== "") {
+
+      
+      setPrecioConInpuesto(roundToTwoDecimals(decimal * (1 + valorImpuesto / 100)).toString());
+      
+    }
+  }
+
+
+  const roundToTwoDecimals = (num: number): number => {
+    //  const Num3= Number(num.toFixed(3));
+    //  console.log(Num3);
+    //  const Num2 = Math.round(Num3);   console.log(Num3);
+    //  let roundedToTwoDecimals: number = parseFloat(total.toFixed(2));
+
+    return Number(num.toFixed(2));
+  };
   const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     setEnt({
@@ -60,7 +121,9 @@ const Save = () => {
       [e.target.name]: e.target.value.toUpperCase()
     });
 
+
   };
+
 
   const [selectedModelo, setSelectedModelo] = useState<number | undefined>(undefined);
   const [selectedUM, setSelectedUM] = useState<number | undefined>(undefined);
@@ -106,19 +169,30 @@ const Save = () => {
 
   const [modal, contextHolder] = Modal.useModal();
   const [messageAdd, contextHolderAdd] = message.useMessage();
-  const AddProducto = async () => {
+
+
+
+  const AddTarifa = async () => {
 
     Ent.Action = Ent.TarifaId == 0 ? 1 : 3;
 
-    // const savedItem = await sMercaderia.saveItem(Ent);
-    // if (savedItem) {
 
-    //   messageAdd.open({
-    //     type: 'success',
-    //     content: 'Se guardó correctamente.',
-    //   });
-    // } else {
-    // }
+    setEnt({ ...Ent });
+
+    console.log(Ent);
+    const savedItem = await sTarifa.saveItem(Ent);
+    console.log(savedItem);
+    if (savedItem) {
+      messageAdd.open({
+        type: 'success',
+        content: 'Se guardó correctamente.',
+      });
+    } else {
+      messageAdd.open({
+        type: 'error',
+        content: 'Error al guardar el item.',
+      });
+    }
   }
 
 
@@ -140,6 +214,16 @@ const Save = () => {
       messageAdd.open({ type: 'error', content: 'Seleccione una unidad de medida.', });
       return;
     }
+    if (Ent.MonedaId === 0) {
+      setValMoneda('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione una Moneda.', });
+      return;
+    }
+    if (Ent.PorcentajeImpuestoId === 0) {
+      setValImpuesto('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione un Impuesto.', });
+      return;
+    }
 
 
     modal.confirm({
@@ -153,7 +237,7 @@ const Save = () => {
         Ent.Action = 1;
         Ent.FechaCreacion = new Date();
 
-        AddProducto();
+        AddTarifa();
       },
       onCancel() {
         console.log('Cancel');
@@ -269,7 +353,7 @@ const Save = () => {
               <label>Moneda</label>
             </Col>
             <Col span={24}>
-            <Select
+              <Select
                 allowClear
                 status={ValMoneda}
                 style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
@@ -281,7 +365,7 @@ const Save = () => {
               >
                 {optionsMoneda.map((M) => (
                   <Select.Option key={M.MonedaId} value={M.MonedaId}>
-                    {M.Simbolo}
+                    {M.Simbolo} - {M.Simbolo}
                   </Select.Option>
                 ))}
               </Select>
@@ -291,44 +375,62 @@ const Save = () => {
           </Row>
 
           <Row>
-            <Col span={24}>
-              <label>% Impuesto</label>
-            </Col>
-            <Col span={24}>
-              <Select
-                allowClear
-                status={ValImpuesto}
-                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                defaultActiveFirstOption={false}
-                filterOption={false}
-                value={Ent.PorcentajeImpuestoId === 0 ? null : Ent.PorcentajeImpuestoId}
-                key={Ent.PorcentajeImpuestoId}
-                onChange={onChangeImpuesto}
-              >
-                {optionsImporte.map((PI) => (
-                  <Select.Option key={PI.PorcentajeImpuestoId} value={PI.PorcentajeImpuestoId}>
-                    {PI.Nombre}
-                  </Select.Option>
-                ))}
-              </Select>
-
-
-            </Col>
-          </Row>
-          <Row>
-
             <Col span={12}>
-              <Row>
+              <Col span={12}>
+                <label>% Impuesto</label>
+              </Col>
+              <Col span={24}>
+                <Select
+                  allowClear
+                  status={ValImpuesto}
+                  style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                  defaultActiveFirstOption={false}
+                  filterOption={false}
+                  value={Ent.PorcentajeImpuestoId === 0 ? null : Ent.PorcentajeImpuestoId}
+                  key={Ent.PorcentajeImpuestoId}
+                  onChange={onChangeImpuesto}
+                >
+                  {optionsImporte.map((PI) => (
+                    <Select.Option key={PI.PorcentajeImpuestoId} value={PI.PorcentajeImpuestoId}>
+                      {PI.Nombre} - {PI.Valor}%
+                    </Select.Option>
+                  ))}
+                </Select>
+
+              </Col>
+            </Col>
+            <Col span={12}>
+              {/* <Row>
                 <Col span={24}>
-                  <label>Precio Con Inpuesto</label>
+                  <label>Precio Sin Impuesto</label>
                 </Col>
                 <Col span={24}>
                   <Input
                     type="number"
-                    name="PrecioConInpuesto"
+                    name="PrecioSinInpuesto"
                     style={{ marginTop: '5px', marginBottom: '10px' }}
-                    onChange={onChangeText}
-                    value={Ent.PrecioConInpuesto === null ? "" : Ent.PrecioConInpuesto}
+                    onChange={onChangeTextSinImpuesto}
+                    value={getPrecioSinInpuesto === null ? "" : getPrecioSinInpuesto}
+                  />
+                </Col>
+              </Row> */}
+            </Col>
+          </Row>
+          <Row>
+
+
+            <Col span={12}>
+              <Row>
+                <Col span={24}>
+                  <label>Precio Sin Impuesto</label>
+                </Col>
+                <Col span={24}>
+                  <Input
+                    type="decimal"
+                    name="PrecioSinInpuesto"
+                    style={{ marginTop: '5px', marginBottom: '10px' }}
+                    onChange={onChangeTextSinImpuesto}
+                    value={getPrecioSinInpuesto === null ? "" : getPrecioSinInpuesto}
                   />
                 </Col>
               </Row>
@@ -336,15 +438,15 @@ const Save = () => {
             <Col span={12}>
               <Row>
                 <Col span={24}>
-                  <label>Precio Sin Inpuesto</label>
+                  <label>Precio Con Impuesto</label>
                 </Col>
                 <Col span={24}>
                   <Input
                     type="number"
-                    name="PrecioSinInpuesto"
+                    name="PrecioConInpuesto"
                     style={{ marginTop: '5px', marginBottom: '10px' }}
-                    onChange={onChangeText}
-                    value={Ent.PrecioSinInpuesto === null ? "" : Ent.PrecioSinInpuesto}
+                    onChange={onChangeTextConImpuesto}
+                    value={getPrecioConInpuesto === null ? "" : getPrecioConInpuesto}
                   />
                 </Col>
               </Row>
