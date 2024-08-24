@@ -243,7 +243,7 @@
  [],
  False,
  False,
- 1718659642,
+ 1724486022,
  [('run.exe',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\env-entorno\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',

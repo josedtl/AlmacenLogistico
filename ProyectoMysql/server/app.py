@@ -13,6 +13,7 @@ from routes.PersonaNaturalRoute import PersonaNaturalRouter
 from routes.RecepcionRoute import RecepcionRouter
 from routes.ReservaRoute import ReservaRouter
 from routes.StockRoute import StockRouter
+from routes.TarifaRoute import TarifaRouter
 from ariadne.asgi import GraphQL
 from GraphqlServer import schema
 
@@ -64,6 +65,8 @@ app.include_router(PersonaNaturalRouter)
 app.include_router(RecepcionRouter)
 app.include_router(ReservaRouter)
 app.include_router(StockRouter)
+app.include_router(TarifaRouter)
+
 tags_metadata = [
     {
         "name": "PersonaNatural",

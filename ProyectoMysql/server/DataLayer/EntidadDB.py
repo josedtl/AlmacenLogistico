@@ -4,7 +4,6 @@ from EntityLayer.PersonaNaturalEntity import PersonaNaturalMainModel, PersonaNat
 from Utilidades.Entidades.ResponseAPI import ResponseAPIError
 from Utilidades.Entidades.ResponseAPI import ResponseAPI
 from Utilidades.Arreglos.ListError import error_entities
-from .configMysql import get_connection
 from Utilidades.Conexion.configMysql import DBProcedure, Restore
 from EntityLayer.OrdenPedidoEntity import *
 from DataLayer.OrdenPedidoDetalleDB import OrdenPedidoDetalleDB

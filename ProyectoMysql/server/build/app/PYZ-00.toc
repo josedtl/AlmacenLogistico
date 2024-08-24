@@ -1,21 +1,17 @@
 ('D:\\Proyecto '
  'Git\\AlmacenLogistico\\ProyectoMysql\\server\\build\\app\\PYZ-00.pyz',
  [('BusinessLayer', '-', 'PYMODULE'),
-  ('BusinessLayer.Correlativo',
+  ('BusinessLayer.Despacho',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\Correlativo.py',
-   'PYMODULE'),
-  ('BusinessLayer.Empresa',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\Empresa.py',
-   'PYMODULE'),
-  ('BusinessLayer.EntDato',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\EntDato.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\Despacho.py',
    'PYMODULE'),
   ('BusinessLayer.EntLista',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\EntLista.py',
+   'PYMODULE'),
+  ('BusinessLayer.Entidad',
+   'D:\\Proyecto '
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\Entidad.py',
    'PYMODULE'),
   ('BusinessLayer.EstadoProceso',
    'D:\\Proyecto '
@@ -29,9 +25,9 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\Mercaderia.py',
    'PYMODULE'),
-  ('BusinessLayer.ModuloSistema',
+  ('BusinessLayer.Moneda',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\ModuloSistema.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\Moneda.py',
    'PYMODULE'),
   ('BusinessLayer.OrdenCompra',
    'D:\\Proyecto '
@@ -49,21 +45,17 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\OrdenPedidoDetalle.py',
    'PYMODULE'),
-  ('BusinessLayer.PersonaNatural',
+  ('BusinessLayer.PorcentajeImpuesto',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\PersonaNatural.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\PorcentajeImpuesto.py',
    'PYMODULE'),
   ('BusinessLayer.Proceso',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\Proceso.py',
    'PYMODULE'),
-  ('BusinessLayer.ProcesoSecuencia',
+  ('BusinessLayer.RecepLista',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\ProcesoSecuencia.py',
-   'PYMODULE'),
-  ('BusinessLayer.Producto',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\Producto.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\RecepLista.py',
    'PYMODULE'),
   ('BusinessLayer.Recepcion',
    'D:\\Proyecto '
@@ -73,21 +65,25 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\RecepcionDetalle.py',
    'PYMODULE'),
-  ('BusinessLayer.ReceptLista',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\ReceptLista.py',
-   'PYMODULE'),
   ('BusinessLayer.Reserva',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\Reserva.py',
    'PYMODULE'),
-  ('BusinessLayer.TarifaProducto',
+  ('BusinessLayer.ReservaDetalle',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\TarifaProducto.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\ReservaDetalle.py',
    'PYMODULE'),
-  ('BusinessLayer.TipoProceso',
+  ('BusinessLayer.StockMercaderia',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\TipoProceso.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\StockMercaderia.py',
+   'PYMODULE'),
+  ('BusinessLayer.Tarifa',
+   'D:\\Proyecto '
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\Tarifa.py',
+   'PYMODULE'),
+  ('BusinessLayer.TipoEntidad',
+   'D:\\Proyecto '
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\TipoEntidad.py',
    'PYMODULE'),
   ('BusinessLayer.Ubigeo',
    'D:\\Proyecto '
@@ -97,26 +93,22 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\UnidadMedida.py',
    'PYMODULE'),
-  ('BusinessLayer.Usuario',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\BusinessLayer\\Usuario.py',
-   'PYMODULE'),
   ('DataLayer', '-', 'PYMODULE'),
-  ('DataLayer.CorrelativoDB',
+  ('DataLayer.DepachoDB',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\CorrelativoDB.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\DepachoDB.py',
    'PYMODULE'),
-  ('DataLayer.EmpresaDB',
+  ('DataLayer.DepachoDetalleDB',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\EmpresaDB.py',
-   'PYMODULE'),
-  ('DataLayer.EntDatoDB',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\EntDatoDB.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\DepachoDetalleDB.py',
    'PYMODULE'),
   ('DataLayer.EntListaDB',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\EntListaDB.py',
+   'PYMODULE'),
+  ('DataLayer.EntidadDB',
+   'D:\\Proyecto '
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\EntidadDB.py',
    'PYMODULE'),
   ('DataLayer.EstadoProcesoDB',
    'D:\\Proyecto '
@@ -130,9 +122,9 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\MercaderiaDB.py',
    'PYMODULE'),
-  ('DataLayer.ModuloSistemaDB',
+  ('DataLayer.MonedaDB',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\ModuloSistemaDB.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\MonedaDB.py',
    'PYMODULE'),
   ('DataLayer.OrdenCompraDB',
    'D:\\Proyecto '
@@ -150,21 +142,17 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\OrdenPedidoDetalleDB.py',
    'PYMODULE'),
-  ('DataLayer.PersonaNaturalDB',
+  ('DataLayer.PorcentajeImpuestoDB',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\PersonaNaturalDB.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\PorcentajeImpuestoDB.py',
    'PYMODULE'),
   ('DataLayer.ProcesoDB',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\ProcesoDB.py',
    'PYMODULE'),
-  ('DataLayer.ProcesoSecuenciaDB',
+  ('DataLayer.RecepListaDB',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\ProcesoSecuenciaDB.py',
-   'PYMODULE'),
-  ('DataLayer.ProductoDB',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\ProductoDB.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\RecepListaDB.py',
    'PYMODULE'),
   ('DataLayer.RecepcionDB',
    'D:\\Proyecto '
@@ -174,21 +162,25 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\RecepcionDetalleDB.py',
    'PYMODULE'),
-  ('DataLayer.ReceptListaDB',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\ReceptListaDB.py',
-   'PYMODULE'),
   ('DataLayer.ReservaDB',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\ReservaDB.py',
    'PYMODULE'),
-  ('DataLayer.TarifaProductoDB',
+  ('DataLayer.ReservaDetalleDB',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\TarifaProductoDB.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\ReservaDetalleDB.py',
    'PYMODULE'),
-  ('DataLayer.TipoProcesoDB',
+  ('DataLayer.StockMercaderiaDB',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\TipoProcesoDB.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\StockMercaderiaDB.py',
+   'PYMODULE'),
+  ('DataLayer.TarifaDB',
+   'D:\\Proyecto '
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\TarifaDB.py',
+   'PYMODULE'),
+  ('DataLayer.TipoEntidadDB',
+   'D:\\Proyecto '
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\TipoEntidadDB.py',
    'PYMODULE'),
   ('DataLayer.UbigeoDB',
    'D:\\Proyecto '
@@ -198,34 +190,22 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\UnidadMedidaDB.py',
    'PYMODULE'),
-  ('DataLayer.UsuarioDB',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\UsuarioDB.py',
-   'PYMODULE'),
-  ('DataLayer.configMysql',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\DataLayer\\configMysql.py',
-   'PYMODULE'),
   ('EntityLayer', '-', 'PYMODULE'),
-  ('EntityLayer.CorrelativoEntity',
+  ('EntityLayer.DespachoEntity',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\CorrelativoEntity.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\DespachoEntity.py',
    'PYMODULE'),
   ('EntityLayer.EmpresaEntity',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\EmpresaEntity.py',
    'PYMODULE'),
-  ('EntityLayer.EntDatoEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\EntDatoEntity.py',
-   'PYMODULE'),
   ('EntityLayer.EntListaEntity',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\EntListaEntity.py',
    'PYMODULE'),
-  ('EntityLayer.EstadoProcesoEntity',
+  ('EntityLayer.GeneralEntity',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\EstadoProcesoEntity.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\GeneralEntity.py',
    'PYMODULE'),
   ('EntityLayer.MerListaEntity',
    'D:\\Proyecto '
@@ -235,21 +215,9 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\MercaderiaEntity.py',
    'PYMODULE'),
-  ('EntityLayer.ModuloSistemaEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\ModuloSistemaEntity.py',
-   'PYMODULE'),
-  ('EntityLayer.OrdenCompraDetalleEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\OrdenCompraDetalleEntity.py',
-   'PYMODULE'),
   ('EntityLayer.OrdenCompraEntity',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\OrdenCompraEntity.py',
-   'PYMODULE'),
-  ('EntityLayer.OrdenPedidoDetalleEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\OrdenPedidoDetalleEntity.py',
    'PYMODULE'),
   ('EntityLayer.OrdenPedidoEntity',
    'D:\\Proyecto '
@@ -259,26 +227,6 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\PersonaNaturalEntity.py',
    'PYMODULE'),
-  ('EntityLayer.ProcesoEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\ProcesoEntity.py',
-   'PYMODULE'),
-  ('EntityLayer.ProcesoSecuenciaEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\ProcesoSecuenciaEntity.py',
-   'PYMODULE'),
-  ('EntityLayer.ProductoEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\ProductoEntity.py',
-   'PYMODULE'),
-  ('EntityLayer.RecepListaEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\RecepListaEntity.py',
-   'PYMODULE'),
-  ('EntityLayer.RecepcionDetalleEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\RecepcionDetalleEntity.py',
-   'PYMODULE'),
   ('EntityLayer.RecepcionEntity',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\RecepcionEntity.py',
@@ -287,25 +235,13 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\ReservaEntity.py',
    'PYMODULE'),
-  ('EntityLayer.TarifaProductoEntity',
+  ('EntityLayer.StockEntity',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\TarifaProductoEntity.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\StockEntity.py',
    'PYMODULE'),
-  ('EntityLayer.TipoProcesoEntity',
+  ('EntityLayer.TarifaEntity',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\TipoProcesoEntity.py',
-   'PYMODULE'),
-  ('EntityLayer.UbigeoEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\UbigeoEntity.py',
-   'PYMODULE'),
-  ('EntityLayer.UnidadMedidaEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\UnidadMedidaEntity.py',
-   'PYMODULE'),
-  ('EntityLayer.UsuarioEntity',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\UsuarioEntity.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\EntityLayer\\TarifaEntity.py',
    'PYMODULE'),
   ('GraphqlServer',
    'D:\\Proyecto '
@@ -2013,25 +1949,17 @@
    'C:\\Users\\DAVID\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\random.py',
    'PYMODULE'),
   ('routes', '-', 'PYMODULE'),
-  ('routes.CorrelativoRoute',
+  ('routes.DespachoRoute',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\CorrelativoRoute.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\DespachoRoute.py',
    'PYMODULE'),
   ('routes.EmpresaRoute',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\EmpresaRoute.py',
    'PYMODULE'),
-  ('routes.EntDatoRoute',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\EntDatoRoute.py',
-   'PYMODULE'),
   ('routes.EntListaRouter',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\EntListaRouter.py',
-   'PYMODULE'),
-  ('routes.EstadoProcesoRoute',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\EstadoProcesoRoute.py',
    'PYMODULE'),
   ('routes.GeneralRoute',
    'D:\\Proyecto '
@@ -2045,10 +1973,6 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\MercaderiaRoute.py',
    'PYMODULE'),
-  ('routes.ModuloSistemaRoute',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\ModuloSistemaRoute.py',
-   'PYMODULE'),
   ('routes.OrdenCompraRoute',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\OrdenCompraRoute.py',
@@ -2061,18 +1985,6 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\PersonaNaturalRoute.py',
    'PYMODULE'),
-  ('routes.ProcesoRoute',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\ProcesoRoute.py',
-   'PYMODULE'),
-  ('routes.ProcesoSecuenciaRoute',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\ProcesoSecuenciaRoute.py',
-   'PYMODULE'),
-  ('routes.ProductoRoute',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\ProductoRoute.py',
-   'PYMODULE'),
   ('routes.RecepcionRoute',
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\RecepcionRoute.py',
@@ -2081,25 +1993,13 @@
    'D:\\Proyecto '
    'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\ReservaRoute.py',
    'PYMODULE'),
-  ('routes.TarifaProductoRoute',
+  ('routes.StockRoute',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\TarifaProductoRoute.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\StockRoute.py',
    'PYMODULE'),
-  ('routes.TipoProcesoRoute',
+  ('routes.TarifaRoute',
    'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\TipoProcesoRoute.py',
-   'PYMODULE'),
-  ('routes.UbigeoRoute',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\UbigeoRoute.py',
-   'PYMODULE'),
-  ('routes.UnidadMedidaRoute',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\UnidadMedidaRoute.py',
-   'PYMODULE'),
-  ('routes.UsuarioRoute',
-   'D:\\Proyecto '
-   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\UsuarioRoute.py',
+   'Git\\AlmacenLogistico\\ProyectoMysql\\server\\routes\\TarifaRoute.py',
    'PYMODULE'),
   ('runpy',
    'C:\\Users\\DAVID\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\runpy.py',

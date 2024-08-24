@@ -1,5 +1,5 @@
 
-from pydantic import BaseModel
+from pydantic import BaseModel,validator
 
 
 class DatosClienteItemModel (BaseModel):
@@ -93,6 +93,16 @@ class PorcentajeImpuestoModel(BaseModel):
     Valor : float = 0
     ValorOperacion : float = 0
     EstadoRegistro : bool = False
+
+    @validator('EstadoRegistro', pre=True)
+    def convertir_a_bool(cls, v: any) -> bool:
+        if isinstance(v, str):
+            if v.lower() in ('true', '1'):
+                return True
+            elif v.lower() in ('false', '0'):
+                return False
+        return bool(v)
+    
 
     @classmethod
     def Cargar(cls, _DB):

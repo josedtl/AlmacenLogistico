@@ -8,7 +8,7 @@ import pymysql
 def get_connection():
     return pymysql.connect(
             #    host="localhost",
-        host="localhost",
+        host="192.168.18.19",
         database="logisticstoragedb",
         user="root",
         password="123456",
@@ -16,7 +16,7 @@ def get_connection():
     )
 
 config = {
-    'host': 'localhost',
+    'host': '192.168.18.19',
     'user': 'root',
     'password': '123456',
     'database': 'logisticstoragedb',

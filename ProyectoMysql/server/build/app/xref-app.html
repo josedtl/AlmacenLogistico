@@ -172,28 +172,19 @@ imports:
  &#8226;   <a href="#re._constants">re._constants</a>
  &#8226;   <a href="#re._parser">re._parser</a>
  &#8226;   <a href="#reprlib">reprlib</a>
- &#8226;   <a href="#routes.CorrelativoRoute">routes.CorrelativoRoute</a>
+ &#8226;   <a href="#routes.DespachoRoute">routes.DespachoRoute</a>
  &#8226;   <a href="#routes.EmpresaRoute">routes.EmpresaRoute</a>
- &#8226;   <a href="#routes.EntDatoRoute">routes.EntDatoRoute</a>
  &#8226;   <a href="#routes.EntListaRouter">routes.EntListaRouter</a>
- &#8226;   <a href="#routes.EstadoProcesoRoute">routes.EstadoProcesoRoute</a>
  &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
  &#8226;   <a href="#routes.MerListaRouter">routes.MerListaRouter</a>
  &#8226;   <a href="#routes.MercaderiaRoute">routes.MercaderiaRoute</a>
- &#8226;   <a href="#routes.ModuloSistemaRoute">routes.ModuloSistemaRoute</a>
  &#8226;   <a href="#routes.OrdenCompraRoute">routes.OrdenCompraRoute</a>
  &#8226;   <a href="#routes.OrdenPedidoRoute">routes.OrdenPedidoRoute</a>
  &#8226;   <a href="#routes.PersonaNaturalRoute">routes.PersonaNaturalRoute</a>
- &#8226;   <a href="#routes.ProcesoRoute">routes.ProcesoRoute</a>
- &#8226;   <a href="#routes.ProcesoSecuenciaRoute">routes.ProcesoSecuenciaRoute</a>
- &#8226;   <a href="#routes.ProductoRoute">routes.ProductoRoute</a>
  &#8226;   <a href="#routes.RecepcionRoute">routes.RecepcionRoute</a>
  &#8226;   <a href="#routes.ReservaRoute">routes.ReservaRoute</a>
- &#8226;   <a href="#routes.TarifaProductoRoute">routes.TarifaProductoRoute</a>
- &#8226;   <a href="#routes.TipoProcesoRoute">routes.TipoProcesoRoute</a>
- &#8226;   <a href="#routes.UbigeoRoute">routes.UbigeoRoute</a>
- &#8226;   <a href="#routes.UnidadMedidaRoute">routes.UnidadMedidaRoute</a>
- &#8226;   <a href="#routes.UsuarioRoute">routes.UsuarioRoute</a>
+ &#8226;   <a href="#routes.StockRoute">routes.StockRoute</a>
+ &#8226;   <a href="#routes.TarifaRoute">routes.TarifaRoute</a>
  &#8226;   <a href="#sre_compile">sre_compile</a>
  &#8226;   <a href="#sre_constants">sre_constants</a>
  &#8226;   <a href="#sre_parse">sre_parse</a>
@@ -488,88 +479,55 @@ imported by:
   <a name="BusinessLayer"></a>
   <a target="code" href="-" type="text/plain"><tt>BusinessLayer</tt></a>
 <span class="moduletype">NamespacePackage</span>  <div class="import">
+imports:
+    <a href="#BusinessLayer.OrdenPedido">BusinessLayer.OrdenPedido</a>
+
+  </div>
+  <div class="import">
 imported by:
-    <a href="#BusinessLayer.Correlativo">BusinessLayer.Correlativo</a>
- &#8226;   <a href="#BusinessLayer.Empresa">BusinessLayer.Empresa</a>
- &#8226;   <a href="#BusinessLayer.EntDato">BusinessLayer.EntDato</a>
+    <a href="#BusinessLayer.Despacho">BusinessLayer.Despacho</a>
  &#8226;   <a href="#BusinessLayer.EntLista">BusinessLayer.EntLista</a>
+ &#8226;   <a href="#BusinessLayer.Entidad">BusinessLayer.Entidad</a>
  &#8226;   <a href="#BusinessLayer.EstadoProceso">BusinessLayer.EstadoProceso</a>
  &#8226;   <a href="#BusinessLayer.MerLista">BusinessLayer.MerLista</a>
  &#8226;   <a href="#BusinessLayer.Mercaderia">BusinessLayer.Mercaderia</a>
- &#8226;   <a href="#BusinessLayer.ModuloSistema">BusinessLayer.ModuloSistema</a>
+ &#8226;   <a href="#BusinessLayer.Moneda">BusinessLayer.Moneda</a>
  &#8226;   <a href="#BusinessLayer.OrdenCompra">BusinessLayer.OrdenCompra</a>
  &#8226;   <a href="#BusinessLayer.OrdenCompraDetalle">BusinessLayer.OrdenCompraDetalle</a>
  &#8226;   <a href="#BusinessLayer.OrdenPedido">BusinessLayer.OrdenPedido</a>
  &#8226;   <a href="#BusinessLayer.OrdenPedidoDetalle">BusinessLayer.OrdenPedidoDetalle</a>
- &#8226;   <a href="#BusinessLayer.PersonaNatural">BusinessLayer.PersonaNatural</a>
+ &#8226;   <a href="#BusinessLayer.PorcentajeImpuesto">BusinessLayer.PorcentajeImpuesto</a>
  &#8226;   <a href="#BusinessLayer.Proceso">BusinessLayer.Proceso</a>
- &#8226;   <a href="#BusinessLayer.ProcesoSecuencia">BusinessLayer.ProcesoSecuencia</a>
- &#8226;   <a href="#BusinessLayer.Producto">BusinessLayer.Producto</a>
+ &#8226;   <a href="#BusinessLayer.RecepLista">BusinessLayer.RecepLista</a>
  &#8226;   <a href="#BusinessLayer.Recepcion">BusinessLayer.Recepcion</a>
  &#8226;   <a href="#BusinessLayer.RecepcionDetalle">BusinessLayer.RecepcionDetalle</a>
- &#8226;   <a href="#BusinessLayer.ReceptLista">BusinessLayer.ReceptLista</a>
  &#8226;   <a href="#BusinessLayer.Reserva">BusinessLayer.Reserva</a>
- &#8226;   <a href="#BusinessLayer.TarifaProducto">BusinessLayer.TarifaProducto</a>
- &#8226;   <a href="#BusinessLayer.TipoProceso">BusinessLayer.TipoProceso</a>
+ &#8226;   <a href="#BusinessLayer.ReservaDetalle">BusinessLayer.ReservaDetalle</a>
+ &#8226;   <a href="#BusinessLayer.StockMercaderia">BusinessLayer.StockMercaderia</a>
+ &#8226;   <a href="#BusinessLayer.Tarifa">BusinessLayer.Tarifa</a>
+ &#8226;   <a href="#BusinessLayer.TipoEntidad">BusinessLayer.TipoEntidad</a>
  &#8226;   <a href="#BusinessLayer.Ubigeo">BusinessLayer.Ubigeo</a>
  &#8226;   <a href="#BusinessLayer.UnidadMedida">BusinessLayer.UnidadMedida</a>
- &#8226;   <a href="#BusinessLayer.Usuario">BusinessLayer.Usuario</a>
+ &#8226;   <a href="#routes.OrdenCompraRoute">routes.OrdenCompraRoute</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="BusinessLayer.Correlativo"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/Correlativo.py" type="text/plain"><tt>BusinessLayer.Correlativo</tt></a>
+  <a name="BusinessLayer.Despacho"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/Despacho.py" type="text/plain"><tt>BusinessLayer.Despacho</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
- &#8226;   <a href="#DataLayer.CorrelativoDB">DataLayer.CorrelativoDB</a>
- &#8226;   <a href="#EntityLayer.CorrelativoEntity">EntityLayer.CorrelativoEntity</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#routes.CorrelativoRoute">routes.CorrelativoRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="BusinessLayer.Empresa"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/Empresa.py" type="text/plain"><tt>BusinessLayer.Empresa</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer">BusinessLayer</a>
- &#8226;   <a href="#DataLayer.EmpresaDB">DataLayer.EmpresaDB</a>
- &#8226;   <a href="#EntityLayer.EmpresaEntity">EntityLayer.EmpresaEntity</a>
+ &#8226;   <a href="#DataLayer.DepachoDB">DataLayer.DepachoDB</a>
+ &#8226;   <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#routes.EmpresaRoute">routes.EmpresaRoute</a>
- &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="BusinessLayer.EntDato"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/EntDato.py" type="text/plain"><tt>BusinessLayer.EntDato</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer">BusinessLayer</a>
- &#8226;   <a href="#DataLayer.EntDatoDB">DataLayer.EntDatoDB</a>
- &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#routes.EntDatoRoute">routes.EntDatoRoute</a>
+    <a href="#routes.DespachoRoute">routes.DespachoRoute</a>
 
   </div>
 
@@ -594,19 +552,39 @@ imported by:
 </div>
 
 <div class="node">
+  <a name="BusinessLayer.Entidad"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/Entidad.py" type="text/plain"><tt>BusinessLayer.Entidad</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#BusinessLayer">BusinessLayer</a>
+ &#8226;   <a href="#DataLayer.EntidadDB">DataLayer.EntidadDB</a>
+ &#8226;   <a href="#EntityLayer.EmpresaEntity">EntityLayer.EmpresaEntity</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#routes.EmpresaRoute">routes.EmpresaRoute</a>
+ &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
+ &#8226;   <a href="#routes.PersonaNaturalRoute">routes.PersonaNaturalRoute</a>
+
+  </div>
+
+</div>
+
+<div class="node">
   <a name="BusinessLayer.EstadoProceso"></a>
   <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/EstadoProceso.py" type="text/plain"><tt>BusinessLayer.EstadoProceso</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
  &#8226;   <a href="#DataLayer.EstadoProcesoDB">DataLayer.EstadoProcesoDB</a>
- &#8226;   <a href="#EntityLayer.EstadoProcesoEntity">EntityLayer.EstadoProcesoEntity</a>
 
   </div>
   <div class="import">
 imported by:
     <a href="#GraphqlServer">GraphqlServer</a>
- &#8226;   <a href="#routes.EstadoProcesoRoute">routes.EstadoProcesoRoute</a>
+ &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
 
   </div>
 
@@ -650,18 +628,18 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="BusinessLayer.ModuloSistema"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/ModuloSistema.py" type="text/plain"><tt>BusinessLayer.ModuloSistema</tt></a>
+  <a name="BusinessLayer.Moneda"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/Moneda.py" type="text/plain"><tt>BusinessLayer.Moneda</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
- &#8226;   <a href="#DataLayer.ModuloSistemaDB">DataLayer.ModuloSistemaDB</a>
- &#8226;   <a href="#EntityLayer.ModuloSistemaEntity">EntityLayer.ModuloSistemaEntity</a>
+ &#8226;   <a href="#DataLayer.MonedaDB">DataLayer.MonedaDB</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#routes.ModuloSistemaRoute">routes.ModuloSistemaRoute</a>
+    <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
 
   </div>
 
@@ -693,7 +671,6 @@ imported by:
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
  &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
- &#8226;   <a href="#EntityLayer.OrdenCompraDetalleEntity">EntityLayer.OrdenCompraDetalleEntity</a>
 
   </div>
   <div class="import">
@@ -717,7 +694,9 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#routes.OrdenPedidoRoute">routes.OrdenPedidoRoute</a>
+    <a href="#BusinessLayer">BusinessLayer</a>
+ &#8226;   <a href="#routes.OrdenCompraRoute">routes.OrdenCompraRoute</a>
+ &#8226;   <a href="#routes.OrdenPedidoRoute">routes.OrdenPedidoRoute</a>
 
   </div>
 
@@ -730,7 +709,6 @@ imported by:
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
  &#8226;   <a href="#DataLayer.OrdenPedidoDetalleDB">DataLayer.OrdenPedidoDetalleDB</a>
- &#8226;   <a href="#EntityLayer.OrdenPedidoDetalleEntity">EntityLayer.OrdenPedidoDetalleEntity</a>
 
   </div>
   <div class="import">
@@ -742,20 +720,18 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="BusinessLayer.PersonaNatural"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/PersonaNatural.py" type="text/plain"><tt>BusinessLayer.PersonaNatural</tt></a>
+  <a name="BusinessLayer.PorcentajeImpuesto"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/PorcentajeImpuesto.py" type="text/plain"><tt>BusinessLayer.PorcentajeImpuesto</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
- &#8226;   <a href="#DataLayer.PersonaNaturalDB">DataLayer.PersonaNaturalDB</a>
- &#8226;   <a href="#EntityLayer.PersonaNaturalEntity">EntityLayer.PersonaNaturalEntity</a>
- &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
+ &#8226;   <a href="#DataLayer.PorcentajeImpuestoDB">DataLayer.PorcentajeImpuestoDB</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
 
   </div>
   <div class="import">
 imported by:
     <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
- &#8226;   <a href="#routes.PersonaNaturalRoute">routes.PersonaNaturalRoute</a>
 
   </div>
 
@@ -768,50 +744,30 @@ imported by:
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
  &#8226;   <a href="#DataLayer.ProcesoDB">DataLayer.ProcesoDB</a>
- &#8226;   <a href="#EntityLayer.ProcesoEntity">EntityLayer.ProcesoEntity</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#routes.ProcesoRoute">routes.ProcesoRoute</a>
+    <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="BusinessLayer.ProcesoSecuencia"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/ProcesoSecuencia.py" type="text/plain"><tt>BusinessLayer.ProcesoSecuencia</tt></a>
+  <a name="BusinessLayer.RecepLista"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/RecepLista.py" type="text/plain"><tt>BusinessLayer.RecepLista</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
- &#8226;   <a href="#DataLayer.ProcesoSecuenciaDB">DataLayer.ProcesoSecuenciaDB</a>
- &#8226;   <a href="#EntityLayer.ProcesoSecuenciaEntity">EntityLayer.ProcesoSecuenciaEntity</a>
+ &#8226;   <a href="#DataLayer.RecepListaDB">DataLayer.RecepListaDB</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#routes.ProcesoSecuenciaRoute">routes.ProcesoSecuenciaRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="BusinessLayer.Producto"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/Producto.py" type="text/plain"><tt>BusinessLayer.Producto</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer">BusinessLayer</a>
- &#8226;   <a href="#DataLayer.ProductoDB">DataLayer.ProductoDB</a>
- &#8226;   <a href="#EntityLayer.ProductoEntity">EntityLayer.ProductoEntity</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#GraphqlServer">GraphqlServer</a>
- &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
- &#8226;   <a href="#routes.ProductoRoute">routes.ProductoRoute</a>
+    <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
+ &#8226;   <a href="#routes.RecepcionRoute">routes.RecepcionRoute</a>
 
   </div>
 
@@ -843,25 +799,6 @@ imported by:
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
  &#8226;   <a href="#DataLayer.RecepcionDetalleDB">DataLayer.RecepcionDetalleDB</a>
- &#8226;   <a href="#EntityLayer.RecepcionDetalleEntity">EntityLayer.RecepcionDetalleEntity</a>
- &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#routes.RecepcionRoute">routes.RecepcionRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="BusinessLayer.ReceptLista"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/ReceptLista.py" type="text/plain"><tt>BusinessLayer.ReceptLista</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer">BusinessLayer</a>
- &#8226;   <a href="#DataLayer.ReceptListaDB">DataLayer.ReceptListaDB</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
 
   </div>
@@ -886,44 +823,86 @@ imports:
   </div>
   <div class="import">
 imported by:
+    <a href="#routes.DespachoRoute">routes.DespachoRoute</a>
+ &#8226;   <a href="#routes.ReservaRoute">routes.ReservaRoute</a>
+ &#8226;   <a href="#routes.StockRoute">routes.StockRoute</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="BusinessLayer.ReservaDetalle"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/ReservaDetalle.py" type="text/plain"><tt>BusinessLayer.ReservaDetalle</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#BusinessLayer">BusinessLayer</a>
+ &#8226;   <a href="#DataLayer.ReservaDetalleDB">DataLayer.ReservaDetalleDB</a>
+ &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
+
+  </div>
+  <div class="import">
+imported by:
     <a href="#routes.ReservaRoute">routes.ReservaRoute</a>
+ &#8226;   <a href="#routes.StockRoute">routes.StockRoute</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="BusinessLayer.TarifaProducto"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/TarifaProducto.py" type="text/plain"><tt>BusinessLayer.TarifaProducto</tt></a>
+  <a name="BusinessLayer.StockMercaderia"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/StockMercaderia.py" type="text/plain"><tt>BusinessLayer.StockMercaderia</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
- &#8226;   <a href="#DataLayer.TarifaProductoDB">DataLayer.TarifaProductoDB</a>
- &#8226;   <a href="#EntityLayer.TarifaProductoEntity">EntityLayer.TarifaProductoEntity</a>
+ &#8226;   <a href="#DataLayer.StockMercaderiaDB">DataLayer.StockMercaderiaDB</a>
+ &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#routes.TarifaProductoRoute">routes.TarifaProductoRoute</a>
+    <a href="#routes.StockRoute">routes.StockRoute</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="BusinessLayer.TipoProceso"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/TipoProceso.py" type="text/plain"><tt>BusinessLayer.TipoProceso</tt></a>
+  <a name="BusinessLayer.Tarifa"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/Tarifa.py" type="text/plain"><tt>BusinessLayer.Tarifa</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
- &#8226;   <a href="#DataLayer.TipoProcesoDB">DataLayer.TipoProcesoDB</a>
- &#8226;   <a href="#EntityLayer.TipoProcesoEntity">EntityLayer.TipoProcesoEntity</a>
+ &#8226;   <a href="#DataLayer.TarifaDB">DataLayer.TarifaDB</a>
+ &#8226;   <a href="#EntityLayer.TarifaEntity">EntityLayer.TarifaEntity</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#GraphqlServer">GraphqlServer</a>
- &#8226;   <a href="#routes.TipoProcesoRoute">routes.TipoProcesoRoute</a>
+    <a href="#routes.TarifaRoute">routes.TarifaRoute</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="BusinessLayer.TipoEntidad"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/TipoEntidad.py" type="text/plain"><tt>BusinessLayer.TipoEntidad</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#BusinessLayer">BusinessLayer</a>
+ &#8226;   <a href="#DataLayer.TipoEntidadDB">DataLayer.TipoEntidadDB</a>
+ &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
 
   </div>
 
@@ -936,14 +915,13 @@ imported by:
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
  &#8226;   <a href="#DataLayer.UbigeoDB">DataLayer.UbigeoDB</a>
- &#8226;   <a href="#EntityLayer.UbigeoEntity">EntityLayer.UbigeoEntity</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
 
   </div>
   <div class="import">
 imported by:
     <a href="#GraphqlServer">GraphqlServer</a>
  &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
- &#8226;   <a href="#routes.UbigeoRoute">routes.UbigeoRoute</a>
 
   </div>
 
@@ -956,31 +934,13 @@ imported by:
 imports:
     <a href="#BusinessLayer">BusinessLayer</a>
  &#8226;   <a href="#DataLayer.UnidadMedidaDB">DataLayer.UnidadMedidaDB</a>
- &#8226;   <a href="#EntityLayer.UnidadMedidaEntity">EntityLayer.UnidadMedidaEntity</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
 
   </div>
   <div class="import">
 imported by:
     <a href="#GraphqlServer">GraphqlServer</a>
- &#8226;   <a href="#routes.UnidadMedidaRoute">routes.UnidadMedidaRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="BusinessLayer.Usuario"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/BusinessLayer/Usuario.py" type="text/plain"><tt>BusinessLayer.Usuario</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer">BusinessLayer</a>
- &#8226;   <a href="#DataLayer.UsuarioDB">DataLayer.UsuarioDB</a>
- &#8226;   <a href="#EntityLayer.UsuarioEntity">EntityLayer.UsuarioEntity</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#routes.UsuarioRoute">routes.UsuarioRoute</a>
+ &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
 
   </div>
 
@@ -991,67 +951,43 @@ imported by:
   <a target="code" href="-" type="text/plain"><tt>DataLayer</tt></a>
 <span class="moduletype">NamespacePackage</span>  <div class="import">
 imported by:
-    <a href="#DataLayer.CorrelativoDB">DataLayer.CorrelativoDB</a>
- &#8226;   <a href="#DataLayer.EmpresaDB">DataLayer.EmpresaDB</a>
- &#8226;   <a href="#DataLayer.EntDatoDB">DataLayer.EntDatoDB</a>
+    <a href="#DataLayer.DepachoDB">DataLayer.DepachoDB</a>
+ &#8226;   <a href="#DataLayer.DepachoDetalleDB">DataLayer.DepachoDetalleDB</a>
  &#8226;   <a href="#DataLayer.EntListaDB">DataLayer.EntListaDB</a>
+ &#8226;   <a href="#DataLayer.EntidadDB">DataLayer.EntidadDB</a>
  &#8226;   <a href="#DataLayer.EstadoProcesoDB">DataLayer.EstadoProcesoDB</a>
  &#8226;   <a href="#DataLayer.MerListaDB">DataLayer.MerListaDB</a>
  &#8226;   <a href="#DataLayer.MercaderiaDB">DataLayer.MercaderiaDB</a>
- &#8226;   <a href="#DataLayer.ModuloSistemaDB">DataLayer.ModuloSistemaDB</a>
+ &#8226;   <a href="#DataLayer.MonedaDB">DataLayer.MonedaDB</a>
  &#8226;   <a href="#DataLayer.OrdenCompraDB">DataLayer.OrdenCompraDB</a>
  &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
  &#8226;   <a href="#DataLayer.OrdenPedidoDB">DataLayer.OrdenPedidoDB</a>
  &#8226;   <a href="#DataLayer.OrdenPedidoDetalleDB">DataLayer.OrdenPedidoDetalleDB</a>
- &#8226;   <a href="#DataLayer.PersonaNaturalDB">DataLayer.PersonaNaturalDB</a>
+ &#8226;   <a href="#DataLayer.PorcentajeImpuestoDB">DataLayer.PorcentajeImpuestoDB</a>
  &#8226;   <a href="#DataLayer.ProcesoDB">DataLayer.ProcesoDB</a>
- &#8226;   <a href="#DataLayer.ProcesoSecuenciaDB">DataLayer.ProcesoSecuenciaDB</a>
- &#8226;   <a href="#DataLayer.ProductoDB">DataLayer.ProductoDB</a>
+ &#8226;   <a href="#DataLayer.RecepListaDB">DataLayer.RecepListaDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDB">DataLayer.RecepcionDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDetalleDB">DataLayer.RecepcionDetalleDB</a>
- &#8226;   <a href="#DataLayer.ReceptListaDB">DataLayer.ReceptListaDB</a>
  &#8226;   <a href="#DataLayer.ReservaDB">DataLayer.ReservaDB</a>
- &#8226;   <a href="#DataLayer.TarifaProductoDB">DataLayer.TarifaProductoDB</a>
- &#8226;   <a href="#DataLayer.TipoProcesoDB">DataLayer.TipoProcesoDB</a>
+ &#8226;   <a href="#DataLayer.ReservaDetalleDB">DataLayer.ReservaDetalleDB</a>
+ &#8226;   <a href="#DataLayer.StockMercaderiaDB">DataLayer.StockMercaderiaDB</a>
+ &#8226;   <a href="#DataLayer.TarifaDB">DataLayer.TarifaDB</a>
+ &#8226;   <a href="#DataLayer.TipoEntidadDB">DataLayer.TipoEntidadDB</a>
  &#8226;   <a href="#DataLayer.UbigeoDB">DataLayer.UbigeoDB</a>
  &#8226;   <a href="#DataLayer.UnidadMedidaDB">DataLayer.UnidadMedidaDB</a>
- &#8226;   <a href="#DataLayer.UsuarioDB">DataLayer.UsuarioDB</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="DataLayer.CorrelativoDB"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/CorrelativoDB.py" type="text/plain"><tt>DataLayer.CorrelativoDB</tt></a>
+  <a name="DataLayer.DepachoDB"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/DepachoDB.py" type="text/plain"><tt>DataLayer.DepachoDB</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.CorrelativoEntity">EntityLayer.CorrelativoEntity</a>
- &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.Correlativo">BusinessLayer.Correlativo</a>
- &#8226;   <a href="#DataLayer.OrdenPedidoDB">DataLayer.OrdenPedidoDB</a>
- &#8226;   <a href="#DataLayer.RecepcionDB">DataLayer.RecepcionDB</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="DataLayer.EmpresaDB"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/EmpresaDB.py" type="text/plain"><tt>DataLayer.EmpresaDB</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#EntityLayer.EmpresaEntity">EntityLayer.EmpresaEntity</a>
+ &#8226;   <a href="#DataLayer.DepachoDetalleDB">DataLayer.DepachoDetalleDB</a>
+ &#8226;   <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
@@ -1059,28 +995,31 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.Empresa">BusinessLayer.Empresa</a>
+    <a href="#BusinessLayer.Despacho">BusinessLayer.Despacho</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="DataLayer.EntDatoDB"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/EntDatoDB.py" type="text/plain"><tt>DataLayer.EntDatoDB</tt></a>
+  <a name="DataLayer.DepachoDetalleDB"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/DepachoDetalleDB.py" type="text/plain"><tt>DataLayer.DepachoDetalleDB</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#EntityLayer.EntDatoEntity">EntityLayer.EntDatoEntity</a>
+ &#8226;   <a href="#DataLayer.ReservaDB">DataLayer.ReservaDB</a>
+ &#8226;   <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.EntDato">BusinessLayer.EntDato</a>
+    <a href="#DataLayer.DepachoDB">DataLayer.DepachoDB</a>
+ &#8226;   <a href="#DataLayer.EstadoProcesoDB">DataLayer.EstadoProcesoDB</a>
+ &#8226;   <a href="#DataLayer.OrdenCompraDB">DataLayer.OrdenCompraDB</a>
+ &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
 
   </div>
 
@@ -1093,6 +1032,7 @@ imported by:
 imports:
     <a href="#DataLayer">DataLayer</a>
  &#8226;   <a href="#EntityLayer.EntListaEntity">EntityLayer.EntListaEntity</a>
+ &#8226;   <a href="#EntityLayer.MerListaEntity">EntityLayer.MerListaEntity</a>
  &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
@@ -1108,16 +1048,42 @@ imported by:
 </div>
 
 <div class="node">
+  <a name="DataLayer.EntidadDB"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/EntidadDB.py" type="text/plain"><tt>DataLayer.EntidadDB</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#DataLayer">DataLayer</a>
+ &#8226;   <a href="#DataLayer.OrdenPedidoDetalleDB">DataLayer.OrdenPedidoDetalleDB</a>
+ &#8226;   <a href="#EntityLayer.EmpresaEntity">EntityLayer.EmpresaEntity</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
+ &#8226;   <a href="#EntityLayer.OrdenPedidoEntity">EntityLayer.OrdenPedidoEntity</a>
+ &#8226;   <a href="#EntityLayer.PersonaNaturalEntity">EntityLayer.PersonaNaturalEntity</a>
+ &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
+ &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
+ &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#BusinessLayer.Entidad">BusinessLayer.Entidad</a>
+
+  </div>
+
+</div>
+
+<div class="node">
   <a name="DataLayer.EstadoProcesoDB"></a>
   <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/EstadoProcesoDB.py" type="text/plain"><tt>DataLayer.EstadoProcesoDB</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.EstadoProcesoEntity">EntityLayer.EstadoProcesoEntity</a>
- &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
+ &#8226;   <a href="#DataLayer.DepachoDetalleDB">DataLayer.DepachoDetalleDB</a>
+ &#8226;   <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
+ &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
 
   </div>
   <div class="import">
@@ -1157,7 +1123,6 @@ imports:
     <a href="#DataLayer">DataLayer</a>
  &#8226;   <a href="#EntityLayer.MercaderiaEntity">EntityLayer.MercaderiaEntity</a>
  &#8226;   <a href="#EntityLayer.PersonaNaturalEntity">EntityLayer.PersonaNaturalEntity</a>
- &#8226;   <a href="#EntityLayer.ProductoEntity">EntityLayer.ProductoEntity</a>
  &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
@@ -1172,21 +1137,20 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="DataLayer.ModuloSistemaDB"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/ModuloSistemaDB.py" type="text/plain"><tt>DataLayer.ModuloSistemaDB</tt></a>
+  <a name="DataLayer.MonedaDB"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/MonedaDB.py" type="text/plain"><tt>DataLayer.MonedaDB</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.ModuloSistemaEntity">EntityLayer.ModuloSistemaEntity</a>
- &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
+ &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.ModuloSistema">BusinessLayer.ModuloSistema</a>
+    <a href="#BusinessLayer.Moneda">BusinessLayer.Moneda</a>
 
   </div>
 
@@ -1198,13 +1162,13 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
+ &#8226;   <a href="#DataLayer.DepachoDetalleDB">DataLayer.DepachoDetalleDB</a>
  &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
+ &#8226;   <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#EntityLayer.OrdenCompraEntity">EntityLayer.OrdenCompraEntity</a>
- &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
+ &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
 
   </div>
   <div class="import">
@@ -1221,12 +1185,13 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.OrdenCompraDetalleEntity">EntityLayer.OrdenCompraDetalleEntity</a>
+ &#8226;   <a href="#DataLayer.DepachoDetalleDB">DataLayer.DepachoDetalleDB</a>
+ &#8226;   <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
+ &#8226;   <a href="#EntityLayer.OrdenCompraEntity">EntityLayer.OrdenCompraEntity</a>
  &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
+ &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
 
   </div>
   <div class="import">
@@ -1244,15 +1209,9 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.CorrelativoDB">DataLayer.CorrelativoDB</a>
  &#8226;   <a href="#DataLayer.OrdenPedidoDetalleDB">DataLayer.OrdenPedidoDetalleDB</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
  &#8226;   <a href="#EntityLayer.OrdenPedidoEntity">EntityLayer.OrdenPedidoEntity</a>
- &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
- &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
 
   </div>
   <div class="import">
@@ -1269,29 +1228,30 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#EntityLayer.OrdenPedidoDetalleEntity">EntityLayer.OrdenPedidoDetalleEntity</a>
+ &#8226;   <a href="#EntityLayer.OrdenPedidoEntity">EntityLayer.OrdenPedidoEntity</a>
  &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
 
   </div>
   <div class="import">
 imported by:
     <a href="#BusinessLayer.OrdenPedidoDetalle">BusinessLayer.OrdenPedidoDetalle</a>
+ &#8226;   <a href="#DataLayer.EntidadDB">DataLayer.EntidadDB</a>
  &#8226;   <a href="#DataLayer.OrdenPedidoDB">DataLayer.OrdenPedidoDB</a>
+ &#8226;   <a href="#DataLayer.TarifaDB">DataLayer.TarifaDB</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="DataLayer.PersonaNaturalDB"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/PersonaNaturalDB.py" type="text/plain"><tt>DataLayer.PersonaNaturalDB</tt></a>
+  <a name="DataLayer.PorcentajeImpuestoDB"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/PorcentajeImpuestoDB.py" type="text/plain"><tt>DataLayer.PorcentajeImpuestoDB</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#EntityLayer.PersonaNaturalEntity">EntityLayer.PersonaNaturalEntity</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
  &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
@@ -1299,7 +1259,7 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.PersonaNatural">BusinessLayer.PersonaNatural</a>
+    <a href="#BusinessLayer.PorcentajeImpuesto">BusinessLayer.PorcentajeImpuesto</a>
 
   </div>
 
@@ -1311,12 +1271,10 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.ProcesoEntity">EntityLayer.ProcesoEntity</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
  &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
 
   </div>
   <div class="import">
@@ -1328,42 +1286,21 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="DataLayer.ProcesoSecuenciaDB"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/ProcesoSecuenciaDB.py" type="text/plain"><tt>DataLayer.ProcesoSecuenciaDB</tt></a>
+  <a name="DataLayer.RecepListaDB"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/RecepListaDB.py" type="text/plain"><tt>DataLayer.RecepListaDB</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.ProcesoSecuenciaEntity">EntityLayer.ProcesoSecuenciaEntity</a>
- &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
+ &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
+ &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.ProcesoSecuencia">BusinessLayer.ProcesoSecuencia</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="DataLayer.ProductoDB"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/ProductoDB.py" type="text/plain"><tt>DataLayer.ProductoDB</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.ProductoEntity">EntityLayer.ProductoEntity</a>
- &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.Producto">BusinessLayer.Producto</a>
+    <a href="#BusinessLayer.RecepLista">BusinessLayer.RecepLista</a>
 
   </div>
 
@@ -1375,9 +1312,7 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.CorrelativoDB">DataLayer.CorrelativoDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDetalleDB">DataLayer.RecepcionDetalleDB</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
  &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
  &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
  &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
@@ -1400,8 +1335,6 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.RecepcionDetalleEntity">EntityLayer.RecepcionDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
  &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
  &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
@@ -1413,27 +1346,7 @@ imports:
 imported by:
     <a href="#BusinessLayer.RecepcionDetalle">BusinessLayer.RecepcionDetalle</a>
  &#8226;   <a href="#DataLayer.RecepcionDB">DataLayer.RecepcionDB</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="DataLayer.ReceptListaDB"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/ReceptListaDB.py" type="text/plain"><tt>DataLayer.ReceptListaDB</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#EntityLayer.RecepListaEntity">EntityLayer.RecepListaEntity</a>
- &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
- &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.ReceptLista">BusinessLayer.ReceptLista</a>
+ &#8226;   <a href="#DataLayer.StockMercaderiaDB">DataLayer.StockMercaderiaDB</a>
 
   </div>
 
@@ -1445,6 +1358,7 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
+ &#8226;   <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
  &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
@@ -1454,48 +1368,93 @@ imports:
   <div class="import">
 imported by:
     <a href="#BusinessLayer.Reserva">BusinessLayer.Reserva</a>
+ &#8226;   <a href="#DataLayer.DepachoDetalleDB">DataLayer.DepachoDetalleDB</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="DataLayer.TarifaProductoDB"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/TarifaProductoDB.py" type="text/plain"><tt>DataLayer.TarifaProductoDB</tt></a>
+  <a name="DataLayer.ReservaDetalleDB"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/ReservaDetalleDB.py" type="text/plain"><tt>DataLayer.ReservaDetalleDB</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.TarifaProductoEntity">EntityLayer.TarifaProductoEntity</a>
+ &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
+ &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
  &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
+ &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.TarifaProducto">BusinessLayer.TarifaProducto</a>
+    <a href="#BusinessLayer.ReservaDetalle">BusinessLayer.ReservaDetalle</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="DataLayer.TipoProcesoDB"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/TipoProcesoDB.py" type="text/plain"><tt>DataLayer.TipoProcesoDB</tt></a>
+  <a name="DataLayer.StockMercaderiaDB"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/StockMercaderiaDB.py" type="text/plain"><tt>DataLayer.StockMercaderiaDB</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.TipoProcesoEntity">EntityLayer.TipoProcesoEntity</a>
+ &#8226;   <a href="#DataLayer.RecepcionDetalleDB">DataLayer.RecepcionDetalleDB</a>
+ &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
+ &#8226;   <a href="#EntityLayer.StockEntity">EntityLayer.StockEntity</a>
  &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
+ &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
  &#8226;   <a href="#pymysql">pymysql</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.TipoProceso">BusinessLayer.TipoProceso</a>
+    <a href="#BusinessLayer.StockMercaderia">BusinessLayer.StockMercaderia</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="DataLayer.TarifaDB"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/TarifaDB.py" type="text/plain"><tt>DataLayer.TarifaDB</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#DataLayer">DataLayer</a>
+ &#8226;   <a href="#DataLayer.OrdenPedidoDetalleDB">DataLayer.OrdenPedidoDetalleDB</a>
+ &#8226;   <a href="#EntityLayer.OrdenPedidoEntity">EntityLayer.OrdenPedidoEntity</a>
+ &#8226;   <a href="#EntityLayer.TarifaEntity">EntityLayer.TarifaEntity</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#BusinessLayer.Tarifa">BusinessLayer.Tarifa</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="DataLayer.TipoEntidadDB"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/TipoEntidadDB.py" type="text/plain"><tt>DataLayer.TipoEntidadDB</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#DataLayer">DataLayer</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
+ &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
+ &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#BusinessLayer.TipoEntidad">BusinessLayer.TipoEntidad</a>
 
   </div>
 
@@ -1507,7 +1466,7 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#EntityLayer.UbigeoEntity">EntityLayer.UbigeoEntity</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
  &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
@@ -1527,11 +1486,10 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.UnidadMedidaEntity">EntityLayer.UnidadMedidaEntity</a>
- &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
+ &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
+ &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
 
   </div>
   <div class="import">
@@ -1543,109 +1501,52 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="DataLayer.UsuarioDB"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/UsuarioDB.py" type="text/plain"><tt>DataLayer.UsuarioDB</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
- &#8226;   <a href="#EntityLayer.UsuarioEntity">EntityLayer.UsuarioEntity</a>
- &#8226;   <a href="#Utilidades.Arreglos.ListError">Utilidades.Arreglos.ListError</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#pymysql">pymysql</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.Usuario">BusinessLayer.Usuario</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="DataLayer.configMysql"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/DataLayer/configMysql.py" type="text/plain"><tt>DataLayer.configMysql</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#DataLayer">DataLayer</a>
- &#8226;   <a href="#pymysql">pymysql</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#DataLayer.CorrelativoDB">DataLayer.CorrelativoDB</a>
- &#8226;   <a href="#DataLayer.EstadoProcesoDB">DataLayer.EstadoProcesoDB</a>
- &#8226;   <a href="#DataLayer.ModuloSistemaDB">DataLayer.ModuloSistemaDB</a>
- &#8226;   <a href="#DataLayer.OrdenCompraDB">DataLayer.OrdenCompraDB</a>
- &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
- &#8226;   <a href="#DataLayer.OrdenPedidoDB">DataLayer.OrdenPedidoDB</a>
- &#8226;   <a href="#DataLayer.ProcesoDB">DataLayer.ProcesoDB</a>
- &#8226;   <a href="#DataLayer.ProcesoSecuenciaDB">DataLayer.ProcesoSecuenciaDB</a>
- &#8226;   <a href="#DataLayer.ProductoDB">DataLayer.ProductoDB</a>
- &#8226;   <a href="#DataLayer.RecepcionDB">DataLayer.RecepcionDB</a>
- &#8226;   <a href="#DataLayer.RecepcionDetalleDB">DataLayer.RecepcionDetalleDB</a>
- &#8226;   <a href="#DataLayer.TarifaProductoDB">DataLayer.TarifaProductoDB</a>
- &#8226;   <a href="#DataLayer.TipoProcesoDB">DataLayer.TipoProcesoDB</a>
- &#8226;   <a href="#DataLayer.UnidadMedidaDB">DataLayer.UnidadMedidaDB</a>
- &#8226;   <a href="#DataLayer.UsuarioDB">DataLayer.UsuarioDB</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="EntityLayer"></a>
   <a target="code" href="-" type="text/plain"><tt>EntityLayer</tt></a>
 <span class="moduletype">NamespacePackage</span>  <div class="import">
 imported by:
-    <a href="#EntityLayer.CorrelativoEntity">EntityLayer.CorrelativoEntity</a>
+    <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#EntityLayer.EmpresaEntity">EntityLayer.EmpresaEntity</a>
- &#8226;   <a href="#EntityLayer.EntDatoEntity">EntityLayer.EntDatoEntity</a>
  &#8226;   <a href="#EntityLayer.EntListaEntity">EntityLayer.EntListaEntity</a>
- &#8226;   <a href="#EntityLayer.EstadoProcesoEntity">EntityLayer.EstadoProcesoEntity</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
  &#8226;   <a href="#EntityLayer.MerListaEntity">EntityLayer.MerListaEntity</a>
  &#8226;   <a href="#EntityLayer.MercaderiaEntity">EntityLayer.MercaderiaEntity</a>
- &#8226;   <a href="#EntityLayer.ModuloSistemaEntity">EntityLayer.ModuloSistemaEntity</a>
- &#8226;   <a href="#EntityLayer.OrdenCompraDetalleEntity">EntityLayer.OrdenCompraDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.OrdenCompraEntity">EntityLayer.OrdenCompraEntity</a>
- &#8226;   <a href="#EntityLayer.OrdenPedidoDetalleEntity">EntityLayer.OrdenPedidoDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.OrdenPedidoEntity">EntityLayer.OrdenPedidoEntity</a>
  &#8226;   <a href="#EntityLayer.PersonaNaturalEntity">EntityLayer.PersonaNaturalEntity</a>
- &#8226;   <a href="#EntityLayer.ProcesoEntity">EntityLayer.ProcesoEntity</a>
- &#8226;   <a href="#EntityLayer.ProcesoSecuenciaEntity">EntityLayer.ProcesoSecuenciaEntity</a>
- &#8226;   <a href="#EntityLayer.ProductoEntity">EntityLayer.ProductoEntity</a>
- &#8226;   <a href="#EntityLayer.RecepListaEntity">EntityLayer.RecepListaEntity</a>
- &#8226;   <a href="#EntityLayer.RecepcionDetalleEntity">EntityLayer.RecepcionDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
  &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
- &#8226;   <a href="#EntityLayer.TarifaProductoEntity">EntityLayer.TarifaProductoEntity</a>
- &#8226;   <a href="#EntityLayer.TipoProcesoEntity">EntityLayer.TipoProcesoEntity</a>
- &#8226;   <a href="#EntityLayer.UbigeoEntity">EntityLayer.UbigeoEntity</a>
- &#8226;   <a href="#EntityLayer.UnidadMedidaEntity">EntityLayer.UnidadMedidaEntity</a>
- &#8226;   <a href="#EntityLayer.UsuarioEntity">EntityLayer.UsuarioEntity</a>
+ &#8226;   <a href="#EntityLayer.StockEntity">EntityLayer.StockEntity</a>
+ &#8226;   <a href="#EntityLayer.TarifaEntity">EntityLayer.TarifaEntity</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="EntityLayer.CorrelativoEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/CorrelativoEntity.py" type="text/plain"><tt>EntityLayer.CorrelativoEntity</tt></a>
+  <a name="EntityLayer.DespachoEntity"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/DespachoEntity.py" type="text/plain"><tt>EntityLayer.DespachoEntity</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#EntityLayer">EntityLayer</a>
+ &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
  &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
  &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#pydantic">pydantic</a>
  &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
+ &#8226;   <a href="#typing">typing</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.Correlativo">BusinessLayer.Correlativo</a>
- &#8226;   <a href="#DataLayer.CorrelativoDB">DataLayer.CorrelativoDB</a>
- &#8226;   <a href="#routes.CorrelativoRoute">routes.CorrelativoRoute</a>
+    <a href="#BusinessLayer.Despacho">BusinessLayer.Despacho</a>
+ &#8226;   <a href="#DataLayer.DepachoDB">DataLayer.DepachoDB</a>
+ &#8226;   <a href="#DataLayer.DepachoDetalleDB">DataLayer.DepachoDetalleDB</a>
+ &#8226;   <a href="#DataLayer.EstadoProcesoDB">DataLayer.EstadoProcesoDB</a>
+ &#8226;   <a href="#DataLayer.OrdenCompraDB">DataLayer.OrdenCompraDB</a>
+ &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
+ &#8226;   <a href="#DataLayer.ReservaDB">DataLayer.ReservaDB</a>
+ &#8226;   <a href="#routes.DespachoRoute">routes.DespachoRoute</a>
 
   </div>
 
@@ -1665,27 +1566,10 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.Empresa">BusinessLayer.Empresa</a>
- &#8226;   <a href="#DataLayer.EmpresaDB">DataLayer.EmpresaDB</a>
+    <a href="#BusinessLayer.Entidad">BusinessLayer.Entidad</a>
+ &#8226;   <a href="#DataLayer.EntidadDB">DataLayer.EntidadDB</a>
  &#8226;   <a href="#routes.EmpresaRoute">routes.EmpresaRoute</a>
  &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="EntityLayer.EntDatoEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/EntDatoEntity.py" type="text/plain"><tt>EntityLayer.EntDatoEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#DataLayer.EntDatoDB">DataLayer.EntDatoDB</a>
- &#8226;   <a href="#routes.EntDatoRoute">routes.EntDatoRoute</a>
 
   </div>
 
@@ -1697,6 +1581,8 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#EntityLayer">EntityLayer</a>
+ &#8226;   <a href="#pydantic">pydantic</a>
+ &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
 
   </div>
   <div class="import">
@@ -1709,22 +1595,31 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="EntityLayer.EstadoProcesoEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/EstadoProcesoEntity.py" type="text/plain"><tt>EntityLayer.EstadoProcesoEntity</tt></a>
+  <a name="EntityLayer.GeneralEntity"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/GeneralEntity.py" type="text/plain"><tt>EntityLayer.GeneralEntity</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
- &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#pydantic">pydantic</a>
  &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
+ &#8226;   <a href="#pydantic.validator">pydantic.validator</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.EstadoProceso">BusinessLayer.EstadoProceso</a>
+    <a href="#BusinessLayer.Moneda">BusinessLayer.Moneda</a>
+ &#8226;   <a href="#BusinessLayer.PorcentajeImpuesto">BusinessLayer.PorcentajeImpuesto</a>
+ &#8226;   <a href="#BusinessLayer.Ubigeo">BusinessLayer.Ubigeo</a>
+ &#8226;   <a href="#BusinessLayer.UnidadMedida">BusinessLayer.UnidadMedida</a>
+ &#8226;   <a href="#DataLayer.EntidadDB">DataLayer.EntidadDB</a>
  &#8226;   <a href="#DataLayer.EstadoProcesoDB">DataLayer.EstadoProcesoDB</a>
- &#8226;   <a href="#routes.EstadoProcesoRoute">routes.EstadoProcesoRoute</a>
+ &#8226;   <a href="#DataLayer.MonedaDB">DataLayer.MonedaDB</a>
+ &#8226;   <a href="#DataLayer.PorcentajeImpuestoDB">DataLayer.PorcentajeImpuestoDB</a>
+ &#8226;   <a href="#DataLayer.ProcesoDB">DataLayer.ProcesoDB</a>
+ &#8226;   <a href="#DataLayer.RecepListaDB">DataLayer.RecepListaDB</a>
+ &#8226;   <a href="#DataLayer.TipoEntidadDB">DataLayer.TipoEntidadDB</a>
+ &#8226;   <a href="#DataLayer.UbigeoDB">DataLayer.UbigeoDB</a>
+ &#8226;   <a href="#DataLayer.UnidadMedidaDB">DataLayer.UnidadMedidaDB</a>
 
   </div>
 
@@ -1740,11 +1635,13 @@ imports:
  &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#pydantic">pydantic</a>
  &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
+ &#8226;   <a href="#pydantic.validator">pydantic.validator</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#DataLayer.MerListaDB">DataLayer.MerListaDB</a>
+    <a href="#DataLayer.EntListaDB">DataLayer.EntListaDB</a>
+ &#8226;   <a href="#DataLayer.MerListaDB">DataLayer.MerListaDB</a>
  &#8226;   <a href="#routes.MerListaRouter">routes.MerListaRouter</a>
 
   </div>
@@ -1761,6 +1658,7 @@ imports:
  &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#pydantic">pydantic</a>
  &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
+ &#8226;   <a href="#pydantic.validator">pydantic.validator</a>
 
   </div>
   <div class="import">
@@ -1774,56 +1672,11 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="EntityLayer.ModuloSistemaEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/ModuloSistemaEntity.py" type="text/plain"><tt>EntityLayer.ModuloSistemaEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
- &#8226;   <a href="#datetime">datetime</a>
- &#8226;   <a href="#pydantic">pydantic</a>
- &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.ModuloSistema">BusinessLayer.ModuloSistema</a>
- &#8226;   <a href="#DataLayer.ModuloSistemaDB">DataLayer.ModuloSistemaDB</a>
- &#8226;   <a href="#routes.ModuloSistemaRoute">routes.ModuloSistemaRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="EntityLayer.OrdenCompraDetalleEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/OrdenCompraDetalleEntity.py" type="text/plain"><tt>EntityLayer.OrdenCompraDetalleEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
- &#8226;   <a href="#datetime">datetime</a>
- &#8226;   <a href="#pydantic">pydantic</a>
- &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.OrdenCompraDetalle">BusinessLayer.OrdenCompraDetalle</a>
- &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
- &#8226;   <a href="#EntityLayer.OrdenCompraEntity">EntityLayer.OrdenCompraEntity</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="EntityLayer.OrdenCompraEntity"></a>
   <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/OrdenCompraEntity.py" type="text/plain"><tt>EntityLayer.OrdenCompraEntity</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#EntityLayer.OrdenCompraDetalleEntity">EntityLayer.OrdenCompraDetalleEntity</a>
  &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
  &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#pydantic">pydantic</a>
@@ -1834,29 +1687,8 @@ imports:
 imported by:
     <a href="#BusinessLayer.OrdenCompra">BusinessLayer.OrdenCompra</a>
  &#8226;   <a href="#DataLayer.OrdenCompraDB">DataLayer.OrdenCompraDB</a>
+ &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
  &#8226;   <a href="#routes.OrdenCompraRoute">routes.OrdenCompraRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="EntityLayer.OrdenPedidoDetalleEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/OrdenPedidoDetalleEntity.py" type="text/plain"><tt>EntityLayer.OrdenPedidoDetalleEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
- &#8226;   <a href="#datetime">datetime</a>
- &#8226;   <a href="#pydantic">pydantic</a>
- &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.OrdenPedidoDetalle">BusinessLayer.OrdenPedidoDetalle</a>
- &#8226;   <a href="#DataLayer.OrdenPedidoDetalleDB">DataLayer.OrdenPedidoDetalleDB</a>
- &#8226;   <a href="#EntityLayer.OrdenPedidoEntity">EntityLayer.OrdenPedidoEntity</a>
 
   </div>
 
@@ -1868,17 +1700,20 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#EntityLayer.OrdenPedidoDetalleEntity">EntityLayer.OrdenPedidoDetalleEntity</a>
  &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
  &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#pydantic">pydantic</a>
  &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
+ &#8226;   <a href="#pydantic.validator">pydantic.validator</a>
 
   </div>
   <div class="import">
 imported by:
     <a href="#BusinessLayer.OrdenPedido">BusinessLayer.OrdenPedido</a>
+ &#8226;   <a href="#DataLayer.EntidadDB">DataLayer.EntidadDB</a>
  &#8226;   <a href="#DataLayer.OrdenPedidoDB">DataLayer.OrdenPedidoDB</a>
+ &#8226;   <a href="#DataLayer.OrdenPedidoDetalleDB">DataLayer.OrdenPedidoDetalleDB</a>
+ &#8226;   <a href="#DataLayer.TarifaDB">DataLayer.TarifaDB</a>
  &#8226;   <a href="#routes.OrdenPedidoRoute">routes.OrdenPedidoRoute</a>
 
   </div>
@@ -1899,115 +1734,9 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.PersonaNatural">BusinessLayer.PersonaNatural</a>
+    <a href="#DataLayer.EntidadDB">DataLayer.EntidadDB</a>
  &#8226;   <a href="#DataLayer.MercaderiaDB">DataLayer.MercaderiaDB</a>
- &#8226;   <a href="#DataLayer.PersonaNaturalDB">DataLayer.PersonaNaturalDB</a>
  &#8226;   <a href="#routes.PersonaNaturalRoute">routes.PersonaNaturalRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="EntityLayer.ProcesoEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/ProcesoEntity.py" type="text/plain"><tt>EntityLayer.ProcesoEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
- &#8226;   <a href="#datetime">datetime</a>
- &#8226;   <a href="#pydantic">pydantic</a>
- &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.Proceso">BusinessLayer.Proceso</a>
- &#8226;   <a href="#DataLayer.ProcesoDB">DataLayer.ProcesoDB</a>
- &#8226;   <a href="#routes.ProcesoRoute">routes.ProcesoRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="EntityLayer.ProcesoSecuenciaEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/ProcesoSecuenciaEntity.py" type="text/plain"><tt>EntityLayer.ProcesoSecuenciaEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
- &#8226;   <a href="#datetime">datetime</a>
- &#8226;   <a href="#pydantic">pydantic</a>
- &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.ProcesoSecuencia">BusinessLayer.ProcesoSecuencia</a>
- &#8226;   <a href="#DataLayer.ProcesoSecuenciaDB">DataLayer.ProcesoSecuenciaDB</a>
- &#8226;   <a href="#routes.ProcesoSecuenciaRoute">routes.ProcesoSecuenciaRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="EntityLayer.ProductoEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/ProductoEntity.py" type="text/plain"><tt>EntityLayer.ProductoEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
- &#8226;   <a href="#datetime">datetime</a>
- &#8226;   <a href="#pydantic">pydantic</a>
- &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.Producto">BusinessLayer.Producto</a>
- &#8226;   <a href="#DataLayer.MercaderiaDB">DataLayer.MercaderiaDB</a>
- &#8226;   <a href="#DataLayer.ProductoDB">DataLayer.ProductoDB</a>
- &#8226;   <a href="#routes.ProductoRoute">routes.ProductoRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="EntityLayer.RecepListaEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/RecepListaEntity.py" type="text/plain"><tt>EntityLayer.RecepListaEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#DataLayer.ReceptListaDB">DataLayer.ReceptListaDB</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="EntityLayer.RecepcionDetalleEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/RecepcionDetalleEntity.py" type="text/plain"><tt>EntityLayer.RecepcionDetalleEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
- &#8226;   <a href="#datetime">datetime</a>
- &#8226;   <a href="#pydantic">pydantic</a>
- &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.RecepcionDetalle">BusinessLayer.RecepcionDetalle</a>
- &#8226;   <a href="#DataLayer.RecepcionDetalleDB">DataLayer.RecepcionDetalleDB</a>
- &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
 
   </div>
 
@@ -2019,7 +1748,6 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#EntityLayer.RecepcionDetalleEntity">EntityLayer.RecepcionDetalleEntity</a>
  &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
  &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#pydantic">pydantic</a>
@@ -2031,6 +1759,9 @@ imported by:
     <a href="#BusinessLayer.Recepcion">BusinessLayer.Recepcion</a>
  &#8226;   <a href="#DataLayer.RecepcionDB">DataLayer.RecepcionDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDetalleDB">DataLayer.RecepcionDetalleDB</a>
+ &#8226;   <a href="#DataLayer.ReservaDetalleDB">DataLayer.ReservaDetalleDB</a>
+ &#8226;   <a href="#DataLayer.StockMercaderiaDB">DataLayer.StockMercaderiaDB</a>
+ &#8226;   <a href="#DataLayer.TipoEntidadDB">DataLayer.TipoEntidadDB</a>
  &#8226;   <a href="#routes.RecepcionRoute">routes.RecepcionRoute</a>
 
   </div>
@@ -2052,16 +1783,22 @@ imports:
   <div class="import">
 imported by:
     <a href="#BusinessLayer.Reserva">BusinessLayer.Reserva</a>
+ &#8226;   <a href="#BusinessLayer.ReservaDetalle">BusinessLayer.ReservaDetalle</a>
+ &#8226;   <a href="#BusinessLayer.StockMercaderia">BusinessLayer.StockMercaderia</a>
+ &#8226;   <a href="#BusinessLayer.TipoEntidad">BusinessLayer.TipoEntidad</a>
  &#8226;   <a href="#DataLayer.ReservaDB">DataLayer.ReservaDB</a>
+ &#8226;   <a href="#DataLayer.ReservaDetalleDB">DataLayer.ReservaDetalleDB</a>
+ &#8226;   <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#routes.ReservaRoute">routes.ReservaRoute</a>
+ &#8226;   <a href="#routes.StockRoute">routes.StockRoute</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="EntityLayer.TarifaProductoEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/TarifaProductoEntity.py" type="text/plain"><tt>EntityLayer.TarifaProductoEntity</tt></a>
+  <a name="EntityLayer.StockEntity"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/StockEntity.py" type="text/plain"><tt>EntityLayer.StockEntity</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#EntityLayer">EntityLayer</a>
@@ -2073,17 +1810,15 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.TarifaProducto">BusinessLayer.TarifaProducto</a>
- &#8226;   <a href="#DataLayer.TarifaProductoDB">DataLayer.TarifaProductoDB</a>
- &#8226;   <a href="#routes.TarifaProductoRoute">routes.TarifaProductoRoute</a>
+    <a href="#DataLayer.StockMercaderiaDB">DataLayer.StockMercaderiaDB</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="EntityLayer.TipoProcesoEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/TipoProcesoEntity.py" type="text/plain"><tt>EntityLayer.TipoProcesoEntity</tt></a>
+  <a name="EntityLayer.TarifaEntity"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/TarifaEntity.py" type="text/plain"><tt>EntityLayer.TarifaEntity</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#EntityLayer">EntityLayer</a>
@@ -2091,79 +1826,14 @@ imports:
  &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#pydantic">pydantic</a>
  &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
+ &#8226;   <a href="#pydantic.validator">pydantic.validator</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.TipoProceso">BusinessLayer.TipoProceso</a>
- &#8226;   <a href="#DataLayer.TipoProcesoDB">DataLayer.TipoProcesoDB</a>
- &#8226;   <a href="#routes.TipoProcesoRoute">routes.TipoProcesoRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="EntityLayer.UbigeoEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/UbigeoEntity.py" type="text/plain"><tt>EntityLayer.UbigeoEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
- &#8226;   <a href="#datetime">datetime</a>
- &#8226;   <a href="#pydantic">pydantic</a>
- &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.Ubigeo">BusinessLayer.Ubigeo</a>
- &#8226;   <a href="#DataLayer.UbigeoDB">DataLayer.UbigeoDB</a>
- &#8226;   <a href="#routes.UbigeoRoute">routes.UbigeoRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="EntityLayer.UnidadMedidaEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/UnidadMedidaEntity.py" type="text/plain"><tt>EntityLayer.UnidadMedidaEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
- &#8226;   <a href="#datetime">datetime</a>
- &#8226;   <a href="#pydantic">pydantic</a>
- &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.UnidadMedida">BusinessLayer.UnidadMedida</a>
- &#8226;   <a href="#DataLayer.UnidadMedidaDB">DataLayer.UnidadMedidaDB</a>
- &#8226;   <a href="#routes.UnidadMedidaRoute">routes.UnidadMedidaRoute</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="EntityLayer.UsuarioEntity"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/EntityLayer/UsuarioEntity.py" type="text/plain"><tt>EntityLayer.UsuarioEntity</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#EntityLayer">EntityLayer</a>
- &#8226;   <a href="#Utilidades.Enumerado.ProcessActionEnum">Utilidades.Enumerado.ProcessActionEnum</a>
- &#8226;   <a href="#datetime">datetime</a>
- &#8226;   <a href="#pydantic">pydantic</a>
- &#8226;   <a href="#pydantic.BaseModel">pydantic.BaseModel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#BusinessLayer.Usuario">BusinessLayer.Usuario</a>
- &#8226;   <a href="#DataLayer.UsuarioDB">DataLayer.UsuarioDB</a>
- &#8226;   <a href="#routes.UsuarioRoute">routes.UsuarioRoute</a>
+    <a href="#BusinessLayer.Tarifa">BusinessLayer.Tarifa</a>
+ &#8226;   <a href="#DataLayer.TarifaDB">DataLayer.TarifaDB</a>
+ &#8226;   <a href="#routes.TarifaRoute">routes.TarifaRoute</a>
 
   </div>
 
@@ -2175,8 +1845,6 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#BusinessLayer.EstadoProceso">BusinessLayer.EstadoProceso</a>
- &#8226;   <a href="#BusinessLayer.Producto">BusinessLayer.Producto</a>
- &#8226;   <a href="#BusinessLayer.TipoProceso">BusinessLayer.TipoProceso</a>
  &#8226;   <a href="#BusinessLayer.Ubigeo">BusinessLayer.Ubigeo</a>
  &#8226;   <a href="#BusinessLayer.UnidadMedida">BusinessLayer.UnidadMedida</a>
  &#8226;   <a href="#ariadne">ariadne</a>
@@ -2231,22 +1899,14 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#DataLayer.CorrelativoDB">DataLayer.CorrelativoDB</a>
- &#8226;   <a href="#DataLayer.EstadoProcesoDB">DataLayer.EstadoProcesoDB</a>
- &#8226;   <a href="#DataLayer.ModuloSistemaDB">DataLayer.ModuloSistemaDB</a>
- &#8226;   <a href="#DataLayer.OrdenCompraDB">DataLayer.OrdenCompraDB</a>
+    <a href="#DataLayer.EntidadDB">DataLayer.EntidadDB</a>
  &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
- &#8226;   <a href="#DataLayer.OrdenPedidoDB">DataLayer.OrdenPedidoDB</a>
  &#8226;   <a href="#DataLayer.OrdenPedidoDetalleDB">DataLayer.OrdenPedidoDetalleDB</a>
  &#8226;   <a href="#DataLayer.ProcesoDB">DataLayer.ProcesoDB</a>
- &#8226;   <a href="#DataLayer.ProcesoSecuenciaDB">DataLayer.ProcesoSecuenciaDB</a>
- &#8226;   <a href="#DataLayer.ProductoDB">DataLayer.ProductoDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDB">DataLayer.RecepcionDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDetalleDB">DataLayer.RecepcionDetalleDB</a>
- &#8226;   <a href="#DataLayer.TarifaProductoDB">DataLayer.TarifaProductoDB</a>
- &#8226;   <a href="#DataLayer.TipoProcesoDB">DataLayer.TipoProcesoDB</a>
- &#8226;   <a href="#DataLayer.UnidadMedidaDB">DataLayer.UnidadMedidaDB</a>
- &#8226;   <a href="#DataLayer.UsuarioDB">DataLayer.UsuarioDB</a>
+ &#8226;   <a href="#DataLayer.ReservaDetalleDB">DataLayer.ReservaDetalleDB</a>
+ &#8226;   <a href="#DataLayer.StockMercaderiaDB">DataLayer.StockMercaderiaDB</a>
  &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
 
   </div>
@@ -2282,18 +1942,26 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#DataLayer.EmpresaDB">DataLayer.EmpresaDB</a>
- &#8226;   <a href="#DataLayer.EntDatoDB">DataLayer.EntDatoDB</a>
+    <a href="#DataLayer.DepachoDB">DataLayer.DepachoDB</a>
+ &#8226;   <a href="#DataLayer.DepachoDetalleDB">DataLayer.DepachoDetalleDB</a>
  &#8226;   <a href="#DataLayer.EntListaDB">DataLayer.EntListaDB</a>
+ &#8226;   <a href="#DataLayer.EntidadDB">DataLayer.EntidadDB</a>
+ &#8226;   <a href="#DataLayer.EstadoProcesoDB">DataLayer.EstadoProcesoDB</a>
  &#8226;   <a href="#DataLayer.MerListaDB">DataLayer.MerListaDB</a>
  &#8226;   <a href="#DataLayer.MercaderiaDB">DataLayer.MercaderiaDB</a>
- &#8226;   <a href="#DataLayer.OrdenPedidoDB">DataLayer.OrdenPedidoDB</a>
- &#8226;   <a href="#DataLayer.PersonaNaturalDB">DataLayer.PersonaNaturalDB</a>
+ &#8226;   <a href="#DataLayer.MonedaDB">DataLayer.MonedaDB</a>
+ &#8226;   <a href="#DataLayer.OrdenCompraDB">DataLayer.OrdenCompraDB</a>
+ &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
+ &#8226;   <a href="#DataLayer.PorcentajeImpuestoDB">DataLayer.PorcentajeImpuestoDB</a>
+ &#8226;   <a href="#DataLayer.RecepListaDB">DataLayer.RecepListaDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDB">DataLayer.RecepcionDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDetalleDB">DataLayer.RecepcionDetalleDB</a>
- &#8226;   <a href="#DataLayer.ReceptListaDB">DataLayer.ReceptListaDB</a>
  &#8226;   <a href="#DataLayer.ReservaDB">DataLayer.ReservaDB</a>
+ &#8226;   <a href="#DataLayer.ReservaDetalleDB">DataLayer.ReservaDetalleDB</a>
+ &#8226;   <a href="#DataLayer.StockMercaderiaDB">DataLayer.StockMercaderiaDB</a>
+ &#8226;   <a href="#DataLayer.TipoEntidadDB">DataLayer.TipoEntidadDB</a>
  &#8226;   <a href="#DataLayer.UbigeoDB">DataLayer.UbigeoDB</a>
+ &#8226;   <a href="#DataLayer.UnidadMedidaDB">DataLayer.UnidadMedidaDB</a>
 
   </div>
 
@@ -2310,34 +1978,45 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#BusinessLayer.Empresa">BusinessLayer.Empresa</a>
- &#8226;   <a href="#BusinessLayer.EntDato">BusinessLayer.EntDato</a>
+    <a href="#BusinessLayer.Despacho">BusinessLayer.Despacho</a>
  &#8226;   <a href="#BusinessLayer.EntLista">BusinessLayer.EntLista</a>
+ &#8226;   <a href="#BusinessLayer.Entidad">BusinessLayer.Entidad</a>
  &#8226;   <a href="#BusinessLayer.MerLista">BusinessLayer.MerLista</a>
  &#8226;   <a href="#BusinessLayer.Mercaderia">BusinessLayer.Mercaderia</a>
  &#8226;   <a href="#BusinessLayer.OrdenCompra">BusinessLayer.OrdenCompra</a>
  &#8226;   <a href="#BusinessLayer.OrdenPedido">BusinessLayer.OrdenPedido</a>
- &#8226;   <a href="#BusinessLayer.PersonaNatural">BusinessLayer.PersonaNatural</a>
+ &#8226;   <a href="#BusinessLayer.RecepLista">BusinessLayer.RecepLista</a>
  &#8226;   <a href="#BusinessLayer.Recepcion">BusinessLayer.Recepcion</a>
  &#8226;   <a href="#BusinessLayer.RecepcionDetalle">BusinessLayer.RecepcionDetalle</a>
- &#8226;   <a href="#BusinessLayer.ReceptLista">BusinessLayer.ReceptLista</a>
  &#8226;   <a href="#BusinessLayer.Reserva">BusinessLayer.Reserva</a>
- &#8226;   <a href="#DataLayer.EmpresaDB">DataLayer.EmpresaDB</a>
- &#8226;   <a href="#DataLayer.EntDatoDB">DataLayer.EntDatoDB</a>
+ &#8226;   <a href="#BusinessLayer.ReservaDetalle">BusinessLayer.ReservaDetalle</a>
+ &#8226;   <a href="#BusinessLayer.StockMercaderia">BusinessLayer.StockMercaderia</a>
+ &#8226;   <a href="#BusinessLayer.Tarifa">BusinessLayer.Tarifa</a>
+ &#8226;   <a href="#BusinessLayer.TipoEntidad">BusinessLayer.TipoEntidad</a>
+ &#8226;   <a href="#DataLayer.DepachoDB">DataLayer.DepachoDB</a>
+ &#8226;   <a href="#DataLayer.DepachoDetalleDB">DataLayer.DepachoDetalleDB</a>
  &#8226;   <a href="#DataLayer.EntListaDB">DataLayer.EntListaDB</a>
+ &#8226;   <a href="#DataLayer.EntidadDB">DataLayer.EntidadDB</a>
+ &#8226;   <a href="#DataLayer.EstadoProcesoDB">DataLayer.EstadoProcesoDB</a>
  &#8226;   <a href="#DataLayer.MerListaDB">DataLayer.MerListaDB</a>
  &#8226;   <a href="#DataLayer.MercaderiaDB">DataLayer.MercaderiaDB</a>
+ &#8226;   <a href="#DataLayer.MonedaDB">DataLayer.MonedaDB</a>
  &#8226;   <a href="#DataLayer.OrdenCompraDB">DataLayer.OrdenCompraDB</a>
  &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
  &#8226;   <a href="#DataLayer.OrdenPedidoDB">DataLayer.OrdenPedidoDB</a>
  &#8226;   <a href="#DataLayer.OrdenPedidoDetalleDB">DataLayer.OrdenPedidoDetalleDB</a>
- &#8226;   <a href="#DataLayer.PersonaNaturalDB">DataLayer.PersonaNaturalDB</a>
+ &#8226;   <a href="#DataLayer.PorcentajeImpuestoDB">DataLayer.PorcentajeImpuestoDB</a>
  &#8226;   <a href="#DataLayer.ProcesoDB">DataLayer.ProcesoDB</a>
+ &#8226;   <a href="#DataLayer.RecepListaDB">DataLayer.RecepListaDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDB">DataLayer.RecepcionDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDetalleDB">DataLayer.RecepcionDetalleDB</a>
- &#8226;   <a href="#DataLayer.ReceptListaDB">DataLayer.ReceptListaDB</a>
  &#8226;   <a href="#DataLayer.ReservaDB">DataLayer.ReservaDB</a>
+ &#8226;   <a href="#DataLayer.ReservaDetalleDB">DataLayer.ReservaDetalleDB</a>
+ &#8226;   <a href="#DataLayer.StockMercaderiaDB">DataLayer.StockMercaderiaDB</a>
+ &#8226;   <a href="#DataLayer.TarifaDB">DataLayer.TarifaDB</a>
+ &#8226;   <a href="#DataLayer.TipoEntidadDB">DataLayer.TipoEntidadDB</a>
  &#8226;   <a href="#DataLayer.UbigeoDB">DataLayer.UbigeoDB</a>
+ &#8226;   <a href="#DataLayer.UnidadMedidaDB">DataLayer.UnidadMedidaDB</a>
 
   </div>
 
@@ -2372,8 +2051,7 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#routes.EntDatoRoute">routes.EntDatoRoute</a>
- &#8226;   <a href="#routes.EntListaRouter">routes.EntListaRouter</a>
+    <a href="#routes.EntListaRouter">routes.EntListaRouter</a>
  &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
  &#8226;   <a href="#routes.MerListaRouter">routes.MerListaRouter</a>
  &#8226;   <a href="#routes.MercaderiaRoute">routes.MercaderiaRoute</a>
@@ -2392,54 +2070,41 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#DataLayer.CorrelativoDB">DataLayer.CorrelativoDB</a>
- &#8226;   <a href="#DataLayer.EmpresaDB">DataLayer.EmpresaDB</a>
- &#8226;   <a href="#DataLayer.EntDatoDB">DataLayer.EntDatoDB</a>
+    <a href="#DataLayer.DepachoDB">DataLayer.DepachoDB</a>
+ &#8226;   <a href="#DataLayer.DepachoDetalleDB">DataLayer.DepachoDetalleDB</a>
  &#8226;   <a href="#DataLayer.EntListaDB">DataLayer.EntListaDB</a>
+ &#8226;   <a href="#DataLayer.EntidadDB">DataLayer.EntidadDB</a>
  &#8226;   <a href="#DataLayer.EstadoProcesoDB">DataLayer.EstadoProcesoDB</a>
  &#8226;   <a href="#DataLayer.MerListaDB">DataLayer.MerListaDB</a>
  &#8226;   <a href="#DataLayer.MercaderiaDB">DataLayer.MercaderiaDB</a>
- &#8226;   <a href="#DataLayer.ModuloSistemaDB">DataLayer.ModuloSistemaDB</a>
+ &#8226;   <a href="#DataLayer.MonedaDB">DataLayer.MonedaDB</a>
  &#8226;   <a href="#DataLayer.OrdenCompraDB">DataLayer.OrdenCompraDB</a>
  &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
- &#8226;   <a href="#DataLayer.OrdenPedidoDB">DataLayer.OrdenPedidoDB</a>
  &#8226;   <a href="#DataLayer.OrdenPedidoDetalleDB">DataLayer.OrdenPedidoDetalleDB</a>
- &#8226;   <a href="#DataLayer.PersonaNaturalDB">DataLayer.PersonaNaturalDB</a>
+ &#8226;   <a href="#DataLayer.PorcentajeImpuestoDB">DataLayer.PorcentajeImpuestoDB</a>
  &#8226;   <a href="#DataLayer.ProcesoDB">DataLayer.ProcesoDB</a>
- &#8226;   <a href="#DataLayer.ProcesoSecuenciaDB">DataLayer.ProcesoSecuenciaDB</a>
- &#8226;   <a href="#DataLayer.ProductoDB">DataLayer.ProductoDB</a>
+ &#8226;   <a href="#DataLayer.RecepListaDB">DataLayer.RecepListaDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDB">DataLayer.RecepcionDB</a>
  &#8226;   <a href="#DataLayer.RecepcionDetalleDB">DataLayer.RecepcionDetalleDB</a>
- &#8226;   <a href="#DataLayer.ReceptListaDB">DataLayer.ReceptListaDB</a>
  &#8226;   <a href="#DataLayer.ReservaDB">DataLayer.ReservaDB</a>
- &#8226;   <a href="#DataLayer.TarifaProductoDB">DataLayer.TarifaProductoDB</a>
- &#8226;   <a href="#DataLayer.TipoProcesoDB">DataLayer.TipoProcesoDB</a>
+ &#8226;   <a href="#DataLayer.ReservaDetalleDB">DataLayer.ReservaDetalleDB</a>
+ &#8226;   <a href="#DataLayer.StockMercaderiaDB">DataLayer.StockMercaderiaDB</a>
  &#8226;   <a href="#DataLayer.UbigeoDB">DataLayer.UbigeoDB</a>
  &#8226;   <a href="#DataLayer.UnidadMedidaDB">DataLayer.UnidadMedidaDB</a>
- &#8226;   <a href="#DataLayer.UsuarioDB">DataLayer.UsuarioDB</a>
  &#8226;   <a href="#Utilidades.Conexion.ErrorData">Utilidades.Conexion.ErrorData</a>
- &#8226;   <a href="#routes.CorrelativoRoute">routes.CorrelativoRoute</a>
+ &#8226;   <a href="#routes.DespachoRoute">routes.DespachoRoute</a>
  &#8226;   <a href="#routes.EmpresaRoute">routes.EmpresaRoute</a>
- &#8226;   <a href="#routes.EntDatoRoute">routes.EntDatoRoute</a>
  &#8226;   <a href="#routes.EntListaRouter">routes.EntListaRouter</a>
- &#8226;   <a href="#routes.EstadoProcesoRoute">routes.EstadoProcesoRoute</a>
  &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
  &#8226;   <a href="#routes.MerListaRouter">routes.MerListaRouter</a>
  &#8226;   <a href="#routes.MercaderiaRoute">routes.MercaderiaRoute</a>
- &#8226;   <a href="#routes.ModuloSistemaRoute">routes.ModuloSistemaRoute</a>
  &#8226;   <a href="#routes.OrdenCompraRoute">routes.OrdenCompraRoute</a>
  &#8226;   <a href="#routes.OrdenPedidoRoute">routes.OrdenPedidoRoute</a>
  &#8226;   <a href="#routes.PersonaNaturalRoute">routes.PersonaNaturalRoute</a>
- &#8226;   <a href="#routes.ProcesoRoute">routes.ProcesoRoute</a>
- &#8226;   <a href="#routes.ProcesoSecuenciaRoute">routes.ProcesoSecuenciaRoute</a>
- &#8226;   <a href="#routes.ProductoRoute">routes.ProductoRoute</a>
  &#8226;   <a href="#routes.RecepcionRoute">routes.RecepcionRoute</a>
  &#8226;   <a href="#routes.ReservaRoute">routes.ReservaRoute</a>
- &#8226;   <a href="#routes.TarifaProductoRoute">routes.TarifaProductoRoute</a>
- &#8226;   <a href="#routes.TipoProcesoRoute">routes.TipoProcesoRoute</a>
- &#8226;   <a href="#routes.UbigeoRoute">routes.UbigeoRoute</a>
- &#8226;   <a href="#routes.UnidadMedidaRoute">routes.UnidadMedidaRoute</a>
- &#8226;   <a href="#routes.UsuarioRoute">routes.UsuarioRoute</a>
+ &#8226;   <a href="#routes.StockRoute">routes.StockRoute</a>
+ &#8226;   <a href="#routes.TarifaRoute">routes.TarifaRoute</a>
 
   </div>
 
@@ -2472,32 +2137,20 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#DataLayer.EntDatoDB">DataLayer.EntDatoDB</a>
- &#8226;   <a href="#DataLayer.EntListaDB">DataLayer.EntListaDB</a>
+    <a href="#DataLayer.EntListaDB">DataLayer.EntListaDB</a>
  &#8226;   <a href="#DataLayer.MerListaDB">DataLayer.MerListaDB</a>
- &#8226;   <a href="#DataLayer.ReceptListaDB">DataLayer.ReceptListaDB</a>
- &#8226;   <a href="#EntityLayer.CorrelativoEntity">EntityLayer.CorrelativoEntity</a>
+ &#8226;   <a href="#DataLayer.RecepListaDB">DataLayer.RecepListaDB</a>
+ &#8226;   <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#EntityLayer.EmpresaEntity">EntityLayer.EmpresaEntity</a>
- &#8226;   <a href="#EntityLayer.EstadoProcesoEntity">EntityLayer.EstadoProcesoEntity</a>
  &#8226;   <a href="#EntityLayer.MerListaEntity">EntityLayer.MerListaEntity</a>
  &#8226;   <a href="#EntityLayer.MercaderiaEntity">EntityLayer.MercaderiaEntity</a>
- &#8226;   <a href="#EntityLayer.ModuloSistemaEntity">EntityLayer.ModuloSistemaEntity</a>
- &#8226;   <a href="#EntityLayer.OrdenCompraDetalleEntity">EntityLayer.OrdenCompraDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.OrdenCompraEntity">EntityLayer.OrdenCompraEntity</a>
- &#8226;   <a href="#EntityLayer.OrdenPedidoDetalleEntity">EntityLayer.OrdenPedidoDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.OrdenPedidoEntity">EntityLayer.OrdenPedidoEntity</a>
  &#8226;   <a href="#EntityLayer.PersonaNaturalEntity">EntityLayer.PersonaNaturalEntity</a>
- &#8226;   <a href="#EntityLayer.ProcesoEntity">EntityLayer.ProcesoEntity</a>
- &#8226;   <a href="#EntityLayer.ProcesoSecuenciaEntity">EntityLayer.ProcesoSecuenciaEntity</a>
- &#8226;   <a href="#EntityLayer.ProductoEntity">EntityLayer.ProductoEntity</a>
- &#8226;   <a href="#EntityLayer.RecepcionDetalleEntity">EntityLayer.RecepcionDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
  &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
- &#8226;   <a href="#EntityLayer.TarifaProductoEntity">EntityLayer.TarifaProductoEntity</a>
- &#8226;   <a href="#EntityLayer.TipoProcesoEntity">EntityLayer.TipoProcesoEntity</a>
- &#8226;   <a href="#EntityLayer.UbigeoEntity">EntityLayer.UbigeoEntity</a>
- &#8226;   <a href="#EntityLayer.UnidadMedidaEntity">EntityLayer.UnidadMedidaEntity</a>
- &#8226;   <a href="#EntityLayer.UsuarioEntity">EntityLayer.UsuarioEntity</a>
+ &#8226;   <a href="#EntityLayer.StockEntity">EntityLayer.StockEntity</a>
+ &#8226;   <a href="#EntityLayer.TarifaEntity">EntityLayer.TarifaEntity</a>
 
   </div>
 
@@ -7879,28 +7532,17 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#EntityLayer.CorrelativoEntity">EntityLayer.CorrelativoEntity</a>
+    <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#EntityLayer.EmpresaEntity">EntityLayer.EmpresaEntity</a>
- &#8226;   <a href="#EntityLayer.EstadoProcesoEntity">EntityLayer.EstadoProcesoEntity</a>
  &#8226;   <a href="#EntityLayer.MerListaEntity">EntityLayer.MerListaEntity</a>
  &#8226;   <a href="#EntityLayer.MercaderiaEntity">EntityLayer.MercaderiaEntity</a>
- &#8226;   <a href="#EntityLayer.ModuloSistemaEntity">EntityLayer.ModuloSistemaEntity</a>
- &#8226;   <a href="#EntityLayer.OrdenCompraDetalleEntity">EntityLayer.OrdenCompraDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.OrdenCompraEntity">EntityLayer.OrdenCompraEntity</a>
- &#8226;   <a href="#EntityLayer.OrdenPedidoDetalleEntity">EntityLayer.OrdenPedidoDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.OrdenPedidoEntity">EntityLayer.OrdenPedidoEntity</a>
  &#8226;   <a href="#EntityLayer.PersonaNaturalEntity">EntityLayer.PersonaNaturalEntity</a>
- &#8226;   <a href="#EntityLayer.ProcesoEntity">EntityLayer.ProcesoEntity</a>
- &#8226;   <a href="#EntityLayer.ProcesoSecuenciaEntity">EntityLayer.ProcesoSecuenciaEntity</a>
- &#8226;   <a href="#EntityLayer.ProductoEntity">EntityLayer.ProductoEntity</a>
- &#8226;   <a href="#EntityLayer.RecepcionDetalleEntity">EntityLayer.RecepcionDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
  &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
- &#8226;   <a href="#EntityLayer.TarifaProductoEntity">EntityLayer.TarifaProductoEntity</a>
- &#8226;   <a href="#EntityLayer.TipoProcesoEntity">EntityLayer.TipoProcesoEntity</a>
- &#8226;   <a href="#EntityLayer.UbigeoEntity">EntityLayer.UbigeoEntity</a>
- &#8226;   <a href="#EntityLayer.UnidadMedidaEntity">EntityLayer.UnidadMedidaEntity</a>
- &#8226;   <a href="#EntityLayer.UsuarioEntity">EntityLayer.UsuarioEntity</a>
+ &#8226;   <a href="#EntityLayer.StockEntity">EntityLayer.StockEntity</a>
+ &#8226;   <a href="#EntityLayer.TarifaEntity">EntityLayer.TarifaEntity</a>
  &#8226;   <a href="#_strptime">_strptime</a>
  &#8226;   <a href="#ariadne.asgi.handlers.graphql_transport_ws">ariadne.asgi.handlers.graphql_transport_ws</a>
  &#8226;   <a href="#calendar">calendar</a>
@@ -11117,28 +10759,19 @@ imported by:
  &#8226;   <a href="#fastapi.types">fastapi.types</a>
  &#8226;   <a href="#fastapi.utils">fastapi.utils</a>
  &#8226;   <a href="#fastapi.websockets">fastapi.websockets</a>
- &#8226;   <a href="#routes.CorrelativoRoute">routes.CorrelativoRoute</a>
+ &#8226;   <a href="#routes.DespachoRoute">routes.DespachoRoute</a>
  &#8226;   <a href="#routes.EmpresaRoute">routes.EmpresaRoute</a>
- &#8226;   <a href="#routes.EntDatoRoute">routes.EntDatoRoute</a>
  &#8226;   <a href="#routes.EntListaRouter">routes.EntListaRouter</a>
- &#8226;   <a href="#routes.EstadoProcesoRoute">routes.EstadoProcesoRoute</a>
  &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
  &#8226;   <a href="#routes.MerListaRouter">routes.MerListaRouter</a>
  &#8226;   <a href="#routes.MercaderiaRoute">routes.MercaderiaRoute</a>
- &#8226;   <a href="#routes.ModuloSistemaRoute">routes.ModuloSistemaRoute</a>
  &#8226;   <a href="#routes.OrdenCompraRoute">routes.OrdenCompraRoute</a>
  &#8226;   <a href="#routes.OrdenPedidoRoute">routes.OrdenPedidoRoute</a>
  &#8226;   <a href="#routes.PersonaNaturalRoute">routes.PersonaNaturalRoute</a>
- &#8226;   <a href="#routes.ProcesoRoute">routes.ProcesoRoute</a>
- &#8226;   <a href="#routes.ProcesoSecuenciaRoute">routes.ProcesoSecuenciaRoute</a>
- &#8226;   <a href="#routes.ProductoRoute">routes.ProductoRoute</a>
  &#8226;   <a href="#routes.RecepcionRoute">routes.RecepcionRoute</a>
  &#8226;   <a href="#routes.ReservaRoute">routes.ReservaRoute</a>
- &#8226;   <a href="#routes.TarifaProductoRoute">routes.TarifaProductoRoute</a>
- &#8226;   <a href="#routes.TipoProcesoRoute">routes.TipoProcesoRoute</a>
- &#8226;   <a href="#routes.UbigeoRoute">routes.UbigeoRoute</a>
- &#8226;   <a href="#routes.UnidadMedidaRoute">routes.UnidadMedidaRoute</a>
- &#8226;   <a href="#routes.UsuarioRoute">routes.UsuarioRoute</a>
+ &#8226;   <a href="#routes.StockRoute">routes.StockRoute</a>
+ &#8226;   <a href="#routes.TarifaRoute">routes.TarifaRoute</a>
 
   </div>
 
@@ -11355,28 +10988,19 @@ imported by:
  &#8226;   <a href="#fastapi.openapi.docs">fastapi.openapi.docs</a>
  &#8226;   <a href="#fastapi.openapi.utils">fastapi.openapi.utils</a>
  &#8226;   <a href="#fastapi.routing">fastapi.routing</a>
- &#8226;   <a href="#routes.CorrelativoRoute">routes.CorrelativoRoute</a>
+ &#8226;   <a href="#routes.DespachoRoute">routes.DespachoRoute</a>
  &#8226;   <a href="#routes.EmpresaRoute">routes.EmpresaRoute</a>
- &#8226;   <a href="#routes.EntDatoRoute">routes.EntDatoRoute</a>
  &#8226;   <a href="#routes.EntListaRouter">routes.EntListaRouter</a>
- &#8226;   <a href="#routes.EstadoProcesoRoute">routes.EstadoProcesoRoute</a>
  &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
  &#8226;   <a href="#routes.MerListaRouter">routes.MerListaRouter</a>
  &#8226;   <a href="#routes.MercaderiaRoute">routes.MercaderiaRoute</a>
- &#8226;   <a href="#routes.ModuloSistemaRoute">routes.ModuloSistemaRoute</a>
  &#8226;   <a href="#routes.OrdenCompraRoute">routes.OrdenCompraRoute</a>
  &#8226;   <a href="#routes.OrdenPedidoRoute">routes.OrdenPedidoRoute</a>
  &#8226;   <a href="#routes.PersonaNaturalRoute">routes.PersonaNaturalRoute</a>
- &#8226;   <a href="#routes.ProcesoRoute">routes.ProcesoRoute</a>
- &#8226;   <a href="#routes.ProcesoSecuenciaRoute">routes.ProcesoSecuenciaRoute</a>
- &#8226;   <a href="#routes.ProductoRoute">routes.ProductoRoute</a>
  &#8226;   <a href="#routes.RecepcionRoute">routes.RecepcionRoute</a>
  &#8226;   <a href="#routes.ReservaRoute">routes.ReservaRoute</a>
- &#8226;   <a href="#routes.TarifaProductoRoute">routes.TarifaProductoRoute</a>
- &#8226;   <a href="#routes.TipoProcesoRoute">routes.TipoProcesoRoute</a>
- &#8226;   <a href="#routes.UbigeoRoute">routes.UbigeoRoute</a>
- &#8226;   <a href="#routes.UnidadMedidaRoute">routes.UnidadMedidaRoute</a>
- &#8226;   <a href="#routes.UsuarioRoute">routes.UsuarioRoute</a>
+ &#8226;   <a href="#routes.StockRoute">routes.StockRoute</a>
+ &#8226;   <a href="#routes.TarifaRoute">routes.TarifaRoute</a>
 
   </div>
 
@@ -18842,6 +18466,7 @@ imports:
  &#8226;   <a href="#pydantic.types">pydantic.types</a>
  &#8226;   <a href="#pydantic.typing">pydantic.typing</a>
  &#8226;   <a href="#pydantic.utils">pydantic.utils</a>
+ &#8226;   <a href="#pydantic.validator">pydantic.validator</a>
  &#8226;   <a href="#pydantic.validators">pydantic.validators</a>
  &#8226;   <a href="#pydantic.version">pydantic.version</a>
  &#8226;   <a href="#typing_extensions">typing_extensions</a>
@@ -18850,28 +18475,19 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#EntityLayer.CorrelativoEntity">EntityLayer.CorrelativoEntity</a>
+    <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#EntityLayer.EmpresaEntity">EntityLayer.EmpresaEntity</a>
- &#8226;   <a href="#EntityLayer.EstadoProcesoEntity">EntityLayer.EstadoProcesoEntity</a>
+ &#8226;   <a href="#EntityLayer.EntListaEntity">EntityLayer.EntListaEntity</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
  &#8226;   <a href="#EntityLayer.MerListaEntity">EntityLayer.MerListaEntity</a>
  &#8226;   <a href="#EntityLayer.MercaderiaEntity">EntityLayer.MercaderiaEntity</a>
- &#8226;   <a href="#EntityLayer.ModuloSistemaEntity">EntityLayer.ModuloSistemaEntity</a>
- &#8226;   <a href="#EntityLayer.OrdenCompraDetalleEntity">EntityLayer.OrdenCompraDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.OrdenCompraEntity">EntityLayer.OrdenCompraEntity</a>
- &#8226;   <a href="#EntityLayer.OrdenPedidoDetalleEntity">EntityLayer.OrdenPedidoDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.OrdenPedidoEntity">EntityLayer.OrdenPedidoEntity</a>
  &#8226;   <a href="#EntityLayer.PersonaNaturalEntity">EntityLayer.PersonaNaturalEntity</a>
- &#8226;   <a href="#EntityLayer.ProcesoEntity">EntityLayer.ProcesoEntity</a>
- &#8226;   <a href="#EntityLayer.ProcesoSecuenciaEntity">EntityLayer.ProcesoSecuenciaEntity</a>
- &#8226;   <a href="#EntityLayer.ProductoEntity">EntityLayer.ProductoEntity</a>
- &#8226;   <a href="#EntityLayer.RecepcionDetalleEntity">EntityLayer.RecepcionDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
  &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
- &#8226;   <a href="#EntityLayer.TarifaProductoEntity">EntityLayer.TarifaProductoEntity</a>
- &#8226;   <a href="#EntityLayer.TipoProcesoEntity">EntityLayer.TipoProcesoEntity</a>
- &#8226;   <a href="#EntityLayer.UbigeoEntity">EntityLayer.UbigeoEntity</a>
- &#8226;   <a href="#EntityLayer.UnidadMedidaEntity">EntityLayer.UnidadMedidaEntity</a>
- &#8226;   <a href="#EntityLayer.UsuarioEntity">EntityLayer.UsuarioEntity</a>
+ &#8226;   <a href="#EntityLayer.StockEntity">EntityLayer.StockEntity</a>
+ &#8226;   <a href="#EntityLayer.TarifaEntity">EntityLayer.TarifaEntity</a>
  &#8226;   <a href="#Utilidades.Entidades.EntidadLikeModel">Utilidades.Entidades.EntidadLikeModel</a>
  &#8226;   <a href="#fastapi.dependencies.utils">fastapi.dependencies.utils</a>
  &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
@@ -18941,28 +18557,19 @@ imported by:
   <a target="code" href="" type="text/plain"><tt>pydantic.BaseModel</tt></a>
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
-    <a href="#EntityLayer.CorrelativoEntity">EntityLayer.CorrelativoEntity</a>
+    <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#EntityLayer.EmpresaEntity">EntityLayer.EmpresaEntity</a>
- &#8226;   <a href="#EntityLayer.EstadoProcesoEntity">EntityLayer.EstadoProcesoEntity</a>
+ &#8226;   <a href="#EntityLayer.EntListaEntity">EntityLayer.EntListaEntity</a>
+ &#8226;   <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
  &#8226;   <a href="#EntityLayer.MerListaEntity">EntityLayer.MerListaEntity</a>
  &#8226;   <a href="#EntityLayer.MercaderiaEntity">EntityLayer.MercaderiaEntity</a>
- &#8226;   <a href="#EntityLayer.ModuloSistemaEntity">EntityLayer.ModuloSistemaEntity</a>
- &#8226;   <a href="#EntityLayer.OrdenCompraDetalleEntity">EntityLayer.OrdenCompraDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.OrdenCompraEntity">EntityLayer.OrdenCompraEntity</a>
- &#8226;   <a href="#EntityLayer.OrdenPedidoDetalleEntity">EntityLayer.OrdenPedidoDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.OrdenPedidoEntity">EntityLayer.OrdenPedidoEntity</a>
  &#8226;   <a href="#EntityLayer.PersonaNaturalEntity">EntityLayer.PersonaNaturalEntity</a>
- &#8226;   <a href="#EntityLayer.ProcesoEntity">EntityLayer.ProcesoEntity</a>
- &#8226;   <a href="#EntityLayer.ProcesoSecuenciaEntity">EntityLayer.ProcesoSecuenciaEntity</a>
- &#8226;   <a href="#EntityLayer.ProductoEntity">EntityLayer.ProductoEntity</a>
- &#8226;   <a href="#EntityLayer.RecepcionDetalleEntity">EntityLayer.RecepcionDetalleEntity</a>
  &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
  &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
- &#8226;   <a href="#EntityLayer.TarifaProductoEntity">EntityLayer.TarifaProductoEntity</a>
- &#8226;   <a href="#EntityLayer.TipoProcesoEntity">EntityLayer.TipoProcesoEntity</a>
- &#8226;   <a href="#EntityLayer.UbigeoEntity">EntityLayer.UbigeoEntity</a>
- &#8226;   <a href="#EntityLayer.UnidadMedidaEntity">EntityLayer.UnidadMedidaEntity</a>
- &#8226;   <a href="#EntityLayer.UsuarioEntity">EntityLayer.UsuarioEntity</a>
+ &#8226;   <a href="#EntityLayer.StockEntity">EntityLayer.StockEntity</a>
+ &#8226;   <a href="#EntityLayer.TarifaEntity">EntityLayer.TarifaEntity</a>
  &#8226;   <a href="#Utilidades.Entidades.EntidadLikeModel">Utilidades.Entidades.EntidadLikeModel</a>
  &#8226;   <a href="#fastapi.dependencies.utils">fastapi.dependencies.utils</a>
  &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
@@ -19411,6 +19018,22 @@ imported by:
 </div>
 
 <div class="node">
+  <a name="pydantic.validator"></a>
+  <a target="code" href="" type="text/plain"><tt>pydantic.validator</tt></a>
+<span class="moduletype">MissingModule</span>  <div class="import">
+imported by:
+    <a href="#EntityLayer.GeneralEntity">EntityLayer.GeneralEntity</a>
+ &#8226;   <a href="#EntityLayer.MerListaEntity">EntityLayer.MerListaEntity</a>
+ &#8226;   <a href="#EntityLayer.MercaderiaEntity">EntityLayer.MercaderiaEntity</a>
+ &#8226;   <a href="#EntityLayer.OrdenPedidoEntity">EntityLayer.OrdenPedidoEntity</a>
+ &#8226;   <a href="#EntityLayer.TarifaEntity">EntityLayer.TarifaEntity</a>
+ &#8226;   <a href="#pydantic">pydantic</a>
+
+  </div>
+
+</div>
+
+<div class="node">
   <a name="pydantic.validators"></a>
   <tt>pydantic.validators</tt> <span class="moduletype"><tt>D:\Proyecto Git\AlmacenLogistico\ProyectoMysql\server\env-entorno\Lib\site-packages\pydantic\validators.cp311-win_amd64.pyd</tt></span>  <div class="import">
 imports:
@@ -19479,22 +19102,8 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#DataLayer.CorrelativoDB">DataLayer.CorrelativoDB</a>
- &#8226;   <a href="#DataLayer.EstadoProcesoDB">DataLayer.EstadoProcesoDB</a>
- &#8226;   <a href="#DataLayer.ModuloSistemaDB">DataLayer.ModuloSistemaDB</a>
- &#8226;   <a href="#DataLayer.OrdenCompraDB">DataLayer.OrdenCompraDB</a>
- &#8226;   <a href="#DataLayer.OrdenCompraDetalleDB">DataLayer.OrdenCompraDetalleDB</a>
- &#8226;   <a href="#DataLayer.OrdenPedidoDB">DataLayer.OrdenPedidoDB</a>
- &#8226;   <a href="#DataLayer.OrdenPedidoDetalleDB">DataLayer.OrdenPedidoDetalleDB</a>
- &#8226;   <a href="#DataLayer.ProcesoDB">DataLayer.ProcesoDB</a>
- &#8226;   <a href="#DataLayer.ProcesoSecuenciaDB">DataLayer.ProcesoSecuenciaDB</a>
- &#8226;   <a href="#DataLayer.ProductoDB">DataLayer.ProductoDB</a>
- &#8226;   <a href="#DataLayer.RecepcionDB">DataLayer.RecepcionDB</a>
- &#8226;   <a href="#DataLayer.TarifaProductoDB">DataLayer.TarifaProductoDB</a>
- &#8226;   <a href="#DataLayer.TipoProcesoDB">DataLayer.TipoProcesoDB</a>
- &#8226;   <a href="#DataLayer.UnidadMedidaDB">DataLayer.UnidadMedidaDB</a>
- &#8226;   <a href="#DataLayer.UsuarioDB">DataLayer.UsuarioDB</a>
- &#8226;   <a href="#DataLayer.configMysql">DataLayer.configMysql</a>
+    <a href="#DataLayer.RecepcionDB">DataLayer.RecepcionDB</a>
+ &#8226;   <a href="#DataLayer.StockMercaderiaDB">DataLayer.StockMercaderiaDB</a>
  &#8226;   <a href="#Utilidades.Conexion.configMysql">Utilidades.Conexion.configMysql</a>
  &#8226;   <a href="#pymysql">pymysql</a>
  &#8226;   <a href="#pymysql._auth">pymysql._auth</a>
@@ -20169,40 +19778,32 @@ imported by:
   <a target="code" href="-" type="text/plain"><tt>routes</tt></a>
 <span class="moduletype">NamespacePackage</span>  <div class="import">
 imported by:
-    <a href="#routes.CorrelativoRoute">routes.CorrelativoRoute</a>
+    <a href="#routes.DespachoRoute">routes.DespachoRoute</a>
  &#8226;   <a href="#routes.EmpresaRoute">routes.EmpresaRoute</a>
- &#8226;   <a href="#routes.EntDatoRoute">routes.EntDatoRoute</a>
  &#8226;   <a href="#routes.EntListaRouter">routes.EntListaRouter</a>
- &#8226;   <a href="#routes.EstadoProcesoRoute">routes.EstadoProcesoRoute</a>
  &#8226;   <a href="#routes.GeneralRoute">routes.GeneralRoute</a>
  &#8226;   <a href="#routes.MerListaRouter">routes.MerListaRouter</a>
  &#8226;   <a href="#routes.MercaderiaRoute">routes.MercaderiaRoute</a>
- &#8226;   <a href="#routes.ModuloSistemaRoute">routes.ModuloSistemaRoute</a>
  &#8226;   <a href="#routes.OrdenCompraRoute">routes.OrdenCompraRoute</a>
  &#8226;   <a href="#routes.OrdenPedidoRoute">routes.OrdenPedidoRoute</a>
  &#8226;   <a href="#routes.PersonaNaturalRoute">routes.PersonaNaturalRoute</a>
- &#8226;   <a href="#routes.ProcesoRoute">routes.ProcesoRoute</a>
- &#8226;   <a href="#routes.ProcesoSecuenciaRoute">routes.ProcesoSecuenciaRoute</a>
- &#8226;   <a href="#routes.ProductoRoute">routes.ProductoRoute</a>
  &#8226;   <a href="#routes.RecepcionRoute">routes.RecepcionRoute</a>
  &#8226;   <a href="#routes.ReservaRoute">routes.ReservaRoute</a>
- &#8226;   <a href="#routes.TarifaProductoRoute">routes.TarifaProductoRoute</a>
- &#8226;   <a href="#routes.TipoProcesoRoute">routes.TipoProcesoRoute</a>
- &#8226;   <a href="#routes.UbigeoRoute">routes.UbigeoRoute</a>
- &#8226;   <a href="#routes.UnidadMedidaRoute">routes.UnidadMedidaRoute</a>
- &#8226;   <a href="#routes.UsuarioRoute">routes.UsuarioRoute</a>
+ &#8226;   <a href="#routes.StockRoute">routes.StockRoute</a>
+ &#8226;   <a href="#routes.TarifaRoute">routes.TarifaRoute</a>
 
   </div>
 
 </div>
 
 <div class="node">
-  <a name="routes.CorrelativoRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/CorrelativoRoute.py" type="text/plain"><tt>routes.CorrelativoRoute</tt></a>
+  <a name="routes.DespachoRoute"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/DespachoRoute.py" type="text/plain"><tt>routes.DespachoRoute</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#BusinessLayer.Correlativo">BusinessLayer.Correlativo</a>
- &#8226;   <a href="#EntityLayer.CorrelativoEntity">EntityLayer.CorrelativoEntity</a>
+    <a href="#BusinessLayer.Despacho">BusinessLayer.Despacho</a>
+ &#8226;   <a href="#BusinessLayer.Reserva">BusinessLayer.Reserva</a>
+ &#8226;   <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
  &#8226;   <a href="#fastapi">fastapi</a>
  &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
@@ -20222,30 +19823,8 @@ imported by:
   <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/EmpresaRoute.py" type="text/plain"><tt>routes.EmpresaRoute</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#BusinessLayer.Empresa">BusinessLayer.Empresa</a>
+    <a href="#BusinessLayer.Entidad">BusinessLayer.Entidad</a>
  &#8226;   <a href="#EntityLayer.EmpresaEntity">EntityLayer.EmpresaEntity</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#fastapi">fastapi</a>
- &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
- &#8226;   <a href="#routes">routes</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#app.py">app.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="routes.EntDatoRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/EntDatoRoute.py" type="text/plain"><tt>routes.EntDatoRoute</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer.EntDato">BusinessLayer.EntDato</a>
- &#8226;   <a href="#EntityLayer.EntDatoEntity">EntityLayer.EntDatoEntity</a>
- &#8226;   <a href="#Utilidades.Entidades.EntidadLikeModel">Utilidades.Entidades.EntidadLikeModel</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
  &#8226;   <a href="#fastapi">fastapi</a>
  &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
@@ -20283,35 +19862,19 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="routes.EstadoProcesoRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/EstadoProcesoRoute.py" type="text/plain"><tt>routes.EstadoProcesoRoute</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer.EstadoProceso">BusinessLayer.EstadoProceso</a>
- &#8226;   <a href="#EntityLayer.EstadoProcesoEntity">EntityLayer.EstadoProcesoEntity</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#fastapi">fastapi</a>
- &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
- &#8226;   <a href="#routes">routes</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#app.py">app.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="routes.GeneralRoute"></a>
   <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/GeneralRoute.py" type="text/plain"><tt>routes.GeneralRoute</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#BusinessLayer.Empresa">BusinessLayer.Empresa</a>
- &#8226;   <a href="#BusinessLayer.PersonaNatural">BusinessLayer.PersonaNatural</a>
- &#8226;   <a href="#BusinessLayer.Producto">BusinessLayer.Producto</a>
+    <a href="#BusinessLayer.Entidad">BusinessLayer.Entidad</a>
+ &#8226;   <a href="#BusinessLayer.EstadoProceso">BusinessLayer.EstadoProceso</a>
+ &#8226;   <a href="#BusinessLayer.Moneda">BusinessLayer.Moneda</a>
+ &#8226;   <a href="#BusinessLayer.PorcentajeImpuesto">BusinessLayer.PorcentajeImpuesto</a>
+ &#8226;   <a href="#BusinessLayer.Proceso">BusinessLayer.Proceso</a>
+ &#8226;   <a href="#BusinessLayer.RecepLista">BusinessLayer.RecepLista</a>
+ &#8226;   <a href="#BusinessLayer.TipoEntidad">BusinessLayer.TipoEntidad</a>
  &#8226;   <a href="#BusinessLayer.Ubigeo">BusinessLayer.Ubigeo</a>
+ &#8226;   <a href="#BusinessLayer.UnidadMedida">BusinessLayer.UnidadMedida</a>
  &#8226;   <a href="#EntityLayer.EmpresaEntity">EntityLayer.EmpresaEntity</a>
  &#8226;   <a href="#Utilidades.Entidades.EntidadLikeModel">Utilidades.Entidades.EntidadLikeModel</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
@@ -20373,33 +19936,14 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="routes.ModuloSistemaRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/ModuloSistemaRoute.py" type="text/plain"><tt>routes.ModuloSistemaRoute</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer.ModuloSistema">BusinessLayer.ModuloSistema</a>
- &#8226;   <a href="#EntityLayer.ModuloSistemaEntity">EntityLayer.ModuloSistemaEntity</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#fastapi">fastapi</a>
- &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
- &#8226;   <a href="#routes">routes</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#app.py">app.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="routes.OrdenCompraRoute"></a>
   <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/OrdenCompraRoute.py" type="text/plain"><tt>routes.OrdenCompraRoute</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#BusinessLayer.OrdenCompra">BusinessLayer.OrdenCompra</a>
+    <a href="#BusinessLayer">BusinessLayer</a>
+ &#8226;   <a href="#BusinessLayer.OrdenCompra">BusinessLayer.OrdenCompra</a>
  &#8226;   <a href="#BusinessLayer.OrdenCompraDetalle">BusinessLayer.OrdenCompraDetalle</a>
+ &#8226;   <a href="#BusinessLayer.OrdenPedido">BusinessLayer.OrdenPedido</a>
  &#8226;   <a href="#EntityLayer.OrdenCompraEntity">EntityLayer.OrdenCompraEntity</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
  &#8226;   <a href="#fastapi">fastapi</a>
@@ -20442,71 +19986,8 @@ imported by:
   <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/PersonaNaturalRoute.py" type="text/plain"><tt>routes.PersonaNaturalRoute</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#BusinessLayer.PersonaNatural">BusinessLayer.PersonaNatural</a>
+    <a href="#BusinessLayer.Entidad">BusinessLayer.Entidad</a>
  &#8226;   <a href="#EntityLayer.PersonaNaturalEntity">EntityLayer.PersonaNaturalEntity</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#fastapi">fastapi</a>
- &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
- &#8226;   <a href="#routes">routes</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#app.py">app.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="routes.ProcesoRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/ProcesoRoute.py" type="text/plain"><tt>routes.ProcesoRoute</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer.Proceso">BusinessLayer.Proceso</a>
- &#8226;   <a href="#EntityLayer.ProcesoEntity">EntityLayer.ProcesoEntity</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#fastapi">fastapi</a>
- &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
- &#8226;   <a href="#routes">routes</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#app.py">app.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="routes.ProcesoSecuenciaRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/ProcesoSecuenciaRoute.py" type="text/plain"><tt>routes.ProcesoSecuenciaRoute</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer.ProcesoSecuencia">BusinessLayer.ProcesoSecuencia</a>
- &#8226;   <a href="#EntityLayer.ProcesoSecuenciaEntity">EntityLayer.ProcesoSecuenciaEntity</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#fastapi">fastapi</a>
- &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
- &#8226;   <a href="#routes">routes</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#app.py">app.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="routes.ProductoRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/ProductoRoute.py" type="text/plain"><tt>routes.ProductoRoute</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer.Producto">BusinessLayer.Producto</a>
- &#8226;   <a href="#EntityLayer.ProductoEntity">EntityLayer.ProductoEntity</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
  &#8226;   <a href="#fastapi">fastapi</a>
  &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
@@ -20526,9 +20007,9 @@ imported by:
   <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/RecepcionRoute.py" type="text/plain"><tt>routes.RecepcionRoute</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#BusinessLayer.Recepcion">BusinessLayer.Recepcion</a>
+    <a href="#BusinessLayer.RecepLista">BusinessLayer.RecepLista</a>
+ &#8226;   <a href="#BusinessLayer.Recepcion">BusinessLayer.Recepcion</a>
  &#8226;   <a href="#BusinessLayer.RecepcionDetalle">BusinessLayer.RecepcionDetalle</a>
- &#8226;   <a href="#BusinessLayer.ReceptLista">BusinessLayer.ReceptLista</a>
  &#8226;   <a href="#EntityLayer.RecepcionEntity">EntityLayer.RecepcionEntity</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
  &#8226;   <a href="#fastapi">fastapi</a>
@@ -20550,6 +20031,7 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#BusinessLayer.Reserva">BusinessLayer.Reserva</a>
+ &#8226;   <a href="#BusinessLayer.ReservaDetalle">BusinessLayer.ReservaDetalle</a>
  &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
  &#8226;   <a href="#fastapi">fastapi</a>
@@ -20566,12 +20048,14 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="routes.TarifaProductoRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/TarifaProductoRoute.py" type="text/plain"><tt>routes.TarifaProductoRoute</tt></a>
+  <a name="routes.StockRoute"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/StockRoute.py" type="text/plain"><tt>routes.StockRoute</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#BusinessLayer.TarifaProducto">BusinessLayer.TarifaProducto</a>
- &#8226;   <a href="#EntityLayer.TarifaProductoEntity">EntityLayer.TarifaProductoEntity</a>
+    <a href="#BusinessLayer.Reserva">BusinessLayer.Reserva</a>
+ &#8226;   <a href="#BusinessLayer.ReservaDetalle">BusinessLayer.ReservaDetalle</a>
+ &#8226;   <a href="#BusinessLayer.StockMercaderia">BusinessLayer.StockMercaderia</a>
+ &#8226;   <a href="#EntityLayer.ReservaEntity">EntityLayer.ReservaEntity</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
  &#8226;   <a href="#fastapi">fastapi</a>
  &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
@@ -20587,75 +20071,12 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="routes.TipoProcesoRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/TipoProcesoRoute.py" type="text/plain"><tt>routes.TipoProcesoRoute</tt></a>
+  <a name="routes.TarifaRoute"></a>
+  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/TarifaRoute.py" type="text/plain"><tt>routes.TarifaRoute</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#BusinessLayer.TipoProceso">BusinessLayer.TipoProceso</a>
- &#8226;   <a href="#EntityLayer.TipoProcesoEntity">EntityLayer.TipoProcesoEntity</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#fastapi">fastapi</a>
- &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
- &#8226;   <a href="#routes">routes</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#app.py">app.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="routes.UbigeoRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/UbigeoRoute.py" type="text/plain"><tt>routes.UbigeoRoute</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer.Ubigeo">BusinessLayer.Ubigeo</a>
- &#8226;   <a href="#EntityLayer.UbigeoEntity">EntityLayer.UbigeoEntity</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#fastapi">fastapi</a>
- &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
- &#8226;   <a href="#routes">routes</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#app.py">app.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="routes.UnidadMedidaRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/UnidadMedidaRoute.py" type="text/plain"><tt>routes.UnidadMedidaRoute</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer.UnidadMedida">BusinessLayer.UnidadMedida</a>
- &#8226;   <a href="#EntityLayer.UnidadMedidaEntity">EntityLayer.UnidadMedidaEntity</a>
- &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
- &#8226;   <a href="#fastapi">fastapi</a>
- &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
- &#8226;   <a href="#routes">routes</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#app.py">app.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="routes.UsuarioRoute"></a>
-  <a target="code" href="///D:/Proyecto%20Git/AlmacenLogistico/ProyectoMysql/server/routes/UsuarioRoute.py" type="text/plain"><tt>routes.UsuarioRoute</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#BusinessLayer.Usuario">BusinessLayer.Usuario</a>
- &#8226;   <a href="#EntityLayer.UsuarioEntity">EntityLayer.UsuarioEntity</a>
+    <a href="#BusinessLayer.Tarifa">BusinessLayer.Tarifa</a>
+ &#8226;   <a href="#EntityLayer.TarifaEntity">EntityLayer.TarifaEntity</a>
  &#8226;   <a href="#Utilidades.Entidades.ResponseAPI">Utilidades.Entidades.ResponseAPI</a>
  &#8226;   <a href="#fastapi">fastapi</a>
  &#8226;   <a href="#fastapi.encoders">fastapi.encoders</a>
@@ -22502,7 +21923,8 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#anyio">anyio</a>
+    <a href="#EntityLayer.DespachoEntity">EntityLayer.DespachoEntity</a>
+ &#8226;   <a href="#anyio">anyio</a>
  &#8226;   <a href="#anyio._backends._asyncio">anyio._backends._asyncio</a>
  &#8226;   <a href="#anyio._backends._trio">anyio._backends._trio</a>
  &#8226;   <a href="#anyio._core._compat">anyio._core._compat</a>
