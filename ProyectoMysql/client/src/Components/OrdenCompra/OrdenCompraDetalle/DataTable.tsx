@@ -9,8 +9,7 @@ import 'moment/locale/es';
 import { DataType } from '../../../Lib/ResourceModel/DataTableType'
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 
-import { OrdenPedidoFiltroOCDModel, OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity';
-import { OrdenCompraDetalleEntity } from '../../../Models/OrdenCompraDetalleEntity';
+import {  OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity';
 // import  from 'react-emotion';
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');

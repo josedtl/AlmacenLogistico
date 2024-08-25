@@ -18,6 +18,7 @@ class MercaderiaDB:
 
     def RegistrarDB(Ent: MercaderiaSaveModel):
         try:
+            print(Ent)
             store_mapping = {
                 ProcessActionEnum.Update: "sp_Mercaderia_Actualizar",
                 ProcessActionEnum.Add: "sp_Mercaderia_Registrar",
@@ -35,8 +36,8 @@ class MercaderiaDB:
             args.append(Ent.UnidadMedidaId) 
             args.append(Ent.Reserva)
             args.append(Ent.Stock)
-            args.append(Ent.CodUsuario)
             args.append(Ent.FechaRegistro)
+            args.append(Ent.CodUsuario)
             args.append(Ent.EstadoRegistro)
             Ent.MercaderiaId = DBProcedure().DBProcedureInsertUpdate(
                 Store, args, "v_MercaderiaId"

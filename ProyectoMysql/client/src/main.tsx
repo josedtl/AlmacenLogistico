@@ -1,17 +1,3 @@
-// import React from 'react'
-// import ReactDOM from 'react-dom/client'
-// import App from './App.tsx'
-// import './index.css'
-
-// ReactDOM.createRoot(document.getElementById('root')!).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-// )
-
-
-
-
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
@@ -43,17 +29,24 @@ import PageTarifaSave from "./Components/Tarifa/Save";
 import PageDespacho from "./Components/Despacho/Main";
 import PageDespachoSave from "./Components/Despacho/DespachoDetalle/Save";
 import PageStock from "./Components/Stock/Main";
+import Login from './Components/Login/Login';
+import ProtectedRoute from './Components/ProtectedRoute';
+import { AuthProvider } from './Components/AuthContext.tsx';
 
 const router = createBrowserRouter([
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
     path: "/",
-    element: <Root />,
-    // errorElement: <ErrorPage />,
+    element: (
+      <ProtectedRoute>
+        <Root />
+      </ProtectedRoute>
+    ),
     children: [
-      // { path: "Categoria", element: <PageCategoria />, },
-      // { path: "TipoProducto", element: <PageTipoProducto />, },
-      // { path: "Marca", element: <PageMarca />, },
-      // { path: "Modelo", element: <PageModelo />, },
+
       { path: "Producto", element: <PageProdcuto />, },
       { path: "Producto/Menu", element: <PageProductoMenu />, },
       { path: "PersonaNatural", element: <PagePersonaNatural />, },
@@ -63,7 +56,6 @@ const router = createBrowserRouter([
       { path: "OrdenPedidoSave/:Id", element: <PageOrdenPedidoSave />, },
       { path: "Empresa", element: <PageEmpresa />, },
       { path: "EmpresaSave/:Id", element: <PageEmpresaSave />, },
-      // { path: "Cliente", element: <PageCliente />, },
       { path: "Producto/Enlace/:Id", element: <ProductoEnlace />, },
       { path: "Entidad", element: <EntidadMenu />, },
       { path: "OrdenCompra", element: <PageOrdenCompra />, },
@@ -77,13 +69,15 @@ const router = createBrowserRouter([
       { path: "Despacho", element: <PageDespacho />, },
       { path: "DespachoSave/:Id", element: <PageDespachoSave />, },
       { path: "StockMercaderia", element: <PageStock />, },
-      
+
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>,
 )

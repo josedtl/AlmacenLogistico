@@ -205,7 +205,7 @@ function Page() {
     });
   }
 
-  const operations = <ModalItem buttonLabel="" addItemToState={event_AgregarDetalle} item={new OrdenPedidoDetalleEntity()} keyItem={''} />;
+  // const operations = <ModalItem buttonLabel="" addItemToState={event_AgregarDetalle} item={new OrdenPedidoDetalleEntity()} keyItem={''} />;
 
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
     date;

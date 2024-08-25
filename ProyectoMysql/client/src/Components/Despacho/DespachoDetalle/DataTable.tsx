@@ -1,19 +1,15 @@
 import React from 'react';
 import ModalItem from './ModalItem'
-import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
-import type { SizeType } from 'antd/es/config-provider/SizeContext';
-import { Card, Col, Row, Button, Table, Modal } from 'antd';
+import { Card, Col, Row, Table, Modal } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PropsTable } from '../../../Lib/PropsItem'
 import 'moment/locale/es';
 import { DataType } from '../../../Lib/ResourceModel/DataTableType'
-import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 
-import { DespachoDetalleModel } from '../../../Models/DespachoEntity';
 // import  from 'react-emotion';
 const DataTable: React.FC<PropsTable> = (props) => {
-    const [size] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
+    modal;
     const columns: ColumnsType<DataType> = [
         {
             title: 'Nº',
@@ -53,33 +49,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             width: 65,
             key: 'CantidadAtendido',
         },
-        {
-            title: 'Action',
-            fixed: 'right',
-            width: 60,
-            key: 'action',
-            render: (record: DespachoDetalleModel) =>
-                <span>
-
-                    {/* <Button
-                        type='dashed'
-                        onClick={() => deleteItem(record)}
-                        style={{ float: "right", marginRight: "10px", color: "#C64541", backgroundColor: "white", borderColor: "#C64541" }}
-                        size={size}
-                        icon={<DeleteFilled />}
-                    />
-                    <ModalItem
-                        buttonLabel="Edit"
-                        item={record}
-                        updateState={props.updateState}
-                        keyItem={record.keyItem}
-                    /> */}
-
-
-
-                </span>
-            ,
-        },
+      
 
     ];
 

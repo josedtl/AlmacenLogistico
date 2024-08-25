@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
-import DataTableItem from './FiltroDetalle/DataTableItem';
 import ModalItem from './ModalItem';
-import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar } from 'antd';
+import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Layout, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { useParams } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
@@ -132,7 +131,7 @@ function Page() {
 
   const [ValTipoRequerimiento, setValTipoRequerimiento] = useState<InputStatus>('');
   const [ValProveedor, setValProveedor] = useState<InputStatus>('');
-
+  setValProveedor;
 
   const onChangeTipoProceso = async (value: number) => {
     setValTipoRequerimiento('');
@@ -324,6 +323,7 @@ function Page() {
   const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
   const [optionsEntidad, setOptionsEntidad] = useState<EntidadNombreCompletoModel[]>([]);
   const [ValCategoria, setValCategoria] = useState<InputStatus>('');
+  ValCategoria;
   const handleSearchCategoria = async (value: string) => {
     try {
       const responseCategoria = await sGeneral.EntidadBuscarNombreCompletoItem(value);
@@ -355,22 +355,13 @@ function Page() {
 
   }
 
-  const contentStyle: React.CSSProperties = {
-    // margin:50,
-    marginLeft: 50,
-    marginRight: 50
-    // textAlign: 'center',
-    // minHeight: 400,
-    // lineHeight: '120px',
-    // color: '#fff',
-    // backgroundColor: '#0958d9',
-  };
+ 
   const footerStyle: React.CSSProperties = {
     // backgroundColor: "#C9E1E4",
     borderColor: "#15616d",
   };
 
-  const { Footer, Content } = Layout;
+  const { Footer } = Layout;
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 

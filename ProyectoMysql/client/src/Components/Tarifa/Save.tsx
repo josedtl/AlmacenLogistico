@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
+import { Tabs, message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
 
 
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
@@ -114,18 +114,19 @@ const Save = () => {
 
     return Number(num.toFixed(2));
   };
-  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    setEnt({
-      ...Ent,
-      [e.target.name]: e.target.value.toUpperCase()
-    });
+  //   setEnt({
+  //     ...Ent,
+  //     [e.target.name]: e.target.value.toUpperCase()
+  //   });
 
 
-  };
+  // };
 
 
   const [selectedModelo, setSelectedModelo] = useState<number | undefined>(undefined);
+  selectedModelo;
   const [selectedUM, setSelectedUM] = useState<number | undefined>(undefined);
   const [selectedMoneda, setSelectedMoneda] = useState<number | undefined>(undefined);
   const [selectedImpuesto, setSelectedImpuesto] = useState<number | undefined>(undefined);

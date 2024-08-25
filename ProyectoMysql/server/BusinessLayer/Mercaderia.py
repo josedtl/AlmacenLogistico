@@ -17,7 +17,7 @@ class Mercaderia:
             StartTransaction()
             data = MercaderiaDB.RegistrarDB(Ent)
             EndTransaction()
-            return data.MercaderiaId
+            return data
         except Exception as e:
             Restore()
             print(e)

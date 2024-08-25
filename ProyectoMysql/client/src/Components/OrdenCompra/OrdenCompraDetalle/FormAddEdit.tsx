@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
-import { Button, Col, Row, Form, Radio, Table } from 'antd';
+import { Button, Col, Row, Form, Radio } from 'antd';
 import DataTableOrden from './FiltroOrden/DataTableOrden';
 import DataTableItem from './FiltroDetalle/DataTableItem';
 import type { RadioChangeEvent } from 'antd';
-import { useParams } from 'react-router-dom';
 
 //service
 import OrdenCompraService from '../../../Service/OrdenCompraService';
-import OrdenPedidoService from '../../../Service/OrdenPedidoService';
+
 
 
 //entity
 import { OrdenCompraDetalleEntity } from '../../../Models/OrdenCompraDetalleEntity'
 import { OrdenPedidoFiltroOCOModel } from "../../../Models/OrdenPedidoEntity";
-import { OrdenPedidoFiltroOCDModel, OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity'
+import { OrdenPedidoFiltroOCDModel } from '../../../Models/OrdenPedidoDetalleEntity'
 
 
 const AddEditForm: React.FC<PropsModel> = (props) => {
@@ -23,14 +22,11 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const initialOrdenCompraDetalle = new OrdenCompraDetalleEntity();
     const [Ent, setEnt] = useState<OrdenCompraDetalleEntity>(initialOrdenCompraDetalle);
 
-    const { Id } = useParams();
-    const idNumero = Number(Id?.toString());
-    const [optionsOrdenDetalle, setoptionsOrdenDetalle] = useState<OrdenPedidoDetalleEntity[]>([]);
 
-    const [Items, setItems] = useState<OrdenPedidoDetalleEntity[]>([]);
+
+
     const [ItemsListaAlter, setItemsListaAlter] = useState<any[]>([]);
-    
-    const sOrdenPedido = new OrdenPedidoService();
+    setItemsListaAlter;
     const sOrdenCompra = new OrdenCompraService();
 
     const [selectedOption, setSelectedOption] = useState(1);

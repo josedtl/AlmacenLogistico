@@ -190,6 +190,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const [ValUnidadMedida, setValUnidadMedida] = useState<InputStatus>('');
     const [selectedUM, setSelectedUM] = useState<number | undefined>(undefined);
+    selectedUM;
     const onChangeUM = async (value: number) => {
         setValUnidadMedida('');
         Ent.UnidadMedidaId = value;

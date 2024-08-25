@@ -22,6 +22,7 @@ function Page() {
   const [Ent, setEnt] = useState<ReservaResumenModel>(new ReservaResumenModel());
   const [KeyTabs, setKeyTabs] = useState<String>('');
   const [ItemReservaDetalle, setItemReservaDetalle] = useState<ReservaDetalleEntity[]>([]);
+  setItemReservaDetalle;
   KeyTabs;
   const addItemToState = (item: ReservaPedidoModel) => {
 

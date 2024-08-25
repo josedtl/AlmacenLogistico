@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
-import ModalItem from '../ModalItem'
-import { DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
-import type { SizeType } from 'antd/es/config-provider/SizeContext';
-import { Card, Col, Row, Button, Table, Modal } from 'antd';
+import React, { useState } from "react";
+
+import {  Table, Modal } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PropsTable } from '../../../../Lib/PropsItem'
 import { Checkbox } from 'antd';
 import type { CheckboxProps } from 'antd';
 import 'moment/locale/es';
 import { DataType } from '../../../../Lib/ResourceModel/DataTableType'
-import { ProcessActionEnum } from '../../../../Lib/ResourceModel/Enum'
+
 
 import { OrdenPedidoFiltroOCDModel } from '../../../../Models/OrdenPedidoDetalleEntity';
 // import  from 'react-emotion';
 const DataTable: React.FC<PropsTable> = (props) => {
-    const [size] = React.useState<SizeType>('middle');
     const [modal, contextHolder] = Modal.useModal();
+    modal;
     const columns: ColumnsType<DataType> = [
         {
             title: 'Nº',

@@ -186,6 +186,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
 
     const [modal, contextHolder] = Modal.useModal();
+    modal;
     return (
 
         // <Form form={form} name="formItem" layout="vertical" autoComplete="off">

@@ -5,7 +5,7 @@ import { RecepcionEntity, RecepListaModel } from '../../../Models/RecepcionEntit
 import ModalItem from './ModalItem';
 import GeneralService from '../../../Service/GeneralService';
 import RecepcionService from '../../../Service/RecepcionService';
-import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Flex, Layout, Segmented, Avatar } from 'antd';
+import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Layout, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { EntidadNombreCompletoModel } from '../../../Models/GeneralEntity';
 import { useParams } from 'react-router-dom';
@@ -449,22 +449,13 @@ function Page() {
 
   }
 
-  const contentStyle: React.CSSProperties = {
-    // margin:50,
-    marginLeft: 50,
-    marginRight: 50
-    // textAlign: 'center',
-    // minHeight: 400,
-    // lineHeight: '120px',
-    // color: '#fff',
-    // backgroundColor: '#0958d9',
-  };
   const footerStyle: React.CSSProperties = {
     // backgroundColor: "#C9E1E4",
     borderColor: "#15616d",
   };
 
   const {  Footer,  Content } = Layout;
+  Content;
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
