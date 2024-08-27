@@ -9,7 +9,6 @@ export class TarifaEntity {
     FechaCreacion: Date;
     Vigente: boolean;
     MercaderiaId:number;
-    cod:string;
     
     Action: number;
 
@@ -27,7 +26,6 @@ export class TarifaEntity {
         this.FechaCreacion = new Date();
         this.Vigente = true;
         this.MercaderiaId=0;
-        this.cod='';
         this.Action=0;     
         this.Valor='';
         this.NomProducto = '';

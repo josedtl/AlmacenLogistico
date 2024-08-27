@@ -61,6 +61,7 @@ const Save = () => {
   const onChangeTextConImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
     // const ValorCI = Number(e.target.value);
     // const str = "123.45";
+    setValConImpuesto('');
     const decimal = parseFloat(e.target.value.toLowerCase());
     console.log(decimal);
     console.log(e.target.value)
@@ -78,12 +79,11 @@ const Save = () => {
       setPrecioSinImpuesto(roundToTwoDecimals(decimal / (1 + valorImpuesto / 100)).toString());
     }
 
-    // setEnt({ ...Ent });
   }
 
   const onChangeTextSinImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrecioSinImpuesto(e.target.value);
-
+    setValSinImpuesto('');
 
     const decimal = parseFloat(e.target.value.toLowerCase());
     console.log(decimal);
@@ -107,10 +107,6 @@ const Save = () => {
 
 
   const roundToTwoDecimals = (num: number): number => {
-    //  const Num3= Number(num.toFixed(3));
-    //  console.log(Num3);
-    //  const Num2 = Math.round(Num3);   console.log(Num3);
-    //  let roundedToTwoDecimals: number = parseFloat(total.toFixed(2));
 
     return Number(num.toFixed(2));
   };
@@ -135,6 +131,9 @@ const Save = () => {
   const [ValImpuesto, setValImpuesto] = useState<InputStatus>('');
   const [ValMoneda, setValMoneda] = useState<InputStatus>('');
   const [ValUnidadMedida, setValUnidadMedida] = useState<InputStatus>('');
+
+  const [ValConImpuesto, setValConImpuesto] = useState<InputStatus>('');
+  const [ValSinImpuesto, setValSinImpuesto] = useState<InputStatus>('');
 
   const handleSearchMercaderia = async (value: string) => {
     try {
@@ -183,17 +182,21 @@ const Save = () => {
     console.log(Ent);
     const savedItem = await sTarifa.saveItem(Ent);
     console.log(savedItem);
-    if (savedItem) {
-      messageAdd.open({
-        type: 'success',
-        content: 'Se guardó correctamente.',
-      });
-    } else {
-      messageAdd.open({
-        type: 'error',
-        content: 'Error al guardar el item.',
-      });
-    }
+    // if (savedItem) {
+    //   messageAdd.open({
+    //     type: 'success',
+    //     content: 'Se guardó correctamente.',
+      
+        
+    //   });
+    //   console.log('Guardo!!!')
+    // } else {
+    //   messageAdd.open({
+    //     type: 'error',
+    //     content: 'Error al guardar el item.',
+    //   });
+    //   console.log('NO Guardo!!!')
+    // }
   }
 
 
@@ -237,7 +240,8 @@ const Save = () => {
       onOk() {
         Ent.Action = 1;
         Ent.FechaCreacion = new Date();
-
+   // Vuelve a verificar los valores antes de guardar
+   console.log('Ent antes de llamar a AddTarifa:', Ent);
         AddTarifa();
       },
       onCancel() {
@@ -366,7 +370,7 @@ const Save = () => {
               >
                 {optionsMoneda.map((M) => (
                   <Select.Option key={M.MonedaId} value={M.MonedaId}>
-                    {M.Simbolo} - {M.Simbolo}
+                    {M.Simbolo} - {M.CodMoneda}
                   </Select.Option>
                 ))}
               </Select>
@@ -427,8 +431,10 @@ const Save = () => {
                 </Col>
                 <Col span={24}>
                   <Input
+                
+                status={ValSinImpuesto}
                     type="decimal"
-                    name="PrecioSinInpuesto"
+                    name="PrecioSinImpuesto"
                     style={{ marginTop: '5px', marginBottom: '10px' }}
                     onChange={onChangeTextSinImpuesto}
                     value={getPrecioSinImpuesto === null ? "" : getPrecioSinImpuesto}
@@ -443,8 +449,9 @@ const Save = () => {
                 </Col>
                 <Col span={24}>
                   <Input
+                  status={ValConImpuesto}
                     type="number"
-                    name="PrecioConInpuesto"
+                    name="PrecioConImpuesto"
                     style={{ marginTop: '5px', marginBottom: '10px' }}
                     onChange={onChangeTextConImpuesto}
                     value={getPrecioConImpuesto === null ? "" : getPrecioConImpuesto}
