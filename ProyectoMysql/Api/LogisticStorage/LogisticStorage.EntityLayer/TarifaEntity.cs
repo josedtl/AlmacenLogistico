@@ -14,8 +14,8 @@ namespace LogisticStorage.EntityLayer
             this.UnidadMedidaId = GetInt32Default();
             this.MonedaId = GetInt32Default();
             this.PorcentajeImpuestoId = GetInt32Default();
-            this.PrecioSinInpuesto = GetInt32Default();
-            this.PrecioConInpuesto = GetInt32Default();
+            this.PrecioSinImpuesto = GetInt32Default();
+            this.PrecioConImpuesto = GetInt32Default();
             this.FechaCreacion = DateTime.Now;
             this.Vigente = GetBooleanDefault();
             this.ObjetoReferenciaId = GetInt32Default();
@@ -26,8 +26,8 @@ namespace LogisticStorage.EntityLayer
         public Int32 UnidadMedidaId { get; set; }
         public Int32 MonedaId { get; set; }
         public Int32 PorcentajeImpuestoId { get; set; }
-        public Decimal PrecioSinInpuesto { get; set; }
-        public Decimal PrecioConInpuesto { get; set; }
+        public Decimal PrecioSinImpuesto { get; set; }
+        public Decimal PrecioConImpuesto { get; set; }
         public DateTime FechaCreacion { get; set; }
         public Boolean Vigente { get; set; }
 

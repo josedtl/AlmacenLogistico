@@ -39,8 +39,8 @@ const Save = () => {
 
   const [optionsMoneda, setOptionsMoneda] = useState<MonedaEntity[]>([]);
   const [optionsImporte, setOptionsImporte] = useState<PorcentajeImporteEntity[]>([]);
-  const [getPrecioSinInpuesto, setPrecioSinInpuesto] = useState<string>('0');
-  const [getPrecioConInpuesto, setPrecioConInpuesto] = useState<string>('0');
+  const [getPrecioSinImpuesto, setPrecioSinImpuesto] = useState<string>('0');
+  const [getPrecioConImpuesto, setPrecioConImpuesto] = useState<string>('0');
 
   const getCargarDatos = async () => {
 
@@ -64,7 +64,7 @@ const Save = () => {
     const decimal = parseFloat(e.target.value.toLowerCase());
     console.log(decimal);
     console.log(e.target.value)
-    setPrecioConInpuesto(e.target.value);
+    setPrecioConImpuesto(e.target.value);
     const porcentajeImpuesto = optionsImporte.find(option => option.PorcentajeImpuestoId === Ent.PorcentajeImpuestoId);
 
     if (porcentajeImpuesto === undefined) {
@@ -75,14 +75,14 @@ const Save = () => {
     const valorImpuesto = porcentajeImpuesto.Valor;
 
     if (!isNaN(decimal) && e.target.value.trim() !== "") {
-      setPrecioSinInpuesto(roundToTwoDecimals(decimal / (1 + valorImpuesto / 100)).toString());
+      setPrecioSinImpuesto(roundToTwoDecimals(decimal / (1 + valorImpuesto / 100)).toString());
     }
 
     // setEnt({ ...Ent });
   }
 
   const onChangeTextSinImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPrecioSinInpuesto(e.target.value);
+    setPrecioSinImpuesto(e.target.value);
 
 
     const decimal = parseFloat(e.target.value.toLowerCase());
@@ -100,7 +100,7 @@ const Save = () => {
     if (!isNaN(decimal) && e.target.value.trim() !== "") {
 
       
-      setPrecioConInpuesto(roundToTwoDecimals(decimal * (1 + valorImpuesto / 100)).toString());
+      setPrecioConImpuesto(roundToTwoDecimals(decimal * (1 + valorImpuesto / 100)).toString());
       
     }
   }
@@ -431,7 +431,7 @@ const Save = () => {
                     name="PrecioSinInpuesto"
                     style={{ marginTop: '5px', marginBottom: '10px' }}
                     onChange={onChangeTextSinImpuesto}
-                    value={getPrecioSinInpuesto === null ? "" : getPrecioSinInpuesto}
+                    value={getPrecioSinImpuesto === null ? "" : getPrecioSinImpuesto}
                   />
                 </Col>
               </Row>
@@ -447,7 +447,7 @@ const Save = () => {
                     name="PrecioConInpuesto"
                     style={{ marginTop: '5px', marginBottom: '10px' }}
                     onChange={onChangeTextConImpuesto}
-                    value={getPrecioConInpuesto === null ? "" : getPrecioConInpuesto}
+                    value={getPrecioConImpuesto === null ? "" : getPrecioConImpuesto}
                   />
                 </Col>
               </Row>

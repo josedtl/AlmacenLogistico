@@ -11,8 +11,8 @@ namespace LogisticStorage.Server.Model.Tarifa
             this.NomProducto = String.Empty;
             this.NomMoneda = String.Empty;
             this.NomUnidad = String.Empty;
-            this.PrecioConInpuesto = 0;
-            this.PrecioSinInpuesto= 0;
+            this.PrecioConImpuesto = 0;
+            this.PrecioSinImpuesto = 0;
             this.Vigente = true;
             this.FechaCreacion=DateTime.Now;
 
@@ -24,8 +24,8 @@ namespace LogisticStorage.Server.Model.Tarifa
             this.NomProducto = ent.NomProducto;
             this.NomMoneda = ent.NomMoneda;
             this.NomUnidad = ent.NomUnidad;
-            this.PrecioConInpuesto = ent.PrecioConInpuesto;
-            this.PrecioSinInpuesto = ent.PrecioSinInpuesto;
+            this.PrecioConImpuesto = ent.PrecioConImpuesto;
+            this.PrecioSinImpuesto = ent.PrecioSinImpuesto;
             this.Vigente = true;
             this.FechaCreacion = DateTime.Now;
 
@@ -35,8 +35,8 @@ namespace LogisticStorage.Server.Model.Tarifa
         [JsonPropertyName("NomUnidad")] public string NomUnidad { get; set; }
         [JsonPropertyName("NomMoneda")] public string NomMoneda { get; set; }
         [JsonPropertyName("Valor")] public string Valor { get; set; }
-        [JsonPropertyName("PrecioSinInpuesto")] public Decimal PrecioSinInpuesto { get; set; }
-        [JsonPropertyName("PrecioConInpuesto")] public Decimal PrecioConInpuesto { get; set; }
+        [JsonPropertyName("PrecioSinImpuesto")] public Decimal PrecioSinImpuesto { get; set; }
+        [JsonPropertyName("PrecioConImpuesto")] public Decimal PrecioConImpuesto { get; set; }
         [JsonPropertyName("FechaCreacion")] public DateTime FechaCreacion { get; set; }
         [JsonPropertyName("Vigente")] public Boolean Vigente { get; set; }
     }

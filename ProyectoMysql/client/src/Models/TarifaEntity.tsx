@@ -4,8 +4,8 @@ export class TarifaEntity {
     UnidadMedidaId: number;
     MonedaId: number;
     PorcentajeImpuestoId: number;
-    PrecioSinInpuesto: number;
-    PrecioConInpuesto: number;
+    PrecioSinImpuesto: number;
+    PrecioConImpuesto: number;
     FechaCreacion: Date;
     Vigente: boolean;
     MercaderiaId:number;
@@ -22,8 +22,8 @@ export class TarifaEntity {
         this.UnidadMedidaId = 0;
         this.MonedaId = 0;
         this.PorcentajeImpuestoId = 0;
-        this.PrecioSinInpuesto = 0;
-        this.PrecioConInpuesto = 0;
+        this.PrecioSinImpuesto = 0;
+        this.PrecioConImpuesto = 0;
         this.FechaCreacion = new Date();
         this.Vigente = true;
         this.MercaderiaId=0;

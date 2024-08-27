@@ -45,15 +45,15 @@ const DataTable: React.FC<PropsTable> = (props) => {
             width:100
         },
         {
-            title: 'Precio Sin Inpuesto',
-            dataIndex: 'PrecioSinInpuesto',
-            key: 'PrecioSinInpuesto',
+            title: 'Precio Sin Impuesto',
+            dataIndex: 'PrecioSinImpuesto',
+            key: 'PrecioSinImpuesto',
             width:100
         },
         {
-            title: 'Precio Con Inpuesto',
-            dataIndex: 'PrecioConInpuesto',
-            key: 'PrecioConInpuesto',
+            title: 'Precio Con Impuesto',
+            dataIndex: 'PrecioConImpuesto',
+            key: 'PrecioConImpuesto',
             width:100
         },
         {

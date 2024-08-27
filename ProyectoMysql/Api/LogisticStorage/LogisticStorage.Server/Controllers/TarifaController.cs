@@ -46,10 +46,10 @@ namespace LogisticStorage.Server.Controllers
                 ItemEntity.MonedaId = Item.MonedaId;
                 ItemEntity.MercaderiaId = Item.MercaderiaId;
                 ItemEntity.PorcentajeImpuestoId = Item.PorcentajeImpuestoId;
-                ItemEntity.PrecioSinInpuesto = Item.PrecioSinInpuesto;
-                ItemEntity.PrecioConInpuesto = Item.PrecioConInpuesto;
+                ItemEntity.PrecioSinImpuesto = Item.PrecioSinImpuesto;
+                ItemEntity.PrecioConImpuesto = Item.PrecioConImpuesto;
                 ItemEntity.FechaCreacion = Item.FechaCreacion;
-                ItemEntity.Vigente = Item.Vigente;
+                ItemEntity.Vigente = Item.Vigente; 
                 ItemEntity.LogicalState = (LogicalState)Item.Action;
 
                 Item.TarifaId = Tarifa.Registrar(ItemEntity);
