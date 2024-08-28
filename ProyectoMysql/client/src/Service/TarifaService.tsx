@@ -20,6 +20,7 @@ class TarifaService {
           'Content-Type': 'application/json',
         },
       });
+      console.log(response);
       return response.data.Value;
     } catch (error) {
       console.error('Error al guardar el item:', error);

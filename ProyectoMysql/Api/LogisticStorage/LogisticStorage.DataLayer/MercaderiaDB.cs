@@ -180,6 +180,79 @@ namespace LogisticStorage.DataLayer
                 throw ex;
             }
         }
+      
+        public virtual List<MercaderiaEntity> ObtenerMercaderiaTarifa(Int32 MercaderiaId)
+        {
+            try
+            {
+                StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MercaderiaId", DbType.Int32, 4, false, 0, 0, MercaderiaId);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_MercaderiaTarifa_Item");
+                FillSchemeTable(dr);
+                List<MercaderiaEntity> EntityList = new List<MercaderiaEntity>();
+                while (dr.Read())
+                {
+                    MercaderiaEntity entity = new MercaderiaEntity();
+                    if (FillFrom(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public virtual List<MercaderiaEntity> ObtenerMercaderiaTarifaItems()
+        {
+            try
+            {
+                StartHelper(false);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(System.Data.CommandType.StoredProcedure, "sp_MercaderiaTarifa_Items");
+                FillSchemeTable(dr);
+                List<MercaderiaEntity> EntityList = new List<MercaderiaEntity>();
+
+                while (dr.Read())
+                {
+                    MercaderiaEntity entity = new MercaderiaEntity();
+                    if (FillFrom<MercaderiaEntity>(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public virtual List<MercaderiaEntity> BuscarItem(String Nombre)
+        {
+            try
+            {
+                StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Nombre", DbType.String, 50, false, 0, 0, Nombre);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_MercaderiaTarifa_like");
+                FillSchemeTable(dr);
+                List<MercaderiaEntity> EntityList = new List<MercaderiaEntity>();
+                while (dr.Read())
+                {
+                    MercaderiaEntity entity = new MercaderiaEntity();
+                    if (FillFrom(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }

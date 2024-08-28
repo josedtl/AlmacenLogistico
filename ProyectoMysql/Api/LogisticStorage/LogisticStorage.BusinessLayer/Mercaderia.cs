@@ -39,5 +39,22 @@ namespace LogisticStorage.BusinessLayer
             MercaderiaDB DB = new MercaderiaDB();
             return DB.BuscarCategoriaItem(Nombre, CategoriaId);
         }
+
+        public static List<MercaderiaEntity> ObtenerMercaderiaTarifa(Int32 MercaderiaId)
+        {
+            MercaderiaDB DB = new MercaderiaDB();
+            return DB.ObtenerMercaderiaTarifa(MercaderiaId);
+        }
+        public static List<MercaderiaEntity> ObtenerMercaderiaTarifaItems()
+        {
+            MercaderiaDB DB = new MercaderiaDB();
+            return DB.ObtenerMercaderiaTarifaItems();
+        }
+        public static List<MercaderiaEntity> BuscarItem(String Nombre)
+        {
+            MercaderiaDB DB = new MercaderiaDB();
+            return DB.BuscarItem(Nombre);
+        }
+
     }
 }

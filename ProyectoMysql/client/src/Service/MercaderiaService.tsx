@@ -85,6 +85,45 @@ class MercaderiaService {
       return [];
     }
   }
+  async ObtenerMercaderiaTarifaItems(): Promise<MercaderiaSaveModel[]> {
+    try {
+      const response = await axios.get(`${URL}/api/Mercaderia/ObtenerMercaderiaTarifaItems`);
+      if (response.status === 200 && response.data.Value != null) {
+        return response.data.Value;
+      }
+      return [];
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  }
+  async GetObtenerMercaderiaTarifa(Id:number): Promise<MercaderiaSaveModel[]> {
+    try {
+      const response = await axios.get(`${URL}/api/Mercaderia/ObtenerMercaderiaTarifa/${Id}`);
+      if (response.status === 200 && response.data.Value != null) {
+        return response.data.Value;
+      }
+      return [];
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  }
+  async GetBuscarItem(codigo: string): Promise<MercaderiaSaveModel[]> {
+    try {
+
+        const EntLike = new EntidadLikeModel();
+        EntLike.Valor1 = codigo;
+        const response = await axios.post(`${URL}/api/Mercaderia/BuscarItem`, EntLike, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data.Value;
+    } catch (error) {
+        throw error;
+    }
+}
 
 }
 

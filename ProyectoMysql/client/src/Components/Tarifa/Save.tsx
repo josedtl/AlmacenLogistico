@@ -12,7 +12,7 @@ import GeneralService from '../../Service/GeneralService';
 import MerListaService from '../../Service/MerListaService';
 import TarifaService from '../../Service/TarifaService';
 
-import { MerListaEntity } from '../../Models/MerListaEntity';
+import { MercaderiaSaveModel } from '../../Models/MercaderiaEntity';
 import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
 import { PorcentajeImporteEntity } from '../../Models/PorcentajeImporteEntity';
 import { MonedaEntity } from '../../Models/MonedaEntity';
@@ -28,13 +28,13 @@ const Save = () => {
   const sTarifa = new TarifaService();
 
 
-  const initialProducto = new TarifaEntity();
-  const [Ent, setEnt] = useState<TarifaEntity>(initialProducto);
+  const initialMercaderia = new TarifaEntity();
+  const [Ent, setEnt] = useState<TarifaEntity>(initialMercaderia);
   const { Title } = Typography;
   const [CargarPage, setCargarPage] = React.useState(true);
 
 
-  const [optionsMercaderia, setOptionsMercaderia] = useState<MerListaEntity[]>([]);
+  const [optionsMercaderia, setOptionsMercaderia] = useState<MercaderiaSaveModel[]>([]);
   const [optionsUM, setOptionsUM] = useState<UnidadMedidaEntity[]>([]);
 
   const [optionsMoneda, setOptionsMoneda] = useState<MonedaEntity[]>([]);
@@ -47,17 +47,14 @@ const Save = () => {
     console.log(idNumero)
     if (idNumero > 0) {
 
-      const Resp_Producto = await sMercaderia.GetCabeceraItem(idNumero);
-      console.log(Resp_Producto);
-
-      const Resp_Mercaderia = await sMerLista.getItem(Resp_Producto[0].ModeloId);
+      const Resp_Mercaderia = await sMercaderia.GetObtenerMercaderiaTarifa(Ent.MercaderiaId);
       setOptionsMercaderia(Resp_Mercaderia);
-
-
     }
 
     setCargarPage(false);
   };
+
+  
   const onChangeTextConImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
     // const ValorCI = Number(e.target.value);
     // const str = "123.45";
@@ -99,9 +96,9 @@ const Save = () => {
 
     if (!isNaN(decimal) && e.target.value.trim() !== "") {
 
-      
+
       setPrecioConImpuesto(roundToTwoDecimals(decimal * (1 + valorImpuesto / 100)).toString());
-      
+
     }
   }
 
@@ -121,13 +118,13 @@ const Save = () => {
   // };
 
 
-  const [selectedModelo, setSelectedModelo] = useState<number | undefined>(undefined);
-  selectedModelo;
+  const [selectedMercaderia, setSelectedMercaderia] = useState<number | undefined>(undefined);
+  selectedMercaderia;
   const [selectedUM, setSelectedUM] = useState<number | undefined>(undefined);
   const [selectedMoneda, setSelectedMoneda] = useState<number | undefined>(undefined);
   const [selectedImpuesto, setSelectedImpuesto] = useState<number | undefined>(undefined);
 
-  const [ValModelo, setValModelo] = useState<InputStatus>('');
+  const [ValMercaderia, setValMercaderia] = useState<InputStatus>('');
   const [ValImpuesto, setValImpuesto] = useState<InputStatus>('');
   const [ValMoneda, setValMoneda] = useState<InputStatus>('');
   const [ValUnidadMedida, setValUnidadMedida] = useState<InputStatus>('');
@@ -137,18 +134,18 @@ const Save = () => {
 
   const handleSearchMercaderia = async (value: string) => {
     try {
-      const responseModelo = await sMerLista.getItemLike("M002", value);
-      setOptionsMercaderia(responseModelo);
+      const responseMercaderia = await sMercaderia.GetBuscarItem(value);
+      setOptionsMercaderia(responseMercaderia);
     } catch (error) {
       console.error('Error al buscar categorías:', error);
     }
   };
 
 
-  const onChangeModelo = async (value: number) => {
-    setValModelo('');
+  const onChangeMercaderia = async (value: number) => {
+    setValMercaderia('');
     Ent.MercaderiaId = value;
-    setSelectedModelo(value)
+    setSelectedMercaderia(value)
   };
 
   const onChangeUM = async (value: number) => {
@@ -175,9 +172,8 @@ const Save = () => {
   const AddTarifa = async () => {
 
     Ent.Action = Ent.TarifaId == 0 ? 1 : 3;
-
-
-    setEnt({ ...Ent });
+    Ent.PrecioConImpuesto = Number(getPrecioConImpuesto);
+    Ent.PrecioSinImpuesto = Number(getPrecioSinImpuesto);
 
     console.log(Ent);
     const savedItem = await sTarifa.saveItem(Ent);
@@ -186,16 +182,12 @@ const Save = () => {
     //   messageAdd.open({
     //     type: 'success',
     //     content: 'Se guardó correctamente.',
-      
-        
     //   });
-    //   console.log('Guardo!!!')
     // } else {
     //   messageAdd.open({
     //     type: 'error',
     //     content: 'Error al guardar el item.',
     //   });
-    //   console.log('NO Guardo!!!')
     // }
   }
 
@@ -208,8 +200,8 @@ const Save = () => {
     selectedImpuesto;
 
     if (Ent.MercaderiaId === 0) {
-      setValModelo('error');
-      messageAdd.open({ type: 'error', content: 'Seleccione un Modelo.', });
+      setValMercaderia('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione un Mercaderia.', });
       return;
     }
 
@@ -240,8 +232,7 @@ const Save = () => {
       onOk() {
         Ent.Action = 1;
         Ent.FechaCreacion = new Date();
-   // Vuelve a verificar los valores antes de guardar
-   console.log('Ent antes de llamar a AddTarifa:', Ent);
+
         AddTarifa();
       },
       onCancel() {
@@ -303,22 +294,22 @@ const Save = () => {
 
           <Row>
             <Col span={24}>
-              <label>Producto</label>
+              <label>Mercaderia</label>
             </Col>
             <Col span={24}>
               <Select
                 showSearch
-                status={ValModelo}
+                status={ValMercaderia}
                 style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                 defaultActiveFirstOption={false}
                 filterOption={false}
                 onSearch={handleSearchMercaderia}
                 value={Ent.MercaderiaId === 0 ? null : Ent.MercaderiaId}
                 key={Ent.MercaderiaId}
-                onChange={onChangeModelo}
+                onChange={onChangeMercaderia}
               >
                 {optionsMercaderia.map((Mercaderia) => (
-                  <Select.Option key={Mercaderia.ListaId} value={Mercaderia.ListaId}>
+                  <Select.Option key={Mercaderia.MercaderiaId} value={Mercaderia.MercaderiaId}>
                     {Mercaderia.Nombre}
                   </Select.Option>
                 ))}
@@ -431,8 +422,8 @@ const Save = () => {
                 </Col>
                 <Col span={24}>
                   <Input
-                
-                status={ValSinImpuesto}
+
+                    status={ValSinImpuesto}
                     type="decimal"
                     name="PrecioSinImpuesto"
                     style={{ marginTop: '5px', marginBottom: '10px' }}
@@ -449,7 +440,7 @@ const Save = () => {
                 </Col>
                 <Col span={24}>
                   <Input
-                  status={ValConImpuesto}
+                    status={ValConImpuesto}
                     type="number"
                     name="PrecioConImpuesto"
                     style={{ marginTop: '5px', marginBottom: '10px' }}

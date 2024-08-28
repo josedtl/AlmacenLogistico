@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using LogisticStorage.BusinessLayer;
 using LogisticStorage.EntityLayer;
 using LogisticStorage.DataLayer;
+using LogisticStorage.Server.Model.Mercaderia;
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
@@ -133,5 +134,65 @@ namespace LogisticStorage.Server.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("ObtenerMercaderiaTarifa/{MercaderiaId}")]
+        public ResponseAPI<List<MercaderiaTarifaModel>> ObtenerMercaderiaTarifa(Int32 MercaderiaId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Mercaderia.ObtenerMercaderiaTarifa(MercaderiaId);
+
+                List<MercaderiaTarifaModel> Lista = new List<MercaderiaTarifaModel>();
+
+                foreach (var Item in Items) Lista.Add(new MercaderiaTarifaModel(Item));
+
+                return new ResponseAPI<List<MercaderiaTarifaModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<MercaderiaTarifaModel>>(new List<MercaderiaTarifaModel>(), false, ex.Message);
+            }
+        }
+        [HttpGet]
+        [Route("ObtenerMercaderiaTarifaItems")]
+        public ResponseAPI<List<MercaderiaTarifaModel>> ObtenerMercaderiaTarifaItems()
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Mercaderia.ObtenerMercaderiaTarifaItems();
+                List<MercaderiaTarifaModel> Lista = new List<MercaderiaTarifaModel>();
+                foreach (var Item in Items) Lista.Add(new MercaderiaTarifaModel(Item));
+
+                return new ResponseAPI<List<MercaderiaTarifaModel>>(Lista, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<MercaderiaTarifaModel>>(new List<MercaderiaTarifaModel>(), false, ex.Message);
+            }
+        }
+        [HttpPost]
+        [Route("BuscarItem")]
+        public ResponseAPI<List<MercaderiaTarifaModel>> BuscarItem(EntidadLikeModel Ent)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Mercaderia.BuscarItem(Ent.Valor1);
+
+                List<MercaderiaTarifaModel> Lista = new List<MercaderiaTarifaModel>();
+
+                foreach (var Item in Items) Lista.Add(new MercaderiaTarifaModel(Item));
+
+                return new ResponseAPI<List<MercaderiaTarifaModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<MercaderiaTarifaModel>>(new List<MercaderiaTarifaModel>(), false, ex.Message);
+            }
+        }
     }
 }
