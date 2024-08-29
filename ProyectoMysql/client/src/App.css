@@ -1,53 +1,54 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body {
+  font-family: "Open Sans", sans-serif;
+  height: 100vh;
+  background: rgba(33, 150, 243, 0.85);
+  background-size: cover;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  /* padding: 20px; */
+  /* background: rgba(33, 150, 243, 0.85); */
+}
+
+.login-form {
+  width: 100%;
+  max-width: 320px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  color: #555555; /* Un tono más oscuro para mejor legibilidad */
+  font-size: 2em; /* Aumenta el tamaño de la fuente */
+  font-weight: bold;
   text-align: center;
+  margin-bottom: 30px; /* Mayor espacio inferior */
+  letter-spacing: 1px; /* Espaciado entre letras para un estilo más elegante */
+  border-bottom: 2px solid #eee; /* Una línea inferior para separar el título del contenido */
+  padding-bottom: 10px; /* Espacio adicional debajo del texto */
+  text-transform: uppercase; /* Convierte el texto a mayúsculas para un estilo más destacado */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+footer {
+  margin-top: 20px;
+  text-align: center;
+  color: #ddd;
+  font-size: 0.8em;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+footer a {
+  color: #fff;
+  text-decoration: none;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-
-/* Estilo personalizado para el componente Select */
-.custom-select {
-  border: none;
-}
-
-/* Estilo personalizado para las opciones */
-.custom-option {
-  border: none;
+.login-form-button {
+  width: 100%;
 }
