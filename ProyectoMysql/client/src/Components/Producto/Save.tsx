@@ -8,6 +8,8 @@ import MDTipoProducto from '../MerLista/ModalItem';
 import MDMarca from '../MerLista/ModalItem';
 import MDModelo from '../MerLista/ModalItem';
 
+import ModalItem from './Presentacion/ModalItem';
+import DataTable from './Presentacion/DataTable';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
 import { ButtonAddMain } from '../../Styles/Button'
@@ -76,26 +78,6 @@ const Save = () => {
       width: '80px',
     },
     {
-      title: 'Moneda',
-      dataIndex: 'Moneda',
-      key: 'Moneda',
-      width: '100px',
-    }, {
-      title: 'ValorVenta',
-      dataIndex: 'ValorVenta',
-      key: 'ValorVenta',
-      width: '100px',
-    }, {
-      title: 'ValorCompra',
-      dataIndex: 'ValorCompra',
-      key: 'ValorCompra',
-      width: '100px',
-    }, {
-      title: 'Fecha Vigencia',
-      dataIndex: 'FechaVigencia',
-      key: 'FechaVigencia',
-      width: '100px',
-    }, {
       title: 'Action',
       key: 'action',
       width: '100px'
@@ -109,7 +91,7 @@ const Save = () => {
         < >
           {/* <AndroidOutlined /> */}
           <Title style={{ fontSize: '18px' }}>
-            Tarifa
+            Presentación
           </Title>
         </>
       ),
@@ -376,7 +358,17 @@ const Save = () => {
 
   };
 
+  const event_ActualizarPresentacion = (item: any) => {
 
+  };
+  const event_AgregarDetalle = (item: any) => {
+
+  };
+
+  const event_EliminarDetalle = (item: any) => {
+
+
+  };
   useEffect(() => {
     async function cargarItem() {
 
@@ -391,7 +383,14 @@ const Save = () => {
 
 
   }, []);
+  const AgregarButton_Presentacion = () => {
 
+    return (
+      <ModalItem buttonLabel="" addItemToState={event_AgregarDetalle} keyItem={''} />
+    )
+
+
+  }
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -678,9 +677,44 @@ const Save = () => {
         </Col>
 
         <Col xs={24} sm={14} md={16} lg={17} xl={18}>
-          <Tabs
+          {/* <Tabs
             style={{ marginLeft: '20px' }}
-            type="line" items={TabsItems} />
+            type="line" items={TabsItems} /> */}
+
+
+          <Tabs
+            tabBarExtraContent={AgregarButton_Presentacion()}
+            key={'TabGeneral'}
+            type="card"
+
+            items={new Array(1).fill(null).map((_, i) => {
+              i;
+              return {
+                label: (
+                  < >
+                    <Title style={{ fontSize: '18px' }}>
+                      Presentación
+                    </Title>
+                  </>
+                ),
+                key: '1',
+                children:
+                  <span>
+
+                    <Row style={{
+
+                      height: 'calc(100px + 40vh)',
+                    }
+                    }>
+                      <Col xs={24}>
+                        <DataTable DataList={[]} updateState={event_ActualizarPresentacion} deleteItemFromState={event_EliminarDetalle} EsTabla={false} />
+
+                      </Col>
+                    </Row >
+                  </span>,
+              };
+            })}
+          />
         </Col>
       </Row>
     </Spin>

@@ -10,6 +10,7 @@ import { Button, Col, Layout, Menu, Row, theme } from 'antd';
 import { Outlet, Link } from "react-router-dom";
 import type { MenuProps } from 'antd';
 import { useAuth } from '../Components/AuthContext.tsx';
+import "../StylesCSS/StyleMaestro.css"
 
 const { Header, Sider, Content } = Layout;
 
@@ -102,9 +103,9 @@ const Root: React.FC = () => {
 
               <h4 style={{ color: 'black', float: 'right', marginTop: '-2px', marginRight: '0px' }}>Usuario</h4>
               <div>
-      <button onClick={logout}>Cerrar Sesión</button>
-      {/* Resto del componente Root */}
-    </div>
+                <button onClick={logout}>Cerrar Sesión</button>
+                {/* Resto del componente Root */}
+              </div>
             </Col>
 
           </Row>
