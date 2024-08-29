@@ -3,13 +3,13 @@ import React from 'react';
 import { EditFilled } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Link } from 'react-router-dom';
-import { PropsTable } from '../../Lib/PropsItem'
+import { PropsTable } from '../../../Lib/PropsItem'
 import { Card, Col, Row, Button, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import 'moment/locale/es';
-import { DataType } from '../../Lib/ResourceModel/DataTableType'
-import { TarifaEntity } from '../../Models/TarifaEntity';
+import { DataType } from '../../../Lib/ResourceModel/DataTableType'
+import { TarifaEntity } from '../../../Models/TarifaEntity';
 
 const DataTable: React.FC<PropsTable> = (props) => {
     const [size] = React.useState<SizeType>('middle');
@@ -17,49 +17,55 @@ const DataTable: React.FC<PropsTable> = (props) => {
         {
             title: 'Nº',
             dataIndex: 'Cont',
-            width: '50px',
+            width: 25,
             key: 'Cont',
         },    
         {
             title: 'Mercaderia',
             dataIndex: 'NomProducto',
             key: 'NomProducto',
-            width: 100
+            width: 250
         },
         {
             title: 'Unidad Medida',
             dataIndex: 'NomUnidad',
             key: 'NomUnidad',
-            width: 100
+            width: 80
         },
         {
             title: 'Moneda',
             dataIndex: 'NomMoneda',
             key: 'NomMoneda',
-            width:100
+            width:80
+        },
+        {
+            title: 'Impuesto',
+            dataIndex: 'NomImpuesto',
+            key: 'NomImpuesto  ', 
+            width:80
         },
         {
             title: '% Impuesto',
             dataIndex: 'Valor',
             key: 'Valor  ', 
-            width:100
+            width:80
         },
         {
-            title: 'Precio Sin Impuesto',
+            title: 'Precio S/Impuesto',
             dataIndex: 'PrecioSinImpuesto',
             key: 'PrecioSinImpuesto',
-            width:100
+            width:60
         },
         {
-            title: 'Precio Con Impuesto',
+            title: 'Precio C/Impuesto',
             dataIndex: 'PrecioConImpuesto',
             key: 'PrecioConImpuesto',
-            width:100
+            width:60
         },
         {
             title: 'Fecha Creacion',
             dataIndex: 'FechaCreacion',
-            width: '150px',
+            width:80,
             key: 'FechaCreacion',
             render: (date: string) => moment(date).format('DD/MM/YYYY hh:mm'),
         },
@@ -71,7 +77,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             render: (record: TarifaEntity) => (
                 <span>
 
-                    <Link to={`/ProductoSave/${record.TarifaId}`}>
+                    <Link to={`/TarifaSave/${record.TarifaId}`}>
                         <Button
                             type='dashed'
                             style={{ float: "right", marginRight: "10px", color: "#BB9B32", backgroundColor: "white", borderColor: "#BB9B32" }}
@@ -113,7 +119,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
                                     style={{ marginTop: '10Px', }}
                                     actions={[
-                                        <Link to={`/ProductoSave/${row.TarifaId}`}>
+                                        <Link to={`/TarifaSave/${row.TarifaId}`}>
                                             <EditFilled
                                                 style={{ color: "#BB9B32" }}
                                             />

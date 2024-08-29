@@ -1,3 +1,4 @@
+import { ProcessActionEnum } from '../Lib/ResourceModel/Enum'
 export class TarifaEntity {
 
     TarifaId: number;
@@ -10,13 +11,14 @@ export class TarifaEntity {
     Vigente: boolean;
     MercaderiaId:number;
     
-    Action: number;
-
+    Action: ProcessActionEnum
+    NomImpuesto:string;
     Valor:string;
     NomProducto :string;
     NomMoneda :string;
     NomUnidad:string;
     constructor() {
+
         this.TarifaId = 0;
         this.UnidadMedidaId = 0;
         this.MonedaId = 0;
@@ -26,10 +28,11 @@ export class TarifaEntity {
         this.FechaCreacion = new Date();
         this.Vigente = true;
         this.MercaderiaId=0;
-        this.Action=0;     
+        this.Action= ProcessActionEnum.Add;    
         this.Valor='';
         this.NomProducto = '';
         this.NomMoneda = '';
         this.NomUnidad = '';
+        this.NomImpuesto='';
     }
 }
