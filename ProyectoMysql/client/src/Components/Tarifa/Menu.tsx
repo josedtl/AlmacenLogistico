@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { GoldOutlined, BookOutlined } from '@ant-design/icons';
+import { SolutionOutlined, UserSwitchOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
-import { Col, Row, Typography,  Spin, Flex, Segmented } from 'antd';
+import { Col, Row, Typography,Spin, Flex, Segmented } from 'antd';
 import { Link } from "react-router-dom";
 
 function Menu() {
@@ -15,7 +15,7 @@ function Menu() {
             <Row>
 
                 <Col xs={24}>
-                    <Title level={2}> Artículo</Title>
+                    <Title level={2}> Tarifa</Title>
                 </Col>
 
 
@@ -26,122 +26,40 @@ function Menu() {
                                 {
                                     label: (
                                         <div style={{ padding: 4 }}>
-                                            <Link to={`/Producto`}>
+                                            <Link to={`/Individual`}>
                                                 <Avatar
                                                     style={{ backgroundColor: '#f56a00' }}
                                                     size={170}
-                                                    icon={<GoldOutlined />}
+                                                    icon={<UserSwitchOutlined />}
                                                 />
                                             </Link>
-                                            <div>Producto</div>
+                                            <div>Individual</div>
                                         </div>
                                     ),
                                     value: 'user1',
                                 },
-                                // {
-                                //     label: (
-                                //         <div style={{ padding: 4 }}>
-                                //             <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
-                                //             <div>User 2</div>
-                                //         </div>
-                                //     ),
-                                //     value: 'user2',
-                                // },
-                                // {
-                                //     label: (
-                                //         <div style={{ padding: 4 }}>
-                                //             <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-                                //             <div>User 3</div>
-                                //         </div>
-                                //     ),
-                                //     value: 'user3',
-                                // },
-                            ]}
-                        />
-
-                    </Flex>
-
-                </Col>
-                <Col xs={24}>
-                    <Title level={3}> Enlace</Title>
-                </Col>
-                <Col xs={24}>
-                    <Flex gap="small" align="flex-start" vertical>
-                        <Segmented
-                            options={[
                                 {
                                     label: (
                                         <div style={{ padding: 4 }}>
-
-                                            <Link to={`/Producto/Enlace/M002`}>
+                                            <Link to={`/Grupal`}>
                                                 <Avatar
                                                     style={{ backgroundColor: '#f56a00' }}
-                                                    size={150}
-                                                    icon={<BookOutlined />}
+                                                    size={170}
+                                                    icon={<SolutionOutlined />}
                                                 />
                                             </Link>
-                                            <div>Categoria</div>
+                                            <div>Grupal</div>
                                         </div>
                                     ),
-                                    value: 'Categoria',
-                                },
-                                {
-                                    label: (
-                                        <div style={{ padding: 4 }}>
-
-                                            <Link to={`/Producto/Enlace/M003`}>
-                                                <Avatar
-                                                    size={150}
-                                                    style={{ backgroundColor: '#f56a00' }}
-                                                    icon={<BookOutlined />}
-                                                />
-                                            </Link>
-                                            <div>Tipo de Producto</div>
-                                        </div>
-                                    ),
-                                    value: 'TipoProducto',
-                                },
-                                {
-                                    label: (
-                                        <div style={{ padding: 4 }}>
-
-                                            <Link to={`/Producto/Enlace/M004`}>
-                                                <Avatar
-                                                    size={150}
-                                                    style={{ backgroundColor: '#f56a00' }}
-                                                    icon={<BookOutlined />}
-                                                />
-                                            </Link>
-                                            <div>Marca</div>
-                                        </div>
-                                    ),
-                                    value: 'Marca',
-                                },
-                                {
-                                    label: (
-                                        <div style={{ padding: 4 }}>
-
-                                            <Link to={`/Producto/Enlace/M005`}>
-                                                <Avatar
-                                                    size={150}
-                                                    style={{ backgroundColor: '#f56a00' }}
-                                                    icon={<BookOutlined />}
-                                                />
-                                            </Link>
-                                            <div>Modelo</div>
-                                        </div>
-                                    ),
-                                    value: 'Modelo',
+                                    value: 'user2',
                                 },
                             ]}
                         />
 
                     </Flex>
 
-
-
                 </Col>
-
+              
             </Row>
 
         </Spin>

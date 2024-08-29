@@ -5,18 +5,18 @@ import { Tabs, message, Select, Button, Col, Row, Typography, Modal, Spin, Input
 
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
-import { ButtonAddMain } from '../../Styles/Button'
+import { ButtonAddMain } from '../../../Styles/Button'
 
-import MercaderiaService from '../../Service/MercaderiaService';
-import GeneralService from '../../Service/GeneralService';
-import MerListaService from '../../Service/MerListaService';
-import TarifaService from '../../Service/TarifaService';
+import MercaderiaService from '../../../Service/MercaderiaService';
+import GeneralService from '../../../Service/GeneralService';
+import MerListaService from '../../../Service/MerListaService';
+import TarifaService from '../../../Service/TarifaService';
 
-import { MercaderiaSaveModel } from '../../Models/MercaderiaEntity';
-import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
-import { PorcentajeImporteEntity } from '../../Models/PorcentajeImporteEntity';
-import { MonedaEntity } from '../../Models/MonedaEntity';
-import { TarifaEntity } from '../../Models/TarifaEntity';
+import { MercaderiaSaveModel } from '../../../Models/MercaderiaEntity';
+import { UnidadMedidaEntity } from '../../../Models/UnidadMedidaEntity';
+import { PorcentajeImporteEntity } from '../../../Models/PorcentajeImporteEntity';
+import { MonedaEntity } from '../../../Models/MonedaEntity';
+import { TarifaEntity } from '../../../Models/TarifaEntity';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());

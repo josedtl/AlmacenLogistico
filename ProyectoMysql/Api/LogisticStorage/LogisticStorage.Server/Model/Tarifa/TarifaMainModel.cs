@@ -15,6 +15,7 @@ namespace LogisticStorage.Server.Model.Tarifa
             this.PrecioSinImpuesto = 0;
             this.Vigente = true;
             this.FechaCreacion=DateTime.Now;
+            this.NomImpuesto =String.Empty;
 
         }    
 
@@ -28,7 +29,7 @@ namespace LogisticStorage.Server.Model.Tarifa
             this.PrecioSinImpuesto = ent.PrecioSinImpuesto;
             this.Vigente = true;
             this.FechaCreacion = DateTime.Now;
-
+            this.NomImpuesto= ent.NomImpuesto;
         }
         [JsonPropertyName("TarifaId")] public Int32 TarifaId { get; set; }
         [JsonPropertyName("NomProducto")] public string NomProducto { get; set; }
@@ -39,5 +40,6 @@ namespace LogisticStorage.Server.Model.Tarifa
         [JsonPropertyName("PrecioConImpuesto")] public Decimal PrecioConImpuesto { get; set; }
         [JsonPropertyName("FechaCreacion")] public DateTime FechaCreacion { get; set; }
         [JsonPropertyName("Vigente")] public Boolean Vigente { get; set; }
+        [JsonPropertyName("NomImpuesto")] public string NomImpuesto { get; set; }
     }
 }

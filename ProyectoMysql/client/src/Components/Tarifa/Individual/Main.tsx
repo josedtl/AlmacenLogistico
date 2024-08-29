@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import DataTable from './DataTable';
+import DataTable from '../Individual/DataTable';
 import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
-import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , ButtonAddMain} from '../../Styles/Button'
-import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../Styles/Type'
-import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
+import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , ButtonAddMain} from '../../../Styles/Button'
+import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../../Styles/Type'
+import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../../Styles/Icons'
 import { Link } from "react-router-dom";
 
 //entity
-import { TarifaEntity } from '../../Models/TarifaEntity';
+import { TarifaEntity } from '../../../Models/TarifaEntity';
 
 //services
-import TarifaService from '../../Service/TarifaService';
+import TarifaService from '../../../Service/TarifaService';
 
 function Main() {
   useEffect(() => {
@@ -95,7 +95,7 @@ function Main() {
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
 
           <Input
-            placeholder='Buscar Categoria'
+            placeholder='Buscar Producto'
             type="text"
             name="Nombre"
             onChange={onChange}
