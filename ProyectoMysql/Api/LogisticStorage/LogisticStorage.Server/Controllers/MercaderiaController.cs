@@ -4,10 +4,12 @@ using LogisticStorage.BusinessLayer;
 using LogisticStorage.EntityLayer;
 using LogisticStorage.DataLayer;
 using LogisticStorage.Server.Model.Mercaderia;
+using Microsoft.AspNetCore.Authorization;
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MercaderiaController : ControllerBase
     {
         Base d = new Base();

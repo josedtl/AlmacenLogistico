@@ -2,12 +2,14 @@
 using LogisticStorage.BusinessLayer;
 using LogisticStorage.EntityLayer;
 using LogisticStorage.Server.Model.Despacho;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StockController : ControllerBase
     {
         Base d = new Base();

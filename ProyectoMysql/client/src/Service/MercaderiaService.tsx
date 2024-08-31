@@ -1,57 +1,44 @@
-import axios from 'axios';
-import {  MercaderiaItemOPModel, MercaderiaMainModel, MercaderiaSaveModel } from '../Models/MercaderiaEntity';
+import { MercaderiaItemOPModel, MercaderiaMainModel, MercaderiaSaveModel } from '../Models/MercaderiaEntity';
 import { EntidadLikeModel } from '../Models/EntidadLikeModel';
-
-const URL = import.meta.env.VITE_SOME_KEY;
+import { apiLg } from './axios-config';
 class MercaderiaService {
 
 
 
   async getItems(): Promise<MercaderiaMainModel[]> {
+
     try {
-      const response = await axios.get(`${URL}/api/Mercaderia/ObtenerMain`);
-      if (response.status === 200 && response.data.Value != null) {
-        return response.data.Value;
-      }
-      return [];
-    } catch (err) {
-      console.log(err);
-      return [];
+      const response = await apiLg.get(`api/Mercaderia/ObtenerMain`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
     }
+
   }
 
 
 
   async saveItem(item: MercaderiaSaveModel): Promise<MercaderiaSaveModel | null> {
     try {
-      const response = await axios.post(`${URL}/api/Mercaderia/Registrar`, item, {
+      const response = await apiLg.post(`api/Mercaderia/Registrar/`, item, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
-      if (response.status === 200) {
-        return response.data.Value;
-      } else {
-        console.log('Save operation failed');
-        return null;
-      }
+      return response.data.Value;
     } catch (error) {
-      console.log(error);
-      return null;
+      throw error;
     }
+
+
   }
 
-  async GetCabeceraItem(Id:number): Promise<MercaderiaSaveModel[]> {
+  async GetCabeceraItem(Id: number): Promise<MercaderiaSaveModel[]> {
     try {
-      const response = await axios.get(`${URL}/api/Mercaderia/ObtenerItem/${Id}`);
-      if (response.status === 200 && response.data.Value != null) {
-        return response.data.Value;
-      }
-      return [];
-    } catch (err) {
-      console.log(err);
-      return [];
+      const response = await apiLg.get(`api/Mercaderia/ObtenerItem/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -61,7 +48,7 @@ class MercaderiaService {
       const EntLike = new EntidadLikeModel();
       EntLike.Valor1 = codigo;
       EntLike.ValorInt1 = value;
-      const response = await axios.post(`${URL}/api/Mercaderia/BuscarCategoriaItem`, EntLike, {
+      const response = await apiLg.post(`api/Mercaderia/BuscarCategoriaItem`, EntLike, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -73,57 +60,50 @@ class MercaderiaService {
   }
 
 
-  async GetMercaderia_ItemOP(Id:number): Promise<MercaderiaItemOPModel[]> {
+  async GetMercaderia_ItemOP(Id: number): Promise<MercaderiaItemOPModel[]> {
+
     try {
-      const response = await axios.get(`${URL}/api/Mercaderia/ObtenerItemOP/${Id}`);
-      if (response.status === 200 && response.data.Value != null) {
-        return response.data.Value;
-      }
-      return [];
-    } catch (err) {
-      console.log(err);
-      return [];
+      const response = await apiLg.get(`api/Mercaderia/ObtenerItemOP/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
     }
+
   }
   async ObtenerMercaderiaTarifaItems(): Promise<MercaderiaSaveModel[]> {
     try {
-      const response = await axios.get(`${URL}/api/Mercaderia/ObtenerMercaderiaTarifaItems`);
-      if (response.status === 200 && response.data.Value != null) {
-        return response.data.Value;
-      }
-      return [];
-    } catch (err) {
-      console.log(err);
-      return [];
+      const response = await apiLg.get(`api/Mercaderia/ObtenerMercaderiaTarifaItems`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
     }
+
   }
-  async GetObtenerMercaderiaTarifa(Id:number): Promise<MercaderiaSaveModel[]> {
+  async GetObtenerMercaderiaTarifa(Id: number): Promise<MercaderiaSaveModel[]> {
     try {
-      const response = await axios.get(`${URL}/api/Mercaderia/ObtenerMercaderiaTarifa/${Id}`);
-      if (response.status === 200 && response.data.Value != null) {
-        return response.data.Value;
-      }
-      return [];
-    } catch (err) {
-      console.log(err);
-      return [];
+      const response = await apiLg.get(`api/Mercaderia/ObtenerMercaderiaTarifa/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
     }
+
   }
   async GetBuscarItem(codigo: string): Promise<MercaderiaSaveModel[]> {
     try {
 
-        const EntLike = new EntidadLikeModel();
-        EntLike.Valor1 = codigo;
-        const response = await axios.post(`${URL}/api/Mercaderia/BuscarItem`, EntLike, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        return response.data.Value;
+      const EntLike = new EntidadLikeModel();
+      EntLike.Valor1 = codigo;
+
+      const response = await apiLg.post(`api/Mercaderia/BuscarItem`, EntLike, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data.Value;
     } catch (error) {
-        throw error;
+      throw error;
     }
-}
+  }
 
 }
 

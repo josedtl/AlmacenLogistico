@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using LogisticStorage.BusinessLayer;
 using LogisticStorage.EntityLayer;
 using LogisticStorage.Server.Model.PersonaNatural;
+using Microsoft.AspNetCore.Authorization;
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PersonaNaturalController : ControllerBase
     {
         Base d = new Base();

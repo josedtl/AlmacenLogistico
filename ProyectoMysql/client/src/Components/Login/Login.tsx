@@ -2,49 +2,68 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext.tsx';
 import type { FormProps } from 'antd';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "../../App.css";
+import axios from 'axios';
+
 type FieldType = {
-  username?: string;
-  password?: string;
-  remember?: string;
+  username: string;
+  password: string;
+  remember?: boolean;
 };
 
 const Login: React.FC = () => {
-  //   const [username, setUsername] = useState('');
-  //   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  const { login } = useAuth(); // Usa una función de contexto para establecer el token
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
-    login('fake-jwt-token');
-    navigate('/');
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    setLoading(true);
+    const URL = import.meta.env.VITE_SOME_KEY;
+    try {
+      const response = await axios.post(`${URL}/api/Auth/token`, {
+        username: values.username, // Reemplaza con el nombre de usuario adecuado
+        password: values.password, // Reemplaza con la contraseña adecuada
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-KEY': 'gergjs5435s4fefefusfs2323', // Añadir API Key a los encabezados
+        },
+      });
+   
+      if (response.status === 200) {
+        login(values.username, values.password);
+
+        navigate('/OrdenPedido');
+      }
+    } catch (error) {
+      // Maneja errores específicos del servidor
+      if (axios.isAxiosError(error) && error.response) {
+        const errorMessage = error.response.data?.message || 'Error desconocido';
+        // Muestra el mensaje de error de la respuesta
+        message.error(errorMessage);
+      } else {
+        // Muestra un mensaje de error genérico
+        message.error('Error en el inicio de sesión');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
-  const [loading, setLoading] = useState(false);
-
-  // const onFinish = (values: any) => {
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //     message.success("Logged in successfully!");
-  //   }, 2000);
-  // };
-
   return (
-
     <div className="wrapper">
       <Form
         name="normal_login"
         className="login-form"
-        initialValues={{ remember: true }}
+        initialValues={{ username: 'adm', password: '123', remember: true }}
         onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
       >
         <p className="title">DAFRAN SOLUTIONS</p>
         <Form.Item
@@ -64,7 +83,6 @@ const Login: React.FC = () => {
           <Input
             prefix={<LockOutlined />}
             type="password"
-
             placeholder="Contraseña"
           />
         </Form.Item>
@@ -74,7 +92,8 @@ const Login: React.FC = () => {
             htmlType="submit"
             className="login-form-button"
             loading={loading}
-          >Ingresar
+          >
+            Ingresar
           </Button>
         </Form.Item>
         <Form.Item>
@@ -83,44 +102,7 @@ const Login: React.FC = () => {
           </a>
         </Form.Item>
       </Form>
-
     </div>
-    // <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-    //   <Form
-    //     name="basic"
-    //     labelCol={{ span: 8 }}
-    //     wrapperCol={{ span: 16 }}
-    //     style={{ maxWidth: 400, width: '100%' }}
-    //     initialValues={{ remember: true }}
-    //     onFinish={onFinish}
-    //     onFinishFailed={onFinishFailed}
-    //     autoComplete="off"
-    //   >
-    //     <Form.Item<FieldType>
-    //       label="Usuario"
-    //       name="username"
-    //       rules={[{ required: true, message: 'Please input your username!' }]}
-    //     >
-    //       <Input />
-    //     </Form.Item>
-
-    //     <Form.Item<FieldType>
-    //       label="Contraseña"
-    //       name="password"
-    //       rules={[{ required: true, message: 'Please input your password!' }]}
-    //     >
-    //       <Input.Password />
-    //     </Form.Item>
-
-
-
-    //     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-    //       <Button type="primary" htmlType="submit">
-    //         Acceder
-    //       </Button>
-    //     </Form.Item>
-    //   </Form>
-    // </div>
   );
 };
 

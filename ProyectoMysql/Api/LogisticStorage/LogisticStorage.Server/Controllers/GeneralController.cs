@@ -6,10 +6,12 @@ using LogisticStorage.DataLayer;
 using LogisticStorage.Server.Model.General;
 using LogisticStorage.Server.Model.Empresa;
 using LogisticStorage.Server.Model.PersonaNatural;
+using Microsoft.AspNetCore.Authorization;
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class GeneralController : ControllerBase
     {
         Base d = new Base();

@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using LogisticStorage.BusinessLayer;
 using LogisticStorage.EntityLayer;
 using LogisticStorage.DataLayer;
+using Microsoft.AspNetCore.Authorization;
 namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReservaController : ControllerBase
     {
         Base d = new Base();
