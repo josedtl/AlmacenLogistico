@@ -38,6 +38,32 @@ namespace LogisticStorage.DataLayer
                 throw ex;
             }
         }
+
+        public virtual List<TarifaEntity> ObtenerItem(Int32 TarifaId)
+        {
+            try
+            {
+                StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_TarifaId", DbType.Int32, 4, false, 0, 0, TarifaId);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_Tarifa_ObtenerItem");
+                FillSchemeTable(dr);
+                List<TarifaEntity> EntityList = new List<TarifaEntity>();
+                while (dr.Read())
+                {
+                    TarifaEntity entity = new TarifaEntity();
+                    if (FillFrom(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public virtual bool Registrar(TarifaEntity Ent)
         {
             StartHelper(true);

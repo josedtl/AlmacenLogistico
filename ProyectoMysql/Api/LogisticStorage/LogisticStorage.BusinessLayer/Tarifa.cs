@@ -16,6 +16,12 @@ namespace LogisticStorage.BusinessLayer
             TarifaDB DB = new TarifaDB();
             return DB.ObtenerMain();
         }
+        public static List<TarifaEntity> ObtenerItem(Int32 TarifaId)
+        {
+            TarifaDB DB = new TarifaDB();
+            return DB.ObtenerItem(TarifaId);
+        }
+
         public static Int32 Registrar(TarifaEntity Ent)
         {
             TarifaDB DB = new TarifaDB();

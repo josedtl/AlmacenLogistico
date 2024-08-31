@@ -77,7 +77,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
             render: (record: TarifaEntity) => (
                 <span>
 
-                    <Link to={`/TarifaSave/${record.TarifaId}`}>
+                    <Link to={`/TarifaUpdate/${record.TarifaId}`}>
                         <Button
                             type='dashed'
                             style={{ float: "right", marginRight: "10px", color: "#BB9B32", backgroundColor: "white", borderColor: "#BB9B32" }}
@@ -119,7 +119,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
                                     style={{ marginTop: '10Px', }}
                                     actions={[
-                                        <Link to={`/TarifaSave/${row.TarifaId}`}>
+                                        <Link to={`/TarifaUpdate/${row.TarifaId}`}>
                                             <EditFilled
                                                 style={{ color: "#BB9B32" }}
                                             />
