@@ -26,7 +26,7 @@ function Menu() {
                                 {
                                     label: (
                                         <div style={{ padding: 4 }}>
-                                            <Link to={`/Individual`}>
+                                            <Link to={`/Individual/`}>
                                                 <Avatar
                                                     style={{ backgroundColor: '#f56a00' }}
                                                     size={170}

@@ -1,5 +1,6 @@
 ﻿using Framework;
 using LogisticStorage.BusinessLayer;
+using LogisticStorage.DataLayer;
 using LogisticStorage.EntityLayer;
 using LogisticStorage.Server.Model.Tarifa;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +31,28 @@ namespace LogisticStorage.Server.Controllers
             catch (Exception ex)
             {
                 return new ResponseAPI<List<TarifaMainModel>>(new List<TarifaMainModel>(), false, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("ObtenerItem/{TarifaId}")]
+        public ResponseAPI<List<TarifaSaveModel>> ObtenerItem(Int32 TarifaId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Tarifa.ObtenerItem(TarifaId);
+
+                List<TarifaSaveModel> Lista = new List<TarifaSaveModel>();
+
+                foreach (var Item in Items) Lista.Add(new TarifaSaveModel(Item));
+
+                return new ResponseAPI<List<TarifaSaveModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<TarifaSaveModel>>(new List<TarifaSaveModel>(), false, ex.Message);
             }
         }
 

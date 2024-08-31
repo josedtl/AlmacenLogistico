@@ -13,6 +13,21 @@ class TarifaService {
       throw error;
     }
   }
+
+
+  async GetObtenerItem(Id:number): Promise<TarifaEntity[]> {
+    try {
+      const response = await  apiLg.get(`api/Tarifa/ObtenerItem/${Id}`);
+      if (response.status === 200 && response.data.Value != null) {
+        return response.data.Value;
+      }
+      return [];
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  }
+  
   async saveItem(item: TarifaEntity): Promise<TarifaEntity | null> {
     try {
       const response = await apiLg.post(`api/Tarifa/Registrar`, item, {

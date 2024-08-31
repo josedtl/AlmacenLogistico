@@ -10,7 +10,6 @@ import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 
 import MercaderiaService from '../../../Service/MercaderiaService';
 import GeneralService from '../../../Service/GeneralService';
-import MerListaService from '../../../Service/MerListaService';
 import TarifaService from '../../../Service/TarifaService';
 
 import { MercaderiaSaveModel } from '../../../Models/MercaderiaEntity';
@@ -22,7 +21,6 @@ const Save = () => {
     const { Id } = useParams();
     const idNumero = Number(Id?.toString());
 
-    const sMerLista = new MerListaService();
     const sMercaderia = new MercaderiaService();
 
     const sGeneral = new GeneralService();
@@ -45,11 +43,20 @@ const Save = () => {
 
     const getCargarDatos = async () => {
 
+        Ent.Action = ProcessActionEnum.Add
         console.log(idNumero)
+
         if (idNumero > 0) {
 
-            const Resp_Mercaderia = await sMercaderia.GetObtenerMercaderiaTarifa(Ent.MercaderiaId);
+            const Resp_Tarifa = await sTarifa.GetObtenerItem(idNumero);
+            setEnt(Resp_Tarifa[0]);
+
+            setPrecioSinImpuesto(Resp_Tarifa[0].PrecioSinImpuesto.toString());
+            setPrecioConImpuesto(Resp_Tarifa[0].PrecioConImpuesto.toString());
+
+            const Resp_Mercaderia = await sMercaderia.GetObtenerMercaderiaTarifa(Resp_Tarifa[0].MercaderiaId);
             setOptionsMercaderia(Resp_Mercaderia);
+
         }
 
         setCargarPage(false);
@@ -57,8 +64,6 @@ const Save = () => {
 
 
     const onChangeTextConImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // const ValorCI = Number(e.target.value);
-        // const str = "123.45";
         setValConImpuesto('');
         const decimal = parseFloat(e.target.value.toLowerCase());
         console.log(decimal);
@@ -108,62 +113,10 @@ const Save = () => {
 
         return Number(num.toFixed(2));
     };
-    // const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    //   setEnt({
-    //     ...Ent,
-    //     [e.target.name]: e.target.value.toUpperCase()
-    //   });
-
-
-    // };
-
-
-    const [selectedMercaderia, setSelectedMercaderia] = useState<number | undefined>(undefined);
-    selectedMercaderia;
-    const [selectedUM, setSelectedUM] = useState<number | undefined>(undefined);
-    const [selectedMoneda, setSelectedMoneda] = useState<number | undefined>(undefined);
-    const [selectedImpuesto, setSelectedImpuesto] = useState<number | undefined>(undefined);
-
-    const [ValMercaderia, setValMercaderia] = useState<InputStatus>('');
-    const [ValImpuesto, setValImpuesto] = useState<InputStatus>('');
-    const [ValMoneda, setValMoneda] = useState<InputStatus>('');
-    const [ValUnidadMedida, setValUnidadMedida] = useState<InputStatus>('');
-
+    
     const [ValConImpuesto, setValConImpuesto] = useState<InputStatus>('');
     const [ValSinImpuesto, setValSinImpuesto] = useState<InputStatus>('');
 
-    const handleSearchMercaderia = async (value: string) => {
-        try {
-            const responseMercaderia = await sMercaderia.GetBuscarItem(value);
-            setOptionsMercaderia(responseMercaderia);
-        } catch (error) {
-            console.error('Error al buscar categorías:', error);
-        }
-    };
-
-
-    const onChangeMercaderia = async (value: number) => {
-        setValMercaderia('');
-        Ent.MercaderiaId = value;
-        setSelectedMercaderia(value)
-    };
-
-    const onChangeUM = async (value: number) => {
-        setValUnidadMedida('');
-        Ent.UnidadMedidaId = value;
-        setSelectedUM(value)
-    };
-    const onChangeMoneda = async (value: number) => {
-        setValMoneda('');
-        Ent.MonedaId = value;
-        setSelectedMoneda(value)
-    };
-    const onChangeImpuesto = async (value: number) => {
-        setValImpuesto('');
-        Ent.PorcentajeImpuestoId = value;
-        setSelectedImpuesto(value)
-    };
 
     const [modal, contextHolder] = Modal.useModal();
     const [messageAdd, contextHolderAdd] = message.useMessage();
@@ -176,51 +129,24 @@ const Save = () => {
         Ent.PrecioConImpuesto = Number(getPrecioConImpuesto);
         Ent.PrecioSinImpuesto = Number(getPrecioSinImpuesto);
 
-        console.log(Ent);
         const savedItem = await sTarifa.saveItem(Ent);
-        console.log(savedItem);
-        // if (savedItem) {
-        //   messageAdd.open({
-        //     type: 'success',
-        //     content: 'Se guardó correctamente.',
-        //   });
-        // } else {
-        //   messageAdd.open({
-        //     type: 'error',
-        //     content: 'Error al guardar el item.',
-        //   });
-        // }
+        if (savedItem) {
+            messageAdd.open({
+                type: 'success',
+                content: 'Se guardó correctamente.',
+            });
+        } else {
+            messageAdd.open({
+                type: 'error',
+                content: 'Error al guardar el item.',
+            });
+        }
     }
 
 
     const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-
-        selectedUM;
-        selectedMoneda;
-        selectedImpuesto;
-
-        if (Ent.MercaderiaId === 0) {
-            setValMercaderia('error');
-            messageAdd.open({ type: 'error', content: 'Seleccione un Mercaderia.', });
-            return;
-        }
-
-        if (Ent.UnidadMedidaId === 0) {
-            setValUnidadMedida('error');
-            messageAdd.open({ type: 'error', content: 'Seleccione una unidad de medida.', });
-            return;
-        }
-        if (Ent.MonedaId === 0) {
-            setValMoneda('error');
-            messageAdd.open({ type: 'error', content: 'Seleccione una Moneda.', });
-            return;
-        }
-        if (Ent.PorcentajeImpuestoId === 0) {
-            setValImpuesto('error');
-            messageAdd.open({ type: 'error', content: 'Seleccione un Impuesto.', });
-            return;
-        }
+  
 
 
         modal.confirm({
@@ -231,10 +157,9 @@ const Save = () => {
             okType: 'danger',
             cancelText: 'No',
             onOk() {
-                Ent.Action = 1;
                 Ent.FechaCreacion = new Date();
-
                 Ent.Action = Ent.TarifaId == 0 ? ProcessActionEnum.Add : ProcessActionEnum.Update;
+
                 AddTarifa();
             },
             onCancel() {
@@ -275,7 +200,7 @@ const Save = () => {
             {contextHolderAdd}
             <Row>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                    <Title level={3}> {Ent.MercaderiaId > 0 ? 'Tarifa' : 'Agregar Tarifa'}</Title>
+                    <Title level={3}> {Ent.TarifaId > 0 ? 'Tarifa' : 'Agregar Tarifa'}</Title>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                     <Button
@@ -290,19 +215,19 @@ const Save = () => {
             <Row>
                 <Col xs={24} sm={10} md={8} lg={7} xl={6}>
 
+
+
+
+
                     <Row>
                         <Col span={24}>
                             <label>Mercaderia</label>
                         </Col>
-                                <Col span={24}>
-                                    <Input
-                                        status={ValMercaderia}
-                                        type="string"
-                                        name="NomProducto"
-                                        style={{ marginTop: '5px', marginBottom: '10px' }}
-                                        readOnly={true}
-                                        value={Ent.NomProducto}
-                                    />
+                        <Col span={24}>
+                            <Input
+                                value={optionsMercaderia.find(m => m.MercaderiaId === Ent.MercaderiaId)?.Nombre || ''}
+                                style={{ marginTop: '5px', marginBottom: '10px' }}
+                            />
                         </Col>
                     </Row>
 
@@ -312,23 +237,9 @@ const Save = () => {
                             <label>Unidad de Medida</label>
                         </Col>
                         <Col span={24}>
-                            <Select
-                                allowClear
-                                status={ValUnidadMedida}
-                                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                                defaultActiveFirstOption={false}
-                                filterOption={false}
-                                value={Ent.UnidadMedidaId === 0 ? null : Ent.UnidadMedidaId}
-                                key={Ent.UnidadMedidaId}
-                                onChange={onChangeUM}
-                            >
-                                {optionsUM.map((UM) => (
-                                    <Select.Option key={UM.UnidadMedidaId} value={UM.UnidadMedidaId}>
-                                        {UM.Nombre}
-                                    </Select.Option>
-                                ))}
-                            </Select>
-
+                            <Input
+                                value={optionsUM.find(UM => UM.UnidadMedidaId === Ent.UnidadMedidaId)?.Nombre || ''}
+                                style={{ marginTop: '5px', marginBottom: '10px' }} />
 
                         </Col>
                     </Row>
@@ -338,67 +249,30 @@ const Save = () => {
                             <label>Moneda</label>
                         </Col>
                         <Col span={24}>
-                            <Select
-                                allowClear
-                                status={ValMoneda}
-                                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                                defaultActiveFirstOption={false}
-                                filterOption={false}
-                                value={Ent.MonedaId === 0 ? null : Ent.MonedaId}
-                                key={Ent.MonedaId}
-                                onChange={onChangeMoneda}
-                            >
-                                {optionsMoneda.map((M) => (
-                                    <Select.Option key={M.MonedaId} value={M.MonedaId}>
-                                        {M.Simbolo} - {M.CodMoneda}
-                                    </Select.Option>
-                                ))}
-                            </Select>
-
+                            <Input 
+                                value={optionsMoneda.find(m => m.MonedaId === Ent.MonedaId)?.Simbolo + ' - ' 
+                                    + optionsMoneda.find(m => m.MonedaId === Ent.MonedaId)?.CodMoneda || ''}
+                                style={{ marginTop: '5px', marginBottom: '10px' }}
+                            />
 
                         </Col>
                     </Row>
 
                     <Row>
-                        <Col span={12}>
+                        <Col span={15}>
                             <Col span={12}>
                                 <label>% Impuesto</label>
                             </Col>
                             <Col span={24}>
-                                <Select
-                                    allowClear
-                                    status={ValImpuesto}
-                                    style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                                    defaultActiveFirstOption={false}
-                                    filterOption={false}
-                                    value={Ent.PorcentajeImpuestoId === 0 ? null : Ent.PorcentajeImpuestoId}
-                                    key={Ent.PorcentajeImpuestoId}
-                                    onChange={onChangeImpuesto}
-                                >
-                                    {optionsImporte.map((PI) => (
-                                        <Select.Option key={PI.PorcentajeImpuestoId} value={PI.PorcentajeImpuestoId}>
-                                            {PI.Nombre} - {PI.Valor}%
-                                        </Select.Option>
-                                    ))}
-                                </Select>
 
+                                <Input
+                                    value={optionsImporte.find(PI => PI.PorcentajeImpuestoId === Ent.PorcentajeImpuestoId)?.Nombre + ' - '+
+                                        optionsImporte.find(PI => PI.PorcentajeImpuestoId === Ent.PorcentajeImpuestoId)?.Valor || ''}
+                                />
                             </Col>
                         </Col>
                         <Col span={12}>
-                            {/* <Row>
-                <Col span={24}>
-                  <label>Precio Sin Impuesto</label>
-                </Col>
-                <Col span={24}>
-                  <Input
-                    type="number"
-                    name="PrecioSinInpuesto"
-                    style={{ marginTop: '5px', marginBottom: '10px' }}
-                    onChange={onChangeTextSinImpuesto}
-                    value={getPrecioSinInpuesto === null ? "" : getPrecioSinInpuesto}
-                  />
-                </Col>
-              </Row> */}
+
                         </Col>
                     </Row>
                     <Row>

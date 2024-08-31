@@ -6,10 +6,10 @@ import { Tabs, message, Select, Button, Col, Row, Typography, Modal, Spin, Input
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
 import { ButtonAddMain } from '../../../Styles/Button'
+import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 
 import MercaderiaService from '../../../Service/MercaderiaService';
 import GeneralService from '../../../Service/GeneralService';
-import MerListaService from '../../../Service/MerListaService';
 import TarifaService from '../../../Service/TarifaService';
 
 import { MercaderiaSaveModel } from '../../../Models/MercaderiaEntity';
@@ -21,7 +21,6 @@ const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
 
-  const sMerLista = new MerListaService();
   const sMercaderia = new MercaderiaService();
 
   const sGeneral = new GeneralService();
@@ -44,11 +43,20 @@ const Save = () => {
 
   const getCargarDatos = async () => {
 
+    Ent.Action = ProcessActionEnum.Add
     console.log(idNumero)
+
     if (idNumero > 0) {
 
-      const Resp_Mercaderia = await sMercaderia.GetObtenerMercaderiaTarifa(Ent.MercaderiaId);
+      const Resp_Tarifa = await sTarifa.GetObtenerItem(idNumero);
+      setEnt(Resp_Tarifa[0]);
+      
+    setPrecioSinImpuesto(Resp_Tarifa[0].PrecioSinImpuesto.toString());
+    setPrecioConImpuesto(Resp_Tarifa[0].PrecioConImpuesto.toString());
+
+      const Resp_Mercaderia = await sMercaderia.GetObtenerMercaderiaTarifa(Resp_Tarifa[0].MercaderiaId);
       setOptionsMercaderia(Resp_Mercaderia);
+      
     }
 
     setCargarPage(false);
@@ -56,8 +64,6 @@ const Save = () => {
 
   
   const onChangeTextConImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const ValorCI = Number(e.target.value);
-    // const str = "123.45";
     setValConImpuesto('');
     const decimal = parseFloat(e.target.value.toLowerCase());
     console.log(decimal);
@@ -107,15 +113,15 @@ const Save = () => {
 
     return Number(num.toFixed(2));
   };
-  // const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-  //   setEnt({
-  //     ...Ent,
-  //     [e.target.name]: e.target.value.toUpperCase()
-  //   });
+    setEnt({
+      ...Ent,
+      [e.target.name]: e.target.value.toUpperCase()
+    });
 
 
-  // };
+  };
 
 
   const [selectedMercaderia, setSelectedMercaderia] = useState<number | undefined>(undefined);
@@ -175,26 +181,25 @@ const Save = () => {
     Ent.PrecioConImpuesto = Number(getPrecioConImpuesto);
     Ent.PrecioSinImpuesto = Number(getPrecioSinImpuesto);
 
-    console.log(Ent);
     const savedItem = await sTarifa.saveItem(Ent);
-    console.log(savedItem);
-    // if (savedItem) {
-    //   messageAdd.open({
-    //     type: 'success',
-    //     content: 'Se guardó correctamente.',
-    //   });
-    // } else {
-    //   messageAdd.open({
-    //     type: 'error',
-    //     content: 'Error al guardar el item.',
-    //   });
-    // }
+    if (savedItem) {
+      messageAdd.open({
+        type: 'success',
+        content: 'Se guardó correctamente.',
+      });
+    } else {
+      messageAdd.open({
+        type: 'error',
+        content: 'Error al guardar el item.',
+      });
+    }
   }
 
 
   const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
+    selectedImpuesto;
+    selectedMercaderia;
     selectedUM;
     selectedMoneda;
     selectedImpuesto;
@@ -230,8 +235,8 @@ const Save = () => {
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        Ent.Action = 1;
         Ent.FechaCreacion = new Date();
+        Ent.Action = Ent.TarifaId == 0 ? ProcessActionEnum.Add : ProcessActionEnum.Update;
 
         AddTarifa();
       },
@@ -273,7 +278,7 @@ const Save = () => {
       {contextHolderAdd}
       <Row>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <Title level={3}> {Ent.MercaderiaId > 0 ? 'Tarifa' : 'Agregar Tarifa'}</Title>
+          <Title level={3}> {Ent.TarifaId > 0 ? 'Tarifa' : 'Agregar Tarifa'}</Title>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Button
