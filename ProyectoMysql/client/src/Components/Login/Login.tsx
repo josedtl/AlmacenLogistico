@@ -35,7 +35,7 @@ const Login: React.FC = () => {
       if (response.status === 200) {
         login(values.username, values.password);
 
-        navigate('/OrdenPedido');
+        navigate('/Dashboard');
       }
     } catch (error) {
       // Maneja errores específicos del servidor

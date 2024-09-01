@@ -7,6 +7,9 @@ import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain, But
 import { SizeMainButtonSecondary, SizeButtonPrimary } from '../../Styles/Type'
 import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
 import { Link } from "react-router-dom";
+import * as XLSX from 'xlsx';
+
+
 function Main() {
   useEffect(() => {
     getItems();
@@ -19,6 +22,18 @@ function Main() {
   const [Busqueda, setBusqueda] = useState<string>('');
   const toggle = () => {
     setDisabled(!disabled);
+  };
+
+  const handleExport = () => {
+    // Crea una hoja de trabajo con los datos
+    const worksheet = XLSX.utils.json_to_sheet(filterItems);
+    
+    // Crea un libro de trabajo y agrega la hoja
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+    // Genera el archivo Excel y lo descarga
+    XLSX.writeFile(workbook, 'data.xlsx');
   };
 
   const updateState = (item: OrdenPedidoEntity) => {
@@ -76,6 +91,7 @@ function Main() {
             size={SizeMainButtonSecondary}
             icon={IconLoad}
           />
+             <button onClick={handleExport}>Exportar a Excel</button>
           <Button
             onClick={toggle}
             style={ButtonMainSecondaryLeft}

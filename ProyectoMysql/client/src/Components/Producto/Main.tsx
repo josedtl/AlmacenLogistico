@@ -7,6 +7,7 @@ import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , Bu
 import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../Styles/Type'
 import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
 import { Link } from "react-router-dom";
+import * as XLSX from 'xlsx';
 function Main() {
   useEffect(() => {
     getItems();
@@ -21,7 +22,87 @@ function Main() {
     setDisabled(!disabled);
   };
 
+  // const handleExport = () => {
+  //   // Crea una hoja de trabajo con los datos
+  //   const worksheet = XLSX.utils.json_to_sheet(filterItems);
+    
+  //   // Crea un libro de trabajo y agrega la hoja
+  //   const workbook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
 
+  //   // Genera el archivo Excel y lo descarga
+  //   XLSX.writeFile(workbook, 'data.xlsx');
+  // };
+
+
+
+
+  const handleExport = () => {
+    // Título
+    const title = [['Customer Data']];
+
+    // Datos en formato de matriz
+    const dataArray = filterItems.map(item => [item.Cont, item.NomCategoria, item.NomTipoProducto]);
+
+    // Encabezados
+    const headers = [['Nº', 'Categoria', 'Tipo']];
+    // Combina el título, encabezados y datos
+    const combinedData = [...title, ...headers, ...dataArray];
+
+    // Crea una hoja de trabajo con los datos combinados
+    const worksheet = XLSX.utils.aoa_to_sheet(combinedData);
+
+    // Estilo para el título (letra más grande y negrita)
+    worksheet['A1'].s = {
+      font: { sz: 40, bold: true }, // Tamaño de la fuente 16 y negrita
+      alignment: { horizontal: 'center' }, // Centrado
+    };
+
+    // Combinar celdas para el título
+    worksheet['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 2 } }];
+
+    // Estilo para los encabezados (color de fondo, texto en negrita y bordes)
+    const headerStyle = {
+      font: { bold: true },
+      fill: { fgColor: { rgb: 'FFFF00' } }, // Fondo amarillo
+      border: {
+        top: { style: 'thin', color: { rgb: '000000' } },
+        bottom: { style: 'thin', color: { rgb: '000000' } },
+        left: { style: 'thin', color: { rgb: '000000' } },
+        right: { style: 'thin', color: { rgb: '000000' } },
+      },
+    };
+
+    ['A2', 'B2', 'C2'].forEach(cell => {
+      worksheet[cell].s = headerStyle;
+    });
+
+    // Bordes para los datos
+    const dataRange = XLSX.utils.decode_range(worksheet['!ref']!);
+    for (let R = 2; R <= dataRange.e.r; ++R) {
+      for (let C = 0; C <= dataRange.e.c; ++C) {
+        const cell_address = XLSX.utils.encode_cell({ r: R, c: C });
+        if (!worksheet[cell_address]) continue;
+        worksheet[cell_address].s = {
+          border: {
+            top: { style: 'thin', color: { rgb: '000000' } },
+            bottom: { style: 'thin', color: { rgb: '000000' } },
+            left: { style: 'thin', color: { rgb: '000000' } },
+            right: { style: 'thin', color: { rgb: '000000' } },
+          },
+        };
+      }
+    }
+
+    // Crea un libro de trabajo y agrega la hoja
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+    // Genera el archivo Excel y lo descarga
+    XLSX.writeFile(workbook, 'Producto.xlsx');
+  };
+
+  
   const getItems = async () => {
     const itemsg = await sMercaderia.getItems();
     setItems(itemsg);
@@ -70,6 +151,7 @@ function Main() {
             size={SizeMainButtonSecondary}
             icon={disabled ? IconTabla : IconCard}
           />
+              <button onClick={handleExport}>Exportar a Excel</button>
 
           <Button
             style={ButtonMainSecondaryLeft}

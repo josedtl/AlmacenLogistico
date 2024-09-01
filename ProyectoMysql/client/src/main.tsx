@@ -34,7 +34,7 @@ import PageStock from "./Components/Stock/Main";
 import Login from './Components/Login/Login';
 import ProtectedRoute from './Components/ProtectedRoute';
 import { AuthProvider } from './Components/AuthContext.tsx';
-
+import Dashboard from './Components/Dashboard/InicioPage';
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -73,6 +73,8 @@ const router = createBrowserRouter([
       { path: "Despacho", element: <PageDespacho />, },
       { path: "DespachoSave/:Id", element: <PageDespachoSave />, },
       { path: "StockMercaderia", element: <PageStock />, },
+      { path: "Dashboard", element: <Dashboard />, },
+           
 
     ],
   },
