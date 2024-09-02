@@ -81,3 +81,24 @@ export const ButtonEnlaceEstatico: CSSProperties = {
     marginTop: '5px',
     marginBottom: '10px'
 };
+export const ButtonSaveFlotante: CSSProperties = {
+    float: "right",
+    color: "white",
+    backgroundColor: "#15616d",
+    borderColor: "#15616d",
+    marginTop: "25px",
+    position: 'fixed',
+    bottom: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    zIndex: 1000,
+};
+
+export const ButtonDetalleAddTab: CSSProperties = {
+    float: "right",
+    color: "while",
+    backgroundColor: "#034078",
+    borderColor: "while",
+    marginLeft : '9px',
+    background: '#034078',
+};

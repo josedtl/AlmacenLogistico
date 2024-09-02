@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
+import { Tabs, Table, message, Select, Button, Col, Row, Typography, Modal, Spin, Input, Segmented, Avatar } from 'antd';
 
 
 import MDCategoria from '../MerLista/ModalItem';
@@ -12,7 +12,7 @@ import ModalItem from './Presentacion/ModalItem';
 import DataTable from './Presentacion/DataTable';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
-import { ButtonAddMain } from '../../Styles/Button'
+import { ButtonAddMain, ButtonSaveFlotante } from '../../Styles/Button'
 
 import MercaderiaService from '../../Service/MercaderiaService';
 import GeneralService from '../../Service/GeneralService';
@@ -391,6 +391,81 @@ const Save = () => {
 
 
   }
+  const Guardar_TotalAlter = async (e: React.MouseEvent<HTMLDivElement>) => {
+
+    selectedCategoria;
+    selectedTipoProducto;
+    selectedMarca;
+    selectedModelo;
+    selectedUM;
+    if (Ent.Codigo === '') {
+      setValCodigo('error');
+      messageAdd.open({ type: 'error', content: 'Ingrese Codigo.', });
+      return;
+    }
+    if (Ent.CategoriaId === 0) {
+      setValCategoria('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione una categoria.', });
+      return;
+    }
+    if (Ent.TipoProductoId === 0) {
+      setValTipoProducto('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione una tipo de producto.', });
+      return;
+    }
+
+    if (Ent.MarcaId === 0) {
+      setValMarca('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione una marca.', });
+      return;
+    }
+
+
+    if (Ent.ModeloId === 0) {
+      setValModelo('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione un Modelo.', });
+      return;
+    }
+
+    if (Ent.Nombre === '') {
+      setValNombre('error');
+      messageAdd.open({ type: 'error', content: 'Ingrese un Nombre.', });
+      return;
+    }
+
+    if (Ent.Descripcion === '') {
+      setValDescripcion('error');
+      messageAdd.open({ type: 'error', content: 'Ingrese un Nombre.', });
+      return;
+    }
+
+    if (Ent.UnidadMedidaId === 0) {
+      setValUnidadMedida('error');
+      messageAdd.open({ type: 'error', content: 'Seleccione una unidad de medida.', });
+      return;
+    }
+
+
+    modal.confirm({
+      title: 'Mensaje del Sistema',
+      icon: <ExclamationCircleOutlined />,
+      content: '¿Desea guardar el registro?',
+      okText: 'Si',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        Ent.CodUsuario = "adm";
+        Ent.Action = 1;
+        Ent.FechaRegistro = new Date();
+        Ent.EstadoRegistro = true
+
+        AddProducto();
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -403,13 +478,42 @@ const Save = () => {
           <Title level={3}> {Ent.MercaderiaId > 0 ? 'Producto' : 'Agregar Producto'}</Title>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <Button
-            style={ButtonAddMain}
+          {/* <Button
+            style={ButtonSaveFlotante}
             onClick={Guardar_Total}
             size={"large"}
             icon={<SaveFilled />}
-          />
+          /> */}
 
+          <Segmented
+            style={{
+              position: 'fixed',
+              bottom: '20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 1000,
+            }}
+            options={[
+
+              {
+                label: (
+                  <div style={{ padding: 4 }} onClick={Guardar_TotalAlter}>
+                    <Avatar style={{
+                      backgroundColor: "#15616d",
+                      borderColor: "#15616d",
+
+                    }}
+                      // onClick={Guardar_Total}
+                      shape="square"
+                      size={40}
+                      icon={<SaveFilled />} />
+                    <div>Guardar</div>
+                  </div>
+                ),
+                value: 'Guardar',
+              },
+            ]}
+          />
         </Col>
       </Row>
       <Row>
@@ -683,7 +787,7 @@ const Save = () => {
 
 
           <Tabs
-            tabBarExtraContent={AgregarButton_Presentacion()}
+            // tabBarExtraContent={AgregarButton_Presentacion()}
             key={'TabGeneral'}
             type="card"
 
@@ -692,9 +796,17 @@ const Save = () => {
               return {
                 label: (
                   < >
-                    <Title style={{ fontSize: '18px' }}>
-                      Presentación
-                    </Title>
+                    <Row>
+                      <Col xs={12}>
+                        <Title style={{ fontSize: '18px' }}>
+                          Presentación
+                        </Title>
+                      </Col>
+                 
+                      <Col xs={12}>
+                        <ModalItem buttonLabel="" addItemToState={event_AgregarDetalle} keyItem={''} />
+                      </Col>
+                    </Row>
                   </>
                 ),
                 key: '1',
@@ -717,7 +829,7 @@ const Save = () => {
           />
         </Col>
       </Row>
-    </Spin>
+    </Spin >
   );
 };
 
