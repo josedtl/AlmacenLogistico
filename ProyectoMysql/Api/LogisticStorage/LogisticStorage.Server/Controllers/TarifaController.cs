@@ -10,7 +10,7 @@ namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   /// [Authorize]
     public class TarifaController : ControllerBase
     {
         Base d = new Base();

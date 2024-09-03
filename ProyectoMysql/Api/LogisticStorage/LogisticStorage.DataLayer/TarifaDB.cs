@@ -101,7 +101,7 @@ namespace LogisticStorage.DataLayer
         {
             if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
             {
-                String storedName = "sp_Tarifa_Update";
+                String storedName = "sp_Tarifa_UpdateSave";
                 if (Ent.LogicalState == LogicalState.Added) storedName = "sp_Tarifa_Save";
                 DbDatabase.GetStoredProcCommand(storedName);
                 DbDatabase.SetTransaction(Helper.DbTransaction);
@@ -110,8 +110,8 @@ namespace LogisticStorage.DataLayer
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_UnidadMedidaId", DbType.String, 100, false, 0, 0, Ent.UnidadMedidaId);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MonedaId", DbType.Int32, 4, false, 0, 0, Ent.MonedaId);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_PorcentajeImpuestoId", DbType.Int32, 4, false, 0, 0, Ent.PorcentajeImpuestoId);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_PrecioSinImpuesto", DbType.Int32, 4, false, 0, 0, Ent.PrecioSinImpuesto);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_PrecioConImpuesto", DbType.Int32, 4, false, 0, 0, Ent.PrecioConImpuesto);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_PrecioSinImpuesto", DbType.Decimal, 4, false, 0, 0, Ent.PrecioSinImpuesto);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_PrecioConImpuesto", DbType.Decimal, 4, false, 0, 0, Ent.PrecioConImpuesto);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MercaderiaId", DbType.Int32, 4, false, 0, 0, Ent.MercaderiaId);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_FechaCreacion", DbType.DateTime, 12, false, 0, 0, Ent.FechaCreacion);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Vigente", DbType.Boolean, 2, false, 0, 0, Ent.Vigente);

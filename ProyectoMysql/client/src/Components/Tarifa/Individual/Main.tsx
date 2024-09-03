@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import DataTable from '../Individual/DataTable';
+import DataTable from './DataTable';
 import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
 import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , ButtonAddMain} from '../../../Styles/Button'
 import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../../Styles/Type'
@@ -49,7 +49,7 @@ function Main() {
       <Row>
 
       <Col xs={18} sm={18} md={12} lg={12} xl={12}>
-          <Title level={2}> Tarifa</Title>
+          <Title level={2}> TarifaMain </Title>
         </Col>
 
         <Col xs={6} sm={6} md={12} lg={12} xl={12}>
