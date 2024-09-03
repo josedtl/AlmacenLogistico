@@ -21,7 +21,9 @@ namespace LogisticStorage.Server
             this.FechaRegistro = DateTime.Now;
             this.CodUsuario = String.Empty;
             this.EstadoRegistro = false;
-            this.Action =0; 
+            this.Action =0;
+            this.DetalleItems = new List<MercaderiaPresentacionModel>();
+
         }
 
         public MercaderiaSaveModel(MercaderiaEntity Item)
@@ -56,5 +58,7 @@ namespace LogisticStorage.Server
         [JsonPropertyName("CodUsuario")] public String CodUsuario { get; set; }
         [JsonPropertyName("EstadoRegistro")] public bool EstadoRegistro { get; set; }
         [JsonPropertyName("Action")] public Int16 Action { get; set; }
+
+        [JsonPropertyName("DetalleItems")] public List<MercaderiaPresentacionModel> DetalleItems { get; set; }
     }
 }

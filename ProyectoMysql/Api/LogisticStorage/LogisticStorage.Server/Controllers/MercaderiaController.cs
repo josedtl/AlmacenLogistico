@@ -39,6 +39,25 @@ namespace LogisticStorage.Server.Controllers
                 ItemEntity.EstadoRegistro = Item.EstadoRegistro;
                 ItemEntity.LogicalState = (LogicalState)Item.Action;
 
+
+                if (Item.DetalleItems != null && Item.DetalleItems.Count > 0)
+                {
+                    ItemEntity.DetalleItems = new List<MercaderiaPresentacionEntity>();
+                    foreach (var detalle in Item.DetalleItems)
+                    {
+                        ItemEntity.DetalleItems.Add(new MercaderiaPresentacionEntity
+                        {
+                            MercaderiaPresentacionId = detalle.MercaderiaPresentacionId,
+                            MercaderiaId = detalle.MercaderiaId,
+                            UnidadMedidaId = detalle.UnidadMedidaId,
+                            Cantidad = detalle.Cantidad,
+                            LogicalState = (LogicalState)detalle.Action
+                        });
+
+                    }
+                }
+
+
                 Item.MercaderiaId = Mercaderia.Registrar(ItemEntity);
 
                 return new ResponseAPI<MercaderiaSaveModel>(Item, true);
