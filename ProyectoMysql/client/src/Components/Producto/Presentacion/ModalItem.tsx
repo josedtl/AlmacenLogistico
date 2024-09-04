@@ -62,6 +62,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
     button = (
 
       <Button
+         type='dashed'
         onClick={toggle}
         style={ButtonDetalleAddTab}
         size={SizeButtonPrimary}

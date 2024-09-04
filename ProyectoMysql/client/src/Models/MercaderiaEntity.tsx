@@ -1,3 +1,5 @@
+import { MercaderiaPresentacionSaveModel } from "./MercaderiaPresentacionEntity";
+
 export class MercaderiaSaveModel {
     Cont: number;
     MercaderiaId: number;
@@ -15,6 +17,7 @@ export class MercaderiaSaveModel {
     CodUsuario: string;
     EstadoRegistro: boolean;
     Action: number;
+    DetalleItems : MercaderiaPresentacionSaveModel []
     constructor() {
         this.Cont = 0;
         this.MercaderiaId = 0;
@@ -32,6 +35,7 @@ export class MercaderiaSaveModel {
         this.CodUsuario = '';
         this.EstadoRegistro = false;
         this.Action = 0;
+        this.DetalleItems = []
     }
 }
 
