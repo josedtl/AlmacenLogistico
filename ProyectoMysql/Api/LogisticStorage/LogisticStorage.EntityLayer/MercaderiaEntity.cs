@@ -25,8 +25,9 @@ namespace LogisticStorage.EntityLayer
             FechaRegistro = DateTime.Now;
             CodUsuario = GetStringDefault();
 			EstadoRegistro =GetBooleanDefault();
+            DetalleItem = new List<MercaderiaPresentacionEntity>();
 
-		}
+        }
         public Int32 MercaderiaId { get; set; }
         public String Codigo { get; set; }
         public Int32 CategoriaId { get; set; }
@@ -41,6 +42,6 @@ namespace LogisticStorage.EntityLayer
         public DateTime FechaRegistro { get; set; }
         public String CodUsuario { get; set; }
         public Boolean EstadoRegistro { get; set; }
-
+        public List<MercaderiaPresentacionEntity> DetalleItem { get; set; }
     }
 }
