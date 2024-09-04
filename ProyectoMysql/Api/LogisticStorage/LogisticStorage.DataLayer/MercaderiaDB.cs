@@ -102,21 +102,6 @@ namespace LogisticStorage.DataLayer
                 }
             }
 
-            if (Ent.DetalleItems != null && Ent.DetalleItems.Count > 0)
-            {
-                MercaderiaPresentacionDB MercaderiaPresentacionDB = new MercaderiaPresentacionDB();
-                MercaderiaPresentacionDB.SetHelper(Helper);
-
-                foreach (MercaderiaPresentacionEntity detalle in Ent.DetalleItems)
-                {
-                    if (Ent.LogicalState == LogicalState.Added)
-                    {
-                        if (detalle.LogicalState != LogicalState.Deleted) detalle.LogicalState = LogicalState.Added;
-                    }
-                    detalle.MercaderiaId = Ent.MercaderiaId;
-                    MercaderiaPresentacionDB.Registrar(detalle);
-                }
-            }
 
             return true;
         }

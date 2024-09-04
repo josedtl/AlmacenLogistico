@@ -1,5 +1,3 @@
-import { MercaderiaPresentacionSaveModel } from "./MercaderiaPresentacionEntity";
-
 export class MercaderiaSaveModel {
     Cont: number;
     MercaderiaId: number;
@@ -17,7 +15,6 @@ export class MercaderiaSaveModel {
     CodUsuario: string;
     EstadoRegistro: boolean;
     Action: number;
-    DetalleItems: MercaderiaPresentacionSaveModel[];
     constructor() {
         this.Cont = 0;
         this.MercaderiaId = 0;
@@ -35,7 +32,6 @@ export class MercaderiaSaveModel {
         this.CodUsuario = '';
         this.EstadoRegistro = false;
         this.Action = 0;
-        this.DetalleItems = []
     }
 }
 
@@ -81,7 +77,7 @@ export class MercaderiaItemCategoriaModel {
         this.MercaderiaId = 0;
         this.Codigo = '';
         this.CategoriaId = 0;
-        this.Nombre = "";
+        this.Nombre ="";
         this.Descripcion = '';
         this.UnidadMedidaId = 0;
     }
@@ -95,10 +91,10 @@ export class MercaderiaItemOPModel {
     CodigoUM: string;
     Descripcion: string;
     Stock: number;
-    CategoriaId: number
+    CategoriaId : number
     constructor() {
         this.MercaderiaId = 0;
-        this.Nombre = "";
+        this.Nombre ="";
         this.CodigoUM = '';
         this.Descripcion = '';
         this.Stock = 0;

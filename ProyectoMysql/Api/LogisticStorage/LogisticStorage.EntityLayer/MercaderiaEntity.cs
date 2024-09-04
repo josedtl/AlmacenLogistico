@@ -11,23 +11,22 @@ namespace LogisticStorage.EntityLayer
 
         public MercaderiaEntity()
         {
-            this.MercaderiaId = GetInt32Default();
-            this.Codigo = GetStringDefault();
-            this.CategoriaId = GetInt32Default();
-            this.TipoProductoId = GetInt32Default();
-            this.MarcaId = GetInt32Default();
-            this.ModeloId = GetInt32Default();
-            this.Nombre = GetStringDefault();
-            this.Descripcion = GetStringDefault();
-            this.UnidadMedidaId = GetInt32Default();
-            this.Reserva = GetDecimalDefault();
-            this.Stock = GetDecimalDefault();
-            this.FechaRegistro = DateTime.Now;
-            this.CodUsuario = GetStringDefault();
-            this.EstadoRegistro = GetBooleanDefault();
-            this.DetalleItems = new List<MercaderiaPresentacionEntity>();
+            MercaderiaId = GetInt32Default();
+            Codigo = GetStringDefault();
+            CategoriaId = GetInt32Default();
+            TipoProductoId = GetInt32Default();
+            MarcaId = GetInt32Default();
+            ModeloId = GetInt32Default();
+            Nombre = GetStringDefault();
+            Descripcion = GetStringDefault();
+            UnidadMedidaId = GetInt32Default();
+            Reserva = GetDecimalDefault();
+            Stock = GetDecimalDefault();
+            FechaRegistro = DateTime.Now;
+            CodUsuario = GetStringDefault();
+			EstadoRegistro =GetBooleanDefault();
 
-        }
+		}
         public Int32 MercaderiaId { get; set; }
         public String Codigo { get; set; }
         public Int32 CategoriaId { get; set; }
@@ -42,8 +41,6 @@ namespace LogisticStorage.EntityLayer
         public DateTime FechaRegistro { get; set; }
         public String CodUsuario { get; set; }
         public Boolean EstadoRegistro { get; set; }
-        public List<MercaderiaPresentacionEntity> DetalleItems { get; set; }
-
 
     }
 }
