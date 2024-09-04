@@ -5,7 +5,8 @@ export class MercaderiaPresentacionSaveModel {
     UnidadMedidaId: number;
     Cantidad: number;
     Action: number;
-    NomUnidadMedida: string
+    NomUnidadMedida: string;
+    keyItem : string;
     constructor() {
         this.Cont = 0;
         this.MercaderiaPresentacionId = 0;
@@ -15,5 +16,6 @@ export class MercaderiaPresentacionSaveModel {
         this.UnidadMedidaId = 0;
         this.Action = 0;
         this.NomUnidadMedida = '';
+        this.keyItem = '';
     }
 }

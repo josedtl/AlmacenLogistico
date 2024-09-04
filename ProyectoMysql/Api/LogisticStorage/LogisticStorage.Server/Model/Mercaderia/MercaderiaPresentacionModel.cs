@@ -11,6 +11,7 @@ namespace LogisticStorage.Server
             this.MercaderiaId = 0;
             this.UnidadMedidaId = 0;
             this.Cantidad = 0;
+            this.NomUnidadMedida = String.Empty;
         }
 
         public MercaderiaPresentacionModel(MercaderiaPresentacionEntity Item)
@@ -19,14 +20,14 @@ namespace LogisticStorage.Server
             this.MercaderiaId = Item.MercaderiaId;
             this.UnidadMedidaId = Item.UnidadMedidaId;
             this.Cantidad = Item.Cantidad;
-        
+            this.NomUnidadMedida = Item.NomUnidadMedida;
+
         }
         [JsonPropertyName("MercaderiaPresentacionId")] public Int32 MercaderiaPresentacionId { get; set; }
         [JsonPropertyName("MercaderiaId")] public Int32 MercaderiaId { get; set; }
         [JsonPropertyName("UnidadMedidaId")] public Int32 UnidadMedidaId { get; set; }
         [JsonPropertyName("Cantidad")] public Decimal Cantidad { get; set; }
         [JsonPropertyName("Action")] public Int16 Action { get; set; }
-        
-
+        [JsonPropertyName("NomUnidadMedida")] public String NomUnidadMedida { get; set; }
     }
 }

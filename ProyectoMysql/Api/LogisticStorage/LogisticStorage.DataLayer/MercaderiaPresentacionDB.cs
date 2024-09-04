@@ -13,13 +13,13 @@ namespace LogisticStorage.DataLayer
     public class MercaderiaPresentacionDB : BaseDataEntity
     {
 
-        public virtual List<MercaderiaPresentacionEntity> ObtenerItem(Int32 OrdenPedidoId)
+        public virtual List<MercaderiaPresentacionEntity> ObtenerDetalle(Int32 MercaderiaId)
         {
             try
             {
                 StartHelper(false);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_OrdenPedidoId", DbType.Int32, 4, false, 0, 0, OrdenPedidoId);
-                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_OrdenPedidoDetalleItemCabecera");
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MercaderiaId", DbType.Int32, 4, false, 0, 0, MercaderiaId);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_MercaderiaPresentacion_ObtenerDetalle");
                 FillSchemeTable(dr);
                 List<MercaderiaPresentacionEntity> EntityList = new List<MercaderiaPresentacionEntity>();
                 while (dr.Read())
@@ -60,8 +60,8 @@ namespace LogisticStorage.DataLayer
         {
             if (Ent.LogicalState == LogicalState.Added || Ent.LogicalState == LogicalState.Updated)
             {
-                String storedName = "sp_OrdenPedidoDetalle_Update";
-                if (Ent.LogicalState == LogicalState.Added) storedName = "sp_OrdenPedidoDetalle_Save";
+                String storedName = "sp_MercaderiaPresentacion_Actualizar";
+                if (Ent.LogicalState == LogicalState.Added) storedName = "sp_MercaderiaPresentacion_Registrar";
                 DbDatabase.GetStoredProcCommand(storedName);
                 DbDatabase.SetTransaction(Helper.DbTransaction);
 
@@ -96,14 +96,14 @@ namespace LogisticStorage.DataLayer
             {
                 if (m_Helper.IsTransactional)
                 {
-                    DbDatabase.GetStoredProcCommand("sp_OrdenPedidoDetalle_Eliminar");
+                    DbDatabase.GetStoredProcCommand("sp_MercaderiaPresentacion_Eliminar");
                     DbDatabase.SetTransaction(Helper.DbTransaction);
                     DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MercaderiaPresentacionId", DbType.Int32, 4, false, 0, 0, Item.MercaderiaPresentacionId);
                     returnValue = DbDatabase.ExecuteNonQuery();
                 }
                 else
                 {
-                    returnValue = DbDatabase.ExecuteNonQuery("sp_OrdenPedidoDetalle_Eliminar", Item.MercaderiaPresentacionId);
+                    returnValue = DbDatabase.ExecuteNonQuery("sp_MercaderiaPresentacion_Eliminar", Item.MercaderiaPresentacionId);
                 }
 
             }

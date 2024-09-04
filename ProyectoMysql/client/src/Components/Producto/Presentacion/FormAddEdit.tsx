@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { OrdenPedidoDetalleEntity } from '../../../Models/OrdenPedidoDetalleEntity'
+import { MercaderiaPresentacionSaveModel } from '../../../Models/MercaderiaPresentacionEntity'
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
-import { Select, Button, Col, Row, Space, Input, Form, message, Modal } from 'antd';
-import MerListaService from '../../../Service/MerListaService';
+import { Select, Button, Col, Row, Input, Form, message, Modal } from 'antd';
 import MercaderiaService from '../../../Service/MercaderiaService';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import { UnidadMedidaEntity } from "../../../Models/UnidadMedidaEntity";
@@ -13,8 +12,8 @@ import GeneralService from '../../../Service/GeneralService';
 const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const sGeneralService = new GeneralService();
-    const initialOrdenPedidoDetalle = new OrdenPedidoDetalleEntity();
-    const [Ent, setEnt] = useState<OrdenPedidoDetalleEntity>(initialOrdenPedidoDetalle);
+    const initialMercaderiaPresentacion = new MercaderiaPresentacionSaveModel();
+    const [Ent, setEnt] = useState<MercaderiaPresentacionSaveModel>(initialMercaderiaPresentacion);
     const [FlaState, setFlaState] = useState<Boolean>(false);
     const [ValSolicitar, setValSolicitar] = useState<InputStatus>('');
     const [ValDato, setValDato] = useState<InputStatus>('');
@@ -35,16 +34,16 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         try {
 
 
-
+            Ent.Action = Ent.MercaderiaPresentacionId === 0 ? 1 : 3;
 
             // Ent.CantidadSolicitado = 1;
-            Ent.UnidadMedidaId = 1;
+            // Ent.UnidadMedidaId = 1;
             // Ent.key =props.keyItem;
             console.log(Ent);
             if (Ent.keyItem === '') {
                 Ent.keyItem = generarGuid();
                 props.addItemToState(Ent);
-                setEnt(new OrdenPedidoDetalleEntity());
+                setEnt(new MercaderiaPresentacionSaveModel());
             }
             else {
                 props.updateState(Ent);
@@ -61,16 +60,13 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             return v.toString(16);
         });
     }
-    const [ValCodigoUM, setValCodigoUM] = useState<string>('');
-    const [ValProducto, setValProducto] = useState<InputStatus>('');
     const [optionsUM, setOptionsUM] = useState<UnidadMedidaEntity[]>([]);
 
-    const sMerLista = new MerListaService();
     const sMercaderiaService = new MercaderiaService();
     // useEffect(() => {
     //     const updatedPerson = props.item;
-    //     updatedPerson.Action = updatedPerson.OrdenPedidoDetalleId > 0 ? 3 : 1;
-    //     setFlaState(updatedPerson.OrdenPedidoDetalleId > 0);
+    //     updatedPerson.Action = updatedPerson.MercaderiaPresentacionId > 0 ? 3 : 1;
+    //     setFlaState(updatedPerson.MercaderiaPresentacionId > 0);
     //     setEnt(updatedPerson);
     // }, []);
 
@@ -97,7 +93,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
 
 
-        updatedItem.Action = updatedItem.OrdenPedidoDetalleId > 0 ? ProcessActionEnum.Update : ProcessActionEnum.Add;
+        updatedItem.Action = updatedItem.MercaderiaPresentacionId > 0 ? ProcessActionEnum.Update : ProcessActionEnum.Add;
         setFlaState(updatedItem.key === '');
         setEnt(updatedItem);
     }
@@ -107,6 +103,13 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     selectedUM;
     const onChangeUM = async (value: number) => {
         setValUnidadMedida('');
+
+        const Index_UM = optionsUM.findIndex(d => d.UnidadMedidaId === value);
+
+        if (Index_UM >= 0) {
+            Ent.NomUnidadMedida = optionsUM[Index_UM].Nombre;
+        }
+
         Ent.UnidadMedidaId = value;
         setSelectedUM(value)
     };
@@ -173,10 +176,10 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                 // suffix={ValCodigoUM}
                                 status={ValSolicitar}
                                 type="number"
-                                name="CantidadSolicitado"
-                                style={{  marginTop: '5px', marginBottom: '10px' }}
+                                name="Cantidad"
+                                style={{ marginTop: '5px', marginBottom: '10px' }}
                                 onChange={onChange}
-                                value={Ent.CantidadSolicitado === null ? 0 : Ent.CantidadSolicitado}
+                                value={Ent.Cantidad === null ? 0 : Ent.Cantidad}
                             />
 
 

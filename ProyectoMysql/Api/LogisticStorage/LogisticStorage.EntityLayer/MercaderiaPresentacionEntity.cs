@@ -15,11 +15,12 @@ namespace LogisticStorage.EntityLayer
             this.MercaderiaId = 0;
             this.UnidadMedidaId = 0;
             this.Cantidad = 0;
+            this.NomUnidadMedida = String.Empty;
         }
         public Int32 MercaderiaPresentacionId { get; set; }
         public Int32 MercaderiaId { get; set; }
         public Int32 UnidadMedidaId { get; set; }
         public Decimal Cantidad { get; set; }
-
+        public String NomUnidadMedida { get; set; }
     }
 }

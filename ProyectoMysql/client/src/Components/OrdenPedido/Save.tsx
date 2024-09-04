@@ -166,13 +166,6 @@ function Page() {
 
 
     }
-    // const itemIndex = items.findIndex((data) => data.keyItem === item.keyItem);
-    // const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
-    // setItems(newArray);
-    // messageAdd.open({
-    //   type: 'error',
-    //   content: 'Se eliminó correctamente.',
-    // });
 
 
 

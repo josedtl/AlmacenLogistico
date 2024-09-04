@@ -25,15 +25,15 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
         {
             title: 'UnidadMedida',
-            dataIndex: 'UnidadMedida',
+            dataIndex: 'NomUnidadMedida',
             width: '200px',
-            key: 'UnidadMedida',
+            key: 'NomUnidadMedida',
         },
         {
-            title: 'UM',
-            dataIndex: 'CodigoUM',
+            title: 'Cantidad',
+            dataIndex: 'Cantidad',
             width: 40,
-            key: 'CodigoUM',
+            key: 'Cantidad',
         },   
        
         {

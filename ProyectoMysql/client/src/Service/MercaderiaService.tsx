@@ -1,6 +1,7 @@
 import { MercaderiaItemOPModel, MercaderiaMainModel, MercaderiaSaveModel } from '../Models/MercaderiaEntity';
 import { EntidadLikeModel } from '../Models/EntidadLikeModel';
 import { apiLg } from './axios-config';
+import { MercaderiaPresentacionSaveModel } from '../Models/MercaderiaPresentacionEntity';
 class MercaderiaService {
 
 
@@ -104,6 +105,16 @@ class MercaderiaService {
       throw error;
     }
   }
+
+  async ObtenerDetalleMPresentacion(Id: number): Promise<MercaderiaPresentacionSaveModel[]> {
+    try {
+      const response = await apiLg.get(`api/Mercaderia/MercaderiaPresentacionObtenerDetalle/${Id}`);
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
 }
 

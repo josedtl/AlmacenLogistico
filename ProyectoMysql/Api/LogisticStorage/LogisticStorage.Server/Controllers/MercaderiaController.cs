@@ -215,5 +215,28 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<List<MercaderiaTarifaModel>>(new List<MercaderiaTarifaModel>(), false, ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("MercaderiaPresentacionObtenerDetalle/{MercaderiaId}")]
+        public ResponseAPI<List<MercaderiaPresentacionModel>> MercaderiaPresentacionObtenerDetalle(Int32 MercaderiaId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = MercaderiaPresentacion.ObtenerDetalle(MercaderiaId);
+
+                List<MercaderiaPresentacionModel> Lista = new List<MercaderiaPresentacionModel>();
+
+                foreach (var Item in Items) Lista.Add(new MercaderiaPresentacionModel(Item));
+
+                return new ResponseAPI<List<MercaderiaPresentacionModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<MercaderiaPresentacionModel>>(new List<MercaderiaPresentacionModel>(), false, ex.Message);
+            }
+        }
+
     }
 }

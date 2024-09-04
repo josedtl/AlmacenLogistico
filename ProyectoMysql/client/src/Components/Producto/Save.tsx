@@ -12,7 +12,6 @@ import ModalItem from './Presentacion/ModalItem';
 import DataTable from './Presentacion/DataTable';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { useParams } from 'react-router-dom';
-import { ButtonAddMain, ButtonSaveFlotante } from '../../Styles/Button'
 
 import MercaderiaService from '../../Service/MercaderiaService';
 import GeneralService from '../../Service/GeneralService';
@@ -21,6 +20,8 @@ import MerListaService from '../../Service/MerListaService';
 import { MercaderiaSaveModel } from '../../Models/MercaderiaEntity';
 import { MerListaEntity } from '../../Models/MerListaEntity';
 import { UnidadMedidaEntity } from '../../Models/UnidadMedidaEntity';
+import { MercaderiaPresentacionSaveModel } from '../../Models/MercaderiaPresentacionEntity';
+import { ProcessActionEnum } from '../../Lib/ResourceModel/Enum';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
@@ -158,6 +159,13 @@ const Save = () => {
     }
   };
 
+  function generarGuid(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0,
+        v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
 
 
   const getCargarDatos = async () => {
@@ -181,6 +189,18 @@ const Save = () => {
 
 
       setEnt(Resp_Producto[0]);
+      const Resp_MPetalle = await sMercaderia.ObtenerDetalleMPresentacion(idNumero);
+      if (Resp_MPetalle.length > 0) {
+
+        Resp_MPetalle.map((data) => {
+          data.keyItem = generarGuid();
+          data.Action = ProcessActionEnum.Update;
+
+        })
+
+        setItems(Resp_MPetalle)
+        Ent.DetalleItems = Resp_MPetalle
+      }
     }
 
     setCargarPage(false);
@@ -210,7 +230,7 @@ const Save = () => {
   const [ValNombre, setValNombre] = useState<InputStatus>('');
   const [ValDescripcion, setValDescripcion] = useState<InputStatus>('');
   const [ValUnidadMedida, setValUnidadMedida] = useState<InputStatus>('');
-
+  const [items, setItems] = useState<MercaderiaPresentacionSaveModel[]>([]);
 
 
   const onChangeCategoria = async (value: number) => {
@@ -263,10 +283,9 @@ const Save = () => {
   const [messageAdd, contextHolderAdd] = message.useMessage();
   const AddProducto = async () => {
 
-    Ent.Stock = 0;
-    Ent.Reserva = 0;
+
     Ent.Action = Ent.MercaderiaId == 0 ? 1 : 3;
-    console.log("HOLA");
+    Ent.DetalleItems = items;
     console.log(Ent);
     const savedItem = await sMercaderia.saveItem(Ent);
     if (savedItem) {
@@ -362,12 +381,41 @@ const Save = () => {
 
   };
   const event_AgregarDetalle = (item: any) => {
+    const itemIndex = items.findIndex((data) => data.keyItem === item.keyItem);
 
+    if (itemIndex == -1) {
+      setItems([...items, item]);
+      console.log(items);
+      messageAdd.open({
+        type: 'success',
+        content: 'Se guardó correctamente.',
+      });
+
+    }
   };
 
   const event_EliminarDetalle = (item: any) => {
+    if (item.OrdenPedidoDetalleId > 0) {
+
+      const itemIndex = items.findIndex((data) => data.MercaderiaPresentacionId === item.OrdenPedidoDetalleId);
+      const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+      setItems(newArray);
+      messageAdd.open({
+        type: 'success',
+        content: 'Se actualizó correctamente.',
+      });
+    } else {
+      const itemIndex = items.findIndex((data) => data.keyItem === item.keyItem);
+      const newArray = [...items.slice(0, itemIndex), item, ...items.slice(itemIndex + 1)];
+      setItems(newArray);
+      messageAdd.open({
+        type: 'success',
+        content: 'Se actualizó correctamente.',
+      });
 
 
+
+    };
   };
   useEffect(() => {
     async function cargarItem() {
@@ -391,6 +439,8 @@ const Save = () => {
 
 
   }
+
+  const filterItems = items.filter(d => d.Action != ProcessActionEnum.Delete);
   const Guardar_TotalAlter = async (e: React.MouseEvent<HTMLDivElement>) => {
 
     selectedCategoria;
@@ -802,9 +852,9 @@ const Save = () => {
                           Presentación
                         </Title>
                       </Col>
-                 
+
                       <Col xs={12}>
-                        <ModalItem buttonLabel="" addItemToState={event_AgregarDetalle} keyItem={''} />
+                        <ModalItem buttonLabel="" addItemToState={event_AgregarDetalle} item={new MercaderiaPresentacionSaveModel()} keyItem={''} />
                       </Col>
                     </Row>
                   </>
@@ -819,7 +869,7 @@ const Save = () => {
                     }
                     }>
                       <Col xs={24}>
-                        <DataTable DataList={[]} updateState={event_ActualizarPresentacion} deleteItemFromState={event_EliminarDetalle} EsTabla={false} />
+                        <DataTable DataList={filterItems} updateState={event_ActualizarPresentacion} deleteItemFromState={event_EliminarDetalle} EsTabla={false} />
 
                       </Col>
                     </Row >
