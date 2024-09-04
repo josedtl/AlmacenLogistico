@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { SolutionOutlined, UserSwitchOutlined } from '@ant-design/icons';
+import {  BankOutlined,DollarOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import { Col, Row, Typography,Spin, Flex, Segmented } from 'antd';
 import { Link } from "react-router-dom";
-
 function Menu() {
     const [CargarPage, setCargarPage] = React.useState(true);
     const { Title } = Typography;
@@ -26,11 +25,11 @@ function Menu() {
                                 {
                                     label: (
                                         <div style={{ padding: 4 }}>
-                                            <Link to={`/Individual`}>
+                                            <Link to={`/TarifaI`}>
                                                 <Avatar
                                                     style={{ backgroundColor: '#f56a00' }}
                                                     size={170}
-                                                    icon={<UserSwitchOutlined />}
+                                                    icon={<DollarOutlined />}
                                                 />
                                             </Link>
                                             <div>Individual</div>
@@ -45,7 +44,7 @@ function Menu() {
                                                 <Avatar
                                                     style={{ backgroundColor: '#f56a00' }}
                                                     size={170}
-                                                    icon={<SolutionOutlined />}
+                                                    icon={<BankOutlined />}
                                                 />
                                             </Link>
                                             <div>Grupal</div>

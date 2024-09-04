@@ -24,7 +24,7 @@ import PageRecepcion from "./Components/Recepcion/Main";
 import PageRecepcionSave from "./Components/Recepcion/RecepcionDetalle/Save";
 import PageReservafrom from "./Components/Reserva/Main";
 import PageReservaSave from "./Components/Reserva/ReservaDetalle/Save";
-// import PageTarifaMenu from "./Components/Tarifa/Menu"
+import PageTarifaMenu from "./Components/Tarifa/Menu"
 import PageTarifaMain from "./Components/Tarifa/Individual/Main";
 import PageTarifaSave from "./Components/Tarifa/Individual/Save";
 import PageTarifaUpdate from "./Components/Tarifa/Individual/Update";
@@ -66,8 +66,8 @@ const router = createBrowserRouter([
       { path: "RecepcionSave/:Id", element: <PageRecepcionSave />, },
       { path: "Reserva", element: <PageReservafrom />, },
       { path: "ReservaSave/:Id", element: <PageReservaSave />, },
-      // { path: "Tarifa/Menu", element: <PageTarifaMenu />, },
-      { path: "Tarifa", element: <PageTarifaMain />, },
+      { path: "Tarifa", element: <PageTarifaMenu />, },
+      { path: "TarifaI", element: <PageTarifaMain />, },
       { path: "TarifaSave/:Id", element: <PageTarifaSave />, },
       { path: "TarifaUpdate/:Id", element: <PageTarifaUpdate />, },
       { path: "Despacho", element: <PageDespacho />, },
