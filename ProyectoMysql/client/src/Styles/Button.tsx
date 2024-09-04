@@ -95,12 +95,10 @@ export const ButtonSaveFlotante: CSSProperties = {
 };
 
 export const ButtonDetalleAddTab: CSSProperties = {
-
     float: "right",
-    marginRight: "10px",
-    color: "#000000",
-    backgroundColor: "white",
-    borderColor: "#000000",
+    color: "while",
+    backgroundColor: "#034078",
+    borderColor: "while",
     marginLeft : '9px',
-    background: 'while',
+    background: '#034078',
 };
