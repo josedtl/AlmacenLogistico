@@ -31,7 +31,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
         icon={IconEditTable}
       />
     );
-    title = "Editar OrdenPedidoDetalle";
+    title = "Editar Presentación";
   } else if (label === "Enlace") {
 
     button = (
@@ -43,7 +43,7 @@ const ModalItem: React.FC<PropsModel> = (props) => {
       />
     );
 
-    title = "Agregar OrdenPedidoDetalle s";
+    title = "Agregar Presentación";
 
 
   } else if (label === "EnlaceCard") {

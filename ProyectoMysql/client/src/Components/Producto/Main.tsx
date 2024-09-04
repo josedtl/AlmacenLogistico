@@ -3,8 +3,8 @@ import DataTable from './DataTable';
 import { MercaderiaMainModel } from '../../Models/MercaderiaEntity';
 import MercaderiaService from '../../Service/MercaderiaService';
 import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
-import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain , ButtonAddMain} from '../../Styles/Button'
-import { SizeMainButtonSecondary ,SizeButtonPrimary} from '../../Styles/Type'
+import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain, ButtonAddMain } from '../../Styles/Button'
+import { SizeMainButtonSecondary, SizeButtonPrimary } from '../../Styles/Type'
 import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
 import { Link } from "react-router-dom";
 import * as XLSX from 'xlsx';
@@ -25,7 +25,7 @@ function Main() {
   // const handleExport = () => {
   //   // Crea una hoja de trabajo con los datos
   //   const worksheet = XLSX.utils.json_to_sheet(filterItems);
-    
+
   //   // Crea un libro de trabajo y agrega la hoja
   //   const workbook = XLSX.utils.book_new();
   //   XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
@@ -102,7 +102,7 @@ function Main() {
     XLSX.writeFile(workbook, 'Producto.xlsx');
   };
 
-  
+
   const getItems = async () => {
     const itemsg = await sMercaderia.getItems();
     setItems(itemsg);
@@ -122,7 +122,7 @@ function Main() {
     <Spin spinning={CargarPage} tip="Cargando" size="large">
       <Row>
 
-      <Col xs={18} sm={18} md={12} lg={12} xl={12}>
+        <Col xs={18} sm={18} md={12} lg={12} xl={12}>
           <Title level={2}> Producto</Title>
         </Col>
 
@@ -132,9 +132,9 @@ function Main() {
               style={ButtonAddMain}
               size={SizeButtonPrimary}
               icon={IconAdd}
-            />
+            >Nuevo</Button>
 
-         
+
           </Link>
         </Col>
 
@@ -144,20 +144,27 @@ function Main() {
             style={ButtonMainSecondaryLeft}
             size={SizeMainButtonSecondary}
             icon={IconLoad}
-          />
+          >
+            Refrescar
+          </Button>
           <Button
             onClick={toggle}
             style={ButtonMainSecondaryLeft}
             size={SizeMainButtonSecondary}
             icon={disabled ? IconTabla : IconCard}
-          />
-              <button onClick={handleExport}>Exportar a Excel</button>
+          >Vista a cuadro
+
+          </Button>
+          {/* <button onClick={handleExport}>Exportar a Excel</button> */}
 
           <Button
+            onClick={handleExport}
             style={ButtonMainSecondaryLeft}
             size={SizeMainButtonSecondary}
             icon={IconReport}
-          />
+          >Excel
+
+          </Button>
           <Button
             style={ButtonMainSecondaryRight}
             size={SizeMainButtonSecondary}
@@ -182,7 +189,7 @@ function Main() {
 
       </Row>
       <Card>
-        <DataTable DataList={filterItems}  EsTabla={disabled} />
+        <DataTable DataList={filterItems} EsTabla={disabled} />
       </Card>
 
     </Spin>

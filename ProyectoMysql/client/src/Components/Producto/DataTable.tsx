@@ -30,28 +30,20 @@ const DataTable: React.FC<PropsTable> = (props) => {
             title: 'Categoria',
             dataIndex: 'NomCategoria',
             key: 'NomCategoria',
-            width:200
+            width: 200
         },
         {
             title: 'Descripcion',
             dataIndex: 'Descripcion',
             key: 'Descripcion',
+            width: 200
         },
-        // {
-        //     title: 'Marca',
-        //     dataIndex: 'NomMarca',
-        //     key: 'NomMarca',
-        // },
-        // {
-        //     title: 'Modelo',
-        //     dataIndex: 'NomModelo',
-        //     key: 'NomModelo',
-        // },
+   
         {
             title: 'Unidad de Medida',
             dataIndex: 'NomUnidadMedida',
             key: 'NomUnidadMedida',
-            width:150
+            width: 150
         },
         {
             title: 'Fecha de registro',
@@ -136,10 +128,11 @@ const DataTable: React.FC<PropsTable> = (props) => {
         } else {
             return (
                 <Table
+                    
                     columns={columns}
                     dataSource={dataWithKeys}
                     size="small"
-                    scroll={{ x: 'calc(700px + 50%)', y: '100%' }}
+                    scroll={{ x: 'calc(700px + 50%)', y: '45vh'  }}
                 />
             )
         }
