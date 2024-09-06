@@ -9,6 +9,14 @@ export const ButtonAddMain: CSSProperties = {
     borderColor: "#15616d",
     marginTop: "25px",
 };
+export const ButtonAddMainRight: CSSProperties = {
+    float: "right",
+    color: "#15616d",
+    backgroundColor: "#E5F8FA",
+    borderColor: "#15616d",
+    marginTop: "25px",
+    marginRight : "5px"
+};
 
 
 export const ButtonMainSecondaryLeft: CSSProperties = {
@@ -23,7 +31,15 @@ export const ButtonMainSecondaryRight: CSSProperties = {
     float: "right",
     color: "#15616d",
     backgroundColor: "#E5F8FA",
+    borderColor: "#15616d"
+};
+
+export const ButtonMainSBuscarRight: CSSProperties = {
+    float: "right",
+    color: "#15616d",
+    backgroundColor: "#E5F8FA",
     borderColor: "#15616d",
+    width:'25vh'
 };
 
 export const ButtonDetalleEdit: CSSProperties = {

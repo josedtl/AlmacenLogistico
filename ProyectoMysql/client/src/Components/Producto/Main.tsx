@@ -3,7 +3,7 @@ import DataTable from './DataTable';
 import { MercaderiaMainModel } from '../../Models/MercaderiaEntity';
 import MercaderiaService from '../../Service/MercaderiaService';
 import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
-import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain, ButtonAddMain } from '../../Styles/Button'
+import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain, ButtonAddMain, ButtonAddMainRight, ButtonMainSBuscarRight } from '../../Styles/Button'
 import { SizeMainButtonSecondary, SizeButtonPrimary } from '../../Styles/Type'
 import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
 import { Link } from "react-router-dom";
@@ -127,6 +127,8 @@ function Main() {
         </Col>
 
         <Col xs={6} sm={6} md={12} lg={12} xl={12}>
+
+
           <Link to={`/ProductoSave/0`}>
             <Button
               style={ButtonAddMain}
@@ -136,45 +138,31 @@ function Main() {
 
 
           </Link>
-        </Col>
-
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Button
             onClick={getItems}
-            style={ButtonMainSecondaryLeft}
+            style={ButtonAddMainRight}
             size={SizeMainButtonSecondary}
             icon={IconLoad}
           >
             Refrescar
           </Button>
           <Button
-            onClick={toggle}
-            style={ButtonMainSecondaryLeft}
-            size={SizeMainButtonSecondary}
-            icon={disabled ? IconTabla : IconCard}
-          >Vista a cuadro
-
-          </Button>
-          {/* <button onClick={handleExport}>Exportar a Excel</button> */}
-
-          <Button
             onClick={handleExport}
-            style={ButtonMainSecondaryLeft}
+            style={ButtonAddMainRight}
             size={SizeMainButtonSecondary}
             icon={IconReport}
           >Excel
 
           </Button>
-          <Button
-            style={ButtonMainSecondaryRight}
-            size={SizeMainButtonSecondary}
-            icon={IconFiltro}
-          />
-
         </Col>
 
+      </Row>
+      <Row>
 
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+
+
+
+        <Col xs={24} sm={4} md={4} lg={4} xl={4}>
 
           <Input
             placeholder='Buscar Categoria'
@@ -186,11 +174,53 @@ function Main() {
             size={SizeMainButtonSecondary}
           />
         </Col>
+        <Col xs={24} sm={4} md={4} lg={4} xl={4}>
+          <Input
+            placeholder='Buscar Tipo'
+            type="text"
+            name="Nombre"
+            onChange={onChange}
+            value={Busqueda === null ? "" : Busqueda}
+            style={InputSearchMain}
+            size={SizeMainButtonSecondary}
+          />
+        </Col>
+
+        <Col xs={24} sm={6} md={6} lg={6} xl={6}>
+          <Button
+            style={ButtonMainSBuscarRight}
+            size={SizeMainButtonSecondary}
+            icon={IconFiltro}
+          >
+            Limpiar
+          </Button>
+          <Button
+            style={ButtonMainSBuscarRight}
+            size={SizeMainButtonSecondary}
+            icon={IconFiltro}
+          >
+            Buscar
+          </Button>
+        </Col>
+
+        <Col xs={24} sm={10} md={10} lg={10} xl={10}>
+          <Input
+            placeholder='Buscar Nombre'
+            type="text"
+            name="Nombre"
+            onChange={onChange}
+            value={Busqueda === null ? "" : Busqueda}
+            style={InputSearchMain}
+            size={SizeMainButtonSecondary}
+          />
+        </Col>
+
 
       </Row>
       <Card>
         <DataTable DataList={filterItems} EsTabla={disabled} />
       </Card>
+
 
     </Spin>
 
