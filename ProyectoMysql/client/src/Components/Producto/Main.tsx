@@ -2,18 +2,26 @@ import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
 import { MercaderiaMainModel } from '../../Models/MercaderiaEntity';
 import MercaderiaService from '../../Service/MercaderiaService';
-import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
-import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain, ButtonAddMain, ButtonAddMainRight, ButtonMainSBuscarRight } from '../../Styles/Button'
+import { Col, Row, Typography, Card, Button, Spin, Input, Select } from 'antd';
+import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain, ButtonAddMain, ButtonAddMainRight, ButtonMainSBuscarRight, ButtonMainLimpiar } from '../../Styles/Button'
 import { SizeMainButtonSecondary, SizeButtonPrimary } from '../../Styles/Type'
 import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
 import { Link } from "react-router-dom";
 import * as XLSX from 'xlsx';
+import MerListaService from '../../Service/MerListaService';
+import { MerListaEntity } from '../../Models/MerListaEntity';
+import { MercaderiaFiltroModel } from '../../Models/Filtro/MercaderiaFiltroModel';
 function Main() {
   useEffect(() => {
-    getItems();
+    setCargarPage(false);
+    // getItems();
   }, []);
+
+  const sMerLista = new MerListaService();
   const sMercaderia = new MercaderiaService();
 
+  const initialFiltro = new MercaderiaFiltroModel();
+  const [EntFitro, setEntFiltro] = useState<MercaderiaFiltroModel>(initialFiltro);
   const [items, setItems] = useState<MercaderiaMainModel[]>([]);
   const [CargarPage, setCargarPage] = React.useState(true);
   const [disabled, setDisabled] = useState(false);
@@ -104,6 +112,7 @@ function Main() {
 
 
   const getItems = async () => {
+    setCargarPage(true);
     const itemsg = await sMercaderia.getItems();
     setItems(itemsg);
     console.log(itemsg);
@@ -111,13 +120,74 @@ function Main() {
 
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBusqueda(e.target.value.toUpperCase());
+    setEntFiltro({
+      ...EntFitro,
+      [e.target.name]: e.target.value.toUpperCase()
+    });
+
   };
   const filterItems = items.filter(fdata =>
     fdata.Descripcion.toLowerCase().includes(Busqueda.toLowerCase())
   );
 
   const { Title } = Typography;
+  const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
+  const [selectedTipoProducto, setSelectedTipoProducto] = useState<number | undefined>(undefined);
+
+  const [optionsTipoProducto, setOptionsTipoProducto] = useState<MerListaEntity[]>([]);
+  const [optionsCategoria, setOptionsCategoria] = useState<MerListaEntity[]>([]);
+  const handleSearchCategoria = async (value: string) => {
+    try {
+      const responseCategoria = await sMerLista.getItemLike("M002", value);
+      setOptionsCategoria(responseCategoria);
+    } catch (error) {
+      console.error('Error al buscar categorías:', error);
+    }
+  };
+
+
+  const onChangeCategoria = async (value: number) => {
+    EntFitro.CategoriaId = value;
+    setSelectedCategoria(value)
+  };
+
+
+
+  const handleSearchTipoProducto = async (value: string) => {
+    try {
+      const responseTipoProducto = await sMerLista.getItemLike("M003", value);
+      setOptionsTipoProducto(responseTipoProducto);
+    } catch (error) {
+      console.error('Error al buscar categorías:', error);
+    }
+  };
+
+  const onChangeTipoProducto = async (value: number) => {
+    EntFitro.TipoId = value;
+    setSelectedTipoProducto(value)
+  };
+
+
+  const Buscar_Event = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    setCargarPage(true);
+    console.log(EntFitro);
+    const itemsg = await sMercaderia.ObtenerMainFiltro(EntFitro);
+    setItems(itemsg);
+    setCargarPage(false);
+  }
+
+  const Limpiar_Event = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    setCargarPage(true);
+    setEntFiltro(new MercaderiaFiltroModel());
+    setItems([]);
+    setOptionsCategoria([]);
+    setOptionsTipoProducto([])
+    setSelectedCategoria(0)
+    setSelectedTipoProducto(0)
+    setCargarPage(false);
+  }
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
       <Row>
@@ -138,14 +208,14 @@ function Main() {
 
 
           </Link>
-          <Button
+          {/* <Button
             onClick={getItems}
             style={ButtonAddMainRight}
             size={SizeMainButtonSecondary}
             icon={IconLoad}
           >
             Refrescar
-          </Button>
+          </Button> */}
           <Button
             onClick={handleExport}
             style={ButtonAddMainRight}
@@ -160,51 +230,114 @@ function Main() {
       <Row>
 
 
+        <Col xs={2} sm={2} md={2} lg={2} xl={2}>
 
-
-        <Col xs={24} sm={4} md={4} lg={4} xl={4}>
-
-          <Input
-            placeholder='Buscar Categoria'
-            type="text"
-            name="Nombre"
-            onChange={onChange}
-            value={Busqueda === null ? "" : Busqueda}
-            style={InputSearchMain}
-            size={SizeMainButtonSecondary}
-          />
-        </Col>
-        <Col xs={24} sm={4} md={4} lg={4} xl={4}>
-          <Input
-            placeholder='Buscar Tipo'
-            type="text"
-            name="Nombre"
-            onChange={onChange}
-            value={Busqueda === null ? "" : Busqueda}
-            style={InputSearchMain}
-            size={SizeMainButtonSecondary}
-          />
-        </Col>
-
-        <Col xs={24} sm={6} md={6} lg={6} xl={6}>
           <Button
-            style={ButtonMainSBuscarRight}
+            type='dashed'
+            onClick={getItems}
+            style={ButtonMainLimpiar}
             size={SizeMainButtonSecondary}
-            icon={IconFiltro}
+          // icon={IconFiltro}
+          >
+            Todos
+          </Button>
+        </Col>
+        <Col xs={2} sm={2} md={2} lg={2} xl={2}>
+
+          <Button
+            type='dashed'
+            style={ButtonMainLimpiar}
+            size={SizeMainButtonSecondary}
+            onClick={Limpiar_Event}
+          // icon={IconFiltro}
           >
             Limpiar
           </Button>
-          <Button
-            style={ButtonMainSBuscarRight}
-            size={SizeMainButtonSecondary}
-            icon={IconFiltro}
-          >
-            Buscar
-          </Button>
         </Col>
 
-        <Col xs={24} sm={10} md={10} lg={10} xl={10}>
-          <Input
+
+
+        <Col xs={24} sm={5} md={5} lg={5} xl={5}>
+
+          <Row>
+            <Col span={24}>
+              <label>Categoria</label>
+            </Col>
+            <Col span={24}>
+              <Select
+                // status={ValCategoria}
+                showSearch
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+                onSearch={handleSearchCategoria}
+                value={EntFitro.CategoriaId === 0 ? null : EntFitro.CategoriaId}
+                key={EntFitro.CategoriaId}
+                onChange={onChangeCategoria}
+              >
+                {optionsCategoria.map((categoria) => (
+                  <Select.Option key={categoria.ListaId} value={categoria.ListaId}>
+                    {categoria.Nombre}
+                  </Select.Option>
+                ))}
+              </Select>
+
+            </Col>
+          </Row>
+        </Col>
+
+
+
+
+        <Col xs={24} sm={5} md={5} lg={5} xl={5}>
+          <Row>
+            <Col span={24}>
+              <label>Tipo</label>
+            </Col>
+            <Col span={24}>
+              <Select
+                // status={ValCategoria}
+                showSearch
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+                onSearch={handleSearchTipoProducto}
+                value={EntFitro.TipoId === 0 ? null : EntFitro.TipoId}
+                key={EntFitro.TipoId}
+                onChange={onChangeTipoProducto}
+              >
+                {optionsTipoProducto.map((Tipo) => (
+                  <Select.Option key={Tipo.ListaId} value={Tipo.ListaId}>
+                    {Tipo.Nombre}
+                  </Select.Option>
+                ))}
+              </Select>
+
+            </Col>
+          </Row>
+        </Col>
+
+
+
+
+        <Col xs={24} sm={8} md={8} lg={8} xl={8}>
+
+          <Row>
+            <Col span={24}>
+              <label>Codigo / Nombre</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                // status={ValCodigo}
+                type="text"
+                name="Nombre"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                onChange={onChange}
+                value={EntFitro.Nombre === null ? "" : EntFitro.Nombre}
+              />
+            </Col>
+          </Row>
+          {/* <Input
             placeholder='Buscar Nombre'
             type="text"
             name="Nombre"
@@ -212,7 +345,21 @@ function Main() {
             value={Busqueda === null ? "" : Busqueda}
             style={InputSearchMain}
             size={SizeMainButtonSecondary}
-          />
+          /> */}
+        </Col>
+
+        <Col xs={24} sm={2} md={2} lg={2} xl={2}>
+          <Button
+            style={ButtonMainSBuscarRight}
+            size={SizeMainButtonSecondary}
+            onClick={Buscar_Event}
+
+          // icon={IconFiltro}
+          >
+            Buscar
+          </Button>
+
+
         </Col>
 
 

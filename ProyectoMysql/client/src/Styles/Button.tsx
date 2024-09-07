@@ -15,7 +15,7 @@ export const ButtonAddMainRight: CSSProperties = {
     backgroundColor: "#E5F8FA",
     borderColor: "#15616d",
     marginTop: "25px",
-    marginRight : "5px"
+    marginRight: "5px"
 };
 
 
@@ -34,13 +34,7 @@ export const ButtonMainSecondaryRight: CSSProperties = {
     borderColor: "#15616d"
 };
 
-export const ButtonMainSBuscarRight: CSSProperties = {
-    float: "right",
-    color: "#15616d",
-    backgroundColor: "#E5F8FA",
-    borderColor: "#15616d",
-    width:'25vh'
-};
+
 
 export const ButtonDetalleEdit: CSSProperties = {
     float: "right",
@@ -116,4 +110,26 @@ export const ButtonDetalleAddTab: CSSProperties = {
     backgroundColor: "while",
     borderColor: "Black",
     marginLeft: '8px',
+};
+
+
+export const ButtonMainLimpiar: CSSProperties = {
+    // float: "right",
+    color: "Black",
+    backgroundColor: "#eeeeee",
+    borderColor: "Black",
+    // width:'25vh'
+    marginTop: '24px',
+    width: '100%'
+};
+
+export const ButtonMainSBuscarRight: CSSProperties = {
+    float: "right",
+    color: "#ffffff",
+    backgroundColor: "#034078",
+    borderColor: "#ffffff",
+    // width:'25vh'
+    marginTop: '24px',
+    width: '100%'
+
 };

@@ -56,5 +56,12 @@ namespace LogisticStorage.BusinessLayer
             return DB.BuscarItem(Nombre);
         }
 
+        public static List<MercaderiaEntity> ObtenerMainFiltro(MercaderiaEntity Item)
+        {
+            MercaderiaDB DB = new MercaderiaDB();
+            return DB.ObtenerMainFiltro(Item);
+        }
+
     }
 }
+ 

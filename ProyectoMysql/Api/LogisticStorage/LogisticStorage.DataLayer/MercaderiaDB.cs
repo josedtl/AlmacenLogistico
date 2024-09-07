@@ -270,5 +270,33 @@ namespace LogisticStorage.DataLayer
             }
         }
 
+        public virtual List<MercaderiaEntity> ObtenerMainFiltro(MercaderiaEntity Item)
+        {
+            try
+            {
+                StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_CategoriaId", DbType.Int32, 4, false, 0, 0, Item.CategoriaId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_TipoProductoId", DbType.Int32, 4, false, 0, 0, Item.TipoProductoId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Nombre", DbType.String, 50, false, 0, 0, Item.Nombre);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(System.Data.CommandType.StoredProcedure, "sp_MercaderiaObtenerMainFiltro");
+                FillSchemeTable(dr);
+                List<MercaderiaEntity> EntityList = new List<MercaderiaEntity>();
+
+                while (dr.Read())
+                {
+                    MercaderiaEntity entity = new MercaderiaEntity();
+                    if (FillFrom<MercaderiaEntity>(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

@@ -2,6 +2,7 @@ import { MercaderiaItemOPModel, MercaderiaMainModel, MercaderiaSaveModel } from 
 import { EntidadLikeModel } from '../Models/EntidadLikeModel';
 import { apiLg } from './axios-config';
 import { MercaderiaPresentacionSaveModel } from '../Models/MercaderiaPresentacionEntity';
+import { MercaderiaFiltroModel } from '../Models/Filtro/MercaderiaFiltroModel';
 class MercaderiaService {
 
 
@@ -113,6 +114,22 @@ class MercaderiaService {
     } catch (error) {
       throw error;
     }
+  }
+
+  
+  async ObtenerMainFiltro(item: MercaderiaFiltroModel): Promise<MercaderiaMainModel[]> {
+    try {
+      const response = await apiLg.post(`api/Mercaderia/ObtenerMainFiltro/`, item, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+
+
   }
 
 

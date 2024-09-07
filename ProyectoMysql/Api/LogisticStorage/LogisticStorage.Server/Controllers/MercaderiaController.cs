@@ -9,7 +9,7 @@ namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class MercaderiaController : ControllerBase
     {
         Base d = new Base();
@@ -238,5 +238,30 @@ namespace LogisticStorage.Server.Controllers
             }
         }
 
+
+        [HttpPost]
+        [Route("ObtenerMainFiltro")]
+        public ResponseAPI<List<MercaderiaMainModel>> ObtenerMainFiltro(MercaderiaFiltroModel ItemFiltro)
+        {
+            try
+            {
+                d.Configurar();
+                MercaderiaEntity ItemDB = new MercaderiaEntity();
+
+                ItemDB.CategoriaId = ItemFiltro.CategoriaId;
+                ItemDB.TipoProductoId = ItemFiltro.TipoId;
+                ItemDB.Nombre = ItemFiltro.Nombre;
+
+                var Items = Mercaderia.ObtenerMainFiltro(ItemDB);
+                List<MercaderiaMainModel> Lista = new List<MercaderiaMainModel>();
+                foreach (var Item in Items) Lista.Add(new MercaderiaMainModel(Item));
+
+                return new ResponseAPI<List<MercaderiaMainModel>>(Lista, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<MercaderiaMainModel>>(new List<MercaderiaMainModel>(), false, ex.Message);
+            }
+        }
     }
 }
