@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LogisticStorage.BusinessLayer
 {
-    public  class Tarifa
+    public class Tarifa
     {
 
         public static List<TarifaEntity> ObtenerMain()
@@ -29,5 +29,16 @@ namespace LogisticStorage.BusinessLayer
             return Ent.TarifaId;
         }
 
+        public static List<TarifaEntity> ObtenerMoneda(Int32 MercaderiaId)
+        {
+            TarifaDB DB = new TarifaDB();
+            return DB.ObtenerMoneda(MercaderiaId);
+        }
+
+        public static List<TarifaEntity> ObtenerUnidadMedidaPrecio(Int32 MercaderiaId, Int32 MonedaId)
+        {
+            TarifaDB DB = new TarifaDB();
+            return DB.ObtenerUnidadMedidaPrecio(MercaderiaId, MonedaId);
+        }
     }
 }

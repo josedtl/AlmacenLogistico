@@ -10,7 +10,7 @@ namespace LogisticStorage.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   /// [Authorize]
+    /// [Authorize]
     public class TarifaController : ControllerBase
     {
         Base d = new Base();
@@ -74,7 +74,7 @@ namespace LogisticStorage.Server.Controllers
                 ItemEntity.PrecioSinImpuesto = Item.PrecioSinImpuesto;
                 ItemEntity.PrecioConImpuesto = Item.PrecioConImpuesto;
                 ItemEntity.FechaCreacion = Item.FechaCreacion;
-                ItemEntity.Vigente = Item.Vigente; 
+                ItemEntity.Vigente = Item.Vigente;
                 ItemEntity.LogicalState = (LogicalState)Item.Action;
 
                 Item.TarifaId = Tarifa.Registrar(ItemEntity);
@@ -84,6 +84,50 @@ namespace LogisticStorage.Server.Controllers
             catch (Exception ex)
             {
                 return new ResponseAPI<TarifaSaveModel>(new TarifaSaveModel(), false, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("ObtenerMoneda/{MercaderiaId}")]
+        public ResponseAPI<List<TarifaMonedaModel>> ObtenerMoneda(Int32 MercaderiaId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Tarifa.ObtenerMoneda(MercaderiaId);
+
+                List<TarifaMonedaModel> Lista = new List<TarifaMonedaModel>();
+
+                foreach (var Item in Items) Lista.Add(new TarifaMonedaModel(Item));
+
+                return new ResponseAPI<List<TarifaMonedaModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<TarifaMonedaModel>>(new List<TarifaMonedaModel>(), false, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("ObtenerUnidadMedidaPrecio/{MercaderiaId}/{MonedaId}")]
+        public ResponseAPI<List<TarifaUnidadMedidaPrecioModel>> ObtenerUnidadMedidaPrecio(Int32 MercaderiaId, Int32 MonedaId)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Tarifa.ObtenerUnidadMedidaPrecio(MercaderiaId, MonedaId);
+
+                List<TarifaUnidadMedidaPrecioModel> Lista = new List<TarifaUnidadMedidaPrecioModel>();
+
+                foreach (var Item in Items) Lista.Add(new TarifaUnidadMedidaPrecioModel(Item));
+
+                return new ResponseAPI<List<TarifaUnidadMedidaPrecioModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<TarifaUnidadMedidaPrecioModel>>(new List<TarifaUnidadMedidaPrecioModel>(), false, ex.Message);
             }
         }
     }

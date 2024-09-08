@@ -18,6 +18,8 @@ export class OrdenPedidoDetalleEntity {
     CodigoUM: string;
     Stock: number;
     keyItem: string;
+    MonedaId: number;
+    Precio: number;
     constructor() {
         this.Cont = 0;
         this.OrdenPedidoDetalleId = 0;
@@ -36,11 +38,13 @@ export class OrdenPedidoDetalleEntity {
         this.CodigoUM = '';
         this.Stock = 0;
         this.keyItem = '';
+        this.MonedaId = 0;
+        this.Precio = 0;
         // Asigna el valor predeterminado de ProcessActionEnum que desees
     }
-    
 
-    
+
+
 }
 
 
@@ -48,7 +52,7 @@ export class OrdenPedidoFiltroOCDModel {
     Cont: number = 0;
     OrdenPedidoDetalleId: number;
     OrdenPedidoId: number;
-    Codigo : string;
+    Codigo: string;
     ProcesoId: number;
     NomProceso: string;
     MercaderiaId: number;
@@ -58,7 +62,7 @@ export class OrdenPedidoFiltroOCDModel {
     CantidadSolicitado: number;
     keyItem: string;
     Action: ProcessActionEnum;
-    Seleccionar : boolean;
+    Seleccionar: boolean;
     constructor() {
         this.Cont = 0;
         this.OrdenPedidoDetalleId = 0;
@@ -73,8 +77,8 @@ export class OrdenPedidoFiltroOCDModel {
         this.CantidadSolicitado = 0;
         this.keyItem = '';
         this.Action = ProcessActionEnum.Add;
-        this.Seleccionar=false;
+        this.Seleccionar = false;
     }
-   
+
 }
 

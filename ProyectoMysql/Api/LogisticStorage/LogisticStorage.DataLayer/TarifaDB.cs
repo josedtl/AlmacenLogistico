@@ -13,7 +13,7 @@ namespace LogisticStorage.DataLayer
 {
     public class TarifaDB : BaseDataEntity
     {
-      
+
         public virtual List<TarifaEntity> ObtenerMain()
         {
             try
@@ -132,6 +132,54 @@ namespace LogisticStorage.DataLayer
             return true;
         }
 
+        public virtual List<TarifaEntity> ObtenerMoneda(Int32 MercaderiaId)
+        {
+            try
+            {
+                StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MercaderiaId", DbType.Int32, 4, false, 0, 0, MercaderiaId);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_Tarifa_ObtenerMoneda");
+                FillSchemeTable(dr);
+                List<TarifaEntity> EntityList = new List<TarifaEntity>();
+                while (dr.Read())
+                {
+                    TarifaEntity entity = new TarifaEntity();
+                    if (FillFrom(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
 
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public virtual List<TarifaEntity> ObtenerUnidadMedidaPrecio(Int32 MercaderiaId, Int32 MonedaId)
+        {
+            try
+            {
+                StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MercaderiaId", DbType.Int32, 4, false, 0, 0, MercaderiaId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MonedaId", DbType.Int32, 4, false, 0, 0, MonedaId);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_Tarifa_ObtenerUnidadMedidaPrecio");
+                FillSchemeTable(dr);
+                List<TarifaEntity> EntityList = new List<TarifaEntity>();
+                while (dr.Read())
+                {
+                    TarifaEntity entity = new TarifaEntity();
+                    if (FillFrom(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

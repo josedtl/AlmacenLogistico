@@ -10,11 +10,13 @@ import { MerListaEntity } from '../../../Models/MerListaEntity';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import { MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
 import { UnidadMedidaEntity } from "../../../Models/UnidadMedidaEntity";
-import GeneralService from '../../../Service/GeneralService';
+import TarifaService from '../../../Service/TarifaService';
+import { MonedaEntity } from "../../../Models/MonedaEntity";
+import { TarifaMonedaModel, TarifaUnidadMedidaPrecioModel } from "../../../Models/TarifaEntity";
 
 const AddEditForm: React.FC<PropsModel> = (props) => {
 
-    const sGeneralService = new GeneralService();
+    const sTarifaService = new TarifaService();
     const initialOrdenPedidoDetalle = new OrdenPedidoDetalleEntity();
     const [Ent, setEnt] = useState<OrdenPedidoDetalleEntity>(initialOrdenPedidoDetalle);
     const [FlaState, setFlaState] = useState<Boolean>(false);
@@ -81,10 +83,11 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const [selectedPRoducto, setSelectedProducto] = useState<number | undefined>(undefined);
     const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
     const [ValCategoria, setValCategoria] = useState<InputStatus>('');
+    const [ValCodigoMoneda, setValCodigoMoneda] = useState<string>('');
     const [ValCodigoUM, setValCodigoUM] = useState<string>('');
     const [ValProducto, setValProducto] = useState<InputStatus>('');
-    const [optionsUM, setOptionsUM] = useState<UnidadMedidaEntity[]>([]);
-
+    const [optionsUM, setOptionsUM] = useState<TarifaUnidadMedidaPrecioModel[]>([]);
+    const [OptionsMoneda, setOptionsMoneda] = useState<TarifaMonedaModel[]>([]);
     const sMerLista = new MerListaService();
     const sMercaderiaService = new MercaderiaService();
     selectedPRoducto;
@@ -118,6 +121,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             const responseProducto = await sMercaderiaService.getItemCategoriaLike(value, Ent.CategoriaId);
             setOptionsProducto(responseProducto);
 
+
+
         } catch (error) {
             console.error('Error al buscar categorías:', error);
         }
@@ -130,14 +135,28 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             setSelectedProducto(value)
 
             const resp = await sMercaderiaService.GetMercaderia_ItemOP(value);
-            setValCodigoUM(resp[0].CodigoUM);
+
+
+
+
             Ent.Stock = resp[0].Stock
             Ent.NomProducto = resp[0].Nombre;
             Ent.MercaderiaId = resp[0].MercaderiaId;
-            Ent.CodigoUM = resp[0].CodigoUM;
+            // Ent.CodigoUM = resp[0].CodigoUM;
 
             console.log(resp);
 
+
+            const responseMoneda = await sTarifaService.ObtenerMoneda(resp[0].MercaderiaId);
+
+            setOptionsMoneda(responseMoneda);
+
+            setValCodigoUM('')
+            setValCodigoMoneda('')
+            setOptionsUM([]);
+            Ent.UnidadMedidaId = 0;
+            Ent.MonedaId = 0;
+            Ent.Precio = 0;
         } catch (error) {
             console.error('Error al buscar categorías:', error);
         }
@@ -155,8 +174,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
     const getItems = async () => {
 
         const updatedItem = props.item;
-        const Resp_UM = await sGeneralService.GetUnidadMedidaItems();
-        setOptionsUM(Resp_UM);
+        // const Resp_UM = await sTarifaService.GetUnidadMedidaItems();
+
         if (updatedItem.MercaderiaId > 0) {
 
             const responseProducto = await sMercaderiaService.GetMercaderia_ItemOP(updatedItem.MercaderiaId);
@@ -168,12 +187,12 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 setOptionsProducto(responseProducto);
 
                 console.log(responseProducto);
-                setValCodigoUM(responseProducto[0].CodigoUM);
+                // setValCodigoUM(responseProducto[0].CodigoUM);
                 updatedItem.Stock = responseProducto[0].Stock;
             } else {
                 setOptionsCategoria([]);
                 setOptionsProducto([]);
-                setValCodigoUM("");
+                // setValCodigoUM("");
                 updatedItem.Stock = 0;
             }
 
@@ -190,12 +209,51 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const [ValUnidadMedida, setValUnidadMedida] = useState<InputStatus>('');
     const [selectedUM, setSelectedUM] = useState<number | undefined>(undefined);
+
+    const [ValMoneda, setValMoneda] = useState<InputStatus>('');
+    const [selectedMoneda, setSelectedMoneda] = useState<number | undefined>(undefined);
+
     selectedUM;
     const onChangeUM = async (value: number) => {
         setValUnidadMedida('');
         Ent.UnidadMedidaId = value;
         setSelectedUM(value)
+
+        const ItemPrecio = optionsUM.findIndex((d) => d.UnidadMedidaId === value);
+        if (ItemPrecio >= 0) {
+
+            Ent.Precio = optionsUM[ItemPrecio].PrecioConImpuesto;
+            setValCodigoUM(optionsUM[ItemPrecio].CodUnidad)
+        }
+
     };
+
+    const onChangeMoneda = async (value: number) => {
+        setValMoneda('');
+        Ent.MonedaId = value;
+        setSelectedMoneda(value)
+
+        const responseUm = await sTarifaService.ObtenerUnidadMedidaPrecio(Ent.MercaderiaId, value);
+        setOptionsUM(responseUm);
+
+        // console.log(responseUm.length);
+        if (responseUm.length === 1) {
+
+            Ent.UnidadMedidaId = responseUm[0].UnidadMedidaId;
+            Ent.Precio = responseUm[0].PrecioConImpuesto;
+            setValCodigoUM(responseUm[0].CodUnidad)
+        }
+
+
+        const ItemMoneda = OptionsMoneda.findIndex((d) => d.MonedaId === value);
+        if (ItemMoneda >= 0) {
+
+            setValCodigoMoneda(OptionsMoneda[ItemMoneda].Simbolo);
+        }
+
+
+    };
+
     const [modal, contextHolder] = Modal.useModal();
     modal;
     return (
@@ -262,11 +320,42 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
 
             <Row>
-                <Col span={12}>
+                <Col span={6}>
 
                     <Row>
                         <Col span={24}>
-                            <label>Unidad de Medida</label>
+                            <label>Moneda</label>
+                        </Col>
+                        <Col span={24}>
+
+                            <Select
+                                allowClear
+                                status={ValUnidadMedida}
+                                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                                defaultActiveFirstOption={false}
+                                filterOption={false}
+                                value={Ent.MonedaId === 0 ? null : Ent.MonedaId}
+                                key={Ent.MonedaId}
+                                onChange={onChangeMoneda}
+                            >
+                                {OptionsMoneda.map((UM) => (
+                                    <Select.Option key={UM.MonedaId} value={UM.MonedaId}>
+                                        {UM.CodMoneda}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+
+                        </Col>
+                    </Row>
+
+
+                </Col>
+
+                <Col span={6}>
+
+                    <Row>
+                        <Col span={24}>
+                            <label>UM</label>
                         </Col>
                         <Col span={24}>
 
@@ -282,7 +371,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                             >
                                 {optionsUM.map((UM) => (
                                     <Select.Option key={UM.UnidadMedidaId} value={UM.UnidadMedidaId}>
-                                        {UM.Nombre}
+                                        {UM.CodUnidad}
                                     </Select.Option>
                                 ))}
                             </Select>
@@ -309,7 +398,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                         type="text"
                                         style={{ width: '30%', marginTop: '5px', marginBottom: '10px' }}
                                         name="Nombre"
-                                        value={ValCodigoUM}
+                                        value={ValCodigoMoneda}
                                     />
                                     <Input
                                         // suffix={ValCodigoUM}
@@ -318,7 +407,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                                         name="CantidadSolicitado"
                                         style={{ width: '70%', marginTop: '5px', marginBottom: '10px' }}
                                         onChange={onChange}
-                                        value={Ent.CantidadSolicitado === null ? 0 : Ent.CantidadSolicitado}
+                                        value={Ent.Precio === null ? 0 : Ent.Precio}
                                     />
 
 

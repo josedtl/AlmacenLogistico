@@ -14,6 +14,10 @@ namespace LogisticStorage.EntityLayer
         public string Valor { get; set; }
 
         public string NomImpuesto { get; set; }
-        
+        public string CodMoneda { get; set; }
+        public string Simbolo { get; set; }
+
+        public string CodUnidad { get; set; }
+
     }
 }
