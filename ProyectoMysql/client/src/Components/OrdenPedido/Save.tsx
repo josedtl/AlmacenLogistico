@@ -399,25 +399,8 @@ function Page() {
 
       </Row>
       <Row>
-        <Col xs={24} sm={12} md={12} lg={4} xl={3} xxl={2} >
-          <Row>
-            <Col span={24}>
-              <label>Código</label>
-            </Col>
-            <Col span={24}>
-              <Input
-                readOnly={true}
-                type="text"
-                name="Codigo"
-                style={{ marginTop: '5px', marginBottom: '10px' }}
-                value={Ent.Codigo === null ? "" : Ent.Codigo}
-              />
 
-
-            </Col>
-          </Row>
-        </Col>
-        <Col xs={24} sm={12} md={12} lg={4} xl={3} xxl={2} >
+        <Col xs={24} sm={24} md={12} lg={4} xl={3} xxl={2} >
           <Row>
             <Col span={24}>
               <label>Requerimiento</label>
@@ -488,6 +471,25 @@ function Page() {
                 value={dayjs(FechaEmisionItem, dateFormat)}
                 style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
                 size='middle' />
+
+            </Col>
+          </Row>
+        </Col>
+
+        <Col xs={24} sm={24} md={12} lg={4} xl={3} xxl={2} >
+          <Row>
+            <Col span={24}>
+              <label>Código</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                readOnly={true}
+                type="text"
+                name="Codigo"
+                style={{ marginTop: '5px', marginBottom: '10px' ,background : '#c5dfc7'}}
+                value={Ent.Codigo === null ? "" : Ent.Codigo}
+              />
+
 
             </Col>
           </Row>

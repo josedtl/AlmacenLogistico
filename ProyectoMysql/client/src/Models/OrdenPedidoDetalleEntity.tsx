@@ -18,6 +18,7 @@ export class OrdenPedidoDetalleEntity {
     CodigoUM: string;
     Stock: number;
     keyItem: string;
+    TarifaId: number;
     MonedaId: number;
     Precio: number;
     constructor() {
@@ -38,6 +39,7 @@ export class OrdenPedidoDetalleEntity {
         this.CodigoUM = '';
         this.Stock = 0;
         this.keyItem = '';
+        this.TarifaId = 0;
         this.MonedaId = 0;
         this.Precio = 0;
         // Asigna el valor predeterminado de ProcessActionEnum que desees

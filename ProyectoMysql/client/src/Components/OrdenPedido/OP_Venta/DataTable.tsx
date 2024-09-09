@@ -35,30 +35,26 @@ const DataTable: React.FC<PropsTable> = (props) => {
             width: 40,
             key: 'CodigoUM',
         },   
+         // {
+        //     title: 'Reservado',
+        //     dataIndex: 'CantidadReservado',
+        //     width: 65,
+        //     key: 'CantidadReservado',
+        // },
         {
-            title: 'Costo',
-            dataIndex: 'Costo',
+            title: 'Precio',
+            dataIndex: 'Precio',
             width: 65,
-            key: 'Costo',
+            key: 'Precio',
         },
         {
-            title: 'Solicito',
+            title: 'Cantidad',
             dataIndex: 'CantidadSolicitado',
             width: 65,
             key: 'CantidadSolicitado',
         },
-        {
-            title: 'Faltante',
-            dataIndex: 'CantidadFaltante',
-            width: 65,
-            key: 'CantidadFaltante',
-        },
-        {
-            title: 'Reservado',
-            dataIndex: 'CantidadReservado',
-            width: 65,
-            key: 'CantidadReservado',
-        },
+     
+       
         {
             title: 'Atendido',
             dataIndex: 'CantidadAtendido',

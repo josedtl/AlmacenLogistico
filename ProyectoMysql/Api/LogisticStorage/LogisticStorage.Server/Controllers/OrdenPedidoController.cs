@@ -95,7 +95,10 @@ namespace LogisticStorage.Server.Controllers
                             CantidadAtendido = detalle.CantidadAtendido,
                             Enlazado = detalle.Enlazado,
                             Atendido = detalle.Atendido,
-                            LogicalState = (LogicalState)detalle.Action
+                            LogicalState = (LogicalState)detalle.Action,
+                            TarifaId = detalle.TarifaId,
+                            MonedaId = detalle.MonedaId,
+                            Precio = detalle.Precio
                         });
 
                     }
@@ -135,7 +138,7 @@ namespace LogisticStorage.Server.Controllers
             }
         }
 
-    
+
 
 
 
