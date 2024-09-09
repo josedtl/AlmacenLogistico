@@ -197,7 +197,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             if (ItemMoneda >= 0) {
     
                 setValCodigoMoneda(OptionsMoneda[ItemMoneda].Simbolo);
-            }
+            }                                                              
 
             const responseUm = await sTarifaService.ObtenerUnidadMedidaPrecio(updatedItem.MercaderiaId, updatedItem.MonedaId);
             setOptionsUM(responseUm);
