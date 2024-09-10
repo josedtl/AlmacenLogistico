@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import { EditFilled } from '@ant-design/icons';
+import { EditFilled, CaretRightOutlined } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Link } from 'react-router-dom';
 import { PropsTable } from '../../../Lib/PropsItem'
@@ -19,7 +19,27 @@ const DataTable: React.FC<PropsTable> = (props) => {
             dataIndex: 'Cont',
             width: 25,
             key: 'Cont',
-        },    
+        },
+        {
+            title: 'Vigente',
+            key: 'Vigente',
+            width: 100    ,
+            render: (record: TarifaEntity) => {
+
+                let color = "while";
+
+                if (record.Vigente == true) {
+                    color = "green";
+                } else if (record.Vigente === false) {
+                    color = "green";
+                } 
+                return <span>
+                    <CaretRightOutlined
+                        style={{ color }} /> {record.Vigente}
+
+                </span>
+            },
+        },
         {
             title: 'Mercaderia',
             dataIndex: 'NomProducto',
@@ -36,36 +56,36 @@ const DataTable: React.FC<PropsTable> = (props) => {
             title: 'Moneda',
             dataIndex: 'NomMoneda',
             key: 'NomMoneda',
-            width:80
+            width: 80
         },
         {
             title: 'Impuesto',
             dataIndex: 'NomImpuesto',
-            key: 'NomImpuesto  ', 
-            width:80
+            key: 'NomImpuesto  ',
+            width: 80
         },
         {
             title: '% Impuesto',
             dataIndex: 'Valor',
-            key: 'Valor  ', 
-            width:80
+            key: 'Valor  ',
+            width: 80
         },
         {
             title: 'Precio S/Impuesto',
             dataIndex: 'PrecioSinImpuesto',
             key: 'PrecioSinImpuesto',
-            width:60
+            width: 60
         },
         {
             title: 'Precio C/Impuesto',
             dataIndex: 'PrecioConImpuesto',
             key: 'PrecioConImpuesto',
-            width:60
+            width: 60
         },
         {
             title: 'Fecha Creacion',
             dataIndex: 'FechaCreacion',
-            width:80,
+            width: 80,
             key: 'FechaCreacion',
             render: (date: string) => moment(date).format('DD/MM/YYYY hh:mm'),
         },
