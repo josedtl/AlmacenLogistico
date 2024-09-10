@@ -27,7 +27,7 @@ namespace LogisticStorage.Server.Model.Tarifa
             this.NomUnidad = ent.NomUnidad;
             this.PrecioConImpuesto = ent.PrecioConImpuesto;
             this.PrecioSinImpuesto = ent.PrecioSinImpuesto;
-            this.Vigente = true;
+            this.Vigente = ent.Vigente;
             this.FechaCreacion = DateTime.Now;
             this.NomImpuesto= ent.NomImpuesto;
         }

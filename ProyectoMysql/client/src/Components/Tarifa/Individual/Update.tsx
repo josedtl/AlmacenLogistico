@@ -40,6 +40,7 @@ const Save = () => {
     const [optionsImporte, setOptionsImporte] = useState<PorcentajeImporteEntity[]>([]);
     const [getPrecioSinImpuesto, setPrecioSinImpuesto] = useState<string>('0');
     const [getPrecioConImpuesto, setPrecioConImpuesto] = useState<string>('0');
+    const [descuento, setDescuento] = useState<string>('0');
 
     const getCargarDatos = async () => {
 
@@ -62,7 +63,10 @@ const Save = () => {
         setCargarPage(false);
     };
 
-
+    const calcularDescuento = (precioSinImpuesto: number, precioConImpuesto: number) => {
+        const descuento = (precioConImpuesto - precioSinImpuesto).toFixed(2);
+        setDescuento(descuento);
+    };
     const onChangeTextConImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValConImpuesto('');
         const decimal = parseFloat(e.target.value.toLowerCase());
@@ -79,7 +83,9 @@ const Save = () => {
         const valorImpuesto = porcentajeImpuesto.Valor;
 
         if (!isNaN(decimal) && e.target.value.trim() !== "") {
-            setPrecioSinImpuesto(roundToTwoDecimals(decimal / (1 + valorImpuesto / 100)).toString());
+            const precioSinImpuestoCalculado = roundToTwoDecimals(decimal / (1 + valorImpuesto / 100)).toString();
+            setPrecioSinImpuesto(precioSinImpuestoCalculado);
+            calcularDescuento(parseFloat(precioSinImpuestoCalculado), decimal);
         }
 
     }
@@ -101,9 +107,9 @@ const Save = () => {
         const valorImpuesto = porcentajeImpuesto.Valor;
 
         if (!isNaN(decimal) && e.target.value.trim() !== "") {
-
-
-            setPrecioConImpuesto(roundToTwoDecimals(decimal * (1 + valorImpuesto / 100)).toString());
+            const precioConImpuestoCalculado = roundToTwoDecimals(decimal * (1 + valorImpuesto / 100)).toString();
+            setPrecioConImpuesto(precioConImpuestoCalculado);
+            calcularDescuento(decimal, parseFloat(precioConImpuestoCalculado));
 
         }
     }
@@ -113,7 +119,7 @@ const Save = () => {
 
         return Number(num.toFixed(2));
     };
-    
+
     const [ValConImpuesto, setValConImpuesto] = useState<InputStatus>('');
     const [ValSinImpuesto, setValSinImpuesto] = useState<InputStatus>('');
 
@@ -146,7 +152,7 @@ const Save = () => {
 
     const Guardar_Total = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-  
+
 
 
         modal.confirm({
@@ -226,7 +232,14 @@ const Save = () => {
                         <Col span={24}>
                             <Input
                                 value={optionsMercaderia.find(m => m.MercaderiaId === Ent.MercaderiaId)?.Nombre || ''}
-                                style={{ marginTop: '5px', marginBottom: '10px' }}
+                               // style={{ marginTop: '5px', marginBottom: '10px' }}
+                               style={{
+                                marginTop: '5px',
+                                marginBottom: '10px',
+                                backgroundColor: '#FFF', // Color de fondo claro
+                                cursor: 'not-allowed', // Cambia el cursor para indicar que está deshabilitado
+                                color: 'black'
+                            }}
                             />
                         </Col>
                     </Row>
@@ -239,7 +252,14 @@ const Save = () => {
                         <Col span={24}>
                             <Input
                                 value={optionsUM.find(UM => UM.UnidadMedidaId === Ent.UnidadMedidaId)?.Nombre || ''}
-                                style={{ marginTop: '5px', marginBottom: '10px' }} />
+                               // style={{ marginTop: '5px', marginBottom: '10px' }} 
+                               style={{
+                                marginTop: '5px',
+                                marginBottom: '10px',
+                                backgroundColor: '#FFF', // Color de fondo claro
+                                cursor: 'not-allowed', // Cambia el cursor para indicar que está deshabilitado
+                                color: 'black'
+                            }}/>
 
                         </Col>
                     </Row>
@@ -249,30 +269,61 @@ const Save = () => {
                             <label>Moneda</label>
                         </Col>
                         <Col span={24}>
-                            <Input 
-                                value={optionsMoneda.find(m => m.MonedaId === Ent.MonedaId)?.Simbolo + ' - ' 
+                            <Input
+                                value={optionsMoneda.find(m => m.MonedaId === Ent.MonedaId)?.Simbolo + ' - '
                                     + optionsMoneda.find(m => m.MonedaId === Ent.MonedaId)?.CodMoneda || ''}
-                                style={{ marginTop: '5px', marginBottom: '10px' }}
+                               // style={{ marginTop: '5px', marginBottom: '10px' }}
+                                style={{
+                                    marginTop: '5px',
+                                    marginBottom: '10px',
+                                    backgroundColor: '#FFF', // Color de fondo claro
+                                    cursor: 'not-allowed', // Cambia el cursor para indicar que está deshabilitado
+                                    color: 'black'
+                                }}
                             />
 
                         </Col>
                     </Row>
 
                     <Row>
-                        <Col span={15}>
+                        <Col span={12}>
                             <Col span={12}>
                                 <label>% Impuesto</label>
                             </Col>
                             <Col span={24}>
 
-                                <Input
-                                    value={optionsImporte.find(PI => PI.PorcentajeImpuestoId === Ent.PorcentajeImpuestoId)?.Nombre + ' - '+
+                                <Input style={{
+                                            marginTop: '5px',
+                                            marginBottom: '10px',
+                                            backgroundColor: '#FFF', // Color de fondo claro
+                                            cursor: 'not-allowed', // Cambia el cursor para indicar que está deshabilitado
+                                            color: 'black'
+                                        }}
+                                    value={optionsImporte.find(PI => PI.PorcentajeImpuestoId === Ent.PorcentajeImpuestoId)?.Nombre + ' - ' +
                                         optionsImporte.find(PI => PI.PorcentajeImpuestoId === Ent.PorcentajeImpuestoId)?.Valor || ''}
                                 />
                             </Col>
                         </Col>
                         <Col span={12}>
-
+                            <Row>
+                                <Col span={24}>
+                                    <label>Descuento</label>
+                                </Col>
+                                <Col span={24}>
+                                    <Input
+                                        type="number"
+                                        value={descuento} disabled
+                                        style={{
+                                            marginTop: '5px',
+                                            marginBottom: '10px',
+                                            backgroundColor: '#FFF', // Color de fondo claro
+                                            cursor: 'not-allowed', // Cambia el cursor para indicar que está deshabilitado
+                                            color: 'black'
+                                        }}
+                                    // style={{ marginTop: '5px', marginBottom: '10px' }}
+                                    />
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                     <Row>
