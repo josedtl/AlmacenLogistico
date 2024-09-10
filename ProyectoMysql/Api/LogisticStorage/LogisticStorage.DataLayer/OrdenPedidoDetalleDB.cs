@@ -81,7 +81,7 @@ namespace LogisticStorage.DataLayer
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Atendido", DbType.Boolean, 2, false, 0, 0, Ent.Atendido);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_TarifaId", DbType.Int32, 4, false, 0, 0, Ent.TarifaId);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MonedaId", DbType.Int32, 4, false, 0, 0, Ent.MonedaId);
-                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Precio", DbType.Int32, 4, false, 0, 0, Ent.Precio);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Precio", DbType.Decimal, 12, false, 0, 0, Ent.Precio);
                 int returnValue = DbDatabase.ExecuteNonQuery();
                 if (Ent.LogicalState == LogicalState.Added)
                 {
