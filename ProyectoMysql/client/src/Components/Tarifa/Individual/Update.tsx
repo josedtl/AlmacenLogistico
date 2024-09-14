@@ -288,7 +288,7 @@ const Save = () => {
                     <Row>
                         <Col span={12}>
                             <Col span={12}>
-                                <label>% Impuesto</label>
+                                <label>Tipo Impuesto</label>
                             </Col>
                             <Col span={24}>
 
@@ -307,7 +307,7 @@ const Save = () => {
                         <Col span={12}>
                             <Row>
                                 <Col span={24}>
-                                    <label>Descuento</label>
+                                    <label>Monto Impuesto</label>
                                 </Col>
                                 <Col span={24}>
                                     <Input

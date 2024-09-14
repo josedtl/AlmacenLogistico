@@ -61,5 +61,29 @@ namespace LogisticStorage.DataLayer
             }
         }
 
+        public virtual List<UnidadMedidaEntity> ObtenerDato()
+        {
+            try
+            {
+                StartHelper(false);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_UnidadMedidaObtenerDato");
+                FillSchemeTable(dr);
+                List<UnidadMedidaEntity> EntityList = new List<UnidadMedidaEntity>();
+                while (dr.Read())
+                {
+                    UnidadMedidaEntity entity = new UnidadMedidaEntity();
+                    if (FillFrom(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

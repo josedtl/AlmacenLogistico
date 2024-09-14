@@ -22,5 +22,12 @@ namespace LogisticStorage.BusinessLayer
             UnidadMedidaDB DB = new UnidadMedidaDB();
             return DB.ObtenerItem(UnidadMedidaId);
         }
+
+        public static List<UnidadMedidaEntity> ObtenerDato()
+        {
+            UnidadMedidaDB DB = new UnidadMedidaDB();
+            return DB.ObtenerDato();
+        }
+
     }
 }

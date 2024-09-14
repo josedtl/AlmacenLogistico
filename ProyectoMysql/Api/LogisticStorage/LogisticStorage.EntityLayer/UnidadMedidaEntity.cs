@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogisticStorage.EntityLayer
 {
-    public class UnidadMedidaEntity: BaseEntityObject
+    public partial class UnidadMedidaEntity: BaseEntityObject
     {
         public UnidadMedidaEntity (){
 
