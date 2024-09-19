@@ -6,7 +6,8 @@ namespace LogisticStorage.Server
     public class OrdenPedidoDetalleSaveModel
     {
 
-        public OrdenPedidoDetalleSaveModel () {
+        public OrdenPedidoDetalleSaveModel()
+        {
             this.OrdenPedidoDetalleId = 0;
             this.OrdenPedidoId = 0;
             this.MercaderiaId = 0;
@@ -21,9 +22,9 @@ namespace LogisticStorage.Server
             this.CategoriaId = 0;
             this.CodigoUM = String.Empty;
             this.Stock = 0;
-
-
-
+            this.TarifaId = 0;
+            this.MonedaId = 0;
+            this.Precio = 0;
         }
         public OrdenPedidoDetalleSaveModel(OrdenPedidoDetalleEntity Item)
         {
@@ -41,6 +42,10 @@ namespace LogisticStorage.Server
             this.CategoriaId = Item.CategoriaId;
             this.CodigoUM = Item.CodigoUM;
             this.Stock = Item.Stock;
+            this.TarifaId = Item.TarifaId;
+            this.MonedaId = Item.MonedaId;
+            this.Precio = Item.Precio;
+
         }
 
         [JsonPropertyName("OrdenPedidoDetalleId")]
@@ -87,5 +92,12 @@ namespace LogisticStorage.Server
 
         [JsonPropertyName("Action")]
         public Int16 Action { get; set; }
+        [JsonPropertyName("TarifaId")]
+        public Int32 TarifaId { get; set; }
+        [JsonPropertyName("MonedaId")]
+        public Int32 MonedaId { get; set; }
+        [JsonPropertyName("Precio")]
+        public Decimal Precio { get; set; }
+
     }
 }

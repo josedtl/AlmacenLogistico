@@ -40,6 +40,7 @@ const Save = () => {
   const [optionsImporte, setOptionsImporte] = useState<PorcentajeImporteEntity[]>([]);
   const [getPrecioSinImpuesto, setPrecioSinImpuesto] = useState<string>('0');
   const [getPrecioConImpuesto, setPrecioConImpuesto] = useState<string>('0');
+  const [descuento, setDescuento] = useState<string>('0');
 
   const getCargarDatos = async () => {
 
@@ -50,24 +51,26 @@ const Save = () => {
 
       const Resp_Tarifa = await sTarifa.GetObtenerItem(idNumero);
       setEnt(Resp_Tarifa[0]);
-      
-    setPrecioSinImpuesto(Resp_Tarifa[0].PrecioSinImpuesto.toString());
-    setPrecioConImpuesto(Resp_Tarifa[0].PrecioConImpuesto.toString());
+
+      setPrecioSinImpuesto(Resp_Tarifa[0].PrecioSinImpuesto.toString());
+      setPrecioConImpuesto(Resp_Tarifa[0].PrecioConImpuesto.toString());
 
       const Resp_Mercaderia = await sMercaderia.GetObtenerMercaderiaTarifa(Resp_Tarifa[0].MercaderiaId);
       setOptionsMercaderia(Resp_Mercaderia);
-      
+
     }
 
     setCargarPage(false);
   };
 
-  
+  const calcularDescuento = (precioSinImpuesto: number, precioConImpuesto: number) => {
+    const descuento = (precioConImpuesto - precioSinImpuesto).toFixed(2);
+    setDescuento(descuento);
+  };
+
   const onChangeTextConImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValConImpuesto('');
     const decimal = parseFloat(e.target.value.toLowerCase());
-    console.log(decimal);
-    console.log(e.target.value)
     setPrecioConImpuesto(e.target.value);
     const porcentajeImpuesto = optionsImporte.find(option => option.PorcentajeImpuestoId === Ent.PorcentajeImpuestoId);
 
@@ -79,9 +82,12 @@ const Save = () => {
     const valorImpuesto = porcentajeImpuesto.Valor;
 
     if (!isNaN(decimal) && e.target.value.trim() !== "") {
-      setPrecioSinImpuesto(roundToTwoDecimals(decimal / (1 + valorImpuesto / 100)).toString());
-    }
-
+        const precioSinImpuestoCalculado = roundToTwoDecimals(decimal / (1 + valorImpuesto / 100)).toString();
+        setPrecioSinImpuesto(precioSinImpuestoCalculado);
+        calcularDescuento(parseFloat(precioSinImpuestoCalculado), decimal);
+      // setPrecioSinImpuesto(roundToTwoDecimals(decimal / (1 + valorImpuesto / 100)).toString());
+      // calcularDescuento(decimal, parseFloat(getPrecioConImpuesto));
+    } 
   }
 
   const onChangeTextSinImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,10 +107,12 @@ const Save = () => {
     const valorImpuesto = porcentajeImpuesto.Valor;
 
     if (!isNaN(decimal) && e.target.value.trim() !== "") {
+      const precioConImpuestoCalculado = roundToTwoDecimals(decimal * (1 + valorImpuesto / 100)).toString();
+      setPrecioConImpuesto(precioConImpuestoCalculado);
+      calcularDescuento(decimal, parseFloat(precioConImpuestoCalculado));
 
-
-      setPrecioConImpuesto(roundToTwoDecimals(decimal * (1 + valorImpuesto / 100)).toString());
-
+      // setPrecioConImpuesto(roundToTwoDecimals(decimal * (1 + valorImpuesto / 100)).toString());
+      // calcularDescuento(decimal, parseFloat(getPrecioConImpuesto));
     }
   }
 
@@ -262,9 +270,9 @@ const Save = () => {
       setOptionsImporte(Resp_Importe);
 
       await getCargarDatos();
+      
+
     }
-
-
     cargarItem();
 
 
@@ -378,7 +386,7 @@ const Save = () => {
           <Row>
             <Col span={12}>
               <Col span={12}>
-                <label>% Impuesto</label>
+                <label>Tipo Impuesto</label>
               </Col>
               <Col span={24}>
                 <Select
@@ -401,22 +409,28 @@ const Save = () => {
               </Col>
             </Col>
             <Col span={12}>
-              {/* <Row>
-                <Col span={24}>
-                  <label>Precio Sin Impuesto</label>
-                </Col>
-                <Col span={24}>
-                  <Input
-                    type="number"
-                    name="PrecioSinInpuesto"
-                    style={{ marginTop: '5px', marginBottom: '10px' }}
-                    onChange={onChangeTextSinImpuesto}
-                    value={getPrecioSinInpuesto === null ? "" : getPrecioSinInpuesto}
-                  />
-                </Col>
-              </Row> */}
+              <Row>
+                    <Col span={24}>
+                      <label>Monto Impuesto</label>
+                    </Col>
+                    <Col span={24}>
+                      <Input
+                        type="number"
+                        value={descuento} disabled
+                        style={{ 
+                          marginTop: '5px', 
+                          marginBottom: '10px',
+                          backgroundColor: '#FFF', // Color de fondo claro
+                          cursor: 'not-allowed', // Cambia el cursor para indicar que está deshabilitado
+                          color:'black'
+                        }}
+                        // style={{ marginTop: '5px', marginBottom: '10px' }}
+                      />
+                    </Col>
+              </Row>
             </Col>
           </Row>
+
           <Row>
 
 

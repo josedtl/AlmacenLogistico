@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import { EditFilled } from '@ant-design/icons';
+import { EditFilled ,RightCircleFilled } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Link } from 'react-router-dom';
 import { PropsTable } from '../../../Lib/PropsItem'
@@ -19,7 +19,27 @@ const DataTable: React.FC<PropsTable> = (props) => {
             dataIndex: 'Cont',
             width: 25,
             key: 'Cont',
-        },    
+        },
+        {
+            title: 'Vigente',
+            key: 'Vigente',
+            width: 120,
+            render: (record: TarifaEntity) => {
+                let color = "white";
+        
+                if (record.Vigente) {
+                    color = "green";  // Color para 'Registrado'
+                } else {
+                    color = "red";  // Color para 'No registrado'
+                }
+        
+                return (
+                    <span>
+                        <RightCircleFilled style={{ color }} /> {record.Vigente ? 'Disponible' : 'No Disponible'}
+                    </span>
+                );
+            },
+        },
         {
             title: 'Mercaderia',
             dataIndex: 'NomProducto',
@@ -36,36 +56,30 @@ const DataTable: React.FC<PropsTable> = (props) => {
             title: 'Moneda',
             dataIndex: 'NomMoneda',
             key: 'NomMoneda',
-            width:80
+            width: 50
+        },
+        {
+            title: 'Precio',
+            dataIndex: 'PrecioConImpuesto',
+            key: 'PrecioConImpuesto',
+            width: 60
+        },
+        {
+            title: 'Precio Sin Impuesto',
+            dataIndex: 'PrecioSinImpuesto',
+            key: 'PrecioSinImpuesto',
+            width: 60
         },
         {
             title: 'Impuesto',
             dataIndex: 'NomImpuesto',
-            key: 'NomImpuesto  ', 
-            width:80
-        },
-        {
-            title: '% Impuesto',
-            dataIndex: 'Valor',
-            key: 'Valor  ', 
-            width:80
-        },
-        {
-            title: 'Precio S/Impuesto',
-            dataIndex: 'PrecioSinImpuesto',
-            key: 'PrecioSinImpuesto',
-            width:60
-        },
-        {
-            title: 'Precio C/Impuesto',
-            dataIndex: 'PrecioConImpuesto',
-            key: 'PrecioConImpuesto',
-            width:60
+            key: 'NomImpuesto  ',
+            width: 80
         },
         {
             title: 'Fecha Creacion',
             dataIndex: 'FechaCreacion',
-            width:80,
+            width: 80,
             key: 'FechaCreacion',
             render: (date: string) => moment(date).format('DD/MM/YYYY hh:mm'),
         },
@@ -96,14 +110,21 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
     ];
 
+    // const dataWithKeys = props.DataList.sort((a, b) => b.TarifaId - a.TarifaId).map((item, zIndex) => {
+    //     return {
+    //         ...item,
+    //         key: item.TarifaId,
+    //         Cont: (zIndex + 1)
+    //     };
+    // });
     const dataWithKeys = props.DataList.sort((a, b) => b.TarifaId - a.TarifaId).map((item, zIndex) => {
         return {
             ...item,
             key: item.TarifaId,
-            Cont: (zIndex + 1)
+            Cont: (zIndex + 1),
+            Vigente: Boolean(item.Vigente),
         };
     });
-
 
 
     const ListaCard = () => {

@@ -12,6 +12,9 @@ namespace LogisticStorage.Server.Model.General
             this.Codigo = String.Empty;
             this.CodigoComercial = String.Empty;
             this.Nombre = String.Empty;
+            this.NomProducto = string.Empty;
+            this.MercaderiaPresentacionId = 0;
+            this.MercaderiaId = 0;
         }
 
         public UnidadMedidaItemModel( UnidadMedidaEntity Item)
@@ -21,6 +24,10 @@ namespace LogisticStorage.Server.Model.General
             this.Codigo = Item.Codigo;
             this.CodigoComercial  = Item.CodigoComercial;
             this.Nombre = Item.Nombre;
+            this.MercaderiaId = Item.MercaderiaId;
+            this.MercaderiaPresentacionId= Item.MercaderiaPresentacionId;
+            this.NomProducto= Item.NomProducto;
+
         }
 
         [JsonPropertyName("UnidadMedidaId")]
@@ -31,5 +38,8 @@ namespace LogisticStorage.Server.Model.General
         public String CodigoComercial { get; set; }
         [JsonPropertyName("Nombre")]
         public String Nombre { get; set; }
+        public Int32 MercaderiaPresentacionId { get; set; }
+        public Int32 MercaderiaId { get; set; }
+        public String NomProducto { get; set; }
     }
 }

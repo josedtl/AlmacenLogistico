@@ -57,7 +57,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
 
             // Ent.CantidadSolicitado = 1;
-            Ent.UnidadMedidaId = 1;
             // Ent.key =props.keyItem;
             console.log(Ent);
             if (Ent.keyItem === '') {
@@ -186,9 +185,24 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 updatedItem.CategoriaId = responseProducto[0].CategoriaId;
                 setOptionsProducto(responseProducto);
 
-                console.log(responseProducto);
+                console.log(updatedItem);
                 // setValCodigoUM(responseProducto[0].CodigoUM);
                 updatedItem.Stock = responseProducto[0].Stock;
+
+                
+            const responseMoneda = await sTarifaService.ObtenerMoneda(updatedItem.MercaderiaId);
+            setOptionsMoneda(responseMoneda);
+
+            const ItemMoneda = OptionsMoneda.findIndex((d) => d.MonedaId === updatedItem.MonedaId);
+            if (ItemMoneda >= 0) {
+    
+                setValCodigoMoneda(OptionsMoneda[ItemMoneda].Simbolo);
+            }                                                              
+
+            const responseUm = await sTarifaService.ObtenerUnidadMedidaPrecio(updatedItem.MercaderiaId, updatedItem.MonedaId);
+            setOptionsUM(responseUm);
+                                                                                
+
             } else {
                 setOptionsCategoria([]);
                 setOptionsProducto([]);
@@ -224,6 +238,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
             Ent.Precio = optionsUM[ItemPrecio].PrecioConImpuesto;
             setValCodigoUM(optionsUM[ItemPrecio].CodUnidad)
+            Ent.CodigoUM = optionsUM[ItemPrecio].CodUnidad;
+            Ent.TarifaId = optionsUM[ItemPrecio].TarifaId;
         }
 
     };
@@ -242,6 +258,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             Ent.UnidadMedidaId = responseUm[0].UnidadMedidaId;
             Ent.Precio = responseUm[0].PrecioConImpuesto;
             setValCodigoUM(responseUm[0].CodUnidad)
+            Ent.CodigoUM = responseUm[0].CodUnidad;
+            Ent.TarifaId = responseUm[0].TarifaId;
         }
 
 

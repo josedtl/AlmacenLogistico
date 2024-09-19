@@ -25,6 +25,9 @@ namespace LogisticStorage.EntityLayer
             this.CategoriaId = 0;
             this.CodigoUM = String.Empty;
             this.Stock = 0;
+            this.TarifaId = 0;
+            this.MonedaId = 0;
+            this.Precio = 0;
         }
 
         public Int32 OrdenPedidoDetalleId { get; set; }
@@ -37,6 +40,10 @@ namespace LogisticStorage.EntityLayer
         public Decimal CantidadAtendido { get; set; }
         public Boolean Enlazado { get; set; }
         public Boolean Atendido { get; set; }
+
+        public Int32 TarifaId { get; set; }
+        public Int32 MonedaId { get; set; }
+        public Decimal Precio { get; set; }
 
     }
 }
