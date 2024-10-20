@@ -535,6 +535,9 @@ const Save = () => {
             icon={<SaveFilled />}
           /> */}
 
+
+
+
           <Segmented
             style={{
               position: 'fixed',
@@ -547,18 +550,44 @@ const Save = () => {
 
               {
                 label: (
-                  <div style={{ padding: 4 }} onClick={Guardar_TotalAlter}>
-                    <Avatar style={{
-                      backgroundColor: "#15616d",
-                      borderColor: "#15616d",
+                  <>
+                    <Row>
 
-                    }}
-                      // onClick={Guardar_Total}
-                      shape="square"
-                      size={40}
-                      icon={<SaveFilled />} />
-                    <div>Guardar</div>
-                  </div>
+                      {/* <Col xs={12}>
+
+                        <div style={{ padding: 4 }} onClick={Guardar_TotalAlter}>
+                          <Avatar style={{
+                            backgroundColor: "#15616d",
+                            borderColor: "#15616d",
+
+                          }}
+                            // onClick={Guardar_Total}
+                            shape="square"
+                            size={40}
+                            icon={<SaveFilled />} />
+                          <div>Guardar</div>
+                        </div>
+                      </Col> */}
+
+                      <Col xs={24}>
+
+                        <div style={{ padding: 4 }} onClick={Guardar_TotalAlter}>
+                          <Avatar style={{
+                            backgroundColor: "#15616d",
+                            borderColor: "#15616d",
+
+                          }}
+                            // onClick={Guardar_Total}
+                            shape="square"
+                            size={40}
+                            icon={<SaveFilled />} />
+                          <div>Guardar ss</div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </>
+
+
                 ),
                 value: 'Guardar',
               },
@@ -786,8 +815,8 @@ const Save = () => {
 
 
 
-          <Row>
-            <Col span={12}>
+          {/* <Row>
+             <Col span={12}>
 
               <Row>
                 <Col span={24}>
@@ -825,8 +854,8 @@ const Save = () => {
               </Row>
 
 
-            </Col>
-          </Row>
+            </Col> 
+          </Row> */}
 
         </Col>
 

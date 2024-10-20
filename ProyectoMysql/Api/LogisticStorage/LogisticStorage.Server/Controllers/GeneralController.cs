@@ -16,34 +16,13 @@ namespace LogisticStorage.Server.Controllers
     {
         Base d = new Base();
         [HttpGet]
-        [Route("UnidadMedidaObtenerItems")]
-        public ResponseAPI<List<UnidadMedidaItemModel>> UnidadMedidaObtenerItems()
-        {
-            try
-            {
-                d.Configurar();
-                var Items = UnidadMedida.ObtenerDato();
-
-                List<UnidadMedidaItemModel> Lista = new List<UnidadMedidaItemModel>();
-
-                foreach (var Item in Items) Lista.Add(new UnidadMedidaItemModel(Item));
-
-                return new ResponseAPI<List<UnidadMedidaItemModel>>(Lista, true);
-
-            }
-            catch (Exception ex)
-            {
-                return new ResponseAPI<List<UnidadMedidaItemModel>>(new List<UnidadMedidaItemModel>(), false, ex.Message);
-            }
-        }
-        //[HttpGet]
         //[Route("UnidadMedidaObtenerItems")]
         //public ResponseAPI<List<UnidadMedidaItemModel>> UnidadMedidaObtenerItems()
         //{
         //    try
         //    {
         //        d.Configurar();
-        //        var Items = UnidadMedida.ObtenerItems();
+        //        var Items = UnidadMedida.ObtenerDato();
 
         //        List<UnidadMedidaItemModel> Lista = new List<UnidadMedidaItemModel>();
 
@@ -57,6 +36,27 @@ namespace LogisticStorage.Server.Controllers
         //        return new ResponseAPI<List<UnidadMedidaItemModel>>(new List<UnidadMedidaItemModel>(), false, ex.Message);
         //    }
         //}
+        [HttpGet]
+        [Route("UnidadMedidaObtenerItems")]
+        public ResponseAPI<List<UnidadMedidaItemModel>> UnidadMedidaObtenerItems()
+        {
+            try
+            {
+                d.Configurar();
+                var Items = UnidadMedida.ObtenerItems();
+
+                List<UnidadMedidaItemModel> Lista = new List<UnidadMedidaItemModel>();
+
+                foreach (var Item in Items) Lista.Add(new UnidadMedidaItemModel(Item));
+
+                return new ResponseAPI<List<UnidadMedidaItemModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<UnidadMedidaItemModel>>(new List<UnidadMedidaItemModel>(), false, ex.Message);
+            }
+        }
 
         [HttpGet]
         [Route("UnidadMedidaObtenerItem/{UnidadMedidaId}")]

@@ -53,7 +53,7 @@ function Inicio() {
 
             <Card>
                 <Row>
-                    <Col xs={24} sm={12} md={12} lg={8} xl={6}>
+                    {/* <Col xs={24} sm={12} md={12} lg={8} xl={6}>
                         <AreaChart />
                     </Col>
                     <Col xs={24} sm={12} md={12} lg={8} xl={6}>
@@ -65,8 +65,8 @@ function Inicio() {
 
                     <Col xs={24} sm={12} md={12} lg={8} xl={6}>
                         <HistogramChart />
-                    </Col>
-                    <Col xs={24} sm={12} md={12} lg={8} xl={6}>
+                    </Col> */}
+                    {/* <Col xs={24} sm={12} md={12} lg={8} xl={6}>
                         <LineChart />
                     </Col>
                     <Col xs={24} sm={12} md={12} lg={8} xl={6}>
@@ -77,7 +77,7 @@ function Inicio() {
                     </Col>
                     <Col xs={24} sm={12} md={12} lg={8} xl={6}>
 
-                    </Col>
+                    </Col> */}
                 </Row>
 
 

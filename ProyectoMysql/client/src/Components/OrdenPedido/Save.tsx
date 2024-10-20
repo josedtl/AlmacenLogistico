@@ -9,7 +9,7 @@ import ModalItem_Stock from './Op_Stock/ModalItem';
 import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Layout, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { useParams } from 'react-router-dom';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, TagOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import 'moment/locale/es';
 import dayjs from 'dayjs';
@@ -539,71 +539,10 @@ function Page() {
 
       </Row>
 
-      <Footer style={footerStyle}>
 
         <Row>
-          <Col span={5}>
-            <Row>
-              <Col span={12}>
-                <label>Usuario : </label>
-              </Col>
-              <Col span={12}>
-                <label
-                  className='CodUsuario'
-                  style={{ marginTop: '5px', marginBottom: '10px' }}></label>
-
-                {/* <Input
-                      type="string"
-                      name="Stock"
-                      style={{ marginTop: '5px', marginBottom: '10px' }}
-                      readOnly={true}
-                      value={Ent.CodUsuario}
-                    /> */}
-              </Col>
-            </Row>
-
-            <Row>
-              <Col span={12}>
-                <label>Fecha Modificación : </label>
-              </Col>
-              <Col span={12}>
-                <label
-                  className='FechaRegistro'
-                  style={{ marginTop: '5px', marginBottom: '10px' }}></label>
-                {/* <Input
-                      type="string"
-                      name="FechaRegistro"
-                      style={{ marginTop: '5px', marginBottom: '10px' }}
-                      readOnly={true}
-                      value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
-                    /> */}
-              </Col>
-            </Row>
-            <Row>
-              <Col span={12}>
-                <label>Fecha Creación : </label>
-              </Col>
-              <Col span={12}>
-                <label
-                  className='FechaRegistro'
-                  style={{ marginTop: '5px', marginBottom: '10px' }}></label>
-                {/* <Input
-                      type="string"
-                      name="FechaRegistro"
-                      style={{ marginTop: '5px', marginBottom: '10px' }}
-                      readOnly={true}
-                      value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
-                    /> */}
-              </Col>
-            </Row>
-
-
-
-
-          </Col>
-          <Col span={16}>
-
-          </Col>
+       
+    
 
           <Col span={2}>
             {/* <Button
@@ -616,23 +555,69 @@ function Page() {
                 </Button> */}
 
             <Segmented
-              style={{ float: "right" }}
+                  style={{
+                    position: 'fixed',
+                    bottom: '20px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 1000,
+                  }}
               options={[
 
                 {
                   label: (
-                    <div style={{ padding: 4 }} onClick={Guardar_Total}>
-                      <Avatar style={{
-                        backgroundColor: "#15616d",
-                        borderColor: "#15616d",
 
-                      }}
-                        // onClick={Guardar_Total}
-                        shape="square"
-                        size={60}
-                        icon={<SaveFilled />} />
-                      <div>Guardar</div>
-                    </div>
+                    <>
+                    <Row>
+
+                      <Col xs={12}>
+
+                        <div style={{ padding: 4 }} onClick={Guardar_Total}>
+                          <Avatar style={{
+                            backgroundColor: "#15616d",
+                            borderColor: "#15616d",
+
+                          }}
+                          
+                            // onClick={Guardar_Total}
+                            shape="square"
+                            size={40}
+                            icon={<TagOutlined />} />
+                          <div>Enviar</div>
+                        </div>
+                      </Col>
+
+                      <Col xs={12}>
+
+                        <div style={{ padding: 4 }} onClick={Guardar_Total}>
+                          <Avatar style={{
+                            backgroundColor: "#15616d",
+                            borderColor: "#15616d",
+
+                          }}
+                            // onClick={Guardar_Total}
+                            shape="square"
+                            size={40}
+                            icon={<SaveFilled />} />
+                          <div>Guardar</div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </>
+
+
+                    // <div style={{ padding: 4 }} onClick={Guardar_Total}>
+                    //   <Avatar style={{
+                    //     backgroundColor: "#15616d",
+                    //     borderColor: "#15616d",
+
+                    //   }}
+                    //     // onClick={Guardar_Total}
+                    //     shape="square"
+                    //     size={60}
+                    //     icon={<SaveFilled />} />
+                    //   <div>Guardar</div>
+                    // </div>
                   ),
                   value: 'Guardar',
                 },
@@ -647,7 +632,7 @@ function Page() {
 
 
         </Row>
-      </Footer>
+
 
     </Spin>
 
