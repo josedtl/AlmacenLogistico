@@ -355,24 +355,24 @@ const Save = () => {
     }
 
 
-    modal.confirm({
-      title: 'Mensaje del Sistema',
-      icon: <ExclamationCircleOutlined />,
-      content: '¿Desea guardar el registro?',
-      okText: 'Si',
-      okType: 'danger',
-      cancelText: 'No',
-      onOk() {
-        Ent.CodUsuario = "adm";
-        Ent.Action = 1;
-        Ent.FechaRegistro = new Date();
-        Ent.EstadoRegistro = true
+      modal.confirm({
+        title: 'Mensaje del Sistema',
+        icon: <ExclamationCircleOutlined />,
+        content: '¿Desea guardar el registro?',
+        okText: 'Si',
+        okType: 'danger',
+        cancelText: 'No',
+        onOk() {
+          Ent.CodUsuario = "adm";
+          Ent.Action = 1;
+          Ent.FechaRegistro = new Date();
+          Ent.EstadoRegistro = true
 
-        AddProducto();
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
+          AddProducto();
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
     });
 
   };

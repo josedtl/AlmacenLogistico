@@ -4,7 +4,8 @@ import {
   ReconciliationOutlined,
   BlockOutlined,
   MenuUnfoldOutlined,
-  MenuFoldOutlined
+  MenuFoldOutlined,
+  SelectOutlined
 } from '@ant-design/icons';
 import { Button, Col, Layout, Menu, Row, theme } from 'antd';
 import { Outlet, Link } from "react-router-dom";
@@ -99,13 +100,24 @@ const Root: React.FC = () => {
               />
             </Col>
 
-            <Col span={21}>
+            <Col span={22}>
+              <div
+                style={{ color: 'black', float: 'right', marginTop: '-2px', marginRight: '0px' }} >
+                {/* <button onClick={logout}>Cerrar Sesión</button> */}
 
-              <h4 style={{ color: 'black', float: 'right', marginTop: '-2px', marginRight: '0px' }}>Usuario</h4>
-              <div>
-                <button onClick={logout}>Cerrar Sesión</button>
-                {/* Resto del componente Root */}
+                <Button
+                type="text"
+                icon={<SelectOutlined />}
+                onClick={logout}
+                // style={{
+                //   // fontSize: '16px',
+                //   width: 64,
+                //   height: 64,
+                // }}
+              />
               </div>
+              <h4 style={{ color: 'black', float: 'right', marginTop: '-2px', marginRight: '0px' }}>Usuario</h4>
+            
             </Col>
 
           </Row>

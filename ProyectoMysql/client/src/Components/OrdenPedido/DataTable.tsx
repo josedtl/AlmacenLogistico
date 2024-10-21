@@ -162,7 +162,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
                     columns={columns}
                     dataSource={dataWithKeys}
                     size="small"
-                    scroll={{ x: 'calc(700px + 50%)', y: '100%' }}
+                    scroll={{ x: 'calc(700px + 50%)', y: '45vh'  }}
                 />
             )
         }
