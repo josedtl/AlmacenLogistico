@@ -68,7 +68,7 @@ const Root: React.FC = () => {
       <Sider
         trigger={null} collapsible collapsed={collapsed}
 
-      >
+      > 
 
         <div style={{ height: '60px', background: '#001529' }}  >
         </div>
