@@ -16,7 +16,7 @@ import { MercaderiaSaveModel } from '../../../Models/MercaderiaEntity';
 import { UnidadMedidaEntity } from '../../../Models/UnidadMedidaEntity';
 import { PorcentajeImporteEntity } from '../../../Models/PorcentajeImporteEntity';
 import { MonedaEntity } from '../../../Models/MonedaEntity';
-import { TarifaEntity } from '../../../Models/TarifaEntity';
+import { TarifaEntity,TarifaUnidadMedidaPrecioModel } from '../../../Models/TarifaEntity';
 const Save = () => {
   const { Id } = useParams();
   const idNumero = Number(Id?.toString());
@@ -35,6 +35,7 @@ const Save = () => {
 
   const [optionsMercaderia, setOptionsMercaderia] = useState<MercaderiaSaveModel[]>([]);
   const [optionsUM, setOptionsUM] = useState<UnidadMedidaEntity[]>([]);
+  const [optionsUMPrecio, setOptionsUMPrecio] = useState<TarifaUnidadMedidaPrecioModel[]>([]);
 
   const [optionsMoneda, setOptionsMoneda] = useState<MonedaEntity[]>([]);
   const [optionsImporte, setOptionsImporte] = useState<PorcentajeImporteEntity[]>([]);
@@ -263,12 +264,16 @@ const Save = () => {
       const Resp_UM = await sGeneral.GetUnidadMedidaItems();
       setOptionsUM(Resp_UM);
 
+      
       const Resp_Moneda = await sGeneral.GetMonedaItems();
       setOptionsMoneda(Resp_Moneda);
-
+      
       const Resp_Importe = await sGeneral.GetPorcentajeImporteItems();
       setOptionsImporte(Resp_Importe);
-
+      
+      const Resp_UMPrecio = await sTarifa.ObtenerUnidadMedidaPrecio( Ent.MercaderiaId,Ent.MonedaId);
+      setOptionsUMPrecio (Resp_UMPrecio);
+      
       await getCargarDatos();
       
 
@@ -346,9 +351,9 @@ const Save = () => {
                 key={Ent.UnidadMedidaId}
                 onChange={onChangeUM}
               >
-                {optionsUM.map((UM) => (
+                {optionsUMPrecio.map((UM) => (
                   <Select.Option key={UM.UnidadMedidaId} value={UM.UnidadMedidaId}>
-                    {UM.Nombre}
+                    {UM.CodUnidad}
                   </Select.Option>
                 ))}
               </Select>

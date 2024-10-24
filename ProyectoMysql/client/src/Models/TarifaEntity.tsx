@@ -10,6 +10,7 @@ export class TarifaEntity {
     FechaCreacion: Date;
     Vigente: boolean;
     MercaderiaId: number;
+    CodUnidad: string;
 
     Action: ProcessActionEnum
     NomImpuesto: string;
@@ -22,6 +23,7 @@ export class TarifaEntity {
         this.TarifaId = 0;
         this.UnidadMedidaId = 0;
         this.MonedaId = 0;
+        this.CodUnidad = '';
         this.PorcentajeImpuestoId = 0;
         this.PrecioSinImpuesto = 0;
         this.PrecioConImpuesto = 0;
