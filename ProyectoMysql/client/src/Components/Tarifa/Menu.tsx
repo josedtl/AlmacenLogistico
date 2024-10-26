@@ -40,7 +40,7 @@ function Menu() {
                                 {
                                     label: (
                                         <div style={{ padding: 4 }}>
-                                            <Link to={`/Grupal`}>
+                                            <Link to={`/TarifaG`}>
                                                 <Avatar
                                                     style={{ backgroundColor: '#f56a00' }}
                                                     size={170}
