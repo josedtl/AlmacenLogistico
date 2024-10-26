@@ -35,10 +35,10 @@ namespace LogisticStorage.BusinessLayer
             return DB.ObtenerMoneda(MercaderiaId);
         }
 
-        public static List<TarifaEntity> ObtenerUnidadMedidaPrecio(Int32 MercaderiaId, Int32 MonedaId)
+        public static List<TarifaEntity> ObtenerUnidadMedidaPrecio(Int32 MercaderiaId)
         {
             TarifaDB DB = new TarifaDB();
-            return DB.ObtenerUnidadMedidaPrecio(MercaderiaId, MonedaId);
+            return DB.ObtenerUnidadMedidaPrecio(MercaderiaId);
         }
     }
 }

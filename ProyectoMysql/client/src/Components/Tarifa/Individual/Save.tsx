@@ -161,12 +161,16 @@ const Save = () => {
     setValMercaderia('');
     Ent.MercaderiaId = value;
     setSelectedMercaderia(value)
+    const Resp_UMPrecio = await sTarifa.ObtenerUnidadMedidaPrecio( value);
+    setOptionsUMPrecio (Resp_UMPrecio);
   };
 
   const onChangeUM = async (value: number) => {
     setValUnidadMedida('');
     Ent.UnidadMedidaId = value;
     setSelectedUM(value)
+   
+    
   };
   const onChangeMoneda = async (value: number) => {
     setValMoneda('');
@@ -271,9 +275,7 @@ const Save = () => {
       const Resp_Importe = await sGeneral.GetPorcentajeImporteItems();
       setOptionsImporte(Resp_Importe);
       
-      const Resp_UMPrecio = await sTarifa.ObtenerUnidadMedidaPrecio( Ent.MercaderiaId,Ent.MonedaId);
-      setOptionsUMPrecio (Resp_UMPrecio);
-      
+   
       await getCargarDatos();
       
 
