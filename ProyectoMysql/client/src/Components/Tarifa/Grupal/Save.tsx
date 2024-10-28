@@ -464,6 +464,49 @@ const Save = () => {
             type="line"
           />
         </Col>
+        <Col xs={24} sm={14} md={16} lg={17} xl={18}>
+          {/* <Tabs
+            style={{ marginLeft: '20px' }}
+            type="line" items={TabsItems} /> */}
+
+
+          <Tabs
+            // tabBarExtraContent={AgregarButton_Presentacion()}
+            key={'TabGeneral'}
+            type="card"
+
+            items={new Array(1).fill(null).map((_, i) => {
+              i;
+              return {
+                label: (
+                  < >
+                    <Row>
+                      <Col xs={12}>
+                        <Title style={{ fontSize: '18px' }}>
+                          Presentación
+                        </Title>
+                      </Col>
+
+                      
+                    </Row>
+                  </>
+                ),
+                key: '1',
+                children:
+                  <span>
+
+                    <Row style={{
+
+                      height: 'calc(100px + 40vh)',
+                    }
+                    }>
+                      
+                    </Row >
+                  </span>,
+              };
+            })}
+          />
+        </Col>
       </Row>
     </Spin>
   );
