@@ -28,7 +28,7 @@ import PageTarifaMenu from "./Components/Tarifa/Menu"
 import PageTarifaMain from "./Components/Tarifa/Individual/Main";
 import PageTarifaSave from "./Components/Tarifa/Individual/Save";
 import PageTarifaUpdate from "./Components/Tarifa/Individual/Update";
-import PageTarifaGrupalMain from "./Components/Tarifa/Grupal/Main.tsx";
+import PageTarifaGrupalMain from "./Components/Tarifa/Grupal/Main";
 import PageTarifaGrupalSave from "./Components/Tarifa/Grupal/Save.tsx";
 import PageDespacho from "./Components/Despacho/Main";
 import PageDespachoSave from "./Components/Despacho/DespachoDetalle/Save";

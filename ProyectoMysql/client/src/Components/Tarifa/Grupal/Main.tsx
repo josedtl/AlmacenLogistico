@@ -53,7 +53,7 @@ function Main() {
         </Col>
 
         <Col xs={6} sm={6} md={12} lg={12} xl={12}>
-          <Link to={`/TarifaSave/0`}>
+          <Link to={`/TarifaGrupalSave/0`}>
             <Button
               style={ButtonAddMain}
               size={SizeButtonPrimary}

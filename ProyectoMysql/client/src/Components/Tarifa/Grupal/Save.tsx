@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Tabs, message, Select, Button, Col, Row, Typography, Modal, Spin, Input } from 'antd';
+import { Tabs, message, Select, Button, Col, Row, Typography, Modal, Spin, Segmented, Avatar } from 'antd';
 
 
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
@@ -11,6 +11,9 @@ import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import MercaderiaService from '../../../Service/MercaderiaService';
 import GeneralService from '../../../Service/GeneralService';
 import TarifaService from '../../../Service/TarifaService';
+
+import ModalItem from '../Grupal/Detalle/ModalItem';
+import DataTable from '../Grupal/Detalle/DataTable';
 
 import { MercaderiaSaveModel } from '../../../Models/MercaderiaEntity';
 import { UnidadMedidaEntity } from '../../../Models/UnidadMedidaEntity';
@@ -27,10 +30,11 @@ const Save = () => {
   const sTarifa = new TarifaService();
 
 
-  const initialMercaderia = new TarifaEntity();
-  const [Ent, setEnt] = useState<TarifaEntity>(initialMercaderia);
+  const initialTarifa = new TarifaEntity();
+  const [Ent, setEnt] = useState<TarifaEntity>(initialTarifa);
   const { Title } = Typography;
   const [CargarPage, setCargarPage] = React.useState(true);
+  const [disabled] = useState(false);
 
 
   const [optionsMercaderia, setOptionsMercaderia] = useState<MercaderiaSaveModel[]>([]);
@@ -50,19 +54,19 @@ const Save = () => {
 
       const Resp_Tarifa = await sTarifa.GetObtenerItem(idNumero);
       setEnt(Resp_Tarifa[0]);
-      
-    setPrecioSinImpuesto(Resp_Tarifa[0].PrecioSinImpuesto.toString());
-    setPrecioConImpuesto(Resp_Tarifa[0].PrecioConImpuesto.toString());
+
+      setPrecioSinImpuesto(Resp_Tarifa[0].PrecioSinImpuesto.toString());
+      setPrecioConImpuesto(Resp_Tarifa[0].PrecioConImpuesto.toString());
 
       const Resp_Mercaderia = await sMercaderia.GetObtenerMercaderiaTarifa(Resp_Tarifa[0].MercaderiaId);
       setOptionsMercaderia(Resp_Mercaderia);
-      
+
     }
 
     setCargarPage(false);
   };
 
-  
+
   const onChangeTextConImpuesto = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValConImpuesto('');
     const decimal = parseFloat(e.target.value.toLowerCase());
@@ -210,22 +214,6 @@ const Save = () => {
       return;
     }
 
-    if (Ent.UnidadMedidaId === 0) {
-      setValUnidadMedida('error');
-      messageAdd.open({ type: 'error', content: 'Seleccione una unidad de medida.', });
-      return;
-    }
-    if (Ent.MonedaId === 0) {
-      setValMoneda('error');
-      messageAdd.open({ type: 'error', content: 'Seleccione una Moneda.', });
-      return;
-    }
-    if (Ent.PorcentajeImpuestoId === 0) {
-      setValImpuesto('error');
-      messageAdd.open({ type: 'error', content: 'Seleccione un Impuesto.', });
-      return;
-    }
-
 
     modal.confirm({
       title: 'Mensaje del Sistema',
@@ -270,6 +258,8 @@ const Save = () => {
 
   }, []);
 
+  const operations = <ModalItem buttonLabel="" keyItem={''} />;
+
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
@@ -291,7 +281,7 @@ const Save = () => {
         </Col>
       </Row>
       <Row>
-        <Col xs={24} sm={10} md={8} lg={7} xl={6}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
 
 
 
@@ -301,11 +291,11 @@ const Save = () => {
             <Col span={24}>
               <label>Mercaderia</label>
             </Col>
-            <Col span={24}>
+            <Col span={20}>
               <Select
                 showSearch
                 status={ValMercaderia}
-                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                style={{ width: '1560px', marginTop: '5px', marginBottom: '10px' }}
                 defaultActiveFirstOption={false}
                 filterOption={false}
                 onSearch={handleSearchMercaderia}
@@ -319,159 +309,23 @@ const Save = () => {
                   </Select.Option>
                 ))}
               </Select>
+
+            </Col>
+            <Col span={4}>
+              <ModalItem buttonLabel="" keyItem={''} />
             </Col>
           </Row>
 
-
-          <Row>
-            <Col span={24}>
-              <label>Unidad de Medida</label>
-            </Col>
-            <Col span={24}>
-              <Select
-                allowClear
-                status={ValUnidadMedida}
-                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                defaultActiveFirstOption={false}
-                filterOption={false}
-                value={Ent.UnidadMedidaId === 0 ? null : Ent.UnidadMedidaId}
-                key={Ent.UnidadMedidaId}
-                onChange={onChangeUM}
-              >
-                {optionsUM.map((UM) => (
-                  <Select.Option key={UM.UnidadMedidaId} value={UM.UnidadMedidaId}>
-                    {UM.Nombre}
-                  </Select.Option>
-                ))}
-              </Select>
-
-
-            </Col>
-          </Row>
-
-          <Row>
-            <Col span={24}>
-              <label>Moneda</label>
-            </Col>
-            <Col span={24}>
-              <Select
-                allowClear
-                status={ValMoneda}
-                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                defaultActiveFirstOption={false}
-                filterOption={false}
-                value={Ent.MonedaId === 0 ? null : Ent.MonedaId}
-                key={Ent.MonedaId}
-                onChange={onChangeMoneda}
-              >
-                {optionsMoneda.map((M) => (
-                  <Select.Option key={M.MonedaId} value={M.MonedaId}>
-                    {M.Simbolo} - {M.CodMoneda}
-                  </Select.Option>
-                ))}
-              </Select>
-
-
-            </Col>
-          </Row>
-
-          <Row>
-            <Col span={12}>
-              <Col span={12}>
-                <label>% Impuesto</label>
-              </Col>
-              <Col span={24}>
-                <Select
-                  allowClear
-                  status={ValImpuesto}
-                  style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                  defaultActiveFirstOption={false}
-                  filterOption={false}
-                  value={Ent.PorcentajeImpuestoId === 0 ? null : Ent.PorcentajeImpuestoId}
-                  key={Ent.PorcentajeImpuestoId}
-                  onChange={onChangeImpuesto}
-                >
-                  {optionsImporte.map((PI) => (
-                    <Select.Option key={PI.PorcentajeImpuestoId} value={PI.PorcentajeImpuestoId}>
-                      {PI.Nombre} - {PI.Valor}%
-                    </Select.Option>
-                  ))}
-                </Select>
-
-              </Col>
-            </Col>
-            <Col span={12}>
-              {/* <Row>
-                <Col span={24}>
-                  <label>Precio Sin Impuesto</label>
-                </Col>
-                <Col span={24}>
-                  <Input
-                    type="number"
-                    name="PrecioSinInpuesto"
-                    style={{ marginTop: '5px', marginBottom: '10px' }}
-                    onChange={onChangeTextSinImpuesto}
-                    value={getPrecioSinInpuesto === null ? "" : getPrecioSinInpuesto}
-                  />
-                </Col>
-              </Row> */}
-            </Col>
-          </Row>
-          <Row>
-
-
-            <Col span={12}>
-              <Row>
-                <Col span={24}>
-                  <label>Precio Sin Impuesto</label>
-                </Col>
-                <Col span={24}>
-                  <Input
-
-                    status={ValSinImpuesto}
-                    type="decimal"
-                    name="PrecioSinImpuesto"
-                    style={{ marginTop: '5px', marginBottom: '10px' }}
-                    onChange={onChangeTextSinImpuesto}
-                    value={getPrecioSinImpuesto === null ? "" : getPrecioSinImpuesto}
-                  />
-                </Col>
-              </Row>
-            </Col>
-            <Col span={12}>
-              <Row>
-                <Col span={24}>
-                  <label>Precio Con Impuesto</label>
-                </Col>
-                <Col span={24}>
-                  <Input
-                    status={ValConImpuesto}
-                    type="number"
-                    name="PrecioConImpuesto"
-                    style={{ marginTop: '5px', marginBottom: '10px' }}
-                    onChange={onChangeTextConImpuesto}
-                    value={getPrecioConImpuesto === null ? "" : getPrecioConImpuesto}
-                  />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
         </Col>
 
-        <Col xs={24} sm={14} md={16} lg={17} xl={18}>
-          <Tabs
-            style={{ marginLeft: '20px' }}
-            type="line"
-          />
-        </Col>
-        <Col xs={24} sm={14} md={16} lg={17} xl={18}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           {/* <Tabs
             style={{ marginLeft: '20px' }}
             type="line" items={TabsItems} /> */}
 
 
           <Tabs
-            // tabBarExtraContent={AgregarButton_Presentacion()}
+            // tabBarExtraContent={operations}
             key={'TabGeneral'}
             type="card"
 
@@ -483,11 +337,11 @@ const Save = () => {
                     <Row>
                       <Col xs={12}>
                         <Title style={{ fontSize: '18px' }}>
-                          Presentación
+                          Detalle
                         </Title>
                       </Col>
 
-                      
+
                     </Row>
                   </>
                 ),
@@ -499,8 +353,16 @@ const Save = () => {
 
                       height: 'calc(100px + 40vh)',
                     }
-                    }>
-                      
+                    }> <Col xs={24}>
+                        <Col xs={24}>
+                          {/* cambiar el optionsUM por arreglo */}
+                          <DataTable DataList={optionsUM} EsTabla={disabled} />
+
+                        </Col>
+
+
+                      </Col>
+
                     </Row >
                   </span>,
               };
@@ -508,6 +370,7 @@ const Save = () => {
           />
         </Col>
       </Row>
+
     </Spin>
   );
 };
