@@ -298,13 +298,13 @@ namespace LogisticStorage.DataLayer
             }
         }
 
-        public virtual List<MercaderiaEntity> BuscarMercaderiaNomCompleto(String Nombre)
+        public virtual List<MercaderiaEntity> BuscarTotal(String Nombre)
         {
             try
             {
                 StartHelper(false);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Nombre", DbType.String, 50, false, 0, 0, Nombre);
-                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_MercaderiaBuscarCategoriaItem");
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_MercaderiaBuscarTotal");
                 FillSchemeTable(dr);
                 List<MercaderiaEntity> EntityList = new List<MercaderiaEntity>();
                 while (dr.Read())

@@ -4,11 +4,10 @@ import type { InputStatus } from 'antd/lib/_util/statusUtils'
 import { PropsModel } from '../../../Lib/PropsItem'
 import { ButtonAcceptModel } from '../../../Styles/Button'
 import { Select, Button, Col, Row, Space, Input, Form, message, Modal } from 'antd';
-import MerListaService from '../../../Service/MerListaService';
 import MercaderiaService from '../../../Service/MercaderiaService';
-import { MerListaEntity } from '../../../Models/MerListaEntity';
 import { ProcessActionEnum } from '../../../Lib/ResourceModel/Enum'
 import { MercaderiaItemOPModel } from "../../../Models/MercaderiaEntity";
+
 const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const initialOrdenPedidoDetalle = new OrdenPedidoDetalleEntity();
@@ -31,11 +30,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         e.preventDefault();
 
         try {
-            if (Ent.CategoriaId === 0) {
-                setValCategoria('error');
-                messageAdd.open({ type: 'error', content: 'Seleccione una Categoria.', });
-                return;
-            }
+   
             if (Ent.MercaderiaId === 0) {
                 setValProducto('error');
                 messageAdd.open({ type: 'error', content: 'Seleccione un Producto.', });
@@ -75,42 +70,24 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         });
     }
     const [selectedPRoducto, setSelectedProducto] = useState<number | undefined>(undefined);
-    const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
-    const [ValCategoria, setValCategoria] = useState<InputStatus>('');
     const [ValCodigoUM, setValCodigoUM] = useState<string>('');
     const [ValProducto, setValProducto] = useState<InputStatus>('');
 
-    const sMerLista = new MerListaService();
     const sMercaderiaService = new MercaderiaService();
     selectedPRoducto;
-    selectedCategoria;
-    ValCategoria;
+
     // useEffect(() => {
     //     const updatedPerson = props.item;
     //     updatedPerson.Action = updatedPerson.OrdenPedidoDetalleId > 0 ? 3 : 1;
     //     setFlaState(updatedPerson.OrdenPedidoDetalleId > 0);
     //     setEnt(updatedPerson);
     // }, []);
-    const [optionsCategoria, setOptionsCategoria] = useState<MerListaEntity[]>([]);
     const [optionsProducto, setOptionsProducto] = useState<MercaderiaItemOPModel[]>([]);
-    const handleSearchCategoria = async (value: string) => {
-        try {
-            const responseCategoria = await sMerLista.getItemLike("M002", value);
-            setOptionsCategoria(responseCategoria);
-        } catch (error) {
-            console.error('Error al buscar categorías:', error);
-        }
-    };
 
-    const onChangeCategoria = async (value: number) => {
-        setValCategoria('');
-        Ent.CategoriaId = value;
-        setSelectedCategoria(value)
-    };
-
+   
     const handleSearchProducto = async (value: string) => {
         try {
-            const responseProducto = await sMercaderiaService.getItemCategoriaLike(value, Ent.CategoriaId);
+            const responseProducto = await sMercaderiaService.BuscarTotal(value);
             setOptionsProducto(responseProducto);
 
         } catch (error) {
@@ -158,8 +135,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
             const responseProducto = await sMercaderiaService.GetMercaderia_ItemOP(updatedItem.MercaderiaId);
             console.log(responseProducto);
             if (responseProducto[0].CategoriaId > 0) {
-                const responseCategoria = await sMerLista.getItem(responseProducto[0].CategoriaId);
-                setOptionsCategoria(responseCategoria);
                 updatedItem.CategoriaId = responseProducto[0].CategoriaId;
                 setOptionsProducto(responseProducto);
 
@@ -167,7 +142,6 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 setValCodigoUM(responseProducto[0].CodigoUM);
                 updatedItem.Stock = responseProducto[0].Stock;
             } else {
-                setOptionsCategoria([]);
                 setOptionsProducto([]);
                 setValCodigoUM("");
                 updatedItem.Stock = 0;
@@ -194,32 +168,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
             {contextHolder}
             {contextHolderAdd}
-            <Row>
-                <Col span={24}>
-                    <label>Categoria</label>
-                </Col>
-                <Col span={24}>
-                    <Select
-                        status={ValCategoria}
-                        showSearch
-                        style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                        defaultActiveFirstOption={false}
-                        filterOption={false}
-                        onSearch={handleSearchCategoria}
-                        value={Ent.CategoriaId === 0 ? null : Ent.CategoriaId}
-                        key={Ent.CategoriaId}
-                        onChange={onChangeCategoria}
-                    >
-                        {optionsCategoria.map((categoria) => (
-                            <Select.Option key={categoria.ListaId} value={categoria.ListaId}>
-                                {categoria.Nombre}
-                            </Select.Option>
-
-                        ))}
-                    </Select>
-
-                </Col>
-            </Row>
+    
 
 
             <Row>

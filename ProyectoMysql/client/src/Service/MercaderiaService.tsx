@@ -131,6 +131,22 @@ class MercaderiaService {
 
 
   }
+  async BuscarTotal(codigo: string): Promise<MercaderiaItemOPModel[]> {
+    try {
+
+      const EntLike = new EntidadLikeModel();
+      EntLike.Valor1 = codigo;
+      const response = await apiLg.post(`api/Mercaderia/BuscarTotal`, EntLike, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
 
 }

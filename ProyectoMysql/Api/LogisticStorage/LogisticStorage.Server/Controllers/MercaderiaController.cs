@@ -265,13 +265,13 @@ namespace LogisticStorage.Server.Controllers
         }
 
         [HttpPost]
-        [Route("BuscarProductoCompleto")]
-        public ResponseAPI<List<MercaderiaItemCategoriaModel>> BuscarProductoCompleto(EntidadLikeModel Ent)
+        [Route("BuscarTotal")]
+        public ResponseAPI<List<MercaderiaItemCategoriaModel>> BuscarTotal(EntidadLikeModel Ent)
         {
             try
             {
                 d.Configurar();
-                var Items = Mercaderia.BuscarCategoriaItem(Ent.Valor1, Ent.ValorInt1);
+                var Items = Mercaderia.BuscarTotal(Ent.Valor1);
 
                 List<MercaderiaItemCategoriaModel> Lista = new List<MercaderiaItemCategoriaModel>();
 
