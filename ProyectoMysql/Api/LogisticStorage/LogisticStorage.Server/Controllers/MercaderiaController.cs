@@ -263,5 +263,28 @@ namespace LogisticStorage.Server.Controllers
                 return new ResponseAPI<List<MercaderiaMainModel>>(new List<MercaderiaMainModel>(), false, ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("BuscarProductoCompleto")]
+        public ResponseAPI<List<MercaderiaItemCategoriaModel>> BuscarProductoCompleto(EntidadLikeModel Ent)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Mercaderia.BuscarCategoriaItem(Ent.Valor1, Ent.ValorInt1);
+
+                List<MercaderiaItemCategoriaModel> Lista = new List<MercaderiaItemCategoriaModel>();
+
+                foreach (var Item in Items) Lista.Add(new MercaderiaItemCategoriaModel(Item));
+
+                return new ResponseAPI<List<MercaderiaItemCategoriaModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<MercaderiaItemCategoriaModel>>(new List<MercaderiaItemCategoriaModel>(), false, ex.Message);
+            }
+        }
+
     }
 }

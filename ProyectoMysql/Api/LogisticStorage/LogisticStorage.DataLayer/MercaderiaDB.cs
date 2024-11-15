@@ -298,5 +298,29 @@ namespace LogisticStorage.DataLayer
             }
         }
 
+        public virtual List<MercaderiaEntity> BuscarMercaderiaNomCompleto(String Nombre)
+        {
+            try
+            {
+                StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Nombre", DbType.String, 50, false, 0, 0, Nombre);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_MercaderiaBuscarCategoriaItem");
+                FillSchemeTable(dr);
+                List<MercaderiaEntity> EntityList = new List<MercaderiaEntity>();
+                while (dr.Read())
+                {
+                    MercaderiaEntity entity = new MercaderiaEntity();
+                    if (FillFrom(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
