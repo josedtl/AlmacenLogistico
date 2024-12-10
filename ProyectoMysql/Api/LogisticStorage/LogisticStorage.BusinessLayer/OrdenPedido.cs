@@ -33,5 +33,11 @@ namespace LogisticStorage.BusinessLayer
             OrdenPedidoDB DB = new OrdenPedidoDB();
             return DB.ObtenerFiltroOCO();
         }
+
+        public static Boolean CambioEstado(Int32 OrdenPedidoId, Int32 EstadoProcesoId)
+        {
+            OrdenPedidoDB DB = new OrdenPedidoDB();
+            return DB.CambioEstado(OrdenPedidoId, EstadoProcesoId);
+        }
     }
 }

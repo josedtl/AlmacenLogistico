@@ -6,7 +6,7 @@ import ModalItem from './OP_Interno/ModalItem';
 import ModalItem_Venta from './OP_Venta/ModalItem';
 import ModalItem_Stock from './Op_Stock/ModalItem';
 
-import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Layout, Segmented, Avatar } from 'antd';
+import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Segmented, Avatar } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { useParams } from 'react-router-dom';
 import { ExclamationCircleOutlined, TagOutlined } from '@ant-design/icons';
@@ -27,8 +27,9 @@ import OrdenPedidoService from '../../Service/OrdenPedidoService';
 import { EntidadNombreCompletoModel } from '../../Models/GeneralEntity';
 import { ProcesoModel } from '../../Models/ProcesoEntity';
 import { OrdenPedidoDetalleEntity } from '../../Models/OrdenPedidoDetalleEntity';
-import { OrdenPedidoEntity } from '../../Models/OrdenPedidoEntity';
+import { OrdenPedidoEntity, OrdenPedidoCambioEstadoEDP } from '../../Models/OrdenPedidoEntity';
 import { DatosClienteItemModel } from '../../Models/GeneralEntity'
+
 function Page() {
 
   // Instancia 
@@ -42,6 +43,7 @@ function Page() {
 
   const [items, setItems] = useState<OrdenPedidoDetalleEntity[]>([]);
   const [Ent, setEnt] = useState<OrdenPedidoEntity>(new OrdenPedidoEntity());
+  const [Ent_ev, setEnt_ev] = useState<OrdenPedidoCambioEstadoEDP>(new OrdenPedidoCambioEstadoEDP());
   const [FechaEmisionItem, setFechaEmisionItem] = useState<string>(moment(Ent.FechaEmision).format('DD/MM/YYYY hh:mm'));
 
   const [CargarPage, setCargarPage] = React.useState(true);
@@ -301,6 +303,56 @@ function Page() {
 
   };
 
+  const Enviar_Total = async (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    Ent_ev.OrdenPedidoId = Ent.OrdenPedidoId;
+    Ent_ev.EstadoProcesoId = 2;
+
+    
+
+
+
+    modal.confirm({
+      title: 'Mensaje del Sistema',
+      icon: <ExclamationCircleOutlined />,
+      content: '¿Desea guardar el registro?',
+      okText: 'Si',
+      okType: 'danger',
+      cancelText: 'No',
+      async onOk() {
+
+        await sOrdenPedido.enviarItem(Ent_ev);
+        voidCargarDatos(Ent_ev.OrdenPedidoId);
+        let secondsToGo = 3;
+
+        const instance = modal.success({
+          title: 'Mensaje de sistema',
+          content: `Se Registro correctamente`,
+        });
+
+        const timer = setInterval(() => {
+          secondsToGo -= 1;
+          instance.update({
+            content: `Se Registro correctamente, \nse cerraraen ${secondsToGo} Segundos.`,
+          });
+        }, 1000);
+
+        setTimeout(() => {
+          clearInterval(timer);
+          instance.destroy();
+        }, secondsToGo * 1000);
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+
+  };
+
+
+
+
   const [selectedCategoria, setSelectedCategoria] = useState<number | undefined>(undefined);
   const [optionsEntidad, setOptionsEntidad] = useState<EntidadNombreCompletoModel[]>([]);
   const [ValResponsable, setValResponsable] = useState<InputStatus>('');
@@ -327,11 +379,11 @@ function Page() {
     )
   }
 
-  const footerStyle: React.CSSProperties = {
-    borderColor: "#15616d",
-  };
+  // const footerStyle: React.CSSProperties = {
+  //   borderColor: "#15616d",
+  // };
 
-  const { Footer } = Layout;
+  // const { Footer } = Layout;
 
 
   const Tabla_TipoRequerimiento = () => {
@@ -486,7 +538,7 @@ function Page() {
                 readOnly={true}
                 type="text"
                 name="Codigo"
-                style={{ marginTop: '5px', marginBottom: '10px' ,background : '#c5dfc7'}}
+                style={{ marginTop: '5px', marginBottom: '10px', background: '#c5dfc7' }}
                 value={Ent.Codigo === null ? "" : Ent.Codigo}
               />
 
@@ -540,12 +592,12 @@ function Page() {
       </Row>
 
 
-        <Row>
-       
-    
+      <Row>
 
-          <Col span={2}>
-            {/* <Button
+
+
+        <Col span={2}>
+          {/* <Button
                   style={ButtonAddMain}
                   onClick={Guardar_Total}
                   size={"large"}
@@ -554,32 +606,31 @@ function Page() {
                   Guardar
                 </Button> */}
 
-            <Segmented
-                  style={{
-                    position: 'fixed',
-                    bottom: '20px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    zIndex: 1000,
-                  }}
-              options={[
+          <Segmented
+            style={{
+              position: 'fixed',
+              bottom: '20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 1000,
+            }}
+            options={[
 
-                {
-                  label: (
+              {
+                label: (
 
-                    <>
+                  <>
                     <Row>
 
                       <Col xs={12}>
 
-                        <div style={{ padding: 4 }} onClick={Guardar_Total}>
+                        <div style={{ padding: 4 }} onClick={Enviar_Total}>
                           <Avatar style={{
                             backgroundColor: "#15616d",
                             borderColor: "#15616d",
 
                           }}
-                          
-                            // onClick={Guardar_Total}
+
                             shape="square"
                             size={40}
                             icon={<TagOutlined />} />
@@ -606,32 +657,20 @@ function Page() {
                   </>
 
 
-                    // <div style={{ padding: 4 }} onClick={Guardar_Total}>
-                    //   <Avatar style={{
-                    //     backgroundColor: "#15616d",
-                    //     borderColor: "#15616d",
+                ),
+                value: 'Guardar',
+              },
+            ]}
+          />
 
-                    //   }}
-                    //     // onClick={Guardar_Total}
-                    //     shape="square"
-                    //     size={60}
-                    //     icon={<SaveFilled />} />
-                    //   <div>Guardar</div>
-                    // </div>
-                  ),
-                  value: 'Guardar',
-                },
-              ]}
-            />
+        </Col>
+      </Row>
 
-          </Col>
-        </Row>
-
-        <Row>
+      <Row>
 
 
 
-        </Row>
+      </Row>
 
 
     </Spin>

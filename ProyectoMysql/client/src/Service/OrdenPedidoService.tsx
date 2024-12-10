@@ -1,5 +1,5 @@
 import { OrdenPedidoDetalleEntity } from '../Models/OrdenPedidoDetalleEntity';
-import { OrdenPedidoEntity } from '../Models/OrdenPedidoEntity';
+import { OrdenPedidoEntity,OrdenPedidoCambioEstadoEDP } from '../Models/OrdenPedidoEntity';
 import { apiLg } from './axios-config';
 
 class OrdenPedidoService {
@@ -59,7 +59,18 @@ class OrdenPedidoService {
     }
   }
 
-  
+  async enviarItem(item: OrdenPedidoCambioEstadoEDP): Promise<boolean | null> {
+    try {
+      const response = await apiLg.post(`api/OrdenPedido/OrdenPedidoCambioEstado/`, item, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 

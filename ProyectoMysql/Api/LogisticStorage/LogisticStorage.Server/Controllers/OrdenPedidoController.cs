@@ -139,7 +139,24 @@ namespace LogisticStorage.Server.Controllers
         }
 
 
+        [HttpPost]
+        [Route("OrdenPedidoCambioEstado")]
+        public ResponseAPI<Boolean> OrdenPedidoCambioEstado(OrdenPedidoCambioEstadoEDP Item)
+        {
+            try
+            {
+                d.Configurar();
+                OrdenPedidoEntity ItemEntity = new OrdenPedidoEntity();
 
+                Boolean Fla = OrdenPedido.CambioEstado(Item.OrdenPedidoId, Item.EstadoProcesoId);
+
+                return new ResponseAPI<Boolean>(Fla, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<Boolean>(false, false, ex.Message);
+            }
+        }
 
 
     }

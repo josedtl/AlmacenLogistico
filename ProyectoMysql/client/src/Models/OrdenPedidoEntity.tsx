@@ -71,3 +71,12 @@ export class OrdenPedidoFiltroOCOModel {
         this.Seleccionar=false;
     }
 }
+
+export class OrdenPedidoCambioEstadoEDP {
+    OrdenPedidoId: number
+    EstadoProcesoId: number;
+    constructor() {
+        this.OrdenPedidoId = 0;
+        this.EstadoProcesoId  = 0;
+    }
+}

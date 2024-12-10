@@ -161,5 +161,39 @@ namespace LogisticStorage.DataLayer
                 throw ex;
             }
         }
+
+
+        public virtual bool CambioEstado(Int32 OrdenPedidoId,Int32 EstadoProcesoId)
+        {
+            StartHelper(true);
+            try
+            {
+                CambioEstadoDB(OrdenPedidoId, EstadoProcesoId);
+            }
+            catch (Exception ex)
+            {
+                Helper.CancelTransaction();
+                throw ex;
+            }
+
+            Helper.Close();
+            return true;
+        }
+
+        private bool CambioEstadoDB(Int32 OrdenPedidoId, Int32 EstadoProcesoId)
+        {
+                String storedName = "sp_OrdenPedido_CambioEstado";
+
+                DbDatabase.GetStoredProcCommand(storedName);
+                DbDatabase.SetTransaction(Helper.DbTransaction);
+
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_OrdenPedidoId", DbType.Int32, 4, false, 0, 0, OrdenPedidoId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_EstadoProcesoId", DbType.Int32, 4, false, 0, 0, EstadoProcesoId);
+
+                int returnValue = DbDatabase.ExecuteNonQuery();
+
+            return true;
+        }
+
     }
 }
