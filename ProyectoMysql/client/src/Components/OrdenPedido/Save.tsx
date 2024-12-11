@@ -309,7 +309,7 @@ function Page() {
     Ent_ev.OrdenPedidoId = Ent.OrdenPedidoId;
     Ent_ev.EstadoProcesoId = 2;
 
-    
+
 
 
 
@@ -431,6 +431,69 @@ function Page() {
       return (
         <ModalItem buttonLabel="" addItemToState={event_AgregarDetalle} item={new OrdenPedidoDetalleEntity()} keyItem={''} />
       )
+    } else {
+      return (
+        <>
+        </>)
+    }
+
+  }
+
+
+
+  const Method_VerEnviar = () => {
+    if (Ent.OrdenPedidoId > 0 && Ent.EstadoProcesoId == 1) {
+
+      return (
+        <Col xs={12}>
+
+          <div style={{ padding: 4 }} onClick={Enviar_Total}>
+            <Avatar style={{
+              backgroundColor: "#15616d",
+              borderColor: "#15616d",
+
+            }}
+
+              shape="square"
+              size={40}
+              icon={<TagOutlined />} />
+            <div>Enviar</div>
+          </div>
+        </Col>
+
+      )
+
+    } else {
+      return (
+        <>
+        </>)
+    }
+
+  }
+
+
+  const Method_VerGuardar = () => {
+    if (Ent.EstadoProcesoId == 1  || Ent.EstadoProcesoId == 0 ) {
+
+      return (
+        <Col xs={12}>
+
+          <div style={{ padding: 4 }} onClick={Guardar_Total}>
+            <Avatar style={{
+              backgroundColor: "#15616d",
+              borderColor: "#15616d",
+
+            }}
+              // onClick={Guardar_Total}
+              shape="square"
+              size={40}
+              icon={<SaveFilled />} />
+            <div>Guardar</div>
+          </div>
+        </Col>
+
+      )
+
     } else {
       return (
         <>
@@ -597,14 +660,7 @@ function Page() {
 
 
         <Col span={2}>
-          {/* <Button
-                  style={ButtonAddMain}
-                  onClick={Guardar_Total}
-                  size={"large"}
-                  icon={IconSave}
-                >
-                  Guardar
-                </Button> */}
+
 
           <Segmented
             style={{
@@ -622,37 +678,9 @@ function Page() {
                   <>
                     <Row>
 
-                      <Col xs={12}>
+                      {Method_VerEnviar()}
+                      {Method_VerGuardar()}
 
-                        <div style={{ padding: 4 }} onClick={Enviar_Total}>
-                          <Avatar style={{
-                            backgroundColor: "#15616d",
-                            borderColor: "#15616d",
-
-                          }}
-
-                            shape="square"
-                            size={40}
-                            icon={<TagOutlined />} />
-                          <div>Enviar</div>
-                        </div>
-                      </Col>
-
-                      <Col xs={12}>
-
-                        <div style={{ padding: 4 }} onClick={Guardar_Total}>
-                          <Avatar style={{
-                            backgroundColor: "#15616d",
-                            borderColor: "#15616d",
-
-                          }}
-                            // onClick={Guardar_Total}
-                            shape="square"
-                            size={40}
-                            icon={<SaveFilled />} />
-                          <div>Guardar</div>
-                        </div>
-                      </Col>
                     </Row>
                   </>
 
