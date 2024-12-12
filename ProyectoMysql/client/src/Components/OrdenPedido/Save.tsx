@@ -45,7 +45,7 @@ function Page() {
   const [Ent, setEnt] = useState<OrdenPedidoEntity>(new OrdenPedidoEntity());
   const [Ent_ev, setEnt_ev] = useState<OrdenPedidoCambioEstadoEDP>(new OrdenPedidoCambioEstadoEDP());
   const [FechaEmisionItem, setFechaEmisionItem] = useState<string>(moment(Ent.FechaEmision).format('DD/MM/YYYY hh:mm'));
-
+  setEnt_ev;
   const [CargarPage, setCargarPage] = React.useState(true);
   const [KeyTabs, setKeyTabs] = useState<String>('');
   const [disabled] = useState(false);
@@ -200,8 +200,6 @@ function Page() {
     });
   }
 
-  // const operations = <ModalItem buttonLabel="" addItemToState={event_AgregarDetalle} item={new OrdenPedidoDetalleEntity()} keyItem={''} />;
-
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
     date;
     setFechaEmisionItem(dateString);
@@ -308,8 +306,6 @@ function Page() {
 
     Ent_ev.OrdenPedidoId = Ent.OrdenPedidoId;
     Ent_ev.EstadoProcesoId = 2;
-
-
 
 
 
@@ -473,7 +469,7 @@ function Page() {
 
 
   const Method_VerGuardar = () => {
-    if (Ent.EstadoProcesoId == 1  || Ent.EstadoProcesoId == 0 ) {
+    if (Ent.EstadoProcesoId == 1 || Ent.EstadoProcesoId == 0) {
 
       return (
         <Col xs={12}>
