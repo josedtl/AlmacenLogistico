@@ -117,8 +117,10 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const handleSearchProducto = async (value: string) => {
         try {
-            const responseProducto = await sMercaderiaService.BuscarTotal(value);
+            const responseProducto = await sMercaderiaService.getItemCategoriaLike(value, Ent.CategoriaId);
             setOptionsProducto(responseProducto);
+
+
 
         } catch (error) {
             console.error('Error al buscar categorías:', error);
@@ -197,7 +199,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                 setValCodigoMoneda(OptionsMoneda[ItemMoneda].Simbolo);
             }                                                              
 
-            const responseUm = await sTarifaService.ObtenerUnidadMedidaPrecio(updatedItem.MercaderiaId);
+            const responseUm = await sTarifaService.ObtenerUnidadMedidaPrecio(updatedItem.MercaderiaId, updatedItem.MonedaId);
             setOptionsUM(responseUm);
                                                                                 
 
@@ -247,7 +249,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         Ent.MonedaId = value;
         setSelectedMoneda(value)
 
-        const responseUm = await sTarifaService.ObtenerUnidadMedidaPrecio(Ent.MercaderiaId);
+        const responseUm = await sTarifaService.ObtenerUnidadMedidaPrecio(Ent.MercaderiaId, value);
         setOptionsUM(responseUm);
 
         // console.log(responseUm.length);
@@ -279,7 +281,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
             {contextHolder}
             {contextHolderAdd}
-            {/* <Row>
+            <Row>
                 <Col span={24}>
                     <label>Categoria</label>
                 </Col>
@@ -304,7 +306,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                     </Select>
 
                 </Col>
-            </Row> */}
+            </Row>
 
             <Row>
                 <Col span={24}>
