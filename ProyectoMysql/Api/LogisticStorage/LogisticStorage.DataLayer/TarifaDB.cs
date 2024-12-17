@@ -156,12 +156,13 @@ namespace LogisticStorage.DataLayer
                 throw ex;
             }
         }
-        public virtual List<TarifaEntity> ObtenerUnidadMedidaPrecio(Int32 MercaderiaId)
+        public virtual List<TarifaEntity> ObtenerUnidadMedidaPrecio(Int32 MercaderiaId, Int32 MonedaId)
         {
             try
             {
                 StartHelper(false);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MercaderiaId", DbType.Int32, 4, false, 0, 0, MercaderiaId);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_MonedaId", DbType.Int32, 4, false, 0, 0, MonedaId);
                 IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_Tarifa_ObtenerUnidadMedidaPrecio");
                 FillSchemeTable(dr);
                 List<TarifaEntity> EntityList = new List<TarifaEntity>();

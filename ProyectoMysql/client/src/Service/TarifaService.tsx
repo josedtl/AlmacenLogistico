@@ -58,9 +58,9 @@ class TarifaService {
   }
 
 
-  async ObtenerUnidadMedidaPrecio(MercaderiaId: number): Promise<TarifaUnidadMedidaPrecioModel[]> {
+  async ObtenerUnidadMedidaPrecio(MercaderiaId: number,MonedaId: number): Promise<TarifaUnidadMedidaPrecioModel[]> {
     try {
-      const response = await apiLg.get(`api/Tarifa/ObtenerUnidadMedidaPrecio/${MercaderiaId}`);
+      const response = await apiLg.get(`api/Tarifa/ObtenerUnidadMedidaPrecio/${MercaderiaId}/${MonedaId}`);
       if (response.status === 200 && response.data.Value != null) {
         return response.data.Value;
       }

@@ -37,11 +37,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         e.preventDefault();
 
         try {
-            if (Ent.CategoriaId === 0) {
-                setValCategoria('error');
-                messageAdd.open({ type: 'error', content: 'Seleccione una Categoria.', });
-                return;
-            }
+         
             if (Ent.MercaderiaId === 0) {
                 setValProducto('error');
                 messageAdd.open({ type: 'error', content: 'Seleccione un Producto.', });
@@ -117,10 +113,8 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const handleSearchProducto = async (value: string) => {
         try {
-            const responseProducto = await sMercaderiaService.getItemCategoriaLike(value, Ent.CategoriaId);
+            const responseProducto = await sMercaderiaService.BuscarTotal(value);
             setOptionsProducto(responseProducto);
-
-
 
         } catch (error) {
             console.error('Error al buscar categorías:', error);
@@ -281,33 +275,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
             {contextHolder}
             {contextHolderAdd}
-            <Row>
-                <Col span={24}>
-                    <label>Categoria</label>
-                </Col>
-                <Col span={24}>
-                    <Select
-                        status={ValCategoria}
-                        showSearch
-                        style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                        defaultActiveFirstOption={false}
-                        filterOption={false}
-                        onSearch={handleSearchCategoria}
-                        value={Ent.CategoriaId === 0 ? null : Ent.CategoriaId}
-                        key={Ent.CategoriaId}
-                        onChange={onChangeCategoria}
-                    >
-                        {optionsCategoria.map((categoria) => (
-                            <Select.Option key={categoria.ListaId} value={categoria.ListaId}>
-                                {categoria.Nombre}
-                            </Select.Option>
-
-                        ))}
-                    </Select>
-
-                </Col>
-            </Row>
-
+ 
             <Row>
                 <Col span={24}>
                     <label>Producto</label>

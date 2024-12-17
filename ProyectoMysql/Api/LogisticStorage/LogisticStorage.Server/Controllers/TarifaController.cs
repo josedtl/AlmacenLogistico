@@ -110,13 +110,13 @@ namespace LogisticStorage.Server.Controllers
         }
 
         [HttpGet]
-        [Route("ObtenerUnidadMedidaPrecio/{MercaderiaId}")]
-        public ResponseAPI<List<TarifaUnidadMedidaPrecioModel>> ObtenerUnidadMedidaPrecio(Int32 MercaderiaId)
+        [Route("ObtenerUnidadMedidaPrecio/{MercaderiaId}/{MonedaId}")]
+        public ResponseAPI<List<TarifaUnidadMedidaPrecioModel>> ObtenerUnidadMedidaPrecio(Int32 MercaderiaId, Int32 MonedaId)
         {
             try
             {
                 d.Configurar();
-                var Items = Tarifa.ObtenerUnidadMedidaPrecio(MercaderiaId);
+                var Items = Tarifa.ObtenerUnidadMedidaPrecio(MercaderiaId, MonedaId);
 
                 List<TarifaUnidadMedidaPrecioModel> Lista = new List<TarifaUnidadMedidaPrecioModel>();
 
