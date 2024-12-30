@@ -196,7 +196,7 @@ namespace LogisticStorage.DataLayer
                 throw ex;
             }
         }
-      
+
         public virtual List<MercaderiaEntity> ObtenerMercaderiaTarifa(Int32 MercaderiaId)
         {
             try
@@ -305,6 +305,31 @@ namespace LogisticStorage.DataLayer
                 StartHelper(false);
                 DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Nombre", DbType.String, 50, false, 0, 0, Nombre);
                 IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_MercaderiaBuscarTotal");
+                FillSchemeTable(dr);
+                List<MercaderiaEntity> EntityList = new List<MercaderiaEntity>();
+                while (dr.Read())
+                {
+                    MercaderiaEntity entity = new MercaderiaEntity();
+                    if (FillFrom(dr, entity)) EntityList.Add(entity);
+                    entity.OnLogicalLoaded();
+                }
+
+                Helper.Close(dr);
+                return EntityList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public virtual List<MercaderiaEntity> BuscarTotalTarifa(String Nombre)
+        {
+            try
+            {
+                StartHelper(false);
+                DbDatabase.AddParameter(MyUtils.GetOutputDirection(false), "v_Nombre", DbType.String, 50, false, 0, 0, Nombre);
+                IDataReader dr = (IDataReader)DbDatabase.ExecuteReader(CommandType.StoredProcedure, "sp_MercaderiaBuscarTotalTarifa");
                 FillSchemeTable(dr);
                 List<MercaderiaEntity> EntityList = new List<MercaderiaEntity>();
                 while (dr.Read())

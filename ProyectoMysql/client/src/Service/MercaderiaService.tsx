@@ -147,6 +147,21 @@ class MercaderiaService {
     }
   }
 
+  async BuscarTotalTarifa(codigo: string): Promise<MercaderiaItemOPModel[]> {
+    try {
+
+      const EntLike = new EntidadLikeModel();
+      EntLike.Valor1 = codigo;
+      const response = await apiLg.post(`api/Mercaderia/BuscarTotalTarifa`, EntLike, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data.Value;
+    } catch (error) {
+      throw error;
+    }
+  }
 
 
 }

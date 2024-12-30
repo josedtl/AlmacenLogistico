@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import { OrdenPedidoEntity } from '../..//Models/OrdenPedidoEntity';
-import { EditFilled, CaretRightOutlined } from '@ant-design/icons';
+import { EditFilled, RightCircleFilled } from '@ant-design/icons';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Link } from 'react-router-dom';
 import { PropsTable } from '../../Lib/PropsItem'
@@ -29,14 +29,17 @@ const DataTable: React.FC<PropsTable> = (props) => {
                 let color = "while";
 
                 if (record.ValorEstadoProceso === 1) {
-                    color = "green";
+                    color = "#c0c728";
                 } else if (record.ValorEstadoProceso === 2) {
-                    color = "green";
+                    color = "#3aa25a";
                 } else if (record.ValorEstadoProceso === 3) {
-                    color = "blue";
+                    color = "#d85321";
+                }
+                else if (record.ValorEstadoProceso === 4) {
+                    color = "#1d4b92";
                 }
                 return <span>
-                    <CaretRightOutlined
+                    <RightCircleFilled
                         style={{ color }} /> {record.NomEstadoProceso}
 
 

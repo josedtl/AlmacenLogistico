@@ -67,5 +67,10 @@ namespace LogisticStorage.BusinessLayer
             return DB.BuscarTotal(Nombre);
         }
 
+        public static List<MercaderiaEntity> BuscarTotalTarifa(String Nombre)
+        {
+            MercaderiaDB DB = new MercaderiaDB();
+            return DB.BuscarTotalTarifa(Nombre);
+        }
     }
 }

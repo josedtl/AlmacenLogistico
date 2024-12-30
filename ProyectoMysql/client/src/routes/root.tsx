@@ -64,7 +64,7 @@ const Root: React.FC = () => {
   return (
 
 
-    <Layout style={{ minHeight: '100vh', marginTop: '-8px', marginLeft: '-8px', marginBottom: '-8px', marginRight: '-4px' }}>
+    <Layout style={{ minHeight: '100vh', marginTop: '0px', marginLeft: '0px', marginBottom: '0px', marginRight: '0px' }}>
       <Sider
         trigger={null} collapsible collapsed={collapsed}
 

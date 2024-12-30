@@ -520,7 +520,7 @@ function Page() {
               <Select
                 showSearch
                 status={ValTipoRequerimiento}
-                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px'  }}
                 defaultActiveFirstOption={false}
                 filterOption={false}
                 value={Ent.ProcesoId === 0 ? null : Ent.ProcesoId}

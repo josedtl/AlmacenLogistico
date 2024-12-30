@@ -139,7 +139,7 @@ function Main() {
       <Select
         // status={ValCategoria}
         showSearch
-        style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+        style={{ width: '100%', marginTop: '5px', marginBottom: '10px' , paddingRight : '1px' ,paddingLeft : '1px' }}
         defaultActiveFirstOption={false}
         filterOption={false}
         // onSearch={handleSearchTipoProducto}

@@ -113,7 +113,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const handleSearchProducto = async (value: string) => {
         try {
-            const responseProducto = await sMercaderiaService.BuscarTotal(value);
+            const responseProducto = await sMercaderiaService.BuscarTotalTarifa(value);
             setOptionsProducto(responseProducto);
 
         } catch (error) {

@@ -286,5 +286,27 @@ namespace LogisticStorage.Server.Controllers
             }
         }
 
+
+        [HttpPost]
+        [Route("BuscarTotalTarifa")]
+        public ResponseAPI<List<MercaderiaItemCategoriaModel>> BuscarTotalTarifa(EntidadLikeModel Ent)
+        {
+            try
+            {
+                d.Configurar();
+                var Items = Mercaderia.BuscarTotalTarifa(Ent.Valor1);
+
+                List<MercaderiaItemCategoriaModel> Lista = new List<MercaderiaItemCategoriaModel>();
+
+                foreach (var Item in Items) Lista.Add(new MercaderiaItemCategoriaModel(Item));
+
+                return new ResponseAPI<List<MercaderiaItemCategoriaModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<MercaderiaItemCategoriaModel>>(new List<MercaderiaItemCategoriaModel>(), false, ex.Message);
+            }
+        }
     }
 }
