@@ -176,17 +176,17 @@ function Page() {
 
         console.log(Id);
         const Resp_OPDetalle = await sRecepcion.ObtenerDetalleItem(Id);
-    
+
         // if (Resp_OPDetalle.length > 0) {
 
-          Resp_OPDetalle.map((data) => {
-            data.keyItem = generarGuid();
-            data.Action = ProcessActionEnum.Update;
+        Resp_OPDetalle.map((data) => {
+          data.keyItem = generarGuid();
+          data.Action = ProcessActionEnum.Update;
 
-          })
-          console.log(Resp_OPDetalle);
-          setItems(Resp_OPDetalle)
-          Ent.DetalleItems = Resp_OPDetalle
+        })
+        console.log(Resp_OPDetalle);
+        setItems(Resp_OPDetalle)
+        Ent.DetalleItems = Resp_OPDetalle
         // }
 
 
@@ -454,287 +454,264 @@ function Page() {
     borderColor: "#15616d",
   };
 
-  const {  Footer,  Content } = Layout;
+  const { Footer, Content } = Layout;
   Content;
   return (
     <Spin spinning={CargarPage} tip="Cargando" size="large">
 
-            {contextHolder}
-            {contextHolderAdd}
-            <Row>
-              <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                {TituloSave()}
-                {/* <Title level={3}> {Ent.RecepcionId > 0 ? 'Orden de Pedido' : 'Generar Orden de Pedido'}</Title> */}
-              </Col>
-              <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                <div style={{ float: "right" }}>
+      {contextHolder}
+      {contextHolderAdd}
+      <Row>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          {TituloSave()}
+          {/* <Title level={3}> {Ent.RecepcionId > 0 ? 'Orden de Pedido' : 'Generar Orden de Pedido'}</Title> */}
+        </Col>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          {/* <div style={{ float: "right" }}>
 
-                  {CodigoSave()}
-                </div>
+            {CodigoSave()}
+          </div> */}
 
-              </Col>
-            </Row>
-            <Row>
+        </Col>
+      </Row>
+      <Row>
 
-              <Col xs={24} sm={8} md={6} lg={6} xl={3} xxl={3} >
-                <Row>
-                  <Col span={24}>
-                    <label>Tipo de Recepción</label>
-                  </Col>
-                  <Col span={24}>
-                    <Select
-                      showSearch
-                      // status={ValUnidadMedida}
-                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                      defaultActiveFirstOption={false}
-                      filterOption={false}
-                      value={Ent.ProcesoId === 0 ? null : Ent.ProcesoId}
-                      key={Ent.ProcesoId}
-                      onChange={onChangeTipoProceso}
-                    >
-                      {optionsProceso.map((ItemOp) => (
-                        <Select.Option key={ItemOp.ProcesoId} value={ItemOp.ProcesoId}>
-                          {ItemOp.Nombre}
-                        </Select.Option>
-                      ))}
-                    </Select>
-
-
-                  </Col>
-                </Row>
-              </Col>
-              <Col xs={24} sm={16} md={12} lg={12} xl={17} xxl={18} >
-                <Row>
-                  <Col span={24}>
-                    <label>Proveedor</label>
-                  </Col>
-                  <Col span={24}>
-
-                    <Select
-                      status={ValCategoria}
-                      showSearch
-                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                      defaultActiveFirstOption={false}
-                      filterOption={false}
-                      onSearch={handleSearchCategoria}
-                      value={Ent.EntidadId === 0 ? null : Ent.EntidadId}
-                      key={Ent.EntidadId}
-                      onChange={onChangeCategoria}
-                    >
-                      {optionsEntidad.map((categoria) => (
-                        <Select.Option key={categoria.EntidadId} value={categoria.EntidadId}>
-                          {categoria.Nombres}
-                        </Select.Option>
-                      ))}
-                    </Select>
-
-                  </Col>
-                </Row>
-              </Col>
-              <Col xs={24} sm={24} md={6} lg={6} xl={4} xxl={3} >
-                <Row>
-                  <Col span={24}>
-                    <label>Fecha de Recepción</label>
-                  </Col>
-                  <Col span={24}>
-                    <DatePicker
-                      onChange={onChangeDate}
-                      value={dayjs(FechaEmisionItem, dateFormat)}
-                      // defaultValue={dayjs(FechaEmisionItem, dateFormat)}
-                      style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
-                      size='middle' />
-
-                  </Col>
-                </Row>
-              </Col>
+        <Col xs={24} sm={8} md={6} lg={6} xl={3} xxl={3} >
+          <Row>
+            <Col span={24}>
+              <label>Tipo de Recepción</label>
+            </Col>
+            <Col span={24}>
+              <Select
+                showSearch
+                // status={ValUnidadMedida}
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+                value={Ent.ProcesoId === 0 ? null : Ent.ProcesoId}
+                key={Ent.ProcesoId}
+                onChange={onChangeTipoProceso}
+              >
+                {optionsProceso.map((ItemOp) => (
+                  <Select.Option key={ItemOp.ProcesoId} value={ItemOp.ProcesoId}>
+                    {ItemOp.Nombre}
+                  </Select.Option>
+                ))}
+              </Select>
 
 
-            </Row>
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={14} xxl={16} >
+          <Row>
+            <Col span={24}>
+              <label>Proveedor</label>
+            </Col>
+            <Col span={24}>
 
-            <Row>
-              <Col xs={24} sm={12} md={8} lg={6} xl={4} xxl={3} >
-                <Row>
-                  <Col span={24}>
-                    <label>Tipo de Comprobante</label>
-                  </Col>
-                  <Col span={24}>
-                    <Select
-                      showSearch
-                      // status={ValUnidadMedida}
-                      style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
-                      defaultActiveFirstOption={false}
-                      filterOption={false}
-                      value={Ent.TipoComprobanteId === 0 ? null : Ent.TipoComprobanteId}
-                      key={Ent.TipoComprobanteId}
-                      onChange={onChangeTipoComprobante}
-                    >
-                      {optionsTipoComprobante.map((ItemOp) => (
-                        <Select.Option key={ItemOp.ListaId} value={ItemOp.ListaId}>
-                          {ItemOp.Nombre}
-                        </Select.Option>
-                      ))}
-                    </Select>
+              <Select
+                status={ValCategoria}
+                showSearch
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+                onSearch={handleSearchCategoria}
+                value={Ent.EntidadId === 0 ? null : Ent.EntidadId}
+                key={Ent.EntidadId}
+                onChange={onChangeCategoria}
+              >
+                {optionsEntidad.map((categoria) => (
+                  <Select.Option key={categoria.EntidadId} value={categoria.EntidadId}>
+                    {categoria.Nombres}
+                  </Select.Option>
+                ))}
+              </Select>
+
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={4} xxl={3} >
+          <Row>
+            <Col span={24}>
+              <label>Fecha de Recepción</label>
+            </Col>
+            <Col span={24}>
+              <DatePicker
+                onChange={onChangeDate}
+                value={dayjs(FechaEmisionItem, dateFormat)}
+                // defaultValue={dayjs(FechaEmisionItem, dateFormat)}
+                style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
+                size='middle' />
+
+            </Col>
+          </Row>
+        </Col>
+
+        <Col xs={24} sm={24} md={12} lg={4} xl={3} xxl={2} >
+          <Row>
+            <Col span={24}>
+              <label>Código</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                readOnly={true}
+                type="text"
+                name="Codigo"
+                style={{ marginTop: '5px', marginBottom: '10px', background: '#c5dfc7' }}
+                value={Ent.Codigo === null ? "" : Ent.Codigo}
+              />
 
 
-                  </Col>
-                </Row>
-              </Col>
+            </Col>
+          </Row>
+        </Col> 
+
+      </Row>
+
+      <Row>
+        <Col xs={24} sm={12} md={8} lg={6} xl={4} xxl={3} >
+          <Row>
+            <Col span={24}>
+              <label>Tipo de Comprobante</label>
+            </Col>
+            <Col span={24}>
+              <Select
+                showSearch
+                // status={ValUnidadMedida}
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+                value={Ent.TipoComprobanteId === 0 ? null : Ent.TipoComprobanteId}
+                key={Ent.TipoComprobanteId}
+                onChange={onChangeTipoComprobante}
+              >
+                {optionsTipoComprobante.map((ItemOp) => (
+                  <Select.Option key={ItemOp.ListaId} value={ItemOp.ListaId}>
+                    {ItemOp.Nombre}
+                  </Select.Option>
+                ))}
+              </Select>
 
 
-
-              <Col xs={24} sm={12} md={8} lg={6} xl={2} xxl={2} >
-                <Row>
-                  <Col span={24}>
-                    <label>Serie</label>
-                  </Col>
-                  <Col span={24}>
-                    <Input
-                      // status={ValNombres}
-                      type="text"
-                      name="SerieComprobante"
-                      style={{ marginTop: '5px', marginBottom: '10px' }}
-                      onChange={onChange}
-                      value={Ent.SerieComprobante === null ? "" : Ent.SerieComprobante}
-                    />
-                  </Col>
-                </Row>
-              </Col>
-
-              <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={3} >
-                <Row>
-                  <Col span={24}>
-                    <label>Correlativo</label>
-                  </Col>
-                  <Col span={24}>
-                    <Input
-                      // status={ValNombres}
-                      type="text"
-                      name="CorrelativoComprobante"
-                      style={{ marginTop: '5px', marginBottom: '10px' }}
-                      onChange={onChange}
-                      value={Ent.CorrelativoComprobante === null ? "" : Ent.CorrelativoComprobante}
-                    />
-                  </Col>
-                </Row>
-              </Col>
+            </Col>
+          </Row>
+        </Col>
 
 
 
-              <Col xs={24} sm={12} md={24} lg={6} xl={15} xxl={16} >
-                <Row>
-                  <Col span={24}>
-                    <label>Observación</label>
-                  </Col>
-                  <Col span={24}>
-                    <Input
-                      // status={ValNombres}
-                      type="text"
-                      name="Observacion"
-                      style={{ marginTop: '5px', marginBottom: '10px' }}
-                      onChange={onChange}
-                      value={Ent.Observacion === null ? "" : Ent.Observacion}
-                    />
-                  </Col>
-                </Row>
-              </Col>
+        <Col xs={24} sm={12} md={8} lg={6} xl={2} xxl={2} >
+          <Row>
+            <Col span={24}>
+              <label>Serie</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                // status={ValNombres}
+                type="text"
+                name="SerieComprobante"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                onChange={onChange}
+                value={Ent.SerieComprobante === null ? "" : Ent.SerieComprobante}
+              />
+            </Col>
+          </Row>
+        </Col>
 
-            </Row>
-
-
-
-
-            <Row>
-              <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-
-                <Tabs
-                  tabBarExtraContent={operations}
-                  // style={{ marginLeft: '20px' }}
-                  key={'TabGeneral'}
-                  type="card"
-
-                  items={new Array(1).fill(null).map((_, i) => {
-                    i;
-                    return {
-                      label: (
-                        < >
-                          <Title style={{ fontSize: '18px' }}>
-                            Detalle
-                          </Title>
-                        </>
-                      ),
-                      key: '1',
-                      children:
-                        <span>
-
-                          <Row style={{
-
-                            height: 'calc(100px + 40vh)',
-                          }
-                          }>
-                            <Col xs={24}>
-                              <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
-
-                            </Col>
-                          </Row >
-                        </span>,
+        <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={3} >
+          <Row>
+            <Col span={24}>
+              <label>Correlativo</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                // status={ValNombres}
+                type="text"
+                name="CorrelativoComprobante"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                onChange={onChange}
+                value={Ent.CorrelativoComprobante === null ? "" : Ent.CorrelativoComprobante}
+              />
+            </Col>
+          </Row>
+        </Col>
 
 
-                    };
-                  })}
-                />
-              </Col>
+
+        <Col xs={24} sm={12} md={24} lg={6} xl={15} xxl={16} >
+          <Row>
+            <Col span={24}>
+              <label>Observación</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                // status={ValNombres}
+                type="text"
+                name="Observacion"
+                style={{ marginTop: '5px', marginBottom: '10px' }}
+                onChange={onChange}
+                value={Ent.Observacion === null ? "" : Ent.Observacion}
+              />
+            </Col>
+          </Row>
+        </Col>
+
+      </Row>
 
 
-            </Row>
-          
-          <Footer style={footerStyle}>
-
-            <Row>
-              <Col span={2}>
-
-                <Row>
-                  <Col span={24}>
-                    <label>Fecha Registro</label>
-                  </Col>
-                  <Col span={24}>
-                    <Input
-                      type="string"
-                      name="FechaRegistro"
-                      style={{ marginTop: '5px', marginBottom: '10px' }}
-                      readOnly={true}
-                      value={moment(Ent.FechaRegistro).format('DD/MM/YYYY hh:mm')}
-                    />
-                  </Col>
-                </Row>
 
 
-              </Col>
-              <Col span={2}>
+      <Row>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+
+          <Tabs
+            tabBarExtraContent={operations}
+            // style={{ marginLeft: '20px' }}
+            key={'TabGeneral'}
+            type="card"
+
+            items={new Array(1).fill(null).map((_, i) => {
+              i;
+              return {
+                label: (
+                  < >
+                    <Title style={{ fontSize: '18px' }}>
+                      Detalle
+                    </Title>
+                  </>
+                ),
+                key: '1',
+                children:
+                  <span>
+
+                    <Row style={{
+
+                      height: 'calc(100px + 40vh)',
+                    }
+                    }>
+                      <Col xs={24}>
+                        <DataTable DataList={filterItems} updateState={updateState} deleteItemFromState={deleteItemFromState} EsTabla={disabled} />
+
+                      </Col>
+                    </Row >
+                  </span>,
 
 
-                <Row>
-                  <Col span={24}>
-                    <label>Usuario</label>
-                  </Col>
-                  <Col span={24}>
-                    <Input
-                      type="string"
-                      name="Stock"
-                      style={{ marginTop: '5px', marginBottom: '10px' }}
-                      readOnly={true}
-                      value={Ent.CodUsuario}
-                    />
-                  </Col>
-                </Row>
+              };
+            })}
+          />
+        </Col>
 
 
-              </Col>
-              <Col span={18}>
+      </Row>
 
-              </Col>
 
-              <Col span={2}>
-                {/* <Button
+
+      <Row>
+
+
+        <Col span={2}>
+          {/* <Button
                   style={ButtonAddMain}
                   onClick={Guardar_Total}
                   size={"large"}
@@ -743,41 +720,47 @@ function Page() {
                   Guardar
                 </Button> */}
 
-                <Segmented
-                  style={{ float: "right" }}
-                  options={[
+          <Segmented
+            style={{
+              position: 'fixed',
+              bottom: '20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 1000,
+            }}
+            options={[
 
-                    {
-                      label: (
-                        <div style={{ padding: 4 }} onClick={Guardar_Total}>
-                          <Avatar style={{
-                            backgroundColor: "#15616d",
-                            borderColor: "#15616d",
+              {
+                label: (
+                  <div style={{ padding: 4 }} onClick={Guardar_Total}>
+                    <Avatar style={{
+                      backgroundColor: "#15616d",
+                      borderColor: "#15616d",
 
-                          }}
-                            // onClick={Guardar_Total}
-                            shape="square"
-                            size={60}
-                            icon={<SaveFilled />} />
-                          <div>Guardar</div>
-                        </div>
-                      ),
-                      value: 'Guardar',
-                    },
-                  ]}
-                />
+                    }}
+                      // onClick={Guardar_Total}
+                      shape="square"
+                      size={40}
+                      icon={<SaveFilled />} />
+                    <div>Guardar</div>
+                  </div>
+                ),
+                value: 'Guardar',
+              },
+            ]}
+          />
 
-              </Col>
-            </Row>
+        </Col>
+      </Row>
 
-            <Row>
+      <Row>
 
 
 
-            </Row>
-          </Footer>
+      </Row>
 
-     
+
+
 
     </Spin>
 

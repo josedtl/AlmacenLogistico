@@ -43,14 +43,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
                 </span>
             },
-        },
-        {
-            title: 'Codigo',
-            dataIndex: 'Codigo',
-            key: 'Codigo',
-            width: 110
-        },
-  
+        },   
         {
             title: 'Tipo',
             dataIndex: 'TipoRecepcion',
@@ -58,19 +51,43 @@ const DataTable: React.FC<PropsTable> = (props) => {
             width: 140
         },
         {
-            title: 'Fecha de Emision',
-            dataIndex: 'FechaEmision',
-            width: '150px',
-            key: 'FechaEmision',
-            render: (date: string) => moment(date).format('DD-MM-YYYY'),
+            title: 'Código',
+            dataIndex: 'Codigo',
+            key: 'Codigo',
+            width: 110
         },
         {
-            title: 'Fecha de Registro',
-            dataIndex: 'FechaRegistro',
+            title: 'Tipo Comprobante',
+            dataIndex: 'TipoComprobante',
+            key: 'TipoComprobante',
+            width: 140
+        },
+        {
+            title: 'Serie',
+            dataIndex: 'SerieComprobante',
+            key: 'SerieComprobante',
+            width: 110
+        },
+         {
+            title: 'Correlativo',
+            dataIndex: 'CorrelativoComprobante',
+            key: 'CorrelativoComprobante',
+            width: 110
+        },
+        {
+            title: 'Fecha de Recepción',
+            dataIndex: 'FechaRecepcion',
             width: '150px',
-            key: 'FechaRegistro',
+            key: 'FechaRecepcion',
             render: (date: string) => moment(date).format('DD-MM-YYYY HH:mm'),
         },
+        // {
+        //     title: 'Fecha de Registro',
+        //     dataIndex: 'FechaRegistro',
+        //     width: '150px',
+        //     key: 'FechaRegistro',
+        //     render: (date: string) => moment(date).format('DD-MM-YYYY HH:mm'),
+        // },
         {
             title: 'Usuario',
             dataIndex: 'CodUsuario',

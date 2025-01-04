@@ -83,7 +83,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
 
     const handleSearchProducto = async (value: string) => {
         try {
-            const responseProducto = await sMercaderiaService.getItemCategoriaLike(value, Ent.CategoriaId);
+            const responseProducto = await sMercaderiaService.BuscarTotal(value);
             setOptionsProducto(responseProducto);
         
         } catch (error) {
@@ -162,7 +162,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
         // <Form form={form} name="formItem" layout="vertical" autoComplete="off">
         <>
 
-            <Row>
+            {/* <Row>
                 <Col span={24}>
                     <label>Categoria</label>
                 </Col>
@@ -187,7 +187,7 @@ const AddEditForm: React.FC<PropsModel> = (props) => {
                     </Select>
 
                 </Col>
-            </Row>
+            </Row> */}
 
 
             <Row>
