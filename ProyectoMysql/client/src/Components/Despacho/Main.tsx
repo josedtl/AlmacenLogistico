@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Typography, Card, Button, Spin, Input } from 'antd';
-import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain, ButtonAddMain } from '../../Styles/Button'
+import { Col, Row, Typography, Card, Button, Spin, Input, Select } from 'antd';
+import { ButtonMainSecondaryLeft, ButtonMainSecondaryRight, InputSearchMain, ButtonAddMain, ButtonMainSBuscarRight, ButtonMainLimpiar } from '../../Styles/Button'
 import { SizeMainButtonSecondary, SizeButtonPrimary } from '../../Styles/Type'
 import { IconLoad, IconTabla, IconCard, IconReport, IconFiltro, IconAdd } from '../../Styles/Icons'
 import DataTable from './DataTable';
@@ -65,45 +65,102 @@ function Main() {
           </Link>
         </Col>
 
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+        <Col xs={2} sm={2} md={2} lg={2} xl={2}>
+
           <Button
+            type='dashed'
             onClick={getItems}
-            style={ButtonMainSecondaryLeft}
+            style={ButtonMainLimpiar}
             size={SizeMainButtonSecondary}
-            icon={IconLoad}
-          />
-          <Button
-            onClick={toggle}
-            style={ButtonMainSecondaryLeft}
-            size={SizeMainButtonSecondary}
-            icon={disabled ? IconTabla : IconCard}
-          />
+          // icon={IconFiltro}
+          >
+            Todos
+          </Button>
+        </Col>
+        <Col xs={2} sm={2} md={2} lg={2} xl={2}>
 
           <Button
-            style={ButtonMainSecondaryLeft}
+            type='dashed'
+            style={ButtonMainLimpiar}
             size={SizeMainButtonSecondary}
-            icon={IconReport}
-          />
-          <Button
-            style={ButtonMainSecondaryRight}
-            size={SizeMainButtonSecondary}
-            icon={IconFiltro}
-          />
+          // onClick={Limpiar_Event}
+          // icon={IconFiltro}
+          >
+            Limpiar
+          </Button>
+        </Col>
+ 
+        <Col xs={24} sm={10} md={5} lg={5} xl={6}>
 
+          <Row>
+            <Col span={24}>
+              <label>Codigo</label>
+            </Col>
+            <Col span={24}>
+              <Input
+                // status={ValCodigo}
+                type="text"
+                name="Nombre"
+                style={{width:'100%' , marginTop: '5px', marginBottom: '10px',paddingRight : '1px' ,paddingLeft : '1px'  }}
+                onChange={onChange}
+              // value={EntFitro.Nombre === null ? "" : EntFitro.Nombre}
+              />
+            </Col>
+          </Row>
+          {/* <Input
+        placeholder='Buscar Nombre'
+        type="text"
+        name="Nombre"
+        onChange={onChange}
+        value={Busqueda === null ? "" : Busqueda}
+        style={InputSearchMain}
+        size={SizeMainButtonSecondary}
+      /> */}
         </Col>
 
 
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
 
-          <Input
-            placeholder='Buscar Despacho'
-            type="text"
-            name="Nombre"
-            onChange={onChange}
-            value={Busqueda === null ? "" : Busqueda}
-            style={InputSearchMain}
+        <Col xs={24} sm={12} md={8} lg={8} xl={12}>
+
+          <Row>
+            <Col span={24}>
+              <label>Responsable</label>
+            </Col>
+            <Col span={24}>
+              <Select
+                // status={ValCategoria}
+                showSearch
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
+                defaultActiveFirstOption={false}
+                filterOption={false}
+              // onSearch={handleSearchCategoria}
+              // value={EntFitro.CategoriaId === 0 ? null : EntFitro.CategoriaId}
+              // key={EntFitro.CategoriaId}
+              // onChange={onChangeCategoria}
+              >
+                {/* {optionsCategoria.map((categoria) => (
+          <Select.Option key={categoria.ListaId} value={categoria.ListaId}>
+            {categoria.Nombre}
+          </Select.Option>
+        ))} */}
+              </Select>
+
+            </Col>
+          </Row>
+        </Col>
+
+        <Col xs={24} sm={2} md={2} lg={2} xl={2}>
+          <Button
+            style={ButtonMainSBuscarRight}
             size={SizeMainButtonSecondary}
-          />
+          // onClick={Buscar_Event}
+
+          // icon={IconFiltro}
+          >
+            Buscar
+          </Button>
+
+
         </Col>
 
       </Row>

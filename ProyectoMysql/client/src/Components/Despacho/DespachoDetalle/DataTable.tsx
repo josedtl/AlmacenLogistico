@@ -65,30 +65,7 @@ const DataTable: React.FC<PropsTable> = (props) => {
 
     });
 
-    // const DeleteItemAll = async (OrdenPedidoDetalleId: OrdenPedidoDetalleEntity) => {
-    //     OrdenPedidoDetalleId.Action = ProcessActionEnum.Delete;
-    //     props.deleteItemFromState(OrdenPedidoDetalleId);
-    // }
-
-    // const deleteItem = async (OrdenPedidoDetalleId: OrdenPedidoDetalleEntity) => {
-
-    //     modal.confirm({
-    //         title: 'Mensaje del Sistema',
-    //         icon: <ExclamationCircleOutlined />,
-    //         content: '¿Desea eliminar el registro?',
-    //         okText: 'Si',
-    //         okType: 'danger',
-    //         cancelText: 'No',
-    //         onOk() {
-    //             OrdenPedidoDetalleId.Action = ProcessActionEnum.Delete;
-    //             DeleteItemAll(OrdenPedidoDetalleId);
-    //         },
-    //         onCancel() { },
-    //     });
-
-
-    // };
-
+   
     // const header = css({ backgroundColor: 'rgb(100, 108, 140)', color: 'white', margin: '50px'});
     const ListaCard = () => {
         if (props.EsTabla) {

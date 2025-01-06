@@ -283,10 +283,6 @@ const Save = () => {
       <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
 
-
-
-
-
           <Row>
             <Col span={24}>
               <label>Mercaderia</label>
@@ -295,7 +291,7 @@ const Save = () => {
               <Select
                 showSearch
                 status={ValMercaderia}
-                style={{ width: '1560px', marginTop: '5px', marginBottom: '10px' }}
+                style={{ width: '100%', marginTop: '5px', marginBottom: '10px' }}
                 defaultActiveFirstOption={false}
                 filterOption={false}
                 onSearch={handleSearchMercaderia}

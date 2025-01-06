@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from './DataTable';
 import ModalItem from './ModalItem';
-import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Segmented, Avatar } from 'antd';
+import { Tabs, DatePicker, message, Select, Col, Row, Typography, Modal, Spin, Input, Button, Segmented, Avatar } from 'antd';
 import { useParams } from 'react-router-dom';
 import { SaveFilled } from '@ant-design/icons';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import type { InputStatus } from 'antd/lib/_util/statusUtils'
-
+import dayjs, { isDayjs } from 'dayjs';
+import { ClockCircleOutlined } from '@ant-design/icons';
 //entitys
 import { DespachoEntity, DespachoDetalleEntity, DespachoReservaOPModel } from '../../../Models/DespachoEntity'
 import { EntidadNombreCompletoModel } from '../../../Models/GeneralEntity'
@@ -44,6 +45,9 @@ function Page() {
     const [messageAdd, contextHolderAdd] = message.useMessage();
     const { Title } = Typography;
     const [modal, contextHolder] = Modal.useModal();
+
+    const [fecha, setFecha] = useState(dayjs());
+    const [hora, setHora] = useState('');
 
     const search_Persona = async (value: string) => {
         try {
@@ -233,6 +237,11 @@ function Page() {
 
 
 
+    const obtenerFechaYHora = () => {
+        const ahora = dayjs();  // Obtener fecha y hora actual
+        setFecha(ahora);         // Establecer fecha actual
+        setHora(ahora.format('HH:mm'));  // Establecer hora actual en formato HH:mm
+    };
 
     return (
         <Spin spinning={CargarPage} tip="Cargando" size="large">
@@ -307,15 +316,15 @@ function Page() {
                 <Col xs={24} sm={8} md={12} lg={5} xl={5} xxl={3}>
                     <Row>
                         <Col span={24}>
-                            <label>Fecha de Registro</label>
+                            <label>Codigo de Reserva</label>
                         </Col>
                         <Col span={24}>
                             <Input
-                                type="text"
-                                name="FechaRegistro"
+                                type="string"
+                                name="Reserva"
                                 style={{ marginTop: '5px', marginBottom: '10px' }}
                                 readOnly={true}
-                                value={Ent.FechaRegistro}
+                                value={Ent.OrdenPedidoId} /// CORREGIR
                             />
                         </Col>
                     </Row>
@@ -353,8 +362,23 @@ function Page() {
                         </Col>
                     </Row>
                 </Col>
+                <Col xs={24} sm={12} md={12} lg={5} xl={5} xxl={3} >
+                    <Row>
+                        <Col span={24}>
+                            <label>Fecha</label>
+                        </Col>
+                        <Col span={24}>
+                            <DatePicker
+                                value={fecha ? dayjs(fecha) : null} // Mostrar la fecha seleccionada
+                                style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
+                                size="middle"
 
-                <Col xs={24} sm={12} md={12} lg={4} xl={4} xxl={3}>
+                            />
+
+                        </Col>
+                    </Row>
+                </Col>
+                <Col xs={24} sm={12} md={12} lg={4} xl={4} xxl={2}>
                     <Row>
                         <Col span={24}>
                             <label>Hora</label>
@@ -362,37 +386,35 @@ function Page() {
                         <Col span={24}>
                             <Input
                                 type="time"
-                                name="Stock"
+                                value={hora} // Mostrar la hora seleccionada
                                 style={{ marginTop: '5px', marginBottom: '10px' }}
-                            //  readOnly={true}
-                            //   value={Ent.FechaHoraEntrega}
+                                readOnly
                             />
                         </Col>
                     </Row>
                 </Col>
-                <Col xs={24} sm={12} md={12} lg={5} xl={5} xxl={3} >
-                    <Row>
-                        <Col span={24}>
-                            <label>Fecha de Entrega</label>
-                        </Col>
-                        <Col span={24}>
-                            <DatePicker
-                                //   onChange={onChangeDate}
-                                //   value={dayjs(FechaEmisionItem, dateFormat)}
-                                style={{ marginTop: '5px', marginBottom: '10px', width: '100%' }}
-                                size='middle' />
 
-                        </Col>
-                    </Row>
+                <Col xs={24} sm={12} md={12} lg={4} xl={4} xxl={1}>
+
+                    <Col span={24}>
+                        <Row>
+                            <Button
+                                onClick={obtenerFechaYHora}
+                                style={{ marginTop: '25px', marginBottom: '10px', alignItems: 'center',
+                      
+                                 }}
+                                icon={<ClockCircleOutlined />}
+                            >
+                            </Button>
+                        </Row >
+                    </Col>
                 </Col>
-
 
             </Row>
             <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
 
                     <Tabs
-                        tabBarExtraContent={operations}
                         // style={{ marginLeft: '20px' }}
                         key={'TabGeneral'}
                         type="card"
@@ -434,7 +456,13 @@ function Page() {
 
             <Col span={2}>
                 <Segmented
-                    style={{ float: "right" }}
+                    style={{
+                        position: 'fixed',
+                        bottom: '20px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 1000,
+                      }}
                     options={[
 
                         {

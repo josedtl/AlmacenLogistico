@@ -161,7 +161,7 @@ const Save = () => {
     setValMercaderia('');
     Ent.MercaderiaId = value;
     setSelectedMercaderia(value)
-    const Resp_UMPrecio = await sTarifa.ObtenerUnidadMedidaPrecio( value);
+    const Resp_UMPrecio = await sTarifa.ObtenerUnidadMedidaPrecio( value,value); //corregir
     setOptionsUMPrecio (Resp_UMPrecio);
   };
 
