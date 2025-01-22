@@ -1,3 +1,4 @@
 class envData :
     servidor :str = "http://localhost/AlmacenLogisticoService/"
-    # servidor :str = "http://localhost:5245/"
+    apiKey :str = "gergjs5435s4fefefusfs2323"
+    # servidor :str = "http://localhost:9085/"

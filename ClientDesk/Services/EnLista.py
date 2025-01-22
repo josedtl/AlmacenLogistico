@@ -4,11 +4,14 @@ from pydantic import BaseModel, ValidationError
 from datetime import datetime
 from Entidades.PersonaNatural import EntListaEntity, PersonaNaturalEntity, PersonaNaturalSaveModel
 from envData import envData
+from Services.Acceso import Acceso
+
 class EnLista:
     def Get_EntListaCodigo(Codigo: str) -> List[EntListaEntity]:
         try:
             url = f"{envData.servidor}api/EntLista/ObtenerItems/" + Codigo
-            response = requests.get(url)
+            headers = Acceso.headers()
+            response = requests.get(url, headers=headers)
             response.raise_for_status()  # Verifica si la solicitud fue exitosa
             data = response.json()
             datalist= data.get("Value", [])
@@ -21,7 +24,8 @@ class EnLista:
     def Get_PersonaLista() -> List[PersonaNaturalEntity]:
         try:
             url = f"{envData.servidor}api/PersonaNatural/ObtenerMain/"
-            response = requests.get(url)
+            headers = Acceso.headers()
+            response = requests.get(url, headers=headers)
             response.raise_for_status()  # Verifica si la solicitud fue exitosa
             data = response.json()
             datalist= data.get("Value", [])
@@ -34,7 +38,8 @@ class EnLista:
     def ObtenerItemPersonaNatural(PersonaNaturalId: int) -> List[PersonaNaturalSaveModel]:
         try:
             url = f"{envData.servidor}api/PersonaNatural/ObtenerItem/" + PersonaNaturalId
-            response = requests.get(url)
+            headers = Acceso.headers()
+            response = requests.get(url, headers=headers)
             response.raise_for_status()  # Verifica si la solicitud fue exitosa
             data = response.json()
             datalist= data.get("Value", [])
