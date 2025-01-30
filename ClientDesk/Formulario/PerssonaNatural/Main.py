@@ -7,12 +7,22 @@ from Services.EnLista import *
 class FormPersonaPageMain(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
-
+        # self.geometry("800x400")
+        
+        # Estilo personalizado para el encabezado del Treeview
+        style = ttk.Style()
+        style.configure("Treeview.Heading", 
+                        font=("Helvetica", 12, "bold"),  # Aumentar tamaño y negrita
+                        background="blue",  # Fondo azul
+                        foreground="blue")  # Texto blanco
+        
+        # Crear el Treeview
         self.tree = ttk.Treeview(self, columns=(
             "PersonaNaturalId", "Nº", "Documento", "Numero", "Nombres", "ApellidoPaterno", 
             "ApellidoMaterno", "Fecha de registro", "Usuario", "Action"
         ), show='headings')
 
+        # Encabezados de las columnas
         self.tree.heading("Nº", text="Nº")
         self.tree.heading("Documento", text="Documento")
         self.tree.heading("Numero", text="Numero")
@@ -23,8 +33,9 @@ class FormPersonaPageMain(tk.Frame):
         self.tree.heading("Usuario", text="Usuario")
         self.tree.heading("Action", text="Action")
 
+        # Ancho de las columnas
         self.tree.column("PersonaNaturalId", width=0, stretch=tk.NO)
-        self.tree.column("Nº", width=50)
+        self.tree.column("Nº", width=30)
         self.tree.column("Documento", width=100)
         self.tree.column("Numero", width=100)
         self.tree.column("Nombres", width=150)
@@ -34,6 +45,7 @@ class FormPersonaPageMain(tk.Frame):
         self.tree.column("Usuario", width=100)
         self.tree.column("Action", width=150)
 
+        # Empaquetar el Treeview
         self.tree.pack(side=tk.LEFT, fill="both", expand=True)
 
         self.scrollbar = ttk.Scrollbar(self, orient="vertical", command=self.tree.yview)

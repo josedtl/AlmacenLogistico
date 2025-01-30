@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ext:UBLExtensions>
+  
+		<ext:UBLExtension>
+			<ext:ExtensionContent><ds:Signature Id="SignSUNAT" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><ds:Reference URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>h3z8mjECaikisW1Z1a3Da+ksA30=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>nOZ+eHRgOOcU89O8ETYYLCQqPXTARvpJ2uvnxEWVrHNRqrrVr0CLUui6oA1mKOJQirLI/B9UIaiB&#13;
+Hc8MnhjSxODFT6ixP4vf0uDkFzkAmH+zhZ97gsFJoN4qzdUNhgco/0DzrrYUkWqN9Yb1kiWpRAz2&#13;
+5lxV/gM4ovO19ln+joga26LIA4Ch2AjEqQdA/kTrv6BVobBIySoDz9sB4TNpjK1D1iaah8H1fbPj&#13;
+dmZ22E7YgMrRy8pb5MScspXjDfHPPq9MeX/SyXh4Iu2AHCYCj/9OfMfZNqe12iCJlHsZHQmz9hkz&#13;
+W/mcrYF6fJ35BcVcv/s2zqR1NEl4DPHRN+K6nA==</ds:SignatureValue><ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIIFpzCCBI+gAwIBAgIIJDDDS+voleAwDQYJKoZIhvcNAQELBQAwRjEkMCIGA1UEAwwbTGxhbWEu&#13;
+cGUgU0hBMjU2IFN0YW5kYXJkIENBMREwDwYDVQQKDAhMTEFNQS5QRTELMAkGA1UEBhMCUEUwHhcN&#13;
+MjExMjE2MTM1NjA0WhcNMjMxMjE2MTM1NjAwWjCCAUUxQDA+BgNVBAkMN0FWLiBMQSBFTkNBTEFE&#13;
+QSBOUk8uIDEyNTcgSU5ULiAxMTAyIFVSQi4gTElNQSBQT0xPIEhVTlQxKjAoBgkqhkiG9w0BCQEW&#13;
+G2Nhcm1lbi5tb3JhbGVzQHRhbHBhc2FjLmNvbTEsMCoGA1UEAwwjU09GVFdBUkUgREUgRkFDVFVS&#13;
+QUNJT04gRUxFQ1RST05JQ0ExLDAqBgNVBAsMI0ZBQ1RVUkEgRUxFQ1RST05JQ0EgUlVDIDIwNjAw&#13;
+MjIxMTc2MSEwHwYDVQQLDBhWYWxpZGFkbyBwb3IgTGxhbWEucGUgRVIxOjA4BgNVBAoMMVRFUk1J&#13;
+TkFMIERFIEFMTUFDRU5BTUlFTlRPIFBBUkFDQVMgUy5BLkMuIC0gVEFMUEExDTALBgNVBAcMBExJ&#13;
+TUExCzAJBgNVBAYTAlBFMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtVvN256FEKAW&#13;
+98DtLI3XvHOFjYfeL/YRhejeuxR415g4ef+zXnbtBaZuBamJSy3h2r920lSV6PlVGpgl6PgZNogY&#13;
+Ifec7j3upYpn9CeaBx2O+sCdOZAOkbYmuUTPX8RTukraeUGEJLI1RdfOfurXUpO/S3Hkc5JgH6MD&#13;
+KPd7u66Npqb1EUhIsAqcggCcJYk3ikPo/ceR1dhZQuHTW3tlx5fXZhXBmskwdANaZqbKeBNNzSF/&#13;
+k9HCdrkYSK1rjD5HwGlgkjKX0mlWp8+ZE4qlxlLrtMDyi5ZULy0cT5B+bsrGvRm7A8YiKuHugz74&#13;
+Qxt2axXiYsaEonxZjohwex2ZiwIDAQABo4IBljCCAZIwDAYDVR0TAQH/BAIwADAfBgNVHSMEGDAW&#13;
+gBRdiFut62X7/mii5NlvPVdyou8rmTBnBggrBgEFBQcBAQRbMFkwNQYIKwYBBQUHMAKGKWh0dHA6&#13;
+Ly9jcnQubGxhbWEucGUvbGxhbWFwZXN0YW5kYXJkY2EuY2VyMCAGCCsGAQUFBzABhhRodHRwOi8v&#13;
+b2NzcC5sbGFtYS5wZTAmBgNVHREEHzAdgRtjYXJtZW4ubW9yYWxlc0B0YWxwYXNhYy5jb20wRgYD&#13;
+VR0gBD8wPTA7Bg0rBgEEAYOXdwABAAMBMCowKAYIKwYBBQUHAgEWHGh0dHBzOi8vbGxhbWEucGUv&#13;
+cmVwb3NpdG9yeS8wHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMDoGA1UdHwQzMDEwL6At&#13;
+oCuGKWh0dHA6Ly9jcmwubGxhbWEucGUvbGxhbWFwZXN0YW5kYXJkY2EuY3JsMB0GA1UdDgQWBBRA&#13;
+kQ5hIDAtKodMMjhjWk9fpeo2ODAOBgNVHQ8BAf8EBAMCBsAwDQYJKoZIhvcNAQELBQADggEBACME&#13;
+C7HsltAtcBw7uwYsQMFoqf8zzo2KXcIaoI0yvSpQ9xrW0Xd33lcM36c3zhMByWKHRr79W7vqZEsL&#13;
+qQ4Ixip449QdtQ4tnf7XfOz5DObBLl8LH1ioBKGlyGVMLR809jEB6teDgXh4HWpgVLr9icB41nyh&#13;
+dFKn5/lR39WfC+m8ymx/ioPyp8e5elJ3vUhcgb7QrmMpBIou4cdbVb+JhYa6FMKWTMRIyG/CIaIi&#13;
++AmnzJDXRUIBW29OisELQDNfpIYx1d5VE2/KUsIXWvdMg4Hi68mvduQMxK12CM91G1acovejrpXr&#13;
+w8HGgBHY88QK4OtyWlsLzzf+gc7xKYMU1ok=</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature></ext:ExtensionContent>
+		</ext:UBLExtension>
+	</ext:UBLExtensions>
+  <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+  <cbc:CustomizationID>2.0</cbc:CustomizationID>
+  <cbc:ID>F001-00002265</cbc:ID>
+  <cbc:IssueDate>2022-07-07</cbc:IssueDate>
+  <cbc:IssueTime>00:00:00</cbc:IssueTime>  
+  
+  <cbc:InvoiceTypeCode listAgencyName="PE:SUNAT" listID="0101" listName="Tipo de Documento" listSchemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01" name="Tipo de Operacion">01</cbc:InvoiceTypeCode>
+					   
+  <cbc:Note languageLocaleID="1000"><![CDATA[TREINTA Y CINCO CON 40/100 DOLARES AMERICANOS]]></cbc:Note>
+  <cbc:DocumentCurrencyCode listAgencyName="United Nations Economic Commission for Europe" listID="ISO 4217 Alpha" listName="Currency">USD</cbc:DocumentCurrencyCode>							  
+  <cac:Signature>
+    <cbc:ID>20600221176</cbc:ID>
+	<cbc:Note>Elaborado por Sistema de Emision Electronica Facturador SUNAT (SEE-SFS) 1.4</cbc:Note>
+    <cac:SignatoryParty>
+      <cac:PartyIdentification>
+        <cbc:ID>20600221176</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name><![CDATA[TERMINAL DE ALMACENAMIENTO PARACAS S.A.C. - TALPA]]></cbc:Name>
+      </cac:PartyName>
+    </cac:SignatoryParty>
+    <cac:DigitalSignatureAttachment>
+      <cac:ExternalReference>
+        <cbc:URI>SIGN</cbc:URI>
+      </cac:ExternalReference>
+    </cac:DigitalSignatureAttachment>
+  </cac:Signature>
+  <cac:AccountingSupplierParty>
+    <cac:Party>
+      <cac:PartyIdentification>
+        <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20600221176</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name/>
+      </cac:PartyName>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName><![CDATA[TERMINAL DE ALMACENAMIENTO PARACAS S.A.C. - TALPA]]></cbc:RegistrationName>
+        <cac:RegistrationAddress>
+         <cbc:AddressTypeCode>0</cbc:AddressTypeCode>
+		 <cbc:CitySubdivisionName/>
+         <cbc:CityName/>
+         <cbc:CountrySubentity/>
+		 <cbc:CountrySubentityCode/>
+         <cbc:District/>	
+		 <cac:AddressLine>
+			<cbc:Line/>
+		 </cac:AddressLine>		 
+         <cac:Country>
+          <cbc:IdentificationCode>PE</cbc:IdentificationCode>
+         </cac:Country>
+        </cac:RegistrationAddress>
+      </cac:PartyLegalEntity>
+    </cac:Party>	
+  </cac:AccountingSupplierParty>
+  <cac:AccountingCustomerParty>
+    <cac:Party>
+      <cac:PartyIdentification>
+        <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20602400078</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName><![CDATA[TRANSPORTES TALPA S.A.C.]]></cbc:RegistrationName>
+		</cac:PartyLegalEntity>
+    </cac:Party>		
+  </cac:AccountingCustomerParty>
+  
+
+    <cac:PaymentTerms>
+    <cbc:ID>FormaPago</cbc:ID>
+	<cbc:PaymentMeansID>Contado</cbc:PaymentMeansID>
+	<cbc:Amount currencyID="USD">35.40</cbc:Amount>
+    </cac:PaymentTerms>
+	
+
+   
+
+
+
+  <!-- Inicio Tributos cabecera-->	
+  <cac:TaxTotal>
+    <cbc:TaxAmount currencyID="USD">5.40</cbc:TaxAmount>  
+      <cac:TaxSubtotal>
+        <cbc:TaxableAmount currencyID="USD">30.00</cbc:TaxableAmount>
+        <cbc:TaxAmount currencyID="USD">5.40</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cac:TaxScheme>
+            <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="UN/ECE 5153" schemeName="Codigo de tributos">1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>	
+	</cac:TaxTotal>	
+	<!-- Fin Tributos  Cabecera-->
+  <cac:LegalMonetaryTotal>
+    <cbc:LineExtensionAmount currencyID="USD">30.00</cbc:LineExtensionAmount>	
+	<cbc:TaxInclusiveAmount currencyID="USD">35.40</cbc:TaxInclusiveAmount>
+    <cbc:AllowanceTotalAmount currencyID="USD">0</cbc:AllowanceTotalAmount>
+	<cbc:ChargeTotalAmount currencyID="USD">0</cbc:ChargeTotalAmount>	
+	<cbc:PrepaidAmount currencyID="USD">0.00</cbc:PrepaidAmount>	
+	<cbc:PayableAmount currencyID="USD">35.40</cbc:PayableAmount>  
+  </cac:LegalMonetaryTotal>  
+<cac:InvoiceLine>
+<cbc:ID>1</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="HUR" unitCodeListAgencyName="United Nations Economic Commission for Europe" unitCodeListID="UN/ECE rec 20">1.00</cbc:InvoicedQuantity>
+	<cbc:LineExtensionAmount currencyID="USD">30.00</cbc:LineExtensionAmount>
+    <cac:PricingReference>
+      <cac:AlternativeConditionPrice>
+        <cbc:PriceAmount currencyID="USD">35.4000</cbc:PriceAmount>
+        <cbc:PriceTypeCode listAgencyName="PE:SUNAT" listName="Tipo de Precio" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16">01</cbc:PriceTypeCode>
+      </cac:AlternativeConditionPrice>
+	 </cac:PricingReference>
+
+
+	
+	<!-- Inicio Tributos -->
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="USD">5.40</cbc:TaxAmount>	  
+      <cac:TaxSubtotal>
+        <cbc:TaxableAmount currencyID="USD">30.00</cbc:TaxableAmount>
+        <cbc:TaxAmount currencyID="USD">5.40</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:Percent>18.00</cbc:Percent>
+          <cbc:TaxExemptionReasonCode listAgencyName="PE:SUNAT" listName="Afectacion del IGV" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07">10</cbc:TaxExemptionReasonCode>
+          <cac:TaxScheme>
+            <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="UN/ECE 5153" schemeName="Codigo de tributos">1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+
+    </cac:TaxTotal>	
+	<!-- Fin Tributos -->	
+    <cac:Item>
+      <cbc:Description><![CDATA[USO DE MONTACARGA]]></cbc:Description>
+	  <cac:SellersItemIdentification>
+        <cbc:ID/>
+	  </cac:SellersItemIdentification>
+	  
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="USD">30.00</cbc:PriceAmount>
+    </cac:Price>
+  </cac:InvoiceLine>
+</Invoice>

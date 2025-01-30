@@ -1,0 +1,783 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCoreApi\\FactCoreApi.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.BusinessLayer\\FactCore.BusinessLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.BusinessLayer\\FactCore.BusinessLayer.csproj",
+        "projectName": "FactCore.BusinessLayer",
+        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.BusinessLayer\\FactCore.BusinessLayer.csproj",
+        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.BusinessLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.DataLayer\\FactCore.DataLayer.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.DataLayer\\FactCore.DataLayer.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\FactCore.EntityLayer.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\FactCore.EntityLayer.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\TramaXML\\TramaXML.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\TramaXML\\TramaXML.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.Common\\FactCore.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.Common\\FactCore.Common.csproj",
+        "projectName": "FactCore.Common",
+        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.Common\\FactCore.Common.csproj",
+        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data\\Framework.Data.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data\\Framework.Data.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.DataLayer\\FactCore.DataLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.DataLayer\\FactCore.DataLayer.csproj",
+        "projectName": "FactCore.DataLayer",
+        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.DataLayer\\FactCore.DataLayer.csproj",
+        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.DataLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.Common\\FactCore.Common.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.Common\\FactCore.Common.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\FactCore.EntityLayer.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\FactCore.EntityLayer.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data\\Framework.Data.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data\\Framework.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\FactCore.EntityLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\FactCore.EntityLayer.csproj",
+        "projectName": "FactCore.EntityLayer",
+        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\FactCore.EntityLayer.csproj",
+        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data\\Framework.Data.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data\\Framework.Data.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCoreApi\\FactCoreApi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCoreApi\\FactCoreApi.csproj",
+        "projectName": "FactCoreApi",
+        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCoreApi\\FactCoreApi.csproj",
+        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCoreApi\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.BusinessLayer\\FactCore.BusinessLayer.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.BusinessLayer\\FactCore.BusinessLayer.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.Common\\FactCore.Common.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.Common\\FactCore.Common.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\FactCore.EntityLayer.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\FactCore.EntityLayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.20, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.16, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.19.6, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj",
+        "projectName": "Framework.Data.Mysql",
+        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj",
+        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Sql\\Framework.Data.Sql.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Sql\\Framework.Data.Sql.csproj",
+        "projectName": "Framework.Data.Sql",
+        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Sql\\Framework.Data.Sql.csproj",
+        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Sql\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data\\Framework.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data\\Framework.Data.csproj",
+        "projectName": "Framework.Data",
+        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data\\Framework.Data.csproj",
+        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Sql\\Framework.Data.Sql.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Sql\\Framework.Data.Sql.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj",
+        "projectName": "Framework",
+        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj",
+        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\TramaXML\\TramaXML.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\TramaXML\\TramaXML.csproj",
+        "projectName": "TramaXML",
+        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\TramaXML\\TramaXML.csproj",
+        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\TramaXML\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.Common\\FactCore.Common.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.Common\\FactCore.Common.csproj"
+              },
+              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\FactCore.EntityLayer.csproj": {
+                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\FactCore.EntityLayer\\FactCore.EntityLayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
