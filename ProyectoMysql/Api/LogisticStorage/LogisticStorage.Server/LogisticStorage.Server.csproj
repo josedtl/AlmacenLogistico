@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -21,6 +21,18 @@
     <ProjectReference Include="..\LogisticStorage.BusinessLayer\LogisticStorage.BusinessLayer.csproj" />
     <ProjectReference Include="..\LogisticStorage.Common\LogisticStorage.Common.csproj" />
     <ProjectReference Include="..\LogisticStorage.EntityLayer\LogisticStorage.EntityLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="FactCore.BusinessLayer">
+      <HintPath>..\..\..\..\..\Facturacion\FactCore\FactCore.BusinessLayer\bin\Release\net8.0\FactCore.BusinessLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="FactCore.Common">
+      <HintPath>..\..\..\..\..\Facturacion\FactCore\FactCore.Common\bin\Release\net8.0\FactCore.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="FactCore.EntityLayer">
+      <HintPath>..\..\..\..\..\Facturacion\FactCore\FactCore.EntityLayer\bin\Release\net8.0\FactCore.EntityLayer.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

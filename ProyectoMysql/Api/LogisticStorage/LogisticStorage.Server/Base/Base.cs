@@ -30,7 +30,7 @@ namespace LogisticStorage.Server
                 AppSettings app = new AppSettings();
                 app.Conecction = Framework.TypeConection.MySql;
                 app.Language = Framework.Data.LanguageEnum.Espanol;
-                app.Server = Server ;
+                app.Server = Server;
                 app.DataBase = Database;
                 app.UserName = User;
                 app.Password = Pwd;
@@ -40,7 +40,33 @@ namespace LogisticStorage.Server
                 //app.LoadConfig(AppDomain.CurrentDomain.BaseDirectory + "ZEUS.config");
                 MyUtils.AppSetting = app;
             }
+            if (FactCore.Common.MyUtils.AppSetting == null)
+            {
 
+                string rutaArchivo = "appsettings.json";
+                string json = File.ReadAllText(rutaArchivo);
+                ConexionModel ItemConexion = JsonSerializer.Deserialize<ConexionModel>(json);
+
+                string Server = ItemConexion.ConnectionStrings.Server;
+                string Database = "factcoredb";
+                string Puerto = ItemConexion.ConnectionStrings.Puerto;
+                string User = ItemConexion.ConnectionStrings.User;
+                string Pwd = ItemConexion.ConnectionStrings.Pwd;
+
+
+                FactCore.Common.AppSettings app2 = new FactCore.Common.AppSettings();
+                app2.Conecction = Framework.TypeConection.MySql;
+                app2.Language = Framework.Data.LanguageEnum.Espanol;
+                app2.Server = Server;
+                app2.DataBase = Database;
+                app2.UserName = User;
+                app2.Password = Pwd;
+                app2.Port = 3306;
+                app2.IntegratedSecurity = false;
+
+                //app.LoadConfig(AppDomain.CurrentDomain.BaseDirectory + "ZEUS.config");
+                FactCore.Common.MyUtils.AppSetting = app2;
+            }
 
         }
 

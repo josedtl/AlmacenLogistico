@@ -13,7 +13,6 @@
         public String User { get; set; }
         public String Pwd { get; set; }
         public String Puerto { get; set; }
-
     }
 
 }
