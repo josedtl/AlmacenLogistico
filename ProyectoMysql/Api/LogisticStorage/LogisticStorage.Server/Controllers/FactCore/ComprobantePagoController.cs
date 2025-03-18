@@ -115,5 +115,27 @@ namespace LogisticStorage.Server.Controllers.FactCore
         }
 
 
+
+        [HttpGet]
+        [Route("ObtenerMain")]
+        public ResponseAPI<List<ComprobantePagoMainModel>> ObtenerMain()
+        {
+            try
+            {
+                d.Configurar();
+                var Items = ComprobantePago.ObtenerMain();
+
+                List<ComprobantePagoMainModel> Lista = new List<ComprobantePagoMainModel>();
+
+                foreach (var Item in Items) Lista.Add(new ComprobantePagoMainModel(Item));
+
+                return new ResponseAPI<List<ComprobantePagoMainModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<ComprobantePagoMainModel>>(new List<ComprobantePagoMainModel>(), false, ex.Message);
+            }
+        }
     }
 }
