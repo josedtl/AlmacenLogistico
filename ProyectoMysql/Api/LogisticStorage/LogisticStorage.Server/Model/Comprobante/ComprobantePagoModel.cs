@@ -1,18 +1,20 @@
-﻿using FactCore.EntityLayer;
+﻿using System.Text.Json.Serialization;
+using FactCore.EntityLayer;
 
 namespace LogisticStorage.Server.Models.Comprobante
 {
     public class ComprobantePagoModel
     {
 
-        public ComprobantePagoModel(ComprobantePagoEntity Item) {
+        public ComprobantePagoModel(ComprobantePagoEntity Item)
+        {
 
             this.ComprobantePagoId = Item.ComprobantePagoId;
             this.TipoOperacionId = Item.TipoOperacionId;
             this.TipoDocumentoId = Item.TipoDocumentoId;
             this.SecuenciaCorrelativo = Item.SecuenciaCorrelativo;
             this.Correlativo = Item.Correlativo;
-            this.CorrelativoId =Item.CorrelativoId;
+            this.CorrelativoId = Item.CorrelativoId;
             this.TipoDocumentoIdentidadId = Item.TipoDocumentoIdentidadId;
             this.ClienteId = Item.ClienteId;
             this.NumDocumento = Item.NumDocumento;
@@ -48,26 +50,30 @@ namespace LogisticStorage.Server.Models.Comprobante
             this.ImpuestoTotal = 0;
             this.ImporteBrutoTotal = 0;
             this.ImporteNetoTotal = 0;
+            this.ComprobantePagoDetalle_List = new List<ComprobantePagoDetalleModel>();
 
         }
 
-        public int ComprobantePagoId { get; set; }
-        public int TipoOperacionId { get; set; }
-        public int TipoDocumentoId { get; set; }
-        public int SecuenciaCorrelativo { get; set; }
-        public string Correlativo { get; set; }
-        public int CorrelativoId { get; set; }
-        public int TipoDocumentoIdentidadId { get; set; }
-        public int ClienteId { get; set; }
-        public string NumDocumento { get; set; }
-        public string NombreCliente { get; set; }
-        public string Direccion { get; set; }
-        public int FormaPagoId { get; set; }
-        public int TipoTributoId { get; set; }
-        public int MonedaId { get; set; }
-        public int TipoPrecioVentaUnitarioId { get; set; }
-        public decimal ImpuestoTotal { get; set; }
-        public decimal ImporteBrutoTotal { get; set; }
-        public decimal ImporteNetoTotal { get; set; }
+        [JsonPropertyName("ComprobantePagoId")] public int ComprobantePagoId { get; set; }
+        [JsonPropertyName("TipoOperacionId")] public int TipoOperacionId { get; set; }
+        [JsonPropertyName("TipoDocumentoId")] public int TipoDocumentoId { get; set; }
+        [JsonPropertyName("SecuenciaCorrelativo")] public int SecuenciaCorrelativo { get; set; }
+        [JsonPropertyName("Correlativo")] public string Correlativo { get; set; }
+        [JsonPropertyName("CorrelativoId")] public int CorrelativoId { get; set; }
+        [JsonPropertyName("TipoDocumentoIdentidadId")] public int TipoDocumentoIdentidadId { get; set; }
+        [JsonPropertyName("ClienteId")] public int ClienteId { get; set; }
+        [JsonPropertyName("NumDocumento")] public string NumDocumento { get; set; }
+        [JsonPropertyName("NombreCliente")] public string NombreCliente { get; set; }
+        [JsonPropertyName("Direccion")] public string Direccion { get; set; }
+        [JsonPropertyName("FormaPagoId")] public int FormaPagoId { get; set; }
+        [JsonPropertyName("TipoTributoId")] public int TipoTributoId { get; set; }
+        [JsonPropertyName("MonedaId")] public int MonedaId { get; set; }
+        [JsonPropertyName("TipoPrecioVentaUnitarioId")] public int TipoPrecioVentaUnitarioId { get; set; }
+        [JsonPropertyName("ImpuestoTotal")] public decimal ImpuestoTotal { get; set; }
+        [JsonPropertyName("ImporteBrutoTotal")] public decimal ImporteBrutoTotal { get; set; }
+        [JsonPropertyName("ImporteNetoTotal")] public decimal ImporteNetoTotal { get; set; }
+        [JsonPropertyName("LogicalState")] public Int16 LogicalState { get; set; }
+
+        [JsonPropertyName("ComprobantePagoDetalle_List")] public List<ComprobantePagoDetalleModel> ComprobantePagoDetalle_List { get; set; }
     }
 }
