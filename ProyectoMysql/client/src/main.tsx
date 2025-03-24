@@ -37,6 +37,8 @@ import Login from './Components/Login/Login';
 import ProtectedRoute from './Components/ProtectedRoute';
 import { AuthProvider } from './Components/AuthContext.tsx';
 import Dashboard from './Components/Dashboard/InicioPage';
+import CajaMenu from "./Components/Caja/Menu";
+import FacturaBoleta from "./Components/Caja/FacturaBoleta/Save.tsx";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -78,8 +80,8 @@ const router = createBrowserRouter([
       { path: "DespachoSave/:Id", element: <PageDespachoSave />, },
       { path: "StockMercaderia", element: <PageStock />, },
       { path: "Dashboard", element: <Dashboard />, },
-           
-
+      { path: "Caja", element: <CajaMenu />, },
+      { path: "FacturaBoleta", element: <FacturaBoleta />, },
     ],
   },
 ]);

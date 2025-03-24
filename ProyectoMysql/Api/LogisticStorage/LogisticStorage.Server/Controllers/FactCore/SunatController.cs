@@ -1,11 +1,6 @@
 ﻿using Framework;
 using FactCore.BusinessLayer;
-using LogisticStorage.EntityLayer;
-using LogisticStorage.Server.Model.Despacho;
-using LogisticStorage.Server.Models.Comprobante;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using FactCore.EntityLayer;
 using LogisticStorage.Server.Model.Sunat;
 
 
@@ -149,6 +144,28 @@ namespace LogisticStorage.Server.Controllers.FactCore
             catch (Exception ex)
             {
                 return new ResponseAPI<List<tipoprecioventaunitarioItemModel>>(new List<tipoprecioventaunitarioItemModel>(), false, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("ObtenerTipodocumentoLista")]
+        public ResponseAPI<List<TipoDocumentoItemModel>> ObtenerTipodocumentoLista()
+        {
+            try
+            {
+                d.Configurar();
+                var Items = ST_Sunat.ObtenerTipodocumentoLista();
+
+                List<TipoDocumentoItemModel> Lista = new List<TipoDocumentoItemModel>();
+
+                foreach (var Item in Items) Lista.Add(new TipoDocumentoItemModel(Item));
+
+                return new ResponseAPI<List<TipoDocumentoItemModel>>(Lista, true);
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseAPI<List<TipoDocumentoItemModel>>(new List<TipoDocumentoItemModel>(), false, ex.Message);
             }
         }
     }

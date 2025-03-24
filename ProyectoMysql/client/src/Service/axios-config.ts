@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 const URL = import.meta.env.VITE_SOME_KEY; // URL base de tu API
+const URLFactCore = import.meta.env.VITE_SOME_KEY_FACTCORE; // URL base de tu API
 const apiLg = axios.create({
     baseURL: URL,
 });
 
-const api2 = axios.create({
-    baseURL: URL,
+const apiFactCore = axios.create({
+    baseURL: URLFactCore,
 });
 
 // Función para obtener el token
@@ -52,7 +53,7 @@ apiLg.interceptors.request.use(
 );
 
 // Interceptor de solicitud para api2
-api2.interceptors.request.use(
+apiFactCore.interceptors.request.use(
     async (config) => {
         const apiKey = 'gergjs5435s4fefefus2323'; // API Key fija
         if (apiKey) {
@@ -72,4 +73,4 @@ api2.interceptors.request.use(
     }
 );
 
-export { apiLg, api2 };
+export { apiLg, apiFactCore };
