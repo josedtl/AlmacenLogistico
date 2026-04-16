@@ -1,0 +1,16 @@
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\bin\Debug\net8.0\Framework.Data.Mysql.deps.json
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\bin\Debug\net8.0\Framework.Data.Mysql.dll
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\bin\Debug\net8.0\Framework.Data.Mysql.pdb
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\bin\Debug\net8.0\Framework.dll
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\bin\Debug\net8.0\Framework.pdb
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\obj\Debug\net8.0\Framework.Data.Mysql.csproj.AssemblyReference.cache
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\obj\Debug\net8.0\Framework.Data.Mysql.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\obj\Debug\net8.0\Framework.Data.Mysql.AssemblyInfoInputs.cache
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\obj\Debug\net8.0\Framework.Data.Mysql.AssemblyInfo.cs
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\obj\Debug\net8.0\Framework.Data.Mysql.csproj.CoreCompileInputs.cache
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\obj\Debug\net8.0\Framework.Data.Mysql.sourcelink.json
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\obj\Debug\net8.0\Framewor.96FC5C6A.Up2Date
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\obj\Debug\net8.0\Framework.Data.Mysql.dll
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\obj\Debug\net8.0\refint\Framework.Data.Mysql.dll
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\obj\Debug\net8.0\Framework.Data.Mysql.pdb
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Mysql\obj\Debug\net8.0\ref\Framework.Data.Mysql.dll

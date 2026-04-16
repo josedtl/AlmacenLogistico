@@ -1,0 +1,12 @@
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\bin\Debug\net8.0\Framework.deps.json
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\bin\Debug\net8.0\Framework.dll
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\bin\Debug\net8.0\Framework.pdb
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\obj\Debug\net8.0\Framework.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\obj\Debug\net8.0\Framework.AssemblyInfoInputs.cache
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\obj\Debug\net8.0\Framework.AssemblyInfo.cs
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\obj\Debug\net8.0\Framework.csproj.CoreCompileInputs.cache
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\obj\Debug\net8.0\Framework.sourcelink.json
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\obj\Debug\net8.0\Framework.dll
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\obj\Debug\net8.0\refint\Framework.dll
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\obj\Debug\net8.0\Framework.pdb
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework\obj\Debug\net8.0\ref\Framework.dll

@@ -1,0 +1,16 @@
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\bin\Debug\net8.0\Framework.Data.Sql.deps.json
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\bin\Debug\net8.0\Framework.Data.Sql.dll
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\bin\Debug\net8.0\Framework.Data.Sql.pdb
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\bin\Debug\net8.0\Framework.dll
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\bin\Debug\net8.0\Framework.pdb
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\obj\Debug\net8.0\Framework.Data.Sql.csproj.AssemblyReference.cache
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\obj\Debug\net8.0\Framework.Data.Sql.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\obj\Debug\net8.0\Framework.Data.Sql.AssemblyInfoInputs.cache
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\obj\Debug\net8.0\Framework.Data.Sql.AssemblyInfo.cs
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\obj\Debug\net8.0\Framework.Data.Sql.csproj.CoreCompileInputs.cache
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\obj\Debug\net8.0\Framework.Data.Sql.sourcelink.json
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\obj\Debug\net8.0\Framewor.B12B1E1D.Up2Date
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\obj\Debug\net8.0\Framework.Data.Sql.dll
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\obj\Debug\net8.0\refint\Framework.Data.Sql.dll
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\obj\Debug\net8.0\Framework.Data.Sql.pdb
+D:\Repositorio GIT\AlmacenLogistico\Facturacion\FactCore\Framework.Data.Sql\obj\Debug\net8.0\ref\Framework.Data.Sql.dll

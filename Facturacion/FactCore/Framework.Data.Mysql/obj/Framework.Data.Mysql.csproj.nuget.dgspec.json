@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj": {}
+    "D:\\Repositorio GIT\\AlmacenLogistico\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj": {
+    "D:\\Repositorio GIT\\AlmacenLogistico\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj",
+        "projectUniqueName": "D:\\Repositorio GIT\\AlmacenLogistico\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj",
         "projectName": "Framework.Data.Mysql",
-        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj",
-        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework.Data.Mysql\\obj\\",
+        "projectPath": "D:\\Repositorio GIT\\AlmacenLogistico\\Facturacion\\FactCore\\Framework.Data.Mysql\\Framework.Data.Mysql.csproj",
+        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
+        "outputPath": "D:\\Repositorio GIT\\AlmacenLogistico\\Facturacion\\FactCore\\Framework.Data.Mysql\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,15 +26,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj": {
-                "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj"
+              "D:\\Repositorio GIT\\AlmacenLogistico\\Facturacion\\FactCore\\Framework\\Framework.csproj": {
+                "projectPath": "D:\\Repositorio GIT\\AlmacenLogistico\\Facturacion\\FactCore\\Framework\\Framework.csproj"
               }
             }
           }
@@ -49,7 +48,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -76,24 +75,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj": {
+    "D:\\Repositorio GIT\\AlmacenLogistico\\Facturacion\\FactCore\\Framework\\Framework.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj",
+        "projectUniqueName": "D:\\Repositorio GIT\\AlmacenLogistico\\Facturacion\\FactCore\\Framework\\Framework.csproj",
         "projectName": "Framework",
-        "projectPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\Framework.csproj",
-        "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DAVID\\Documents\\GitHub\\Facturacion\\FactCore\\Framework\\obj\\",
+        "projectPath": "D:\\Repositorio GIT\\AlmacenLogistico\\Facturacion\\FactCore\\Framework\\Framework.csproj",
+        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
+        "outputPath": "D:\\Repositorio GIT\\AlmacenLogistico\\Facturacion\\FactCore\\Framework\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\DAVID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -102,7 +101,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -121,7 +119,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -142,7 +140,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

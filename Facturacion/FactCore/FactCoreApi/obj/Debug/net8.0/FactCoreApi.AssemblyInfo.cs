@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FactCoreApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60d9daf226e338a95bf0fabf08460cfbaab3d0b4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0805099c122a11672d0950fa7ac4f341640ccf8c")]
 [assembly: System.Reflection.AssemblyProductAttribute("FactCoreApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FactCoreApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
